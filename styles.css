@@ -1,10 +1,10 @@
 :root {
-  --bg: #c0c0c0;
-  --paper: #ffffff;
-  --fg: #000000;
-  --link: #0000aa;
-  --border-dark: #444444;
-  --border-light: #ffffff;
+  --bg-dark: #7f7f7f;
+  --bg-light: #bdbdbd;
+  --paper: #efefef;
+  --ink: #000000;
+  --bevel-light: #ffffff;
+  --bevel-dark: #3a3a3a;
 }
 
 * {
@@ -14,22 +14,31 @@
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 18px;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: "Times New Roman", Times, serif;
-  line-height: 1.3;
+  padding: 16px;
+  color: var(--ink);
+  font-family: "MS Sans Serif", Tahoma, Geneva, sans-serif;
+  background:
+    linear-gradient(45deg, transparent 49%, rgba(0, 0, 0, 0.08) 50%, transparent 51%) 0 0 / 6px 6px,
+    linear-gradient(-45deg, transparent 49%, rgba(255, 255, 255, 0.12) 50%, transparent 51%) 0 0 / 6px 6px,
+    linear-gradient(var(--bg-light), var(--bg-dark));
 }
 
 .window {
-  max-width: 860px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 14px;
   background: var(--paper);
-  border-top: 2px solid var(--border-light);
-  border-left: 2px solid var(--border-light);
-  border-right: 2px solid var(--border-dark);
-  border-bottom: 2px solid var(--border-dark);
+  border-top: 2px solid var(--bevel-light);
+  border-left: 2px solid var(--bevel-light);
+  border-right: 2px solid var(--bevel-dark);
+  border-bottom: 2px solid var(--bevel-dark);
+  box-shadow: 2px 2px 0 #000;
+}
+
+.masthead {
+  padding: 8px;
+  border: 1px solid var(--ink);
+  background: #fff;
 }
 
 h1,
@@ -39,33 +48,35 @@ p {
 }
 
 h1 {
-  font-size: 32px;
-  letter-spacing: 1px;
+  font-size: 24px;
+  line-height: 1.2;
 }
 
 .tagline {
   margin-top: 6px;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 hr {
   border: none;
-  border-top: 1px solid var(--fg);
+  border-top: 1px solid var(--ink);
   margin: 12px 0;
 }
 
 .questions {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .question {
-  border: 1px solid var(--fg);
-  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--ink);
+  padding: 8px;
 }
 
 .question p {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
 }
 
 .scale {
@@ -74,16 +85,17 @@ hr {
   table-layout: fixed;
 }
 
-.scale td,
-.scale th {
-  border: 1px solid var(--fg);
+.scale th,
+.scale td {
+  border: 1px solid var(--ink);
+  padding: 3px;
   text-align: center;
-  padding: 4px;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .scale th {
-  font-weight: normal;
+  background: #dfdfdf;
+  font-weight: bold;
 }
 
 .scale label {
@@ -91,12 +103,8 @@ hr {
   cursor: pointer;
 }
 
-input[type="radio"] {
-  transform: scale(1);
-}
-
 .controls {
-  margin-top: 14px;
+  margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -104,35 +112,42 @@ input[type="radio"] {
 
 button {
   font: inherit;
+  font-size: 14px;
   padding: 6px 10px;
-  border-top: 1px solid var(--border-light);
-  border-left: 1px solid var(--border-light);
-  border-right: 1px solid var(--border-dark);
-  border-bottom: 1px solid var(--border-dark);
-  background: var(--bg);
-  color: var(--fg);
+  border-top: 1px solid var(--bevel-light);
+  border-left: 1px solid var(--bevel-light);
+  border-right: 1px solid var(--bevel-dark);
+  border-bottom: 1px solid var(--bevel-dark);
+  background: #d2d2d2;
+  color: var(--ink);
   cursor: pointer;
 }
 
 button:active {
-  border-top: 1px solid var(--border-dark);
-  border-left: 1px solid var(--border-dark);
-  border-right: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
+  border-top: 1px solid var(--bevel-dark);
+  border-left: 1px solid var(--bevel-dark);
+  border-right: 1px solid var(--bevel-light);
+  border-bottom: 1px solid var(--bevel-light);
 }
 
 .result {
   margin-top: 14px;
-  border: 1px solid var(--fg);
   padding: 10px;
-  background: #f8f8f8;
+  border: 1px solid var(--ink);
+  background: #ffffff;
+}
+
+.poem-meta {
+  margin-top: 4px;
+  font-size: 13px;
 }
 
 pre {
-  margin: 8px 0 0;
+  margin: 10px 0 0;
   white-space: pre-wrap;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Courier New", "Lucida Console", Monaco, monospace;
   font-size: 14px;
+  line-height: 1.45;
 }
 
 .hidden {
@@ -140,13 +155,23 @@ pre {
 }
 
 @media (max-width: 700px) {
-  h1 {
-    font-size: 26px;
+  body {
+    padding: 8px;
   }
 
+  h1 {
+    font-size: 19px;
+  }
+
+  .tagline {
+    font-size: 12px;
+  }
+
+  .question p,
+  .scale th,
   .scale td,
-  .scale th {
-    padding: 3px;
+  button,
+  pre {
     font-size: 12px;
   }
 }

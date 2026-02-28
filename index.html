@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Psyche-1992</title>
+    <title>PSYCHE.EXE - Подбери себе стихотворение</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="window" role="main">
-      <header>
-        <h1>PSYCHE.EXE</h1>
-        <p class="tagline">Пять вопросов. Шкала 1-5. Текст, который слышит вас.</p>
+      <header class="masthead">
+        <h1>PSYCHE.EXE - Подбери себе стихотворение</h1>
+        <p class="tagline">Режим: русская поэзия 1800-2000 | 5 вопросов | шкала 1-5</p>
       </header>
 
       <hr />
@@ -19,13 +19,14 @@
         <div id="questions" class="questions" aria-live="polite"></div>
 
         <div class="controls">
-          <button type="submit">Сгенерировать стихотворение</button>
-          <button type="button" id="reload-btn">Новые вопросы</button>
+          <button type="submit">Подобрать стихотворение</button>
+          <button type="button" id="reload-btn">Сменить вопросы</button>
         </div>
       </form>
 
       <section id="result" class="result hidden">
-        <h2>POEM.TXT</h2>
+        <h2 id="poem-title">POEM.TXT</h2>
+        <p id="poem-meta" class="poem-meta"></p>
         <pre id="poem"></pre>
       </section>
     </main>

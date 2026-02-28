@@ -1,18 +1,14 @@
 const QUESTION_POOL = [
   { theme: "self", text: "Насколько вы сегодня принимаете себя без условий?" },
   { theme: "self", text: "Насколько вы добры к себе, когда ошибаетесь?" },
-  { theme: "control", text: "Насколько вам важно все держать под контролем прямо сейчас?" },
+  { theme: "control", text: "Насколько вам важно держать все под контролем прямо сейчас?" },
   { theme: "control", text: "Насколько легко вам отпустить то, что уже не зависит от вас?" },
   { theme: "trust", text: "Насколько вы доверяете людям рядом с вами?" },
   { theme: "trust", text: "Насколько вам страшно показать свою уязвимость?" },
   { theme: "past", text: "Насколько сильно прошлое влияет на ваши решения сегодня?" },
   { theme: "past", text: "Насколько часто вы возвращаетесь к старым обидам?" },
-  { theme: "body", text: "Насколько вы слышите сигналы своего тела в течение дня?" },
-  { theme: "body", text: "Насколько ваше тело сейчас напряжено?" },
   { theme: "fear", text: "Насколько вас останавливает страх быть отвергнутым?" },
   { theme: "fear", text: "Насколько вы готовы идти в неизвестность, даже если тревожно?" },
-  { theme: "anger", text: "Насколько честно вы признаете собственный гнев?" },
-  { theme: "anger", text: "Насколько легко вам выражать недовольство без вины?" },
   { theme: "loss", text: "Насколько вы прожили то, что утратили?" },
   { theme: "loss", text: "Насколько вы разрешаете себе скорбеть о несбывшемся?" },
   { theme: "relation", text: "Насколько вам удается оставаться собой в близости?" },
@@ -25,24 +21,159 @@ const QUESTION_POOL = [
   { theme: "boundaries", text: "Насколько ваши личные границы уважаются окружающими?" }
 ];
 
-const THEME_WORDS = {
-  self: "самопринятие",
-  control: "контроль",
-  trust: "доверие",
-  past: "прошлое",
-  body: "тело",
-  fear: "страх",
-  anger: "гнев",
-  loss: "утрата",
-  relation: "близость",
-  meaning: "смысл",
-  future: "будущее",
-  boundaries: "границы"
-};
+const POEM_POOL = [
+  {
+    title: "Я вас любил",
+    author: "Александр Пушкин",
+    year: "1829",
+    lines: 8,
+    mood: "high",
+    spread: "low",
+    tags: ["relation", "trust", "self", "past"],
+    text: `Я вас любил: любовь еще, быть может,
+В душе моей угасла не совсем;
+Но пусть она вас больше не тревожит;
+Я не хочу печалить вас ничем.
+Я вас любил безмолвно, безнадежно,
+То робостью, то ревностью томим;
+Я вас любил так искренно, так нежно,
+Как дай вам Бог любимой быть другим.`
+  },
+  {
+    title: "Если жизнь тебя обманет",
+    author: "Александр Пушкин",
+    year: "1825",
+    lines: 8,
+    mood: "mid",
+    spread: "low",
+    tags: ["future", "self", "meaning", "control"],
+    text: `Если жизнь тебя обманет,
+Не печалься, не сердись!
+В день уныния смирись:
+День веселья, верь, настанет.
+
+Сердце в будущем живет;
+Настоящее уныло:
+Все мгновенно, все пройдет;
+Что пройдет, то будет мило.`
+  },
+  {
+    title: "Парус",
+    author: "Михаил Лермонтов",
+    year: "1832",
+    lines: 12,
+    mood: "mid",
+    spread: "high",
+    tags: ["fear", "future", "control", "meaning"],
+    text: `Белеет парус одинокой
+В тумане моря голубом!..
+Что ищет он в стране далекой?
+Что кинул он в краю родном?..
+
+Играют волны - ветер свищет,
+И мачта гнется и скрипит...
+Увы! он счастия не ищет
+И не от счастия бежит!
+
+Под ним струя светлей лазури,
+Над ним луч солнца золотой...
+А он, мятежный, просит бури,
+Как будто в бурях есть покой!`
+  },
+  {
+    title: "Выхожу один я на дорогу",
+    author: "Михаил Лермонтов",
+    year: "1841",
+    lines: 20,
+    mood: "low",
+    spread: "low",
+    tags: ["past", "meaning", "loss", "future"],
+    text: `Выхожу один я на дорогу;
+Сквозь туман кремнистый путь блестит;
+Ночь тиха. Пустыня внемлет Богу,
+И звезда с звездою говорит.
+
+В небесах торжественно и чудно!
+Спит земля в сиянье голубом...
+Что же мне так больно и так трудно?
+Жду ль чего? жалею ли о чем?
+
+Уж не жду от жизни ничего я,
+И не жаль мне прошлого ничуть;
+Я ищу свободы и покоя!
+Я б хотел забыться и заснуть!
+
+Но не тем холодным сном могилы...
+Я б желал навеки так заснуть,
+Чтоб в груди дремали жизни силы,
+Чтоб дыша вздымалась тихо грудь;
+
+Чтоб всю ночь, весь день мой слух лелея,
+Про любовь мне сладкий голос пел,
+Надо мной чтоб вечно зеленея
+Темный дуб склонялся и шумел.`
+  },
+  {
+    title: "Шепот, робкое дыханье...",
+    author: "Афанасий Фет",
+    year: "1850",
+    lines: 12,
+    mood: "high",
+    spread: "low",
+    tags: ["relation", "trust", "body", "future"],
+    text: `Шепот, робкое дыханье,
+Трели соловья,
+Серебро и колыханье
+Сонного ручья,
+
+Свет ночной, ночные тени,
+Тени без конца,
+Ряд волшебных изменений
+Милого лица,
+
+В дымных тучках пурпур розы,
+Отблеск янтаря,
+И лобзания, и слезы,
+И заря, заря!..`
+  },
+  {
+    title: "Ночь, улица, фонарь, аптека",
+    author: "Александр Блок",
+    year: "1912",
+    lines: 8,
+    mood: "low",
+    spread: "high",
+    tags: ["past", "loss", "fear", "meaning"],
+    text: `Ночь, улица, фонарь, аптека,
+Бессмысленный и тусклый свет.
+Живи еще хоть четверть века -
+Все будет так. Исхода нет.
+
+Умрешь - начнешь опять сначала
+И повторится все, как встарь:
+Ночь, ледяная рябь канала,
+Аптека, улица, фонарь.`
+  },
+  {
+    title: "Умом Россию не понять",
+    author: "Федор Тютчев",
+    year: "1866",
+    lines: 4,
+    mood: "mid",
+    spread: "low",
+    tags: ["control", "meaning", "future", "boundaries"],
+    text: `Умом Россию не понять,
+Аршином общим не измерить:
+У ней особенная стать -
+В Россию можно только верить.`
+  }
+];
 
 const form = document.getElementById("quiz-form");
 const questionsNode = document.getElementById("questions");
 const resultNode = document.getElementById("result");
+const poemTitleNode = document.getElementById("poem-title");
+const poemMetaNode = document.getElementById("poem-meta");
 const poemNode = document.getElementById("poem");
 const reloadBtn = document.getElementById("reload-btn");
 
@@ -102,55 +233,73 @@ function renderQuestions() {
   });
 }
 
-function wordByLevel(score, low, mid, high) {
-  if (score <= 2) return low;
-  if (score <= 3.5) return mid;
-  return high;
-}
-
 function clamp15(value) {
   return Math.max(1, Math.min(5, Number(value)));
 }
 
-function dominantThemes(answers) {
+function profileAnswers(answers) {
   const totals = {};
+  const scores = answers.map((item) => item.score);
 
   answers.forEach((item) => {
     totals[item.theme] = (totals[item.theme] || 0) + item.score;
   });
 
-  return Object.entries(totals)
+  const topThemes = Object.entries(totals)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 2)
-    .map(([theme]) => THEME_WORDS[theme] || theme);
+    .slice(0, 3)
+    .map(([theme]) => theme);
+
+  const avg = scores.reduce((sum, value) => sum + value, 0) / scores.length;
+  const spread = Math.max(...scores) - Math.min(...scores);
+
+  const mood = avg <= 2.2 ? "low" : avg >= 3.8 ? "high" : "mid";
+  const spreadLevel = spread >= 3 ? "high" : "low";
+
+  return { topThemes, mood, spreadLevel };
 }
 
-function buildPoem(answers) {
-  const scores = answers.map((a) => a.score);
-  const avg = scores.reduce((sum, s) => sum + s, 0) / scores.length;
-  const spread = Math.max(...scores) - Math.min(...scores);
-  const [focusA, focusB] = dominantThemes(answers);
+function poemFitScore(poem, profile) {
+  let score = 0;
 
-  const sky = wordByLevel(avg, "тусклый", "ровный", "светлый");
-  const pulse = wordByLevel(avg, "медленный", "живой", "смелый");
-  const depth = wordByLevel(avg, "тихая", "густая", "глубокая");
-  const balance = spread >= 3 ? "контрастами" : "ритмом";
+  if (poem.mood === profile.mood) score += 3;
+  if (poem.spread === profile.spreadLevel) score += 2;
 
-  return [
-    `Надо мной сегодня ${sky} вечерний свет,`,
-    `и пульс внутри - ${pulse}, без лишних масок.`,
-    `Я говорю с собой о теме \"${focusA}\",`,
-    `и рядом дышит тема \"${focusB}\".`,
-    `Душа заполнена ${balance}, но не страхом,`,
-    `в ней ${depth} тишина становится ответом.`,
-    `Мой внутренний балл: ${avg.toFixed(1)} из 5.`
-  ].join("\n");
+  profile.topThemes.forEach((theme) => {
+    if (poem.tags.includes(theme)) score += 2;
+  });
+
+  return score;
+}
+
+function pickPoem(answers) {
+  const profile = profileAnswers(answers);
+  let bestScore = -1;
+  let best = [];
+
+  POEM_POOL.forEach((poem) => {
+    const score = poemFitScore(poem, profile);
+
+    if (score > bestScore) {
+      bestScore = score;
+      best = [poem];
+      return;
+    }
+
+    if (score === bestScore) {
+      best.push(poem);
+    }
+  });
+
+  return best[Math.floor(Math.random() * best.length)] || POEM_POOL[0];
 }
 
 function refreshQuestions() {
   pickQuestions();
   renderQuestions();
   resultNode.classList.add("hidden");
+  poemTitleNode.textContent = "POEM.TXT";
+  poemMetaNode.textContent = "";
   poemNode.textContent = "";
 }
 
@@ -171,8 +320,13 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  poemNode.textContent = buildPoem(answers);
+  const poem = pickPoem(answers);
+
+  poemTitleNode.textContent = poem.title;
+  poemMetaNode.textContent = `${poem.author}, ${poem.year} | ${poem.lines} строк(и)`;
+  poemNode.textContent = poem.text;
   resultNode.classList.remove("hidden");
+  resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 reloadBtn.addEventListener("click", refreshQuestions);
