@@ -1,12 +1,12 @@
 [
   {
-    "id": "akhmatova-example",
+    "id": "akhmatova-1911-szhala-ruki-local",
     "title": "Сжала руки под темной вуалью",
     "author": "Анна Ахматова",
     "year": "1911",
-    "mood": "mid",
-    "spread": "low",
-    "tags": ["relation", "loss"],
+    "tags": ["relation"],
+    "avoid": [],
+    "v": [0.7, 0.25, 0.4, 0.7, 0.4, 0.2],
     "text": "Сжала руки под темной вуалью..."
   }
 ]

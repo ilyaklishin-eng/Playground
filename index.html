@@ -18,6 +18,13 @@
       <form id="quiz-form" class="quiz" novalidate>
         <div id="questions" class="questions" aria-live="polite"></div>
 
+        <fieldset class="filters">
+          <legend>Исключить темы</legend>
+          <label><input type="checkbox" name="exclude" value="relation" /> Любовная линия</label>
+          <label><input type="checkbox" name="exclude" value="darkness" /> Мрачность</label>
+          <label><input type="checkbox" name="exclude" value="patriot" /> Гражданские мотивы</label>
+        </fieldset>
+
         <div class="controls">
           <button type="submit">Подобрать стихотворение</button>
           <button type="button" id="reload-btn">Сменить вопросы</button>
@@ -28,6 +35,18 @@
         <h2 id="poem-title">POEM.TXT</h2>
         <p id="poem-meta" class="poem-meta"></p>
         <pre id="poem"></pre>
+
+        <div class="feedback">
+          <span>Оценка попадания:</span>
+          <button type="button" data-feedback="bad">Не подошло</button>
+          <button type="button" data-feedback="ok">Нормально</button>
+          <button type="button" data-feedback="great">В точку</button>
+        </div>
+
+        <div class="top-list">
+          <h3>Еще варианты</h3>
+          <ol id="top3"></ol>
+        </div>
       </section>
     </main>
 
