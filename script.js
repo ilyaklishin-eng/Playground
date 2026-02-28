@@ -831,11 +831,6 @@ function buildUserVector(answers) {
   return AXES.map((axis) => base[axis]);
 }
 
-function getExcludeSet() {
-  const checked = [...form.querySelectorAll('input[name="exclude"]:checked')];
-  return new Set(checked.map((node) => node.value));
-}
-
 function getFeedbackState() {
   try {
     const parsed = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || "{}");
@@ -871,14 +866,9 @@ function profileThemes(answers) {
 function rankPoems(answers) {
   const userVector = buildUserVector(answers);
   const topThemes = profileThemes(answers);
-  const exclude = getExcludeSet();
   const feedback = getFeedbackState();
 
   const ranked = availablePoems()
-    .filter((poem) => {
-      if (!poem.avoid) return true;
-      return !poem.avoid.some((tag) => exclude.has(tag));
-    })
     .map((poem) => {
       const similarity = cosine(userVector, poem.v || AXES.map(() => 0));
       let themeBoost = 0;

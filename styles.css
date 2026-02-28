@@ -97,20 +97,6 @@ hr {
   background: #dfdfdf;
 }
 
-.filters {
-  margin-top: 10px;
-  padding: 8px;
-  border: 1px solid var(--ink);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  background: #fff;
-}
-
-.filters legend {
-  padding: 0 4px;
-}
-
 .controls {
   margin-top: 12px;
   display: flex;
@@ -183,7 +169,6 @@ pre {
   .scale th,
   .scale td,
   button,
-  .filters,
   pre {
     font-size: 12px;
   }
