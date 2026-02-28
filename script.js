@@ -23,6 +23,7 @@ const QUESTION_POOL = [
 
 const POEM_POOL = [
   {
+    id: "pushkin-1829-ya-vas-lyubil",
     title: "Я вас любил",
     author: "Александр Пушкин",
     year: "1829",
@@ -40,6 +41,7 @@ const POEM_POOL = [
 Как дай вам Бог любимой быть другим.`
   },
   {
+    id: "pushkin-1825-esli-zhizn",
     title: "Если жизнь тебя обманет",
     author: "Александр Пушкин",
     year: "1825",
@@ -58,6 +60,7 @@ const POEM_POOL = [
 Что пройдет, то будет мило.`
   },
   {
+    id: "lermontov-1832-parus",
     title: "Парус",
     author: "Михаил Лермонтов",
     year: "1832",
@@ -81,6 +84,7 @@ const POEM_POOL = [
 Как будто в бурях есть покой!`
   },
   {
+    id: "lermontov-1841-vyhozhu-odin",
     title: "Выхожу один я на дорогу",
     author: "Михаил Лермонтов",
     year: "1841",
@@ -114,6 +118,7 @@ const POEM_POOL = [
 Темный дуб склонялся и шумел.`
   },
   {
+    id: "fet-1850-shepot",
     title: "Шепот, робкое дыханье...",
     author: "Афанасий Фет",
     year: "1850",
@@ -137,6 +142,7 @@ const POEM_POOL = [
 И заря, заря!..`
   },
   {
+    id: "blok-1912-noch-ulica",
     title: "Ночь, улица, фонарь, аптека",
     author: "Александр Блок",
     year: "1912",
@@ -155,6 +161,7 @@ const POEM_POOL = [
 Аптека, улица, фонарь.`
   },
   {
+    id: "tyutchev-1866-umom-rossiyu",
     title: "Умом Россию не понять",
     author: "Федор Тютчев",
     year: "1866",
@@ -272,26 +279,22 @@ function poemFitScore(poem, profile) {
   return score;
 }
 
+function lineCount(text) {
+  return text.split("\n").length;
+}
+
 function pickPoem(answers) {
   const profile = profileAnswers(answers);
-  let bestScore = -1;
-  let best = [];
+  const eligible = POEM_POOL.filter((poem) => lineCount(poem.text) <= 36);
 
-  POEM_POOL.forEach((poem) => {
-    const score = poemFitScore(poem, profile);
+  const ranked = eligible
+    .map((poem) => ({ poem, score: poemFitScore(poem, profile) }))
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return a.poem.id.localeCompare(b.poem.id, "ru");
+    });
 
-    if (score > bestScore) {
-      bestScore = score;
-      best = [poem];
-      return;
-    }
-
-    if (score === bestScore) {
-      best.push(poem);
-    }
-  });
-
-  return best[Math.floor(Math.random() * best.length)] || POEM_POOL[0];
+  return ranked[0]?.poem || eligible[0] || POEM_POOL[0];
 }
 
 function refreshQuestions() {
@@ -323,7 +326,8 @@ form.addEventListener("submit", (event) => {
   const poem = pickPoem(answers);
 
   poemTitleNode.textContent = poem.title;
-  poemMetaNode.textContent = `${poem.author}, ${poem.year} | ${poem.lines} строк(и)`;
+  poemMetaNode.textContent =
+    `${poem.author}, ${poem.year} | ${poem.lines} строк(и) | каталог ID: ${poem.id}`;
   poemNode.textContent = poem.text;
   resultNode.classList.remove("hidden");
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
