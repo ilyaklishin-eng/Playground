@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psyche-1992</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="window" role="main">
+      <header>
+        <h1>PSYCHE.EXE</h1>
+        <p class="tagline">Пять вопросов. Шкала 1-5. Текст, который слышит вас.</p>
+      </header>
+
+      <hr />
+
+      <form id="quiz-form" class="quiz" novalidate>
+        <div id="questions" class="questions" aria-live="polite"></div>
+
+        <div class="controls">
+          <button type="submit">Сгенерировать стихотворение</button>
+          <button type="button" id="reload-btn">Новые вопросы</button>
+        </div>
+      </form>
+
+      <section id="result" class="result hidden">
+        <h2>POEM.TXT</h2>
+        <pre id="poem"></pre>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
