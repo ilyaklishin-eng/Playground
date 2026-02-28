@@ -763,6 +763,7 @@ const BUILTIN_POEMS = [
 ];
 
 const FEEDBACK_KEY = "psyche_feedback_v2";
+const GEN_COUNT_KEY = "psyche_generation_count_v1";
 
 const form = document.getElementById("quiz-form");
 const questionsNode = document.getElementById("questions");
@@ -771,6 +772,7 @@ const poemTitleNode = document.getElementById("poem-title");
 const poemMetaNode = document.getElementById("poem-meta");
 const poemNode = document.getElementById("poem");
 const feedbackMsgNode = document.getElementById("feedback-msg");
+const genCountNode = document.getElementById("gen-count");
 const reloadBtn = document.getElementById("reload-btn");
 
 let activeQuestions = [];
@@ -849,6 +851,21 @@ function getFeedbackState() {
 
 function saveFeedbackState(state) {
   localStorage.setItem(FEEDBACK_KEY, JSON.stringify(state));
+}
+
+function getGenerationCount() {
+  const raw = Number(localStorage.getItem(GEN_COUNT_KEY));
+  return Number.isFinite(raw) && raw > 0 ? Math.floor(raw) : 0;
+}
+
+function renderGenerationCount() {
+  genCountNode.textContent = String(getGenerationCount());
+}
+
+function incrementGenerationCount() {
+  const next = getGenerationCount() + 1;
+  localStorage.setItem(GEN_COUNT_KEY, String(next));
+  genCountNode.textContent = String(next);
 }
 
 function availablePoems() {
@@ -991,6 +1008,8 @@ function applyFeedback(kind) {
   }
 
   if (kind === "bad") {
+    incrementGenerationCount();
+
     if (currentRankIndex + 1 < lastRanked.length) {
       currentRankIndex += 1;
       showPoem(lastRanked[currentRankIndex].poem);
@@ -1057,6 +1076,7 @@ form.addEventListener("submit", (event) => {
   currentRankIndex = 0;
   showPoem(lastRanked[0].poem);
   showFeedbackMessage("");
+  incrementGenerationCount();
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
@@ -1070,6 +1090,7 @@ document.querySelectorAll("[data-feedback]").forEach((button) => {
 
 async function init() {
   await loadLocalCatalog();
+  renderGenerationCount();
   refreshQuestions();
 }
 

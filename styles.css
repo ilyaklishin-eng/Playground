@@ -162,6 +162,11 @@ pre {
   display: none;
 }
 
+.counter {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
 @media (max-width: 700px) {
   body {
     padding: 8px;
