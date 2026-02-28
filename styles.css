@@ -152,6 +152,12 @@ pre {
   align-items: center;
 }
 
+.feedback-msg {
+  margin-top: 8px;
+  font-size: 13px;
+  min-height: 1.2em;
+}
+
 .hidden {
   display: none;
 }

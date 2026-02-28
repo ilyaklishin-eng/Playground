@@ -770,11 +770,15 @@ const resultNode = document.getElementById("result");
 const poemTitleNode = document.getElementById("poem-title");
 const poemMetaNode = document.getElementById("poem-meta");
 const poemNode = document.getElementById("poem");
+const feedbackMsgNode = document.getElementById("feedback-msg");
 const reloadBtn = document.getElementById("reload-btn");
 
 let activeQuestions = [];
 let poemCatalog = [...BUILTIN_POEMS];
 let currentPoem = null;
+let lastRanked = [];
+let currentRankIndex = 0;
+let lastAnswers = null;
 
 function shuffled(array) {
   const copy = [...array];
@@ -903,6 +907,10 @@ function showPoem(poem) {
   resultNode.classList.remove("hidden");
 }
 
+function showFeedbackMessage(text) {
+  feedbackMsgNode.textContent = text;
+}
+
 function pickQuestions() {
   activeQuestions = shuffled(QUESTION_POOL).slice(0, 7);
 }
@@ -954,7 +962,11 @@ function refreshQuestions() {
   poemTitleNode.textContent = "POEM.TXT";
   poemMetaNode.textContent = "";
   poemNode.textContent = "";
+  showFeedbackMessage("");
   currentPoem = null;
+  lastRanked = [];
+  currentRankIndex = 0;
+  lastAnswers = null;
 }
 
 function applyFeedback(kind) {
@@ -972,6 +984,33 @@ function applyFeedback(kind) {
   state.author[currentPoem.author] = (state.author[currentPoem.author] || 0) + delta * 0.5;
 
   saveFeedbackState(state);
+
+  if (kind === "good") {
+    showFeedbackMessage("Спасибо за обратную связь.");
+    return;
+  }
+
+  if (kind === "bad") {
+    if (currentRankIndex + 1 < lastRanked.length) {
+      currentRankIndex += 1;
+      showPoem(lastRanked[currentRankIndex].poem);
+      showFeedbackMessage("Показал следующий вариант.");
+      return;
+    }
+
+    if (lastAnswers) {
+      const reranked = rankPoems(lastAnswers).filter((item) => item.poem.id !== currentPoem.id);
+      if (reranked.length) {
+        lastRanked = reranked;
+        currentRankIndex = 0;
+        showPoem(lastRanked[0].poem);
+        showFeedbackMessage("Показал другой вариант.");
+        return;
+      }
+    }
+
+    showFeedbackMessage("Больше вариантов сейчас нет. Нажмите «Сменить вопросы».");
+  }
 }
 
 async function loadLocalCatalog() {
@@ -1003,16 +1042,21 @@ form.addEventListener("submit", (event) => {
 
   if (answers.some((item) => Number.isNaN(item.score))) return;
 
+  lastAnswers = answers;
   const ranked = rankPoems(answers);
   if (!ranked.length) {
     poemTitleNode.textContent = "Нет совпадений";
-    poemMetaNode.textContent = "Снимите часть фильтров или добавьте стихи в poems.local.json";
+    poemMetaNode.textContent = "Добавьте стихи в poems.local.json";
     poemNode.textContent = "";
+    showFeedbackMessage("");
     resultNode.classList.remove("hidden");
     return;
   }
 
-  showPoem(ranked[0].poem);
+  lastRanked = ranked;
+  currentRankIndex = 0;
+  showPoem(lastRanked[0].poem);
+  showFeedbackMessage("");
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
