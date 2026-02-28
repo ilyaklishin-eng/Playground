@@ -779,9 +779,8 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  const lines = lineCount(poem.text);
   poemTitleNode.textContent = poem.title;
-  poemMetaNode.textContent = `${poem.author}, ${poem.year || "без даты"} | ${lines} строк(и) | каталог ID: ${poem.id}`;
+  poemMetaNode.textContent = `${poem.author}, ${poem.year || "без даты"}`;
   poemNode.textContent = poem.text;
   resultNode.classList.remove("hidden");
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
