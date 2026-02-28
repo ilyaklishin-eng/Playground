@@ -166,27 +166,6 @@ pre {
   align-items: center;
 }
 
-.top-list {
-  margin-top: 12px;
-  border-top: 1px dashed #000;
-  padding-top: 10px;
-}
-
-.top-list ol {
-  margin: 8px 0 0;
-  padding-left: 18px;
-}
-
-.top-list li {
-  margin-bottom: 6px;
-}
-
-.top-list button {
-  margin-left: 6px;
-  padding: 2px 8px;
-  font-size: 12px;
-}
-
 .hidden {
   display: none;
 }

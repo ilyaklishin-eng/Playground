@@ -770,12 +770,10 @@ const resultNode = document.getElementById("result");
 const poemTitleNode = document.getElementById("poem-title");
 const poemMetaNode = document.getElementById("poem-meta");
 const poemNode = document.getElementById("poem");
-const top3Node = document.getElementById("top3");
 const reloadBtn = document.getElementById("reload-btn");
 
 let activeQuestions = [];
 let poemCatalog = [...BUILTIN_POEMS];
-let lastTop = [];
 let currentPoem = null;
 
 function shuffled(array) {
@@ -858,15 +856,6 @@ function availablePoems() {
   return poemCatalog.filter((poem) => typeof poem.text === "string" && lineCount(poem.text) <= 20);
 }
 
-function fitReason(poem, scorePack) {
-  const bits = [];
-  if (scorePack.similarity > 0.55) bits.push("близкий эмоциональный профиль");
-  if (scorePack.themeBoost > 0) bits.push("совпадение по темам ответов");
-  if (scorePack.feedbackBoost > 0.1) bits.push("учтен ваш прошлый фидбек");
-  if (!bits.length) bits.push("нейтральное совпадение");
-  return bits.join(", ");
-}
-
 function profileThemes(answers) {
   const totals = {};
   answers.forEach(({ question, score }) => {
@@ -924,27 +913,6 @@ function showPoem(poem) {
   resultNode.classList.remove("hidden");
 }
 
-function renderTop3(ranked) {
-  top3Node.innerHTML = "";
-
-  lastTop = ranked.slice(0, 3);
-
-  lastTop.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${item.poem.title} - ${item.poem.author} (${fitReason(item.poem, item)})`;
-
-    if (index > 0) {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = "Открыть";
-      button.addEventListener("click", () => showPoem(item.poem));
-      li.appendChild(button);
-    }
-
-    top3Node.appendChild(li);
-  });
-}
-
 function pickQuestions() {
   activeQuestions = shuffled(QUESTION_POOL).slice(0, 7);
 }
@@ -996,8 +964,6 @@ function refreshQuestions() {
   poemTitleNode.textContent = "POEM.TXT";
   poemMetaNode.textContent = "";
   poemNode.textContent = "";
-  top3Node.innerHTML = "";
-  lastTop = [];
   currentPoem = null;
 }
 
@@ -1006,8 +972,7 @@ function applyFeedback(kind) {
 
   const map = {
     bad: -1,
-    ok: 0.35,
-    great: 1
+    good: 1
   };
 
   const delta = map[kind] || 0;
@@ -1058,7 +1023,6 @@ form.addEventListener("submit", (event) => {
   }
 
   showPoem(ranked[0].poem);
-  renderTop3(ranked);
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
