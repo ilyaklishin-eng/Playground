@@ -694,6 +694,8 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     || (hasStem("больш") && hasStem("взрыв"))
     || hasStem("bigbang");
   const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
+  const isBeautyQuestion = hasStem("красот") || hasStem("прекрас") || hasStem("эстет") || hasStem("взор") || hasStem("смотр");
+  const startsWithPravdaLi = normalized.startsWith("правда ли ");
 
   if (isCosmology) {
     bridge.forceIntrospective = true;
@@ -712,6 +714,19 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     downWeight("больш");
     downWeight("взрыв");
     downWeight("произош");
+  }
+
+  if (isBeautyQuestion) {
+    bridge.forceIntrospective = true;
+    ["красота", "прекрасное", "гармония", "взор", "восприятие", "душа", "любовь", "свет", "сердце", "созерцание"]
+      .forEach((term, idx) => add(term, idx < 6 ? 1.8 : 1.45));
+    bridge.preferredStems.push("красот", "прекрас", "гармон", "взор", "душ", "серд", "любов", "свет", "созерц");
+    bridge.avoidStems.push("уголов", "судопроизв", "подат", "губерн", "государ", "чинов", "вельмож");
+  }
+
+  if (startsWithPravdaLi) {
+    downWeight("правд", 0.12);
+    downWeight("всяк", 0.2);
   }
 
   return bridge;
@@ -840,9 +855,26 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
   return {
     isIntrospective,
     isPolitical,
+    isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
+    startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
     avoidStems
   };
+}
+
+function shouldRejectByContext(candidate, queryContext) {
+  if (!queryContext || typeof queryContext !== "object") return false;
+  const doc = normalizeText(
+    `${candidate?.quote || ""} ${candidate?.title || ""} ${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""}`
+  );
+
+  const hardOfficial = /(уголов|судопроизв|подат|губерн|департамент|канцеляр|чинов|вельмож|администрац|протокол|ведомств)/.test(doc);
+  const hasBeauty = /(красот|прекрас|гармон|взор|любов|душ|серд|созерц)/.test(doc);
+
+  if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
+  if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
+
+  return false;
 }
 
 function buildSearchTerms({ query, terms, stateWeights, bridgeTerms }) {
@@ -1222,6 +1254,7 @@ function rankAndPick({
 }) {
   const dedup = new Map();
   for (const candidate of allCandidates) {
+    if (shouldRejectByContext(candidate, queryContext)) continue;
     const key = normalizeText(`${candidate.quote}__${candidate.title}`);
     const scored = scoreCandidate({
       candidate,
