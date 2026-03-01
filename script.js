@@ -450,6 +450,28 @@ function normalizeForMatch(text) {
   return String(text || "").toLowerCase().replaceAll("ё", "е");
 }
 
+function commonPrefixLength(a, b) {
+  const x = String(a || "");
+  const y = String(b || "");
+  const max = Math.min(x.length, y.length);
+  let i = 0;
+  while (i < max && x[i] === y[i]) i += 1;
+  return i;
+}
+
+function hasStrongStemOverlap(token, word) {
+  const t = normalizeForMatch(token);
+  const w = normalizeForMatch(word);
+  if (!t || !w) return false;
+  if (t === w) return true;
+  if (t.length <= 3 || w.length <= 3) return false;
+
+  // Allow inflectional endings for Russian forms (e.g. "метла" -> "метлу").
+  const overlap = commonPrefixLength(t, w);
+  const minRequired = Math.min(5, Math.max(3, Math.min(t.length, w.length) - 1));
+  return overlap >= minRequired;
+}
+
 function formatQuoteTypography(rawQuote) {
   const quote = String(rawQuote || "").trim();
   if (!quote) return { core: "", tail: "" };
@@ -482,7 +504,10 @@ function highlightQuoteCore(rawCore, matchedWord) {
     out += escapeHtml(core.slice(cursor, start));
 
     const normalized = normalizeForMatch(full);
-    const shouldMark = normalized === word || normalized.startsWith(stem);
+    const shouldMark =
+      normalized === word
+      || normalized.startsWith(stem)
+      || hasStrongStemOverlap(normalized, word);
     if (shouldMark) {
       out += `<mark class="hit">${escapeHtml(full)}</mark>`;
       matchedAny = true;
