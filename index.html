@@ -3,29 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PSYCHE.EXE - Подбери себе стихотворение</title>
+    <title>PSYCHE.EXE — Подбери себе стихотворение</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="window" role="main">
       <header class="masthead">
-        <h1>PSYCHE.EXE - Подбери себе стихотворение</h1>
+        <h1>PSYCHE.EXE — Подбери себе стихотворение</h1>
         <p class="tagline">Ответьте на вопросы честно и получите свое стихотворение дня</p>
       </header>
 
       <hr />
 
       <form id="quiz-form" class="quiz" novalidate>
+        <section class="quiz-progress" aria-live="polite">
+          <p id="progress-text" class="progress-text">1/7</p>
+          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-labelledby="progress-text">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </section>
+
+        <section id="catalog-state" class="catalog-state hidden" aria-live="polite"></section>
+
         <div id="questions" class="questions" aria-live="polite"></div>
+        <p id="quiz-msg" class="quiz-msg" aria-live="polite"></p>
         <div class="controls">
-          <button type="submit">Подобрать стихотворение</button>
+          <button type="button" id="prev-btn">Назад</button>
+          <button type="button" id="next-btn">Далее</button>
+          <button type="submit" id="submit-btn">Подобрать стихотворение</button>
           <button type="button" id="reload-btn">Сменить вопросы</button>
         </div>
       </form>
 
+      <p class="service-note">
+        Это не психодиагностика и не медицинский инструмент. Сервис помогает мягкой рефлексии через поэзию.
+      </p>
+
       <section id="result" class="result hidden">
         <h2 id="poem-title">POEM.TXT</h2>
         <p id="poem-meta" class="poem-meta"></p>
+        <section class="fit-block" aria-live="polite">
+          <h3>Почему это вам сейчас подходит</h3>
+          <ul id="fit-points" class="fit-points"></ul>
+        </section>
         <pre id="poem"></pre>
 
         <div class="feedback">

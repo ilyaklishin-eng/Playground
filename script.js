@@ -1,88 +1,111 @@
 const AXES = ["introspection", "hope", "intensity", "tenderness", "darkness", "freedom"];
+const CANONICAL_THEMES = ["self", "relation", "past", "future", "darkness", "freedom", "meaning"];
+const QUESTION_THEME_MAP = {
+  self: ["self"],
+  control: ["self", "meaning"],
+  relation: ["relation"],
+  past: ["past"],
+  future: ["future"],
+  loss: ["past", "darkness"],
+  meaning: ["meaning"],
+  fear: ["freedom", "darkness"],
+  freedom: ["freedom"],
+  stability: ["meaning", "self"]
+};
+
+const EDITORIAL_CANON = {
+  future: ["pushkin-esli-zhizn-tebya-obmanet", "fet-ya-prishel-k-tebe"],
+  relation: ["pushkin-ya-vas-lyubil", "tsvetaeva-mne-nravitsya"],
+  freedom: ["lermontov-parus", "mayakovsky-a-vy-mogli-by"],
+  darkness: ["blok-noch-ulica-fonar-apteka", "lermontov-i-skuchno-i-grustno"],
+  meaning: ["derzhavin-reka-vremen", "mandelshtam-bessonnitsa-gomer"],
+  self: ["tyutchev-silentium", "khodasevich-pered-zerkalom"],
+  past: ["esenin-ne-zhaleyu", "pushkin-na-holmah-gruzii"]
+};
 
 const QUESTION_POOL = [
   {
     id: "q-self-accept",
     theme: "self",
-    text: "Насколько вы сегодня принимаете себя без условий?",
+    text: "Насколько вы можете отнестись к себе бережно, даже когда трудно?",
     vector: { introspection: 0.9, tenderness: 0.6, darkness: -0.3 }
   },
   {
     id: "q-control",
     theme: "control",
-    text: "Насколько вам важно держать все под контролем прямо сейчас?",
+    text: "Насколько вам сейчас важно, чтобы все было предсказуемо?",
     vector: { freedom: -0.8, intensity: 0.4, darkness: 0.2 }
   },
   {
     id: "q-trust",
     theme: "relation",
-    text: "Насколько вы готовы довериться близкому человеку?",
+    text: "Насколько вам легко опираться на близких, когда непросто?",
     vector: { tenderness: 0.9, hope: 0.4, introspection: 0.2 }
   },
   {
     id: "q-past",
     theme: "past",
-    text: "Насколько прошлое мешает вам двигаться дальше?",
+    text: "Насколько мысли о прошлом забирают ваше внимание сегодня?",
     vector: { darkness: 0.9, introspection: 0.6, hope: -0.5 }
   },
   {
     id: "q-energy",
     theme: "future",
-    text: "Насколько у вас сейчас есть внутренняя энергия действовать?",
+    text: "Насколько у вас есть внутренний ресурс действовать шаг за шагом?",
     vector: { intensity: 0.9, hope: 0.5, darkness: -0.4 }
   },
   {
     id: "q-lonely",
     theme: "loss",
-    text: "Насколько сильно вы чувствуете одиночество сегодня?",
+    text: "Насколько вы сейчас чувствуете эмоциональную изоляцию от других?",
     vector: { darkness: 0.9, introspection: 0.5, tenderness: -0.3 }
   },
   {
     id: "q-meaning",
     theme: "meaning",
-    text: "Насколько вам ясен смысл того, что происходит с вами?",
+    text: "Насколько вы понимаете, что для вас сейчас действительно важно?",
     vector: { introspection: 0.8, hope: 0.4, darkness: -0.2 }
   },
   {
     id: "q-risk",
     theme: "fear",
-    text: "Насколько вы готовы рискнуть ради нового этапа?",
+    text: "Насколько вы готовы к небольшим изменениям при неопределенности?",
     vector: { freedom: 0.8, intensity: 0.6, darkness: -0.2 }
   },
   {
     id: "q-grief",
     theme: "loss",
-    text: "Насколько вы прожили недавнюю утрату или разочарование?",
+    text: "Насколько недавняя боль или разочарование остаются внутри незавершенными?",
     vector: { introspection: 0.7, darkness: 0.6, hope: -0.3 }
   },
   {
     id: "q-softness",
     theme: "relation",
-    text: "Насколько вам нужна сейчас мягкость и тепло?",
+    text: "Насколько вам сейчас нужны поддержка, мягкость и восстановление?",
     vector: { tenderness: 0.9, hope: 0.3, intensity: -0.2 }
   },
   {
     id: "q-rebel",
     theme: "freedom",
-    text: "Насколько вы хотите нарушить привычный порядок?",
+    text: "Насколько вам хочется выйти за рамки привычных ролей и сценариев?",
     vector: { freedom: 0.9, intensity: 0.6, darkness: 0.1 }
   },
   {
     id: "q-calm",
     theme: "stability",
-    text: "Насколько вам важны сегодня тишина и устойчивость?",
+    text: "Насколько вам сейчас важны тишина, ритм и устойчивый темп?",
     vector: { intensity: -0.6, tenderness: 0.2, introspection: 0.4 }
   },
   {
     id: "q-hope",
     theme: "future",
-    text: "Насколько вы верите, что завтра может быть светлее?",
+    text: "Насколько вы чувствуете, что в ближайшем будущем возможны улучшения?",
     vector: { hope: 1.0, darkness: -0.6, tenderness: 0.2 }
   },
   {
     id: "q-expression",
     theme: "self",
-    text: "Насколько вам хочется высказаться прямо и громко?",
+    text: "Насколько вам важно открыто проговорить то, что накопилось?",
     vector: { intensity: 0.8, freedom: 0.5, introspection: -0.2 }
   }
 ];
@@ -774,6 +797,15 @@ const poemNode = document.getElementById("poem");
 const feedbackMsgNode = document.getElementById("feedback-msg");
 const genCountNode = document.getElementById("gen-count");
 const reloadBtn = document.getElementById("reload-btn");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const submitBtn = document.getElementById("submit-btn");
+const progressTextNode = document.getElementById("progress-text");
+const progressFillNode = document.getElementById("progress-fill");
+const progressTrackNode = document.querySelector(".progress-track");
+const catalogStateNode = document.getElementById("catalog-state");
+const quizMsgNode = document.getElementById("quiz-msg");
+const fitPointsNode = document.getElementById("fit-points");
 
 let activeQuestions = [];
 let poemCatalog = [...BUILTIN_POEMS];
@@ -781,6 +813,7 @@ let currentPoem = null;
 let lastRanked = [];
 let currentRankIndex = 0;
 let lastAnswers = null;
+let currentQuestionIndex = 0;
 
 function shuffled(array) {
   const copy = [...array];
@@ -791,8 +824,15 @@ function shuffled(array) {
   return copy;
 }
 
-function clamp15(value) {
-  return Math.max(1, Math.min(5, Number(value)));
+function clampRange(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function parseScaleValue(raw) {
+  if (raw === null || raw === undefined || raw === "") return NaN;
+  const value = Number(raw);
+  if (!Number.isInteger(value) || value < 1 || value > 5) return NaN;
+  return value;
 }
 
 function lineCount(text) {
@@ -874,14 +914,33 @@ function availablePoems() {
 
 function profileThemes(answers) {
   const totals = {};
+
+  CANONICAL_THEMES.forEach((theme) => {
+    totals[theme] = 0;
+  });
+
   answers.forEach(({ question, score }) => {
-    totals[question.theme] = (totals[question.theme] || 0) + score;
+    const mapped = QUESTION_THEME_MAP[question.theme] || [question.theme];
+    mapped.forEach((theme) => {
+      if (!Object.prototype.hasOwnProperty.call(totals, theme)) totals[theme] = 0;
+      totals[theme] += score;
+    });
   });
 
   return Object.entries(totals)
+    .filter(([, total]) => total > 0)
     .sort((a, b) => b[1] - a[1])
     .slice(0, 3)
     .map(([theme]) => theme);
+}
+
+function editorialBoostForPoem(poemId, topThemes) {
+  let score = 0;
+  topThemes.forEach((theme) => {
+    const canonIds = EDITORIAL_CANON[theme] || [];
+    if (canonIds.includes(poemId)) score += 0.11;
+  });
+  return Math.min(0.22, score);
 }
 
 function rankPoems(answers) {
@@ -897,15 +956,19 @@ function rankPoems(answers) {
         if ((poem.tags || []).includes(theme)) themeBoost += 0.15;
       });
 
-      const feedbackBoost = (feedback.poem[poem.id] || 0) * 0.18 + (feedback.author[poem.author] || 0) * 0.08;
-      const score = similarity + themeBoost + feedbackBoost;
+      const poemFeedback = clampRange(feedback.poem[poem.id] || 0, -3, 3);
+      const authorFeedback = clampRange(feedback.author[poem.author] || 0, -2, 2);
+      const feedbackBoost = poemFeedback * 0.14 + authorFeedback * 0.06;
+      const editorialBoost = editorialBoostForPoem(poem.id, topThemes);
+      const score = similarity + themeBoost + feedbackBoost + editorialBoost;
 
       return {
         poem,
         score,
         similarity,
         themeBoost,
-        feedbackBoost
+        feedbackBoost,
+        editorialBoost
       };
     })
     .sort((a, b) => {
@@ -920,12 +983,167 @@ function showPoem(poem) {
   currentPoem = poem;
   poemTitleNode.textContent = poem.title;
   poemMetaNode.textContent = `${poem.author}, ${poem.year || "без даты"}`;
+  renderFitPoints(poem, lastAnswers);
   poemNode.textContent = poem.text;
   resultNode.classList.remove("hidden");
 }
 
 function showFeedbackMessage(text) {
   feedbackMsgNode.textContent = text;
+}
+
+function themeLabel(theme) {
+  const labels = {
+    self: "внутренний фокус",
+    relation: "отношения",
+    past: "прошлое",
+    future: "будущее",
+    darkness: "сложные чувства",
+    freedom: "свобода",
+    meaning: "смысл"
+  };
+  return labels[theme] || "настроение";
+}
+
+function axisLabel(axis) {
+  const labels = {
+    introspection: "рефлексия",
+    hope: "надежда",
+    intensity: "энергия",
+    tenderness: "мягкость",
+    darkness: "глубина",
+    freedom: "свобода"
+  };
+  return labels[axis] || "баланс";
+}
+
+function dominantAxis(userVector) {
+  let bestAxis = AXES[0];
+  let bestValue = Number.NEGATIVE_INFINITY;
+
+  AXES.forEach((axis, index) => {
+    const value = Math.abs(userVector[index] || 0);
+    if (value > bestValue) {
+      bestValue = value;
+      bestAxis = axis;
+    }
+  });
+  return bestAxis;
+}
+
+function isEditorialPoem(poemId) {
+  return Object.values(EDITORIAL_CANON).some((ids) => ids.includes(poemId));
+}
+
+function renderFitPoints(poem, answers) {
+  if (!fitPointsNode) return;
+
+  const fallback = [
+    "Ваш текущий эмоциональный запрос совпал с тоном текста.",
+    "Стих поддерживает нужный вам сейчас внутренний ритм.",
+    "Образность и настроение помогают точнее прожить состояние."
+  ];
+
+  if (!Array.isArray(answers) || !answers.length) {
+    fitPointsNode.innerHTML = fallback.map((line) => `<li>${line}</li>`).join("");
+    return;
+  }
+
+  const topTheme = profileThemes(answers)[0] || "meaning";
+  const axis = dominantAxis(buildUserVector(answers));
+  const poemTheme = (poem.tags || []).find((tag) => CANONICAL_THEMES.includes(tag)) || "meaning";
+
+  const points = [
+    `Ваш фокус сейчас: ${themeLabel(topTheme)}.`,
+    `Главный эмоциональный вектор: ${axisLabel(axis)}.`,
+    `Тема стихотворения откликается: ${themeLabel(poemTheme)}.`
+  ];
+
+  if (isEditorialPoem(poem.id)) {
+    points[2] = "Это эталонный текст для близкого эмоционального состояния.";
+  }
+
+  fitPointsNode.innerHTML = points.map((line) => `<li>${line}</li>`).join("");
+}
+
+function showQuizMessage(text) {
+  quizMsgNode.textContent = text;
+}
+
+function showCatalogState(mode, text = "") {
+  catalogStateNode.className = `catalog-state ${mode}`;
+  catalogStateNode.classList.remove("hidden");
+
+  if (mode === "loading") {
+    catalogStateNode.innerHTML = `
+      <div class="state-title" aria-hidden="true"></div>
+      <div class="state-line" aria-hidden="true"></div>
+      <div class="state-line short" aria-hidden="true"></div>
+    `;
+    return;
+  }
+
+  catalogStateNode.textContent = text;
+}
+
+function hideCatalogState() {
+  catalogStateNode.className = "catalog-state hidden";
+  catalogStateNode.textContent = "";
+}
+
+function isQuestionAnswered(index) {
+  const selected = form.querySelector(`input[name="q_${index}"]:checked`);
+  return Boolean(selected);
+}
+
+function updateProgress() {
+  const total = Math.max(1, activeQuestions.length);
+  const step = clampRange(currentQuestionIndex + 1, 1, total);
+  const ratio = (step / total) * 100;
+  progressTextNode.textContent = `${step}/${total}`;
+  progressFillNode.style.width = `${ratio}%`;
+  progressTrackNode.setAttribute("aria-valuenow", String(step));
+  progressTrackNode.setAttribute("aria-valuemax", String(total));
+}
+
+function updateQuestionStep() {
+  const items = questionsNode.querySelectorAll(".question");
+  items.forEach((item, index) => {
+    item.classList.toggle("is-active", index === currentQuestionIndex);
+  });
+
+  const isFirst = currentQuestionIndex === 0;
+  const isLast = currentQuestionIndex === activeQuestions.length - 1;
+  const currentAnswered = isQuestionAnswered(currentQuestionIndex);
+
+  prevBtn.disabled = isFirst;
+  nextBtn.classList.toggle("hidden", isLast);
+  submitBtn.classList.toggle("hidden", !isLast);
+  nextBtn.disabled = !currentAnswered;
+  submitBtn.disabled = !currentAnswered;
+
+  updateProgress();
+}
+
+function goToQuestion(index, { focus = true } = {}) {
+  currentQuestionIndex = clampRange(index, 0, Math.max(0, activeQuestions.length - 1));
+  updateQuestionStep();
+
+  if (focus) {
+    const active = questionsNode.querySelector(".question.is-active");
+    const firstInput = active?.querySelector('input[type="radio"]');
+    firstInput?.focus();
+  }
+}
+
+function tryNextQuestion() {
+  if (!isQuestionAnswered(currentQuestionIndex)) {
+    showQuizMessage("Сначала выберите оценку для текущего вопроса.");
+    updateQuestionStep();
+    return;
+  }
+  showQuizMessage("");
+  goToQuestion(currentQuestionIndex + 1, { focus: true });
 }
 
 function pickQuestions() {
@@ -938,36 +1156,48 @@ function renderQuestions() {
   activeQuestions.forEach((question, index) => {
     const wrapper = document.createElement("section");
     wrapper.className = "question";
+    wrapper.dataset.index = String(index);
 
-    const p = document.createElement("p");
-    p.textContent = `${index + 1}. ${question.text}`;
+    const fieldset = document.createElement("fieldset");
+    fieldset.className = "scale";
+    const hintId = `q_hint_${index}`;
+    fieldset.setAttribute("aria-describedby", hintId);
+    fieldset.setAttribute("role", "group");
 
-    const table = document.createElement("table");
-    table.className = "scale";
+    const legend = document.createElement("legend");
+    legend.className = "question-legend";
+    legend.textContent = `${index + 1}. ${question.text}`;
+    fieldset.appendChild(legend);
 
-    const head = document.createElement("tr");
-    head.innerHTML = "<th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>";
-    table.appendChild(head);
-
-    const row = document.createElement("tr");
+    const row = document.createElement("div");
+    row.className = "scale-options";
     for (let value = 1; value <= 5; value += 1) {
-      const cell = document.createElement("td");
       const label = document.createElement("label");
+      label.className = "scale-option";
+      label.dataset.value = String(value);
       const input = document.createElement("input");
+      const visual = document.createElement("span");
 
       input.type = "radio";
       input.name = `q_${index}`;
       input.value = String(value);
       input.required = true;
+      input.setAttribute("aria-label", `Оценка ${value} из 5`);
+      visual.textContent = String(value);
 
       label.appendChild(input);
-      cell.appendChild(label);
-      row.appendChild(cell);
+      label.appendChild(visual);
+      row.appendChild(label);
     }
 
-    table.appendChild(row);
-    wrapper.appendChild(p);
-    wrapper.appendChild(table);
+    const hint = document.createElement("div");
+    hint.className = "scale-hint";
+    hint.id = hintId;
+    hint.innerHTML = "<span>Совсем не про меня</span><span>Очень про меня</span>";
+
+    fieldset.appendChild(row);
+    fieldset.appendChild(hint);
+    wrapper.appendChild(fieldset);
     questionsNode.appendChild(wrapper);
   });
 }
@@ -975,11 +1205,15 @@ function renderQuestions() {
 function refreshQuestions() {
   pickQuestions();
   renderQuestions();
+  currentQuestionIndex = 0;
+  updateQuestionStep();
   resultNode.classList.add("hidden");
   poemTitleNode.textContent = "POEM.TXT";
   poemMetaNode.textContent = "";
+  if (fitPointsNode) fitPointsNode.innerHTML = "";
   poemNode.textContent = "";
   showFeedbackMessage("");
+  showQuizMessage("");
   currentPoem = null;
   lastRanked = [];
   currentRankIndex = 0;
@@ -997,8 +1231,8 @@ function applyFeedback(kind) {
   const delta = map[kind] || 0;
   const state = getFeedbackState();
 
-  state.poem[currentPoem.id] = (state.poem[currentPoem.id] || 0) + delta;
-  state.author[currentPoem.author] = (state.author[currentPoem.author] || 0) + delta * 0.5;
+  state.poem[currentPoem.id] = clampRange((state.poem[currentPoem.id] || 0) + delta, -3, 3);
+  state.author[currentPoem.author] = clampRange((state.author[currentPoem.author] || 0) + delta * 0.5, -2, 2);
 
   saveFeedbackState(state);
 
@@ -1035,37 +1269,93 @@ function applyFeedback(kind) {
 async function loadLocalCatalog() {
   try {
     const response = await fetch("poems.local.json", { cache: "no-store" });
-    if (!response.ok) return;
+    if (!response.ok) {
+      if (response.status === 404) return { status: "ready", added: 0 };
+      return { status: "error", message: "Не удалось загрузить локальный каталог стихов." };
+    }
 
     const external = await response.json();
-    if (!Array.isArray(external)) return;
+    if (!Array.isArray(external)) {
+      return { status: "error", message: "Файл каталога имеет неверный формат." };
+    }
 
-    const normalized = external.filter((poem) => {
-      return poem && typeof poem.id === "string" && typeof poem.title === "string" && typeof poem.author === "string";
-    });
+    const seenIds = new Set(poemCatalog.map((poem) => poem.id));
+    const seenTextKeys = new Set(
+      poemCatalog
+        .filter((poem) => typeof poem.text === "string")
+        .map((poem) => poem.text.toLowerCase().replace(/\s+/g, " ").trim())
+    );
+
+    const normalized = external
+      .map((poem) => {
+        if (!poem || typeof poem !== "object") return null;
+        if (typeof poem.id !== "string" || !poem.id.trim()) return null;
+        if (typeof poem.title !== "string" || !poem.title.trim()) return null;
+        if (typeof poem.author !== "string" || !poem.author.trim()) return null;
+        if (typeof poem.text !== "string" || lineCount(poem.text) < 4 || lineCount(poem.text) > 20) return null;
+        if (!Array.isArray(poem.v) || poem.v.length !== AXES.length) return null;
+        if (!poem.v.every((x) => Number.isFinite(Number(x)))) return null;
+
+        const tags = Array.isArray(poem.tags)
+          ? poem.tags.filter((tag) => typeof tag === "string" && CANONICAL_THEMES.includes(tag))
+          : [];
+
+        return {
+          id: poem.id.trim(),
+          title: poem.title.trim(),
+          author: poem.author.trim(),
+          year: typeof poem.year === "string" ? poem.year.trim() : "",
+          tags,
+          v: poem.v.map((x) => Number(x)),
+          text: poem.text.trim(),
+          source: typeof poem.source === "string" ? poem.source : ""
+        };
+      })
+      .filter((poem) => {
+        if (!poem) return false;
+        if (seenIds.has(poem.id)) return false;
+
+        const textKey = poem.text.toLowerCase().replace(/\s+/g, " ").trim();
+        if (!textKey || seenTextKeys.has(textKey)) return false;
+
+        seenIds.add(poem.id);
+        seenTextKeys.add(textKey);
+        return true;
+      });
 
     poemCatalog = [...poemCatalog, ...normalized];
+    return { status: "ready", added: normalized.length };
   } catch {
-    // Optional file.
+    return { status: "error", message: "Ошибка сети при загрузке каталога." };
   }
 }
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
+  if (currentQuestionIndex < activeQuestions.length - 1) {
+    tryNextQuestion();
+    return;
+  }
+
   const formData = new FormData(form);
   const answers = activeQuestions.map((question, index) => ({
     question,
-    score: clamp15(formData.get(`q_${index}`))
+    score: parseScaleValue(formData.get(`q_${index}`))
   }));
 
-  if (answers.some((item) => Number.isNaN(item.score))) return;
+  if (answers.some((item) => Number.isNaN(item.score))) {
+    showQuizMessage("Ответьте на все вопросы по шкале от 1 до 5.");
+    return;
+  }
 
+  showQuizMessage("");
   lastAnswers = answers;
   const ranked = rankPoems(answers);
   if (!ranked.length) {
     poemTitleNode.textContent = "Нет совпадений";
     poemMetaNode.textContent = "Добавьте стихи в poems.local.json";
+    if (fitPointsNode) fitPointsNode.innerHTML = "";
     poemNode.textContent = "";
     showFeedbackMessage("");
     resultNode.classList.remove("hidden");
@@ -1080,6 +1370,20 @@ form.addEventListener("submit", (event) => {
   resultNode.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
+questionsNode.addEventListener("change", () => {
+  updateQuestionStep();
+  showQuizMessage("");
+});
+
+prevBtn.addEventListener("click", () => {
+  showQuizMessage("");
+  goToQuestion(currentQuestionIndex - 1, { focus: true });
+});
+
+nextBtn.addEventListener("click", () => {
+  tryNextQuestion();
+});
+
 reloadBtn.addEventListener("click", refreshQuestions);
 
 document.querySelectorAll("[data-feedback]").forEach((button) => {
@@ -1089,7 +1393,17 @@ document.querySelectorAll("[data-feedback]").forEach((button) => {
 });
 
 async function init() {
-  await loadLocalCatalog();
+  showCatalogState("loading");
+  const loadState = await loadLocalCatalog();
+
+  if (loadState?.status === "error") {
+    showCatalogState("error", loadState.message);
+  } else if (!availablePoems().length) {
+    showCatalogState("empty", "Каталог пуст. Добавьте стихи в poems.local.json.");
+  } else {
+    hideCatalogState();
+  }
+
   renderGenerationCount();
   refreshQuestions();
 }
