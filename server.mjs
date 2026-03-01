@@ -769,7 +769,8 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     avoidStems: [],
     forceIntrospective: false,
     isBigBang: false,
-    isCosmology: false
+    isCosmology: false,
+    isWritingTheory: false
   };
 
   const add = (term, weight = 1.2) => {
@@ -791,8 +792,10 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     || (hasStem("больш") && hasStem("взрыв"))
     || hasStem("bigbang");
   const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
+  const isWritingTheory = hasStem("письм") && (hasStem("степен") || hasStem("текст") || hasStem("язык") || hasStem("стиль"));
   bridge.isBigBang = isBigBang;
   bridge.isCosmology = isCosmology;
+  bridge.isWritingTheory = isWritingTheory;
   const isBeautyQuestion = hasStem("красот") || hasStem("прекрас") || hasStem("эстет") || hasStem("взор") || hasStem("смотр");
   const startsWithPravdaLi = normalized.startsWith("правда ли ");
 
@@ -826,6 +829,14 @@ function buildConceptualBridge(queryText, baseTokens = []) {
   if (startsWithPravdaLi) {
     downWeight("правд", 0.12);
     downWeight("всяк", 0.2);
+  }
+
+  if (isWritingTheory) {
+    ["язык", "слово", "текст", "стиль", "литература", "письменность", "речь", "поэтика", "знак", "смысл"]
+      .forEach((term, idx) => add(term, idx < 6 ? 1.8 : 1.45));
+    bridge.preferredStems.push("язык", "слов", "текст", "стил", "литерат", "поэтик", "знак", "смысл");
+    bridge.avoidStems.push("малютк", "дет", "жен", "муж", "вам", "тебе", "друг", "родн", "здоров");
+    downWeight("письм", 0.25);
   }
 
   return bridge;
@@ -959,6 +970,7 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
     isMeaningOfLife,
     isBigBang: Boolean(bridge?.isBigBang),
     isCosmology: Boolean(bridge?.isCosmology),
+    isWritingTheory: Boolean(bridge?.isWritingTheory),
     isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
     startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
@@ -982,7 +994,7 @@ function shouldRejectByContext(candidate, queryContext) {
     + (doc.includes("мироздан") ? 1 : 0)
     + (doc.includes("первоприч") ? 1 : 0);
   const hasCosmology = cosmologyHits >= 2;
-  const epistolaryOrConversational = /(письмо|переписк|разговор|вспоминал о вас|вам|тебе|досадно|журналист)/.test(doc);
+  const epistolaryOrConversational = /(письмо|переписк|разговор|вспоминал о вас|вам|тебе|досадно|журналист|малютк|дети|жена|муж)/.test(doc);
 
   if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
   if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
@@ -991,13 +1003,65 @@ function shouldRejectByContext(candidate, queryContext) {
   if (queryContext.isMeaningOfLife && !isClearlyLiterary && !hasExistential) return true;
   if (queryContext.isBigBang && (epistolaryOrConversational || !hasCosmology)) return true;
   if (queryContext.isBigBang && hasLiteralExplosion && !hasCosmology) return true;
+  if (queryContext.isWritingTheory && epistolaryOrConversational) return true;
 
   return false;
+}
+
+function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext) {
+  const doc = normalizeText(
+    `${candidate?.quote || ""} ${candidate?.title || ""} ${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""}`
+  );
+  const tokens = Array.isArray(queryTokens) ? queryTokens : [];
+  let matched = 0;
+  let matchedWeight = 0;
+  let totalWeight = 0;
+  for (const token of tokens) {
+    const t = String(token || "");
+    if (!t) continue;
+    const stem = stemPrefix(t);
+    const weight = Math.max(0.1, Number(queryTokenWeights?.[t] || 1));
+    totalWeight += weight;
+    if (doc.includes(t) || doc.includes(stem)) {
+      matched += 1;
+      matchedWeight += weight;
+    }
+  }
+  const weightedCoverage = totalWeight > 0 ? matchedWeight / totalWeight : 0;
+  const existentialHit = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
+  const cosmologyHit = /(вселен|мироздан|космос|творен|первооснов|первоприч|бог|вечност|быт)/.test(doc);
+  const writingTheoryHit = /(язык|слов|текст|стил|литерат|поэтик|знак|речь|письмен)/.test(doc);
+  return {
+    matched,
+    queryTokenCount: tokens.length,
+    weightedCoverage,
+    existentialHit,
+    cosmologyHit,
+    writingTheoryHit,
+    queryContext
+  };
+}
+
+function passesSemanticGate(signals) {
+  if (!signals) return false;
+  const { matched, queryTokenCount, weightedCoverage, existentialHit, cosmologyHit, writingTheoryHit, queryContext } = signals;
+  if (queryContext?.isBigBang) return weightedCoverage >= 0.18 && cosmologyHit;
+  if (queryContext?.isWritingTheory) return weightedCoverage >= 0.2 && writingTheoryHit;
+  if (queryContext?.isMeaningOfLife) return weightedCoverage >= 0.2 && existentialHit;
+  if (queryContext?.isIntrospective) return weightedCoverage >= 0.18 && (existentialHit || matched >= 2);
+  if (queryTokenCount >= 5) return matched >= 2 && weightedCoverage >= 0.2;
+  if (queryTokenCount >= 3) return matched >= 1 && weightedCoverage >= 0.17;
+  return matched >= 1;
 }
 
 function buildSearchTerms({ query, terms, stateWeights, bridgeTerms, queryContext }) {
   if (queryContext?.isBigBang) {
     return ["вселенная", "мироздание", "бытие", "вечность", "творение", "первооснова", "причина", "бог"]
+      .map((x) => normalizeText(x))
+      .filter(Boolean);
+  }
+  if (queryContext?.isWritingTheory) {
+    return ["язык", "слово", "текст", "стиль", "литература", "поэтика", "смысл", "знак"]
       .map((x) => normalizeText(x))
       .filter(Boolean);
   }
@@ -1446,12 +1510,17 @@ function rankAndPick({
   const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
   if (!filtered.length) return null;
 
-  const stochasticTop = pickStochasticTop(filtered, RANDOM_PICK_TOP_K) || filtered[0];
+  const semanticallyFiltered = filtered.filter((item) =>
+    passesSemanticGate(semanticSignals(item, queryTokens, queryTokenWeights, queryContext))
+  );
+  const candidatePool = semanticallyFiltered.length ? semanticallyFiltered : filtered.slice(0, Math.min(8, filtered.length));
+
+  const stochasticTop = pickStochasticTop(candidatePool, RANDOM_PICK_TOP_K) || candidatePool[0];
   const topByMode = variantMode === "contrast"
-    ? pickTopCandidate(filtered, variantMode, previousTone)
+    ? pickTopCandidate(candidatePool, variantMode, previousTone)
     : stochasticTop;
-  const top = pickWithAuthorDiversity(filtered, topByMode, userKey);
-  const alternatives = filtered
+  const top = pickWithAuthorDiversity(candidatePool, topByMode, userKey);
+  const alternatives = candidatePool
     .filter((item) => item.fingerprint !== top.fingerprint)
     .slice(0, 3)
     .map((item) => ({
@@ -1463,7 +1532,7 @@ function rankAndPick({
       tone: item.scoreDetails?.tone || 0,
       fingerprint: item.fingerprint
     }));
-  return { top, alternatives, ranked: filtered };
+  return { top, alternatives, ranked: candidatePool };
 }
 
 function pickWithControlledExploration(picked, variantMode) {
