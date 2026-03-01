@@ -96,10 +96,6 @@ hr {
   transform: translateY(-1px);
 }
 
-.question:not(.is-active) {
-  display: none;
-}
-
 .question-legend {
   margin: 0 0 8px;
   padding: 0;
@@ -538,15 +534,10 @@ pre {
     bottom: 8px;
   }
 
-  #prev-btn,
-  #next-btn,
-  #submit-btn {
+  #submit-btn,
+  #reload-btn {
     flex: 1 1 0;
     min-width: 0;
-  }
-
-  #reload-btn {
-    width: 100%;
   }
 
   .scale-options {

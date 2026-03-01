@@ -510,11 +510,49 @@ def print_summary(stats, per_author):
         print(f"  {author}: kept={kept} with_year={with_year} without_year={without_year}")
 
 
+def merge_existing_required_entries(new_poems, out_path: Path):
+    if not out_path.exists():
+        return new_poems, 0
+
+    try:
+        existing = json.loads(out_path.read_text(encoding="utf-8"))
+    except Exception:
+        return new_poems, 0
+
+    if not isinstance(existing, list):
+        return new_poems, 0
+
+    ids = {item.get("id") for item in new_poems if isinstance(item, dict)}
+    merged = list(new_poems)
+    added = 0
+
+    for item in existing:
+        if not isinstance(item, dict):
+            continue
+        meta = item.get("meta")
+        if not isinstance(meta, dict) or not meta.get("required_by_user"):
+            continue
+        item_id = item.get("id")
+        if not isinstance(item_id, str) or not item_id:
+            continue
+        if item_id in ids:
+            continue
+        merged.append(item)
+        ids.add(item_id)
+        added += 1
+
+    return merged, added
+
+
 def main():
     args = parse_args()
     poems, stats, per_author, reject_examples = build_catalog(args)
 
     out_path = Path(args.out).expanduser().resolve()
+    poems, merged_required = merge_existing_required_entries(poems, out_path)
+    if merged_required:
+        stats["required_entries_merged"] = merged_required
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as file:
         json.dump(poems, file, ensure_ascii=False, indent=2)

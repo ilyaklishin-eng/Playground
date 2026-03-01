@@ -24742,5 +24742,1914 @@
       "year_source": "unknown",
       "metadata_source": "stihi-rus"
     }
+  },
+  {
+    "id": "required-гавриил-державин-река-времен-в-своем-стремленьи",
+    "title": "Река времен в своем стремленьи...",
+    "author": "Гавриил Державин",
+    "year": "1816",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-константин-батюшков-надпись-на-гробе-пастушки",
+    "title": "Надпись на гробе пастушки",
+    "author": "Константин Батюшков",
+    "year": "1810",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-василий-жуковский-ночь",
+    "title": "Ночь",
+    "author": "Василий Жуковский",
+    "year": "1800",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-василий-жуковский-песня",
+    "title": "Песня (Минувших дней очарованье...)",
+    "author": "Василий Жуковский",
+    "year": "1818",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-евгений-баратынский-приметы",
+    "title": "Приметы",
+    "author": "Евгений Баратынский",
+    "year": "1839",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-евгений-баратынский-толпе-тревожный-день-приветен",
+    "title": "Толпе тревожный день приветен...",
+    "author": "Евгений Баратынский",
+    "year": "1839",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-тютчев-silentium",
+    "title": "Silentium!",
+    "author": "Федор Тютчев",
+    "year": "1830",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-тютчев-тени-сизые-смесились",
+    "title": "Тени сизые смесились...",
+    "author": "Федор Тютчев",
+    "year": "1835",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-тютчев-о-чем-ты-воешь-ветр-ночной",
+    "title": "О чем ты воешь, ветр ночной?",
+    "author": "Федор Тютчев",
+    "year": "1836",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-тютчев-певучесть-есть-в-морских-волнах",
+    "title": "Певучесть есть в морских волнах...",
+    "author": "Федор Тютчев",
+    "year": "1865",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-тютчев-природа-сфинкс",
+    "title": "Природа — сфинкс...",
+    "author": "Федор Тютчев",
+    "year": "1869",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-нищий",
+    "title": "Нищий",
+    "author": "Михаил Лермонтов",
+    "year": "1830",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-чаша-жизни",
+    "title": "Чаша жизни",
+    "author": "Михаил Лермонтов",
+    "year": "1831",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-узник",
+    "title": "Узник",
+    "author": "Михаил Лермонтов",
+    "year": "1837",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-молитва",
+    "title": "Молитва (В минуту жизни трудную...)",
+    "author": "Михаил Лермонтов",
+    "year": "1839",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-и-скучно-и-грустно",
+    "title": "И скучно и грустно",
+    "author": "Михаил Лермонтов",
+    "year": "1840",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-выхожу-один-я-на-дорогу",
+    "title": "Выхожу один я на дорогу...",
+    "author": "Михаил Лермонтов",
+    "year": "1841",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-афанасий-фет-ничтожество",
+    "title": "Ничтожество",
+    "author": "Афанасий Фет",
+    "year": "1880",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-афанасий-фет-добро-и-зло",
+    "title": "Добро и зло",
+    "author": "Афанасий Фет",
+    "year": "1884",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-владимир-соловьев-в-тумане-утреннем-неверными-шагами",
+    "title": "В тумане утреннем неверными шагами...",
+    "author": "Владимир Соловьев",
+    "year": "1884",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-владимир-соловьев-бедный-друг-истомил-тебя-путь",
+    "title": "Бедный друг! истомил тебя путь...",
+    "author": "Владимир Соловьев",
+    "year": "1887",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-владимир-соловьев-милый-друг-иль-ты-не-видишь",
+    "title": "Милый друг, иль ты не видишь...",
+    "author": "Владимир Соловьев",
+    "year": "1892",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-сологуб-я-бог-таинственного-мира",
+    "title": "Я — бог таинственного мира...",
+    "author": "Федор Сологуб",
+    "year": "1896",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-сологуб-когда-я-в-бурном-море-плавал",
+    "title": "Когда я в бурном море плавал...",
+    "author": "Федор Сологуб",
+    "year": "1897",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-сологуб-порою-мнится-я-не-я",
+    "title": "Порою мнится: я не я...",
+    "author": "Федор Сологуб",
+    "year": "1898",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-сологуб-высока-луна-господня",
+    "title": "Высока луна Господня...",
+    "author": "Федор Сологуб",
+    "year": "1901",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-федор-сологуб-мы-пленники-звериной-клетки",
+    "title": "Мы — пленники звериной клетки...",
+    "author": "Федор Сологуб",
+    "year": "1905",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-иннокентий-анненский-тоска-припоминания",
+    "title": "Тоска припоминания",
+    "author": "Иннокентий Анненский",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-иннокентий-анненский-смычок-и-струны",
+    "title": "Смычок и струны",
+    "author": "Иннокентий Анненский",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-иннокентий-анненский-два-паруса-лодки-одной",
+    "title": "Два паруса лодки одной...",
+    "author": "Иннокентий Анненский",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-иннокентий-анненский-снег",
+    "title": "Снег",
+    "author": "Иннокентий Анненский",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-иннокентий-анненский-аметисты",
+    "title": "Аметисты",
+    "author": "Иннокентий Анненский",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-валерий-брюсов-творчество",
+    "title": "Творчество",
+    "author": "Валерий Брюсов",
+    "year": "1895",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-валерий-брюсов-юному-поэту",
+    "title": "Юному поэту",
+    "author": "Валерий Брюсов",
+    "year": "1896",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-валерий-брюсов-кинжал",
+    "title": "Кинжал",
+    "author": "Валерий Брюсов",
+    "year": "1903",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-валерий-брюсов-работа",
+    "title": "Работа",
+    "author": "Валерий Брюсов",
+    "year": "1917",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-андрей-белый-солнце",
+    "title": "Солнце",
+    "author": "Андрей Белый",
+    "year": "1903",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-андрей-белый-отчаянье",
+    "title": "Отчаянье",
+    "author": "Андрей Белый",
+    "year": "1908",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-максимилиан-волошин-сквозь-сеть-алмазную-зазеленел-восток",
+    "title": "Сквозь сеть алмазную зазеленел восток...",
+    "author": "Максимилиан Волошин",
+    "year": "1904",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-максимилиан-волошин-мир",
+    "title": "Мир",
+    "author": "Максимилиан Волошин",
+    "year": "1905",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-александр-блок-ночь-улица-фонарь-аптека",
+    "title": "Ночь, улица, фонарь, аптека...",
+    "author": "Александр Блок",
+    "year": "1912",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-александр-блок-миры-летят-года-летят-пустая",
+    "title": "Миры летят. Года летят. Пустая...",
+    "author": "Александр Блок",
+    "year": "1912",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-александр-блок-о-я-хочу-безумно-жить",
+    "title": "О, я хочу безумно жить...",
+    "author": "Александр Блок",
+    "year": "1914",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-велимир-хлебников-когда-умирают-кони-дышат",
+    "title": "Когда умирают кони — дышат...",
+    "author": "Велимир Хлебников",
+    "year": "1912",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-велимир-хлебников-мне-мало-надо",
+    "title": "Мне мало надо...",
+    "author": "Велимир Хлебников",
+    "year": "1912",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-велимир-хлебников-свобода-приходит-нагая",
+    "title": "Свобода приходит нагая...",
+    "author": "Велимир Хлебников",
+    "year": "1917",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-владимир-маяковский-послушайте",
+    "title": "Послушайте!",
+    "author": "Владимир Маяковский",
+    "year": "1914",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-николай-гумилев-рабочий",
+    "title": "Рабочий",
+    "author": "Николай Гумилев",
+    "year": "1916",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-николай-гумилев-деревья",
+    "title": "Деревья",
+    "author": "Николай Гумилев",
+    "year": "1916",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-николай-гумилев-я-и-вы",
+    "title": "Я и вы",
+    "author": "Николай Гумилев",
+    "year": "1918",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-николай-гумилев-шестое-чувство",
+    "title": "Шестое чувство",
+    "author": "Николай Гумилев",
+    "year": "1920",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-моим-стихам-написанным-так-рано",
+    "title": "Моим стихам, написанным так рано...",
+    "author": "Марина Цветаева",
+    "year": "1913",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-идешь-на-меня-похожий",
+    "title": "Идешь, на меня похожий...",
+    "author": "Марина Цветаева",
+    "year": "1913",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-уж-сколько-их-упало-в-эту-бездну",
+    "title": "Уж сколько их упало в эту бездну...",
+    "author": "Марина Цветаева",
+    "year": "1913",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-кто-создан-из-камня-кто-создан-из-глины",
+    "title": "Кто создан из камня, кто создан из глины...",
+    "author": "Марина Цветаева",
+    "year": "1920",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-расстояние-версты-мили",
+    "title": "Расстояние: версты, мили...",
+    "author": "Марина Цветаева",
+    "year": "1925",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-марина-цветаева-вскрыла-жилы-неостановимо",
+    "title": "Вскрыла жилы: неостановимо...",
+    "author": "Марина Цветаева",
+    "year": "1934",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-дано-мне-тело-что-мне-делать-с-ним",
+    "title": "Дано мне тело — что мне делать с ним...",
+    "author": "Осип Мандельштам",
+    "year": "1909",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-silentium",
+    "title": "Silentium",
+    "author": "Осип Мандельштам",
+    "year": "1910",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-бессонница-гомер-тугие-паруса",
+    "title": "Бессонница. Гомер. Тугие паруса...",
+    "author": "Осип Мандельштам",
+    "year": "1915",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-золотистого-меда-струя-из-бутылки-текла",
+    "title": "Золотистого меда струя из бутылки текла...",
+    "author": "Осип Мандельштам",
+    "year": "1917",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-сумерки-свободы",
+    "title": "Сумерки свободы",
+    "author": "Осип Мандельштам",
+    "year": "1918",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-ласточка",
+    "title": "Ласточка",
+    "author": "Осип Мандельштам",
+    "year": "1920",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-я-вернулся-в-мой-город-знакомый-до-слез",
+    "title": "Я вернулся в мой город, знакомый до слез...",
+    "author": "Осип Мандельштам",
+    "year": "1930",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-осип-мандельштам-за-гремучую-доблесть-грядущих-веков",
+    "title": "За гремучую доблесть грядущих веков...",
+    "author": "Осип Мандельштам",
+    "year": "1931",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-владислав-ходасевич-бог-жив-я-жив-мы-с-ним-вдвоем",
+    "title": "Бог жив. Я жив. Мы с Ним вдвоем...",
+    "author": "Владислав Ходасевич",
+    "year": "1922",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-даниил-хармс-я-долго-смотрел-на-зеленые-деревья",
+    "title": "Я долго смотрел на зеленые деревья...",
+    "author": "Даниил Хармс",
+    "year": "1937",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-александр-пушкин-брожу-ли-я-вдоль-улиц-шумных",
+    "title": "Брожу ли я вдоль улиц шумных…",
+    "author": "Александр Пушкин",
+    "year": "1829",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-александр-пушкин-из-пиндемонти",
+    "title": "Из Пиндемонти",
+    "author": "Александр Пушкин",
+    "year": "1836",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-парус",
+    "title": "Парус",
+    "author": "Михаил Лермонтов",
+    "year": "1832",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-нет-я-не-байрон-я-другой",
+    "title": "Нет, я не Байрон, я другой…",
+    "author": "Михаил Лермонтов",
+    "year": "1832",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-когда-волнуется-желтеющая-нива",
+    "title": "Когда волнуется желтеющая нива…",
+    "author": "Михаил Лермонтов",
+    "year": "1837",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-благодарность",
+    "title": "Благодарность",
+    "author": "Михаил Лермонтов",
+    "year": "1840",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-и-жизнь-как-посмотришь-с-холодным-вниманьем-вокруг",
+    "title": "И жизнь, как посмотришь с холодным вниманьем вокруг…",
+    "author": "Михаил Лермонтов",
+    "year": "1840",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-михаил-лермонтов-сон",
+    "title": "Сон",
+    "author": "Михаил Лермонтов",
+    "year": "1841",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
+  },
+  {
+    "id": "required-евгений-баратынский-последний-поэт",
+    "title": "Последний поэт",
+    "author": "Евгений Баратынский",
+    "year": "1835",
+    "tags": [
+      "meaning"
+    ],
+    "v": [
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "text": "",
+    "source": "required-list-1-20",
+    "restricted": true,
+    "meta": {
+      "required_by_user": true,
+      "required_batch": "1-20",
+      "text_status": "missing",
+      "needs_source_import": true
+    }
   }
 ]

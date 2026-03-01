@@ -797,8 +797,6 @@ const poemNode = document.getElementById("poem");
 const feedbackMsgNode = document.getElementById("feedback-msg");
 const genCountNode = document.getElementById("gen-count");
 const reloadBtn = document.getElementById("reload-btn");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
 const submitBtn = document.getElementById("submit-btn");
 const progressTextNode = document.getElementById("progress-text");
 const progressFillNode = document.getElementById("progress-fill");
@@ -813,7 +811,6 @@ let currentPoem = null;
 let lastRanked = [];
 let currentRankIndex = 0;
 let lastAnswers = null;
-let currentQuestionIndex = 0;
 
 function shuffled(array) {
   const copy = [...array];
@@ -1098,52 +1095,12 @@ function isQuestionAnswered(index) {
 
 function updateProgress() {
   const total = Math.max(1, activeQuestions.length);
-  const step = clampRange(currentQuestionIndex + 1, 1, total);
-  const ratio = (step / total) * 100;
-  progressTextNode.textContent = `${step}/${total}`;
+  const answered = activeQuestions.reduce((count, _, index) => count + (isQuestionAnswered(index) ? 1 : 0), 0);
+  const ratio = (answered / total) * 100;
+  progressTextNode.textContent = `${answered}/${total}`;
   progressFillNode.style.width = `${ratio}%`;
-  progressTrackNode.setAttribute("aria-valuenow", String(step));
+  progressTrackNode.setAttribute("aria-valuenow", String(answered));
   progressTrackNode.setAttribute("aria-valuemax", String(total));
-}
-
-function updateQuestionStep() {
-  const items = questionsNode.querySelectorAll(".question");
-  items.forEach((item, index) => {
-    item.classList.toggle("is-active", index === currentQuestionIndex);
-  });
-
-  const isFirst = currentQuestionIndex === 0;
-  const isLast = currentQuestionIndex === activeQuestions.length - 1;
-  const currentAnswered = isQuestionAnswered(currentQuestionIndex);
-
-  prevBtn.disabled = isFirst;
-  nextBtn.classList.toggle("hidden", isLast);
-  submitBtn.classList.toggle("hidden", !isLast);
-  nextBtn.disabled = !currentAnswered;
-  submitBtn.disabled = !currentAnswered;
-
-  updateProgress();
-}
-
-function goToQuestion(index, { focus = true } = {}) {
-  currentQuestionIndex = clampRange(index, 0, Math.max(0, activeQuestions.length - 1));
-  updateQuestionStep();
-
-  if (focus) {
-    const active = questionsNode.querySelector(".question.is-active");
-    const firstInput = active?.querySelector('input[type="radio"]');
-    firstInput?.focus();
-  }
-}
-
-function tryNextQuestion() {
-  if (!isQuestionAnswered(currentQuestionIndex)) {
-    showQuizMessage("Сначала выберите оценку для текущего вопроса.");
-    updateQuestionStep();
-    return;
-  }
-  showQuizMessage("");
-  goToQuestion(currentQuestionIndex + 1, { focus: true });
 }
 
 function pickQuestions() {
@@ -1205,8 +1162,8 @@ function renderQuestions() {
 function refreshQuestions() {
   pickQuestions();
   renderQuestions();
-  currentQuestionIndex = 0;
-  updateQuestionStep();
+  submitBtn.disabled = false;
+  updateProgress();
   resultNode.classList.add("hidden");
   poemTitleNode.textContent = "POEM.TXT";
   poemMetaNode.textContent = "";
@@ -1333,11 +1290,6 @@ async function loadLocalCatalog() {
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  if (currentQuestionIndex < activeQuestions.length - 1) {
-    tryNextQuestion();
-    return;
-  }
-
   const formData = new FormData(form);
   const answers = activeQuestions.map((question, index) => ({
     question,
@@ -1371,17 +1323,8 @@ form.addEventListener("submit", (event) => {
 });
 
 questionsNode.addEventListener("change", () => {
-  updateQuestionStep();
+  updateProgress();
   showQuizMessage("");
-});
-
-prevBtn.addEventListener("click", () => {
-  showQuizMessage("");
-  goToQuestion(currentQuestionIndex - 1, { focus: true });
-});
-
-nextBtn.addEventListener("click", () => {
-  tryNextQuestion();
 });
 
 reloadBtn.addEventListener("click", refreshQuestions);
