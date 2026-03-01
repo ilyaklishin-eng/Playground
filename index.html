@@ -13,14 +13,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#query-form">Перейти к форме</a>
     <main class="page" role="main">
       <header class="hero">
+        <p class="kicker">PSYCHE.EXE</p>
         <h1>Небесный цитатник</h1>
         <p class="subtitle">Сформулируйте свой вопрос, и сервис подберет строку, которая может откликнуться именно сейчас.</p>
       </header>
 
       <section class="card">
         <form id="query-form" novalidate>
+          <h2 class="section-title">Сформулируйте запрос</h2>
           <label class="field-label" for="question">Ваш вопрос</label>
           <textarea
             id="question"
@@ -35,15 +38,15 @@
           <div class="row">
             <p id="char-counter" class="counter" aria-live="polite">0 / 300</p>
           </div>
-          <div class="actions">
+          <div class="actions" aria-label="Основные действия">
             <button id="submit-btn" type="submit">Найти цитату</button>
             <button id="next-btn" type="button" class="secondary-btn hidden">Контрастный вариант</button>
           </div>
-          <p id="form-message" class="message" role="status" aria-live="polite"></p>
+          <p id="form-message" class="message" role="status" aria-live="polite" aria-atomic="true"></p>
         </form>
       </section>
 
-      <section id="result-card" class="card result hidden" aria-live="polite">
+      <section id="result-card" class="card result hidden" aria-live="polite" aria-atomic="true" tabindex="-1">
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>
@@ -51,15 +54,16 @@
 
         <section class="feedback-box" aria-label="Оценка попадания">
           <h2 class="feedback-title">Насколько точно попали в состояние?</h2>
-          <div id="feedback-scale" class="feedback-scale" role="group" aria-label="Шкала попадания от 1 до 5">
-            <button type="button" data-rating="1" class="secondary-btn">1 Совсем нет</button>
-            <button type="button" data-rating="2" class="secondary-btn">2 Слабо</button>
-            <button type="button" data-rating="3" class="secondary-btn">3 Частично</button>
-            <button type="button" data-rating="4" class="secondary-btn">4 Близко</button>
-            <button type="button" data-rating="5" class="secondary-btn">5 Точно</button>
+          <p id="feedback-scale-hint" class="hint">Выберите оценку стрелками или нажатием.</p>
+          <div id="feedback-scale" class="feedback-scale" role="group" aria-label="Шкала попадания от 1 до 5" aria-describedby="feedback-scale-hint">
+            <button type="button" data-rating="1" class="secondary-btn" aria-pressed="false">1 Совсем нет</button>
+            <button type="button" data-rating="2" class="secondary-btn" aria-pressed="false">2 Слабо</button>
+            <button type="button" data-rating="3" class="secondary-btn" aria-pressed="false">3 Частично</button>
+            <button type="button" data-rating="4" class="secondary-btn" aria-pressed="false">4 Близко</button>
+            <button type="button" data-rating="5" class="secondary-btn" aria-pressed="false">5 Точно</button>
           </div>
           <label class="field-label" for="feedback-reason">Если не идеально, в чем промах?</label>
-          <select id="feedback-reason" class="feedback-reason-select">
+          <select id="feedback-reason" class="feedback-reason-select" aria-describedby="feedback-scale-hint">
             <option value="">Выберите причину (необязательно)</option>
             <option value="tone">Не тот тон</option>
             <option value="theme">Не та тема</option>
@@ -68,11 +72,11 @@
             <option value="too_abstract">Слишком абстрактно</option>
           </select>
           <button id="save-feedback-btn" type="button">Сохранить оценку</button>
-          <p id="feedback-message" class="message message-ok" role="status" aria-live="polite"></p>
+          <p id="feedback-message" class="message message-ok" role="status" aria-live="polite" aria-atomic="true"></p>
         </section>
       </section>
 
-      <section id="empty-card" class="card hidden" aria-live="polite">
+      <section id="empty-card" class="card hidden" aria-live="polite" aria-atomic="true" tabindex="-1">
         <h2 class="feedback-title">Пока не нашли точный фрагмент</h2>
         <p class="hint">Попробуйте переформулировать запрос: короче, конкретнее, с одним ключевым чувством.</p>
         <div class="actions">
@@ -80,6 +84,11 @@
           <button id="retry-clear-btn" type="button">Попробовать снова</button>
         </div>
       </section>
+
+      <p class="hint footnote">
+        Сервис не является психодиагностикой. Это рефлексивный инструмент.
+        <a href="/metrics.html">Метрики подбора</a>
+      </p>
     </main>
 
     <script type="module" src="script.js"></script>

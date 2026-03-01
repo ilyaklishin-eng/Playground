@@ -40,6 +40,8 @@ const NKRY_API_AUTH_PREFIX = process.env.NKRY_API_AUTH_PREFIX || "Bearer";
 const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "CLASSICS";
 const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 32 * 1024);
 const FEEDBACK_STORE_PATH = process.env.FEEDBACK_STORE_PATH || path.join(__dirname, "tools", "ranking_feedback_store.json");
+const APP_VERSION = process.env.APP_VERSION || "local";
+const BOOT_AT = Date.now();
 
 const DEFAULT_MODEL = {
   version: 1,
@@ -103,9 +105,18 @@ const metrics = {
   searchEmpty: 0,
   searchErrors: 0,
   repeatedQueries: 0,
-  feedbackEvents: 0
+  feedbackEvents: 0,
+  searchLatencyTotalMs: 0,
+  searchLatencySamples: 0
 };
 const recentQueries = new Map();
+
+function nextRequestId() {
+  return createHash("sha1")
+    .update(`${Date.now()}-${Math.random()}`)
+    .digest("hex")
+    .slice(0, 10);
+}
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -610,7 +621,10 @@ async function fetchNkryConcordance(term, limit) {
 }
 
 async function handleNkrySearch(req, res) {
+  const startedAt = Date.now();
+  metrics.searchRequests += 1;
   if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) {
+    metrics.searchErrors += 1;
     sendJson(res, 503, {
       error: "НКРЯ не настроен на сервере. Задайте NKRY_API_BASE_URL, NKRY_SEARCH_PATH и NKRY_API_KEY."
     });
@@ -622,36 +636,51 @@ async function handleNkrySearch(req, res) {
     body = await parseRequestBody(req);
   } catch (error) {
     if (error && error.message === "payload_too_large") {
+      metrics.searchErrors += 1;
       sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
       return;
     }
+    metrics.searchErrors += 1;
     sendJson(res, 400, { error: "Некорректный JSON в запросе." });
     return;
   }
 
   const query = String(body.query || "").trim();
   const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
+  const variantMode = String(body.variantMode || "");
+  const previousTone = Number(body.previousTone);
+  const excludeAuthors = Array.isArray(body.excludeAuthors)
+    ? body.excludeAuthors.map((x) => normalizeText(String(x || ""))).filter(Boolean)
+    : [];
   const stateWeights = body.stateWeights && typeof body.stateWeights === "object" ? body.stateWeights : {};
   const excludeQuotes = Array.isArray(body.excludeQuotes)
     ? body.excludeQuotes.map((x) => normalizeText(String(x || ""))).filter(Boolean)
     : [];
 
   if (!query) {
+    metrics.searchErrors += 1;
     sendJson(res, 400, { error: "Пустой query." });
     return;
   }
 
   const queryTokens = extractKeywords(query, 10);
   if (!queryTokens.length) {
+    metrics.searchErrors += 1;
     sendJson(res, 400, { error: "Не удалось выделить ключевые слова запроса." });
     return;
   }
 
   const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
   if (!terms.length) {
+    metrics.searchErrors += 1;
     sendJson(res, 400, { error: "Не удалось сформировать термы поиска." });
     return;
   }
+
+  const queryKey = normalizeText(query);
+  const hits = (recentQueries.get(queryKey) || 0) + 1;
+  recentQueries.set(queryKey, hits);
+  if (hits > 1) metrics.repeatedQueries += 1;
 
   let allCandidates = [];
   const settled = await Promise.allSettled(terms.map((term) => fetchNkryConcordance(term, limit)));
@@ -665,8 +694,10 @@ async function handleNkrySearch(req, res) {
   }
 
   if (!allCandidates.length) {
+    metrics.searchEmpty += 1;
     const reason = errors.length ? ` Все термы завершились ошибкой: ${errors.slice(0, 3).join(" | ")}` : "";
     sendJson(res, 502, { error: `НКРЯ недоступен для текущего запроса.${reason}` });
+    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_terms_failed", errors: errors.slice(0, 3) }));
     return;
   }
 
@@ -675,16 +706,60 @@ async function handleNkrySearch(req, res) {
   const dedup = new Map();
   for (const candidate of allCandidates) {
     const key = normalizeText(`${candidate.quote}__${candidate.title}`);
-    const score = scoreCandidate(candidate, queryTokens, queryGroups, stateWeights);
-    const next = { ...candidate, score };
+    const scored = scoreCandidate(candidate, queryTokens, queryGroups, stateWeights, excludeAuthors);
+    const next = { ...candidate, score: scored.score, scoreDetails: scored.components, fingerprint: buildFingerprint(candidate) };
 
-    if (!dedup.has(key) || dedup.get(key).score < score) {
+    if (!dedup.has(key) || dedup.get(key).score < scored.score) {
       dedup.set(key, next);
     }
   }
 
   const ranked = Array.from(dedup.values()).sort((a, b) => b.score - a.score);
-  const top = ranked.find((item) => !excludeQuotes.includes(normalizeText(item.quote))) || ranked[0];
+  const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
+  if (!filtered.length) {
+    metrics.searchEmpty += 1;
+    sendJson(res, 404, { error: "Не удалось выбрать новый фрагмент, попробуйте изменить вопрос." });
+    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_excluded" }));
+    return;
+  }
+
+  let top = filtered[0];
+  if (variantMode === "contrast" && Number.isFinite(previousTone)) {
+    top = filtered
+      .slice(0, 15)
+      .map((item) => {
+        const contrastBonus = Math.abs((item.scoreDetails?.tone || 0) - previousTone) * 1.7;
+        return { item, rankScore: item.score + contrastBonus };
+      })
+      .sort((a, b) => b.rankScore - a.rankScore)[0].item;
+  }
+
+  const alternatives = filtered
+    .filter((item) => item.fingerprint !== top.fingerprint)
+    .slice(0, 3)
+    .map((item) => ({
+      quote: item.quote,
+      author: item.author,
+      title: item.title,
+      year: item.year,
+      sourceName: item.sourceName,
+      tone: item.scoreDetails?.tone || 0,
+      fingerprint: item.fingerprint
+    }));
+
+  metrics.searchSuccess += 1;
+  metrics.searchLatencyTotalMs += Date.now() - startedAt;
+  metrics.searchLatencySamples += 1;
+  console.log(
+    JSON.stringify({
+      type: "search_success",
+      query: queryKey,
+      variantMode: variantMode || "default",
+      matchedTerms: terms.slice(0, 5),
+      topAuthor: top.author,
+      topTitle: top.title
+    })
+  );
 
   sendJson(res, 200, {
     quote: {
@@ -694,9 +769,115 @@ async function handleNkrySearch(req, res) {
       year: top.year,
       sourceName: top.sourceName,
       score: top.score,
-      matchedTerms: terms.slice(0, 5)
-    }
+      matchedTerms: terms.slice(0, 5),
+      tone: top.scoreDetails?.tone || 0,
+      fingerprint: top.fingerprint,
+      scoreDetails: top.scoreDetails
+    },
+    explain:
+      "Скоринг: совпадение запроса + тематическая близость + эмоциональный тон + коррекция по вашему feedback.",
+    alternatives
   });
+}
+
+function applyFeedbackLearning({ rating, reason, candidate }) {
+  const signal = clamp((Number(rating) - 3) / 2, -1, 1);
+  const authorKey = normalizeText(candidate?.author || "");
+  const fingerprint = String(candidate?.fingerprint || "");
+
+  if (authorKey) {
+    feedbackModel.byAuthor[authorKey] = clamp(Number(feedbackModel.byAuthor[authorKey] || 0) + signal * 0.35, -4, 4);
+  }
+  if (fingerprint) {
+    feedbackModel.byFingerprint[fingerprint] = clamp(
+      Number(feedbackModel.byFingerprint[fingerprint] || 0) + signal * 0.55,
+      -5,
+      5
+    );
+  }
+
+  const mappedReason = String(reason || "");
+  if (mappedReason && Object.prototype.hasOwnProperty.call(feedbackModel.byReason, mappedReason)) {
+    feedbackModel.byReason[mappedReason] = clamp(feedbackModel.byReason[mappedReason] + signal * 0.2, -3, 3);
+  }
+
+  if (mappedReason === "tone") feedbackModel.weights.intent = clamp(feedbackModel.weights.intent + signal * 0.08, 0.4, 2.4);
+  if (mappedReason === "theme") {
+    feedbackModel.weights.associative = clamp(feedbackModel.weights.associative + signal * 0.08, 0.4, 2.4);
+    feedbackModel.weights.literal = clamp(feedbackModel.weights.literal + signal * 0.05, 0.4, 2.4);
+  }
+  if (mappedReason === "rhythm") feedbackModel.weights.lengthPenalty = clamp(feedbackModel.weights.lengthPenalty + signal * 0.06, 0.4, 2.4);
+  if (mappedReason === "too_dark") {
+    feedbackModel.weights.literaryPenalty = clamp(feedbackModel.weights.literaryPenalty + Math.max(signal * -0.09, -0.03), 0.4, 2.4);
+  }
+  if (mappedReason === "too_abstract") feedbackModel.weights.intent = clamp(feedbackModel.weights.intent + signal * 0.05, 0.4, 2.4);
+
+  feedbackModel.updatedAt = new Date().toISOString();
+  feedbackModel.recentFeedback.push({
+    ts: feedbackModel.updatedAt,
+    rating: Number(rating),
+    reason: mappedReason,
+    author: candidate?.author || "",
+    title: candidate?.title || ""
+  });
+  feedbackModel.recentFeedback = feedbackModel.recentFeedback.slice(-500);
+  persistFeedbackModel(feedbackModel);
+}
+
+async function handleNkryFeedback(req, res) {
+  let body;
+  try {
+    body = await parseRequestBody(req);
+  } catch (error) {
+    if (error && error.message === "payload_too_large") {
+      sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
+      return;
+    }
+    sendJson(res, 400, { error: "Некорректный JSON в запросе." });
+    return;
+  }
+
+  const rating = Number(body.rating);
+  if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
+    sendJson(res, 400, { error: "Оценка должна быть в диапазоне 1-5." });
+    return;
+  }
+
+  const reason = String(body.reason || "").trim();
+  const candidate = body.candidate && typeof body.candidate === "object" ? body.candidate : {};
+  applyFeedbackLearning({ rating, reason, candidate });
+  metrics.feedbackEvents += 1;
+  console.log(JSON.stringify({ type: "feedback", rating, reason, author: candidate.author || "", title: candidate.title || "" }));
+
+  sendJson(res, 200, {
+    ok: true,
+    updatedAt: feedbackModel.updatedAt,
+    weights: feedbackModel.weights
+  });
+}
+
+function getQualityMetrics() {
+  const ratings = feedbackModel.recentFeedback.map((x) => Number(x.rating)).filter((x) => Number.isFinite(x));
+  const averageRating = ratings.length
+    ? Number((ratings.reduce((acc, x) => acc + x, 0) / ratings.length).toFixed(3))
+    : null;
+  const searchLatencyAvgMs = metrics.searchLatencySamples
+    ? Number((metrics.searchLatencyTotalMs / metrics.searchLatencySamples).toFixed(2))
+    : null;
+
+  return {
+    searchRequests: metrics.searchRequests,
+    searchSuccess: metrics.searchSuccess,
+    searchEmpty: metrics.searchEmpty,
+    searchErrors: metrics.searchErrors,
+    repeatedQueries: metrics.repeatedQueries,
+    feedbackEvents: metrics.feedbackEvents,
+    successRate: metrics.searchRequests ? Number((metrics.searchSuccess / metrics.searchRequests).toFixed(4)) : 0,
+    noResultRate: metrics.searchRequests ? Number((metrics.searchEmpty / metrics.searchRequests).toFixed(4)) : 0,
+    searchLatencyAvgMs,
+    averageRating,
+    modelUpdatedAt: feedbackModel.updatedAt || null
+  };
 }
 
 function serveStatic(req, res) {
@@ -727,17 +908,74 @@ function serveStatic(req, res) {
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === "POST" && req.url === "/api/nkry/search") {
-    await handleNkrySearch(req, res);
-    return;
-  }
+  const requestId = nextRequestId();
+  const startedAt = Date.now();
+  res.on("finish", () => {
+    console.log(
+      JSON.stringify({
+        type: "http_access",
+        requestId,
+        method: req.method,
+        url: req.url,
+        statusCode: res.statusCode,
+        durationMs: Date.now() - startedAt
+      })
+    );
+  });
 
-  if (req.method !== "GET" && req.method !== "HEAD") {
-    sendJson(res, 405, { error: "Method not allowed" });
-    return;
-  }
+  try {
+    if (req.method === "POST" && req.url === "/api/nkry/search") {
+      await handleNkrySearch(req, res);
+      return;
+    }
 
-  serveStatic(req, res);
+    if (req.method === "POST" && req.url === "/api/nkry/feedback") {
+      await handleNkryFeedback(req, res);
+      return;
+    }
+
+    if (req.method === "GET" && req.url === "/api/metrics") {
+      sendJson(res, 200, {
+        ...getQualityMetrics(),
+        appVersion: APP_VERSION,
+        uptimeSec: Math.floor((Date.now() - BOOT_AT) / 1000),
+        now: new Date().toISOString()
+      });
+      return;
+    }
+
+    if (req.method === "GET" && req.url === "/api/health") {
+      sendJson(res, 200, {
+        ok: true,
+        appVersion: APP_VERSION,
+        uptimeSec: Math.floor((Date.now() - BOOT_AT) / 1000),
+        now: new Date().toISOString()
+      });
+      return;
+    }
+
+    if (req.method !== "GET" && req.method !== "HEAD") {
+      sendJson(res, 405, { error: "Method not allowed" });
+      return;
+    }
+
+    serveStatic(req, res);
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        type: "http_unhandled_error",
+        requestId,
+        method: req.method,
+        url: req.url,
+        message: error?.message || String(error)
+      })
+    );
+    if (!res.headersSent) {
+      sendJson(res, 500, { error: "Internal server error" });
+    } else {
+      res.end();
+    }
+  }
 });
 
 server.listen(PORT, HOST, () => {
