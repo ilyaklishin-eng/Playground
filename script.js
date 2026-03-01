@@ -157,14 +157,64 @@ function escapeRegex(text) {
   return String(text || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function normalizeComparable(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replaceAll("ё", "е")
+    .replace(/[^a-zа-я0-9]+/gi, "");
+}
+
 function dedupeAuthorInTitle(author, title) {
   const cleanAuthor = String(author || "").trim();
   const cleanTitle = String(title || "").trim();
   if (!cleanAuthor || !cleanTitle) return cleanTitle || "Без названия";
 
+  const authorKey = normalizeComparable(cleanAuthor);
+  let out = cleanTitle;
+
+  for (let i = 0; i < 2; i += 1) {
+    const m = out.match(/^\s*([^.—–\-:]+)\s*[.—–\-:]\s*(.*)$/u);
+    if (!m) break;
+    const lead = String(m[1] || "").trim();
+    const rest = String(m[2] || "").trim();
+    const leadKey = normalizeComparable(lead);
+
+    if (!leadKey) break;
+    const isSameAuthor =
+      leadKey === authorKey
+      || authorKey.startsWith(leadKey)
+      || leadKey.startsWith(authorKey);
+    if (!isSameAuthor) break;
+    out = rest;
+  }
+
   const leadingAuthorPattern = new RegExp(`^\\s*${escapeRegex(cleanAuthor)}\\s*[.\\-–—,:;]*\\s*`, "iu");
-  const deduped = cleanTitle.replace(leadingAuthorPattern, "").trim();
+  const deduped = out.replace(leadingAuthorPattern, "").trim();
   return deduped || cleanTitle;
+}
+
+function normalizeYearText(value) {
+  return String(value || "")
+    .replace(/[–—]/g, "-")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+function isYearAlreadyInTitle(title, year) {
+  const y = normalizeYearText(year);
+  if (!y) return false;
+  const t = normalizeYearText(title);
+  return t.includes(y);
+}
+
+function formatMetaLine(author, title, year) {
+  const cleanAuthor = String(author || "Не указан").trim() || "Не указан";
+  const cleanTitle = String(title || "Без названия").trim() || "Без названия";
+  const cleanYear = String(year || "").trim();
+
+  const base = `${cleanAuthor} — ${cleanTitle}`;
+  if (!cleanYear || isYearAlreadyInTitle(cleanTitle, cleanYear)) return base;
+  return `${base}, ${cleanYear}`;
 }
 
 function normalizeForMatch(text) {
@@ -355,9 +405,7 @@ async function showResult(payload) {
   const tail = typographic.tail ? escapeHtml(typographic.tail) : "";
 
   quoteTextNode.innerHTML = `«${quoteHtml}»${tail}`;
-  quoteMetaNode.textContent = quote.year
-    ? `${quote.author} — ${title}, ${quote.year}`
-    : `${quote.author} — ${title}`;
+  quoteMetaNode.textContent = formatMetaLine(quote.author, title, quote.year);
   quoteSourceNode.textContent = `Источник: ${quote.sourceName}`;
   resultWordNode.textContent = matchedWord ? `Слово: ${matchedWord}` : "";
   await renderRulerByYear(quote.year);
