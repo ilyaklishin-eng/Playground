@@ -7,6 +7,7 @@ const resultCardNode = document.getElementById("result-card");
 const quoteTextNode = document.getElementById("quote-text");
 const quoteMetaNode = document.getElementById("quote-meta");
 const quoteSourceNode = document.getElementById("quote-source");
+const resultWordNode = document.getElementById("result-word");
 const contextGridNode = document.getElementById("context-grid");
 const rulerCardNode = document.getElementById("ruler-card");
 const rulerImageNode = document.getElementById("ruler-image");
@@ -233,16 +234,22 @@ function setMessage(text, isError = false) {
 async function showResult(payload) {
   const quote = sanitizeQuote(payload.quote);
   if (!quote) throw new Error("НКРЯ не вернул корректную цитату.");
+  const matchedWord = normalizeWord(payload?.meta?.matchedWord || "");
 
   quoteTextNode.textContent = `«${quote.quote}»`;
   quoteMetaNode.textContent = quote.year
     ? `${quote.author} — ${quote.title}, ${quote.year}`
     : `${quote.author} — ${quote.title}`;
   quoteSourceNode.textContent = `Источник: ${quote.sourceName}`;
+  resultWordNode.textContent = matchedWord ? `Слово: ${matchedWord}` : "";
   await renderRulerByYear(quote.year);
 
   resultCardNode.classList.remove("hidden");
+  resultCardNode.classList.remove("fade-in");
+  void resultCardNode.offsetWidth;
+  resultCardNode.classList.add("fade-in");
   resultCardNode.focus();
+  resultCardNode.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 async function requestFirstUsage(word) {

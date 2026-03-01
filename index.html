@@ -18,6 +18,11 @@
         <p class="mark">НКРЯ · MAIN</p>
         <h1>Первое употребление слова</h1>
         <p class="subtitle">Введите одно слово, например, «самолет» или «картошка», и получите самую раннюю фиксацию в НКРЯ.</p>
+        <div class="hero-chips">
+          <span class="chip">Один запрос = одно слово</span>
+          <span class="chip">Корпус: Основной</span>
+          <span class="chip">Результат: самое раннее вхождение</span>
+        </div>
       </header>
 
       <section class="panel">
@@ -42,7 +47,10 @@
       </section>
 
       <section id="result-card" class="panel result hidden" aria-live="polite" aria-atomic="true" tabindex="-1">
-        <p class="result-label">Первая фиксация в корпусе</p>
+        <div class="result-head">
+          <p class="result-label">Первая фиксация в корпусе</p>
+          <p id="result-word" class="result-word"></p>
+        </div>
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>
