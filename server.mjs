@@ -530,7 +530,7 @@ const STOPWORDS = new Set([
   "как", "ко", "когда", "кто", "ли", "лишь", "мне", "много", "можно", "мой", "мы", "на", "над", "надо", "нас", "не", "него",
   "нее", "неё", "нет", "ни", "но", "ну", "о", "об", "одна", "одни", "он", "она", "они", "оно", "от", "очень", "по", "под",
   "при", "про", "раз", "с", "сам", "себя", "сейчас", "снова", "собой", "так", "там", "тебя", "тем", "то", "только", "тут",
-  "ты", "у", "уже", "хоть", "хочу", "чего", "чем", "что", "чтобы", "эта", "эти", "это", "я"
+  "ты", "у", "уже", "хоть", "хочу", "чего", "чем", "что", "чтобы", "эта", "эти", "это", "я", "почему", "зачем"
 ]);
 
 const ASSOCIATIVE_GROUPS = {
@@ -566,6 +566,13 @@ const CONCEPT_PROFILES = [
     forbidden: ["государ", "подат", "уголов", "судопроизв", "губерн", "департамент", "канцеляр"]
   }
 ];
+
+const ENTITY_ALIAS_STEMS = {
+  маркс: ["маркс", "марксизм", "социал", "коммуниз", "капитал", "класс", "пролетар", "революц"],
+  ленин: ["ленин", "большев", "революц", "совет", "парт"],
+  ницше: ["ницше", "сверхчеловек", "воля", "морал"],
+  фрейд: ["фрейд", "психоан", "бессозн", "либид"]
+};
 
 function sendJson(res, status, payload) {
   const body = JSON.stringify(payload);
@@ -716,6 +723,33 @@ function normalizeQueryText(text) {
     .trim();
 }
 
+function extractNamedEntities(rawText = "") {
+  const matches = String(rawText || "").match(/\b[А-ЯЁ][а-яё-]{2,}\b/g) || [];
+  const out = [];
+  const seen = new Set();
+  for (const item of matches) {
+    const token = normalizeText(item);
+    if (!token || STOPWORDS.has(token)) continue;
+    if (["почему", "зачем", "что", "где", "когда", "кто", "как"].includes(token)) continue;
+    if (seen.has(token)) continue;
+    seen.add(token);
+    out.push(token);
+  }
+  return out.slice(0, 4);
+}
+
+function buildEntityStems(entities = []) {
+  const stems = new Set();
+  for (const entity of entities) {
+    const normalized = normalizeText(entity);
+    if (!normalized) continue;
+    stems.add(stemPrefix(normalized));
+    const aliases = ENTITY_ALIAS_STEMS[normalized] || [];
+    for (const alias of aliases) stems.add(stemPrefix(normalizeText(alias)));
+  }
+  return Array.from(stems);
+}
+
 function detectConceptProfile(queryText) {
   const normalized = normalizeQueryText(queryText);
   return CONCEPT_PROFILES.find((profile) => profile.pattern.test(normalized)) || null;
@@ -772,6 +806,8 @@ function extractWeightedKeywords(text, limit = 10) {
     if (token.length >= 7) weight += 0.15;
     if (token.length >= 10) weight += 0.15;
     if (/(смысл|любов|тревог|надеж|свобод|жизн|утрат|боль|страх)/.test(token)) weight += 0.2;
+    if (/(прав|правд|вопрос|почему|зачем)/.test(token)) weight -= 0.55;
+    weight = Math.max(0.2, weight);
 
     scored.push({ token, weight: Number(weight.toFixed(3)) });
   }
@@ -951,7 +987,7 @@ function detectQueryGroups(tokens) {
   return groups;
 }
 
-function buildQueryContext(queryTokens, queryText = "", bridge = null) {
+function buildQueryContext(queryTokens, queryText = "", bridge = null, queryEntities = []) {
   const tokenSet = new Set((queryTokens || []).map((token) => stemPrefix(String(token || ""))));
   const normalized = normalizeQueryText(queryText);
 
@@ -994,6 +1030,7 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
   const isMeaningOfLife = /(смысл жизни|в чем смысл жизни|зачем жить|для чего жить)/.test(normalized);
 
   const conceptProfile = detectConceptProfile(normalized);
+  const entityStems = buildEntityStems(queryEntities);
 
   return {
     isIntrospective,
@@ -1003,6 +1040,8 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
     isCosmology: Boolean(bridge?.isCosmology),
     isWritingTheory: Boolean(bridge?.isWritingTheory),
     conceptProfile,
+    queryEntities,
+    entityStems,
     isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
     startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
@@ -1065,8 +1104,10 @@ function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext
   const writingTheoryHit = /(язык|слов|текст|стил|литерат|поэтик|знак|речь|письмен)/.test(doc);
   const profileRequired = Array.isArray(queryContext?.conceptProfile?.required) ? queryContext.conceptProfile.required : [];
   const profileForbidden = Array.isArray(queryContext?.conceptProfile?.forbidden) ? queryContext.conceptProfile.forbidden : [];
+  const entityStems = Array.isArray(queryContext?.entityStems) ? queryContext.entityStems : [];
   const requiredHits = profileRequired.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
   const forbiddenHits = profileForbidden.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
+  const entityHits = entityStems.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
   return {
     matched,
     queryTokenCount: tokens.length,
@@ -1076,6 +1117,7 @@ function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext
     writingTheoryHit,
     requiredHits,
     forbiddenHits,
+    entityHits,
     queryContext
   };
 }
@@ -1091,8 +1133,13 @@ function passesSemanticGate(signals) {
     writingTheoryHit,
     requiredHits,
     forbiddenHits,
+    entityHits,
     queryContext
   } = signals;
+
+  if (Array.isArray(queryContext?.queryEntities) && queryContext.queryEntities.length > 0) {
+    if (entityHits < 1) return false;
+  }
 
   if (queryContext?.conceptProfile) {
     if (forbiddenHits > 0) return false;
@@ -1655,6 +1702,7 @@ async function handleNkrySearch(req, res) {
 
   const queryRaw = String(body.query || "").trim();
   const query = normalizeQueryText(queryRaw);
+  const queryEntities = extractNamedEntities(queryRaw);
   const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
   const variantMode = String(body.variantMode || "");
   const previousTone = Number(body.previousTone);
@@ -1684,7 +1732,7 @@ async function handleNkrySearch(req, res) {
     return;
   }
   const queryGroups = detectQueryGroups(queryTokens);
-  const queryContext = buildQueryContext(queryTokens, query, conceptualBridge);
+  const queryContext = buildQueryContext(queryTokens, query, conceptualBridge, queryEntities);
   const styleGenreSignals = detectStyleGenreSignals(query);
   if (queryContext.isBigBang) {
     for (const token of ["взрыв", "взрыва", "большой", "произошел", "произошла", "произошло"]) {
