@@ -656,6 +656,87 @@ function extractWeightedKeywords(text, limit = 10) {
   return scored.slice(0, limit);
 }
 
+function buildConceptualBridge(queryText, baseTokens = []) {
+  const normalized = normalizeQueryText(queryText);
+  const tokenSet = new Set(baseTokens.map((token) => stemPrefix(String(token || ""))));
+  const hasStem = (stem) => {
+    if (normalized.includes(stem)) return true;
+    for (const token of tokenSet) {
+      if (token.includes(stem) || stem.includes(token)) return true;
+    }
+    return false;
+  };
+
+  const bridge = {
+    tokenWeights: {},
+    searchTerms: [],
+    preferredStems: [],
+    avoidStems: [],
+    forceIntrospective: false
+  };
+
+  const add = (term, weight = 1.2) => {
+    const token = normalizeText(term).split(" ")[0];
+    if (!token || token.length < 3) return;
+    bridge.tokenWeights[token] = Math.max(Number(bridge.tokenWeights[token] || 0), Number(weight));
+    bridge.searchTerms.push(token);
+  };
+
+  const downWeight = (stem, factor = 0.35) => {
+    for (const token of Object.keys(bridge.tokenWeights)) {
+      if (token.includes(stem) || stem.includes(stemPrefix(token))) {
+        bridge.tokenWeights[token] = Number((bridge.tokenWeights[token] * factor).toFixed(3));
+      }
+    }
+  };
+
+  const isBigBang = normalized.includes("большой взрыв")
+    || (hasStem("больш") && hasStem("взрыв"))
+    || hasStem("bigbang");
+  const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
+
+  if (isCosmology) {
+    bridge.forceIntrospective = true;
+    ["вселенная", "мироздание", "бытие", "смысл", "мир", "вечность", "творение", "бог", "начало", "хаос", "порядок"]
+      .forEach((term, idx) => add(term, idx < 6 ? 1.95 : 1.45));
+    bridge.preferredStems.push("вселен", "мироздан", "быт", "смысл", "вечност", "бог", "твор", "начал");
+    bridge.avoidStems.push("губерн", "подат", "чинов", "вельмож", "государ");
+  }
+
+  if (hasStem("почему") && (hasStem("зачем") || hasStem("смысл") || isCosmology)) {
+    bridge.forceIntrospective = true;
+    ["причина", "первооснова", "истина", "судьба", "душа"].forEach((term) => add(term, 1.35));
+  }
+
+  if (isBigBang) {
+    downWeight("больш");
+    downWeight("взрыв");
+    downWeight("произош");
+  }
+
+  return bridge;
+}
+
+function mergeWeightedKeywords(baseWeighted, bridgeTokenWeights = {}, limit = 12) {
+  const map = new Map();
+  for (const item of baseWeighted || []) {
+    const token = String(item?.token || "");
+    const weight = Number(item?.weight || 0);
+    if (!token || !Number.isFinite(weight)) continue;
+    map.set(token, Math.max(weight, Number(map.get(token) || 0)));
+  }
+  for (const [token, weight] of Object.entries(bridgeTokenWeights || {})) {
+    if (!token) continue;
+    const numericWeight = Number(weight || 0);
+    if (!Number.isFinite(numericWeight)) continue;
+    map.set(token, Math.max(numericWeight, Number(map.get(token) || 0)));
+  }
+  return Array.from(map.entries())
+    .map(([token, weight]) => ({ token, weight: Number(weight.toFixed(3)) }))
+    .sort((a, b) => b.weight - a.weight || b.token.length - a.token.length)
+    .slice(0, limit);
+}
+
 function detectStyleGenreSignals(queryText) {
   const text = normalizeQueryText(queryText);
   const wantsPoetry = /(стих|поэз|лирик|сонет|ода|элег)/.test(text);
@@ -716,7 +797,7 @@ function detectQueryGroups(tokens) {
   return groups;
 }
 
-function buildQueryContext(queryTokens, queryText = "") {
+function buildQueryContext(queryTokens, queryText = "", bridge = null) {
   const tokenSet = new Set((queryTokens || []).map((token) => stemPrefix(String(token || ""))));
   const normalized = normalizeQueryText(queryText);
 
@@ -736,7 +817,7 @@ function buildQueryContext(queryTokens, queryText = "") {
       return false;
     });
 
-  const isIntrospective = hasAny(introspectiveStems);
+  const isIntrospective = hasAny(introspectiveStems) || Boolean(bridge?.forceIntrospective);
   const isPolitical = hasAny(politicalStems);
 
   const preferredStems = [];
@@ -747,6 +828,14 @@ function buildQueryContext(queryTokens, queryText = "") {
   } else if (isPolitical) {
     preferredStems.push("государ", "закон", "власт", "граждан", "общест");
   }
+  if (bridge && typeof bridge === "object") {
+    for (const stem of bridge.preferredStems || []) {
+      if (stem && !preferredStems.includes(stem)) preferredStems.push(stem);
+    }
+    for (const stem of bridge.avoidStems || []) {
+      if (stem && !avoidStems.includes(stem)) avoidStems.push(stem);
+    }
+  }
 
   return {
     isIntrospective,
@@ -756,7 +845,7 @@ function buildQueryContext(queryTokens, queryText = "") {
   };
 }
 
-function buildSearchTerms({ query, terms, stateWeights }) {
+function buildSearchTerms({ query, terms, stateWeights, bridgeTerms }) {
   const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
   const out = [...queryTerms];
 
@@ -771,6 +860,11 @@ function buildSearchTerms({ query, terms, stateWeights }) {
       if (Number(score) < 0.75) continue;
       const stems = ASSOCIATIVE_GROUPS[group] || [];
       if (stems.length) out.push(stems[0]);
+    }
+  }
+  if (Array.isArray(bridgeTerms)) {
+    for (const term of bridgeTerms) {
+      if (typeof term === "string" && term.trim()) out.push(term.trim());
     }
   }
 
@@ -1249,7 +1343,9 @@ async function handleNkrySearch(req, res) {
     return;
   }
 
-  const weightedKeywords = extractWeightedKeywords(query, 10);
+  const baseWeightedKeywords = extractWeightedKeywords(query, 10);
+  const conceptualBridge = buildConceptualBridge(query, baseWeightedKeywords.map((item) => item.token));
+  const weightedKeywords = mergeWeightedKeywords(baseWeightedKeywords, conceptualBridge.tokenWeights, 12);
   const queryTokens = weightedKeywords.map((item) => item.token);
   const queryTokenWeights = Object.fromEntries(weightedKeywords.map((item) => [item.token, item.weight]));
   if (!queryTokens.length) {
@@ -1258,10 +1354,15 @@ async function handleNkrySearch(req, res) {
     return;
   }
   const queryGroups = detectQueryGroups(queryTokens);
-  const queryContext = buildQueryContext(queryTokens, query);
+  const queryContext = buildQueryContext(queryTokens, query, conceptualBridge);
   const styleGenreSignals = detectStyleGenreSignals(query);
 
-  const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
+  const terms = buildSearchTerms({
+    query,
+    terms: body.terms,
+    stateWeights,
+    bridgeTerms: conceptualBridge.searchTerms
+  });
   if (!terms.length) {
     markSearchError();
     sendJson(res, 400, { error: "Не удалось сформировать термы поиска." });
