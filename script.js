@@ -7,10 +7,15 @@ const resultCardNode = document.getElementById("result-card");
 const quoteTextNode = document.getElementById("quote-text");
 const quoteMetaNode = document.getElementById("quote-meta");
 const quoteSourceNode = document.getElementById("quote-source");
+const contextGridNode = document.getElementById("context-grid");
 const rulerCardNode = document.getElementById("ruler-card");
 const rulerImageNode = document.getElementById("ruler-image");
 const rulerTitleNode = document.getElementById("ruler-title");
 const rulerMetaNode = document.getElementById("ruler-meta");
+const artCardNode = document.getElementById("art-card");
+const artImageNode = document.getElementById("art-image");
+const artTitleNode = document.getElementById("art-title");
+const artMetaNode = document.getElementById("art-meta");
 
 const rulerPhotoCache = new Map();
 const RULERS = [
@@ -38,6 +43,64 @@ const RULERS = [
   { from: 2000, to: 2008, name: "Владимир Путин", role: "Президент России", wikiTitle: "Путин,_Владимир_Владимирович" },
   { from: 2008, to: 2012, name: "Дмитрий Медведев", role: "Президент России", wikiTitle: "Медведев,_Дмитрий_Анатольевич" },
   { from: 2012, to: 2026, name: "Владимир Путин", role: "Президент России", wikiTitle: "Путин,_Владимир_Владимирович" }
+];
+const DECADE_ART = [
+  {
+    from: 1760,
+    to: 1799,
+    title: "Портрет А. В. Храповицкого",
+    artist: "Д. Г. Левицкий, 1781",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
+  },
+  {
+    from: 1800,
+    to: 1839,
+    title: "Последний день Помпеи",
+    artist: "К. П. Брюллов, 1833",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg/640px-Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg"
+  },
+  {
+    from: 1840,
+    to: 1869,
+    title: "Явление Христа народу",
+    artist: "А. А. Иванов, 1857",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
+  },
+  {
+    from: 1870,
+    to: 1899,
+    title: "Грачи прилетели",
+    artist: "А. К. Саврасов, 1871",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Savrasov_Grachi_prileteli.jpg/640px-Savrasov_Grachi_prileteli.jpg"
+  },
+  {
+    from: 1900,
+    to: 1929,
+    title: "Купание красного коня",
+    artist: "К. С. Петров-Водкин, 1912",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg/640px-Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg"
+  },
+  {
+    from: 1930,
+    to: 1959,
+    title: "Новая Москва",
+    artist: "Ю. И. Пименов, 1937",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yuri_Pimenov_New_Moscow_1937.jpg/640px-Yuri_Pimenov_New_Moscow_1937.jpg"
+  },
+  {
+    from: 1960,
+    to: 1989,
+    title: "Суровый стиль (эпоха)",
+    artist: "Советская живопись 1960-х",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Viktor_Popkov_Builders_of_Bratsk.jpg/640px-Viktor_Popkov_Builders_of_Bratsk.jpg"
+  },
+  {
+    from: 1990,
+    to: 2029,
+    title: "Современная российская живопись",
+    artist: "Рубеж XX–XXI вв.",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/State_Tretyakov_Gallery_10.jpg/640px-State_Tretyakov_Gallery_10.jpg"
+  }
 ];
 
 function normalizeWord(raw) {
@@ -90,6 +153,11 @@ function getRulerByYear(year) {
   return RULERS.find((ruler) => year >= ruler.from && year <= ruler.to) || null;
 }
 
+function getArtByYear(year) {
+  if (!Number.isFinite(year)) return null;
+  return DECADE_ART.find((art) => year >= art.from && year <= art.to) || null;
+}
+
 async function loadRulerPhoto(wikiTitle) {
   if (!wikiTitle) return "";
   if (rulerPhotoCache.has(wikiTitle)) return rulerPhotoCache.get(wikiTitle);
@@ -110,26 +178,46 @@ async function loadRulerPhoto(wikiTitle) {
 async function renderRulerByYear(rawYear) {
   const year = extractYear(rawYear);
   const ruler = getRulerByYear(year);
-  if (!ruler) {
-    rulerCardNode.classList.add("hidden");
-    return;
-  }
+  const art = getArtByYear(year);
 
-  rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.name}`;
-  rulerMetaNode.textContent = `${ruler.role} (${ruler.from}–${ruler.to})`;
+  let hasContext = false;
 
-  const photo = await loadRulerPhoto(ruler.wikiTitle);
-  if (photo) {
-    rulerImageNode.src = photo;
-    rulerImageNode.alt = `${ruler.name}`;
-    rulerImageNode.classList.remove("hidden");
+  if (ruler) {
+    rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.name}`;
+    rulerMetaNode.textContent = `${ruler.role} (${ruler.from}–${ruler.to})`;
+
+    const photo = await loadRulerPhoto(ruler.wikiTitle);
+    if (photo) {
+      rulerImageNode.src = photo;
+      rulerImageNode.alt = `${ruler.name}`;
+      rulerImageNode.classList.remove("hidden");
+    } else {
+      rulerImageNode.removeAttribute("src");
+      rulerImageNode.alt = "";
+      rulerImageNode.classList.add("hidden");
+    }
+    rulerCardNode.classList.remove("hidden");
+    hasContext = true;
   } else {
-    rulerImageNode.removeAttribute("src");
-    rulerImageNode.alt = "";
-    rulerImageNode.classList.add("hidden");
+    rulerCardNode.classList.add("hidden");
   }
 
-  rulerCardNode.classList.remove("hidden");
+  if (art) {
+    artTitleNode.textContent = `Атмосфера десятилетия: ${art.title}`;
+    artMetaNode.textContent = art.artist;
+    artImageNode.src = art.image;
+    artImageNode.alt = art.title;
+    artImageNode.classList.remove("hidden");
+    artCardNode.classList.remove("hidden");
+    hasContext = true;
+  } else {
+    artImageNode.removeAttribute("src");
+    artImageNode.alt = "";
+    artImageNode.classList.add("hidden");
+    artCardNode.classList.add("hidden");
+  }
+
+  contextGridNode.classList.toggle("hidden", !hasContext);
 }
 
 function setBusy(isBusy) {

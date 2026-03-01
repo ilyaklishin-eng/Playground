@@ -194,8 +194,14 @@ button:disabled {
   font-size: 14px;
 }
 
-.ruler {
+.context-grid {
   margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.context-card {
   display: grid;
   grid-template-columns: 96px 1fr;
   gap: 12px;
@@ -206,7 +212,7 @@ button:disabled {
   background: #f8fbff;
 }
 
-.ruler img {
+.context-card img {
   width: 96px;
   height: 96px;
   border-radius: 10px;
@@ -214,13 +220,13 @@ button:disabled {
   border: 1px solid #cad8ef;
 }
 
-.ruler-title {
+.context-title {
   margin: 0;
   font-size: 15px;
   font-weight: 700;
 }
 
-.ruler-meta {
+.context-meta {
   margin: 4px 0 0;
   font-size: 13px;
   color: var(--muted);
@@ -262,11 +268,15 @@ button:disabled {
     font-size: 15px;
   }
 
-  .ruler {
+  .context-grid {
     grid-template-columns: 1fr;
   }
 
-  .ruler img {
+  .context-card {
+    grid-template-columns: 1fr;
+  }
+
+  .context-card img {
     width: 78px;
     height: 78px;
   }

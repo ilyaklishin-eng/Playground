@@ -17,7 +17,7 @@
       <header class="hero">
         <p class="mark">НКРЯ · MAIN</p>
         <h1>Первое употребление слова</h1>
-        <p class="subtitle">Введите одно слово, например «самолет» или «картошка», и получите самую раннюю фиксацию в НКРЯ.</p>
+        <p class="subtitle">Введите одно слово, например, «самолет» или «картошка», и получите самую раннюю фиксацию в НКРЯ.</p>
       </header>
 
       <section class="panel">
@@ -46,11 +46,20 @@
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>
-        <div id="ruler-card" class="ruler hidden">
-          <img id="ruler-image" alt="" loading="lazy" />
-          <div class="ruler-text">
-            <p id="ruler-title" class="ruler-title"></p>
-            <p id="ruler-meta" class="ruler-meta"></p>
+        <div id="context-grid" class="context-grid hidden">
+          <div id="ruler-card" class="context-card">
+            <img id="ruler-image" alt="" loading="lazy" />
+            <div class="context-text">
+              <p id="ruler-title" class="context-title"></p>
+              <p id="ruler-meta" class="context-meta"></p>
+            </div>
+          </div>
+          <div id="art-card" class="context-card">
+            <img id="art-image" alt="" loading="lazy" />
+            <div class="context-text">
+              <p id="art-title" class="context-title"></p>
+              <p id="art-meta" class="context-meta"></p>
+            </div>
           </div>
         </div>
       </section>
