@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Цитаты из русской классики</title>
+    <title>Небесный цитатник</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,23 +15,23 @@
   <body>
     <main class="page">
       <header class="hero">
-        <h1>Цитаты из русской классики</h1>
-        <p>Введите вопрос, и сервис подберет релевантную цитату из НКРЯ.</p>
+        <p class="mark">NKRY</p>
+        <h1>Небесный цитатник</h1>
       </header>
 
       <section class="panel">
         <form id="query-form" novalidate>
-          <label class="label" for="question">Ваш вопрос</label>
+          <label class="sr-only" for="question">Ваш вопрос</label>
           <textarea
             id="question"
             name="question"
             maxlength="300"
-            rows="4"
-            placeholder="Например: в чем смысл жизни?"
+            rows="3"
+            placeholder="Ваш вопрос"
             required
             aria-describedby="counter"
           ></textarea>
-          <p id="counter" class="counter">0 / 300</p>
+          <p id="counter" class="counter">0/300</p>
 
           <div class="actions">
             <button id="submit-btn" type="submit">Найти цитату</button>
