@@ -3,46 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Небесный цитатник</title>
+    <title>НКРЯ: Первое употребление</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="page">
       <header class="hero">
-        <p class="mark">НКРЯ</p>
-        <h1>Небесный цитатник</h1>
-        <p class="subtitle">Короткий вопрос. Точная цитата.</p>
+        <p class="mark">НКРЯ · MAIN</p>
+        <h1>Первое употребление слова</h1>
+        <p class="subtitle">Введите одно слово, например «самолет» или «картошка», и получите самую раннюю фиксацию в НКРЯ.</p>
       </header>
 
       <section class="panel">
         <form id="query-form" novalidate>
-          <label class="sr-only" for="question">Ваш вопрос</label>
-          <textarea
-            id="question"
-            name="question"
-            maxlength="300"
-            rows="3"
-            placeholder="Сформулируйте вопрос"
+          <label for="word" class="label">Слово</label>
+          <input
+            id="word"
+            name="word"
+            type="text"
+            maxlength="48"
+            placeholder="например: любовь"
+            autocomplete="off"
             required
-            aria-describedby="counter"
-          ></textarea>
-          <p id="counter" class="counter">0/300</p>
+          />
 
           <div class="actions">
-            <button id="submit-btn" type="submit">Найти цитату</button>
-            <button id="next-btn" type="button" class="ghost hidden">Еще цитата</button>
+            <button id="submit-btn" type="submit">Показать первое употребление</button>
           </div>
           <p id="message" class="message" role="status" aria-live="polite"></p>
         </form>
       </section>
 
       <section id="result-card" class="panel result hidden" aria-live="polite" aria-atomic="true" tabindex="-1">
+        <p class="result-label">Первая фиксация в корпусе</p>
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>

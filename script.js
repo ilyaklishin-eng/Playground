@@ -1,10 +1,6 @@
-import { MAX_QUESTION_LEN, pushShownQuote, sanitizeQuote, validateQuestion } from "./app/client-runtime.js";
-
 const form = document.getElementById("query-form");
-const questionNode = document.getElementById("question");
-const counterNode = document.getElementById("counter");
+const wordNode = document.getElementById("word");
 const submitBtn = document.getElementById("submit-btn");
-const nextBtn = document.getElementById("next-btn");
 const messageNode = document.getElementById("message");
 
 const resultCardNode = document.getElementById("result-card");
@@ -12,31 +8,47 @@ const quoteTextNode = document.getElementById("quote-text");
 const quoteMetaNode = document.getElementById("quote-meta");
 const quoteSourceNode = document.getElementById("quote-source");
 
-let lastQuestion = "";
-let shownQuotes = [];
-let shownAuthors = [];
+function normalizeWord(raw) {
+  return String(raw || "")
+    .trim()
+    .toLowerCase()
+    .replaceAll("ё", "е")
+    .replace(/[^a-zа-я0-9-]/gi, "");
+}
+
+function validateWord(rawWord) {
+  const word = normalizeWord(rawWord);
+  if (!word) return { ok: false, reason: "Введите одно слово.", value: "" };
+  if (word.length < 2 || word.length > 48) {
+    return { ok: false, reason: "Слово должно быть длиной от 2 до 48 символов.", value: word };
+  }
+  if (!/^[a-zа-я0-9]+(?:-[a-zа-я0-9]+)?$/i.test(word)) {
+    return { ok: false, reason: "Разрешены только буквы/цифры и один дефис внутри слова.", value: word };
+  }
+  return { ok: true, reason: "", value: word };
+}
+
+function sanitizeQuote(item) {
+  if (!item || typeof item !== "object") return null;
+  const quote = String(item.quote || "").trim();
+  if (!quote) return null;
+  return {
+    quote,
+    author: String(item.author || "Не указан"),
+    title: String(item.title || "Без названия"),
+    year: String(item.year || ""),
+    sourceName: String(item.sourceName || "НКРЯ")
+  };
+}
 
 function setBusy(isBusy) {
   submitBtn.disabled = isBusy;
-  nextBtn.disabled = isBusy;
-  submitBtn.textContent = isBusy ? "Ищем..." : "Найти цитату";
+  submitBtn.textContent = isBusy ? "Ищем..." : "Показать первое употребление";
 }
 
 function setMessage(text, isError = false) {
   messageNode.textContent = text || "";
   messageNode.classList.toggle("error", isError);
-}
-
-function updateCounter() {
-  counterNode.textContent = `${questionNode.value.length} / ${MAX_QUESTION_LEN}`;
-}
-
-function resetContext(question) {
-  lastQuestion = question;
-  shownQuotes = [];
-  shownAuthors = [];
-  nextBtn.classList.add("hidden");
-  resultCardNode.classList.add("hidden");
 }
 
 function showResult(payload) {
@@ -47,27 +59,17 @@ function showResult(payload) {
   quoteMetaNode.textContent = quote.year
     ? `${quote.author} — ${quote.title}, ${quote.year}`
     : `${quote.author} — ${quote.title}`;
-  quoteSourceNode.textContent = `Источник: ${quote.sourceName || "НКРЯ"}`;
-
-  shownQuotes = pushShownQuote(shownQuotes, quote.quote, 40);
-  shownAuthors = pushShownQuote(shownAuthors, quote.author, 20).map((value) => String(value || "").toLowerCase());
+  quoteSourceNode.textContent = `Источник: ${quote.sourceName}`;
 
   resultCardNode.classList.remove("hidden");
   resultCardNode.focus();
-  nextBtn.classList.remove("hidden");
 }
 
-async function requestQuote(question) {
+async function requestFirstUsage(word) {
   const response = await fetch("/api/nkry/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      query: question,
-      limit: 20,
-      variantMode: "default",
-      excludeQuotes: shownQuotes,
-      excludeAuthors: shownAuthors
-    })
+    body: JSON.stringify({ word })
   });
 
   if (!response.ok) {
@@ -78,12 +80,21 @@ async function requestQuote(question) {
   return response.json();
 }
 
-async function runSearch(question) {
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const validated = validateWord(wordNode.value);
+  if (!validated.ok) {
+    setMessage(validated.reason, true);
+    resultCardNode.classList.add("hidden");
+    return;
+  }
+
   setBusy(true);
-  setMessage("Ищем подходящую цитату...");
+  setMessage("Ищем первую фиксацию слова в НКРЯ...");
 
   try {
-    const payload = await requestQuote(question);
+    const payload = await requestFirstUsage(validated.value);
     showResult(payload);
     setMessage("");
   } catch (error) {
@@ -92,37 +103,8 @@ async function runSearch(question) {
   } finally {
     setBusy(false);
   }
-}
-
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const validated = validateQuestion(questionNode.value, MAX_QUESTION_LEN);
-  if (!validated.ok) {
-    setMessage(validated.reason, true);
-    return;
-  }
-
-  const question = validated.value;
-  if (question !== lastQuestion) resetContext(question);
-  await runSearch(question);
 });
 
-nextBtn.addEventListener("click", async () => {
-  const validated = validateQuestion(questionNode.value, MAX_QUESTION_LEN);
-  if (!validated.ok) {
-    setMessage(validated.reason, true);
-    return;
-  }
-
-  const question = validated.value;
-  if (question !== lastQuestion) resetContext(question);
-  await runSearch(question);
-});
-
-questionNode.addEventListener("input", () => {
-  updateCounter();
+wordNode.addEventListener("input", () => {
   if (messageNode.textContent) setMessage("");
 });
-
-updateCounter();

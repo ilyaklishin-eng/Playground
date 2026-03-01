@@ -1,17 +1,15 @@
 :root {
-  --bg: #f4f6fa;
-  --bg-accent: #e9edf5;
-  --panel: #ffffff;
-  --ink: #0f1728;
-  --muted: #5a6780;
-  --line: #d6deea;
-  --brand: #1f4f91;
-  --brand-strong: #143a72;
-  --brand-soft: #e7eefb;
-  --quote-line: #9cb3d8;
-  --ok: #2f6746;
-  --error: #9f3e35;
-  --radius: 22px;
+  --bg: #f3f2ee;
+  --bg-soft: #e8e6de;
+  --panel: #fcfbf7;
+  --ink: #151a29;
+  --muted: #6a7388;
+  --line: #d8d4c8;
+  --accent: #2559aa;
+  --accent-soft: #dbe6f8;
+  --quote-line: #8da8d8;
+  --error: #a83f36;
+  --radius: 24px;
 }
 
 * {
@@ -26,46 +24,47 @@ body {
 
 body {
   color: var(--ink);
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-family: "Onest", "Segoe UI", sans-serif;
   background:
-    radial-gradient(980px 560px at -14% -20%, #e8edf8 0%, transparent 70%),
-    radial-gradient(860px 480px at 112% -10%, #e7edf9 0%, transparent 68%),
-    linear-gradient(180deg, var(--bg) 0%, var(--bg-accent) 100%);
+    radial-gradient(1200px 700px at -10% -15%, #eceff8 0%, transparent 70%),
+    radial-gradient(900px 500px at 120% 0%, #efe8dc 0%, transparent 68%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
 }
 
 .page {
-  width: min(980px, calc(100% - 34px));
+  width: min(980px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 40px 0 52px;
+  padding: 36px 0 52px;
 }
 
 .hero {
-  margin: 0 0 22px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .mark {
   margin: 0;
-  color: var(--muted);
-  letter-spacing: 0.16em;
+  color: #7e7461;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .hero h1 {
   margin: 10px 0 0;
-  font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: clamp(42px, 6.2vw, 78px);
-  line-height: 1.02;
-  letter-spacing: -0.03em;
-  font-weight: 800;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(40px, 6vw, 66px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
 .subtitle {
   margin: 12px auto 0;
   color: var(--muted);
-  font-size: clamp(15px, 1.9vw, 22px);
+  max-width: 720px;
+  font-size: clamp(16px, 2vw, 24px);
   font-weight: 500;
 }
 
@@ -73,65 +72,60 @@ body {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, var(--panel) 100%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 26px;
+  padding: 28px;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 20px 36px rgba(21, 31, 52, 0.07);
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 24px 44px rgba(20, 25, 40, 0.08);
 }
 
 .panel + .panel {
   margin-top: 16px;
 }
 
-textarea {
+.label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+input[type="text"] {
   width: 100%;
-  min-height: 150px;
-  padding: 17px 18px;
+  min-height: 64px;
+  padding: 14px 18px;
   border-radius: 16px;
-  border: 1px solid #d5deeb;
-  background: #fbfcff;
+  border: 1px solid #cfd6e5;
+  background: #fefefe;
   color: var(--ink);
   font: inherit;
-  font-size: clamp(20px, 2.8vw, 34px);
-  line-height: 1.25;
-  resize: vertical;
+  font-size: clamp(22px, 2.5vw, 32px);
+  line-height: 1.15;
 }
 
-textarea::placeholder {
-  color: #7b879c;
+input[type="text"]::placeholder {
+  color: #80889c;
 }
 
-textarea:focus-visible {
+input[type="text"]:focus-visible {
   outline: none;
-  border-color: var(--brand);
-  box-shadow: 0 0 0 3px rgba(31, 79, 145, 0.16);
-}
-
-.counter {
-  margin: 10px 0 0;
-  color: #74829b;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 89, 170, 0.17);
 }
 
 .actions {
-  margin-top: 13px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  margin-top: 16px;
 }
 
 button {
   min-height: 50px;
   border: 0;
   border-radius: 999px;
-  padding: 10px 22px;
+  padding: 10px 24px;
   font: inherit;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 19px;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(180deg, #275da4 0%, var(--brand) 100%);
+  background: linear-gradient(180deg, #2b63b3 0%, var(--accent) 100%);
   cursor: pointer;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
@@ -141,28 +135,17 @@ button:hover {
   filter: brightness(0.98);
 }
 
-button:active {
-  transform: translateY(0);
-}
-
 button:disabled {
-  opacity: 0.58;
+  opacity: 0.6;
   cursor: default;
   transform: none;
-}
-
-button.ghost {
-  color: #1a2437;
-  background: var(--brand-soft);
-  border: 1px solid #c7d6ee;
 }
 
 .message {
   min-height: 22px;
   margin: 10px 0 0;
   font-size: 14px;
-  color: var(--ok);
-  font-weight: 500;
+  color: #375f2f;
 }
 
 .message.error {
@@ -170,56 +153,53 @@ button.ghost {
 }
 
 .result {
-  border-color: #c0d1eb;
+  border-color: #b7c8e8;
+}
+
+.result-label {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .quote {
   margin: 0;
   padding-left: 16px;
   border-left: 4px solid var(--quote-line);
-  font-family: "Source Serif 4", Georgia, serif;
-  font-size: clamp(28px, 3.4vw, 48px);
-  line-height: 1.2;
+  font-family: "Literata", Georgia, serif;
+  font-size: clamp(24px, 2.8vw, 40px);
+  line-height: 1.22;
   letter-spacing: -0.01em;
 }
 
 .meta {
   margin: 14px 0 0;
-  font-size: clamp(16px, 1.5vw, 21px);
-  font-weight: 800;
-  line-height: 1.32;
+  font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 700;
+  line-height: 1.3;
 }
 
 .source {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 14px;
-  font-weight: 500;
 }
 
 .hidden {
   display: none;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
 @media (max-width: 760px) {
   .page {
-    width: calc(100% - 18px);
-    padding-top: 22px;
+    width: calc(100% - 16px);
+    padding-top: 20px;
   }
 
   .panel {
-    padding: 15px;
+    padding: 16px;
     border-radius: 16px;
   }
 
@@ -227,25 +207,17 @@ button.ghost {
     margin-bottom: 14px;
   }
 
-  textarea {
-    min-height: 114px;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: clamp(19px, 6.8vw, 28px);
-  }
-
-  .actions {
-    display: grid;
-    grid-template-columns: 1fr;
+  input[type="text"] {
+    min-height: 56px;
+    font-size: clamp(22px, 8.2vw, 34px);
   }
 
   button {
     width: 100%;
-    font-size: 17px;
   }
 
   .quote {
-    font-size: clamp(23px, 7.7vw, 34px);
+    font-size: clamp(28px, 8.6vw, 44px);
   }
 
   .meta {

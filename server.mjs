@@ -1,19 +1,7 @@
 import http from "node:http";
 import path from "node:path";
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
-import { mkdir, rename, writeFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import {
-  applyDecay,
-  applyFeedbackLearning,
-  buildFingerprint,
-  createServedQuoteRegistry,
-  createUserModel,
-  normalizeText as rankNormalizeText,
-  pickTopCandidate,
-  scoreCandidate
-} from "./app/ranking-core.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,7 +20,7 @@ function loadDotEnv(dotEnvPath) {
     if (!key || Object.prototype.hasOwnProperty.call(process.env, key)) continue;
 
     let value = line.slice(eqIndex + 1).trim();
-    if ((value.startsWith("\"") && value.endsWith("\"")) || (value.startsWith("'") && value.endsWith("'"))) {
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
       value = value.slice(1, -1);
     }
     process.env[key] = value;
@@ -43,542 +31,30 @@ loadDotEnv(path.join(__dirname, ".env"));
 
 const PORT = Number(process.env.PORT || 4173);
 const HOST = process.env.HOST || "0.0.0.0";
+const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 16 * 1024);
+
 const NKRY_API_BASE_URL = process.env.NKRY_API_BASE_URL || "https://ruscorpora.ru/api/v1/";
 const NKRY_SEARCH_PATH = process.env.NKRY_SEARCH_PATH || "lex-gramm/concordance";
 const NKRY_API_KEY = process.env.NKRY_API_KEY || "";
 const NKRY_API_KEY_HEADER = process.env.NKRY_API_KEY_HEADER || "Authorization";
 const NKRY_API_AUTH_PREFIX = process.env.NKRY_API_AUTH_PREFIX || "Bearer";
-const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "CLASSICS";
-const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 32 * 1024);
-const NKRY_FETCH_TIMEOUT_MS = Number(process.env.NKRY_FETCH_TIMEOUT_MS || 8000);
-const NKRY_FETCH_RETRIES = Number(process.env.NKRY_FETCH_RETRIES || 3);
-const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 240);
-const NKRY_RANDOM_PAGE_ENABLED = process.env.NKRY_RANDOM_PAGE_ENABLED !== "0";
-const NKRY_RANDOM_PAGE_MAX = Number(process.env.NKRY_RANDOM_PAGE_MAX || 40);
-const FEEDBACK_STORE_PATH = process.env.FEEDBACK_STORE_PATH || path.join(__dirname, "tools", "ranking_feedback_store.json");
-const APP_VERSION = process.env.APP_VERSION || "local";
-const BOOT_AT = Date.now();
-const RECENT_QUERIES_MAX = Number(process.env.RECENT_QUERIES_MAX || 3000);
-const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MS || 60_000);
-const RATE_LIMIT_FEEDBACK_PER_WINDOW = Number(process.env.RATE_LIMIT_FEEDBACK_PER_WINDOW || 40);
-const RATE_LIMIT_METRICS_PER_WINDOW = Number(process.env.RATE_LIMIT_METRICS_PER_WINDOW || 90);
-const FEEDBACK_API_TOKEN = process.env.FEEDBACK_API_TOKEN || "";
-const METRICS_API_TOKEN = process.env.METRICS_API_TOKEN || "";
-const NKRY_MOCK_MODE = process.env.NKRY_MOCK_MODE === "1";
-const SERVED_QUOTE_TTL_MS = Number(process.env.SERVED_QUOTE_TTL_MS || 10 * 60 * 1000);
-const SERVED_QUOTE_MAX = Number(process.env.SERVED_QUOTE_MAX || 8000);
-const FEEDBACK_USERS_MAX = Number(process.env.FEEDBACK_USERS_MAX || 5000);
-const FEEDBACK_USERS_PRUNE_BATCH = Number(process.env.FEEDBACK_USERS_PRUNE_BATCH || 200);
-const SLO_WINDOW_MS = Number(process.env.SLO_WINDOW_MS || 15 * 60 * 1000);
-const SLO_SUCCESS_RATE_MIN = Number(process.env.SLO_SUCCESS_RATE_MIN || 0.85);
-const SLO_NO_RESULT_RATE_MAX = Number(process.env.SLO_NO_RESULT_RATE_MAX || 0.25);
-const SLO_SEARCH_ERROR_RATE_MAX = Number(process.env.SLO_SEARCH_ERROR_RATE_MAX || 0.05);
-const NKRY_CIRCUIT_FAILURE_THRESHOLD = Number(process.env.NKRY_CIRCUIT_FAILURE_THRESHOLD || 4);
-const NKRY_CIRCUIT_OPEN_MS = Number(process.env.NKRY_CIRCUIT_OPEN_MS || 90_000);
-const LOCAL_FALLBACK_POOL_MAX = Number(process.env.LOCAL_FALLBACK_POOL_MAX || 1200);
-const RECENT_GOOD_POOL_MAX = Number(process.env.RECENT_GOOD_POOL_MAX || 220);
-const POEMS_LOCAL_PATH = process.env.POEMS_LOCAL_PATH || path.join(__dirname, "poems.local.json");
-const MATCH_EXPLORATION_EPSILON = Number(process.env.MATCH_EXPLORATION_EPSILON || 0.05);
-const MATCH_EXPLORATION_TOP_K = Number(process.env.MATCH_EXPLORATION_TOP_K || 6);
-const ENABLE_LOCAL_FALLBACK = process.env.ENABLE_LOCAL_FALLBACK === "1";
-const USER_AUTHOR_HISTORY_MAX = Number(process.env.USER_AUTHOR_HISTORY_MAX || 32);
-const RANDOM_PICK_TOP_K = Number(process.env.RANDOM_PICK_TOP_K || 12);
-
-const DEFAULT_FEEDBACK_STORE = {
-  version: 2,
-  updatedAt: "",
-  globalModel: createUserModel(),
-  users: {}
-};
-
-function sanitizeUserModel(raw) {
-  const base = createUserModel();
-  if (!raw || typeof raw !== "object") return base;
-  return {
-    ...base,
-    ...raw,
-    weights: { ...base.weights, ...(raw.weights || {}) },
-    byAuthor: raw.byAuthor && typeof raw.byAuthor === "object" ? raw.byAuthor : {},
-    byFingerprint: raw.byFingerprint && typeof raw.byFingerprint === "object" ? raw.byFingerprint : {},
-    byReason: { ...base.byReason, ...(raw.byReason || {}) },
-    recentFeedback: Array.isArray(raw.recentFeedback) ? raw.recentFeedback.slice(-500) : [],
-    lastDecayAt: Number.isFinite(Number(raw.lastDecayAt)) ? Number(raw.lastDecayAt) : Date.now(),
-    lastSeenAt: Number.isFinite(Number(raw.lastSeenAt)) ? Number(raw.lastSeenAt) : Date.now()
-  };
-}
-
-function lineCountText(text) {
-  return String(text || "")
-    .split("\n")
-    .filter((line) => line.trim().length > 0).length;
-}
-
-function loadLocalFallbackCorpus() {
-  try {
-    if (!existsSync(POEMS_LOCAL_PATH)) return [];
-    const payload = JSON.parse(readFileSync(POEMS_LOCAL_PATH, "utf8"));
-    if (!Array.isArray(payload)) return [];
-    const out = [];
-    for (const poem of payload) {
-      if (!poem || typeof poem !== "object") continue;
-      const text = String(poem.text || "").trim();
-      const lc = lineCountText(text);
-      if (lc < 3) continue;
-      const lines = text
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean);
-      const quoteBase = lines.slice(0, Math.min(4, lines.length)).join(" ");
-      if (!quoteBase) continue;
-      const quote = quoteBase.length > 320 ? `${quoteBase.slice(0, 317)}...` : quoteBase;
-      out.push({
-        quote,
-        author: String(poem.author || "Не указан"),
-        title: String(poem.title || "Без названия"),
-        year: String(poem.year || ""),
-        sourceName: "Локальный каталог",
-        hitCount: 1,
-        matchedTerm: "fallback",
-        docType: "поэзия",
-        docTopic: Array.isArray(poem.tags) ? poem.tags.join(",") : "",
-        docStyle: "художественный",
-        docHeader: "",
-        fallbackNorm: rankNormalizeText(`${quote} ${poem.author || ""} ${poem.title || ""}`)
-      });
-      if (out.length >= LOCAL_FALLBACK_POOL_MAX) break;
-    }
-    return out;
-  } catch {
-    return [];
-  }
-}
-
-function loadFeedbackStore() {
-  try {
-    if (!existsSync(FEEDBACK_STORE_PATH)) return structuredClone(DEFAULT_FEEDBACK_STORE);
-    const parsed = JSON.parse(readFileSync(FEEDBACK_STORE_PATH, "utf8"));
-    if (parsed?.users && typeof parsed.users === "object") {
-      const users = {};
-      for (const [key, model] of Object.entries(parsed.users)) {
-        users[key] = sanitizeUserModel(model);
-      }
-      return {
-        ...structuredClone(DEFAULT_FEEDBACK_STORE),
-        ...parsed,
-        globalModel: sanitizeUserModel(parsed?.globalModel || {}),
-        users
-      };
-    }
-
-    // Backward compatibility with single global model format.
-    if (parsed && typeof parsed === "object" && (parsed.weights || parsed.byAuthor || parsed.byFingerprint)) {
-      return {
-        ...structuredClone(DEFAULT_FEEDBACK_STORE),
-        updatedAt: String(parsed.updatedAt || ""),
-        globalModel: sanitizeUserModel(parsed),
-        users: {
-          legacy_global: sanitizeUserModel(parsed)
-        }
-      };
-    }
-    return structuredClone(DEFAULT_FEEDBACK_STORE);
-  } catch {
-    return structuredClone(DEFAULT_FEEDBACK_STORE);
-  }
-}
-
-async function ensureFeedbackStoreBootstrapped(store) {
-  try {
-    if (existsSync(FEEDBACK_STORE_PATH)) return;
-    await persistFeedbackStoreDurable(store);
-    console.log(JSON.stringify({ type: "feedback_store_bootstrap", path: FEEDBACK_STORE_PATH }));
-  } catch (error) {
-    console.error(
-      JSON.stringify({
-        type: "feedback_store_bootstrap_error",
-        path: FEEDBACK_STORE_PATH,
-        message: error?.message || String(error)
-      })
-    );
-  }
-}
-
-function persistFeedbackStore(store) {
-  pruneFeedbackUsers(store);
-  return persistFeedbackStoreDurable(store);
-}
-
-const feedbackStore = loadFeedbackStore();
-const metrics = {
-  searchRequests: 0,
-  searchSuccess: 0,
-  searchEmpty: 0,
-  searchErrors: 0,
-  repeatedQueries: 0,
-  feedbackEvents: 0,
-  searchLatencyTotalMs: 0,
-  searchLatencySamples: 0,
-  userModelsPruned: 0,
-  feedbackPersistErrors: 0,
-  circuitOpenEvents: 0,
-  circuitFallbackResponses: 0,
-  searchExploreServed: 0,
-  searchExploitServed: 0,
-  feedbackExploreEvents: 0,
-  feedbackExploitEvents: 0,
-  feedbackExploreRatingTotal: 0,
-  feedbackExploitRatingTotal: 0
-};
-const recentQueries = new Map();
-const rateBuckets = new Map();
-const recentSearchEvents = [];
-const feedbackPersistErrorEvents = [];
-const localFallbackCorpus = ENABLE_LOCAL_FALLBACK ? loadLocalFallbackCorpus() : [];
-const recentGoodPool = [];
-const nkryCircuit = {
-  consecutiveFailures: 0,
-  openUntil: 0,
-  lastFailureAt: 0,
-  lastOpenedAt: 0,
-  lastReason: ""
-};
-const servedQuoteRegistry = createServedQuoteRegistry({ ttlMs: SERVED_QUOTE_TTL_MS, maxSize: SERVED_QUOTE_MAX });
-const userAuthorHistory = new Map();
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function pushTimestamp(list, timestamp, windowMs = SLO_WINDOW_MS) {
-  list.push(timestamp);
-  const cutoff = timestamp - windowMs;
-  while (list.length > 0 && list[0] < cutoff) list.shift();
-}
-
-function recordSearchEvent(kind, now = Date.now()) {
-  recentSearchEvents.push({ ts: now, kind });
-  const cutoff = now - SLO_WINDOW_MS;
-  while (recentSearchEvents.length > 0 && recentSearchEvents[0].ts < cutoff) recentSearchEvents.shift();
-}
-
-function markSearchError() {
-  metrics.searchErrors += 1;
-  recordSearchEvent("error");
-}
-
-function markSearchEmpty() {
-  metrics.searchEmpty += 1;
-  recordSearchEvent("empty");
-}
-
-function markSearchSuccess() {
-  metrics.searchSuccess += 1;
-  recordSearchEvent("success");
-}
-
-function isNkryCircuitOpen(now = Date.now()) {
-  return nkryCircuit.openUntil > now;
-}
-
-function markNkryFailure(reason = "") {
-  const now = Date.now();
-  nkryCircuit.consecutiveFailures += 1;
-  nkryCircuit.lastFailureAt = now;
-  nkryCircuit.lastReason = String(reason || "").slice(0, 240);
-  if (nkryCircuit.consecutiveFailures >= NKRY_CIRCUIT_FAILURE_THRESHOLD) {
-    nkryCircuit.openUntil = now + NKRY_CIRCUIT_OPEN_MS;
-    nkryCircuit.lastOpenedAt = now;
-    metrics.circuitOpenEvents += 1;
-  }
-}
-
-function markNkrySuccess() {
-  nkryCircuit.consecutiveFailures = 0;
-  nkryCircuit.openUntil = 0;
-  nkryCircuit.lastReason = "";
-}
-
-function addRecentGoodCandidates(candidates) {
-  for (const item of candidates || []) {
-    if (!item || !item.quote) continue;
-    const key = rankNormalizeText(`${item.quote}__${item.title || ""}`);
-    if (!key) continue;
-    if (recentGoodPool.some((x) => x.key === key)) continue;
-    recentGoodPool.push({
-      key,
-      quote: item.quote,
-      author: item.author || "Не указан",
-      title: item.title || "Без названия",
-      year: item.year || "",
-      sourceName: item.sourceName || "НКРЯ",
-      hitCount: Number(item.hitCount || 1),
-      matchedTerm: item.matchedTerm || "recent",
-      docType: item.docType || "поэзия",
-      docTopic: item.docTopic || "",
-      docStyle: item.docStyle || "",
-      docHeader: item.docHeader || "",
-      fallbackNorm: rankNormalizeText(`${item.quote} ${item.author || ""} ${item.title || ""}`)
-    });
-  }
-  if (recentGoodPool.length > RECENT_GOOD_POOL_MAX) {
-    recentGoodPool.splice(0, recentGoodPool.length - RECENT_GOOD_POOL_MAX);
-  }
-}
-
-async function persistFeedbackStoreDurable(store) {
-  const payload = JSON.stringify(store, null, 2);
-  const targetPath = FEEDBACK_STORE_PATH;
-  const tmpPath = `${targetPath}.tmp`;
-  try {
-    await mkdir(path.dirname(targetPath), { recursive: true });
-    await writeFile(tmpPath, payload, "utf8");
-    await rename(tmpPath, targetPath);
-  } catch (error) {
-    metrics.feedbackPersistErrors += 1;
-    pushTimestamp(feedbackPersistErrorEvents, Date.now());
-    try {
-      await writeFile(targetPath, payload, "utf8");
-    } catch (fallbackError) {
-      console.error("feedback_model_persist_error", fallbackError.message || String(fallbackError));
-      throw fallbackError;
-    }
-    console.error("feedback_model_persist_tmp_error", error.message || String(error));
-  }
-}
-
-function touchRecentQuery(queryKey) {
-  const hits = (recentQueries.get(queryKey) || 0) + 1;
-  recentQueries.set(queryKey, hits);
-  if (hits > 1) metrics.repeatedQueries += 1;
-  if (recentQueries.size > RECENT_QUERIES_MAX) {
-    const overflow = recentQueries.size - RECENT_QUERIES_MAX;
-    let removed = 0;
-    for (const key of recentQueries.keys()) {
-      recentQueries.delete(key);
-      removed += 1;
-      if (removed >= overflow) break;
-    }
-  }
-}
-
-function getAuthorHistory(userKey) {
-  const key = String(userKey || "").trim() || "anon";
-  const history = userAuthorHistory.get(key) || [];
-  if (!userAuthorHistory.has(key)) userAuthorHistory.set(key, history);
-  return history;
-}
-
-function recordServedAuthor(userKey, author) {
-  const authorKey = normalizeText(String(author || ""));
-  if (!authorKey) return;
-  const history = getAuthorHistory(userKey);
-  history.push(authorKey);
-  if (history.length > USER_AUTHOR_HISTORY_MAX) {
-    history.splice(0, history.length - USER_AUTHOR_HISTORY_MAX);
-  }
-}
-
-function authorHistoryPenalty(userKey, author) {
-  const authorKey = normalizeText(String(author || ""));
-  if (!authorKey) return 0;
-  const history = getAuthorHistory(userKey);
-  if (!history.length) return 0;
-
-  const recent8 = history.slice(-8);
-  const recent3 = history.slice(-3);
-  const count8 = recent8.filter((x) => x === authorKey).length;
-  const count3 = recent3.filter((x) => x === authorKey).length;
-  const consecutive2 = recent3.length >= 2 && recent3[recent3.length - 1] === authorKey && recent3[recent3.length - 2] === authorKey;
-
-  let penalty = 0;
-  if (count8 >= 2) penalty += 1.6;
-  if (count8 >= 3) penalty += 2.4;
-  if (count3 >= 2) penalty += 2.6;
-  if (consecutive2) penalty += 3.2;
-  return penalty;
-}
-
-function extractPrimaryYear(value) {
-  const text = String(value || "");
-  const match = text.match(/\b(1[6-9]\d{2}|20\d{2})\b/);
-  return match ? Number(match[1]) : NaN;
-}
-
-function chronologyScore(candidate, queryContext) {
-  const year = extractPrimaryYear(candidate?.year);
-  if (!Number.isFinite(year)) return 0;
-
-  let score = 0;
-  if (queryContext?.isMeaningOfLife || queryContext?.isIntrospective || queryContext?.isBeautyQuestion) {
-    if (year < 1800) score -= 3.8;
-    else if (year < 1850) score -= 2.4;
-    else if (year < 1900) score += 0.4;
-    else if (year <= 1970) score += 1.1;
-    else score += 0.2;
-  } else {
-    if (year < 1750) score -= 1.4;
-  }
-  return score;
-}
-
-function pickStochasticTop(ranked, topK = RANDOM_PICK_TOP_K) {
-  if (!Array.isArray(ranked) || !ranked.length) return null;
-  const pool = ranked.slice(0, Math.max(1, Math.min(topK, ranked.length)));
-  if (pool.length === 1) return pool[0];
-
-  const maxScore = Number(pool[0]?.score || 0);
-  const weights = pool.map((item) => Math.exp(((Number(item?.score || 0) - maxScore) / 1.2)));
-  const total = weights.reduce((acc, x) => acc + x, 0);
-  let r = Math.random() * (total || 1);
-  for (let i = 0; i < pool.length; i += 1) {
-    r -= weights[i];
-    if (r <= 0) return pool[i];
-  }
-  return pool[0];
-}
-
-function pickWithAuthorDiversity(filtered, top, userKey) {
-  if (!top || !Array.isArray(filtered) || filtered.length <= 1) return top;
-  const recent = getAuthorHistory(userKey).slice(-3);
-  const topAuthor = normalizeText(top.author || "");
-  const topCount = recent.filter((x) => x === topAuthor).length;
-  if (topCount < 2) return top;
-
-  const threshold = top.score - 2.8;
-  const alternative = filtered.find(
-    (item) => normalizeText(item.author || "") !== topAuthor && Number(item.score) >= threshold
-  );
-  return alternative || top;
-}
-
-function clientIp(req) {
-  const fromHeader = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
-  return fromHeader || req.socket.remoteAddress || "unknown";
-}
-
-function checkRateLimit(req, bucketName, maxPerWindow) {
-  const now = Date.now();
-  const ip = clientIp(req);
-  const key = `${bucketName}:${ip}`;
-  if (rateBuckets.size > 10_000) {
-    for (const [bucketKey, value] of rateBuckets.entries()) {
-      if (now - value.windowStart > RATE_LIMIT_WINDOW_MS * 3) rateBuckets.delete(bucketKey);
-    }
-  }
-  const bucket = rateBuckets.get(key);
-  if (!bucket || now - bucket.windowStart > RATE_LIMIT_WINDOW_MS) {
-    rateBuckets.set(key, { windowStart: now, count: 1 });
-    return true;
-  }
-
-  bucket.count += 1;
-  if (bucket.count > maxPerWindow) return false;
-  return true;
-}
-
-function matchesSameOrigin(req) {
-  const origin = String(req.headers.origin || "").trim();
-  if (!origin) return false;
-  try {
-    const originUrl = new URL(origin);
-    const host = String(req.headers.host || "");
-    return originUrl.host === host;
-  } catch {
-    return false;
-  }
-}
-
-function isAuthorized(req, scope) {
-  const headerToken = String(req.headers["x-api-token"] || req.headers.authorization || "").replace(/^Bearer\s+/i, "").trim();
-  const ip = clientIp(req);
-  const isLocal = ip === "127.0.0.1" || ip === "::1";
-  if (scope === "metrics") {
-    if (METRICS_API_TOKEN) return headerToken === METRICS_API_TOKEN;
-    return isLocal || matchesSameOrigin(req);
-  }
-
-  if (scope === "feedback") {
-    if (FEEDBACK_API_TOKEN) return headerToken === FEEDBACK_API_TOKEN;
-    return isLocal || matchesSameOrigin(req);
-  }
-
-  return false;
-}
-
-function nextRequestId() {
-  return createHash("sha1")
-    .update(`${Date.now()}-${Math.random()}`)
-    .digest("hex")
-    .slice(0, 10);
-}
+const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "MAIN";
+const NKRY_FETCH_TIMEOUT_MS = Number(process.env.NKRY_FETCH_TIMEOUT_MS || 9000);
+const NKRY_FETCH_RETRIES = Number(process.env.NKRY_FETCH_RETRIES || 2);
+const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 280);
+const NKRY_FIRST_USAGE_MAX_PAGES = Number(process.env.NKRY_FIRST_USAGE_MAX_PAGES || 8);
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
   ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".ico": "image/x-icon",
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".webp": "image/webp"
-};
-
-const STOPWORDS = new Set([
-  "а", "без", "бы", "был", "была", "были", "было", "быть", "в", "вам", "вас", "во", "вот", "все", "всё", "вы", "где",
-  "да", "даже", "для", "до", "его", "ее", "её", "если", "есть", "еще", "ещё", "же", "за", "и", "из", "или", "им", "их",
-  "как", "ко", "когда", "кто", "ли", "лишь", "мне", "много", "можно", "мой", "мы", "на", "над", "надо", "нас", "не", "него",
-  "нее", "неё", "нет", "ни", "но", "ну", "о", "об", "одна", "одни", "он", "она", "они", "оно", "от", "очень", "по", "под",
-  "при", "про", "раз", "с", "сам", "себя", "сейчас", "снова", "собой", "так", "там", "тебя", "тем", "то", "только", "тут",
-  "ты", "у", "уже", "хоть", "хочу", "чего", "чем", "что", "чтобы", "эта", "эти", "это", "я", "почему", "зачем"
-]);
-
-const ASSOCIATIVE_GROUPS = {
-  anxiety: ["тревог", "страх", "бояз", "паник", "беспокой", "темн", "мрак", "тоска", "смятени"],
-  hope: ["надеж", "свет", "будущ", "вера", "утро", "весн", "заря", "радост"],
-  relation: ["любов", "сердц", "нежн", "поцел", "разлук", "верност", "мил", "близ"],
-  meaning: ["смысл", "путь", "душ", "жизн", "вечност", "истин", "судьб"],
-  freedom: ["свобод", "воля", "ветер", "дорог", "простор", "крыл"],
-  past: ["утрат", "потер", "печал", "слез", "слёз", "горе", "расставан", "вчера", "прошл"],
-  future: ["завтра", "дальше", "начать", "настан", "будет", "потом"]
-};
-
-const CONCEPT_PROFILES = [
-  {
-    id: "division_by_zero",
-    pattern: /(дел(ить|ение)\s+на\s+нол|почему\s+нельзя\s+делить\s+на\s+нол|делени[ея]\s+на\s+нол)/,
-    terms: ["математика", "ноль", "деление", "бесконечность", "предел", "число", "арифметика", "логика"],
-    required: ["нол", "делен", "арифмет", "математ", "числ", "предел", "логик", "бесконеч"],
-    forbidden: ["любов", "сердц", "прекрас", "весн", "тебя", "она", "стихи", "разлук", "поцел", "господа"]
-  },
-  {
-    id: "big_bang",
-    pattern: /(большой\s+взрыв|происхождени[ея]\s+вселен|начал[оа]\s+вселен)/,
-    terms: ["вселенная", "мироздание", "бытие", "первооснова", "первопричина", "творение", "вечность", "бог"],
-    required: ["вселен", "мироздан", "перво", "твор", "быт", "вечност", "космос"],
-    forbidden: ["взрыв", "восстан", "бунт", "митинг", "письмо", "малютк", "уголов", "судопроизв", "подат"]
-  },
-  {
-    id: "writing_degree_zero",
-    pattern: /(нулев\w+\s+степен\w+\s+письм\w+|степен\w+\s+письм\w+)/,
-    terms: ["язык", "текст", "стиль", "письменность", "литература", "поэтика", "слово", "знак"],
-    required: ["язык", "текст", "стил", "литерат", "поэтик", "знак", "письмен"],
-    forbidden: ["малютк", "здоров", "ваш", "вам", "тебе", "дети", "жена", "муж", "губерн", "подат"]
-  },
-  {
-    id: "meaning_of_life",
-    pattern: /(в\s+чем\s+смысл\s+жизни|смысл\s+жизни|зачем\s+жить|для\s+чего\s+жить)/,
-    terms: ["жизнь", "смысл", "душа", "судьба", "бытие", "счастье", "любовь", "вера"],
-    required: ["жизн", "смысл", "душ", "судьб", "быт", "любов", "вер", "надеж"],
-    forbidden: ["государ", "подат", "уголов", "судопроизв", "губерн", "департамент", "канцеляр"]
-  }
-];
-
-const ENTITY_ALIAS_STEMS = {
-  маркс: ["маркс", "марксизм", "социал", "коммуниз", "капитал", "класс", "пролетар", "революц"],
-  ленин: ["ленин", "большев", "революц", "совет", "парт"],
-  ницше: ["ницше", "сверхчеловек", "воля", "морал"],
-  фрейд: ["фрейд", "психоан", "бессозн", "либид"]
 };
 
 function sendJson(res, status, payload) {
@@ -590,23 +66,15 @@ function sendJson(res, status, payload) {
   res.end(body);
 }
 
-function getStaticPath(urlPath) {
-  let decoded = "";
-  try {
-    decoded = decodeURIComponent(urlPath);
-  } catch {
-    return null;
-  }
-  const normalized = path.normalize(decoded);
-  const withoutTraversal = normalized.replace(/^(\.\.(\/|\\|$))+/, "");
-  const relative = withoutTraversal === "/" ? "index.html" : withoutTraversal.replace(/^[/\\]+/, "");
-  return path.join(__dirname, relative);
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function parseRequestBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let totalBytes = 0;
+
     req.on("data", (chunk) => {
       totalBytes += chunk.length;
       if (totalBytes > MAX_REQUEST_BODY_BYTES) {
@@ -616,620 +84,49 @@ function parseRequestBody(req) {
       }
       chunks.push(chunk);
     });
+
     req.on("end", () => {
       if (!chunks.length) {
         resolve({});
         return;
       }
-
       try {
         resolve(JSON.parse(Buffer.concat(chunks).toString("utf8")));
       } catch {
         reject(new Error("bad_json"));
       }
     });
+
     req.on("error", reject);
   });
 }
 
-function normalizeText(value) {
-  return rankNormalizeText(value);
-}
-
-function getClientKey(raw) {
-  const value = String(raw || "").trim();
-  if (!value) return "";
-  if (!/^[a-zA-Z0-9_-]{8,128}$/.test(value)) return "";
-  return value;
-}
-
-function getUserKey(req, body) {
-  const explicitClientId = getClientKey(body?.clientId) || getClientKey(req.headers["x-client-id"]);
-  if (explicitClientId) return `client:${explicitClientId}`;
-  const ip = clientIp(req);
-  const ua = String(req.headers["user-agent"] || "");
-  const fallback = createHash("sha1").update(`${ip}|${ua}`).digest("hex").slice(0, 20);
-  return `anon:${fallback}`;
-}
-
-function getGlobalModel() {
-  const model = sanitizeUserModel(feedbackStore.globalModel || {});
-  feedbackStore.globalModel = model;
-  return model;
-}
-
-function blendNumericMaps(primary = {}, secondary = {}, primaryWeight = 0.7, secondaryWeight = 0.3) {
-  const out = {};
-  const keys = new Set([...Object.keys(primary), ...Object.keys(secondary)]);
-  for (const key of keys) {
-    const a = Number(primary[key] || 0);
-    const b = Number(secondary[key] || 0);
-    out[key] = Number((a * primaryWeight + b * secondaryWeight).toFixed(6));
-  }
-  return out;
-}
-
-function blendModels(userModel, globalModel, userWeight = 0.7, globalWeight = 0.3) {
-  return {
-    updatedAt: userModel.updatedAt || globalModel.updatedAt || "",
-    lastDecayAt: Date.now(),
-    weights: blendNumericMaps(userModel.weights, globalModel.weights, userWeight, globalWeight),
-    byAuthor: blendNumericMaps(userModel.byAuthor, globalModel.byAuthor, userWeight, globalWeight),
-    byFingerprint: blendNumericMaps(userModel.byFingerprint, globalModel.byFingerprint, userWeight, globalWeight),
-    byReason: blendNumericMaps(userModel.byReason, globalModel.byReason, userWeight, globalWeight),
-    recentFeedback: []
-  };
-}
-
-function pruneFeedbackUsers(store) {
-  const keys = Object.keys(store.users || {});
-  if (keys.length <= FEEDBACK_USERS_MAX) return;
-  const sorted = keys
-    .map((key) => {
-      const model = store.users[key];
-      const lastSeen = Number(model?.lastSeenAt || 0);
-      const updatedAt = Date.parse(String(model?.updatedAt || "")) || 0;
-      return { key, score: Math.max(lastSeen, updatedAt) };
-    })
-    .sort((a, b) => a.score - b.score);
-
-  const toRemove = Math.min(keys.length - FEEDBACK_USERS_MAX, FEEDBACK_USERS_PRUNE_BATCH);
-  for (let i = 0; i < toRemove; i += 1) {
-    delete store.users[sorted[i].key];
-  }
-  metrics.userModelsPruned += toRemove;
-}
-
-function getOrCreateUserModel(userKey) {
-  pruneFeedbackUsers(feedbackStore);
-  const existing = feedbackStore.users[userKey];
-  if (existing) {
-    existing.lastSeenAt = Date.now();
-    return existing;
-  }
-  const model = createUserModel();
-  model.lastSeenAt = Date.now();
-  feedbackStore.users[userKey] = model;
-  return model;
-}
-
-function buildScoringStateWeights(stateWeights) {
-  const out = { __associativeGroups: ASSOCIATIVE_GROUPS };
-  if (!stateWeights || typeof stateWeights !== "object") return out;
-  for (const [key, value] of Object.entries(stateWeights)) out[key] = value;
-  return out;
-}
-
-function normalizeQueryText(text) {
-  return String(text || "")
+function normalizeWord(raw) {
+  return String(raw || "")
+    .trim()
     .toLowerCase()
     .replaceAll("ё", "е")
-    .replace(/[«»"“”„]/g, " ")
-    .replace(/[(){}[\],.!?:;\\/|+*=]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/[^a-zа-я0-9-]/gi, "");
 }
 
-function extractNamedEntities(rawText = "") {
-  const matches = String(rawText || "").match(/\b[А-ЯЁ][а-яё-]{2,}\b/g) || [];
-  const out = [];
-  const seen = new Set();
-  for (const item of matches) {
-    const token = normalizeText(item);
-    if (!token || STOPWORDS.has(token)) continue;
-    if (["почему", "зачем", "что", "где", "когда", "кто", "как"].includes(token)) continue;
-    if (seen.has(token)) continue;
-    seen.add(token);
-    out.push(token);
+function validateOneWord(rawWord) {
+  const word = normalizeWord(rawWord);
+  if (!word) {
+    return { ok: false, reason: "Введите одно слово.", value: "" };
   }
-  return out.slice(0, 4);
+  if (word.length < 2 || word.length > 48) {
+    return { ok: false, reason: "Слово должно быть длиной от 2 до 48 символов.", value: word };
+  }
+  if (!/^[a-zа-я0-9]+(?:-[a-zа-я0-9]+)?$/i.test(word)) {
+    return { ok: false, reason: "Разрешены только буквы/цифры и один дефис внутри слова.", value: word };
+  }
+  if (word.includes("--")) {
+    return { ok: false, reason: "Слово содержит некорректный дефис.", value: word };
+  }
+  return { ok: true, reason: "", value: word };
 }
 
-function buildEntityStems(entities = []) {
-  const stems = new Set();
-  for (const entity of entities) {
-    const normalized = normalizeText(entity);
-    if (!normalized) continue;
-    stems.add(stemPrefix(normalized));
-    const aliases = ENTITY_ALIAS_STEMS[normalized] || [];
-    for (const alias of aliases) stems.add(stemPrefix(normalizeText(alias)));
-  }
-  return Array.from(stems);
-}
-
-function detectConceptProfile(queryText) {
-  const normalized = normalizeQueryText(queryText);
-  return CONCEPT_PROFILES.find((profile) => profile.pattern.test(normalized)) || null;
-}
-
-function splitTokens(text) {
-  return normalizeText(text)
-    .split(" ")
-    .map((token) => token.trim())
-    .filter((token) => token.length >= 3 && !STOPWORDS.has(token));
-}
-
-function stemPrefix(token) {
-  if (token.length <= 5) return token;
-  return token.slice(0, 5);
-}
-
-function extractKeywords(text, limit = 8) {
-  const tokens = splitTokens(text);
-  const uniq = [];
-  const seen = new Set();
-
-  for (const token of tokens) {
-    const key = stemPrefix(token);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    uniq.push(token);
-    if (uniq.length >= limit) break;
-  }
-
-  return uniq;
-}
-
-function extractWeightedKeywords(text, limit = 10) {
-  const normalized = normalizeQueryText(text);
-  const tokens = splitTokens(normalized);
-  const seenCounts = new Map();
-
-  for (const token of tokens) {
-    const key = stemPrefix(token);
-    seenCounts.set(key, (seenCounts.get(key) || 0) + 1);
-  }
-
-  const scored = [];
-  const emitted = new Set();
-  for (const token of tokens) {
-    const key = stemPrefix(token);
-    if (emitted.has(key)) continue;
-    emitted.add(key);
-
-    let weight = 1;
-    const repeats = seenCounts.get(key) || 1;
-    if (repeats > 1) weight += Math.min(0.6, (repeats - 1) * 0.2);
-    if (token.length >= 7) weight += 0.15;
-    if (token.length >= 10) weight += 0.15;
-    if (/(смысл|любов|тревог|надеж|свобод|жизн|утрат|боль|страх)/.test(token)) weight += 0.2;
-    if (/(прав|правд|вопрос|почему|зачем)/.test(token)) weight -= 0.55;
-    weight = Math.max(0.2, weight);
-
-    scored.push({ token, weight: Number(weight.toFixed(3)) });
-  }
-
-  scored.sort((a, b) => b.weight - a.weight || b.token.length - a.token.length);
-  return scored.slice(0, limit);
-}
-
-function buildConceptualBridge(queryText, baseTokens = []) {
-  const normalized = normalizeQueryText(queryText);
-  const tokenSet = new Set(baseTokens.map((token) => stemPrefix(String(token || ""))));
-  const hasStem = (stem) => {
-    if (normalized.includes(stem)) return true;
-    for (const token of tokenSet) {
-      if (token.includes(stem) || stem.includes(token)) return true;
-    }
-    return false;
-  };
-
-  const bridge = {
-    tokenWeights: {},
-    searchTerms: [],
-    preferredStems: [],
-    avoidStems: [],
-    forceIntrospective: false,
-    isBigBang: false,
-    isCosmology: false,
-    isWritingTheory: false
-  };
-
-  const add = (term, weight = 1.2) => {
-    const token = normalizeText(term).split(" ")[0];
-    if (!token || token.length < 3) return;
-    bridge.tokenWeights[token] = Math.max(Number(bridge.tokenWeights[token] || 0), Number(weight));
-    bridge.searchTerms.push(token);
-  };
-
-  const downWeight = (stem, factor = 0.35) => {
-    for (const token of Object.keys(bridge.tokenWeights)) {
-      if (token.includes(stem) || stem.includes(stemPrefix(token))) {
-        bridge.tokenWeights[token] = Number((bridge.tokenWeights[token] * factor).toFixed(3));
-      }
-    }
-  };
-
-  const isBigBang = normalized.includes("большой взрыв")
-    || (hasStem("больш") && hasStem("взрыв"))
-    || hasStem("bigbang");
-  const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
-  const isWritingTheory = hasStem("письм") && (hasStem("степен") || hasStem("текст") || hasStem("язык") || hasStem("стиль"));
-  const isDivisionByZero = /(дел(ить|ение)\s+на\s+нол|нельзя\s+делить\s+на\s+нол)/.test(normalized);
-  bridge.isBigBang = isBigBang;
-  bridge.isCosmology = isCosmology;
-  bridge.isWritingTheory = isWritingTheory;
-  const isBeautyQuestion = hasStem("красот") || hasStem("прекрас") || hasStem("эстет") || hasStem("взор") || hasStem("смотр");
-  const startsWithPravdaLi = normalized.startsWith("правда ли ");
-
-  if (isCosmology) {
-    bridge.forceIntrospective = true;
-    ["вселенная", "мироздание", "бытие", "смысл", "мир", "вечность", "творение", "бог", "начало", "хаос", "порядок"]
-      .forEach((term, idx) => add(term, idx < 6 ? 1.95 : 1.45));
-    bridge.preferredStems.push("вселен", "мироздан", "быт", "смысл", "вечност", "бог", "твор", "начал");
-    bridge.avoidStems.push("губерн", "подат", "чинов", "вельмож", "государ");
-  }
-
-  if (hasStem("почему") && (hasStem("зачем") || hasStem("смысл") || isCosmology)) {
-    bridge.forceIntrospective = true;
-    ["причина", "первооснова", "истина", "судьба", "душа"].forEach((term) => add(term, 1.35));
-  }
-
-  if (isBigBang) {
-    downWeight("больш");
-    downWeight("взрыв");
-    downWeight("произош");
-  }
-
-  if (isBeautyQuestion) {
-    bridge.forceIntrospective = true;
-    ["красота", "прекрасное", "гармония", "взор", "восприятие", "душа", "любовь", "свет", "сердце", "созерцание"]
-      .forEach((term, idx) => add(term, idx < 6 ? 1.8 : 1.45));
-    bridge.preferredStems.push("красот", "прекрас", "гармон", "взор", "душ", "серд", "любов", "свет", "созерц");
-    bridge.avoidStems.push("уголов", "судопроизв", "подат", "губерн", "государ", "чинов", "вельмож");
-  }
-
-  if (startsWithPravdaLi) {
-    downWeight("правд", 0.12);
-    downWeight("всяк", 0.2);
-  }
-
-  if (isWritingTheory) {
-    ["язык", "слово", "текст", "стиль", "литература", "письменность", "речь", "поэтика", "знак", "смысл"]
-      .forEach((term, idx) => add(term, idx < 6 ? 1.8 : 1.45));
-    bridge.preferredStems.push("язык", "слов", "текст", "стил", "литерат", "поэтик", "знак", "смысл");
-    bridge.avoidStems.push("малютк", "дет", "жен", "муж", "вам", "тебе", "друг", "родн", "здоров");
-    downWeight("письм", 0.25);
-  }
-
-  if (isDivisionByZero) {
-    ["математика", "ноль", "деление", "арифметика", "бесконечность", "предел", "число", "логика"]
-      .forEach((term, idx) => add(term, idx < 5 ? 1.9 : 1.45));
-    bridge.preferredStems.push("математ", "нол", "делен", "арифмет", "числ", "предел", "логик", "бесконеч");
-    bridge.avoidStems.push("любов", "серд", "прекрас", "весн", "поцел", "разлук", "тебя", "она");
-    downWeight("нельзя", 0.35);
-    downWeight("почему", 0.2);
-  }
-
-  return bridge;
-}
-
-function mergeWeightedKeywords(baseWeighted, bridgeTokenWeights = {}, limit = 12) {
-  const map = new Map();
-  for (const item of baseWeighted || []) {
-    const token = String(item?.token || "");
-    const weight = Number(item?.weight || 0);
-    if (!token || !Number.isFinite(weight)) continue;
-    map.set(token, Math.max(weight, Number(map.get(token) || 0)));
-  }
-  for (const [token, weight] of Object.entries(bridgeTokenWeights || {})) {
-    if (!token) continue;
-    const numericWeight = Number(weight || 0);
-    if (!Number.isFinite(numericWeight)) continue;
-    map.set(token, Math.max(numericWeight, Number(map.get(token) || 0)));
-  }
-  return Array.from(map.entries())
-    .map(([token, weight]) => ({ token, weight: Number(weight.toFixed(3)) }))
-    .sort((a, b) => b.weight - a.weight || b.token.length - a.token.length)
-    .slice(0, limit);
-}
-
-function detectStyleGenreSignals(queryText) {
-  const text = normalizeQueryText(queryText);
-  const wantsPoetry = /(стих|поэз|лирик|сонет|ода|элег)/.test(text);
-  const wantsProse = /(проз|роман|повест|рассказ|новел)/.test(text);
-  const wantsDrama = /(драм|пьес|трагед|комед)/.test(text);
-  const wantsPhilosophy = /(философ|размышл|эссе|трактат|смысл|быт)/.test(text);
-  const wantsLettersDiary = /(письм|дневник|записк|мемуар)/.test(text);
-
-  return {
-    wantsPoetry,
-    wantsProse,
-    wantsDrama,
-    wantsPhilosophy,
-    wantsLettersDiary
-  };
-}
-
-function scoreStyleGenreMatch(candidate, signals) {
-  const doc = normalizeText(
-    `${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""} ${candidate?.title || ""}`
-  );
-
-  let score = 0;
-  if (signals.wantsPoetry) {
-    if (/(поэз|стих|лирик|ода|элег|сонет)/.test(doc)) score += 2.3;
-    else score -= 1.3;
-  }
-  if (signals.wantsProse) {
-    if (/(роман|повест|рассказ|проз|новел)/.test(doc)) score += 2.1;
-    else score -= 1.2;
-  }
-  if (signals.wantsDrama) {
-    if (/(драм|пьес|трагед|комед)/.test(doc)) score += 2.1;
-    else score -= 1.1;
-  }
-  if (signals.wantsPhilosophy) {
-    if (/(философ|размышл|публицист|эссе|трактат|дневник|записк)/.test(doc)) score += 1.6;
-  }
-  if (signals.wantsLettersDiary) {
-    if (/(письм|дневник|записк|мемуар)/.test(doc)) score += 1.8;
-    else score -= 0.8;
-  }
-
-  return Number(score.toFixed(3));
-}
-
-function detectQueryGroups(tokens) {
-  const groups = new Set();
-  for (const [group, stems] of Object.entries(ASSOCIATIVE_GROUPS)) {
-    for (const token of tokens) {
-      const prefix = stemPrefix(token);
-      if (stems.some((stem) => token.includes(stem) || stem.includes(prefix))) {
-        groups.add(group);
-        break;
-      }
-    }
-  }
-  return groups;
-}
-
-function buildQueryContext(queryTokens, queryText = "", bridge = null, queryEntities = []) {
-  const tokenSet = new Set((queryTokens || []).map((token) => stemPrefix(String(token || ""))));
-  const normalized = normalizeQueryText(queryText);
-
-  const introspectiveStems = [
-    "смысл", "жизн", "душ", "серд", "любов", "счаст", "одиноч", "тревог", "страх", "боль", "надеж", "свобод", "выбор", "судьб"
-  ];
-  const politicalStems = [
-    "государ", "власт", "прав", "закон", "налог", "подат", "губерн", "импер", "граждан", "отечеств", "чинов", "министер", "полит"
-  ];
-
-  const hasAny = (stems) =>
-    stems.some((stem) => {
-      if (normalized.includes(stem)) return true;
-      for (const token of tokenSet) {
-        if (token.includes(stem) || stem.includes(token)) return true;
-      }
-      return false;
-    });
-
-  const isIntrospective = hasAny(introspectiveStems) || Boolean(bridge?.forceIntrospective);
-  const isPolitical = hasAny(politicalStems);
-
-  const preferredStems = [];
-  const avoidStems = [];
-  if (isIntrospective && !isPolitical) {
-    preferredStems.push("душ", "серд", "смысл", "жизн", "судьб", "любов", "надеж", "свет", "покой");
-    avoidStems.push("государ", "подат", "губерн", "чинов", "министер", "коммерц", "финанс", "право");
-  } else if (isPolitical) {
-    preferredStems.push("государ", "закон", "власт", "граждан", "общест");
-  }
-  if (bridge && typeof bridge === "object") {
-    for (const stem of bridge.preferredStems || []) {
-      if (stem && !preferredStems.includes(stem)) preferredStems.push(stem);
-    }
-    for (const stem of bridge.avoidStems || []) {
-      if (stem && !avoidStems.includes(stem)) avoidStems.push(stem);
-    }
-  }
-
-  const isMeaningOfLife = /(смысл жизни|в чем смысл жизни|зачем жить|для чего жить)/.test(normalized);
-
-  const conceptProfile = detectConceptProfile(normalized);
-  const entityStems = buildEntityStems(queryEntities);
-
-  return {
-    isIntrospective,
-    isPolitical,
-    isMeaningOfLife,
-    isBigBang: Boolean(bridge?.isBigBang),
-    isCosmology: Boolean(bridge?.isCosmology),
-    isWritingTheory: Boolean(bridge?.isWritingTheory),
-    conceptProfile,
-    queryEntities,
-    entityStems,
-    isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
-    startsWithPravdaLi: normalized.startsWith("правда ли "),
-    preferredStems,
-    avoidStems
-  };
-}
-
-function shouldRejectByContext(candidate, queryContext) {
-  if (!queryContext || typeof queryContext !== "object") return false;
-  const doc = normalizeText(
-    `${candidate?.quote || ""} ${candidate?.title || ""} ${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""}`
-  );
-
-  const hardOfficial = /(уголов|судопроизв|подат|губерн|департамент|канцеляр|чинов|вельмож|администрац|протокол|ведомств|государств|отечеств|налог|право)/.test(doc);
-  const hasBeauty = /(красот|прекрас|гармон|взор|любов|душ|серд|созерц)/.test(doc);
-  const hasExistential = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
-  const isClearlyLiterary = /(поэз|стих|лирик|роман|повест|рассказ|пьес|дневник|письм|мемуар|художествен)/.test(doc);
-  const hasLiteralExplosion = /(взрыв|взорвал|взрыва)/.test(doc);
-  const cosmologyHits = (doc.match(/вселен|мироздан|космос|быт|вечност|творен|первооснов|первоприч|бог|мировой поряд|происхожд|начал мир/i) || []).length
-    + (doc.includes("вселен") ? 1 : 0)
-    + (doc.includes("мироздан") ? 1 : 0)
-    + (doc.includes("первоприч") ? 1 : 0);
-  const hasCosmology = cosmologyHits >= 2;
-  const epistolaryOrConversational = /(письмо|переписк|разговор|вспоминал о вас|вам|тебе|досадно|журналист|малютк|дети|жена|муж)/.test(doc);
-
-  if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
-  if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
-  if (queryContext.isIntrospective && hardOfficial && !hasExistential) return true;
-  if (queryContext.isMeaningOfLife && hardOfficial) return true;
-  if (queryContext.isMeaningOfLife && !isClearlyLiterary && !hasExistential) return true;
-  if (queryContext.isBigBang && (epistolaryOrConversational || !hasCosmology)) return true;
-  if (queryContext.isBigBang && hasLiteralExplosion && !hasCosmology) return true;
-  if (queryContext.isWritingTheory && epistolaryOrConversational) return true;
-
-  return false;
-}
-
-function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext) {
-  const doc = normalizeText(
-    `${candidate?.quote || ""} ${candidate?.title || ""} ${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""}`
-  );
-  const tokens = Array.isArray(queryTokens) ? queryTokens : [];
-  let matched = 0;
-  let matchedWeight = 0;
-  let totalWeight = 0;
-  for (const token of tokens) {
-    const t = String(token || "");
-    if (!t) continue;
-    const stem = stemPrefix(t);
-    const weight = Math.max(0.1, Number(queryTokenWeights?.[t] || 1));
-    totalWeight += weight;
-    if (doc.includes(t) || doc.includes(stem)) {
-      matched += 1;
-      matchedWeight += weight;
-    }
-  }
-  const weightedCoverage = totalWeight > 0 ? matchedWeight / totalWeight : 0;
-  const existentialHit = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
-  const cosmologyHit = /(вселен|мироздан|космос|творен|первооснов|первоприч|бог|вечност|быт)/.test(doc);
-  const writingTheoryHit = /(язык|слов|текст|стил|литерат|поэтик|знак|речь|письмен)/.test(doc);
-  const profileRequired = Array.isArray(queryContext?.conceptProfile?.required) ? queryContext.conceptProfile.required : [];
-  const profileForbidden = Array.isArray(queryContext?.conceptProfile?.forbidden) ? queryContext.conceptProfile.forbidden : [];
-  const entityStems = Array.isArray(queryContext?.entityStems) ? queryContext.entityStems : [];
-  const requiredHits = profileRequired.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
-  const forbiddenHits = profileForbidden.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
-  const entityHits = entityStems.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
-  return {
-    matched,
-    queryTokenCount: tokens.length,
-    weightedCoverage,
-    existentialHit,
-    cosmologyHit,
-    writingTheoryHit,
-    requiredHits,
-    forbiddenHits,
-    entityHits,
-    queryContext
-  };
-}
-
-function passesSemanticGate(signals) {
-  if (!signals) return false;
-  const {
-    matched,
-    queryTokenCount,
-    weightedCoverage,
-    existentialHit,
-    cosmologyHit,
-    writingTheoryHit,
-    requiredHits,
-    forbiddenHits,
-    entityHits,
-    queryContext
-  } = signals;
-
-  if (Array.isArray(queryContext?.queryEntities) && queryContext.queryEntities.length > 0) {
-    if (entityHits < 1) return false;
-  }
-
-  if (queryContext?.conceptProfile) {
-    if (forbiddenHits > 0) return false;
-    if (requiredHits < 1) return false;
-    return weightedCoverage >= 0.2;
-  }
-  if (queryContext?.isBigBang) return weightedCoverage >= 0.18 && cosmologyHit;
-  if (queryContext?.isWritingTheory) return weightedCoverage >= 0.2 && writingTheoryHit;
-  if (queryContext?.isMeaningOfLife) return weightedCoverage >= 0.2 && existentialHit;
-  if (queryContext?.isIntrospective) return weightedCoverage >= 0.18 && (existentialHit || matched >= 2);
-  if (queryTokenCount >= 5) return matched >= 2 && weightedCoverage >= 0.2;
-  if (queryTokenCount >= 3) return matched >= 1 && weightedCoverage >= 0.17;
-  return matched >= 1;
-}
-
-function buildSearchTerms({ query, terms, stateWeights, bridgeTerms, queryContext }) {
-  if (queryContext?.conceptProfile?.terms?.length) {
-    return queryContext.conceptProfile.terms.map((x) => normalizeText(x)).filter(Boolean);
-  }
-  if (queryContext?.isBigBang) {
-    return ["вселенная", "мироздание", "бытие", "вечность", "творение", "первооснова", "причина", "бог"]
-      .map((x) => normalizeText(x))
-      .filter(Boolean);
-  }
-  if (queryContext?.isWritingTheory) {
-    return ["язык", "слово", "текст", "стиль", "литература", "поэтика", "смысл", "знак"]
-      .map((x) => normalizeText(x))
-      .filter(Boolean);
-  }
-
-  const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
-  const out = [...queryTerms];
-
-  if (Array.isArray(terms)) {
-    for (const term of terms) {
-      if (typeof term === "string" && term.trim()) out.push(term.trim());
-    }
-  }
-
-  if (stateWeights && typeof stateWeights === "object") {
-    for (const [group, score] of Object.entries(stateWeights)) {
-      if (Number(score) < 0.75) continue;
-      const stems = ASSOCIATIVE_GROUPS[group] || [];
-      if (stems.length) out.push(stems[0]);
-    }
-  }
-  if (Array.isArray(bridgeTerms)) {
-    for (const term of bridgeTerms) {
-      if (typeof term === "string" && term.trim()) out.push(term.trim());
-    }
-  }
-
-  const uniq = [];
-  const seen = new Set();
-  for (const term of out) {
-    const token = normalizeText(term).split(" ")[0];
-    if (!token || token.length < 3) continue;
-    if (queryContext?.isMeaningOfLife && (token === "смысл" || token === "правда")) continue;
-    const key = stemPrefix(token);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    uniq.push(token);
-    if (uniq.length >= 10) break;
-  }
-
-  if (queryContext?.isMeaningOfLife && !uniq.length) {
-    return ["жизнь", "душа", "судьба", "бытие", "счастье", "любовь"].map((x) => normalizeText(x));
-  }
-
-  return uniq;
-}
-
-function buildNkryPayload(term) {
+function buildNkryPayload(word) {
   return {
     corpus: {
       type: NKRY_CORPUS_TYPE
@@ -1243,7 +140,7 @@ function buildNkryPayload(term) {
                 {
                   fieldName: "lex",
                   text: {
-                    v: term
+                    v: word
                   }
                 }
               ]
@@ -1257,23 +154,18 @@ function buildNkryPayload(term) {
 
 function withPage(endpoint, page) {
   const url = new URL(endpoint);
-  if (Number.isFinite(page) && page > 0) url.searchParams.set("page", String(page));
+  url.searchParams.set("page", String(page));
   return url.toString();
 }
 
-function chooseRandomResultPage(maxAvailablePage) {
-  const cap = Math.max(1, Math.min(NKRY_RANDOM_PAGE_MAX, Number(maxAvailablePage || 1)));
-  if (cap <= 1) return 1;
-  if (Math.random() < 0.2) return 1;
-  return Math.floor(Math.random() * (cap - 1)) + 2;
-}
-
-async function fetchNkryPage(endpoint, authValue, term, page = 1) {
+async function fetchNkryPage(endpoint, authValue, word, page = 1) {
   let lastError = null;
   const pageEndpoint = withPage(endpoint, page);
+
   for (let attempt = 0; attempt <= NKRY_FETCH_RETRIES; attempt += 1) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), NKRY_FETCH_TIMEOUT_MS);
+
     try {
       const response = await fetch(pageEndpoint, {
         method: "POST",
@@ -1281,7 +173,7 @@ async function fetchNkryPage(endpoint, authValue, term, page = 1) {
           "Content-Type": "application/json",
           [NKRY_API_KEY_HEADER]: authValue
         },
-        body: JSON.stringify(buildNkryPayload(term)),
+        body: JSON.stringify(buildNkryPayload(word)),
         signal: controller.signal
       });
 
@@ -1295,8 +187,10 @@ async function fetchNkryPage(endpoint, authValue, term, page = 1) {
         return response.json();
       }
     } catch (error) {
-      const timedOut = error?.name === "AbortError";
-      const retriable = timedOut || error?.cause?.code === "ECONNRESET" || /fetch failed/i.test(String(error?.message || ""));
+      const retriable =
+        error?.name === "AbortError"
+        || error?.cause?.code === "ECONNRESET"
+        || /fetch failed/i.test(String(error?.message || ""));
       if (!retriable || attempt >= NKRY_FETCH_RETRIES) {
         clearTimeout(timeout);
         throw error;
@@ -1305,6 +199,7 @@ async function fetchNkryPage(endpoint, authValue, term, page = 1) {
     } finally {
       clearTimeout(timeout);
     }
+
     await sleep(NKRY_FETCH_BACKOFF_MS * (attempt + 1));
   }
 
@@ -1320,7 +215,13 @@ function readFieldValue(valueItem) {
 }
 
 function parseDocMeta(docInfo) {
-  const meta = { author: "", year: "", type: "", topic: "", style: "", header: "" };
+  const meta = {
+    author: "",
+    year: "",
+    created: "",
+    titleFallback: ""
+  };
+
   const items = docInfo?.docExplainInfo?.items || [];
 
   for (const item of items) {
@@ -1333,29 +234,19 @@ function parseDocMeta(docInfo) {
         if (found) meta.author = found;
       }
 
-      if (!meta.year && (name === "publ_year" || name === "created" || name.includes("year") || name.includes("год"))) {
+      if (!meta.year && (name === "publ_year" || name.includes("year") || name.includes("год"))) {
         const found = values.map(readFieldValue).find(Boolean);
         if (found) meta.year = found;
       }
 
-      if (!meta.type && name === "type") {
+      if (!meta.created && name === "created") {
         const found = values.map(readFieldValue).find(Boolean);
-        if (found) meta.type = found;
+        if (found) meta.created = found;
       }
 
-      if (!meta.topic && name === "topic") {
+      if (!meta.titleFallback && name === "header") {
         const found = values.map(readFieldValue).find(Boolean);
-        if (found) meta.topic = found;
-      }
-
-      if (!meta.style && name === "style") {
-        const found = values.map(readFieldValue).find(Boolean);
-        if (found) meta.style = found;
-      }
-
-      if (!meta.header && name === "header") {
-        const found = values.map(readFieldValue).find(Boolean);
-        if (found) meta.header = found;
+        if (found) meta.titleFallback = found;
       }
     }
   }
@@ -1377,11 +268,13 @@ function joinWords(words) {
 
 function extractSnippetQuote(snippet) {
   const words = [];
-  for (const sequence of snippet.sequences || []) {
-    for (const word of sequence.words || []) words.push(word);
+  for (const sequence of snippet?.sequences || []) {
+    for (const word of sequence?.words || []) {
+      words.push(word);
+    }
   }
 
-  if (!words.length) return { quote: "", hitCount: 0 };
+  if (!words.length) return "";
 
   const hitIndices = [];
   for (let i = 0; i < words.length; i += 1) {
@@ -1389,307 +282,118 @@ function extractSnippetQuote(snippet) {
   }
 
   if (!hitIndices.length) {
-    return { quote: joinWords(words.slice(0, 80)), hitCount: 0 };
+    return joinWords(words.slice(0, 80));
   }
 
   const center = hitIndices[0];
   const start = Math.max(0, center - 24);
   const end = Math.min(words.length, center + 45);
-
-  return {
-    quote: joinWords(words.slice(start, end)),
-    hitCount: hitIndices.length
-  };
+  return joinWords(words.slice(start, end));
 }
 
-function parseConcordanceCandidates(payload, term) {
+function extractPrimaryYear(value) {
+  const text = String(value || "");
+  const match = text.match(/\b(1[6-9]\d{2}|20\d{2})\b/);
+  return match ? Number(match[1]) : NaN;
+}
+
+function parseConcordanceCandidates(payload, word, page) {
   const candidates = [];
-  if (!payload || typeof payload !== "object") return candidates;
+  if (!payload || typeof payload !== "object") return { candidates, maxPage: 1 };
+
+  const maxPage = Number(payload?.pagination?.maxAvailablePage || payload?.pagination?.totalPageCount || 1);
 
   for (const group of payload.groups || []) {
     for (const doc of group.docs || []) {
       const meta = parseDocMeta(doc.info);
-      const title = String(doc?.info?.title || "Без названия");
+      const title = String(doc?.info?.title || meta.titleFallback || "Без названия");
+      const author = meta.author || "Не указан";
+      const yearRaw = meta.year || meta.created || "";
+      const year = extractPrimaryYear(yearRaw);
 
       for (const snippetGroup of doc.snippetGroups || []) {
         for (const snippet of snippetGroup.snippets || []) {
-          const { quote, hitCount } = extractSnippetQuote(snippet);
+          const quote = extractSnippetQuote(snippet);
           if (!quote) continue;
 
           candidates.push({
             quote,
-            author: meta.author || "Не указан",
+            author,
             title,
-            year: meta.year || "",
+            year: yearRaw,
+            yearNum: Number.isFinite(year) ? year : Number.POSITIVE_INFINITY,
             sourceName: "НКРЯ",
-            hitCount,
-            matchedTerm: term,
-            docType: meta.type || "",
-            docTopic: meta.topic || "",
-            docStyle: meta.style || "",
-            docHeader: meta.header || ""
+            matchedWord: word,
+            page
           });
         }
       }
     }
   }
 
-  return candidates;
+  return { candidates, maxPage };
 }
 
-function buildMockCandidates(term, limit) {
-  const base = [
-    {
-      quote: "И долго буду тем любезен я народу, что чувства добрые я лирой пробуждал.",
-      author: "Александр Пушкин",
-      title: "Я памятник себе воздвиг нерукотворный",
-      year: "1836",
-      sourceName: "НКРЯ-MOCK",
-      hitCount: 2
-    },
-    {
-      quote: "О, как убийственно мы любим, как в буйной слепоте страстей.",
-      author: "Федор Тютчев",
-      title: "О, как убийственно мы любим",
-      year: "1851",
-      sourceName: "НКРЯ-MOCK",
-      hitCount: 2
-    },
-    {
-      quote: "И скучно и грустно, и некому руку подать в минуту душевной невзгоды.",
-      author: "Михаил Лермонтов",
-      title: "И скучно и грустно",
-      year: "1840",
-      sourceName: "НКРЯ-MOCK",
-      hitCount: 3
-    },
-    {
-      quote: "Не жалею, не зову, не плачу, все пройдет, как с белых яблонь дым.",
-      author: "Сергей Есенин",
-      title: "Не жалею, не зову, не плачу",
-      year: "1921",
-      sourceName: "НКРЯ-MOCK",
-      hitCount: 2
-    }
-  ];
-  return base.slice(0, limit).map((item, idx) => ({
-    ...item,
-    matchedTerm: term,
-    docType: "поэзия",
-    docTopic: idx % 2 ? "лирика" : "рефлексия",
-    docStyle: "художественный",
-    docHeader: `${item.author} ${item.title}`
-  }));
-}
+function pickEarliestCandidate(candidates) {
+  if (!Array.isArray(candidates) || !candidates.length) return null;
 
-async function fetchNkryConcordance(term, limit) {
-  if (NKRY_MOCK_MODE) {
-    return buildMockCandidates(term, limit);
+  const dedup = new Map();
+  for (const candidate of candidates) {
+    const key = `${candidate.quote}__${candidate.author}__${candidate.title}`;
+    if (!dedup.has(key)) dedup.set(key, candidate);
   }
+
+  const unique = Array.from(dedup.values());
+  unique.sort((a, b) => {
+    if (a.yearNum !== b.yearNum) return a.yearNum - b.yearNum;
+    if (a.page !== b.page) return a.page - b.page;
+    return a.quote.length - b.quote.length;
+  });
+
+  return unique[0] || null;
+}
+
+async function findFirstUsage(word) {
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
-  const firstPayload = await fetchNkryPage(endpoint, authValue, term, 1);
-  const firstCandidates = parseConcordanceCandidates(firstPayload, term);
-  let merged = [...firstCandidates];
 
-  if (NKRY_RANDOM_PAGE_ENABLED) {
-    const maxAvailablePage = Number(firstPayload?.pagination?.maxAvailablePage || firstPayload?.pagination?.totalPageCount || 1);
-    const randomPage = chooseRandomResultPage(maxAvailablePage);
-    if (randomPage > 1) {
-      try {
-        const randomPayload = await fetchNkryPage(endpoint, authValue, term, randomPage);
-        const randomCandidates = parseConcordanceCandidates(randomPayload, term);
-        merged = merged.concat(randomCandidates);
-      } catch {
-        // Keep first page candidates if random page fails.
-      }
+  const firstPayload = await fetchNkryPage(endpoint, authValue, word, 1);
+  const parsedFirst = parseConcordanceCandidates(firstPayload, word, 1);
+
+  const maxAvailablePage = Math.max(1, Math.min(parsedFirst.maxPage, NKRY_FIRST_USAGE_MAX_PAGES));
+  let allCandidates = [...parsedFirst.candidates];
+
+  for (let page = 2; page <= maxAvailablePage; page += 1) {
+    try {
+      const payload = await fetchNkryPage(endpoint, authValue, word, page);
+      const parsed = parseConcordanceCandidates(payload, word, page);
+      allCandidates = allCandidates.concat(parsed.candidates);
+    } catch {
+      // keep candidates from successfully fetched pages
     }
   }
 
-  return selectDiverseCandidates(merged, Math.max(limit * 8, 120), 2);
-}
+  const best = pickEarliestCandidate(allCandidates);
+  if (!best) return null;
 
-function shuffleArray(array) {
-  const out = [...array];
-  for (let i = out.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [out[i], out[j]] = [out[j], out[i]];
-  }
-  return out;
-}
-
-function selectDiverseCandidates(candidates, limit = 90, perAuthorLimit = 2) {
-  if (!Array.isArray(candidates) || candidates.length <= 1) return Array.isArray(candidates) ? candidates : [];
-  const shuffled = shuffleArray(candidates);
-  const authorCounts = new Map();
-  const usedKeys = new Set();
-  const selected = [];
-
-  for (const item of shuffled) {
-    const key = normalizeText(`${item?.quote || ""}__${item?.title || ""}`);
-    if (!key || usedKeys.has(key)) continue;
-    const authorKey = normalizeText(String(item?.author || ""));
-    const count = authorCounts.get(authorKey) || 0;
-    if (count >= perAuthorLimit) continue;
-
-    selected.push(item);
-    usedKeys.add(key);
-    authorCounts.set(authorKey, count + 1);
-    if (selected.length >= limit) break;
-  }
-
-  if (selected.length >= limit) return selected;
-  for (const item of shuffled) {
-    const key = normalizeText(`${item?.quote || ""}__${item?.title || ""}`);
-    if (!key || usedKeys.has(key)) continue;
-    selected.push(item);
-    usedKeys.add(key);
-    if (selected.length >= limit) break;
-  }
-
-  return selected;
-}
-
-function buildFallbackCandidates(queryTokens, limit = 28) {
-  const queryStems = queryTokens.map((token) => stemPrefix(token));
-  const pool = [...recentGoodPool, ...localFallbackCorpus];
-  const scored = pool
-    .map((item) => {
-      const source = item.fallbackNorm || rankNormalizeText(`${item.quote} ${item.author} ${item.title}`);
-      let lexical = 0;
-      for (const token of queryTokens) {
-        const stem = stemPrefix(token);
-        if (source.includes(token)) lexical += 2;
-        else if (source.includes(stem)) lexical += 1;
-      }
-      for (const stem of queryStems) {
-        if (source.includes(stem)) lexical += 0.2;
-      }
-      const recentBoost = item.matchedTerm === "recent" ? 0.8 : 0;
-      return { item, rank: lexical + recentBoost };
-    })
-    .filter((row) => row.rank > 0.2)
-    .sort((a, b) => b.rank - a.rank)
-    .slice(0, limit)
-    .map((row) => ({
-      ...row.item,
-      matchedTerm: row.item.matchedTerm || "fallback",
-      hitCount: Math.max(1, Number(row.item.hitCount || 1))
-    }));
-
-  if (scored.length) return scored;
-  return recentGoodPool.slice(-Math.min(limit, recentGoodPool.length)).map((row) => ({
-    ...row,
-    matchedTerm: "fallback_recent",
-    hitCount: Math.max(1, Number(row.hitCount || 1))
-  }));
-}
-
-function rankAndPick({
-  allCandidates,
-  userKey,
-  queryTokens,
-  queryTokenWeights,
-  queryGroups,
-  queryContext,
-  scoringStateWeights,
-  styleGenreSignals,
-  excludeAuthors,
-  excludeQuotes,
-  effectiveModel,
-  variantMode,
-  previousTone
-}) {
-  const dedup = new Map();
-  for (const candidate of allCandidates) {
-    if (shouldRejectByContext(candidate, queryContext)) continue;
-    const key = normalizeText(`${candidate.quote}__${candidate.title}`);
-    const scored = scoreCandidate({
-      candidate,
-      queryTokens,
-      queryTokenWeights,
-      queryGroups,
-      queryContext,
-      stateWeights: scoringStateWeights,
-      excludeAuthors,
-      model: effectiveModel
-    });
-    const styleGenreBoost = scoreStyleGenreMatch(candidate, styleGenreSignals);
-    const repetitionPenalty = authorHistoryPenalty(userKey, candidate.author);
-    const chronoBoost = chronologyScore(candidate, queryContext);
-    const randomJitter = (Math.random() - 0.5) * 0.35;
-    const next = {
-      ...candidate,
-      score: scored.score + styleGenreBoost + chronoBoost - repetitionPenalty + randomJitter,
-      scoreDetails: { ...scored.components, styleGenreBoost, repetitionPenalty, chronoBoost, randomJitter },
-      fingerprint: buildFingerprint(candidate)
-    };
-    if (!dedup.has(key) || dedup.get(key).score < next.score) dedup.set(key, next);
-  }
-
-  const ranked = Array.from(dedup.values()).sort((a, b) => b.score - a.score);
-  const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
-  if (!filtered.length) return null;
-
-  const semanticallyFiltered = filtered.filter((item) =>
-    passesSemanticGate(semanticSignals(item, queryTokens, queryTokenWeights, queryContext))
-  );
-  const candidatePool = semanticallyFiltered;
-  if (!candidatePool.length) return null;
-
-  const stochasticTop = pickStochasticTop(candidatePool, RANDOM_PICK_TOP_K) || candidatePool[0];
-  const topByMode = variantMode === "contrast"
-    ? pickTopCandidate(candidatePool, variantMode, previousTone)
-    : stochasticTop;
-  const top = pickWithAuthorDiversity(candidatePool, topByMode, userKey);
-  const alternatives = candidatePool
-    .filter((item) => item.fingerprint !== top.fingerprint)
-    .slice(0, 3)
-    .map((item) => ({
-      quote: item.quote,
-      author: item.author,
-      title: item.title,
-      year: item.year,
-      sourceName: item.sourceName,
-      tone: item.scoreDetails?.tone || 0,
-      fingerprint: item.fingerprint
-    }));
-  return { top, alternatives, ranked: candidatePool };
-}
-
-function pickWithControlledExploration(picked, variantMode) {
-  const base = picked?.top || null;
-  if (!base) return { top: null, policy: "exploit", epsilon: 0, exploredFromTopK: 0 };
-
-  const epsilon = Math.max(0, Math.min(0.5, Number(MATCH_EXPLORATION_EPSILON || 0)));
-  const allowExplore = variantMode !== "contrast" && epsilon > 0;
-  const ranked = Array.isArray(picked?.ranked) ? picked.ranked : [];
-  const explorePool = ranked.slice(1, Math.max(1, Math.min(MATCH_EXPLORATION_TOP_K, ranked.length)));
-  const shouldExplore = allowExplore && explorePool.length > 0 && Math.random() < epsilon;
-
-  if (!shouldExplore) {
-    return {
-      top: base,
-      policy: "exploit",
-      epsilon,
-      exploredFromTopK: explorePool.length
-    };
-  }
-
-  const idx = Math.floor(Math.random() * explorePool.length);
   return {
-    top: explorePool[idx] || base,
-    policy: "explore",
-    epsilon,
-    exploredFromTopK: explorePool.length
+    quote: best.quote,
+    author: best.author,
+    title: best.title,
+    year: best.year,
+    sourceName: best.sourceName,
+    meta: {
+      matchedWord: word,
+      scannedPages: maxAvailablePage,
+      candidates: allCandidates.length,
+      chosenPage: best.page,
+      chosenYear: Number.isFinite(best.yearNum) ? best.yearNum : null
+    }
   };
 }
 
 async function handleNkrySearch(req, res) {
-  const startedAt = Date.now();
-  metrics.searchRequests += 1;
-  if (!NKRY_MOCK_MODE && (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY)) {
-    markSearchError();
+  if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) {
     sendJson(res, 503, {
       error: "НКРЯ не настроен на сервере. Задайте NKRY_API_BASE_URL, NKRY_SEARCH_PATH и NKRY_API_KEY."
     });
@@ -1700,538 +404,66 @@ async function handleNkrySearch(req, res) {
   try {
     body = await parseRequestBody(req);
   } catch (error) {
-    if (error && error.message === "payload_too_large") {
-      markSearchError();
+    if (error?.message === "payload_too_large") {
       sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
       return;
     }
-    markSearchError();
     sendJson(res, 400, { error: "Некорректный JSON в запросе." });
     return;
   }
 
-  const userKey = getUserKey(req, body);
-  const userModel = getOrCreateUserModel(userKey);
-  const globalModel = getGlobalModel();
-  applyDecay(userModel);
-  applyDecay(globalModel);
-  const effectiveModel = blendModels(userModel, globalModel);
-
-  const queryRaw = String(body.query || "").trim();
-  const query = normalizeQueryText(queryRaw);
-  const queryEntities = extractNamedEntities(queryRaw);
-  const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
-  const variantMode = String(body.variantMode || "");
-  const previousTone = Number(body.previousTone);
-  const excludeAuthors = Array.isArray(body.excludeAuthors)
-    ? body.excludeAuthors.map((x) => normalizeText(String(x || ""))).filter(Boolean)
-    : [];
-  const stateWeights = body.stateWeights && typeof body.stateWeights === "object" ? body.stateWeights : {};
-  const scoringStateWeights = buildScoringStateWeights(stateWeights);
-  const excludeQuotes = Array.isArray(body.excludeQuotes)
-    ? body.excludeQuotes.map((x) => normalizeText(String(x || ""))).filter(Boolean)
-    : [];
-
-  if (!query) {
-    markSearchError();
-    sendJson(res, 400, { error: "Пустой query." });
+  const validation = validateOneWord(body.word);
+  if (!validation.ok) {
+    sendJson(res, 400, { error: validation.reason });
     return;
   }
 
-  const baseWeightedKeywords = extractWeightedKeywords(query, 10);
-  const conceptualBridge = buildConceptualBridge(query, baseWeightedKeywords.map((item) => item.token));
-  const weightedKeywords = mergeWeightedKeywords(baseWeightedKeywords, conceptualBridge.tokenWeights, 12);
-  const queryTokens = weightedKeywords.map((item) => item.token);
-  const queryTokenWeights = Object.fromEntries(weightedKeywords.map((item) => [item.token, item.weight]));
-  if (!queryTokens.length) {
-    markSearchError();
-    sendJson(res, 400, { error: "Не удалось выделить ключевые слова запроса." });
-    return;
-  }
-  const queryGroups = detectQueryGroups(queryTokens);
-  const queryContext = buildQueryContext(queryTokens, query, conceptualBridge, queryEntities);
-  const styleGenreSignals = detectStyleGenreSignals(query);
-  if (queryContext.isBigBang) {
-    for (const token of ["взрыв", "взрыва", "большой", "произошел", "произошла", "произошло"]) {
-      delete queryTokenWeights[token];
+  try {
+    const result = await findFirstUsage(validation.value);
+    if (!result) {
+      sendJson(res, 404, {
+        error: `Для слова «${validation.value}» в выбранном корпусе не найдено цитат.`
+      });
+      return;
     }
-  }
 
-  const terms = buildSearchTerms({
-    query,
-    terms: body.terms,
-    stateWeights,
-    bridgeTerms: conceptualBridge.searchTerms,
-    queryContext
-  });
-  if (!terms.length) {
-    markSearchError();
-    sendJson(res, 400, { error: "Не удалось сформировать термы поиска." });
-    return;
-  }
-
-  const queryKey = normalizeText(query);
-  touchRecentQuery(queryKey);
-
-  const sendRankedPayload = (picked, responseTerms, explainText = "", meta = {}) => {
-    const selection = pickWithControlledExploration(picked, variantMode);
-    const top = selection.top || picked.top;
-    if (selection.policy === "explore") metrics.searchExploreServed += 1;
-    else metrics.searchExploitServed += 1;
-
-    const alternatives = (picked.ranked || [])
-      .filter((item) => item.fingerprint !== top.fingerprint)
-      .slice(0, 3)
-      .map((item) => ({
-        quote: item.quote,
-        author: item.author,
-        title: item.title,
-        year: item.year,
-        sourceName: item.sourceName,
-        tone: item.scoreDetails?.tone || 0,
-        fingerprint: item.fingerprint
-      }));
-
-    const servedQuoteId = servedQuoteRegistry.issue(userKey, {
-      fingerprint: top.fingerprint,
-      author: top.author,
-      title: top.title,
-      quote: top.quote,
-      servingPolicy: selection.policy,
-      explorationEpsilon: selection.epsilon
-    });
-    addRecentGoodCandidates([top, ...alternatives]);
-    recordServedAuthor(userKey, top.author);
-    markSearchSuccess();
-    metrics.searchLatencyTotalMs += Date.now() - startedAt;
-    metrics.searchLatencySamples += 1;
-    console.log(
-      JSON.stringify({
-        type: "search_success",
-        query: queryKey,
-        variantMode: variantMode || "default",
-        matchedTerms: responseTerms.slice(0, 5),
-        topAuthor: top.author,
-        topTitle: top.title,
-        servingPolicy: selection.policy,
-        explorationEpsilon: selection.epsilon,
-        exploredFromTopK: selection.exploredFromTopK,
-        ...meta
-      })
-    );
     sendJson(res, 200, {
       quote: {
-        quote: top.quote,
-        author: top.author,
-        title: top.title,
-        year: top.year,
-        sourceName: top.sourceName,
-        score: top.score,
-        matchedTerms: responseTerms.slice(0, 5),
-        tone: top.scoreDetails?.tone || 0,
-        fingerprint: top.fingerprint,
-        servingPolicy: selection.policy,
-        servedQuoteId,
-        scoreDetails: top.scoreDetails
+        quote: result.quote,
+        author: result.author,
+        title: result.title,
+        year: result.year,
+        sourceName: result.sourceName
       },
-      explain: explainText
-        || "Скоринг: совпадение запроса + тематическая близость + эмоциональный тон + коррекция по вашему feedback.",
-      alternatives
+      explain: "Показано самое раннее найденное употребление слова в НКРЯ (по доступным страницам выдачи).",
+      meta: result.meta
     });
-  };
-
-  if (isNkryCircuitOpen()) {
-    const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
-    const pickedFallback = rankAndPick({
-      allCandidates: fallbackCandidates,
-      userKey,
-      queryTokens,
-      queryTokenWeights,
-      queryGroups,
-      queryContext,
-      scoringStateWeights,
-      styleGenreSignals,
-      excludeAuthors,
-      excludeQuotes,
-      effectiveModel,
-      variantMode,
-      previousTone
-    });
-    if (pickedFallback) {
-      metrics.circuitFallbackResponses += 1;
-      sendRankedPayload(
-        pickedFallback,
-        ["fallback_circuit_open"],
-        "НКРЯ временно недоступен, показан лучший вариант из локального каталога/последних релевантных результатов.",
-        { fallback: "circuit_open" }
-      );
-      return;
-    }
-    markSearchError();
-    sendJson(res, 503, { error: "Внешний источник временно недоступен. Попробуйте снова через минуту." });
-    return;
-  }
-
-  let allCandidates = [];
-  const settled = await Promise.allSettled(terms.map((term) => fetchNkryConcordance(term, limit)));
-  const errors = [];
-  let upstreamSuccesses = 0;
-  for (const result of settled) {
-    if (result.status === "fulfilled") {
-      upstreamSuccesses += 1;
-      allCandidates = allCandidates.concat(result.value);
-      continue;
-    }
-    errors.push(result.reason?.message || "Ошибка сети при обращении к НКРЯ API.");
-  }
-  if (upstreamSuccesses > 0) markNkrySuccess();
-  else markNkryFailure(errors.slice(0, 2).join(" | "));
-
-  if (!allCandidates.length) {
-    const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
-    const pickedFallback = rankAndPick({
-      allCandidates: fallbackCandidates,
-      userKey,
-      queryTokens,
-      queryTokenWeights,
-      queryGroups,
-      queryContext,
-      scoringStateWeights,
-      styleGenreSignals,
-      excludeAuthors,
-      excludeQuotes,
-      effectiveModel,
-      variantMode,
-      previousTone
-    });
-    if (pickedFallback) {
-      metrics.circuitFallbackResponses += 1;
-      sendRankedPayload(
-        pickedFallback,
-        ["fallback_after_upstream_error"],
-        "НКРЯ временно недоступен, показан лучший вариант из локального каталога/последних релевантных результатов.",
-        { fallback: "upstream_error" }
-      );
-      return;
-    }
-    markSearchError();
-    const reason = errors.length ? ` Все термы завершились ошибкой: ${errors.slice(0, 3).join(" | ")}` : "";
-    sendJson(res, 502, { error: `НКРЯ недоступен для текущего запроса.${reason}` });
-    console.log(JSON.stringify({ type: "search_error", query: queryKey, reason: "all_terms_failed", errors: errors.slice(0, 3) }));
-    return;
-  }
-
-  const picked = rankAndPick({
-    allCandidates,
-    userKey,
-    queryTokens,
-    queryTokenWeights,
-    queryGroups,
-    queryContext,
-    scoringStateWeights,
-    styleGenreSignals,
-    excludeAuthors,
-    excludeQuotes,
-    effectiveModel,
-    variantMode,
-    previousTone
-  });
-  if (!picked) {
-    markSearchEmpty();
-    const profileId = queryContext?.conceptProfile?.id || "";
-    const profileHint = profileId
-      ? `Для темы ${profileId} не найден достаточно релевантный фрагмент.`
-      : "Не удалось выбрать достаточно релевантный фрагмент.";
-    sendJson(res, 404, { error: `${profileHint} Уточните формулировку вопроса.` });
-    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_excluded" }));
-    return;
-  }
-  sendRankedPayload(picked, terms);
-}
-
-async function handleNkryFeedback(req, res) {
-  if (!checkRateLimit(req, "feedback", RATE_LIMIT_FEEDBACK_PER_WINDOW)) {
-    sendJson(res, 429, { error: "Слишком много feedback-запросов. Повторите позже." });
-    return;
-  }
-  if (!isAuthorized(req, "feedback")) {
-    sendJson(res, 401, { error: "Unauthorized feedback request." });
-    return;
-  }
-
-  let body;
-  try {
-    body = await parseRequestBody(req);
   } catch (error) {
-    if (error && error.message === "payload_too_large") {
-      sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
-      return;
-    }
-    sendJson(res, 400, { error: "Некорректный JSON в запросе." });
-    return;
+    sendJson(res, 502, {
+      error: `Ошибка обращения к НКРЯ: ${error?.message || "неизвестная ошибка"}`
+    });
   }
+}
 
-  const rating = Number(body.rating);
-  if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
-    sendJson(res, 400, { error: "Оценка должна быть в диапазоне 1-5." });
-    return;
-  }
-
-  const userKey = getUserKey(req, body);
-  const servedQuoteId = String(body.servedQuoteId || "").trim();
-  if (!servedQuoteId) {
-    sendJson(res, 200, { ok: true, ignored: "legacy_feedback_without_servedQuoteId" });
-    return;
-  }
-  const servedCandidate = servedQuoteRegistry.consume(userKey, servedQuoteId);
-  if (!servedCandidate) {
-    sendJson(res, 409, { error: "Feedback отклонен: цитата не найдена или уже подтверждена." });
-    return;
-  }
-
-  const reason = String(body.reason || "").trim();
-  const userModel = getOrCreateUserModel(userKey);
-  const globalModel = getGlobalModel();
-  applyFeedbackLearning(userModel, { rating, reason, candidate: servedCandidate });
-  applyFeedbackLearning(globalModel, { rating, reason, candidate: servedCandidate });
-  const effectiveModel = blendModels(userModel, globalModel);
-  feedbackStore.updatedAt = new Date().toISOString();
+function getStaticPath(urlPath) {
+  let decoded = "";
   try {
-    await persistFeedbackStore(feedbackStore);
+    decoded = decodeURIComponent(urlPath);
   } catch {
-    sendJson(res, 500, { error: "Не удалось сохранить feedback в хранилище." });
-    return;
-  }
-  metrics.feedbackEvents += 1;
-  const servingPolicy = String(servedCandidate.servingPolicy || "exploit") === "explore" ? "explore" : "exploit";
-  if (servingPolicy === "explore") {
-    metrics.feedbackExploreEvents += 1;
-    metrics.feedbackExploreRatingTotal += rating;
-  } else {
-    metrics.feedbackExploitEvents += 1;
-    metrics.feedbackExploitRatingTotal += rating;
-  }
-  console.log(
-    JSON.stringify({
-      type: "feedback",
-      rating,
-      hitScore: rating,
-      reason,
-      author: servedCandidate.author || "",
-      title: servedCandidate.title || "",
-      servingPolicy
-    })
-  );
-
-  sendJson(res, 200, {
-    ok: true,
-    updatedAt: effectiveModel.updatedAt,
-    weights: effectiveModel.weights
-  });
-}
-
-function getWindowSearchStats(windowMs = SLO_WINDOW_MS) {
-  const now = Date.now();
-  const cutoff = now - windowMs;
-  const windowEvents = recentSearchEvents.filter((event) => event.ts >= cutoff);
-  const total = windowEvents.length;
-  let success = 0;
-  let empty = 0;
-  let error = 0;
-  for (const event of windowEvents) {
-    if (event.kind === "success") success += 1;
-    else if (event.kind === "empty") empty += 1;
-    else if (event.kind === "error") error += 1;
-  }
-  const successRate = total ? success / total : 0;
-  const noResultRate = total ? empty / total : 0;
-  const searchErrorRate = total ? error / total : 0;
-  const feedbackPersistErrors = feedbackPersistErrorEvents.filter((ts) => ts >= cutoff).length;
-  return {
-    windowMs,
-    total,
-    success,
-    empty,
-    error,
-    successRate: Number(successRate.toFixed(4)),
-    noResultRate: Number(noResultRate.toFixed(4)),
-    searchErrorRate: Number(searchErrorRate.toFixed(4)),
-    feedbackPersistErrors
-  };
-}
-
-function getSloState(windowStats) {
-  const alerts = [];
-  if (windowStats.total > 0 && windowStats.successRate < SLO_SUCCESS_RATE_MIN) {
-    alerts.push({
-      key: "successRate",
-      severity: "critical",
-      message: `successRate ${windowStats.successRate} < ${SLO_SUCCESS_RATE_MIN}`
-    });
-  }
-  if (windowStats.total > 0 && windowStats.noResultRate > SLO_NO_RESULT_RATE_MAX) {
-    alerts.push({
-      key: "noResultRate",
-      severity: "critical",
-      message: `noResultRate ${windowStats.noResultRate} > ${SLO_NO_RESULT_RATE_MAX}`
-    });
-  }
-  if (windowStats.total > 0 && windowStats.searchErrorRate > SLO_SEARCH_ERROR_RATE_MAX) {
-    alerts.push({
-      key: "searchErrors",
-      severity: "critical",
-      message: `searchErrorRate ${windowStats.searchErrorRate} > ${SLO_SEARCH_ERROR_RATE_MAX}`
-    });
-  }
-  if (windowStats.feedbackPersistErrors > 0) {
-    alerts.push({
-      key: "feedbackPersistErrors",
-      severity: "critical",
-      message: `feedbackPersistErrors ${windowStats.feedbackPersistErrors} > 0`
-    });
-  }
-  return {
-    ok: alerts.length === 0,
-    alerts
-  };
-}
-
-function getQualityMetrics() {
-  const ratings = [];
-  const globalModel = getGlobalModel();
-  for (const row of globalModel.recentFeedback || []) {
-    const value = Number(row.rating);
-    if (Number.isFinite(value)) ratings.push(value);
-  }
-  for (const model of Object.values(feedbackStore.users)) {
-    for (const row of model.recentFeedback || []) {
-      const value = Number(row.rating);
-      if (Number.isFinite(value)) ratings.push(value);
-    }
-  }
-  const averageRating = ratings.length
-    ? Number((ratings.reduce((acc, x) => acc + x, 0) / ratings.length).toFixed(3))
-    : null;
-  const searchLatencyAvgMs = metrics.searchLatencySamples
-    ? Number((metrics.searchLatencyTotalMs / metrics.searchLatencySamples).toFixed(2))
-    : null;
-  const window15m = getWindowSearchStats(SLO_WINDOW_MS);
-  const slo = getSloState(window15m);
-  const exploreAvgHitScore = metrics.feedbackExploreEvents
-    ? Number((metrics.feedbackExploreRatingTotal / metrics.feedbackExploreEvents).toFixed(3))
-    : null;
-  const exploitAvgHitScore = metrics.feedbackExploitEvents
-    ? Number((metrics.feedbackExploitRatingTotal / metrics.feedbackExploitEvents).toFixed(3))
-    : null;
-  const exploreVsExploitDelta =
-    Number.isFinite(exploreAvgHitScore) && Number.isFinite(exploitAvgHitScore)
-      ? Number((exploreAvgHitScore - exploitAvgHitScore).toFixed(3))
-      : null;
-
-  return {
-    searchRequests: metrics.searchRequests,
-    searchSuccess: metrics.searchSuccess,
-    searchEmpty: metrics.searchEmpty,
-    searchErrors: metrics.searchErrors,
-    repeatedQueries: metrics.repeatedQueries,
-    feedbackEvents: metrics.feedbackEvents,
-    successRate: metrics.searchRequests ? Number((metrics.searchSuccess / metrics.searchRequests).toFixed(4)) : 0,
-    noResultRate: metrics.searchRequests ? Number((metrics.searchEmpty / metrics.searchRequests).toFixed(4)) : 0,
-    searchLatencyAvgMs,
-    averageRating,
-    modelUpdatedAt: feedbackStore.updatedAt || null,
-    globalModelUpdatedAt: globalModel.updatedAt || null,
-    globalFeedbackEvents: Array.isArray(globalModel.recentFeedback) ? globalModel.recentFeedback.length : 0,
-    userModels: Object.keys(feedbackStore.users).length,
-    userModelsPruned: metrics.userModelsPruned,
-    feedbackPersistErrors: metrics.feedbackPersistErrors,
-    exploration: {
-      epsilon: Number(Math.max(0, Math.min(0.5, MATCH_EXPLORATION_EPSILON)).toFixed(4)),
-      topK: MATCH_EXPLORATION_TOP_K,
-      searchExploreServed: metrics.searchExploreServed,
-      searchExploitServed: metrics.searchExploitServed,
-      feedbackExploreEvents: metrics.feedbackExploreEvents,
-      feedbackExploitEvents: metrics.feedbackExploitEvents,
-      exploreAvgHitScore,
-      exploitAvgHitScore,
-      exploreVsExploitDelta
-    },
-    circuitOpenEvents: metrics.circuitOpenEvents,
-    circuitFallbackResponses: metrics.circuitFallbackResponses,
-    nkryCircuit: {
-      isOpen: isNkryCircuitOpen(),
-      consecutiveFailures: nkryCircuit.consecutiveFailures,
-      openUntil: nkryCircuit.openUntil ? new Date(nkryCircuit.openUntil).toISOString() : null,
-      lastFailureAt: nkryCircuit.lastFailureAt ? new Date(nkryCircuit.lastFailureAt).toISOString() : null,
-      lastOpenedAt: nkryCircuit.lastOpenedAt ? new Date(nkryCircuit.lastOpenedAt).toISOString() : null,
-      lastReason: nkryCircuit.lastReason || null
-    },
-    window15m,
-    slo
-  };
-}
-
-function getFeedbackStats() {
-  const globalModel = getGlobalModel();
-  const events = Array.isArray(globalModel.recentFeedback) ? globalModel.recentFeedback : [];
-  const ratings = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 };
-  const reasons = {};
-  const byAuthor = {};
-  const byTitle = {};
-
-  for (const row of events) {
-    const rating = String(Math.max(1, Math.min(5, Math.round(Number(row.rating) || 0))));
-    if (ratings[rating] !== undefined) ratings[rating] += 1;
-    const reason = String(row.reason || "").trim() || "(none)";
-    reasons[reason] = (reasons[reason] || 0) + 1;
-    const author = String(row.author || "").trim() || "Не указан";
-    const title = String(row.title || "").trim() || "Без названия";
-    byAuthor[author] = (byAuthor[author] || 0) + 1;
-    byTitle[title] = (byTitle[title] || 0) + 1;
+    return null;
   }
 
-  const ratedTotal = Object.values(ratings).reduce((acc, x) => acc + x, 0);
-  const fitPositive = (ratings["4"] || 0) + (ratings["5"] || 0);
-  const fitNegative = (ratings["1"] || 0) + (ratings["2"] || 0);
-  const fitNeutral = ratings["3"] || 0;
-  const activeUsers = Object.values(feedbackStore.users).filter(
-    (model) => Array.isArray(model?.recentFeedback) && model.recentFeedback.length > 0
-  ).length;
-
-  return {
-    totalFeedbackEvents: ratedTotal,
-    activeUsers,
-    globalModelUpdatedAt: globalModel.updatedAt || null,
-    fit: {
-      positive_4_5: fitPositive,
-      negative_1_2: fitNegative,
-      neutral_3: fitNeutral
-    },
-    ratings,
-    reasons: Object.entries(reasons)
-      .sort((a, b) => b[1] - a[1])
-      .map(([reason, count]) => ({ reason, count })),
-    topAuthors: Object.entries(byAuthor)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 15)
-      .map(([author, count]) => ({ author, count })),
-    topTitles: Object.entries(byTitle)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 15)
-      .map(([title, count]) => ({ title, count }))
-  };
+  const normalized = path.normalize(decoded);
+  const withoutTraversal = normalized.replace(/^(\.\.(\/|\\|$))+/, "");
+  const relative = withoutTraversal === "/" ? "index.html" : withoutTraversal.replace(/^[/\\]+/, "");
+  return path.join(__dirname, relative);
 }
 
 function serveStatic(req, res) {
-  const requestUrl = new URL(req.url, `http://${req.headers.host}`);
-  const filePath = getStaticPath(requestUrl.pathname);
-  if (!filePath) {
-    res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
-    res.end("Bad request");
-    return;
-  }
+  const requestPath = req.url?.split("?")[0] || "/";
+  const filePath = getStaticPath(requestPath);
 
-  if (!existsSync(filePath) || !statSync(filePath).isFile()) {
+  if (!filePath || !filePath.startsWith(__dirname) || !existsSync(filePath) || statSync(filePath).isDirectory()) {
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     res.end("Not found");
     return;
@@ -2247,108 +479,24 @@ function serveStatic(req, res) {
     "Content-Length": size,
     "Cache-Control": cacheControl
   });
+
   if (req.method === "HEAD") {
     res.end();
     return;
   }
+
   createReadStream(filePath).pipe(res);
 }
 
 const server = http.createServer(async (req, res) => {
-  const requestId = nextRequestId();
-  const startedAt = Date.now();
-  res.on("finish", () => {
-    console.log(
-      JSON.stringify({
-        type: "http_access",
-        requestId,
-        method: req.method,
-        url: req.url,
-        statusCode: res.statusCode,
-        durationMs: Date.now() - startedAt
-      })
-    );
-  });
-
   try {
     if (req.method === "POST" && req.url === "/api/nkry/search") {
       await handleNkrySearch(req, res);
       return;
     }
 
-    if (req.method === "POST" && req.url === "/api/nkry/feedback") {
-      await handleNkryFeedback(req, res);
-      return;
-    }
-
-    if (req.method === "GET" && req.url === "/api/metrics") {
-      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
-        sendJson(res, 429, { error: "Слишком много запросов метрик. Повторите позже." });
-        return;
-      }
-      if (!isAuthorized(req, "metrics")) {
-        sendJson(res, 401, { error: "Unauthorized metrics request." });
-        return;
-      }
-      sendJson(res, 200, {
-        ...getQualityMetrics(),
-        appVersion: APP_VERSION,
-        uptimeSec: Math.floor((Date.now() - BOOT_AT) / 1000),
-        now: new Date().toISOString()
-      });
-      return;
-    }
-
-    if (req.method === "GET" && req.url === "/api/feedback-stats") {
-      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
-        sendJson(res, 429, { error: "Слишком много запросов статистики. Повторите позже." });
-        return;
-      }
-      if (!isAuthorized(req, "metrics")) {
-        sendJson(res, 401, { error: "Unauthorized feedback stats request." });
-        return;
-      }
-      sendJson(res, 200, {
-        ...getFeedbackStats(),
-        appVersion: APP_VERSION,
-        now: new Date().toISOString()
-      });
-      return;
-    }
-
-    if (req.method === "GET" && req.url === "/api/slo-alerts") {
-      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
-        sendJson(res, 429, { error: "Слишком много запросов SLO-алертов. Повторите позже." });
-        return;
-      }
-      if (!isAuthorized(req, "metrics")) {
-        sendJson(res, 401, { error: "Unauthorized slo alerts request." });
-        return;
-      }
-      const window15m = getWindowSearchStats(SLO_WINDOW_MS);
-      const slo = getSloState(window15m);
-      sendJson(res, 200, {
-        ok: slo.ok,
-        alerts: slo.alerts,
-        window15m,
-        thresholds: {
-          successRateMin: SLO_SUCCESS_RATE_MIN,
-          noResultRateMax: SLO_NO_RESULT_RATE_MAX,
-          searchErrorRateMax: SLO_SEARCH_ERROR_RATE_MAX,
-          feedbackPersistErrorsMax: 0
-        },
-        now: new Date().toISOString()
-      });
-      return;
-    }
-
     if (req.method === "GET" && req.url === "/api/health") {
-      sendJson(res, 200, {
-        ok: true,
-        appVersion: APP_VERSION,
-        uptimeSec: Math.floor((Date.now() - BOOT_AT) / 1000),
-        now: new Date().toISOString()
-      });
+      sendJson(res, 200, { ok: true, corpus: NKRY_CORPUS_TYPE, now: new Date().toISOString() });
       return;
     }
 
@@ -2359,24 +507,10 @@ const server = http.createServer(async (req, res) => {
 
     serveStatic(req, res);
   } catch (error) {
-    console.error(
-      JSON.stringify({
-        type: "http_unhandled_error",
-        requestId,
-        method: req.method,
-        url: req.url,
-        message: error?.message || String(error)
-      })
-    );
-    if (!res.headersSent) {
-      sendJson(res, 500, { error: "Internal server error" });
-    } else {
-      res.end();
-    }
+    sendJson(res, 500, { error: "Внутренняя ошибка сервера." });
   }
 });
 
-server.listen(PORT, HOST, async () => {
-  await ensureFeedbackStoreBootstrapped(feedbackStore);
+server.listen(PORT, HOST, () => {
   console.log(`Server started: http://${HOST}:${PORT}`);
 });
