@@ -242,7 +242,8 @@ button:disabled {
   grid-template-columns: 150px 1fr;
   gap: 14px;
   align-items: center;
-  padding: 12px;
+  min-height: 206px;
+  padding: 16px;
   border: 1px solid #d3dff0;
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, #f7fbff 0%, #eef4fc 100%);
@@ -257,9 +258,18 @@ button:disabled {
   background: #edf2fa;
 }
 
+#ruler-card img {
+  object-fit: contain;
+  background: #ffffff;
+}
+
+#art-card img {
+  object-fit: cover;
+}
+
 .context-title {
   margin: 0;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.28;
   font-weight: 600;
 }
@@ -267,7 +277,7 @@ button:disabled {
 .context-meta {
   margin: 5px 0 0;
   color: var(--ink-soft);
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .hidden {
@@ -319,6 +329,7 @@ button:disabled {
   }
 
   .context-card {
+    min-height: auto;
     grid-template-columns: 108px 1fr;
   }
 

@@ -404,15 +404,35 @@ function dedupeAuthorInTitle(author, title) {
 function normalizeYearText(value) {
   return String(value || "")
     .replace(/[–—]/g, "-")
+    .replace(/[−‑‒]/g, "-")
     .replace(/\s+/g, "")
     .trim();
+}
+
+function extractYearTokens(value) {
+  return Array.from(String(value || "").matchAll(/\b(1[6-9]\d{2}|20\d{2})\b/g), (m) => m[1]);
+}
+
+function extractYearRanges(value) {
+  const normalized = normalizeYearText(value);
+  return Array.from(normalized.matchAll(/(1[6-9]\d{2}|20\d{2})-(1[6-9]\d{2}|20\d{2})/g), (m) => `${m[1]}-${m[2]}`);
 }
 
 function isYearAlreadyInTitle(title, year) {
   const y = normalizeYearText(year);
   if (!y) return false;
   const t = normalizeYearText(title);
-  return t.includes(y);
+  if (t.includes(y)) return true;
+
+  const titleYears = new Set(extractYearTokens(title));
+  const yearYears = extractYearTokens(year);
+  if (yearYears.length && yearYears.every((token) => titleYears.has(token))) return true;
+
+  const titleRanges = new Set(extractYearRanges(title));
+  const yearRanges = extractYearRanges(year);
+  if (yearRanges.length && yearRanges.every((range) => titleRanges.has(range))) return true;
+
+  return false;
 }
 
 function formatMetaLine(author, title, year) {
