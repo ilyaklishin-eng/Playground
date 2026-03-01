@@ -395,6 +395,20 @@ function authorHistoryPenalty(userKey, author) {
   return penalty;
 }
 
+function pickWithAuthorDiversity(filtered, top, userKey) {
+  if (!top || !Array.isArray(filtered) || filtered.length <= 1) return top;
+  const recent = getAuthorHistory(userKey).slice(-3);
+  const topAuthor = normalizeText(top.author || "");
+  const topCount = recent.filter((x) => x === topAuthor).length;
+  if (topCount < 2) return top;
+
+  const threshold = top.score - 2.8;
+  const alternative = filtered.find(
+    (item) => normalizeText(item.author || "") !== topAuthor && Number(item.score) >= threshold
+  );
+  return alternative || top;
+}
+
 function clientIp(req) {
   const fromHeader = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
   return fromHeader || req.socket.remoteAddress || "unknown";
@@ -891,9 +905,12 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
     }
   }
 
+  const isMeaningOfLife = /(смысл жизни|в чем смысл жизни|зачем жить|для чего жить)/.test(normalized);
+
   return {
     isIntrospective,
     isPolitical,
+    isMeaningOfLife,
     isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
     startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
@@ -907,16 +924,21 @@ function shouldRejectByContext(candidate, queryContext) {
     `${candidate?.quote || ""} ${candidate?.title || ""} ${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""}`
   );
 
-  const hardOfficial = /(уголов|судопроизв|подат|губерн|департамент|канцеляр|чинов|вельмож|администрац|протокол|ведомств)/.test(doc);
+  const hardOfficial = /(уголов|судопроизв|подат|губерн|департамент|канцеляр|чинов|вельмож|администрац|протокол|ведомств|государств|отечеств|налог|право)/.test(doc);
   const hasBeauty = /(красот|прекрас|гармон|взор|любов|душ|серд|созерц)/.test(doc);
+  const hasExistential = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
+  const isClearlyLiterary = /(поэз|стих|лирик|роман|повест|рассказ|пьес|дневник|письм|мемуар|художествен)/.test(doc);
 
   if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
   if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
+  if (queryContext.isIntrospective && hardOfficial && !hasExistential) return true;
+  if (queryContext.isMeaningOfLife && hardOfficial) return true;
+  if (queryContext.isMeaningOfLife && !isClearlyLiterary && !hasExistential) return true;
 
   return false;
 }
 
-function buildSearchTerms({ query, terms, stateWeights, bridgeTerms }) {
+function buildSearchTerms({ query, terms, stateWeights, bridgeTerms, queryContext }) {
   const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
   const out = [...queryTerms];
 
@@ -944,11 +966,16 @@ function buildSearchTerms({ query, terms, stateWeights, bridgeTerms }) {
   for (const term of out) {
     const token = normalizeText(term).split(" ")[0];
     if (!token || token.length < 3) continue;
+    if (queryContext?.isMeaningOfLife && (token === "смысл" || token === "правда")) continue;
     const key = stemPrefix(token);
     if (seen.has(key)) continue;
     seen.add(key);
     uniq.push(token);
     if (uniq.length >= 10) break;
+  }
+
+  if (queryContext?.isMeaningOfLife && !uniq.length) {
+    return ["жизнь", "душа", "судьба", "бытие", "счастье", "любовь"].map((x) => normalizeText(x));
   }
 
   return uniq;
@@ -1321,7 +1348,8 @@ function rankAndPick({
   const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
   if (!filtered.length) return null;
 
-  const top = pickTopCandidate(filtered, variantMode, previousTone);
+  const topByMode = pickTopCandidate(filtered, variantMode, previousTone);
+  const top = pickWithAuthorDiversity(filtered, topByMode, userKey);
   const alternatives = filtered
     .filter((item) => item.fingerprint !== top.fingerprint)
     .slice(0, 3)
@@ -1435,7 +1463,8 @@ async function handleNkrySearch(req, res) {
     query,
     terms: body.terms,
     stateWeights,
-    bridgeTerms: conceptualBridge.searchTerms
+    bridgeTerms: conceptualBridge.searchTerms,
+    queryContext
   });
   if (!terms.length) {
     markSearchError();
