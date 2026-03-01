@@ -76,6 +76,9 @@ const NKRY_CIRCUIT_OPEN_MS = Number(process.env.NKRY_CIRCUIT_OPEN_MS || 90_000);
 const LOCAL_FALLBACK_POOL_MAX = Number(process.env.LOCAL_FALLBACK_POOL_MAX || 1200);
 const RECENT_GOOD_POOL_MAX = Number(process.env.RECENT_GOOD_POOL_MAX || 220);
 const POEMS_LOCAL_PATH = process.env.POEMS_LOCAL_PATH || path.join(__dirname, "poems.local.json");
+const MATCH_EXPLORATION_EPSILON = Number(process.env.MATCH_EXPLORATION_EPSILON || 0.05);
+const MATCH_EXPLORATION_TOP_K = Number(process.env.MATCH_EXPLORATION_TOP_K || 6);
+const ENABLE_LOCAL_FALLBACK = process.env.ENABLE_LOCAL_FALLBACK === "1";
 
 const DEFAULT_FEEDBACK_STORE = {
   version: 2,
@@ -180,6 +183,22 @@ function loadFeedbackStore() {
   }
 }
 
+async function ensureFeedbackStoreBootstrapped(store) {
+  try {
+    if (existsSync(FEEDBACK_STORE_PATH)) return;
+    await persistFeedbackStoreDurable(store);
+    console.log(JSON.stringify({ type: "feedback_store_bootstrap", path: FEEDBACK_STORE_PATH }));
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        type: "feedback_store_bootstrap_error",
+        path: FEEDBACK_STORE_PATH,
+        message: error?.message || String(error)
+      })
+    );
+  }
+}
+
 function persistFeedbackStore(store) {
   pruneFeedbackUsers(store);
   return persistFeedbackStoreDurable(store);
@@ -198,13 +217,19 @@ const metrics = {
   userModelsPruned: 0,
   feedbackPersistErrors: 0,
   circuitOpenEvents: 0,
-  circuitFallbackResponses: 0
+  circuitFallbackResponses: 0,
+  searchExploreServed: 0,
+  searchExploitServed: 0,
+  feedbackExploreEvents: 0,
+  feedbackExploitEvents: 0,
+  feedbackExploreRatingTotal: 0,
+  feedbackExploitRatingTotal: 0
 };
 const recentQueries = new Map();
 const rateBuckets = new Map();
 const recentSearchEvents = [];
 const feedbackPersistErrorEvents = [];
-const localFallbackCorpus = loadLocalFallbackCorpus();
+const localFallbackCorpus = ENABLE_LOCAL_FALLBACK ? loadLocalFallbackCorpus() : [];
 const recentGoodPool = [];
 const nkryCircuit = {
   consecutiveFailures: 0,
@@ -865,7 +890,7 @@ async function fetchNkryConcordance(term, limit) {
       } else {
         const payload = await response.json();
         const candidates = parseConcordanceCandidates(payload, term);
-        return candidates.slice(0, limit);
+        return selectDiverseCandidates(candidates, Math.max(limit * 6, 90), 2);
       }
     } catch (error) {
       const timedOut = error?.name === "AbortError";
@@ -882,6 +907,47 @@ async function fetchNkryConcordance(term, limit) {
   }
 
   throw lastError || new Error("НКРЯ недоступен.");
+}
+
+function shuffleArray(array) {
+  const out = [...array];
+  for (let i = out.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function selectDiverseCandidates(candidates, limit = 90, perAuthorLimit = 2) {
+  if (!Array.isArray(candidates) || candidates.length <= 1) return Array.isArray(candidates) ? candidates : [];
+  const shuffled = shuffleArray(candidates);
+  const authorCounts = new Map();
+  const usedKeys = new Set();
+  const selected = [];
+
+  for (const item of shuffled) {
+    const key = normalizeText(`${item?.quote || ""}__${item?.title || ""}`);
+    if (!key || usedKeys.has(key)) continue;
+    const authorKey = normalizeText(String(item?.author || ""));
+    const count = authorCounts.get(authorKey) || 0;
+    if (count >= perAuthorLimit) continue;
+
+    selected.push(item);
+    usedKeys.add(key);
+    authorCounts.set(authorKey, count + 1);
+    if (selected.length >= limit) break;
+  }
+
+  if (selected.length >= limit) return selected;
+  for (const item of shuffled) {
+    const key = normalizeText(`${item?.quote || ""}__${item?.title || ""}`);
+    if (!key || usedKeys.has(key)) continue;
+    selected.push(item);
+    usedKeys.add(key);
+    if (selected.length >= limit) break;
+  }
+
+  return selected;
 }
 
 function buildFallbackCandidates(queryTokens, limit = 28) {
@@ -965,6 +1031,34 @@ function rankAndPick({
   return { top, alternatives, ranked: filtered };
 }
 
+function pickWithControlledExploration(picked, variantMode) {
+  const base = picked?.top || null;
+  if (!base) return { top: null, policy: "exploit", epsilon: 0, exploredFromTopK: 0 };
+
+  const epsilon = Math.max(0, Math.min(0.5, Number(MATCH_EXPLORATION_EPSILON || 0)));
+  const allowExplore = variantMode !== "contrast" && epsilon > 0;
+  const ranked = Array.isArray(picked?.ranked) ? picked.ranked : [];
+  const explorePool = ranked.slice(1, Math.max(1, Math.min(MATCH_EXPLORATION_TOP_K, ranked.length)));
+  const shouldExplore = allowExplore && explorePool.length > 0 && Math.random() < epsilon;
+
+  if (!shouldExplore) {
+    return {
+      top: base,
+      policy: "exploit",
+      epsilon,
+      exploredFromTopK: explorePool.length
+    };
+  }
+
+  const idx = Math.floor(Math.random() * explorePool.length);
+  return {
+    top: explorePool[idx] || base,
+    policy: "explore",
+    epsilon,
+    exploredFromTopK: explorePool.length
+  };
+}
+
 async function handleNkrySearch(req, res) {
   const startedAt = Date.now();
   metrics.searchRequests += 1;
@@ -1035,14 +1129,32 @@ async function handleNkrySearch(req, res) {
   touchRecentQuery(queryKey);
 
   const sendRankedPayload = (picked, responseTerms, explainText = "", meta = {}) => {
-    const top = picked.top;
+    const selection = pickWithControlledExploration(picked, variantMode);
+    const top = selection.top || picked.top;
+    if (selection.policy === "explore") metrics.searchExploreServed += 1;
+    else metrics.searchExploitServed += 1;
+
+    const alternatives = (picked.ranked || [])
+      .filter((item) => item.fingerprint !== top.fingerprint)
+      .slice(0, 3)
+      .map((item) => ({
+        quote: item.quote,
+        author: item.author,
+        title: item.title,
+        year: item.year,
+        sourceName: item.sourceName,
+        tone: item.scoreDetails?.tone || 0,
+        fingerprint: item.fingerprint
+      }));
+
     const servedQuoteId = servedQuoteRegistry.issue(userKey, {
       fingerprint: top.fingerprint,
       author: top.author,
       title: top.title,
-      quote: top.quote
+      quote: top.quote,
+      servingPolicy: selection.policy,
+      explorationEpsilon: selection.epsilon
     });
-    const alternatives = picked.alternatives || [];
     addRecentGoodCandidates([top, ...alternatives]);
     markSearchSuccess();
     metrics.searchLatencyTotalMs += Date.now() - startedAt;
@@ -1055,6 +1167,9 @@ async function handleNkrySearch(req, res) {
         matchedTerms: responseTerms.slice(0, 5),
         topAuthor: top.author,
         topTitle: top.title,
+        servingPolicy: selection.policy,
+        explorationEpsilon: selection.epsilon,
+        exploredFromTopK: selection.exploredFromTopK,
         ...meta
       })
     );
@@ -1069,6 +1184,7 @@ async function handleNkrySearch(req, res) {
         matchedTerms: responseTerms.slice(0, 5),
         tone: top.scoreDetails?.tone || 0,
         fingerprint: top.fingerprint,
+        servingPolicy: selection.policy,
         servedQuoteId,
         scoreDetails: top.scoreDetails
       },
@@ -1225,7 +1341,25 @@ async function handleNkryFeedback(req, res) {
     return;
   }
   metrics.feedbackEvents += 1;
-  console.log(JSON.stringify({ type: "feedback", rating, reason, author: servedCandidate.author || "", title: servedCandidate.title || "" }));
+  const servingPolicy = String(servedCandidate.servingPolicy || "exploit") === "explore" ? "explore" : "exploit";
+  if (servingPolicy === "explore") {
+    metrics.feedbackExploreEvents += 1;
+    metrics.feedbackExploreRatingTotal += rating;
+  } else {
+    metrics.feedbackExploitEvents += 1;
+    metrics.feedbackExploitRatingTotal += rating;
+  }
+  console.log(
+    JSON.stringify({
+      type: "feedback",
+      rating,
+      hitScore: rating,
+      reason,
+      author: servedCandidate.author || "",
+      title: servedCandidate.title || "",
+      servingPolicy
+    })
+  );
 
   sendJson(res, 200, {
     ok: true,
@@ -1321,6 +1455,16 @@ function getQualityMetrics() {
     : null;
   const window15m = getWindowSearchStats(SLO_WINDOW_MS);
   const slo = getSloState(window15m);
+  const exploreAvgHitScore = metrics.feedbackExploreEvents
+    ? Number((metrics.feedbackExploreRatingTotal / metrics.feedbackExploreEvents).toFixed(3))
+    : null;
+  const exploitAvgHitScore = metrics.feedbackExploitEvents
+    ? Number((metrics.feedbackExploitRatingTotal / metrics.feedbackExploitEvents).toFixed(3))
+    : null;
+  const exploreVsExploitDelta =
+    Number.isFinite(exploreAvgHitScore) && Number.isFinite(exploitAvgHitScore)
+      ? Number((exploreAvgHitScore - exploitAvgHitScore).toFixed(3))
+      : null;
 
   return {
     searchRequests: metrics.searchRequests,
@@ -1339,6 +1483,17 @@ function getQualityMetrics() {
     userModels: Object.keys(feedbackStore.users).length,
     userModelsPruned: metrics.userModelsPruned,
     feedbackPersistErrors: metrics.feedbackPersistErrors,
+    exploration: {
+      epsilon: Number(Math.max(0, Math.min(0.5, MATCH_EXPLORATION_EPSILON)).toFixed(4)),
+      topK: MATCH_EXPLORATION_TOP_K,
+      searchExploreServed: metrics.searchExploreServed,
+      searchExploitServed: metrics.searchExploitServed,
+      feedbackExploreEvents: metrics.feedbackExploreEvents,
+      feedbackExploitEvents: metrics.feedbackExploitEvents,
+      exploreAvgHitScore,
+      exploitAvgHitScore,
+      exploreVsExploitDelta
+    },
     circuitOpenEvents: metrics.circuitOpenEvents,
     circuitFallbackResponses: metrics.circuitFallbackResponses,
     nkryCircuit: {
@@ -1554,6 +1709,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, HOST, () => {
+server.listen(PORT, HOST, async () => {
+  await ensureFeedbackStoreBootstrapped(feedbackStore);
   console.log(`Server started: http://${HOST}:${PORT}`);
 });
