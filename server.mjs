@@ -1,8 +1,19 @@
 import http from "node:http";
 import path from "node:path";
-import { createReadStream, existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
+import { mkdir, rename, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
+import {
+  applyDecay,
+  applyFeedbackLearning,
+  buildFingerprint,
+  createServedQuoteRegistry,
+  createUserModel,
+  normalizeText as rankNormalizeText,
+  pickTopCandidate,
+  scoreCandidate
+} from "./app/ranking-core.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,7 +42,7 @@ function loadDotEnv(dotEnvPath) {
 loadDotEnv(path.join(__dirname, ".env"));
 
 const PORT = Number(process.env.PORT || 4173);
-const HOST = process.env.HOST || "127.0.0.1";
+const HOST = process.env.HOST || "0.0.0.0";
 const NKRY_API_BASE_URL = process.env.NKRY_API_BASE_URL || "https://ruscorpora.ru/api/v1/";
 const NKRY_SEARCH_PATH = process.env.NKRY_SEARCH_PATH || "lex-gramm/concordance";
 const NKRY_API_KEY = process.env.NKRY_API_KEY || "";
@@ -39,66 +50,142 @@ const NKRY_API_KEY_HEADER = process.env.NKRY_API_KEY_HEADER || "Authorization";
 const NKRY_API_AUTH_PREFIX = process.env.NKRY_API_AUTH_PREFIX || "Bearer";
 const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "CLASSICS";
 const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 32 * 1024);
+const NKRY_FETCH_TIMEOUT_MS = Number(process.env.NKRY_FETCH_TIMEOUT_MS || 8000);
+const NKRY_FETCH_RETRIES = Number(process.env.NKRY_FETCH_RETRIES || 3);
+const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 240);
 const FEEDBACK_STORE_PATH = process.env.FEEDBACK_STORE_PATH || path.join(__dirname, "tools", "ranking_feedback_store.json");
 const APP_VERSION = process.env.APP_VERSION || "local";
 const BOOT_AT = Date.now();
+const RECENT_QUERIES_MAX = Number(process.env.RECENT_QUERIES_MAX || 3000);
+const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MS || 60_000);
+const RATE_LIMIT_FEEDBACK_PER_WINDOW = Number(process.env.RATE_LIMIT_FEEDBACK_PER_WINDOW || 40);
+const RATE_LIMIT_METRICS_PER_WINDOW = Number(process.env.RATE_LIMIT_METRICS_PER_WINDOW || 90);
+const FEEDBACK_API_TOKEN = process.env.FEEDBACK_API_TOKEN || "";
+const METRICS_API_TOKEN = process.env.METRICS_API_TOKEN || "";
+const NKRY_MOCK_MODE = process.env.NKRY_MOCK_MODE === "1";
+const SERVED_QUOTE_TTL_MS = Number(process.env.SERVED_QUOTE_TTL_MS || 10 * 60 * 1000);
+const SERVED_QUOTE_MAX = Number(process.env.SERVED_QUOTE_MAX || 8000);
+const FEEDBACK_USERS_MAX = Number(process.env.FEEDBACK_USERS_MAX || 5000);
+const FEEDBACK_USERS_PRUNE_BATCH = Number(process.env.FEEDBACK_USERS_PRUNE_BATCH || 200);
+const SLO_WINDOW_MS = Number(process.env.SLO_WINDOW_MS || 15 * 60 * 1000);
+const SLO_SUCCESS_RATE_MIN = Number(process.env.SLO_SUCCESS_RATE_MIN || 0.85);
+const SLO_NO_RESULT_RATE_MAX = Number(process.env.SLO_NO_RESULT_RATE_MAX || 0.25);
+const SLO_SEARCH_ERROR_RATE_MAX = Number(process.env.SLO_SEARCH_ERROR_RATE_MAX || 0.05);
+const NKRY_CIRCUIT_FAILURE_THRESHOLD = Number(process.env.NKRY_CIRCUIT_FAILURE_THRESHOLD || 4);
+const NKRY_CIRCUIT_OPEN_MS = Number(process.env.NKRY_CIRCUIT_OPEN_MS || 90_000);
+const LOCAL_FALLBACK_POOL_MAX = Number(process.env.LOCAL_FALLBACK_POOL_MAX || 1200);
+const RECENT_GOOD_POOL_MAX = Number(process.env.RECENT_GOOD_POOL_MAX || 220);
+const POEMS_LOCAL_PATH = process.env.POEMS_LOCAL_PATH || path.join(__dirname, "poems.local.json");
 
-const DEFAULT_MODEL = {
-  version: 1,
+const DEFAULT_FEEDBACK_STORE = {
+  version: 2,
   updatedAt: "",
-  weights: {
-    literal: 1,
-    associative: 1,
-    state: 1,
-    hit: 1,
-    intent: 1,
-    literaryPenalty: 1,
-    lengthPenalty: 1,
-    diversityPenalty: 0.75
-  },
-  byAuthor: {},
-  byFingerprint: {},
-  byReason: {
-    tone: 0,
-    theme: 0,
-    rhythm: 0,
-    too_dark: 0,
-    too_abstract: 0
-  },
-  recentFeedback: []
+  globalModel: createUserModel(),
+  users: {}
 };
 
-function clamp(value, min, max) {
-  return Math.max(min, Math.min(max, value));
+function sanitizeUserModel(raw) {
+  const base = createUserModel();
+  if (!raw || typeof raw !== "object") return base;
+  return {
+    ...base,
+    ...raw,
+    weights: { ...base.weights, ...(raw.weights || {}) },
+    byAuthor: raw.byAuthor && typeof raw.byAuthor === "object" ? raw.byAuthor : {},
+    byFingerprint: raw.byFingerprint && typeof raw.byFingerprint === "object" ? raw.byFingerprint : {},
+    byReason: { ...base.byReason, ...(raw.byReason || {}) },
+    recentFeedback: Array.isArray(raw.recentFeedback) ? raw.recentFeedback.slice(-500) : [],
+    lastDecayAt: Number.isFinite(Number(raw.lastDecayAt)) ? Number(raw.lastDecayAt) : Date.now(),
+    lastSeenAt: Number.isFinite(Number(raw.lastSeenAt)) ? Number(raw.lastSeenAt) : Date.now()
+  };
 }
 
-function loadFeedbackModel() {
+function lineCountText(text) {
+  return String(text || "")
+    .split("\n")
+    .filter((line) => line.trim().length > 0).length;
+}
+
+function loadLocalFallbackCorpus() {
   try {
-    if (!existsSync(FEEDBACK_STORE_PATH)) return structuredClone(DEFAULT_MODEL);
-    const parsed = JSON.parse(readFileSync(FEEDBACK_STORE_PATH, "utf8"));
-    return {
-      ...structuredClone(DEFAULT_MODEL),
-      ...parsed,
-      weights: { ...DEFAULT_MODEL.weights, ...(parsed?.weights || {}) },
-      byAuthor: parsed?.byAuthor && typeof parsed.byAuthor === "object" ? parsed.byAuthor : {},
-      byFingerprint: parsed?.byFingerprint && typeof parsed.byFingerprint === "object" ? parsed.byFingerprint : {},
-      byReason: { ...DEFAULT_MODEL.byReason, ...(parsed?.byReason || {}) },
-      recentFeedback: Array.isArray(parsed?.recentFeedback) ? parsed.recentFeedback.slice(-500) : []
-    };
+    if (!existsSync(POEMS_LOCAL_PATH)) return [];
+    const payload = JSON.parse(readFileSync(POEMS_LOCAL_PATH, "utf8"));
+    if (!Array.isArray(payload)) return [];
+    const out = [];
+    for (const poem of payload) {
+      if (!poem || typeof poem !== "object") continue;
+      const text = String(poem.text || "").trim();
+      const lc = lineCountText(text);
+      if (lc < 3) continue;
+      const lines = text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
+      const quoteBase = lines.slice(0, Math.min(4, lines.length)).join(" ");
+      if (!quoteBase) continue;
+      const quote = quoteBase.length > 320 ? `${quoteBase.slice(0, 317)}...` : quoteBase;
+      out.push({
+        quote,
+        author: String(poem.author || "Не указан"),
+        title: String(poem.title || "Без названия"),
+        year: String(poem.year || ""),
+        sourceName: "Локальный каталог",
+        hitCount: 1,
+        matchedTerm: "fallback",
+        docType: "поэзия",
+        docTopic: Array.isArray(poem.tags) ? poem.tags.join(",") : "",
+        docStyle: "художественный",
+        docHeader: "",
+        fallbackNorm: rankNormalizeText(`${quote} ${poem.author || ""} ${poem.title || ""}`)
+      });
+      if (out.length >= LOCAL_FALLBACK_POOL_MAX) break;
+    }
+    return out;
   } catch {
-    return structuredClone(DEFAULT_MODEL);
+    return [];
   }
 }
 
-function persistFeedbackModel(model) {
+function loadFeedbackStore() {
   try {
-    writeFileSync(FEEDBACK_STORE_PATH, JSON.stringify(model, null, 2), "utf8");
-  } catch (error) {
-    console.error("feedback_model_persist_error", error.message || String(error));
+    if (!existsSync(FEEDBACK_STORE_PATH)) return structuredClone(DEFAULT_FEEDBACK_STORE);
+    const parsed = JSON.parse(readFileSync(FEEDBACK_STORE_PATH, "utf8"));
+    if (parsed?.users && typeof parsed.users === "object") {
+      const users = {};
+      for (const [key, model] of Object.entries(parsed.users)) {
+        users[key] = sanitizeUserModel(model);
+      }
+      return {
+        ...structuredClone(DEFAULT_FEEDBACK_STORE),
+        ...parsed,
+        globalModel: sanitizeUserModel(parsed?.globalModel || {}),
+        users
+      };
+    }
+
+    // Backward compatibility with single global model format.
+    if (parsed && typeof parsed === "object" && (parsed.weights || parsed.byAuthor || parsed.byFingerprint)) {
+      return {
+        ...structuredClone(DEFAULT_FEEDBACK_STORE),
+        updatedAt: String(parsed.updatedAt || ""),
+        globalModel: sanitizeUserModel(parsed),
+        users: {
+          legacy_global: sanitizeUserModel(parsed)
+        }
+      };
+    }
+    return structuredClone(DEFAULT_FEEDBACK_STORE);
+  } catch {
+    return structuredClone(DEFAULT_FEEDBACK_STORE);
   }
 }
 
-const feedbackModel = loadFeedbackModel();
+function persistFeedbackStore(store) {
+  pruneFeedbackUsers(store);
+  return persistFeedbackStoreDurable(store);
+}
+
+const feedbackStore = loadFeedbackStore();
 const metrics = {
   searchRequests: 0,
   searchSuccess: 0,
@@ -107,9 +194,196 @@ const metrics = {
   repeatedQueries: 0,
   feedbackEvents: 0,
   searchLatencyTotalMs: 0,
-  searchLatencySamples: 0
+  searchLatencySamples: 0,
+  userModelsPruned: 0,
+  feedbackPersistErrors: 0,
+  circuitOpenEvents: 0,
+  circuitFallbackResponses: 0
 };
 const recentQueries = new Map();
+const rateBuckets = new Map();
+const recentSearchEvents = [];
+const feedbackPersistErrorEvents = [];
+const localFallbackCorpus = loadLocalFallbackCorpus();
+const recentGoodPool = [];
+const nkryCircuit = {
+  consecutiveFailures: 0,
+  openUntil: 0,
+  lastFailureAt: 0,
+  lastOpenedAt: 0,
+  lastReason: ""
+};
+const servedQuoteRegistry = createServedQuoteRegistry({ ttlMs: SERVED_QUOTE_TTL_MS, maxSize: SERVED_QUOTE_MAX });
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function pushTimestamp(list, timestamp, windowMs = SLO_WINDOW_MS) {
+  list.push(timestamp);
+  const cutoff = timestamp - windowMs;
+  while (list.length > 0 && list[0] < cutoff) list.shift();
+}
+
+function recordSearchEvent(kind, now = Date.now()) {
+  recentSearchEvents.push({ ts: now, kind });
+  const cutoff = now - SLO_WINDOW_MS;
+  while (recentSearchEvents.length > 0 && recentSearchEvents[0].ts < cutoff) recentSearchEvents.shift();
+}
+
+function markSearchError() {
+  metrics.searchErrors += 1;
+  recordSearchEvent("error");
+}
+
+function markSearchEmpty() {
+  metrics.searchEmpty += 1;
+  recordSearchEvent("empty");
+}
+
+function markSearchSuccess() {
+  metrics.searchSuccess += 1;
+  recordSearchEvent("success");
+}
+
+function isNkryCircuitOpen(now = Date.now()) {
+  return nkryCircuit.openUntil > now;
+}
+
+function markNkryFailure(reason = "") {
+  const now = Date.now();
+  nkryCircuit.consecutiveFailures += 1;
+  nkryCircuit.lastFailureAt = now;
+  nkryCircuit.lastReason = String(reason || "").slice(0, 240);
+  if (nkryCircuit.consecutiveFailures >= NKRY_CIRCUIT_FAILURE_THRESHOLD) {
+    nkryCircuit.openUntil = now + NKRY_CIRCUIT_OPEN_MS;
+    nkryCircuit.lastOpenedAt = now;
+    metrics.circuitOpenEvents += 1;
+  }
+}
+
+function markNkrySuccess() {
+  nkryCircuit.consecutiveFailures = 0;
+  nkryCircuit.openUntil = 0;
+  nkryCircuit.lastReason = "";
+}
+
+function addRecentGoodCandidates(candidates) {
+  for (const item of candidates || []) {
+    if (!item || !item.quote) continue;
+    const key = rankNormalizeText(`${item.quote}__${item.title || ""}`);
+    if (!key) continue;
+    if (recentGoodPool.some((x) => x.key === key)) continue;
+    recentGoodPool.push({
+      key,
+      quote: item.quote,
+      author: item.author || "Не указан",
+      title: item.title || "Без названия",
+      year: item.year || "",
+      sourceName: item.sourceName || "НКРЯ",
+      hitCount: Number(item.hitCount || 1),
+      matchedTerm: item.matchedTerm || "recent",
+      docType: item.docType || "поэзия",
+      docTopic: item.docTopic || "",
+      docStyle: item.docStyle || "",
+      docHeader: item.docHeader || "",
+      fallbackNorm: rankNormalizeText(`${item.quote} ${item.author || ""} ${item.title || ""}`)
+    });
+  }
+  if (recentGoodPool.length > RECENT_GOOD_POOL_MAX) {
+    recentGoodPool.splice(0, recentGoodPool.length - RECENT_GOOD_POOL_MAX);
+  }
+}
+
+async function persistFeedbackStoreDurable(store) {
+  const payload = JSON.stringify(store, null, 2);
+  const targetPath = FEEDBACK_STORE_PATH;
+  const tmpPath = `${targetPath}.tmp`;
+  try {
+    await mkdir(path.dirname(targetPath), { recursive: true });
+    await writeFile(tmpPath, payload, "utf8");
+    await rename(tmpPath, targetPath);
+  } catch (error) {
+    metrics.feedbackPersistErrors += 1;
+    pushTimestamp(feedbackPersistErrorEvents, Date.now());
+    try {
+      await writeFile(targetPath, payload, "utf8");
+    } catch (fallbackError) {
+      console.error("feedback_model_persist_error", fallbackError.message || String(fallbackError));
+      throw fallbackError;
+    }
+    console.error("feedback_model_persist_tmp_error", error.message || String(error));
+  }
+}
+
+function touchRecentQuery(queryKey) {
+  const hits = (recentQueries.get(queryKey) || 0) + 1;
+  recentQueries.set(queryKey, hits);
+  if (hits > 1) metrics.repeatedQueries += 1;
+  if (recentQueries.size > RECENT_QUERIES_MAX) {
+    const overflow = recentQueries.size - RECENT_QUERIES_MAX;
+    let removed = 0;
+    for (const key of recentQueries.keys()) {
+      recentQueries.delete(key);
+      removed += 1;
+      if (removed >= overflow) break;
+    }
+  }
+}
+
+function clientIp(req) {
+  const fromHeader = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return fromHeader || req.socket.remoteAddress || "unknown";
+}
+
+function checkRateLimit(req, bucketName, maxPerWindow) {
+  const now = Date.now();
+  const ip = clientIp(req);
+  const key = `${bucketName}:${ip}`;
+  if (rateBuckets.size > 10_000) {
+    for (const [bucketKey, value] of rateBuckets.entries()) {
+      if (now - value.windowStart > RATE_LIMIT_WINDOW_MS * 3) rateBuckets.delete(bucketKey);
+    }
+  }
+  const bucket = rateBuckets.get(key);
+  if (!bucket || now - bucket.windowStart > RATE_LIMIT_WINDOW_MS) {
+    rateBuckets.set(key, { windowStart: now, count: 1 });
+    return true;
+  }
+
+  bucket.count += 1;
+  if (bucket.count > maxPerWindow) return false;
+  return true;
+}
+
+function matchesSameOrigin(req) {
+  const origin = String(req.headers.origin || "").trim();
+  if (!origin) return false;
+  try {
+    const originUrl = new URL(origin);
+    const host = String(req.headers.host || "");
+    return originUrl.host === host;
+  } catch {
+    return false;
+  }
+}
+
+function isAuthorized(req, scope) {
+  const headerToken = String(req.headers["x-api-token"] || req.headers.authorization || "").replace(/^Bearer\s+/i, "").trim();
+  const ip = clientIp(req);
+  const isLocal = ip === "127.0.0.1" || ip === "::1";
+  if (scope === "metrics") {
+    if (METRICS_API_TOKEN) return headerToken === METRICS_API_TOKEN;
+    return isLocal || matchesSameOrigin(req);
+  }
+
+  if (scope === "feedback") {
+    if (FEEDBACK_API_TOKEN) return headerToken === FEEDBACK_API_TOKEN;
+    return isLocal || matchesSameOrigin(req);
+  }
+
+  return false;
+}
 
 function nextRequestId() {
   return createHash("sha1")
@@ -201,12 +475,91 @@ function parseRequestBody(req) {
 }
 
 function normalizeText(value) {
-  return String(value || "")
-    .toLowerCase()
-    .replaceAll("ё", "е")
-    .replace(/[^a-zа-я0-9\s-]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return rankNormalizeText(value);
+}
+
+function getClientKey(raw) {
+  const value = String(raw || "").trim();
+  if (!value) return "";
+  if (!/^[a-zA-Z0-9_-]{8,128}$/.test(value)) return "";
+  return value;
+}
+
+function getUserKey(req, body) {
+  const explicitClientId = getClientKey(body?.clientId) || getClientKey(req.headers["x-client-id"]);
+  if (explicitClientId) return `client:${explicitClientId}`;
+  const ip = clientIp(req);
+  const ua = String(req.headers["user-agent"] || "");
+  const fallback = createHash("sha1").update(`${ip}|${ua}`).digest("hex").slice(0, 20);
+  return `anon:${fallback}`;
+}
+
+function getGlobalModel() {
+  const model = sanitizeUserModel(feedbackStore.globalModel || {});
+  feedbackStore.globalModel = model;
+  return model;
+}
+
+function blendNumericMaps(primary = {}, secondary = {}, primaryWeight = 0.7, secondaryWeight = 0.3) {
+  const out = {};
+  const keys = new Set([...Object.keys(primary), ...Object.keys(secondary)]);
+  for (const key of keys) {
+    const a = Number(primary[key] || 0);
+    const b = Number(secondary[key] || 0);
+    out[key] = Number((a * primaryWeight + b * secondaryWeight).toFixed(6));
+  }
+  return out;
+}
+
+function blendModels(userModel, globalModel, userWeight = 0.7, globalWeight = 0.3) {
+  return {
+    updatedAt: userModel.updatedAt || globalModel.updatedAt || "",
+    lastDecayAt: Date.now(),
+    weights: blendNumericMaps(userModel.weights, globalModel.weights, userWeight, globalWeight),
+    byAuthor: blendNumericMaps(userModel.byAuthor, globalModel.byAuthor, userWeight, globalWeight),
+    byFingerprint: blendNumericMaps(userModel.byFingerprint, globalModel.byFingerprint, userWeight, globalWeight),
+    byReason: blendNumericMaps(userModel.byReason, globalModel.byReason, userWeight, globalWeight),
+    recentFeedback: []
+  };
+}
+
+function pruneFeedbackUsers(store) {
+  const keys = Object.keys(store.users || {});
+  if (keys.length <= FEEDBACK_USERS_MAX) return;
+  const sorted = keys
+    .map((key) => {
+      const model = store.users[key];
+      const lastSeen = Number(model?.lastSeenAt || 0);
+      const updatedAt = Date.parse(String(model?.updatedAt || "")) || 0;
+      return { key, score: Math.max(lastSeen, updatedAt) };
+    })
+    .sort((a, b) => a.score - b.score);
+
+  const toRemove = Math.min(keys.length - FEEDBACK_USERS_MAX, FEEDBACK_USERS_PRUNE_BATCH);
+  for (let i = 0; i < toRemove; i += 1) {
+    delete store.users[sorted[i].key];
+  }
+  metrics.userModelsPruned += toRemove;
+}
+
+function getOrCreateUserModel(userKey) {
+  pruneFeedbackUsers(feedbackStore);
+  const existing = feedbackStore.users[userKey];
+  if (existing) {
+    existing.lastSeenAt = Date.now();
+    return existing;
+  }
+  const model = createUserModel();
+  model.lastSeenAt = Date.now();
+  feedbackStore.users[userKey] = model;
+  return model;
+}
+
+function buildScoringStateWeights(stateWeights) {
+  const out = { __associativeGroups: ASSOCIATIVE_GROUPS };
+  if (!stateWeights || typeof stateWeights !== "object") return out;
+  for (const [key, value] of Object.entries(stateWeights)) out[key] = value;
+  return out;
 }
 
 function splitTokens(text) {
@@ -436,304 +789,167 @@ function parseConcordanceCandidates(payload, term) {
   return candidates;
 }
 
-function detectIntentProfiles(tokens) {
-  const set = new Set();
-  const has = (stem) => tokens.some((token) => token.includes(stem) || stem.includes(stemPrefix(token)));
-
-  if (has("смысл") || has("зачем") || has("жизн")) set.add("meaning");
-  if (has("любов") || has("отнош") || has("сердц")) set.add("relation");
-  if (has("тревог") || has("страх") || has("бою")) set.add("anxiety");
-  if (has("надеж") || has("вер") || has("будущ")) set.add("hope");
-  if (has("свобод") || has("вол")) set.add("freedom");
-
-  return set;
-}
-
-function scoreIntentLexicon(intentProfiles, text) {
-  if (!intentProfiles.size) return 0;
-
-  let score = 0;
-  const lexicon = {
-    meaning: ["смысл", "жизн", "душ", "истин", "вечност", "судьб", "путь", "быт"],
-    relation: ["любов", "сердц", "нежн", "верност", "разлук", "мил"],
-    anxiety: ["тревог", "страх", "мрак", "тоска", "смятени", "боль"],
-    hope: ["надеж", "свет", "утро", "заря", "вера", "весна"],
-    freedom: ["свобод", "воля", "ветер", "простор", "крыл", "полет"]
-  };
-
-  for (const profile of intentProfiles) {
-    const stems = lexicon[profile] || [];
-    const hits = stems.reduce((acc, stem) => acc + (text.includes(stem) ? 1 : 0), 0);
-    score += Math.min(4, hits) * 1.15;
-  }
-
-  return score;
-}
-
-function buildFingerprint(candidate) {
-  const basis = normalizeText(`${candidate.author}|${candidate.title}|${candidate.quote}`);
-  return createHash("sha1").update(basis).digest("hex").slice(0, 16);
-}
-
-function estimateTone(text) {
-  const source = normalizeText(text);
-  const bright = ["свет", "надеж", "утро", "весн", "радост", "вера", "любов", "мир"];
-  const dark = ["тревог", "страх", "мрак", "тоска", "печал", "горе", "боль", "пустот"];
-
-  const positive = bright.reduce((acc, stem) => acc + (source.includes(stem) ? 1 : 0), 0);
-  const negative = dark.reduce((acc, stem) => acc + (source.includes(stem) ? 1 : 0), 0);
-  return clamp((positive - negative) / 4, -1, 1);
-}
-
-function getFeedbackBias(candidate) {
-  const authorKey = normalizeText(candidate.author || "");
-  const fingerprint = buildFingerprint(candidate);
-  const byAuthor = Number(feedbackModel.byAuthor?.[authorKey] || 0);
-  const byFingerprint = Number(feedbackModel.byFingerprint?.[fingerprint] || 0);
-  return clamp(byFingerprint * 0.35 + byAuthor * 0.2, -1, 1);
-}
-
-function scoreLiteraryPenalty(candidate) {
-  const sourceText = normalizeText(
-    [
-      candidate.title,
-      candidate.docHeader,
-      candidate.docType,
-      candidate.docTopic,
-      candidate.docStyle
-    ].join(" ")
-  );
-
-  const harshPenaltyStems = [
-    "форум",
-    "коммент",
-    "блог",
-    "переписк",
-    "интернет",
-    "рецепт",
-    "документ",
-    "подат",
-    "записк",
-    "инструкц",
-    "отчет",
-    "протокол"
-  ];
-
-  const softPenaltyStems = ["коммерц", "финанс", "право", "бизн", "производств"];
-  const lyricalBoostStems = ["поэм", "стих", "дневник", "роман", "повест", "элег", "сонет", "лирик"];
-
-  let penalty = 0;
-  for (const stem of harshPenaltyStems) {
-    if (sourceText.includes(stem)) penalty += 4.5;
-  }
-  for (const stem of softPenaltyStems) {
-    if (sourceText.includes(stem)) penalty += 2.2;
-  }
-  for (const stem of lyricalBoostStems) {
-    if (sourceText.includes(stem)) penalty -= 1.2;
-  }
-
-  return penalty;
-}
-
-function scoreCandidate(candidate, queryTokens, queryGroups, stateWeights, excludeAuthors = []) {
-  const text = normalizeText(`${candidate.quote} ${candidate.title} ${candidate.author}`);
-  const intentProfiles = detectIntentProfiles(queryTokens);
-
-  let literal = 0;
-  for (const token of queryTokens) {
-    const stem = stemPrefix(token);
-    if (text.includes(token)) literal += 2;
-    else if (text.includes(stem)) literal += 1;
-  }
-
-  let associative = 0;
-  for (const group of queryGroups) {
-    const stems = ASSOCIATIVE_GROUPS[group] || [];
-    if (stems.some((stem) => text.includes(stem))) associative += 1.5;
-  }
-
-  let stateBoost = 0;
-  if (stateWeights && typeof stateWeights === "object") {
-    for (const [group, weight] of Object.entries(stateWeights)) {
-      const stems = ASSOCIATIVE_GROUPS[group] || [];
-      if (stems.some((stem) => text.includes(stem))) stateBoost += Number(weight || 0) * 0.9;
+function buildMockCandidates(term, limit) {
+  const base = [
+    {
+      quote: "И долго буду тем любезен я народу, что чувства добрые я лирой пробуждал.",
+      author: "Александр Пушкин",
+      title: "Я памятник себе воздвиг нерукотворный",
+      year: "1836",
+      sourceName: "НКРЯ-MOCK",
+      hitCount: 2
+    },
+    {
+      quote: "О, как убийственно мы любим, как в буйной слепоте страстей.",
+      author: "Федор Тютчев",
+      title: "О, как убийственно мы любим",
+      year: "1851",
+      sourceName: "НКРЯ-MOCK",
+      hitCount: 2
+    },
+    {
+      quote: "И скучно и грустно, и некому руку подать в минуту душевной невзгоды.",
+      author: "Михаил Лермонтов",
+      title: "И скучно и грустно",
+      year: "1840",
+      sourceName: "НКРЯ-MOCK",
+      hitCount: 3
+    },
+    {
+      quote: "Не жалею, не зову, не плачу, все пройдет, как с белых яблонь дым.",
+      author: "Сергей Есенин",
+      title: "Не жалею, не зову, не плачу",
+      year: "1921",
+      sourceName: "НКРЯ-MOCK",
+      hitCount: 2
     }
-  }
-
-  const hitBoost = Math.min(2.5, Number(candidate.hitCount || 0) * 0.7);
-  const intentBoost = scoreIntentLexicon(intentProfiles, text);
-  const literaryPenalty = scoreLiteraryPenalty(candidate);
-  const lengthPenalty = candidate.quote.length > 340 ? 1.4 : 0;
-  const tone = estimateTone(text);
-  const feedbackBias = getFeedbackBias(candidate);
-  const authorKey = normalizeText(candidate.author);
-  const diversityPenalty = excludeAuthors.includes(authorKey) ? feedbackModel.weights.diversityPenalty : 0;
-
-  const components = {
-    literal,
-    associative,
-    stateBoost,
-    hitBoost,
-    intentBoost,
-    literaryPenalty,
-    lengthPenalty,
-    diversityPenalty,
-    feedbackBias,
-    tone
-  };
-
-  const score =
-    components.literal * feedbackModel.weights.literal +
-    components.associative * feedbackModel.weights.associative +
-    components.stateBoost * feedbackModel.weights.state +
-    components.hitBoost * feedbackModel.weights.hit +
-    components.intentBoost * feedbackModel.weights.intent +
-    components.feedbackBias -
-    components.literaryPenalty * feedbackModel.weights.literaryPenalty -
-    components.lengthPenalty * feedbackModel.weights.lengthPenalty -
-    components.diversityPenalty;
-
-  return { score, components };
+  ];
+  return base.slice(0, limit).map((item, idx) => ({
+    ...item,
+    matchedTerm: term,
+    docType: "поэзия",
+    docTopic: idx % 2 ? "лирика" : "рефлексия",
+    docStyle: "художественный",
+    docHeader: `${item.author} ${item.title}`
+  }));
 }
 
 async function fetchNkryConcordance(term, limit) {
+  if (NKRY_MOCK_MODE) {
+    return buildMockCandidates(term, limit);
+  }
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
+  let lastError = null;
 
-  const response = await fetch(endpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      [NKRY_API_KEY_HEADER]: authValue
-    },
-    body: JSON.stringify(buildNkryPayload(term))
-  });
+  for (let attempt = 0; attempt <= NKRY_FETCH_RETRIES; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), NKRY_FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          [NKRY_API_KEY_HEADER]: authValue
+        },
+        body: JSON.stringify(buildNkryPayload(term)),
+        signal: controller.signal
+      });
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
+      if (!response.ok) {
+        const text = await response.text();
+        const err = new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
+        const retriable = response.status === 429 || response.status >= 500;
+        if (!retriable || attempt >= NKRY_FETCH_RETRIES) throw err;
+        lastError = err;
+      } else {
+        const payload = await response.json();
+        const candidates = parseConcordanceCandidates(payload, term);
+        return candidates.slice(0, limit);
+      }
+    } catch (error) {
+      const timedOut = error?.name === "AbortError";
+      const retriable = timedOut || error?.cause?.code === "ECONNRESET" || /fetch failed/i.test(String(error?.message || ""));
+      if (!retriable || attempt >= NKRY_FETCH_RETRIES) {
+        clearTimeout(timeout);
+        throw error;
+      }
+      lastError = error;
+    } finally {
+      clearTimeout(timeout);
+    }
+    await sleep(NKRY_FETCH_BACKOFF_MS * (attempt + 1));
   }
 
-  const payload = await response.json();
-  const candidates = parseConcordanceCandidates(payload, term);
-  return candidates.slice(0, limit);
+  throw lastError || new Error("НКРЯ недоступен.");
 }
 
-async function handleNkrySearch(req, res) {
-  const startedAt = Date.now();
-  metrics.searchRequests += 1;
-  if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) {
-    metrics.searchErrors += 1;
-    sendJson(res, 503, {
-      error: "НКРЯ не настроен на сервере. Задайте NKRY_API_BASE_URL, NKRY_SEARCH_PATH и NKRY_API_KEY."
-    });
-    return;
-  }
+function buildFallbackCandidates(queryTokens, limit = 28) {
+  const queryStems = queryTokens.map((token) => stemPrefix(token));
+  const pool = [...recentGoodPool, ...localFallbackCorpus];
+  const scored = pool
+    .map((item) => {
+      const source = item.fallbackNorm || rankNormalizeText(`${item.quote} ${item.author} ${item.title}`);
+      let lexical = 0;
+      for (const token of queryTokens) {
+        const stem = stemPrefix(token);
+        if (source.includes(token)) lexical += 2;
+        else if (source.includes(stem)) lexical += 1;
+      }
+      for (const stem of queryStems) {
+        if (source.includes(stem)) lexical += 0.2;
+      }
+      const recentBoost = item.matchedTerm === "recent" ? 0.8 : 0;
+      return { item, rank: lexical + recentBoost };
+    })
+    .filter((row) => row.rank > 0.2)
+    .sort((a, b) => b.rank - a.rank)
+    .slice(0, limit)
+    .map((row) => ({
+      ...row.item,
+      matchedTerm: row.item.matchedTerm || "fallback",
+      hitCount: Math.max(1, Number(row.item.hitCount || 1))
+    }));
 
-  let body;
-  try {
-    body = await parseRequestBody(req);
-  } catch (error) {
-    if (error && error.message === "payload_too_large") {
-      metrics.searchErrors += 1;
-      sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
-      return;
-    }
-    metrics.searchErrors += 1;
-    sendJson(res, 400, { error: "Некорректный JSON в запросе." });
-    return;
-  }
+  if (scored.length) return scored;
+  return recentGoodPool.slice(-Math.min(limit, recentGoodPool.length)).map((row) => ({
+    ...row,
+    matchedTerm: "fallback_recent",
+    hitCount: Math.max(1, Number(row.hitCount || 1))
+  }));
+}
 
-  const query = String(body.query || "").trim();
-  const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
-  const variantMode = String(body.variantMode || "");
-  const previousTone = Number(body.previousTone);
-  const excludeAuthors = Array.isArray(body.excludeAuthors)
-    ? body.excludeAuthors.map((x) => normalizeText(String(x || ""))).filter(Boolean)
-    : [];
-  const stateWeights = body.stateWeights && typeof body.stateWeights === "object" ? body.stateWeights : {};
-  const excludeQuotes = Array.isArray(body.excludeQuotes)
-    ? body.excludeQuotes.map((x) => normalizeText(String(x || ""))).filter(Boolean)
-    : [];
-
-  if (!query) {
-    metrics.searchErrors += 1;
-    sendJson(res, 400, { error: "Пустой query." });
-    return;
-  }
-
-  const queryTokens = extractKeywords(query, 10);
-  if (!queryTokens.length) {
-    metrics.searchErrors += 1;
-    sendJson(res, 400, { error: "Не удалось выделить ключевые слова запроса." });
-    return;
-  }
-
-  const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
-  if (!terms.length) {
-    metrics.searchErrors += 1;
-    sendJson(res, 400, { error: "Не удалось сформировать термы поиска." });
-    return;
-  }
-
-  const queryKey = normalizeText(query);
-  const hits = (recentQueries.get(queryKey) || 0) + 1;
-  recentQueries.set(queryKey, hits);
-  if (hits > 1) metrics.repeatedQueries += 1;
-
-  let allCandidates = [];
-  const settled = await Promise.allSettled(terms.map((term) => fetchNkryConcordance(term, limit)));
-  const errors = [];
-  for (const result of settled) {
-    if (result.status === "fulfilled") {
-      allCandidates = allCandidates.concat(result.value);
-      continue;
-    }
-    errors.push(result.reason?.message || "Ошибка сети при обращении к НКРЯ API.");
-  }
-
-  if (!allCandidates.length) {
-    metrics.searchEmpty += 1;
-    const reason = errors.length ? ` Все термы завершились ошибкой: ${errors.slice(0, 3).join(" | ")}` : "";
-    sendJson(res, 502, { error: `НКРЯ недоступен для текущего запроса.${reason}` });
-    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_terms_failed", errors: errors.slice(0, 3) }));
-    return;
-  }
-
-  const queryGroups = detectQueryGroups(queryTokens);
-
+function rankAndPick({
+  allCandidates,
+  queryTokens,
+  queryGroups,
+  scoringStateWeights,
+  excludeAuthors,
+  excludeQuotes,
+  effectiveModel,
+  variantMode,
+  previousTone
+}) {
   const dedup = new Map();
   for (const candidate of allCandidates) {
     const key = normalizeText(`${candidate.quote}__${candidate.title}`);
-    const scored = scoreCandidate(candidate, queryTokens, queryGroups, stateWeights, excludeAuthors);
+    const scored = scoreCandidate({
+      candidate,
+      queryTokens,
+      queryGroups,
+      stateWeights: scoringStateWeights,
+      excludeAuthors,
+      model: effectiveModel
+    });
     const next = { ...candidate, score: scored.score, scoreDetails: scored.components, fingerprint: buildFingerprint(candidate) };
-
-    if (!dedup.has(key) || dedup.get(key).score < scored.score) {
-      dedup.set(key, next);
-    }
+    if (!dedup.has(key) || dedup.get(key).score < scored.score) dedup.set(key, next);
   }
 
   const ranked = Array.from(dedup.values()).sort((a, b) => b.score - a.score);
   const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
-  if (!filtered.length) {
-    metrics.searchEmpty += 1;
-    sendJson(res, 404, { error: "Не удалось выбрать новый фрагмент, попробуйте изменить вопрос." });
-    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_excluded" }));
-    return;
-  }
+  if (!filtered.length) return null;
 
-  let top = filtered[0];
-  if (variantMode === "contrast" && Number.isFinite(previousTone)) {
-    top = filtered
-      .slice(0, 15)
-      .map((item) => {
-        const contrastBonus = Math.abs((item.scoreDetails?.tone || 0) - previousTone) * 1.7;
-        return { item, rankScore: item.score + contrastBonus };
-      })
-      .sort((a, b) => b.rankScore - a.rankScore)[0].item;
-  }
-
+  const top = pickTopCandidate(filtered, variantMode, previousTone);
   const alternatives = filtered
     .filter((item) => item.fingerprint !== top.fingerprint)
     .slice(0, 3)
@@ -746,85 +962,225 @@ async function handleNkrySearch(req, res) {
       tone: item.scoreDetails?.tone || 0,
       fingerprint: item.fingerprint
     }));
-
-  metrics.searchSuccess += 1;
-  metrics.searchLatencyTotalMs += Date.now() - startedAt;
-  metrics.searchLatencySamples += 1;
-  console.log(
-    JSON.stringify({
-      type: "search_success",
-      query: queryKey,
-      variantMode: variantMode || "default",
-      matchedTerms: terms.slice(0, 5),
-      topAuthor: top.author,
-      topTitle: top.title
-    })
-  );
-
-  sendJson(res, 200, {
-    quote: {
-      quote: top.quote,
-      author: top.author,
-      title: top.title,
-      year: top.year,
-      sourceName: top.sourceName,
-      score: top.score,
-      matchedTerms: terms.slice(0, 5),
-      tone: top.scoreDetails?.tone || 0,
-      fingerprint: top.fingerprint,
-      scoreDetails: top.scoreDetails
-    },
-    explain:
-      "Скоринг: совпадение запроса + тематическая близость + эмоциональный тон + коррекция по вашему feedback.",
-    alternatives
-  });
+  return { top, alternatives, ranked: filtered };
 }
 
-function applyFeedbackLearning({ rating, reason, candidate }) {
-  const signal = clamp((Number(rating) - 3) / 2, -1, 1);
-  const authorKey = normalizeText(candidate?.author || "");
-  const fingerprint = String(candidate?.fingerprint || "");
-
-  if (authorKey) {
-    feedbackModel.byAuthor[authorKey] = clamp(Number(feedbackModel.byAuthor[authorKey] || 0) + signal * 0.35, -4, 4);
+async function handleNkrySearch(req, res) {
+  const startedAt = Date.now();
+  metrics.searchRequests += 1;
+  if (!NKRY_MOCK_MODE && (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY)) {
+    markSearchError();
+    sendJson(res, 503, {
+      error: "НКРЯ не настроен на сервере. Задайте NKRY_API_BASE_URL, NKRY_SEARCH_PATH и NKRY_API_KEY."
+    });
+    return;
   }
-  if (fingerprint) {
-    feedbackModel.byFingerprint[fingerprint] = clamp(
-      Number(feedbackModel.byFingerprint[fingerprint] || 0) + signal * 0.55,
-      -5,
-      5
+
+  let body;
+  try {
+    body = await parseRequestBody(req);
+  } catch (error) {
+    if (error && error.message === "payload_too_large") {
+      markSearchError();
+      sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
+      return;
+    }
+    markSearchError();
+    sendJson(res, 400, { error: "Некорректный JSON в запросе." });
+    return;
+  }
+
+  const userKey = getUserKey(req, body);
+  const userModel = getOrCreateUserModel(userKey);
+  const globalModel = getGlobalModel();
+  applyDecay(userModel);
+  applyDecay(globalModel);
+  const effectiveModel = blendModels(userModel, globalModel);
+
+  const query = String(body.query || "").trim();
+  const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
+  const variantMode = String(body.variantMode || "");
+  const previousTone = Number(body.previousTone);
+  const excludeAuthors = Array.isArray(body.excludeAuthors)
+    ? body.excludeAuthors.map((x) => normalizeText(String(x || ""))).filter(Boolean)
+    : [];
+  const stateWeights = body.stateWeights && typeof body.stateWeights === "object" ? body.stateWeights : {};
+  const scoringStateWeights = buildScoringStateWeights(stateWeights);
+  const excludeQuotes = Array.isArray(body.excludeQuotes)
+    ? body.excludeQuotes.map((x) => normalizeText(String(x || ""))).filter(Boolean)
+    : [];
+
+  if (!query) {
+    markSearchError();
+    sendJson(res, 400, { error: "Пустой query." });
+    return;
+  }
+
+  const queryTokens = extractKeywords(query, 10);
+  if (!queryTokens.length) {
+    markSearchError();
+    sendJson(res, 400, { error: "Не удалось выделить ключевые слова запроса." });
+    return;
+  }
+  const queryGroups = detectQueryGroups(queryTokens);
+
+  const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
+  if (!terms.length) {
+    markSearchError();
+    sendJson(res, 400, { error: "Не удалось сформировать термы поиска." });
+    return;
+  }
+
+  const queryKey = normalizeText(query);
+  touchRecentQuery(queryKey);
+
+  const sendRankedPayload = (picked, responseTerms, explainText = "", meta = {}) => {
+    const top = picked.top;
+    const servedQuoteId = servedQuoteRegistry.issue(userKey, {
+      fingerprint: top.fingerprint,
+      author: top.author,
+      title: top.title,
+      quote: top.quote
+    });
+    const alternatives = picked.alternatives || [];
+    addRecentGoodCandidates([top, ...alternatives]);
+    markSearchSuccess();
+    metrics.searchLatencyTotalMs += Date.now() - startedAt;
+    metrics.searchLatencySamples += 1;
+    console.log(
+      JSON.stringify({
+        type: "search_success",
+        query: queryKey,
+        variantMode: variantMode || "default",
+        matchedTerms: responseTerms.slice(0, 5),
+        topAuthor: top.author,
+        topTitle: top.title,
+        ...meta
+      })
     );
+    sendJson(res, 200, {
+      quote: {
+        quote: top.quote,
+        author: top.author,
+        title: top.title,
+        year: top.year,
+        sourceName: top.sourceName,
+        score: top.score,
+        matchedTerms: responseTerms.slice(0, 5),
+        tone: top.scoreDetails?.tone || 0,
+        fingerprint: top.fingerprint,
+        servedQuoteId,
+        scoreDetails: top.scoreDetails
+      },
+      explain: explainText
+        || "Скоринг: совпадение запроса + тематическая близость + эмоциональный тон + коррекция по вашему feedback.",
+      alternatives
+    });
+  };
+
+  if (isNkryCircuitOpen()) {
+    const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
+    const pickedFallback = rankAndPick({
+      allCandidates: fallbackCandidates,
+      queryTokens,
+      queryGroups,
+      scoringStateWeights,
+      excludeAuthors,
+      excludeQuotes,
+      effectiveModel,
+      variantMode,
+      previousTone
+    });
+    if (pickedFallback) {
+      metrics.circuitFallbackResponses += 1;
+      sendRankedPayload(
+        pickedFallback,
+        ["fallback_circuit_open"],
+        "НКРЯ временно недоступен, показан лучший вариант из локального каталога/последних релевантных результатов.",
+        { fallback: "circuit_open" }
+      );
+      return;
+    }
+    markSearchError();
+    sendJson(res, 503, { error: "Внешний источник временно недоступен. Попробуйте снова через минуту." });
+    return;
   }
 
-  const mappedReason = String(reason || "");
-  if (mappedReason && Object.prototype.hasOwnProperty.call(feedbackModel.byReason, mappedReason)) {
-    feedbackModel.byReason[mappedReason] = clamp(feedbackModel.byReason[mappedReason] + signal * 0.2, -3, 3);
+  let allCandidates = [];
+  const settled = await Promise.allSettled(terms.map((term) => fetchNkryConcordance(term, limit)));
+  const errors = [];
+  let upstreamSuccesses = 0;
+  for (const result of settled) {
+    if (result.status === "fulfilled") {
+      upstreamSuccesses += 1;
+      allCandidates = allCandidates.concat(result.value);
+      continue;
+    }
+    errors.push(result.reason?.message || "Ошибка сети при обращении к НКРЯ API.");
+  }
+  if (upstreamSuccesses > 0) markNkrySuccess();
+  else markNkryFailure(errors.slice(0, 2).join(" | "));
+
+  if (!allCandidates.length) {
+    const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
+    const pickedFallback = rankAndPick({
+      allCandidates: fallbackCandidates,
+      queryTokens,
+      queryGroups,
+      scoringStateWeights,
+      excludeAuthors,
+      excludeQuotes,
+      effectiveModel,
+      variantMode,
+      previousTone
+    });
+    if (pickedFallback) {
+      metrics.circuitFallbackResponses += 1;
+      sendRankedPayload(
+        pickedFallback,
+        ["fallback_after_upstream_error"],
+        "НКРЯ временно недоступен, показан лучший вариант из локального каталога/последних релевантных результатов.",
+        { fallback: "upstream_error" }
+      );
+      return;
+    }
+    markSearchError();
+    const reason = errors.length ? ` Все термы завершились ошибкой: ${errors.slice(0, 3).join(" | ")}` : "";
+    sendJson(res, 502, { error: `НКРЯ недоступен для текущего запроса.${reason}` });
+    console.log(JSON.stringify({ type: "search_error", query: queryKey, reason: "all_terms_failed", errors: errors.slice(0, 3) }));
+    return;
   }
 
-  if (mappedReason === "tone") feedbackModel.weights.intent = clamp(feedbackModel.weights.intent + signal * 0.08, 0.4, 2.4);
-  if (mappedReason === "theme") {
-    feedbackModel.weights.associative = clamp(feedbackModel.weights.associative + signal * 0.08, 0.4, 2.4);
-    feedbackModel.weights.literal = clamp(feedbackModel.weights.literal + signal * 0.05, 0.4, 2.4);
-  }
-  if (mappedReason === "rhythm") feedbackModel.weights.lengthPenalty = clamp(feedbackModel.weights.lengthPenalty + signal * 0.06, 0.4, 2.4);
-  if (mappedReason === "too_dark") {
-    feedbackModel.weights.literaryPenalty = clamp(feedbackModel.weights.literaryPenalty + Math.max(signal * -0.09, -0.03), 0.4, 2.4);
-  }
-  if (mappedReason === "too_abstract") feedbackModel.weights.intent = clamp(feedbackModel.weights.intent + signal * 0.05, 0.4, 2.4);
-
-  feedbackModel.updatedAt = new Date().toISOString();
-  feedbackModel.recentFeedback.push({
-    ts: feedbackModel.updatedAt,
-    rating: Number(rating),
-    reason: mappedReason,
-    author: candidate?.author || "",
-    title: candidate?.title || ""
+  const picked = rankAndPick({
+    allCandidates,
+    queryTokens,
+    queryGroups,
+    scoringStateWeights,
+    excludeAuthors,
+    excludeQuotes,
+    effectiveModel,
+    variantMode,
+    previousTone
   });
-  feedbackModel.recentFeedback = feedbackModel.recentFeedback.slice(-500);
-  persistFeedbackModel(feedbackModel);
+  if (!picked) {
+    markSearchEmpty();
+    sendJson(res, 404, { error: "Не удалось выбрать новый фрагмент, попробуйте изменить вопрос." });
+    console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_excluded" }));
+    return;
+  }
+  sendRankedPayload(picked, terms);
 }
 
 async function handleNkryFeedback(req, res) {
+  if (!checkRateLimit(req, "feedback", RATE_LIMIT_FEEDBACK_PER_WINDOW)) {
+    sendJson(res, 429, { error: "Слишком много feedback-запросов. Повторите позже." });
+    return;
+  }
+  if (!isAuthorized(req, "feedback")) {
+    sendJson(res, 401, { error: "Unauthorized feedback request." });
+    return;
+  }
+
   let body;
   try {
     body = await parseRequestBody(req);
@@ -843,27 +1199,128 @@ async function handleNkryFeedback(req, res) {
     return;
   }
 
+  const userKey = getUserKey(req, body);
+  const servedQuoteId = String(body.servedQuoteId || "").trim();
+  if (!servedQuoteId) {
+    sendJson(res, 400, { error: "Отсутствует servedQuoteId для валидации feedback." });
+    return;
+  }
+  const servedCandidate = servedQuoteRegistry.consume(userKey, servedQuoteId);
+  if (!servedCandidate) {
+    sendJson(res, 409, { error: "Feedback отклонен: цитата не найдена или уже подтверждена." });
+    return;
+  }
+
   const reason = String(body.reason || "").trim();
-  const candidate = body.candidate && typeof body.candidate === "object" ? body.candidate : {};
-  applyFeedbackLearning({ rating, reason, candidate });
+  const userModel = getOrCreateUserModel(userKey);
+  const globalModel = getGlobalModel();
+  applyFeedbackLearning(userModel, { rating, reason, candidate: servedCandidate });
+  applyFeedbackLearning(globalModel, { rating, reason, candidate: servedCandidate });
+  const effectiveModel = blendModels(userModel, globalModel);
+  feedbackStore.updatedAt = new Date().toISOString();
+  try {
+    await persistFeedbackStore(feedbackStore);
+  } catch {
+    sendJson(res, 500, { error: "Не удалось сохранить feedback в хранилище." });
+    return;
+  }
   metrics.feedbackEvents += 1;
-  console.log(JSON.stringify({ type: "feedback", rating, reason, author: candidate.author || "", title: candidate.title || "" }));
+  console.log(JSON.stringify({ type: "feedback", rating, reason, author: servedCandidate.author || "", title: servedCandidate.title || "" }));
 
   sendJson(res, 200, {
     ok: true,
-    updatedAt: feedbackModel.updatedAt,
-    weights: feedbackModel.weights
+    updatedAt: effectiveModel.updatedAt,
+    weights: effectiveModel.weights
   });
 }
 
+function getWindowSearchStats(windowMs = SLO_WINDOW_MS) {
+  const now = Date.now();
+  const cutoff = now - windowMs;
+  const windowEvents = recentSearchEvents.filter((event) => event.ts >= cutoff);
+  const total = windowEvents.length;
+  let success = 0;
+  let empty = 0;
+  let error = 0;
+  for (const event of windowEvents) {
+    if (event.kind === "success") success += 1;
+    else if (event.kind === "empty") empty += 1;
+    else if (event.kind === "error") error += 1;
+  }
+  const successRate = total ? success / total : 0;
+  const noResultRate = total ? empty / total : 0;
+  const searchErrorRate = total ? error / total : 0;
+  const feedbackPersistErrors = feedbackPersistErrorEvents.filter((ts) => ts >= cutoff).length;
+  return {
+    windowMs,
+    total,
+    success,
+    empty,
+    error,
+    successRate: Number(successRate.toFixed(4)),
+    noResultRate: Number(noResultRate.toFixed(4)),
+    searchErrorRate: Number(searchErrorRate.toFixed(4)),
+    feedbackPersistErrors
+  };
+}
+
+function getSloState(windowStats) {
+  const alerts = [];
+  if (windowStats.total > 0 && windowStats.successRate < SLO_SUCCESS_RATE_MIN) {
+    alerts.push({
+      key: "successRate",
+      severity: "critical",
+      message: `successRate ${windowStats.successRate} < ${SLO_SUCCESS_RATE_MIN}`
+    });
+  }
+  if (windowStats.total > 0 && windowStats.noResultRate > SLO_NO_RESULT_RATE_MAX) {
+    alerts.push({
+      key: "noResultRate",
+      severity: "critical",
+      message: `noResultRate ${windowStats.noResultRate} > ${SLO_NO_RESULT_RATE_MAX}`
+    });
+  }
+  if (windowStats.total > 0 && windowStats.searchErrorRate > SLO_SEARCH_ERROR_RATE_MAX) {
+    alerts.push({
+      key: "searchErrors",
+      severity: "critical",
+      message: `searchErrorRate ${windowStats.searchErrorRate} > ${SLO_SEARCH_ERROR_RATE_MAX}`
+    });
+  }
+  if (windowStats.feedbackPersistErrors > 0) {
+    alerts.push({
+      key: "feedbackPersistErrors",
+      severity: "critical",
+      message: `feedbackPersistErrors ${windowStats.feedbackPersistErrors} > 0`
+    });
+  }
+  return {
+    ok: alerts.length === 0,
+    alerts
+  };
+}
+
 function getQualityMetrics() {
-  const ratings = feedbackModel.recentFeedback.map((x) => Number(x.rating)).filter((x) => Number.isFinite(x));
+  const ratings = [];
+  const globalModel = getGlobalModel();
+  for (const row of globalModel.recentFeedback || []) {
+    const value = Number(row.rating);
+    if (Number.isFinite(value)) ratings.push(value);
+  }
+  for (const model of Object.values(feedbackStore.users)) {
+    for (const row of model.recentFeedback || []) {
+      const value = Number(row.rating);
+      if (Number.isFinite(value)) ratings.push(value);
+    }
+  }
   const averageRating = ratings.length
     ? Number((ratings.reduce((acc, x) => acc + x, 0) / ratings.length).toFixed(3))
     : null;
   const searchLatencyAvgMs = metrics.searchLatencySamples
     ? Number((metrics.searchLatencyTotalMs / metrics.searchLatencySamples).toFixed(2))
     : null;
+  const window15m = getWindowSearchStats(SLO_WINDOW_MS);
+  const slo = getSloState(window15m);
 
   return {
     searchRequests: metrics.searchRequests,
@@ -876,7 +1333,75 @@ function getQualityMetrics() {
     noResultRate: metrics.searchRequests ? Number((metrics.searchEmpty / metrics.searchRequests).toFixed(4)) : 0,
     searchLatencyAvgMs,
     averageRating,
-    modelUpdatedAt: feedbackModel.updatedAt || null
+    modelUpdatedAt: feedbackStore.updatedAt || null,
+    globalModelUpdatedAt: globalModel.updatedAt || null,
+    globalFeedbackEvents: Array.isArray(globalModel.recentFeedback) ? globalModel.recentFeedback.length : 0,
+    userModels: Object.keys(feedbackStore.users).length,
+    userModelsPruned: metrics.userModelsPruned,
+    feedbackPersistErrors: metrics.feedbackPersistErrors,
+    circuitOpenEvents: metrics.circuitOpenEvents,
+    circuitFallbackResponses: metrics.circuitFallbackResponses,
+    nkryCircuit: {
+      isOpen: isNkryCircuitOpen(),
+      consecutiveFailures: nkryCircuit.consecutiveFailures,
+      openUntil: nkryCircuit.openUntil ? new Date(nkryCircuit.openUntil).toISOString() : null,
+      lastFailureAt: nkryCircuit.lastFailureAt ? new Date(nkryCircuit.lastFailureAt).toISOString() : null,
+      lastOpenedAt: nkryCircuit.lastOpenedAt ? new Date(nkryCircuit.lastOpenedAt).toISOString() : null,
+      lastReason: nkryCircuit.lastReason || null
+    },
+    window15m,
+    slo
+  };
+}
+
+function getFeedbackStats() {
+  const globalModel = getGlobalModel();
+  const events = Array.isArray(globalModel.recentFeedback) ? globalModel.recentFeedback : [];
+  const ratings = { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 };
+  const reasons = {};
+  const byAuthor = {};
+  const byTitle = {};
+
+  for (const row of events) {
+    const rating = String(Math.max(1, Math.min(5, Math.round(Number(row.rating) || 0))));
+    if (ratings[rating] !== undefined) ratings[rating] += 1;
+    const reason = String(row.reason || "").trim() || "(none)";
+    reasons[reason] = (reasons[reason] || 0) + 1;
+    const author = String(row.author || "").trim() || "Не указан";
+    const title = String(row.title || "").trim() || "Без названия";
+    byAuthor[author] = (byAuthor[author] || 0) + 1;
+    byTitle[title] = (byTitle[title] || 0) + 1;
+  }
+
+  const ratedTotal = Object.values(ratings).reduce((acc, x) => acc + x, 0);
+  const fitPositive = (ratings["4"] || 0) + (ratings["5"] || 0);
+  const fitNegative = (ratings["1"] || 0) + (ratings["2"] || 0);
+  const fitNeutral = ratings["3"] || 0;
+  const activeUsers = Object.values(feedbackStore.users).filter(
+    (model) => Array.isArray(model?.recentFeedback) && model.recentFeedback.length > 0
+  ).length;
+
+  return {
+    totalFeedbackEvents: ratedTotal,
+    activeUsers,
+    globalModelUpdatedAt: globalModel.updatedAt || null,
+    fit: {
+      positive_4_5: fitPositive,
+      negative_1_2: fitNegative,
+      neutral_3: fitNeutral
+    },
+    ratings,
+    reasons: Object.entries(reasons)
+      .sort((a, b) => b[1] - a[1])
+      .map(([reason, count]) => ({ reason, count })),
+    topAuthors: Object.entries(byAuthor)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 15)
+      .map(([author, count]) => ({ author, count })),
+    topTitles: Object.entries(byTitle)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 15)
+      .map(([title, count]) => ({ title, count }))
   };
 }
 
@@ -935,10 +1460,61 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "GET" && req.url === "/api/metrics") {
+      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
+        sendJson(res, 429, { error: "Слишком много запросов метрик. Повторите позже." });
+        return;
+      }
+      if (!isAuthorized(req, "metrics")) {
+        sendJson(res, 401, { error: "Unauthorized metrics request." });
+        return;
+      }
       sendJson(res, 200, {
         ...getQualityMetrics(),
         appVersion: APP_VERSION,
         uptimeSec: Math.floor((Date.now() - BOOT_AT) / 1000),
+        now: new Date().toISOString()
+      });
+      return;
+    }
+
+    if (req.method === "GET" && req.url === "/api/feedback-stats") {
+      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
+        sendJson(res, 429, { error: "Слишком много запросов статистики. Повторите позже." });
+        return;
+      }
+      if (!isAuthorized(req, "metrics")) {
+        sendJson(res, 401, { error: "Unauthorized feedback stats request." });
+        return;
+      }
+      sendJson(res, 200, {
+        ...getFeedbackStats(),
+        appVersion: APP_VERSION,
+        now: new Date().toISOString()
+      });
+      return;
+    }
+
+    if (req.method === "GET" && req.url === "/api/slo-alerts") {
+      if (!checkRateLimit(req, "metrics", RATE_LIMIT_METRICS_PER_WINDOW)) {
+        sendJson(res, 429, { error: "Слишком много запросов SLO-алертов. Повторите позже." });
+        return;
+      }
+      if (!isAuthorized(req, "metrics")) {
+        sendJson(res, 401, { error: "Unauthorized slo alerts request." });
+        return;
+      }
+      const window15m = getWindowSearchStats(SLO_WINDOW_MS);
+      const slo = getSloState(window15m);
+      sendJson(res, 200, {
+        ok: slo.ok,
+        alerts: slo.alerts,
+        window15m,
+        thresholds: {
+          successRateMin: SLO_SUCCESS_RATE_MIN,
+          noResultRateMax: SLO_NO_RESULT_RATE_MAX,
+          searchErrorRateMax: SLO_SEARCH_ERROR_RATE_MAX,
+          feedbackPersistErrorsMax: 0
+        },
         now: new Date().toISOString()
       });
       return;
