@@ -275,18 +275,18 @@ button:disabled {
 
 .context-card {
   display: grid;
-  grid-template-columns: 112px 1fr;
-  gap: 12px;
+  grid-template-columns: 152px 1fr;
+  gap: 14px;
   align-items: center;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #d2deef;
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, #f7fbff 0%, #eef4fc 100%);
 }
 
 .context-card img {
-  width: 112px;
-  height: 112px;
+  width: 152px;
+  height: 152px;
   border-radius: 10px;
   object-fit: cover;
   border: 1px solid #c8d7ee;
@@ -373,7 +373,7 @@ button:disabled {
   }
 
   .context-card img {
-    width: 92px;
-    height: 92px;
+    width: 120px;
+    height: 120px;
   }
 }

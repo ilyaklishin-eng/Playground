@@ -18,7 +18,7 @@ const artImageNode = document.getElementById("art-image");
 const artTitleNode = document.getElementById("art-title");
 const artMetaNode = document.getElementById("art-meta");
 
-const rulerPhotoCache = new Map();
+const wikiImageCache = new Map();
 const RULERS = [
   { from: 1682, to: 1725, name: "Петр I", role: "Император России", wikiTitle: "Пётр_I" },
   { from: 1725, to: 1727, name: "Екатерина I", role: "Императрица России", wikiTitle: "Екатерина_I" },
@@ -51,56 +51,56 @@ const DECADE_ART = [
     to: 1799,
     title: "Портрет А. В. Храповицкого",
     artist: "Д. Г. Левицкий, 1781",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
+    wikiTitle: "Портрет_А._В._Храповицкого"
   },
   {
     from: 1800,
     to: 1839,
     title: "Последний день Помпеи",
     artist: "К. П. Брюллов, 1833",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg/640px-Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg"
+    wikiTitle: "Последний_день_Помпеи"
   },
   {
     from: 1840,
     to: 1869,
     title: "Явление Христа народу",
     artist: "А. А. Иванов, 1857",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
+    wikiTitle: "Явление_Христа_народу"
   },
   {
     from: 1870,
     to: 1899,
     title: "Грачи прилетели",
     artist: "А. К. Саврасов, 1871",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Savrasov_Grachi_prileteli.jpg/640px-Savrasov_Grachi_prileteli.jpg"
+    wikiTitle: "Грачи_прилетели"
   },
   {
     from: 1900,
     to: 1929,
     title: "Купание красного коня",
     artist: "К. С. Петров-Водкин, 1912",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg/640px-Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg"
+    wikiTitle: "Купание_красного_коня"
   },
   {
     from: 1930,
     to: 1959,
     title: "Новая Москва",
     artist: "Ю. И. Пименов, 1937",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yuri_Pimenov_New_Moscow_1937.jpg/640px-Yuri_Pimenov_New_Moscow_1937.jpg"
+    wikiTitle: "Новая_Москва_(картина)"
   },
   {
     from: 1960,
     to: 1989,
     title: "Суровый стиль (эпоха)",
     artist: "Советская живопись 1960-х",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Viktor_Popkov_Builders_of_Bratsk.jpg/640px-Viktor_Popkov_Builders_of_Bratsk.jpg"
+    wikiTitle: "Строители_Братска"
   },
   {
     from: 1990,
     to: 2029,
     title: "Современная российская живопись",
     artist: "Рубеж XX–XXI вв.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/State_Tretyakov_Gallery_10.jpg/640px-State_Tretyakov_Gallery_10.jpg"
+    wikiTitle: "Третьяковская_галерея"
   }
 ];
 
@@ -239,21 +239,47 @@ function getArtByYear(year) {
   return DECADE_ART.find((art) => year >= art.from && year <= art.to) || null;
 }
 
-async function loadRulerPhoto(wikiTitle) {
-  if (!wikiTitle) return "";
-  if (rulerPhotoCache.has(wikiTitle)) return rulerPhotoCache.get(wikiTitle);
+function canLoadImage(url) {
+  return new Promise((resolve) => {
+    if (!url) {
+      resolve(false);
+      return;
+    }
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+}
 
+async function fetchWikiSummaryImage(host, wikiTitle) {
+  const response = await fetch(`https://${host}/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`);
+  if (!response.ok) return "";
+  const payload = await response.json();
+  return String(payload?.thumbnail?.source || payload?.originalimage?.source || "");
+}
+
+async function loadWikiImage(wikiTitle) {
+  if (!wikiTitle) return "";
+  if (wikiImageCache.has(wikiTitle)) return wikiImageCache.get(wikiTitle);
+
+  const candidates = [];
   try {
-    const response = await fetch(`https://ru.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikiTitle)}`);
-    if (!response.ok) throw new Error("bad_status");
-    const payload = await response.json();
-    const src = String(payload?.thumbnail?.source || payload?.originalimage?.source || "");
-    rulerPhotoCache.set(wikiTitle, src);
-    return src;
-  } catch {
-    rulerPhotoCache.set(wikiTitle, "");
-    return "";
+    candidates.push(await fetchWikiSummaryImage("ru.wikipedia.org", wikiTitle));
+  } catch {}
+  try {
+    candidates.push(await fetchWikiSummaryImage("en.wikipedia.org", wikiTitle));
+  } catch {}
+
+  for (const src of candidates) {
+    if (await canLoadImage(src)) {
+      wikiImageCache.set(wikiTitle, src);
+      return src;
+    }
   }
+
+  wikiImageCache.set(wikiTitle, "");
+  return "";
 }
 
 async function renderRulerByYear(rawYear) {
@@ -267,7 +293,7 @@ async function renderRulerByYear(rawYear) {
     rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.name}`;
     rulerMetaNode.textContent = `${ruler.role} (${ruler.from}–${ruler.to})`;
 
-    const photo = await loadRulerPhoto(ruler.wikiTitle);
+    const photo = await loadWikiImage(ruler.wikiTitle);
     if (photo) {
       rulerImageNode.src = photo;
       rulerImageNode.alt = `${ruler.name}`;
@@ -286,11 +312,19 @@ async function renderRulerByYear(rawYear) {
   if (art) {
     artTitleNode.textContent = `Атмосфера десятилетия: ${art.title}`;
     artMetaNode.textContent = art.artist;
-    artImageNode.src = art.image;
-    artImageNode.alt = art.title;
-    artImageNode.classList.remove("hidden");
-    artCardNode.classList.remove("hidden");
-    hasContext = true;
+    const artPhoto = await loadWikiImage(art.wikiTitle);
+    if (artPhoto) {
+      artImageNode.src = artPhoto;
+      artImageNode.alt = art.title;
+      artImageNode.classList.remove("hidden");
+      artCardNode.classList.remove("hidden");
+      hasContext = true;
+    } else {
+      artImageNode.removeAttribute("src");
+      artImageNode.alt = "";
+      artImageNode.classList.add("hidden");
+      artCardNode.classList.add("hidden");
+    }
   } else {
     artImageNode.removeAttribute("src");
     artImageNode.alt = "";
