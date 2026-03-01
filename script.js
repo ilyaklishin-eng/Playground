@@ -144,6 +144,86 @@ function sanitizeQuote(item) {
   };
 }
 
+function escapeHtml(text) {
+  return String(text || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function escapeRegex(text) {
+  return String(text || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function dedupeAuthorInTitle(author, title) {
+  const cleanAuthor = String(author || "").trim();
+  const cleanTitle = String(title || "").trim();
+  if (!cleanAuthor || !cleanTitle) return cleanTitle || "Без названия";
+
+  const leadingAuthorPattern = new RegExp(`^\\s*${escapeRegex(cleanAuthor)}\\s*[.\\-–—,:;]*\\s*`, "iu");
+  const deduped = cleanTitle.replace(leadingAuthorPattern, "").trim();
+  return deduped || cleanTitle;
+}
+
+function normalizeForMatch(text) {
+  return String(text || "").toLowerCase().replaceAll("ё", "е");
+}
+
+function formatQuoteTypography(rawQuote) {
+  const quote = String(rawQuote || "").trim();
+  if (!quote) return { core: "", tail: "" };
+  const match = quote.match(/([.!?…]+)$/u);
+  if (!match) return { core: quote, tail: "" };
+  const tail = match[1];
+  const core = quote.slice(0, -tail.length).trimEnd();
+  return { core: core || quote, tail };
+}
+
+function highlightQuoteCore(rawCore, matchedWord) {
+  const core = String(rawCore || "");
+  const word = normalizeForMatch(matchedWord);
+  if (!core) return "";
+  if (!word) return escapeHtml(core);
+
+  const stem = word.length > 5 ? word.slice(0, 5) : word;
+  if (!stem) return escapeHtml(core);
+
+  const tokenRegex = /([A-Za-zА-Яа-яЁё0-9-]+)/gu;
+  let cursor = 0;
+  let out = "";
+  let matchedAny = false;
+  let tokenMatch;
+
+  while ((tokenMatch = tokenRegex.exec(core)) !== null) {
+    const full = tokenMatch[0];
+    const start = tokenMatch.index;
+    const end = start + full.length;
+    out += escapeHtml(core.slice(cursor, start));
+
+    const normalized = normalizeForMatch(full);
+    const shouldMark = normalized === word || normalized.startsWith(stem);
+    if (shouldMark) {
+      out += `<mark class="hit">${escapeHtml(full)}</mark>`;
+      matchedAny = true;
+    } else {
+      out += escapeHtml(full);
+    }
+    cursor = end;
+  }
+  out += escapeHtml(core.slice(cursor));
+
+  if (matchedAny) return out;
+
+  const exactRegex = new RegExp(`(${escapeRegex(word)})`, "iu");
+  const exactMatch = core.match(exactRegex);
+  if (!exactMatch) return escapeHtml(core);
+  const idx = exactMatch.index || 0;
+  const exact = exactMatch[0];
+  return `${escapeHtml(core.slice(0, idx))}<mark class="hit">${escapeHtml(exact)}</mark>${escapeHtml(core.slice(idx + exact.length))}`;
+}
+
 function extractYear(rawYear) {
   const match = String(rawYear || "").match(/\b(1[6-9]\d{2}|20\d{2})\b/);
   return match ? Number(match[1]) : null;
@@ -235,11 +315,15 @@ async function showResult(payload) {
   const quote = sanitizeQuote(payload.quote);
   if (!quote) throw new Error("НКРЯ не вернул корректную цитату.");
   const matchedWord = normalizeWord(payload?.meta?.matchedWord || "");
+  const title = dedupeAuthorInTitle(quote.author, quote.title);
+  const typographic = formatQuoteTypography(quote.quote);
+  const quoteHtml = highlightQuoteCore(typographic.core, matchedWord);
+  const tail = typographic.tail ? escapeHtml(typographic.tail) : "";
 
-  quoteTextNode.textContent = `«${quote.quote}»`;
+  quoteTextNode.innerHTML = `«${quoteHtml}»${tail}`;
   quoteMetaNode.textContent = quote.year
-    ? `${quote.author} — ${quote.title}, ${quote.year}`
-    : `${quote.author} — ${quote.title}`;
+    ? `${quote.author} — ${title}, ${quote.year}`
+    : `${quote.author} — ${title}`;
   quoteSourceNode.textContent = `Источник: ${quote.sourceName}`;
   resultWordNode.textContent = matchedWord ? `Слово: ${matchedWord}` : "";
   await renderRulerByYear(quote.year);

@@ -246,6 +246,13 @@ button:disabled {
   text-wrap: pretty;
 }
 
+.quote .hit {
+  padding: 0 0.12em;
+  border-radius: 0.2em;
+  background: linear-gradient(180deg, #fff4b8 0%, #fbe082 100%);
+  color: inherit;
+}
+
 .meta {
   margin: 15px 0 0;
   font-size: clamp(16px, 1.35vw, 21px);
