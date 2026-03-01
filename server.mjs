@@ -1318,7 +1318,7 @@ async function handleNkryFeedback(req, res) {
   const userKey = getUserKey(req, body);
   const servedQuoteId = String(body.servedQuoteId || "").trim();
   if (!servedQuoteId) {
-    sendJson(res, 400, { error: "Отсутствует servedQuoteId для валидации feedback." });
+    sendJson(res, 200, { ok: true, ignored: "legacy_feedback_without_servedQuoteId" });
     return;
   }
   const servedCandidate = servedQuoteRegistry.consume(userKey, servedQuoteId);
@@ -1578,8 +1578,13 @@ function serveStatic(req, res) {
   const extension = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[extension] || "application/octet-stream";
   const size = statSync(filePath).size;
+  const cacheControl = extension === ".html" ? "no-store, max-age=0" : "no-cache, max-age=0";
 
-  res.writeHead(200, { "Content-Type": contentType, "Content-Length": size });
+  res.writeHead(200, {
+    "Content-Type": contentType,
+    "Content-Length": size,
+    "Cache-Control": cacheControl
+  });
   if (req.method === "HEAD") {
     res.end();
     return;
