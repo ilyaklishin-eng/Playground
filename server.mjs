@@ -80,6 +80,7 @@ const MATCH_EXPLORATION_EPSILON = Number(process.env.MATCH_EXPLORATION_EPSILON |
 const MATCH_EXPLORATION_TOP_K = Number(process.env.MATCH_EXPLORATION_TOP_K || 6);
 const ENABLE_LOCAL_FALLBACK = process.env.ENABLE_LOCAL_FALLBACK === "1";
 const USER_AUTHOR_HISTORY_MAX = Number(process.env.USER_AUTHOR_HISTORY_MAX || 32);
+const RANDOM_PICK_TOP_K = Number(process.env.RANDOM_PICK_TOP_K || 12);
 
 const DEFAULT_FEEDBACK_STORE = {
   version: 2,
@@ -393,6 +394,45 @@ function authorHistoryPenalty(userKey, author) {
   if (count3 >= 2) penalty += 2.6;
   if (consecutive2) penalty += 3.2;
   return penalty;
+}
+
+function extractPrimaryYear(value) {
+  const text = String(value || "");
+  const match = text.match(/\b(1[6-9]\d{2}|20\d{2})\b/);
+  return match ? Number(match[1]) : NaN;
+}
+
+function chronologyScore(candidate, queryContext) {
+  const year = extractPrimaryYear(candidate?.year);
+  if (!Number.isFinite(year)) return 0;
+
+  let score = 0;
+  if (queryContext?.isMeaningOfLife || queryContext?.isIntrospective || queryContext?.isBeautyQuestion) {
+    if (year < 1800) score -= 3.8;
+    else if (year < 1850) score -= 2.4;
+    else if (year < 1900) score += 0.4;
+    else if (year <= 1970) score += 1.1;
+    else score += 0.2;
+  } else {
+    if (year < 1750) score -= 1.4;
+  }
+  return score;
+}
+
+function pickStochasticTop(ranked, topK = RANDOM_PICK_TOP_K) {
+  if (!Array.isArray(ranked) || !ranked.length) return null;
+  const pool = ranked.slice(0, Math.max(1, Math.min(topK, ranked.length)));
+  if (pool.length === 1) return pool[0];
+
+  const maxScore = Number(pool[0]?.score || 0);
+  const weights = pool.map((item) => Math.exp(((Number(item?.score || 0) - maxScore) / 1.2)));
+  const total = weights.reduce((acc, x) => acc + x, 0);
+  let r = Math.random() * (total || 1);
+  for (let i = 0; i < pool.length; i += 1) {
+    r -= weights[i];
+    if (r <= 0) return pool[i];
+  }
+  return pool[0];
 }
 
 function pickWithAuthorDiversity(filtered, top, userKey) {
@@ -1335,10 +1375,12 @@ function rankAndPick({
     });
     const styleGenreBoost = scoreStyleGenreMatch(candidate, styleGenreSignals);
     const repetitionPenalty = authorHistoryPenalty(userKey, candidate.author);
+    const chronoBoost = chronologyScore(candidate, queryContext);
+    const randomJitter = (Math.random() - 0.5) * 0.35;
     const next = {
       ...candidate,
-      score: scored.score + styleGenreBoost - repetitionPenalty,
-      scoreDetails: { ...scored.components, styleGenreBoost, repetitionPenalty },
+      score: scored.score + styleGenreBoost + chronoBoost - repetitionPenalty + randomJitter,
+      scoreDetails: { ...scored.components, styleGenreBoost, repetitionPenalty, chronoBoost, randomJitter },
       fingerprint: buildFingerprint(candidate)
     };
     if (!dedup.has(key) || dedup.get(key).score < next.score) dedup.set(key, next);
@@ -1348,7 +1390,10 @@ function rankAndPick({
   const filtered = ranked.filter((item) => !excludeQuotes.includes(normalizeText(item.quote)));
   if (!filtered.length) return null;
 
-  const topByMode = pickTopCandidate(filtered, variantMode, previousTone);
+  const stochasticTop = pickStochasticTop(filtered, RANDOM_PICK_TOP_K) || filtered[0];
+  const topByMode = variantMode === "contrast"
+    ? pickTopCandidate(filtered, variantMode, previousTone)
+    : stochasticTop;
   const top = pickWithAuthorDiversity(filtered, topByMode, userKey);
   const alternatives = filtered
     .filter((item) => item.fingerprint !== top.fingerprint)
