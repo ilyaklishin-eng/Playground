@@ -150,6 +150,7 @@ export function getFeedbackBias(candidate, model) {
 export function scoreCandidate({
   candidate,
   queryTokens,
+  queryTokenWeights = {},
   queryGroups,
   stateWeights,
   excludeAuthors = [],
@@ -161,8 +162,9 @@ export function scoreCandidate({
   let literal = 0;
   for (const token of queryTokens) {
     const stem = stemPrefix(token);
-    if (text.includes(token)) literal += 2;
-    else if (text.includes(stem)) literal += 1;
+    const weight = Number(queryTokenWeights[token] || 1);
+    if (text.includes(token)) literal += 2 * weight;
+    else if (text.includes(stem)) literal += 1 * weight;
   }
 
   let associative = 0;
@@ -308,4 +310,3 @@ export function createServedQuoteRegistry({ ttlMs = 10 * 60 * 1000, maxSize = 80
     }
   };
 }
-

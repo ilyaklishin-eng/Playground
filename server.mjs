@@ -587,6 +587,16 @@ function buildScoringStateWeights(stateWeights) {
   return out;
 }
 
+function normalizeQueryText(text) {
+  return String(text || "")
+    .toLowerCase()
+    .replaceAll("ё", "е")
+    .replace(/[«»"“”„]/g, " ")
+    .replace(/[(){}[\],.!?:;\\/|+*=]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function splitTokens(text) {
   return normalizeText(text)
     .split(" ")
@@ -615,6 +625,83 @@ function extractKeywords(text, limit = 8) {
   return uniq;
 }
 
+function extractWeightedKeywords(text, limit = 10) {
+  const normalized = normalizeQueryText(text);
+  const tokens = splitTokens(normalized);
+  const seenCounts = new Map();
+
+  for (const token of tokens) {
+    const key = stemPrefix(token);
+    seenCounts.set(key, (seenCounts.get(key) || 0) + 1);
+  }
+
+  const scored = [];
+  const emitted = new Set();
+  for (const token of tokens) {
+    const key = stemPrefix(token);
+    if (emitted.has(key)) continue;
+    emitted.add(key);
+
+    let weight = 1;
+    const repeats = seenCounts.get(key) || 1;
+    if (repeats > 1) weight += Math.min(0.6, (repeats - 1) * 0.2);
+    if (token.length >= 7) weight += 0.15;
+    if (token.length >= 10) weight += 0.15;
+    if (/(смысл|любов|тревог|надеж|свобод|жизн|утрат|боль|страх)/.test(token)) weight += 0.2;
+
+    scored.push({ token, weight: Number(weight.toFixed(3)) });
+  }
+
+  scored.sort((a, b) => b.weight - a.weight || b.token.length - a.token.length);
+  return scored.slice(0, limit);
+}
+
+function detectStyleGenreSignals(queryText) {
+  const text = normalizeQueryText(queryText);
+  const wantsPoetry = /(стих|поэз|лирик|сонет|ода|элег)/.test(text);
+  const wantsProse = /(проз|роман|повест|рассказ|новел)/.test(text);
+  const wantsDrama = /(драм|пьес|трагед|комед)/.test(text);
+  const wantsPhilosophy = /(философ|размышл|эссе|трактат|смысл|быт)/.test(text);
+  const wantsLettersDiary = /(письм|дневник|записк|мемуар)/.test(text);
+
+  return {
+    wantsPoetry,
+    wantsProse,
+    wantsDrama,
+    wantsPhilosophy,
+    wantsLettersDiary
+  };
+}
+
+function scoreStyleGenreMatch(candidate, signals) {
+  const doc = normalizeText(
+    `${candidate?.docType || ""} ${candidate?.docStyle || ""} ${candidate?.docTopic || ""} ${candidate?.docHeader || ""} ${candidate?.title || ""}`
+  );
+
+  let score = 0;
+  if (signals.wantsPoetry) {
+    if (/(поэз|стих|лирик|ода|элег|сонет)/.test(doc)) score += 2.3;
+    else score -= 1.3;
+  }
+  if (signals.wantsProse) {
+    if (/(роман|повест|рассказ|проз|новел)/.test(doc)) score += 2.1;
+    else score -= 1.2;
+  }
+  if (signals.wantsDrama) {
+    if (/(драм|пьес|трагед|комед)/.test(doc)) score += 2.1;
+    else score -= 1.1;
+  }
+  if (signals.wantsPhilosophy) {
+    if (/(философ|размышл|публицист|эссе|трактат|дневник|записк)/.test(doc)) score += 1.6;
+  }
+  if (signals.wantsLettersDiary) {
+    if (/(письм|дневник|записк|мемуар)/.test(doc)) score += 1.8;
+    else score -= 0.8;
+  }
+
+  return Number(score.toFixed(3));
+}
+
 function detectQueryGroups(tokens) {
   const groups = new Set();
   for (const [group, stems] of Object.entries(ASSOCIATIVE_GROUPS)) {
@@ -630,7 +717,7 @@ function detectQueryGroups(tokens) {
 }
 
 function buildSearchTerms({ query, terms, stateWeights }) {
-  const queryTerms = extractKeywords(query, 8);
+  const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
   const out = [...queryTerms];
 
   if (Array.isArray(terms)) {
@@ -988,8 +1075,10 @@ function buildFallbackCandidates(queryTokens, limit = 28) {
 function rankAndPick({
   allCandidates,
   queryTokens,
+  queryTokenWeights,
   queryGroups,
   scoringStateWeights,
+  styleGenreSignals,
   excludeAuthors,
   excludeQuotes,
   effectiveModel,
@@ -1002,13 +1091,20 @@ function rankAndPick({
     const scored = scoreCandidate({
       candidate,
       queryTokens,
+      queryTokenWeights,
       queryGroups,
       stateWeights: scoringStateWeights,
       excludeAuthors,
       model: effectiveModel
     });
-    const next = { ...candidate, score: scored.score, scoreDetails: scored.components, fingerprint: buildFingerprint(candidate) };
-    if (!dedup.has(key) || dedup.get(key).score < scored.score) dedup.set(key, next);
+    const styleGenreBoost = scoreStyleGenreMatch(candidate, styleGenreSignals);
+    const next = {
+      ...candidate,
+      score: scored.score + styleGenreBoost,
+      scoreDetails: { ...scored.components, styleGenreBoost },
+      fingerprint: buildFingerprint(candidate)
+    };
+    if (!dedup.has(key) || dedup.get(key).score < next.score) dedup.set(key, next);
   }
 
   const ranked = Array.from(dedup.values()).sort((a, b) => b.score - a.score);
@@ -1091,7 +1187,8 @@ async function handleNkrySearch(req, res) {
   applyDecay(globalModel);
   const effectiveModel = blendModels(userModel, globalModel);
 
-  const query = String(body.query || "").trim();
+  const queryRaw = String(body.query || "").trim();
+  const query = normalizeQueryText(queryRaw);
   const limit = Math.max(1, Math.min(20, Number(body.limit || 10)));
   const variantMode = String(body.variantMode || "");
   const previousTone = Number(body.previousTone);
@@ -1110,13 +1207,16 @@ async function handleNkrySearch(req, res) {
     return;
   }
 
-  const queryTokens = extractKeywords(query, 10);
+  const weightedKeywords = extractWeightedKeywords(query, 10);
+  const queryTokens = weightedKeywords.map((item) => item.token);
+  const queryTokenWeights = Object.fromEntries(weightedKeywords.map((item) => [item.token, item.weight]));
   if (!queryTokens.length) {
     markSearchError();
     sendJson(res, 400, { error: "Не удалось выделить ключевые слова запроса." });
     return;
   }
   const queryGroups = detectQueryGroups(queryTokens);
+  const styleGenreSignals = detectStyleGenreSignals(query);
 
   const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
   if (!terms.length) {
@@ -1199,8 +1299,10 @@ async function handleNkrySearch(req, res) {
     const pickedFallback = rankAndPick({
       allCandidates: fallbackCandidates,
       queryTokens,
+      queryTokenWeights,
       queryGroups,
       scoringStateWeights,
+      styleGenreSignals,
       excludeAuthors,
       excludeQuotes,
       effectiveModel,
@@ -1242,8 +1344,10 @@ async function handleNkrySearch(req, res) {
     const pickedFallback = rankAndPick({
       allCandidates: fallbackCandidates,
       queryTokens,
+      queryTokenWeights,
       queryGroups,
       scoringStateWeights,
+      styleGenreSignals,
       excludeAuthors,
       excludeQuotes,
       effectiveModel,
@@ -1270,8 +1374,10 @@ async function handleNkrySearch(req, res) {
   const picked = rankAndPick({
     allCandidates,
     queryTokens,
+    queryTokenWeights,
     queryGroups,
     scoringStateWeights,
+    styleGenreSignals,
     excludeAuthors,
     excludeQuotes,
     effectiveModel,
