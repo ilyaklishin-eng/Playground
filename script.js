@@ -272,40 +272,40 @@ const DECADE_ART = [
   },
   {
     from: 1980, to: 1989,
-    title: "Письмо",
-    artist: "Т. Г. Назаренко, 1980-е",
-    wikiTitleRu: "",
-    wikiTitleEn: "",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/The_Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg/640px-The_Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg"
+    title: "Человек, улетевший в космос из своей комнаты",
+    artist: "И. И. Кабаков, 1985",
+    wikiTitleRu: "Человек,_улетевший_в_космос_из_своей_комнаты",
+    wikiTitleEn: "The_Man_Who_Flew_into_Space_from_His_Apartment",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ilya_Kabakov_The_Man_Who_Flew_into_Space_from_His_Apartment.jpg/640px-Ilya_Kabakov_The_Man_Who_Flew_into_Space_from_His_Apartment.jpg"
   },
   {
     from: 1990, to: 1999,
-    title: "Черный квадрат",
-    artist: "К. С. Малевич, 1915 (икона модернизма)",
-    wikiTitleRu: "Чёрный_квадрат",
-    wikiTitleEn: "Black_Square_(painting)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Kazimir_Malevich%2C_1915%2C_Black_Suprematic_Square.jpg/640px-Kazimir_Malevich%2C_1915%2C_Black_Suprematic_Square.jpg"
+    title: "Храм Христа Спасителя (воссоздание)",
+    artist: "Москва, 1994–1999",
+    wikiTitleRu: "Храм_Христа_Спасителя",
+    wikiTitleEn: "Cathedral_of_Christ_the_Saviour",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Cathedral_of_Christ_the_Saviour_2022-06-13_042.jpg/640px-Cathedral_of_Christ_the_Saviour_2022-06-13_042.jpg"
   },
   {
     from: 2000, to: 2009,
-    title: "Работа Эрика Булатова",
-    artist: "Эрик Булатов, 2000-е",
-    wikiTitleRu: "Булатов,_Эрик_Владимирович",
-    wikiTitleEn: "Erik_Bulatov",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Erik_Bulatov.jpg/640px-Erik_Bulatov.jpg"
+    title: "«Ночь на Ивана Купалу»",
+    artist: "Т. Г. Назаренко, 2003",
+    wikiTitleRu: "Назаренко,_Татьяна_Григорьевна",
+    wikiTitleEn: "Tatyana_Nazarenko",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Tatyana_Nazarenko_in_2020.jpg/640px-Tatyana_Nazarenko_in_2020.jpg"
   },
   {
     from: 2010, to: 2019,
-    title: "Работа Павла Пепперштейна",
-    artist: "Павел Пепперштейн, 2010-е",
-    wikiTitleRu: "Пепперштейн,_Павел_Викторович",
-    wikiTitleEn: "Pavel_Pepperstein",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Pepperstein.jpg/640px-Pepperstein.jpg"
+    title: "Парк «Зарядье» и Парящий мост",
+    artist: "Архитектурный проект, 2017",
+    wikiTitleRu: "Парк_Зарядье",
+    wikiTitleEn: "Zaryadye_Park",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Zaryadye_Park_16.jpg/640px-Zaryadye_Park_16.jpg"
   },
   {
     from: 2020, to: 2029,
-    title: "Современное искусство России",
-    artist: "2020-е",
+    title: "Дом культуры ГЭС-2",
+    artist: "Реконструкция Ренцо Пиано, 2021",
     wikiTitleRu: "ГЭС-2",
     wikiTitleEn: "GES-2",
     fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/GES-2_Moscow.jpg/640px-GES-2_Moscow.jpg"
@@ -426,6 +426,7 @@ function isYearAlreadyInTitle(title, year) {
 
   const titleYears = new Set(extractYearTokens(title));
   const yearYears = extractYearTokens(year);
+  if (yearYears.some((token) => titleYears.has(token))) return true;
   if (yearYears.length && yearYears.every((token) => titleYears.has(token))) return true;
 
   const titleRanges = new Set(extractYearRanges(title));
@@ -599,7 +600,7 @@ async function renderRulerByYear(rawYear) {
   }
 
   if (art) {
-    artTitleNode.textContent = `Знаковое произведение ${art.from}-х: ${art.title}`;
+    artTitleNode.textContent = `Знаковое произведение ${art.from}–${art.to}: ${art.title}`;
     artMetaNode.textContent = art.artist;
     const artPhoto = await loadAnyWikiImage(art);
     if (artPhoto) {

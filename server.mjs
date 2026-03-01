@@ -46,6 +46,10 @@ const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 280);
 const NKRY_FIRST_USAGE_MAX_PAGES = Number(process.env.NKRY_FIRST_USAGE_MAX_PAGES || 12);
 const NKRY_DEEP_SCAN_MAX_PAGES = Number(process.env.NKRY_DEEP_SCAN_MAX_PAGES || 42);
 const NKRY_DEEP_SCAN_YEAR_THRESHOLD = Number(process.env.NKRY_DEEP_SCAN_YEAR_THRESHOLD || 1900);
+const NKRY_SPREAD_SCAN_POINTS = Number(process.env.NKRY_SPREAD_SCAN_POINTS || 18);
+const NKRY_TAIL_SCAN_PAGES = Number(process.env.NKRY_TAIL_SCAN_PAGES || 28);
+const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
+const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -129,7 +133,7 @@ function validateOneWord(rawWord) {
   return { ok: true, reason: "", value: word };
 }
 
-function buildNkryPayload(word) {
+function buildNkryPayload(word, fieldName = "lex") {
   return {
     corpus: {
       type: NKRY_CORPUS_TYPE
@@ -141,7 +145,7 @@ function buildNkryPayload(word) {
             {
               conditionValues: [
                 {
-                  fieldName: "lex",
+                  fieldName: fieldName || "lex",
                   text: {
                     v: word
                   }
@@ -162,7 +166,7 @@ function withPage(endpoint, page) {
   return url.toString();
 }
 
-async function fetchNkryPage(endpoint, authValue, word, page = 1) {
+async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "lex") {
   let lastError = null;
   const pageEndpoint = withPage(endpoint, page);
 
@@ -177,7 +181,7 @@ async function fetchNkryPage(endpoint, authValue, word, page = 1) {
           "Content-Type": "application/json",
           [NKRY_API_KEY_HEADER]: authValue
         },
-        body: JSON.stringify(buildNkryPayload(word)),
+        body: JSON.stringify(buildNkryPayload(word, fieldName)),
         signal: controller.signal
       });
 
@@ -358,50 +362,170 @@ function pickEarliestCandidate(candidates) {
   return unique[0] || null;
 }
 
-async function findFirstUsage(word) {
-  const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
-  const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
+function buildSpreadPages(maxAvailablePage, startPage, points) {
+  const maxPage = Math.max(1, Number(maxAvailablePage || 1));
+  const start = Math.max(1, Number(startPage || 1));
+  const total = Math.max(0, maxPage - start + 1);
+  if (total <= 0 || points <= 0) return [];
 
-  const firstPayload = await fetchNkryPage(endpoint, authValue, word, 1);
+  const pageSet = new Set();
+  for (let i = 0; i < points; i += 1) {
+    const ratio = points === 1 ? 0 : i / (points - 1);
+    const page = Math.round(start + ratio * (maxPage - start));
+    if (page >= start && page <= maxPage) pageSet.add(page);
+  }
+  return Array.from(pageSet).sort((a, b) => a - b);
+}
+
+function buildTailPages(maxAvailablePage, tailCount) {
+  const maxPage = Math.max(1, Number(maxAvailablePage || 1));
+  const count = Math.max(0, Number(tailCount || 0));
+  if (!count) return [];
+  const start = Math.max(1, maxPage - count + 1);
+  const pages = [];
+  for (let page = start; page <= maxPage; page += 1) pages.push(page);
+  return pages;
+}
+
+function buildOrthographyVariants(word) {
+  const base = String(word || "").trim().toLowerCase();
+  if (!base) return [];
+  const variants = new Set([base]);
+  if (/[бвгджзйклмнпрстфхцчшщ]$/i.test(base)) variants.add(`${base}ъ`);
+  return Array.from(variants);
+}
+
+async function collectCandidatesForField(endpoint, authValue, word, fieldName = "lex") {
+  const firstPayload = await fetchNkryPage(endpoint, authValue, word, 1, fieldName);
   const parsedFirst = parseConcordanceCandidates(firstPayload, word, 1);
 
   const maxAvailablePage = Math.max(1, Number(parsedFirst.maxPage || 1));
   const phaseOneMaxPage = Math.max(1, Math.min(maxAvailablePage, NKRY_FIRST_USAGE_MAX_PAGES));
+
   let allCandidates = [...parsedFirst.candidates];
   let scannedPages = 1;
+  const scannedPageSet = new Set([1]);
 
   for (let page = 2; page <= phaseOneMaxPage; page += 1) {
     try {
-      const payload = await fetchNkryPage(endpoint, authValue, word, page);
+      const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
       const parsed = parseConcordanceCandidates(payload, word, page);
       allCandidates = allCandidates.concat(parsed.candidates);
       scannedPages += 1;
+      scannedPageSet.add(page);
     } catch {
-      // keep candidates from successfully fetched pages
+      // keep successful pages only
     }
   }
 
   let best = pickEarliestCandidate(allCandidates);
   const shouldDeepScan =
-    best
-    && Number.isFinite(best.yearNum)
-    && best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD
+    (!best || !Number.isFinite(best.yearNum) || best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD)
     && phaseOneMaxPage < maxAvailablePage;
 
   if (shouldDeepScan) {
     const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, NKRY_DEEP_SCAN_MAX_PAGES));
     for (let page = phaseOneMaxPage + 1; page <= phaseTwoMaxPage; page += 1) {
       try {
-        const payload = await fetchNkryPage(endpoint, authValue, word, page);
+        const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
         const parsed = parseConcordanceCandidates(payload, word, page);
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
+        scannedPageSet.add(page);
       } catch {
-        // ignore failed pages during deep scan
+        // ignore failed deep pages
+      }
+    }
+    best = pickEarliestCandidate(allCandidates);
+
+    const shouldSpreadScan =
+      (!best || !Number.isFinite(best.yearNum) || best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD)
+      && phaseTwoMaxPage < maxAvailablePage;
+    if (shouldSpreadScan) {
+      const spreadPages = buildSpreadPages(maxAvailablePage, phaseTwoMaxPage + 1, NKRY_SPREAD_SCAN_POINTS);
+      for (const page of spreadPages) {
+        if (scannedPageSet.has(page)) continue;
+        try {
+          const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+          const parsed = parseConcordanceCandidates(payload, word, page);
+          allCandidates = allCandidates.concat(parsed.candidates);
+          scannedPages += 1;
+          scannedPageSet.add(page);
+        } catch {
+          // ignore failed sampled pages
+        }
+      }
+      best = pickEarliestCandidate(allCandidates);
+    }
+  }
+
+  if (maxAvailablePage > 1) {
+    const tailPages = buildTailPages(maxAvailablePage, NKRY_TAIL_SCAN_PAGES);
+    for (const page of tailPages) {
+      if (scannedPageSet.has(page)) continue;
+      try {
+        const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+        const parsed = parseConcordanceCandidates(payload, word, page);
+        allCandidates = allCandidates.concat(parsed.candidates);
+        scannedPages += 1;
+        scannedPageSet.add(page);
+      } catch {
+        // ignore failed tail pages
       }
     }
     best = pickEarliestCandidate(allCandidates);
   }
+
+  return {
+    fieldName,
+    allCandidates,
+    best,
+    scannedPages,
+    maxAvailablePage,
+    appliedSorting: parsedFirst.appliedSorting || ""
+  };
+}
+
+async function findFirstUsage(word) {
+  const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
+  const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
+
+  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex");
+  let combinedCandidates = [...lexProbe.allCandidates];
+  let scannedPages = lexProbe.scannedPages;
+  let appliedSorting = lexProbe.appliedSorting;
+  const modes = ["lex"];
+
+  const shouldProbeForm = NKRY_USE_FORM_FALLBACK;
+  if (shouldProbeForm) {
+    try {
+      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form");
+      combinedCandidates = combinedCandidates.concat(formProbe.allCandidates);
+      scannedPages += formProbe.scannedPages;
+      if (!appliedSorting) appliedSorting = formProbe.appliedSorting;
+      modes.push("form");
+    } catch {
+      // keep lex results if form query failed
+    }
+  }
+
+  if (NKRY_USE_OLD_ORTHO_VARIANTS) {
+    const variants = buildOrthographyVariants(word).filter((v) => v !== word);
+    for (const variant of variants) {
+      try {
+        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form");
+        combinedCandidates = combinedCandidates.concat(variantProbe.allCandidates);
+        scannedPages += variantProbe.scannedPages;
+        if (!appliedSorting) appliedSorting = variantProbe.appliedSorting;
+        modes.push(`form:${variant}`);
+      } catch {
+        // keep other probes if a single variant fails
+      }
+    }
+  }
+
+  const allCandidates = combinedCandidates;
+  const best = pickEarliestCandidate(allCandidates);
 
   if (!best) return null;
 
@@ -418,7 +542,8 @@ async function findFirstUsage(word) {
       chosenPage: best.page,
       chosenYear: Number.isFinite(best.yearNum) ? best.yearNum : null,
       sortingRequested: NKRY_SORTING,
-      sortingApplied: parsedFirst.appliedSorting || ""
+      sortingApplied: appliedSorting || "",
+      searchModes: modes
     }
   };
 }
