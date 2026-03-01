@@ -79,6 +79,7 @@ const POEMS_LOCAL_PATH = process.env.POEMS_LOCAL_PATH || path.join(__dirname, "p
 const MATCH_EXPLORATION_EPSILON = Number(process.env.MATCH_EXPLORATION_EPSILON || 0.05);
 const MATCH_EXPLORATION_TOP_K = Number(process.env.MATCH_EXPLORATION_TOP_K || 6);
 const ENABLE_LOCAL_FALLBACK = process.env.ENABLE_LOCAL_FALLBACK === "1";
+const USER_AUTHOR_HISTORY_MAX = Number(process.env.USER_AUTHOR_HISTORY_MAX || 32);
 
 const DEFAULT_FEEDBACK_STORE = {
   version: 2,
@@ -239,6 +240,7 @@ const nkryCircuit = {
   lastReason: ""
 };
 const servedQuoteRegistry = createServedQuoteRegistry({ ttlMs: SERVED_QUOTE_TTL_MS, maxSize: SERVED_QUOTE_MAX });
+const userAuthorHistory = new Map();
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -354,6 +356,43 @@ function touchRecentQuery(queryKey) {
       if (removed >= overflow) break;
     }
   }
+}
+
+function getAuthorHistory(userKey) {
+  const key = String(userKey || "").trim() || "anon";
+  const history = userAuthorHistory.get(key) || [];
+  if (!userAuthorHistory.has(key)) userAuthorHistory.set(key, history);
+  return history;
+}
+
+function recordServedAuthor(userKey, author) {
+  const authorKey = normalizeText(String(author || ""));
+  if (!authorKey) return;
+  const history = getAuthorHistory(userKey);
+  history.push(authorKey);
+  if (history.length > USER_AUTHOR_HISTORY_MAX) {
+    history.splice(0, history.length - USER_AUTHOR_HISTORY_MAX);
+  }
+}
+
+function authorHistoryPenalty(userKey, author) {
+  const authorKey = normalizeText(String(author || ""));
+  if (!authorKey) return 0;
+  const history = getAuthorHistory(userKey);
+  if (!history.length) return 0;
+
+  const recent8 = history.slice(-8);
+  const recent3 = history.slice(-3);
+  const count8 = recent8.filter((x) => x === authorKey).length;
+  const count3 = recent3.filter((x) => x === authorKey).length;
+  const consecutive2 = recent3.length >= 2 && recent3[recent3.length - 1] === authorKey && recent3[recent3.length - 2] === authorKey;
+
+  let penalty = 0;
+  if (count8 >= 2) penalty += 1.6;
+  if (count8 >= 3) penalty += 2.4;
+  if (count3 >= 2) penalty += 2.6;
+  if (consecutive2) penalty += 3.2;
+  return penalty;
 }
 
 function clientIp(req) {
@@ -1240,6 +1279,7 @@ function buildFallbackCandidates(queryTokens, limit = 28) {
 
 function rankAndPick({
   allCandidates,
+  userKey,
   queryTokens,
   queryTokenWeights,
   queryGroups,
@@ -1267,10 +1307,11 @@ function rankAndPick({
       model: effectiveModel
     });
     const styleGenreBoost = scoreStyleGenreMatch(candidate, styleGenreSignals);
+    const repetitionPenalty = authorHistoryPenalty(userKey, candidate.author);
     const next = {
       ...candidate,
-      score: scored.score + styleGenreBoost,
-      scoreDetails: { ...scored.components, styleGenreBoost },
+      score: scored.score + styleGenreBoost - repetitionPenalty,
+      scoreDetails: { ...scored.components, styleGenreBoost, repetitionPenalty },
       fingerprint: buildFingerprint(candidate)
     };
     if (!dedup.has(key) || dedup.get(key).score < next.score) dedup.set(key, next);
@@ -1433,6 +1474,7 @@ async function handleNkrySearch(req, res) {
       explorationEpsilon: selection.epsilon
     });
     addRecentGoodCandidates([top, ...alternatives]);
+    recordServedAuthor(userKey, top.author);
     markSearchSuccess();
     metrics.searchLatencyTotalMs += Date.now() - startedAt;
     metrics.searchLatencySamples += 1;
@@ -1475,6 +1517,7 @@ async function handleNkrySearch(req, res) {
     const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
     const pickedFallback = rankAndPick({
       allCandidates: fallbackCandidates,
+      userKey,
       queryTokens,
       queryTokenWeights,
       queryGroups,
@@ -1521,6 +1564,7 @@ async function handleNkrySearch(req, res) {
     const fallbackCandidates = buildFallbackCandidates(queryTokens, Math.max(18, limit * 3));
     const pickedFallback = rankAndPick({
       allCandidates: fallbackCandidates,
+      userKey,
       queryTokens,
       queryTokenWeights,
       queryGroups,
@@ -1552,6 +1596,7 @@ async function handleNkrySearch(req, res) {
 
   const picked = rankAndPick({
     allCandidates,
+    userKey,
     queryTokens,
     queryTokenWeights,
     queryGroups,
