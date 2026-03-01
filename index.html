@@ -32,6 +32,7 @@
             autocomplete="off"
             required
           />
+          <p class="field-hint">Пожалуйста, вводите только одно слово (без пробелов).</p>
 
           <div class="actions">
             <button id="submit-btn" type="submit">Показать первое употребление</button>
@@ -45,6 +46,13 @@
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>
+        <div id="ruler-card" class="ruler hidden">
+          <img id="ruler-image" alt="" loading="lazy" />
+          <div class="ruler-text">
+            <p id="ruler-title" class="ruler-title"></p>
+            <p id="ruler-meta" class="ruler-meta"></p>
+          </div>
+        </div>
       </section>
     </main>
 
