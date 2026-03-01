@@ -977,13 +977,19 @@ function shouldRejectByContext(candidate, queryContext) {
   const hasExistential = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
   const isClearlyLiterary = /(поэз|стих|лирик|роман|повест|рассказ|пьес|дневник|письм|мемуар|художествен)/.test(doc);
   const hasLiteralExplosion = /(взрыв|взорвал|взрыва)/.test(doc);
-  const hasCosmology = /(вселен|мироздан|космос|быт|вечност|творен|первооснов|первоприч|бог)/.test(doc);
+  const cosmologyHits = (doc.match(/вселен|мироздан|космос|быт|вечност|творен|первооснов|первоприч|бог|мировой поряд|происхожд|начал мир/i) || []).length
+    + (doc.includes("вселен") ? 1 : 0)
+    + (doc.includes("мироздан") ? 1 : 0)
+    + (doc.includes("первоприч") ? 1 : 0);
+  const hasCosmology = cosmologyHits >= 2;
+  const epistolaryOrConversational = /(письмо|переписк|разговор|вспоминал о вас|вам|тебе|досадно|журналист)/.test(doc);
 
   if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
   if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
   if (queryContext.isIntrospective && hardOfficial && !hasExistential) return true;
   if (queryContext.isMeaningOfLife && hardOfficial) return true;
   if (queryContext.isMeaningOfLife && !isClearlyLiterary && !hasExistential) return true;
+  if (queryContext.isBigBang && (epistolaryOrConversational || !hasCosmology)) return true;
   if (queryContext.isBigBang && hasLiteralExplosion && !hasCosmology) return true;
 
   return false;
