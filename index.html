@@ -3,66 +3,85 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PSYCHE.EXE — Подбери себе стихотворение</title>
+    <title>Небесный цитатник</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Sora:wght@400;500;600&display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="window" role="main">
-      <header class="masthead">
-        <h1>PSYCHE.EXE — Подбери себе стихотворение</h1>
-        <p class="tagline">Ответьте на вопросы честно и получите свое стихотворение дня</p>
+    <main class="page" role="main">
+      <header class="hero">
+        <h1>Небесный цитатник</h1>
+        <p class="subtitle">Сформулируйте свой вопрос, и сервис подберет строку, которая может откликнуться именно сейчас.</p>
       </header>
 
-      <hr />
-
-      <form id="quiz-form" class="quiz" novalidate>
-        <section class="quiz-progress" aria-live="polite">
-          <p id="progress-text" class="progress-text">1/7</p>
-          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="7" aria-valuenow="1" aria-labelledby="progress-text">
-            <div id="progress-fill" class="progress-fill"></div>
+      <section class="card">
+        <form id="query-form" novalidate>
+          <label class="field-label" for="question">Ваш вопрос</label>
+          <textarea
+            id="question"
+            name="question"
+            maxlength="300"
+            rows="4"
+            placeholder="Например: как пережить тревогу и не потерять надежду?"
+            required
+            aria-describedby="question-hint char-counter"
+          ></textarea>
+          <p id="question-hint" class="hint">Коротко опишите состояние или главный внутренний вопрос.</p>
+          <div class="row">
+            <p id="char-counter" class="counter" aria-live="polite">0 / 300</p>
           </div>
-        </section>
-
-        <section id="catalog-state" class="catalog-state hidden" aria-live="polite"></section>
-
-        <div id="questions" class="questions" aria-live="polite"></div>
-        <p id="quiz-msg" class="quiz-msg" aria-live="polite"></p>
-        <div class="controls">
-          <button type="submit" id="submit-btn">Подобрать стихотворение</button>
-          <button type="button" id="reload-btn">Сменить вопросы</button>
-        </div>
-      </form>
-
-      <p class="service-note">
-        Это не психодиагностика и не медицинский инструмент. Сервис помогает мягкой рефлексии через поэзию.
-      </p>
-
-      <section id="result" class="result hidden">
-        <h2 id="poem-title">POEM.TXT</h2>
-        <p id="poem-meta" class="poem-meta"></p>
-        <section class="fit-block" aria-live="polite">
-          <h3>Почему это вам сейчас подходит</h3>
-          <ul id="fit-points" class="fit-points"></ul>
-        </section>
-        <pre id="poem"></pre>
-
-        <div class="feedback">
-          <span>Оценка попадания:</span>
-          <button type="button" data-feedback="bad">Не подошло</button>
-          <button type="button" data-feedback="good">Подошло</button>
-        </div>
-        <p id="feedback-msg" class="feedback-msg" aria-live="polite"></p>
+          <div class="actions">
+            <button id="submit-btn" type="submit">Найти цитату</button>
+            <button id="next-btn" type="button" class="secondary-btn hidden">Контрастный вариант</button>
+          </div>
+          <p id="form-message" class="message" role="status" aria-live="polite"></p>
+        </form>
       </section>
 
-      <p class="counter">Сгенерировано: <span id="gen-count">0</span></p>
+      <section id="result-card" class="card result hidden" aria-live="polite">
+        <blockquote id="quote-text" class="quote"></blockquote>
+        <p id="quote-meta" class="meta"></p>
+        <p id="quote-source" class="source"></p>
+        <p id="score-explain" class="hint hidden"></p>
+
+        <section class="feedback-box" aria-label="Оценка попадания">
+          <h2 class="feedback-title">Насколько точно попали в состояние?</h2>
+          <div id="feedback-scale" class="feedback-scale" role="group" aria-label="Шкала попадания от 1 до 5">
+            <button type="button" data-rating="1" class="secondary-btn">1 Совсем нет</button>
+            <button type="button" data-rating="2" class="secondary-btn">2 Слабо</button>
+            <button type="button" data-rating="3" class="secondary-btn">3 Частично</button>
+            <button type="button" data-rating="4" class="secondary-btn">4 Близко</button>
+            <button type="button" data-rating="5" class="secondary-btn">5 Точно</button>
+          </div>
+          <label class="field-label" for="feedback-reason">Если не идеально, в чем промах?</label>
+          <select id="feedback-reason" class="feedback-reason-select">
+            <option value="">Выберите причину (необязательно)</option>
+            <option value="tone">Не тот тон</option>
+            <option value="theme">Не та тема</option>
+            <option value="rhythm">Не тот ритм</option>
+            <option value="too_dark">Слишком мрачно</option>
+            <option value="too_abstract">Слишком абстрактно</option>
+          </select>
+          <button id="save-feedback-btn" type="button">Сохранить оценку</button>
+          <p id="feedback-message" class="message message-ok" role="status" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section id="empty-card" class="card hidden" aria-live="polite">
+        <h2 class="feedback-title">Пока не нашли точный фрагмент</h2>
+        <p class="hint">Попробуйте переформулировать запрос: короче, конкретнее, с одним ключевым чувством.</p>
+        <div class="actions">
+          <button id="retry-soft-btn" type="button" class="secondary-btn">Смягчить формулировку</button>
+          <button id="retry-clear-btn" type="button">Попробовать снова</button>
+        </div>
+      </section>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
