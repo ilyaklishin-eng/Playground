@@ -716,6 +716,46 @@ function detectQueryGroups(tokens) {
   return groups;
 }
 
+function buildQueryContext(queryTokens, queryText = "") {
+  const tokenSet = new Set((queryTokens || []).map((token) => stemPrefix(String(token || ""))));
+  const normalized = normalizeQueryText(queryText);
+
+  const introspectiveStems = [
+    "смысл", "жизн", "душ", "серд", "любов", "счаст", "одиноч", "тревог", "страх", "боль", "надеж", "свобод", "выбор", "судьб"
+  ];
+  const politicalStems = [
+    "государ", "власт", "прав", "закон", "налог", "подат", "губерн", "импер", "граждан", "отечеств", "чинов", "министер", "полит"
+  ];
+
+  const hasAny = (stems) =>
+    stems.some((stem) => {
+      if (normalized.includes(stem)) return true;
+      for (const token of tokenSet) {
+        if (token.includes(stem) || stem.includes(token)) return true;
+      }
+      return false;
+    });
+
+  const isIntrospective = hasAny(introspectiveStems);
+  const isPolitical = hasAny(politicalStems);
+
+  const preferredStems = [];
+  const avoidStems = [];
+  if (isIntrospective && !isPolitical) {
+    preferredStems.push("душ", "серд", "смысл", "жизн", "судьб", "любов", "надеж", "свет", "покой");
+    avoidStems.push("государ", "подат", "губерн", "чинов", "министер", "коммерц", "финанс", "право");
+  } else if (isPolitical) {
+    preferredStems.push("государ", "закон", "власт", "граждан", "общест");
+  }
+
+  return {
+    isIntrospective,
+    isPolitical,
+    preferredStems,
+    avoidStems
+  };
+}
+
 function buildSearchTerms({ query, terms, stateWeights }) {
   const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
   const out = [...queryTerms];
@@ -1077,6 +1117,7 @@ function rankAndPick({
   queryTokens,
   queryTokenWeights,
   queryGroups,
+  queryContext,
   scoringStateWeights,
   styleGenreSignals,
   excludeAuthors,
@@ -1093,6 +1134,7 @@ function rankAndPick({
       queryTokens,
       queryTokenWeights,
       queryGroups,
+      queryContext,
       stateWeights: scoringStateWeights,
       excludeAuthors,
       model: effectiveModel
@@ -1216,6 +1258,7 @@ async function handleNkrySearch(req, res) {
     return;
   }
   const queryGroups = detectQueryGroups(queryTokens);
+  const queryContext = buildQueryContext(queryTokens, query);
   const styleGenreSignals = detectStyleGenreSignals(query);
 
   const terms = buildSearchTerms({ query, terms: body.terms, stateWeights });
@@ -1301,6 +1344,7 @@ async function handleNkrySearch(req, res) {
       queryTokens,
       queryTokenWeights,
       queryGroups,
+      queryContext,
       scoringStateWeights,
       styleGenreSignals,
       excludeAuthors,
@@ -1346,6 +1390,7 @@ async function handleNkrySearch(req, res) {
       queryTokens,
       queryTokenWeights,
       queryGroups,
+      queryContext,
       scoringStateWeights,
       styleGenreSignals,
       excludeAuthors,
@@ -1376,6 +1421,7 @@ async function handleNkrySearch(req, res) {
     queryTokens,
     queryTokenWeights,
     queryGroups,
+    queryContext,
     scoringStateWeights,
     styleGenreSignals,
     excludeAuthors,

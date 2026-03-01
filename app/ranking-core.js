@@ -6,6 +6,7 @@ export const DEFAULT_WEIGHTS = {
   state: 1,
   hit: 1,
   intent: 1,
+  context: 1,
   literaryPenalty: 1,
   lengthPenalty: 1,
   diversityPenalty: 0.75
@@ -152,25 +153,30 @@ export function scoreCandidate({
   queryTokens,
   queryTokenWeights = {},
   queryGroups,
+  queryContext = null,
   stateWeights,
   excludeAuthors = [],
   model
 }) {
   const text = normalizeText(`${candidate.quote} ${candidate.title} ${candidate.author}`);
+  const metaText = normalizeText(
+    `${candidate.docType || ""} ${candidate.docStyle || ""} ${candidate.docTopic || ""} ${candidate.docHeader || ""}`
+  );
+  const jointText = `${text} ${metaText}`;
   const intentProfiles = detectIntentProfiles(queryTokens);
 
   let literal = 0;
   for (const token of queryTokens) {
     const stem = stemPrefix(token);
     const weight = Number(queryTokenWeights[token] || 1);
-    if (text.includes(token)) literal += 2 * weight;
-    else if (text.includes(stem)) literal += 1 * weight;
+    if (jointText.includes(token)) literal += 2 * weight;
+    else if (jointText.includes(stem)) literal += 1 * weight;
   }
 
   let associative = 0;
   for (const group of queryGroups) {
     const stems = stateWeights.__associativeGroups?.[group] || [];
-    if (stems.some((stem) => text.includes(stem))) associative += 1.5;
+    if (stems.some((stem) => jointText.includes(stem))) associative += 1.5;
   }
 
   let stateBoost = 0;
@@ -178,18 +184,19 @@ export function scoreCandidate({
     for (const [group, weight] of Object.entries(stateWeights)) {
       if (group === "__associativeGroups") continue;
       const stems = stateWeights.__associativeGroups?.[group] || [];
-      if (stems.some((stem) => text.includes(stem))) stateBoost += Number(weight || 0) * 0.9;
+      if (stems.some((stem) => jointText.includes(stem))) stateBoost += Number(weight || 0) * 0.9;
     }
   }
 
   const hitBoost = Math.min(2.5, Number(candidate.hitCount || 0) * 0.7);
-  const intentBoost = scoreIntentLexicon(intentProfiles, text);
+  const intentBoost = scoreIntentLexicon(intentProfiles, jointText);
   const literaryPenalty = scoreLiteraryPenalty(candidate);
-  const lengthPenalty = candidate.quote.length > 340 ? 1.4 : 0;
-  const tone = estimateTone(text);
+  const lengthPenalty = candidate.quote.length > 420 ? 2.2 : candidate.quote.length > 320 ? 1.1 : 0;
+  const tone = estimateTone(jointText);
   const feedbackBias = getFeedbackBias(candidate, model);
   const authorKey = normalizeText(candidate.author);
   const diversityPenalty = excludeAuthors.includes(authorKey) ? model.weights.diversityPenalty : 0;
+  const contextComponent = scoreContextMatch(candidate, jointText, queryContext);
 
   const components = {
     literal,
@@ -201,6 +208,7 @@ export function scoreCandidate({
     lengthPenalty,
     diversityPenalty,
     feedbackBias,
+    contextComponent,
     tone
   };
 
@@ -210,12 +218,44 @@ export function scoreCandidate({
     components.stateBoost * model.weights.state +
     components.hitBoost * model.weights.hit +
     components.intentBoost * model.weights.intent +
+    components.contextComponent * (model.weights.context || 1) +
     components.feedbackBias -
     components.literaryPenalty * model.weights.literaryPenalty -
     components.lengthPenalty * model.weights.lengthPenalty -
     components.diversityPenalty;
 
   return { score, components };
+}
+
+function scoreContextMatch(candidate, jointText, queryContext) {
+  if (!queryContext || typeof queryContext !== "object") return 0;
+  const preferred = Array.isArray(queryContext.preferredStems) ? queryContext.preferredStems : [];
+  const avoid = Array.isArray(queryContext.avoidStems) ? queryContext.avoidStems : [];
+
+  let boost = 0;
+  for (const stem of preferred) {
+    if (jointText.includes(stem)) boost += 0.65;
+  }
+
+  let penalty = 0;
+  for (const stem of avoid) {
+    if (jointText.includes(stem)) penalty += 1.25;
+  }
+
+  const yearMatch = String(candidate?.year || "").match(/\b(1[6-9]\d{2}|20\d{2})\b/);
+  const year = yearMatch ? Number(yearMatch[1]) : NaN;
+  if (queryContext.isIntrospective && Number.isFinite(year) && year < 1800) penalty += 1.4;
+
+  if (queryContext.isIntrospective) {
+    if (candidate.quote.length >= 70 && candidate.quote.length <= 300) boost += 0.7;
+    if (candidate.quote.length > 420) penalty += 0.9;
+  }
+
+  if (queryContext.isPolitical) {
+    if (/(государ|власт|прав|закон|общест|граждан|полит)/.test(jointText)) boost += 0.8;
+  }
+
+  return clamp(boost - penalty, -6, 6);
 }
 
 export function pickTopCandidate(filtered, variantMode, previousTone) {
