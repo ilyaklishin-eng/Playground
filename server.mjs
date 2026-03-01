@@ -543,6 +543,30 @@ const ASSOCIATIVE_GROUPS = {
   future: ["завтра", "дальше", "начать", "настан", "будет", "потом"]
 };
 
+const CONCEPT_PROFILES = [
+  {
+    id: "big_bang",
+    pattern: /(большой\s+взрыв|происхождени[ея]\s+вселен|начал[оа]\s+вселен)/,
+    terms: ["вселенная", "мироздание", "бытие", "первооснова", "первопричина", "творение", "вечность", "бог"],
+    required: ["вселен", "мироздан", "перво", "твор", "быт", "вечност", "космос"],
+    forbidden: ["взрыв", "восстан", "бунт", "митинг", "письмо", "малютк", "уголов", "судопроизв", "подат"]
+  },
+  {
+    id: "writing_degree_zero",
+    pattern: /(нулев\w+\s+степен\w+\s+письм\w+|степен\w+\s+письм\w+)/,
+    terms: ["язык", "текст", "стиль", "письменность", "литература", "поэтика", "слово", "знак"],
+    required: ["язык", "текст", "стил", "литерат", "поэтик", "знак", "письмен"],
+    forbidden: ["малютк", "здоров", "ваш", "вам", "тебе", "дети", "жена", "муж", "губерн", "подат"]
+  },
+  {
+    id: "meaning_of_life",
+    pattern: /(в\s+чем\s+смысл\s+жизни|смысл\s+жизни|зачем\s+жить|для\s+чего\s+жить)/,
+    terms: ["жизнь", "смысл", "душа", "судьба", "бытие", "счастье", "любовь", "вера"],
+    required: ["жизн", "смысл", "душ", "судьб", "быт", "любов", "вер", "надеж"],
+    forbidden: ["государ", "подат", "уголов", "судопроизв", "губерн", "департамент", "канцеляр"]
+  }
+];
+
 function sendJson(res, status, payload) {
   const body = JSON.stringify(payload);
   res.writeHead(status, {
@@ -690,6 +714,11 @@ function normalizeQueryText(text) {
     .replace(/[(){}[\],.!?:;\\/|+*=]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function detectConceptProfile(queryText) {
+  const normalized = normalizeQueryText(queryText);
+  return CONCEPT_PROFILES.find((profile) => profile.pattern.test(normalized)) || null;
 }
 
 function splitTokens(text) {
@@ -964,6 +993,8 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
 
   const isMeaningOfLife = /(смысл жизни|в чем смысл жизни|зачем жить|для чего жить)/.test(normalized);
 
+  const conceptProfile = detectConceptProfile(normalized);
+
   return {
     isIntrospective,
     isPolitical,
@@ -971,6 +1002,7 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
     isBigBang: Boolean(bridge?.isBigBang),
     isCosmology: Boolean(bridge?.isCosmology),
     isWritingTheory: Boolean(bridge?.isWritingTheory),
+    conceptProfile,
     isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
     startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
@@ -1031,6 +1063,10 @@ function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext
   const existentialHit = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
   const cosmologyHit = /(вселен|мироздан|космос|творен|первооснов|первоприч|бог|вечност|быт)/.test(doc);
   const writingTheoryHit = /(язык|слов|текст|стил|литерат|поэтик|знак|речь|письмен)/.test(doc);
+  const profileRequired = Array.isArray(queryContext?.conceptProfile?.required) ? queryContext.conceptProfile.required : [];
+  const profileForbidden = Array.isArray(queryContext?.conceptProfile?.forbidden) ? queryContext.conceptProfile.forbidden : [];
+  const requiredHits = profileRequired.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
+  const forbiddenHits = profileForbidden.reduce((acc, stem) => acc + (doc.includes(stem) ? 1 : 0), 0);
   return {
     matched,
     queryTokenCount: tokens.length,
@@ -1038,13 +1074,31 @@ function semanticSignals(candidate, queryTokens, queryTokenWeights, queryContext
     existentialHit,
     cosmologyHit,
     writingTheoryHit,
+    requiredHits,
+    forbiddenHits,
     queryContext
   };
 }
 
 function passesSemanticGate(signals) {
   if (!signals) return false;
-  const { matched, queryTokenCount, weightedCoverage, existentialHit, cosmologyHit, writingTheoryHit, queryContext } = signals;
+  const {
+    matched,
+    queryTokenCount,
+    weightedCoverage,
+    existentialHit,
+    cosmologyHit,
+    writingTheoryHit,
+    requiredHits,
+    forbiddenHits,
+    queryContext
+  } = signals;
+
+  if (queryContext?.conceptProfile) {
+    if (forbiddenHits > 0) return false;
+    if (requiredHits < 1) return false;
+    return weightedCoverage >= 0.2;
+  }
   if (queryContext?.isBigBang) return weightedCoverage >= 0.18 && cosmologyHit;
   if (queryContext?.isWritingTheory) return weightedCoverage >= 0.2 && writingTheoryHit;
   if (queryContext?.isMeaningOfLife) return weightedCoverage >= 0.2 && existentialHit;
@@ -1055,6 +1109,9 @@ function passesSemanticGate(signals) {
 }
 
 function buildSearchTerms({ query, terms, stateWeights, bridgeTerms, queryContext }) {
+  if (queryContext?.conceptProfile?.terms?.length) {
+    return queryContext.conceptProfile.terms.map((x) => normalizeText(x)).filter(Boolean);
+  }
   if (queryContext?.isBigBang) {
     return ["вселенная", "мироздание", "бытие", "вечность", "творение", "первооснова", "причина", "бог"]
       .map((x) => normalizeText(x))
@@ -1513,7 +1570,8 @@ function rankAndPick({
   const semanticallyFiltered = filtered.filter((item) =>
     passesSemanticGate(semanticSignals(item, queryTokens, queryTokenWeights, queryContext))
   );
-  const candidatePool = semanticallyFiltered.length ? semanticallyFiltered : filtered.slice(0, Math.min(8, filtered.length));
+  const candidatePool = semanticallyFiltered;
+  if (!candidatePool.length) return null;
 
   const stochasticTop = pickStochasticTop(candidatePool, RANDOM_PICK_TOP_K) || candidatePool[0];
   const topByMode = variantMode === "contrast"
@@ -1815,7 +1873,11 @@ async function handleNkrySearch(req, res) {
   });
   if (!picked) {
     markSearchEmpty();
-    sendJson(res, 404, { error: "Не удалось выбрать новый фрагмент, попробуйте изменить вопрос." });
+    const profileId = queryContext?.conceptProfile?.id || "";
+    const profileHint = profileId
+      ? `Для темы ${profileId} не найден достаточно релевантный фрагмент.`
+      : "Не удалось выбрать достаточно релевантный фрагмент.";
+    sendJson(res, 404, { error: `${profileHint} Уточните формулировку вопроса.` });
     console.log(JSON.stringify({ type: "search_empty", query: queryKey, reason: "all_excluded" }));
     return;
   }
