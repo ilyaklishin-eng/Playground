@@ -53,6 +53,8 @@ const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 32 *
 const NKRY_FETCH_TIMEOUT_MS = Number(process.env.NKRY_FETCH_TIMEOUT_MS || 8000);
 const NKRY_FETCH_RETRIES = Number(process.env.NKRY_FETCH_RETRIES || 3);
 const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 240);
+const NKRY_RANDOM_PAGE_ENABLED = process.env.NKRY_RANDOM_PAGE_ENABLED !== "0";
+const NKRY_RANDOM_PAGE_MAX = Number(process.env.NKRY_RANDOM_PAGE_MAX || 40);
 const FEEDBACK_STORE_PATH = process.env.FEEDBACK_STORE_PATH || path.join(__dirname, "tools", "ranking_feedback_store.json");
 const APP_VERSION = process.env.APP_VERSION || "local";
 const BOOT_AT = Date.now();
@@ -1062,6 +1064,62 @@ function buildNkryPayload(term) {
   };
 }
 
+function withPage(endpoint, page) {
+  const url = new URL(endpoint);
+  if (Number.isFinite(page) && page > 0) url.searchParams.set("page", String(page));
+  return url.toString();
+}
+
+function chooseRandomResultPage(maxAvailablePage) {
+  const cap = Math.max(1, Math.min(NKRY_RANDOM_PAGE_MAX, Number(maxAvailablePage || 1)));
+  if (cap <= 1) return 1;
+  if (Math.random() < 0.2) return 1;
+  return Math.floor(Math.random() * (cap - 1)) + 2;
+}
+
+async function fetchNkryPage(endpoint, authValue, term, page = 1) {
+  let lastError = null;
+  const pageEndpoint = withPage(endpoint, page);
+  for (let attempt = 0; attempt <= NKRY_FETCH_RETRIES; attempt += 1) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), NKRY_FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(pageEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          [NKRY_API_KEY_HEADER]: authValue
+        },
+        body: JSON.stringify(buildNkryPayload(term)),
+        signal: controller.signal
+      });
+
+      if (!response.ok) {
+        const text = await response.text();
+        const err = new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
+        const retriable = response.status === 429 || response.status >= 500;
+        if (!retriable || attempt >= NKRY_FETCH_RETRIES) throw err;
+        lastError = err;
+      } else {
+        return response.json();
+      }
+    } catch (error) {
+      const timedOut = error?.name === "AbortError";
+      const retriable = timedOut || error?.cause?.code === "ECONNRESET" || /fetch failed/i.test(String(error?.message || ""));
+      if (!retriable || attempt >= NKRY_FETCH_RETRIES) {
+        clearTimeout(timeout);
+        throw error;
+      }
+      lastError = error;
+    } finally {
+      clearTimeout(timeout);
+    }
+    await sleep(NKRY_FETCH_BACKOFF_MS * (attempt + 1));
+  }
+
+  throw lastError || new Error("НКРЯ недоступен.");
+}
+
 function readFieldValue(valueItem) {
   if (!valueItem || typeof valueItem !== "object") return "";
   if (valueItem.valString?.v) return String(valueItem.valString.v);
@@ -1239,48 +1297,25 @@ async function fetchNkryConcordance(term, limit) {
   }
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
-  let lastError = null;
+  const firstPayload = await fetchNkryPage(endpoint, authValue, term, 1);
+  const firstCandidates = parseConcordanceCandidates(firstPayload, term);
+  let merged = [...firstCandidates];
 
-  for (let attempt = 0; attempt <= NKRY_FETCH_RETRIES; attempt += 1) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), NKRY_FETCH_TIMEOUT_MS);
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          [NKRY_API_KEY_HEADER]: authValue
-        },
-        body: JSON.stringify(buildNkryPayload(term)),
-        signal: controller.signal
-      });
-
-      if (!response.ok) {
-        const text = await response.text();
-        const err = new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
-        const retriable = response.status === 429 || response.status >= 500;
-        if (!retriable || attempt >= NKRY_FETCH_RETRIES) throw err;
-        lastError = err;
-      } else {
-        const payload = await response.json();
-        const candidates = parseConcordanceCandidates(payload, term);
-        return selectDiverseCandidates(candidates, Math.max(limit * 6, 90), 2);
+  if (NKRY_RANDOM_PAGE_ENABLED) {
+    const maxAvailablePage = Number(firstPayload?.pagination?.maxAvailablePage || firstPayload?.pagination?.totalPageCount || 1);
+    const randomPage = chooseRandomResultPage(maxAvailablePage);
+    if (randomPage > 1) {
+      try {
+        const randomPayload = await fetchNkryPage(endpoint, authValue, term, randomPage);
+        const randomCandidates = parseConcordanceCandidates(randomPayload, term);
+        merged = merged.concat(randomCandidates);
+      } catch {
+        // Keep first page candidates if random page fails.
       }
-    } catch (error) {
-      const timedOut = error?.name === "AbortError";
-      const retriable = timedOut || error?.cause?.code === "ECONNRESET" || /fetch failed/i.test(String(error?.message || ""));
-      if (!retriable || attempt >= NKRY_FETCH_RETRIES) {
-        clearTimeout(timeout);
-        throw error;
-      }
-      lastError = error;
-    } finally {
-      clearTimeout(timeout);
     }
-    await sleep(NKRY_FETCH_BACKOFF_MS * (attempt + 1));
   }
 
-  throw lastError || new Error("НКРЯ недоступен.");
+  return selectDiverseCandidates(merged, Math.max(limit * 8, 120), 2);
 }
 
 function shuffleArray(array) {
