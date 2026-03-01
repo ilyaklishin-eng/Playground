@@ -47,60 +47,268 @@ const RULERS = [
 ];
 const DECADE_ART = [
   {
-    from: 1760,
-    to: 1799,
+    from: 1700, to: 1709,
+    title: "Портрет Петра I",
+    artist: "Ж.-М. Натье, 1717",
+    wikiTitleRu: "Портрет_Петра_I_(Натье)",
+    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
+  },
+  {
+    from: 1710, to: 1719,
+    title: "Портрет Петра I",
+    artist: "Ж.-М. Натье, 1717",
+    wikiTitleRu: "Портрет_Петра_I_(Натье)",
+    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
+  },
+  {
+    from: 1720, to: 1729,
+    title: "Портрет Петра I",
+    artist: "Ж.-М. Натье, 1717",
+    wikiTitleRu: "Портрет_Петра_I_(Натье)",
+    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
+  },
+  {
+    from: 1730, to: 1739,
+    title: "Портрет императрицы Анны Иоанновны",
+    artist: "Л. Каравак, XVIII век",
+    wikiTitleRu: "Анна_Иоанновна_(портрет_Каравака)",
+    wikiTitleEn: "Anna_of_Russia_by_Louis_Caravaque",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Anna_Ioannovna_by_Caravaque.jpg/640px-Anna_Ioannovna_by_Caravaque.jpg"
+  },
+  {
+    from: 1740, to: 1749,
+    title: "Портрет Елизаветы Петровны",
+    artist: "Л. Каравак, XVIII век",
+    wikiTitleRu: "Портрет_Елизаветы_Петровны_(Каравак)",
+    wikiTitleEn: "Elizabeth_of_Russia_by_Caravaque",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Elizaveta_Petrovna_by_Caravaque.jpg/640px-Elizaveta_Petrovna_by_Caravaque.jpg"
+  },
+  {
+    from: 1750, to: 1759,
+    title: "Портрет Елизаветы Петровны",
+    artist: "Л. Каравак, XVIII век",
+    wikiTitleRu: "Портрет_Елизаветы_Петровны_(Каравак)",
+    wikiTitleEn: "Elizabeth_of_Russia_by_Caravaque",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Elizaveta_Petrovna_by_Caravaque.jpg/640px-Elizaveta_Petrovna_by_Caravaque.jpg"
+  },
+  {
+    from: 1760, to: 1769,
+    title: "Портрет Екатерины II",
+    artist: "Ф. С. Рокотов, 1763",
+    wikiTitleRu: "Портрет_Екатерины_II_(Рокотов)",
+    wikiTitleEn: "Portrait_of_Catherine_II_(Rokotov)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Rokotov_Catherine_II.jpg/640px-Rokotov_Catherine_II.jpg"
+  },
+  {
+    from: 1770, to: 1779,
+    title: "Портрет Екатерины II",
+    artist: "Ф. С. Рокотов, 1763",
+    wikiTitleRu: "Портрет_Екатерины_II_(Рокотов)",
+    wikiTitleEn: "Portrait_of_Catherine_II_(Rokotov)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Rokotov_Catherine_II.jpg/640px-Rokotov_Catherine_II.jpg"
+  },
+  {
+    from: 1780, to: 1789,
     title: "Портрет А. В. Храповицкого",
     artist: "Д. Г. Левицкий, 1781",
-    wikiTitle: "Портрет_А._В._Храповицкого"
+    wikiTitleRu: "Портрет_А._В._Храповицкого",
+    wikiTitleEn: "Portrait_of_Alexander_Khrapovitsky",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
   },
   {
-    from: 1800,
-    to: 1839,
+    from: 1790, to: 1799,
+    title: "Портрет А. В. Храповицкого",
+    artist: "Д. Г. Левицкий, 1781",
+    wikiTitleRu: "Портрет_А._В._Храповицкого",
+    wikiTitleEn: "Portrait_of_Alexander_Khrapovitsky",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
+  },
+  {
+    from: 1800, to: 1809,
+    title: "Портрет А. С. Пушкина",
+    artist: "О. А. Кипренский, 1827",
+    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
+    wikiTitleEn: "Pushkin_by_Kiprensky",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
+  },
+  {
+    from: 1810, to: 1819,
+    title: "Портрет А. С. Пушкина",
+    artist: "О. А. Кипренский, 1827",
+    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
+    wikiTitleEn: "Pushkin_by_Kiprensky",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
+  },
+  {
+    from: 1820, to: 1829,
+    title: "Портрет А. С. Пушкина",
+    artist: "О. А. Кипренский, 1827",
+    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
+    wikiTitleEn: "Pushkin_by_Kiprensky",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
+  },
+  {
+    from: 1830, to: 1839,
     title: "Последний день Помпеи",
     artist: "К. П. Брюллов, 1833",
-    wikiTitle: "Последний_день_Помпеи"
+    wikiTitleRu: "Последний_день_Помпеи",
+    wikiTitleEn: "The_Last_Day_of_Pompeii",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg/640px-Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg"
   },
   {
-    from: 1840,
-    to: 1869,
+    from: 1840, to: 1849,
     title: "Явление Христа народу",
     artist: "А. А. Иванов, 1857",
-    wikiTitle: "Явление_Христа_народу"
+    wikiTitleRu: "Явление_Христа_народу",
+    wikiTitleEn: "The_Appearance_of_Christ_Before_the_People",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
   },
   {
-    from: 1870,
-    to: 1899,
+    from: 1850, to: 1859,
+    title: "Явление Христа народу",
+    artist: "А. А. Иванов, 1857",
+    wikiTitleRu: "Явление_Христа_народу",
+    wikiTitleEn: "The_Appearance_of_Christ_Before_the_People",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
+  },
+  {
+    from: 1860, to: 1869,
+    title: "Тройка",
+    artist: "В. Г. Перов, 1866",
+    wikiTitleRu: "Тройка_(картина_Перова)",
+    wikiTitleEn: "Troika_(Perov)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Perov_troika.jpg/640px-Perov_troika.jpg"
+  },
+  {
+    from: 1870, to: 1879,
     title: "Грачи прилетели",
     artist: "А. К. Саврасов, 1871",
-    wikiTitle: "Грачи_прилетели"
+    wikiTitleRu: "Грачи_прилетели",
+    wikiTitleEn: "The_Rooks_Have_Returned",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Savrasov_Grachi_prileteli.jpg/640px-Savrasov_Grachi_prileteli.jpg"
   },
   {
-    from: 1900,
-    to: 1929,
+    from: 1880, to: 1889,
+    title: "Не ждали",
+    artist: "И. Е. Репин, 1888",
+    wikiTitleRu: "Не_ждали",
+    wikiTitleEn: "They_Did_Not_Expect_Him",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Ilya_Repin_-_They_Did_Not_Expect_Him_-_Google_Art_Project.jpg/640px-Ilya_Repin_-_They_Did_Not_Expect_Him_-_Google_Art_Project.jpg"
+  },
+  {
+    from: 1890, to: 1899,
+    title: "Демон сидящий",
+    artist: "М. А. Врубель, 1890",
+    wikiTitleRu: "Демон_сидящий",
+    wikiTitleEn: "Demon_Seated",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Vrubel_demon.jpg/640px-Vrubel_demon.jpg"
+  },
+  {
+    from: 1900, to: 1909,
+    title: "Девочка с персиками",
+    artist: "В. А. Серов, 1887",
+    wikiTitleRu: "Девочка_с_персиками",
+    wikiTitleEn: "Girl_with_Peaches",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Valentin_Serov_-_Girl_with_Peaches.jpg/640px-Valentin_Serov_-_Girl_with_Peaches.jpg"
+  },
+  {
+    from: 1910, to: 1919,
     title: "Купание красного коня",
     artist: "К. С. Петров-Водкин, 1912",
-    wikiTitle: "Купание_красного_коня"
+    wikiTitleRu: "Купание_красного_коня",
+    wikiTitleEn: "Bathing_of_a_Red_Horse",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg/640px-Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg"
   },
   {
-    from: 1930,
-    to: 1959,
+    from: 1920, to: 1929,
+    title: "Большевик",
+    artist: "Б. М. Кустодиев, 1920",
+    wikiTitleRu: "Большевик_(картина_Кустодиева)",
+    wikiTitleEn: "The_Bolshevik_(painting)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kustodiev_bolshevik.jpg/640px-Kustodiev_bolshevik.jpg"
+  },
+  {
+    from: 1930, to: 1939,
     title: "Новая Москва",
     artist: "Ю. И. Пименов, 1937",
-    wikiTitle: "Новая_Москва_(картина)"
+    wikiTitleRu: "Новая_Москва_(картина)",
+    wikiTitleEn: "New_Moscow_(painting)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yuri_Pimenov_New_Moscow_1937.jpg/640px-Yuri_Pimenov_New_Moscow_1937.jpg"
   },
   {
-    from: 1960,
-    to: 1989,
-    title: "Суровый стиль (эпоха)",
-    artist: "Советская живопись 1960-х",
-    wikiTitle: "Строители_Братска"
+    from: 1940, to: 1949,
+    title: "Письмо с фронта",
+    artist: "А. И. Лактионов, 1947",
+    wikiTitleRu: "Письмо_с_фронта",
+    wikiTitleEn: "Letter_from_the_Front",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Laktionov_Pismo_s_fronta.jpg/640px-Laktionov_Pismo_s_fronta.jpg"
   },
   {
-    from: 1990,
-    to: 2029,
-    title: "Современная российская живопись",
-    artist: "Рубеж XX–XXI вв.",
-    wikiTitle: "Третьяковская_галерея"
+    from: 1950, to: 1959,
+    title: "Опять двойка",
+    artist: "Ф. П. Решетников, 1952",
+    wikiTitleRu: "Опять_двойка",
+    wikiTitleEn: "Again_a_Fail_Mark",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Reshetnikov_Again_A_Two.jpg/640px-Reshetnikov_Again_A_Two.jpg"
+  },
+  {
+    from: 1960, to: 1969,
+    title: "Строители Братска",
+    artist: "В. Е. Попков, 1960",
+    wikiTitleRu: "Строители_Братска",
+    wikiTitleEn: "Builders_of_Bratsk",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Viktor_Popkov_Builders_of_Bratsk.jpg/640px-Viktor_Popkov_Builders_of_Bratsk.jpg"
+  },
+  {
+    from: 1970, to: 1979,
+    title: "Московский дворик",
+    artist: "В. Д. Поленов, 1878",
+    wikiTitleRu: "Московский_дворик",
+    wikiTitleEn: "Moscow_Courtyard",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Polenov_Moskovsky_Dvorik.jpg/640px-Polenov_Moskovsky_Dvorik.jpg"
+  },
+  {
+    from: 1980, to: 1989,
+    title: "Письмо",
+    artist: "Т. Г. Назаренко, 1980-е",
+    wikiTitleRu: "",
+    wikiTitleEn: "",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/The_Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg/640px-The_Tretyakov_Gallery%2C_Moscow%2C_Russia.jpg"
+  },
+  {
+    from: 1990, to: 1999,
+    title: "Черный квадрат",
+    artist: "К. С. Малевич, 1915 (икона модернизма)",
+    wikiTitleRu: "Чёрный_квадрат",
+    wikiTitleEn: "Black_Square_(painting)",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Kazimir_Malevich%2C_1915%2C_Black_Suprematic_Square.jpg/640px-Kazimir_Malevich%2C_1915%2C_Black_Suprematic_Square.jpg"
+  },
+  {
+    from: 2000, to: 2009,
+    title: "Работа Эрика Булатова",
+    artist: "Эрик Булатов, 2000-е",
+    wikiTitleRu: "Булатов,_Эрик_Владимирович",
+    wikiTitleEn: "Erik_Bulatov",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Erik_Bulatov.jpg/640px-Erik_Bulatov.jpg"
+  },
+  {
+    from: 2010, to: 2019,
+    title: "Работа Павла Пепперштейна",
+    artist: "Павел Пепперштейн, 2010-е",
+    wikiTitleRu: "Пепперштейн,_Павел_Викторович",
+    wikiTitleEn: "Pavel_Pepperstein",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Pepperstein.jpg/640px-Pepperstein.jpg"
+  },
+  {
+    from: 2020, to: 2029,
+    title: "Современное искусство России",
+    artist: "2020-е",
+    wikiTitleRu: "ГЭС-2",
+    wikiTitleEn: "GES-2",
+    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/GES-2_Moscow.jpg/640px-GES-2_Moscow.jpg"
   }
 ];
 
@@ -286,7 +494,9 @@ function getRulerByYear(year) {
 
 function getArtByYear(year) {
   if (!Number.isFinite(year)) return null;
-  return DECADE_ART.find((art) => year >= art.from && year <= art.to) || null;
+  const exact = DECADE_ART.find((art) => year >= art.from && year <= art.to);
+  if (exact) return exact;
+  return DECADE_ART[DECADE_ART.length - 1] || null;
 }
 
 function canLoadImage(url) {
@@ -332,6 +542,15 @@ async function loadWikiImage(wikiTitle) {
   return "";
 }
 
+async function loadAnyWikiImage(art) {
+  if (!art) return "";
+  const fromRu = await loadWikiImage(art.wikiTitleRu || "");
+  if (fromRu) return fromRu;
+  const fromEn = await loadWikiImage(art.wikiTitleEn || "");
+  if (fromEn) return fromEn;
+  return String(art.fallbackImage || "");
+}
+
 async function renderRulerByYear(rawYear) {
   const year = extractYear(rawYear);
   const ruler = getRulerByYear(year);
@@ -360,9 +579,9 @@ async function renderRulerByYear(rawYear) {
   }
 
   if (art) {
-    artTitleNode.textContent = `Атмосфера десятилетия: ${art.title}`;
+    artTitleNode.textContent = `Знаковое произведение ${art.from}-х: ${art.title}`;
     artMetaNode.textContent = art.artist;
-    const artPhoto = await loadWikiImage(art.wikiTitle);
+    const artPhoto = await loadAnyWikiImage(art);
     if (artPhoto) {
       artImageNode.src = artPhoto;
       artImageNode.alt = art.title;
