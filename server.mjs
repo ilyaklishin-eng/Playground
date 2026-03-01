@@ -545,6 +545,13 @@ const ASSOCIATIVE_GROUPS = {
 
 const CONCEPT_PROFILES = [
   {
+    id: "division_by_zero",
+    pattern: /(дел(ить|ение)\s+на\s+нол|почему\s+нельзя\s+делить\s+на\s+нол|делени[ея]\s+на\s+нол)/,
+    terms: ["математика", "ноль", "деление", "бесконечность", "предел", "число", "арифметика", "логика"],
+    required: ["нол", "делен", "арифмет", "математ", "числ", "предел", "логик", "бесконеч"],
+    forbidden: ["любов", "сердц", "прекрас", "весн", "тебя", "она", "стихи", "разлук", "поцел", "господа"]
+  },
+  {
     id: "big_bang",
     pattern: /(большой\s+взрыв|происхождени[ея]\s+вселен|начал[оа]\s+вселен)/,
     terms: ["вселенная", "мироздание", "бытие", "первооснова", "первопричина", "творение", "вечность", "бог"],
@@ -858,6 +865,7 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     || hasStem("bigbang");
   const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
   const isWritingTheory = hasStem("письм") && (hasStem("степен") || hasStem("текст") || hasStem("язык") || hasStem("стиль"));
+  const isDivisionByZero = /(дел(ить|ение)\s+на\s+нол|нельзя\s+делить\s+на\s+нол)/.test(normalized);
   bridge.isBigBang = isBigBang;
   bridge.isCosmology = isCosmology;
   bridge.isWritingTheory = isWritingTheory;
@@ -902,6 +910,15 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     bridge.preferredStems.push("язык", "слов", "текст", "стил", "литерат", "поэтик", "знак", "смысл");
     bridge.avoidStems.push("малютк", "дет", "жен", "муж", "вам", "тебе", "друг", "родн", "здоров");
     downWeight("письм", 0.25);
+  }
+
+  if (isDivisionByZero) {
+    ["математика", "ноль", "деление", "арифметика", "бесконечность", "предел", "число", "логика"]
+      .forEach((term, idx) => add(term, idx < 5 ? 1.9 : 1.45));
+    bridge.preferredStems.push("математ", "нол", "делен", "арифмет", "числ", "предел", "логик", "бесконеч");
+    bridge.avoidStems.push("любов", "серд", "прекрас", "весн", "поцел", "разлук", "тебя", "она");
+    downWeight("нельзя", 0.35);
+    downWeight("почему", 0.2);
   }
 
   return bridge;
