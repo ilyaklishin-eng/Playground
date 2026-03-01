@@ -765,7 +765,9 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     searchTerms: [],
     preferredStems: [],
     avoidStems: [],
-    forceIntrospective: false
+    forceIntrospective: false,
+    isBigBang: false,
+    isCosmology: false
   };
 
   const add = (term, weight = 1.2) => {
@@ -787,6 +789,8 @@ function buildConceptualBridge(queryText, baseTokens = []) {
     || (hasStem("больш") && hasStem("взрыв"))
     || hasStem("bigbang");
   const isCosmology = isBigBang || hasStem("вселен") || hasStem("космос") || hasStem("мироздан");
+  bridge.isBigBang = isBigBang;
+  bridge.isCosmology = isCosmology;
   const isBeautyQuestion = hasStem("красот") || hasStem("прекрас") || hasStem("эстет") || hasStem("взор") || hasStem("смотр");
   const startsWithPravdaLi = normalized.startsWith("правда ли ");
 
@@ -951,6 +955,8 @@ function buildQueryContext(queryTokens, queryText = "", bridge = null) {
     isIntrospective,
     isPolitical,
     isMeaningOfLife,
+    isBigBang: Boolean(bridge?.isBigBang),
+    isCosmology: Boolean(bridge?.isCosmology),
     isBeautyQuestion: /(красот|прекрас|эстет|взор|смотрящ|гармон|созерц)/.test(normalized),
     startsWithPravdaLi: normalized.startsWith("правда ли "),
     preferredStems,
@@ -968,17 +974,26 @@ function shouldRejectByContext(candidate, queryContext) {
   const hasBeauty = /(красот|прекрас|гармон|взор|любов|душ|серд|созерц)/.test(doc);
   const hasExistential = /(жизн|смысл|душ|серд|любов|судьб|вер|надеж|покой|вечност|быт)/.test(doc);
   const isClearlyLiterary = /(поэз|стих|лирик|роман|повест|рассказ|пьес|дневник|письм|мемуар|художествен)/.test(doc);
+  const hasLiteralExplosion = /(взрыв|взорвал|взрыва)/.test(doc);
+  const hasCosmology = /(вселен|мироздан|космос|быт|вечност|творен|первооснов|первоприч|бог)/.test(doc);
 
   if (queryContext.isBeautyQuestion && hardOfficial && !hasBeauty) return true;
   if (queryContext.startsWithPravdaLi && queryContext.isBeautyQuestion && hardOfficial) return true;
   if (queryContext.isIntrospective && hardOfficial && !hasExistential) return true;
   if (queryContext.isMeaningOfLife && hardOfficial) return true;
   if (queryContext.isMeaningOfLife && !isClearlyLiterary && !hasExistential) return true;
+  if (queryContext.isBigBang && hasLiteralExplosion && !hasCosmology) return true;
 
   return false;
 }
 
 function buildSearchTerms({ query, terms, stateWeights, bridgeTerms, queryContext }) {
+  if (queryContext?.isBigBang) {
+    return ["вселенная", "мироздание", "бытие", "вечность", "творение", "первооснова", "причина", "бог"]
+      .map((x) => normalizeText(x))
+      .filter(Boolean);
+  }
+
   const queryTerms = extractWeightedKeywords(query, 8).map((item) => item.token);
   const out = [...queryTerms];
 
@@ -1503,6 +1518,11 @@ async function handleNkrySearch(req, res) {
   const queryGroups = detectQueryGroups(queryTokens);
   const queryContext = buildQueryContext(queryTokens, query, conceptualBridge);
   const styleGenreSignals = detectStyleGenreSignals(query);
+  if (queryContext.isBigBang) {
+    for (const token of ["взрыв", "взрыва", "большой", "произошел", "произошла", "произошло"]) {
+      delete queryTokenWeights[token];
+    }
+  }
 
   const terms = buildSearchTerms({
     query,
