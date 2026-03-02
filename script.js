@@ -17,6 +17,9 @@ const artCardNode = document.getElementById("art-card");
 const artImageNode = document.getElementById("art-image");
 const artTitleNode = document.getElementById("art-title");
 const artMetaNode = document.getElementById("art-meta");
+let activeController = null;
+let activeRequestId = 0;
+const CLIENT_REQUEST_TIMEOUT_MS = 16000;
 
 const wikiImageCache = new Map();
 const RULERS = [
@@ -683,11 +686,12 @@ async function showResult(payload) {
   resultCardNode.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-async function requestFirstUsage(word) {
+async function requestFirstUsage(word, signal) {
   const response = await fetch("/api/nkry/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ word })
+    body: JSON.stringify({ word }),
+    signal
   });
 
   if (!response.ok) {
@@ -710,16 +714,33 @@ form.addEventListener("submit", async (event) => {
 
   setBusy(true);
   setMessage("Ищем первую фиксацию слова в НКРЯ...");
+  if (activeController) activeController.abort();
+  const requestId = ++activeRequestId;
+  const controller = new AbortController();
+  activeController = controller;
+  const timeout = setTimeout(() => controller.abort(), CLIENT_REQUEST_TIMEOUT_MS);
 
   try {
-    const payload = await requestFirstUsage(validated.value);
+    const payload = await requestFirstUsage(validated.value, controller.signal);
+    if (requestId !== activeRequestId) return;
     await showResult(payload);
     setMessage("");
   } catch (error) {
+    if (error?.name === "AbortError") {
+      if (requestId === activeRequestId) {
+        setMessage("Запрос занял слишком много времени. Попробуйте еще раз.", true);
+      }
+      return;
+    }
+    if (requestId !== activeRequestId) return;
     resultCardNode.classList.add("hidden");
     setMessage(error.message || "Ошибка запроса.", true);
   } finally {
-    setBusy(false);
+    clearTimeout(timeout);
+    if (requestId === activeRequestId) {
+      setBusy(false);
+      activeController = null;
+    }
   }
 });
 

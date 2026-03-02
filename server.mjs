@@ -6,6 +6,12 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+function clampInt(raw, fallback, min, max) {
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, Math.trunc(n)));
+}
+
 function loadDotEnv(dotEnvPath) {
   if (!existsSync(dotEnvPath)) return;
 
@@ -40,16 +46,21 @@ const NKRY_API_KEY_HEADER = process.env.NKRY_API_KEY_HEADER || "Authorization";
 const NKRY_API_AUTH_PREFIX = process.env.NKRY_API_AUTH_PREFIX || "Bearer";
 const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "MAIN";
 const NKRY_SORTING = process.env.NKRY_SORTING || "grcreated";
-const NKRY_FETCH_TIMEOUT_MS = Number(process.env.NKRY_FETCH_TIMEOUT_MS || 9000);
-const NKRY_FETCH_RETRIES = Number(process.env.NKRY_FETCH_RETRIES || 2);
-const NKRY_FETCH_BACKOFF_MS = Number(process.env.NKRY_FETCH_BACKOFF_MS || 280);
-const NKRY_FIRST_USAGE_MAX_PAGES = Number(process.env.NKRY_FIRST_USAGE_MAX_PAGES || 12);
-const NKRY_DEEP_SCAN_MAX_PAGES = Number(process.env.NKRY_DEEP_SCAN_MAX_PAGES || 42);
-const NKRY_DEEP_SCAN_YEAR_THRESHOLD = Number(process.env.NKRY_DEEP_SCAN_YEAR_THRESHOLD || 1900);
-const NKRY_SPREAD_SCAN_POINTS = Number(process.env.NKRY_SPREAD_SCAN_POINTS || 18);
-const NKRY_TAIL_SCAN_PAGES = Number(process.env.NKRY_TAIL_SCAN_PAGES || 28);
+const NKRY_FETCH_TIMEOUT_MS = clampInt(process.env.NKRY_FETCH_TIMEOUT_MS, 9000, 1500, 30000);
+const NKRY_FETCH_RETRIES = clampInt(process.env.NKRY_FETCH_RETRIES, 2, 0, 6);
+const NKRY_FETCH_BACKOFF_MS = clampInt(process.env.NKRY_FETCH_BACKOFF_MS, 280, 60, 3000);
+const NKRY_FIRST_USAGE_MAX_PAGES = clampInt(process.env.NKRY_FIRST_USAGE_MAX_PAGES, 12, 1, 60);
+const NKRY_DEEP_SCAN_MAX_PAGES = clampInt(process.env.NKRY_DEEP_SCAN_MAX_PAGES, 42, 1, 200);
+const NKRY_DEEP_SCAN_YEAR_THRESHOLD = clampInt(process.env.NKRY_DEEP_SCAN_YEAR_THRESHOLD, 1900, 1600, 2100);
+const NKRY_SPREAD_SCAN_POINTS = clampInt(process.env.NKRY_SPREAD_SCAN_POINTS, 18, 0, 120);
+const NKRY_TAIL_SCAN_PAGES = clampInt(process.env.NKRY_TAIL_SCAN_PAGES, 28, 0, 120);
+const NKRY_MAX_TOTAL_PAGES = clampInt(process.env.NKRY_MAX_TOTAL_PAGES, 96, 8, 400);
+const NKRY_MAX_TOTAL_MS = clampInt(process.env.NKRY_MAX_TOTAL_MS, 18000, 3000, 60000);
+const NKRY_CACHE_TTL_MS = clampInt(process.env.NKRY_CACHE_TTL_MS, 5 * 60 * 1000, 1000, 60 * 60 * 1000);
+const NKRY_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_CACHE_MAX_ENTRIES, 300, 20, 2000);
 const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
 const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
+const queryCache = new Map();
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -305,6 +316,37 @@ function extractPrimaryYear(value) {
   return match ? Number(match[1]) : NaN;
 }
 
+function normalizeMatchValue(raw) {
+  return String(raw || "")
+    .toLowerCase()
+    .replaceAll("ё", "е")
+    .replace(/[^a-zа-я0-9-]/gi, "");
+}
+
+function commonPrefixLength(a, b) {
+  const left = String(a || "");
+  const right = String(b || "");
+  const max = Math.min(left.length, right.length);
+  let i = 0;
+  while (i < max && left[i] === right[i]) i += 1;
+  return i;
+}
+
+function quoteRoughlyMatchesWord(quote, word) {
+  const target = normalizeMatchValue(word);
+  if (!target) return false;
+
+  const tokens = String(quote || "").match(/[A-Za-zА-Яа-яЁё0-9-]+/gu) || [];
+  for (const token of tokens) {
+    const n = normalizeMatchValue(token);
+    if (!n) continue;
+    if (n === target) return true;
+    if (n.startsWith(target) || target.startsWith(n)) return true;
+    if (commonPrefixLength(n, target) >= Math.min(4, Math.max(3, target.length - 1))) return true;
+  }
+  return false;
+}
+
 function parseConcordanceCandidates(payload, word, page) {
   const candidates = [];
   if (!payload || typeof payload !== "object") return { candidates, maxPage: 1 };
@@ -323,6 +365,10 @@ function parseConcordanceCandidates(payload, word, page) {
         for (const snippet of snippetGroup.snippets || []) {
           const quote = extractSnippetQuote(snippet);
           if (!quote) continue;
+          const hasHit = (snippet?.sequences || []).some((sequence) =>
+            (sequence?.words || []).some((w) => w?.displayParams?.hit)
+          );
+          if (!hasHit && !quoteRoughlyMatchesWord(quote, word)) continue;
 
           candidates.push({
             quote,
@@ -395,8 +441,28 @@ function buildOrthographyVariants(word) {
   return Array.from(variants);
 }
 
-async function collectCandidatesForField(endpoint, authValue, word, fieldName = "lex") {
-  const firstPayload = await fetchNkryPage(endpoint, authValue, word, 1, fieldName);
+async function collectCandidatesForField(endpoint, authValue, word, fieldName = "lex", options = {}) {
+  const deadlineAt = Number(options.deadlineAt || Number.POSITIVE_INFINITY);
+  const budget = options.budget || null;
+
+  async function fetchBudgeted(page) {
+    if (Date.now() > deadlineAt) return null;
+    if (budget && budget.remaining <= 0) return null;
+    if (budget) budget.remaining -= 1;
+    return fetchNkryPage(endpoint, authValue, word, page, fieldName);
+  }
+
+  const firstPayload = await fetchBudgeted(1);
+  if (!firstPayload) {
+    return {
+      fieldName,
+      allCandidates: [],
+      best: null,
+      scannedPages: 0,
+      maxAvailablePage: 1,
+      appliedSorting: ""
+    };
+  }
   const parsedFirst = parseConcordanceCandidates(firstPayload, word, 1);
 
   const maxAvailablePage = Math.max(1, Number(parsedFirst.maxPage || 1));
@@ -408,7 +474,8 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
 
   for (let page = 2; page <= phaseOneMaxPage; page += 1) {
     try {
-      const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+      const payload = await fetchBudgeted(page);
+      if (!payload) break;
       const parsed = parseConcordanceCandidates(payload, word, page);
       allCandidates = allCandidates.concat(parsed.candidates);
       scannedPages += 1;
@@ -427,7 +494,8 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, NKRY_DEEP_SCAN_MAX_PAGES));
     for (let page = phaseOneMaxPage + 1; page <= phaseTwoMaxPage; page += 1) {
       try {
-        const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+        const payload = await fetchBudgeted(page);
+        if (!payload) break;
         const parsed = parseConcordanceCandidates(payload, word, page);
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
@@ -446,7 +514,8 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
       for (const page of spreadPages) {
         if (scannedPageSet.has(page)) continue;
         try {
-          const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+          const payload = await fetchBudgeted(page);
+          if (!payload) break;
           const parsed = parseConcordanceCandidates(payload, word, page);
           allCandidates = allCandidates.concat(parsed.candidates);
           scannedPages += 1;
@@ -464,7 +533,8 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     for (const page of tailPages) {
       if (scannedPageSet.has(page)) continue;
       try {
-        const payload = await fetchNkryPage(endpoint, authValue, word, page, fieldName);
+        const payload = await fetchBudgeted(page);
+        if (!payload) break;
         const parsed = parseConcordanceCandidates(payload, word, page);
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
@@ -489,8 +559,10 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
 async function findFirstUsage(word) {
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
+  const budget = { remaining: NKRY_MAX_TOTAL_PAGES };
+  const deadlineAt = Date.now() + NKRY_MAX_TOTAL_MS;
 
-  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex");
+  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", { deadlineAt, budget });
   let combinedCandidates = [...lexProbe.allCandidates];
   let scannedPages = lexProbe.scannedPages;
   let appliedSorting = lexProbe.appliedSorting;
@@ -499,7 +571,7 @@ async function findFirstUsage(word) {
   const shouldProbeForm = NKRY_USE_FORM_FALLBACK;
   if (shouldProbeForm) {
     try {
-      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form");
+      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget });
       combinedCandidates = combinedCandidates.concat(formProbe.allCandidates);
       scannedPages += formProbe.scannedPages;
       if (!appliedSorting) appliedSorting = formProbe.appliedSorting;
@@ -513,7 +585,7 @@ async function findFirstUsage(word) {
     const variants = buildOrthographyVariants(word).filter((v) => v !== word);
     for (const variant of variants) {
       try {
-        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form");
+        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form", { deadlineAt, budget });
         combinedCandidates = combinedCandidates.concat(variantProbe.allCandidates);
         scannedPages += variantProbe.scannedPages;
         if (!appliedSorting) appliedSorting = variantProbe.appliedSorting;
@@ -548,6 +620,28 @@ async function findFirstUsage(word) {
   };
 }
 
+function cacheKey(word) {
+  return `${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${word}`;
+}
+
+function getCached(key) {
+  const hit = queryCache.get(key);
+  if (!hit) return null;
+  if (Date.now() > hit.expiresAt) {
+    queryCache.delete(key);
+    return null;
+  }
+  return hit.value;
+}
+
+function setCached(key, value) {
+  if (queryCache.size >= NKRY_CACHE_MAX_ENTRIES) {
+    const firstKey = queryCache.keys().next().value;
+    if (firstKey) queryCache.delete(firstKey);
+  }
+  queryCache.set(key, { value, expiresAt: Date.now() + NKRY_CACHE_TTL_MS });
+}
+
 async function handleNkrySearch(req, res) {
   if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) {
     sendJson(res, 503, {
@@ -575,13 +669,16 @@ async function handleNkrySearch(req, res) {
   }
 
   try {
-    const result = await findFirstUsage(validation.value);
+    const key = cacheKey(validation.value);
+    const cached = getCached(key);
+    const result = cached || await findFirstUsage(validation.value);
     if (!result) {
       sendJson(res, 404, {
         error: `Для слова «${validation.value}» в выбранном корпусе не найдено цитат.`
       });
       return;
     }
+    if (!cached) setCached(key, result);
 
     sendJson(res, 200, {
       quote: {
