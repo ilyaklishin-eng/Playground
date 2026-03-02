@@ -43,10 +43,10 @@ const RULERS = [
   { from: 1982, to: 1984, name: "Юрий Андропов", role: "Руководитель СССР", wikiTitle: "Андропов,_Юрий_Владимирович" },
   { from: 1984, to: 1985, name: "Константин Черненко", role: "Руководитель СССР", wikiTitle: "Черненко,_Константин_Устинович" },
   { from: 1985, to: 1991, name: "Михаил Горбачев", role: "Руководитель СССР", wikiTitle: "Горбачёв,_Михаил_Сергеевич" },
-  { from: 1991, to: 1999, name: "Борис Ельцин", role: "Президент России", wikiTitle: "Ельцин,_Борис_Николаевич" },
-  { from: 2000, to: 2008, name: "Владимир Путин", role: "Президент России", wikiTitle: "Путин,_Владимир_Владимирович" },
-  { from: 2008, to: 2012, name: "Дмитрий Медведев", role: "Президент России", wikiTitle: "Медведев,_Дмитрий_Анатольевич" },
-  { from: 2012, to: 2026, name: "Владимир Путин", role: "Президент России", wikiTitle: "Путин,_Владимир_Владимирович" }
+  { from: 1991, to: 1999, name: "Борис Ельцин", role: "Президент России", tenureLabel: "Президент России (1991–1999)", wikiTitle: "Ельцин,_Борис_Николаевич" },
+  { from: 2000, to: 2008, name: "Владимир Путин", role: "Президент России", tenureLabel: "Президент России (2000–2008, с 2012)", wikiTitle: "Путин,_Владимир_Владимирович" },
+  { from: 2008, to: 2012, name: "Дмитрий Медведев", role: "Президент России", tenureLabel: "Президент России (2008–2012)", wikiTitle: "Медведев,_Дмитрий_Анатольевич" },
+  { from: 2012, to: 2026, name: "Владимир Путин", role: "Президент России", tenureLabel: "Президент России (2000–2008, с 2012)", wikiTitle: "Путин,_Владимир_Владимирович" }
 ];
 const DECADE_ART = [
   {
@@ -609,7 +609,7 @@ async function renderRulerByYear(rawYear) {
 
   if (ruler) {
     rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.name}`;
-    rulerMetaNode.textContent = `${ruler.role} (${ruler.from}–${ruler.to})`;
+    rulerMetaNode.textContent = String(ruler.tenureLabel || `${ruler.role} (${ruler.from}–${ruler.to})`);
 
     const photo = await loadWikiImage(ruler.wikiTitle);
     if (photo) {
