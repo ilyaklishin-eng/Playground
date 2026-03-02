@@ -1,7 +1,7 @@
 import { RULERS, DECADE_ART } from "./app/reference-data.js";
 import { dedupeAuthorInTitle, formatMetaLine, normalizeWord } from "./app/text-utils.js";
 
-const form = document.getElementById("query-form");
+const form = document.getElementById("query-form") || document.querySelector("form");
 const wordNode = document.getElementById("word");
 const submitBtn = document.getElementById("submit-btn");
 const statusLineNode = document.getElementById("status-line");
@@ -450,6 +450,7 @@ async function requestFirstUsageWithRetry(word, signal, onRetry) {
   throw new Error("Не удалось получить цитату после повторных попыток.");
 }
 
+if (form) {
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -517,7 +518,9 @@ form.addEventListener("submit", async (event) => {
     }
   }
 });
+}
 
+if (wordNode) {
 wordNode.addEventListener("input", () => {
   const enforced = enforceSingleWordInput(wordNode.value);
   if (enforced.value !== wordNode.value) {
@@ -532,3 +535,4 @@ wordNode.addEventListener("input", () => {
 
   if (messageNode.textContent) setMessage("");
 });
+}

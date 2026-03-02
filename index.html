@@ -21,7 +21,7 @@
       </header>
 
       <section class="panel">
-        <form id="query-form" novalidate>
+        <form id="query-form" novalidate action="javascript:void(0);">
           <label for="word" class="label">Слово</label>
           <input
             id="word"
@@ -37,6 +37,7 @@
           <div class="actions">
             <button id="submit-btn" type="submit">Показать первое употребление</button>
           </div>
+          <p id="status-line" class="status-line" role="status" aria-live="polite"></p>
           <p id="message" class="message" role="status" aria-live="polite"></p>
         </form>
       </section>
@@ -49,6 +50,14 @@
         <blockquote id="quote-text" class="quote"></blockquote>
         <p id="quote-meta" class="meta"></p>
         <p id="quote-source" class="source"></p>
+        <details id="explain-details" class="explain hidden">
+          <summary>Почему эта цитата</summary>
+          <div class="explain-grid">
+            <p><span>Год</span><strong id="why-year">—</strong></p>
+            <p><span>Режим поиска</span><strong id="why-mode">—</strong></p>
+            <p><span>Релевантность</span><strong id="why-rel">—</strong></p>
+          </div>
+        </details>
         <div id="context-grid" class="context-grid hidden">
           <div id="ruler-card" class="context-card">
             <img id="ruler-image" alt="" loading="lazy" />
