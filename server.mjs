@@ -61,6 +61,7 @@ const NKRY_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_CACHE_MAX_ENTRIES, 300,
 const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
 const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
 const queryCache = new Map();
+let nkryCooldownUntil = 0;
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -86,6 +87,16 @@ function sendJson(res, status, payload) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function parseRetryAfterSeconds(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return 0;
+  const asNumber = Number(raw);
+  if (Number.isFinite(asNumber) && asNumber >= 0) return Math.trunc(asNumber);
+  const asDate = Date.parse(raw);
+  if (!Number.isFinite(asDate)) return 0;
+  return Math.max(0, Math.round((asDate - Date.now()) / 1000));
 }
 
 function parseRequestBody(req) {
@@ -180,6 +191,13 @@ function withPage(endpoint, page) {
 async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "lex") {
   let lastError = null;
   const pageEndpoint = withPage(endpoint, page);
+  if (Date.now() < nkryCooldownUntil) {
+    const waitSec = Math.max(1, Math.ceil((nkryCooldownUntil - Date.now()) / 1000));
+    const err = new Error(`НКРЯ временно ограничил частоту запросов. Повторите через ${waitSec} сек.`);
+    err.code = "NKRY_RATE_LIMIT";
+    err.retryAfterSec = waitSec;
+    throw err;
+  }
 
   for (let attempt = 0; attempt <= NKRY_FETCH_RETRIES; attempt += 1) {
     const controller = new AbortController();
@@ -199,6 +217,13 @@ async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "l
       if (!response.ok) {
         const text = await response.text();
         const err = new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
+        if (response.status === 429) {
+          const retryAfterSec = parseRetryAfterSeconds(response.headers.get("retry-after"));
+          const cooldownSec = Math.max(6, retryAfterSec || 0);
+          nkryCooldownUntil = Date.now() + cooldownSec * 1000;
+          err.code = "NKRY_RATE_LIMIT";
+          err.retryAfterSec = cooldownSec;
+        }
         const retriable = response.status === 429 || response.status >= 500;
         if (!retriable || attempt >= NKRY_FETCH_RETRIES) throw err;
         lastError = err;
@@ -568,7 +593,9 @@ async function findFirstUsage(word) {
   let appliedSorting = lexProbe.appliedSorting;
   const modes = ["lex"];
 
-  const shouldProbeForm = NKRY_USE_FORM_FALLBACK;
+  const shouldProbeForm =
+    NKRY_USE_FORM_FALLBACK
+    && (word.length <= 4 || !lexProbe.best || !Number.isFinite(lexProbe.best.yearNum) || lexProbe.best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD);
   if (shouldProbeForm) {
     try {
       const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget });
@@ -581,7 +608,7 @@ async function findFirstUsage(word) {
     }
   }
 
-  if (NKRY_USE_OLD_ORTHO_VARIANTS) {
+  if (NKRY_USE_OLD_ORTHO_VARIANTS && shouldProbeForm) {
     const variants = buildOrthographyVariants(word).filter((v) => v !== word);
     for (const variant of variants) {
       try {
@@ -624,10 +651,10 @@ function cacheKey(word) {
   return `${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${word}`;
 }
 
-function getCached(key) {
+function getCached(key, allowStale = false) {
   const hit = queryCache.get(key);
   if (!hit) return null;
-  if (Date.now() > hit.expiresAt) {
+  if (Date.now() > hit.expiresAt && !allowStale) {
     queryCache.delete(key);
     return null;
   }
@@ -692,6 +719,35 @@ async function handleNkrySearch(req, res) {
       meta: result.meta
     });
   } catch (error) {
+    if (error?.code === "NKRY_RATE_LIMIT") {
+      const key = cacheKey(validation.value);
+      const stale = getCached(key, true);
+      if (stale) {
+        sendJson(res, 200, {
+          quote: {
+            quote: stale.quote,
+            author: stale.author,
+            title: stale.title,
+            year: stale.year,
+            sourceName: stale.sourceName
+          },
+          explain: "Показано сохраненное значение из кэша: НКРЯ временно ограничил частоту запросов.",
+          meta: {
+            ...(stale.meta || {}),
+            cached: true,
+            stale: true,
+            rateLimited: true,
+            retryAfterSec: error?.retryAfterSec || null
+          }
+        });
+        return;
+      }
+
+      sendJson(res, 429, {
+        error: `НКРЯ временно ограничил частоту запросов. Подождите ${error?.retryAfterSec || 10} сек и повторите.`
+      });
+      return;
+    }
     sendJson(res, 502, {
       error: `Ошибка обращения к НКРЯ: ${error?.message || "неизвестная ошибка"}`
     });
