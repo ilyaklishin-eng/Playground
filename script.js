@@ -1,12 +1,20 @@
+import { RULERS, DECADE_ART } from "./app/reference-data.js";
+import { dedupeAuthorInTitle, formatMetaLine, normalizeWord } from "./app/text-utils.js";
+
 const form = document.getElementById("query-form");
 const wordNode = document.getElementById("word");
 const submitBtn = document.getElementById("submit-btn");
+const statusLineNode = document.getElementById("status-line");
 const messageNode = document.getElementById("message");
 
 const resultCardNode = document.getElementById("result-card");
 const quoteTextNode = document.getElementById("quote-text");
 const quoteMetaNode = document.getElementById("quote-meta");
 const quoteSourceNode = document.getElementById("quote-source");
+const explainDetailsNode = document.getElementById("explain-details");
+const whyYearNode = document.getElementById("why-year");
+const whyModeNode = document.getElementById("why-mode");
+const whyRelNode = document.getElementById("why-rel");
 const resultWordNode = document.getElementById("result-word");
 const contextGridNode = document.getElementById("context-grid");
 const rulerCardNode = document.getElementById("ruler-card");
@@ -19,309 +27,13 @@ const artTitleNode = document.getElementById("art-title");
 const artMetaNode = document.getElementById("art-meta");
 let activeController = null;
 let activeRequestId = 0;
-const CLIENT_REQUEST_TIMEOUT_MS = 16000;
+const CLIENT_REQUEST_TIMEOUT_MS = 32000;
+const CLIENT_SOFT_RETRY_MAX_ATTEMPTS = 1;
+const CLIENT_SOFT_RETRY_BASE_DELAY_MS = 360;
+const CLIENT_SOFT_RETRY_MAX_DELAY_MS = 3200;
+const CLIENT_SOFT_RETRY_JITTER_MS = 280;
 
 const wikiImageCache = new Map();
-const RULERS = [
-  { from: 1682, to: 1725, name: "Петр I", role: "Император России", wikiTitle: "Пётр_I" },
-  { from: 1725, to: 1727, name: "Екатерина I", role: "Императрица России", wikiTitle: "Екатерина_I" },
-  { from: 1727, to: 1730, name: "Петр II", role: "Император России", wikiTitle: "Пётр_II" },
-  { from: 1730, to: 1740, name: "Анна Иоанновна", role: "Императрица России", wikiTitle: "Анна_Иоанновна" },
-  { from: 1740, to: 1741, name: "Иван VI", role: "Император России", wikiTitle: "Иван_VI" },
-  { from: 1741, to: 1762, name: "Елизавета Петровна", role: "Императрица России", wikiTitle: "Елизавета_Петровна" },
-  { from: 1762, to: 1796, name: "Екатерина II", role: "Императрица России", wikiTitle: "Екатерина_II" },
-  { from: 1796, to: 1801, name: "Павел I", role: "Император России", wikiTitle: "Павел_I" },
-  { from: 1801, to: 1825, name: "Александр I", role: "Император России", wikiTitle: "Александр_I" },
-  { from: 1825, to: 1855, name: "Николай I", role: "Император России", wikiTitle: "Николай_I" },
-  { from: 1855, to: 1881, name: "Александр II", role: "Император России", wikiTitle: "Александр_II" },
-  { from: 1881, to: 1894, name: "Александр III", role: "Император России", wikiTitle: "Александр_III" },
-  { from: 1894, to: 1917, name: "Николай II", role: "Император России", wikiTitle: "Николай_II" },
-  { from: 1918, to: 1924, name: "Владимир Ленин", role: "Глава РСФСР", wikiTitle: "Ленин,_Владимир_Ильич" },
-  { from: 1924, to: 1953, name: "Иосиф Сталин", role: "Руководитель СССР", wikiTitle: "Сталин,_Иосиф_Виссарионович" },
-  { from: 1953, to: 1964, name: "Никита Хрущев", role: "Руководитель СССР", wikiTitle: "Хрущёв,_Никита_Сергеевич" },
-  { from: 1964, to: 1982, name: "Леонид Брежнев", role: "Руководитель СССР", wikiTitle: "Брежнев,_Леонид_Ильич" },
-  { from: 1982, to: 1984, name: "Юрий Андропов", role: "Руководитель СССР", wikiTitle: "Андропов,_Юрий_Владимирович" },
-  { from: 1984, to: 1985, name: "Константин Черненко", role: "Руководитель СССР", wikiTitle: "Черненко,_Константин_Устинович" },
-  { from: 1985, to: 1991, name: "Михаил Горбачев", role: "Руководитель СССР", wikiTitle: "Горбачёв,_Михаил_Сергеевич" },
-  { from: 1991, to: 1999, name: "Борис Ельцин", role: "Президент России", tenureLabel: "Президент России (1991–1999)", wikiTitle: "Ельцин,_Борис_Николаевич" },
-  { from: 2000, to: 2008, name: "Владимир Путин", role: "Президент России", tenureLabel: "Президент России (2000–2008, с 2012)", wikiTitle: "Путин,_Владимир_Владимирович" },
-  { from: 2008, to: 2012, name: "Дмитрий Медведев", role: "Президент России", tenureLabel: "Президент России (2008–2012)", wikiTitle: "Медведев,_Дмитрий_Анатольевич" },
-  { from: 2012, to: 2026, name: "Владимир Путин", role: "Президент России", tenureLabel: "Президент России (2000–2008, с 2012)", wikiTitle: "Путин,_Владимир_Владимирович" }
-];
-const DECADE_ART = [
-  {
-    from: 1700, to: 1709,
-    title: "Портрет Петра I",
-    artist: "Ж.-М. Натье, 1717",
-    wikiTitleRu: "Портрет_Петра_I_(Натье)",
-    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
-  },
-  {
-    from: 1710, to: 1719,
-    title: "Портрет Петра I",
-    artist: "Ж.-М. Натье, 1717",
-    wikiTitleRu: "Портрет_Петра_I_(Натье)",
-    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
-  },
-  {
-    from: 1720, to: 1729,
-    title: "Портрет Петра I",
-    artist: "Ж.-М. Натье, 1717",
-    wikiTitleRu: "Портрет_Петра_I_(Натье)",
-    wikiTitleEn: "Portrait_of_Peter_the_Great_(Nattier)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg/640px-Jean-Marc_Nattier_-_Portrait_of_Peter_I.jpg"
-  },
-  {
-    from: 1730, to: 1739,
-    title: "Портрет императрицы Анны Иоанновны",
-    artist: "Л. Каравак, XVIII век",
-    wikiTitleRu: "Анна_Иоанновна_(портрет_Каравака)",
-    wikiTitleEn: "Anna_of_Russia_by_Louis_Caravaque",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Anna_Ioannovna_by_Caravaque.jpg/640px-Anna_Ioannovna_by_Caravaque.jpg"
-  },
-  {
-    from: 1740, to: 1749,
-    title: "Портрет Елизаветы Петровны",
-    artist: "Л. Каравак, XVIII век",
-    wikiTitleRu: "Портрет_Елизаветы_Петровны_(Каравак)",
-    wikiTitleEn: "Elizabeth_of_Russia_by_Caravaque",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Elizaveta_Petrovna_by_Caravaque.jpg/640px-Elizaveta_Petrovna_by_Caravaque.jpg"
-  },
-  {
-    from: 1750, to: 1759,
-    title: "Портрет Елизаветы Петровны",
-    artist: "Л. Каравак, XVIII век",
-    wikiTitleRu: "Портрет_Елизаветы_Петровны_(Каравак)",
-    wikiTitleEn: "Elizabeth_of_Russia_by_Caravaque",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Elizaveta_Petrovna_by_Caravaque.jpg/640px-Elizaveta_Petrovna_by_Caravaque.jpg"
-  },
-  {
-    from: 1760, to: 1769,
-    title: "Портрет Екатерины II",
-    artist: "Ф. С. Рокотов, 1763",
-    wikiTitleRu: "Портрет_Екатерины_II_(Рокотов)",
-    wikiTitleEn: "Portrait_of_Catherine_II_(Rokotov)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Rokotov_Catherine_II.jpg/640px-Rokotov_Catherine_II.jpg"
-  },
-  {
-    from: 1770, to: 1779,
-    title: "Портрет Екатерины II",
-    artist: "Ф. С. Рокотов, 1763",
-    wikiTitleRu: "Портрет_Екатерины_II_(Рокотов)",
-    wikiTitleEn: "Portrait_of_Catherine_II_(Rokotov)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Rokotov_Catherine_II.jpg/640px-Rokotov_Catherine_II.jpg"
-  },
-  {
-    from: 1780, to: 1789,
-    title: "Портрет А. В. Храповицкого",
-    artist: "Д. Г. Левицкий, 1781",
-    wikiTitleRu: "Портрет_А._В._Храповицкого",
-    wikiTitleEn: "Portrait_of_Alexander_Khrapovitsky",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
-  },
-  {
-    from: 1790, to: 1799,
-    title: "Портрет А. В. Храповицкого",
-    artist: "Д. Г. Левицкий, 1781",
-    wikiTitleRu: "Портрет_А._В._Храповицкого",
-    wikiTitleEn: "Portrait_of_Alexander_Khrapovitsky",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg/640px-Dmitry_Levitsky_-_Portrait_of_Alexander_Khrapovitsky.jpg"
-  },
-  {
-    from: 1800, to: 1809,
-    title: "Портрет А. С. Пушкина",
-    artist: "О. А. Кипренский, 1827",
-    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
-    wikiTitleEn: "Pushkin_by_Kiprensky",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
-  },
-  {
-    from: 1810, to: 1819,
-    title: "Портрет А. С. Пушкина",
-    artist: "О. А. Кипренский, 1827",
-    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
-    wikiTitleEn: "Pushkin_by_Kiprensky",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
-  },
-  {
-    from: 1820, to: 1829,
-    title: "Портрет А. С. Пушкина",
-    artist: "О. А. Кипренский, 1827",
-    wikiTitleRu: "Портрет_А._С._Пушкина_(Кипренский)",
-    wikiTitleEn: "Pushkin_by_Kiprensky",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Kiprensky_Pushkin.jpg/640px-Kiprensky_Pushkin.jpg"
-  },
-  {
-    from: 1830, to: 1839,
-    title: "Последний день Помпеи",
-    artist: "К. П. Брюллов, 1833",
-    wikiTitleRu: "Последний_день_Помпеи",
-    wikiTitleEn: "The_Last_Day_of_Pompeii",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg/640px-Karl_Briullov_-_The_Last_Day_of_Pompeii_-_Google_Art_Project.jpg"
-  },
-  {
-    from: 1840, to: 1849,
-    title: "Явление Христа народу",
-    artist: "А. А. Иванов, 1857",
-    wikiTitleRu: "Явление_Христа_народу",
-    wikiTitleEn: "The_Appearance_of_Christ_Before_the_People",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
-  },
-  {
-    from: 1850, to: 1859,
-    title: "Явление Христа народу",
-    artist: "А. А. Иванов, 1857",
-    wikiTitleRu: "Явление_Христа_народу",
-    wikiTitleEn: "The_Appearance_of_Christ_Before_the_People",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Appearance_of_Christ_before_the_people.jpg/640px-Appearance_of_Christ_before_the_people.jpg"
-  },
-  {
-    from: 1860, to: 1869,
-    title: "Тройка",
-    artist: "В. Г. Перов, 1866",
-    wikiTitleRu: "Тройка_(картина_Перова)",
-    wikiTitleEn: "Troika_(Perov)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Perov_troika.jpg/640px-Perov_troika.jpg"
-  },
-  {
-    from: 1870, to: 1879,
-    title: "Грачи прилетели",
-    artist: "А. К. Саврасов, 1871",
-    wikiTitleRu: "Грачи_прилетели",
-    wikiTitleEn: "The_Rooks_Have_Returned",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Savrasov_Grachi_prileteli.jpg/640px-Savrasov_Grachi_prileteli.jpg"
-  },
-  {
-    from: 1880, to: 1889,
-    title: "Не ждали",
-    artist: "И. Е. Репин, 1888",
-    wikiTitleRu: "Не_ждали",
-    wikiTitleEn: "They_Did_Not_Expect_Him",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Ilya_Repin_-_They_Did_Not_Expect_Him_-_Google_Art_Project.jpg/640px-Ilya_Repin_-_They_Did_Not_Expect_Him_-_Google_Art_Project.jpg"
-  },
-  {
-    from: 1890, to: 1899,
-    title: "Демон сидящий",
-    artist: "М. А. Врубель, 1890",
-    wikiTitleRu: "Демон_сидящий",
-    wikiTitleEn: "Demon_Seated",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Vrubel_demon.jpg/640px-Vrubel_demon.jpg"
-  },
-  {
-    from: 1900, to: 1909,
-    title: "Девочка с персиками",
-    artist: "В. А. Серов, 1887",
-    wikiTitleRu: "Девочка_с_персиками",
-    wikiTitleEn: "Girl_with_Peaches",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Valentin_Serov_-_Girl_with_Peaches.jpg/640px-Valentin_Serov_-_Girl_with_Peaches.jpg"
-  },
-  {
-    from: 1910, to: 1919,
-    title: "Купание красного коня",
-    artist: "К. С. Петров-Водкин, 1912",
-    wikiTitleRu: "Купание_красного_коня",
-    wikiTitleEn: "Bathing_of_a_Red_Horse",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg/640px-Kuzma_Petrov-Vodkin_-_Bathing_of_a_Red_Horse.jpg"
-  },
-  {
-    from: 1920, to: 1929,
-    title: "Большевик",
-    artist: "Б. М. Кустодиев, 1920",
-    wikiTitleRu: "Большевик_(картина_Кустодиева)",
-    wikiTitleEn: "The_Bolshevik_(painting)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Kustodiev_bolshevik.jpg/640px-Kustodiev_bolshevik.jpg"
-  },
-  {
-    from: 1930, to: 1939,
-    title: "Новая Москва",
-    artist: "Ю. И. Пименов, 1937",
-    wikiTitleRu: "Новая_Москва_(картина)",
-    wikiTitleEn: "New_Moscow_(painting)",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yuri_Pimenov_New_Moscow_1937.jpg/640px-Yuri_Pimenov_New_Moscow_1937.jpg"
-  },
-  {
-    from: 1940, to: 1949,
-    title: "Письмо с фронта",
-    artist: "А. И. Лактионов, 1947",
-    wikiTitleRu: "Письмо_с_фронта",
-    wikiTitleEn: "Letter_from_the_Front",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Laktionov_Pismo_s_fronta.jpg/640px-Laktionov_Pismo_s_fronta.jpg"
-  },
-  {
-    from: 1950, to: 1959,
-    title: "Опять двойка",
-    artist: "Ф. П. Решетников, 1952",
-    wikiTitleRu: "Опять_двойка",
-    wikiTitleEn: "Again_a_Fail_Mark",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Reshetnikov_Again_A_Two.jpg/640px-Reshetnikov_Again_A_Two.jpg"
-  },
-  {
-    from: 1960, to: 1969,
-    title: "Строители Братска",
-    artist: "В. Е. Попков, 1960",
-    wikiTitleRu: "Строители_Братска",
-    wikiTitleEn: "Builders_of_Bratsk",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Viktor_Popkov_Builders_of_Bratsk.jpg/640px-Viktor_Popkov_Builders_of_Bratsk.jpg"
-  },
-  {
-    from: 1970, to: 1979,
-    title: "Московский дворик",
-    artist: "В. Д. Поленов, 1878",
-    wikiTitleRu: "Московский_дворик",
-    wikiTitleEn: "Moscow_Courtyard",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Polenov_Moskovsky_Dvorik.jpg/640px-Polenov_Moskovsky_Dvorik.jpg"
-  },
-  {
-    from: 1980, to: 1989,
-    title: "Человек, улетевший в космос из своей комнаты",
-    artist: "И. И. Кабаков, 1985",
-    wikiTitleRu: "Человек,_улетевший_в_космос_из_своей_комнаты",
-    wikiTitleEn: "The_Man_Who_Flew_into_Space_from_His_Apartment",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Ilya_Kabakov_The_Man_Who_Flew_into_Space_from_His_Apartment.jpg/640px-Ilya_Kabakov_The_Man_Who_Flew_into_Space_from_His_Apartment.jpg"
-  },
-  {
-    from: 1990, to: 1999,
-    title: "Храм Христа Спасителя (воссоздание)",
-    artist: "Москва, 1994–1999",
-    wikiTitleRu: "Храм_Христа_Спасителя",
-    wikiTitleEn: "Cathedral_of_Christ_the_Saviour",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Cathedral_of_Christ_the_Saviour_2022-06-13_042.jpg/640px-Cathedral_of_Christ_the_Saviour_2022-06-13_042.jpg"
-  },
-  {
-    from: 2000, to: 2009,
-    title: "«Ночь на Ивана Купалу»",
-    artist: "Т. Г. Назаренко, 2003",
-    wikiTitleRu: "Назаренко,_Татьяна_Григорьевна",
-    wikiTitleEn: "Tatyana_Nazarenko",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Tatyana_Nazarenko_in_2020.jpg/640px-Tatyana_Nazarenko_in_2020.jpg"
-  },
-  {
-    from: 2010, to: 2019,
-    title: "Парк «Зарядье» и Парящий мост",
-    artist: "Архитектурный проект, 2017",
-    wikiTitleRu: "Парк_Зарядье",
-    wikiTitleEn: "Zaryadye_Park",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Zaryadye_Park_16.jpg/640px-Zaryadye_Park_16.jpg"
-  },
-  {
-    from: 2020, to: 2029,
-    title: "Дом культуры ГЭС-2",
-    artist: "Реконструкция Ренцо Пиано, 2021",
-    wikiTitleRu: "ГЭС-2",
-    wikiTitleEn: "GES-2",
-    fallbackImage: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/GES-2_Moscow.jpg/640px-GES-2_Moscow.jpg"
-  }
-];
-
-function normalizeWord(raw) {
-  return String(raw || "")
-    .trim()
-    .toLowerCase()
-    .replaceAll("ё", "е")
-    .replace(/[^a-zа-я0-9-]/gi, "");
-}
 
 function enforceSingleWordInput(raw) {
   const text = String(raw || "").replace(/\s+/g, " ").trimStart();
@@ -366,87 +78,6 @@ function escapeHtml(text) {
 
 function escapeRegex(text) {
   return String(text || "").replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
-function normalizeComparable(text) {
-  return String(text || "")
-    .toLowerCase()
-    .replaceAll("ё", "е")
-    .replace(/[^a-zа-я0-9]+/gi, "");
-}
-
-function dedupeAuthorInTitle(author, title) {
-  const cleanAuthor = String(author || "").trim();
-  const cleanTitle = String(title || "").trim();
-  if (!cleanAuthor || !cleanTitle) return cleanTitle || "Без названия";
-
-  const authorKey = normalizeComparable(cleanAuthor);
-  let out = cleanTitle;
-
-  for (let i = 0; i < 2; i += 1) {
-    const m = out.match(/^\s*([^.—–\-:]+)\s*[.—–\-:]\s*(.*)$/u);
-    if (!m) break;
-    const lead = String(m[1] || "").trim();
-    const rest = String(m[2] || "").trim();
-    const leadKey = normalizeComparable(lead);
-
-    if (!leadKey) break;
-    const isSameAuthor =
-      leadKey === authorKey
-      || authorKey.startsWith(leadKey)
-      || leadKey.startsWith(authorKey);
-    if (!isSameAuthor) break;
-    out = rest;
-  }
-
-  const leadingAuthorPattern = new RegExp(`^\\s*${escapeRegex(cleanAuthor)}\\s*[.\\-–—,:;]*\\s*`, "iu");
-  const deduped = out.replace(leadingAuthorPattern, "").trim();
-  return deduped || cleanTitle;
-}
-
-function normalizeYearText(value) {
-  return String(value || "")
-    .replace(/[–—]/g, "-")
-    .replace(/[−‑‒]/g, "-")
-    .replace(/\s+/g, "")
-    .trim();
-}
-
-function extractYearTokens(value) {
-  return Array.from(String(value || "").matchAll(/\b(1[6-9]\d{2}|20\d{2})\b/g), (m) => m[1]);
-}
-
-function extractYearRanges(value) {
-  const normalized = normalizeYearText(value);
-  return Array.from(normalized.matchAll(/(1[6-9]\d{2}|20\d{2})-(1[6-9]\d{2}|20\d{2})/g), (m) => `${m[1]}-${m[2]}`);
-}
-
-function isYearAlreadyInTitle(title, year) {
-  const y = normalizeYearText(year);
-  if (!y) return false;
-  const t = normalizeYearText(title);
-  if (t.includes(y)) return true;
-
-  const titleYears = new Set(extractYearTokens(title));
-  const yearYears = extractYearTokens(year);
-  if (yearYears.some((token) => titleYears.has(token))) return true;
-  if (yearYears.length && yearYears.every((token) => titleYears.has(token))) return true;
-
-  const titleRanges = new Set(extractYearRanges(title));
-  const yearRanges = extractYearRanges(year);
-  if (yearRanges.length && yearRanges.every((range) => titleRanges.has(range))) return true;
-
-  return false;
-}
-
-function formatMetaLine(author, title, year) {
-  const cleanAuthor = String(author || "Не указан").trim() || "Не указан";
-  const cleanTitle = String(title || "Без названия").trim() || "Без названия";
-  const cleanYear = String(year || "").trim();
-
-  const base = `${cleanAuthor} — ${cleanTitle}`;
-  if (!cleanYear || isYearAlreadyInTitle(cleanTitle, cleanYear)) return base;
-  return `${base}, ${cleanYear}`;
 }
 
 function normalizeForMatch(text) {
@@ -593,11 +224,13 @@ async function loadWikiImage(wikiTitle) {
 
 async function loadAnyWikiImage(art) {
   if (!art) return "";
-  const fromRu = await loadWikiImage(art.wikiTitleRu || "");
+  const fromRu = await loadWikiImage(art?.wiki?.ruTitle || "");
   if (fromRu) return fromRu;
-  const fromEn = await loadWikiImage(art.wikiTitleEn || "");
+  const fromEn = await loadWikiImage(art?.wiki?.enTitle || "");
   if (fromEn) return fromEn;
-  return String(art.fallbackImage || "");
+  const fallback = String(art.imageUrl || "");
+  if (fallback && await canLoadImage(fallback)) return fallback;
+  return "";
 }
 
 async function renderRulerByYear(rawYear) {
@@ -608,13 +241,13 @@ async function renderRulerByYear(rawYear) {
   let hasContext = false;
 
   if (ruler) {
-    rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.name}`;
-    rulerMetaNode.textContent = String(ruler.tenureLabel || `${ruler.role} (${ruler.from}–${ruler.to})`);
+    rulerTitleNode.textContent = `Правитель России в ${year} году: ${ruler.displayTitle}`;
+    rulerMetaNode.textContent = String(ruler.tenureLabel || "");
 
-    const photo = await loadWikiImage(ruler.wikiTitle);
+    const photo = await loadWikiImage(ruler?.wiki?.ruTitle || "");
     if (photo) {
       rulerImageNode.src = photo;
-      rulerImageNode.alt = `${ruler.name}`;
+      rulerImageNode.alt = `${ruler.displayTitle}`;
       rulerImageNode.classList.remove("hidden");
     } else {
       rulerImageNode.removeAttribute("src");
@@ -628,12 +261,19 @@ async function renderRulerByYear(rawYear) {
   }
 
   if (art) {
-    artTitleNode.textContent = `Знаковое произведение ${art.from}–${art.to}: ${art.title}`;
-    artMetaNode.textContent = art.artist;
+    artTitleNode.textContent = art.displayTitle;
+    artMetaNode.textContent = art.tenureLabel;
     const artPhoto = await loadAnyWikiImage(art);
     if (artPhoto) {
+      artImageNode.onerror = () => {
+        artImageNode.removeAttribute("src");
+        artImageNode.alt = "";
+        artImageNode.classList.add("hidden");
+        artCardNode.classList.add("hidden");
+        contextGridNode.classList.toggle("hidden", !ruler || rulerCardNode.classList.contains("hidden"));
+      };
       artImageNode.src = artPhoto;
-      artImageNode.alt = art.title;
+      artImageNode.alt = art?.canonicalObject?.title || art.displayTitle;
       artImageNode.classList.remove("hidden");
       artCardNode.classList.remove("hidden");
       hasContext = true;
@@ -663,6 +303,54 @@ function setMessage(text, isError = false) {
   messageNode.classList.toggle("error", isError);
 }
 
+function setStatusLine(text, kind = "") {
+  statusLineNode.textContent = text || "";
+  statusLineNode.classList.remove("search", "cache", "warn");
+  if (kind) statusLineNode.classList.add(kind);
+}
+
+function formatSearchModes(value) {
+  const modes = Array.isArray(value) ? value : [];
+  if (!modes.length) return "лексический поиск";
+  return modes
+    .map((mode) => String(mode || "").replace("form", "по словоформе").replace("lex", "по лемме"))
+    .join(", ");
+}
+
+function renderWhyBlock(meta) {
+  const m = meta && typeof meta === "object" ? meta : {};
+  const chosenYear = Number.isFinite(Number(m.chosenYear)) ? String(m.chosenYear) : "не определен";
+  const relevanceNum = Number(m.chosenRelevanceScore);
+  const relevance = Number.isFinite(relevanceNum) ? `${(relevanceNum * 100).toFixed(0)}%` : "н/д";
+
+  whyYearNode.textContent = chosenYear;
+  whyModeNode.textContent = formatSearchModes(m.searchModes);
+  whyRelNode.textContent = relevance;
+  explainDetailsNode.open = false;
+  explainDetailsNode.classList.remove("hidden");
+}
+
+function userErrorMessage(error, requestedWord) {
+  const status = Number(error?.status || 0);
+  const retryAfterSec = Math.max(0, Number(error?.retryAfterSec || 0));
+  const word = String(requestedWord || "");
+
+  if (status === 429) {
+    const wait = retryAfterSec || 10;
+    return `Ограничение API, попробуйте через ${wait} сек.`;
+  }
+  if (status === 404) {
+    if (word.length >= 7 || word.includes("-")) {
+      return `Для слова «${word}» результат не найден. Возможно, слово очень редкое для текущего корпуса.`;
+    }
+    return `Для слова «${word}» не найдено результата в НКРЯ.`;
+  }
+  if (status === 400) {
+    return "Проверьте ввод: нужно одно слово без пробелов и лишних знаков.";
+  }
+  return error?.message || "Ошибка запроса.";
+}
+
 async function showResult(payload) {
   const quote = sanitizeQuote(payload.quote);
   if (!quote) throw new Error("НКРЯ не вернул корректную цитату.");
@@ -676,6 +364,7 @@ async function showResult(payload) {
   quoteMetaNode.textContent = formatMetaLine(quote.author, title, quote.year);
   quoteSourceNode.textContent = `Источник: ${quote.sourceName}`;
   resultWordNode.textContent = matchedWord ? `Слово: ${matchedWord}` : "";
+  renderWhyBlock(payload?.meta || {});
   await renderRulerByYear(quote.year);
 
   resultCardNode.classList.remove("hidden");
@@ -690,16 +379,75 @@ async function requestFirstUsage(word, signal) {
   const response = await fetch("/api/nkry/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ word }),
+    body: JSON.stringify({ word, strictChronology: true }),
     signal
   });
 
   if (!response.ok) {
     const payload = await response.json().catch(() => ({}));
-    throw new Error(String(payload.error || "Не удалось получить цитату."));
+    const error = new Error(String(payload.error || "Не удалось получить цитату."));
+    error.status = Number(response.status || 0);
+    error.retryAfterSec = Number(payload?.retryAfterSec || 0);
+    error.retriable = error.status === 429 || error.status === 408 || error.status >= 500;
+    error.payload = payload;
+    throw error;
   }
 
   return response.json();
+}
+
+function waitWithAbort(ms, signal) {
+  return new Promise((resolve, reject) => {
+    if (!Number.isFinite(ms) || ms <= 0) {
+      resolve();
+      return;
+    }
+    if (signal?.aborted) {
+      reject(new DOMException("Aborted", "AbortError"));
+      return;
+    }
+    const timer = setTimeout(() => {
+      signal?.removeEventListener("abort", onAbort);
+      resolve();
+    }, ms);
+    function onAbort() {
+      clearTimeout(timer);
+      reject(new DOMException("Aborted", "AbortError"));
+    }
+    signal?.addEventListener("abort", onAbort, { once: true });
+  });
+}
+
+function computeRetryDelayMs(error, attemptIndex) {
+  const retryAfterMs = Number(error?.retryAfterSec || 0) > 0
+    ? Number(error.retryAfterSec) * 1000
+    : 0;
+  const backoffMs = CLIENT_SOFT_RETRY_BASE_DELAY_MS * (2 ** Math.max(0, attemptIndex));
+  const base = Math.max(retryAfterMs, backoffMs);
+  const jitter = Math.floor(Math.random() * (CLIENT_SOFT_RETRY_JITTER_MS + 1));
+  return Math.min(CLIENT_SOFT_RETRY_MAX_DELAY_MS, base + jitter);
+}
+
+async function requestFirstUsageWithRetry(word, signal, onRetry) {
+  for (let attempt = 0; attempt <= CLIENT_SOFT_RETRY_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      return await requestFirstUsage(word, signal);
+    } catch (error) {
+      if (error?.name === "AbortError") throw error;
+      const retriable = Boolean(
+        error?.retriable
+        || error?.status >= 500
+        || error?.status === 429
+        || error?.status === 408
+        || /fetch failed|network|timeout/i.test(String(error?.message || ""))
+      );
+      if (!retriable || attempt >= CLIENT_SOFT_RETRY_MAX_ATTEMPTS) throw error;
+      const delayMs = computeRetryDelayMs(error, attempt);
+      if (typeof onRetry === "function") onRetry(attempt + 1, delayMs, error);
+      await waitWithAbort(delayMs, signal);
+    }
+  }
+  throw new Error("Не удалось получить цитату после повторных попыток.");
 }
 
 form.addEventListener("submit", async (event) => {
@@ -707,13 +455,15 @@ form.addEventListener("submit", async (event) => {
 
   const validated = validateWord(wordNode.value);
   if (!validated.ok) {
+    setStatusLine("Проверьте ввод", "warn");
     setMessage(validated.reason, true);
     resultCardNode.classList.add("hidden");
     return;
   }
 
   setBusy(true);
-  setMessage("Ищем первую фиксацию слова в НКРЯ...");
+  setStatusLine("Ищем в НКРЯ...", "search");
+  setMessage("");
   if (activeController) activeController.abort();
   const requestId = ++activeRequestId;
   const controller = new AbortController();
@@ -721,20 +471,44 @@ form.addEventListener("submit", async (event) => {
   const timeout = setTimeout(() => controller.abort(), CLIENT_REQUEST_TIMEOUT_MS);
 
   try {
-    const payload = await requestFirstUsage(validated.value, controller.signal);
+    const payload = await requestFirstUsageWithRetry(validated.value, controller.signal, (_retryNo, delayMs) => {
+      const delaySec = Math.max(1, Math.round(delayMs / 1000));
+      setStatusLine(`Ограничение API, попробуйте через ${delaySec} сек (авто-повтор)...`, "warn");
+    });
     if (requestId !== activeRequestId) return;
     await showResult(payload);
+    if (payload?.meta?.cached || payload?.meta?.stale) {
+      const retry = Number(payload?.meta?.retryAfterSec || 0);
+      setStatusLine(
+        retry > 0
+          ? `Использован кэш (ограничение API, повтор через ${retry} сек).`
+          : "Использован кэш.",
+        "cache"
+      );
+    } else {
+      setStatusLine("Найдено в НКРЯ.", "search");
+    }
     setMessage("");
   } catch (error) {
     if (error?.name === "AbortError") {
       if (requestId === activeRequestId) {
+        setStatusLine("Запрос прерван по таймауту", "warn");
         setMessage("Запрос занял слишком много времени. Попробуйте еще раз.", true);
       }
       return;
     }
     if (requestId !== activeRequestId) return;
     resultCardNode.classList.add("hidden");
-    setMessage(error.message || "Ошибка запроса.", true);
+    explainDetailsNode.classList.add("hidden");
+    if (Number(error?.status || 0) === 429) {
+      const retry = Math.max(1, Number(error?.retryAfterSec || 10));
+      setStatusLine(`Ограничение API, попробуйте через ${retry} сек.`, "warn");
+    } else if (Number(error?.status || 0) === 404) {
+      setStatusLine("Нет результата в НКРЯ", "warn");
+    } else {
+      setStatusLine("Ошибка запроса к НКРЯ", "warn");
+    }
+    setMessage(userErrorMessage(error, validated.value), true);
   } finally {
     clearTimeout(timeout);
     if (requestId === activeRequestId) {
@@ -751,6 +525,7 @@ wordNode.addEventListener("input", () => {
   }
 
   if (enforced.trimmed) {
+    setStatusLine("Проверьте ввод", "warn");
     setMessage("Пожалуйста, вводите только одно слово. Лишний текст убран автоматически.");
     return;
   }

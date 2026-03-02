@@ -5,6 +5,18 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const processStartedAt = Date.now();
+
+function readAppVersionFromPackage() {
+  try {
+    const pkgPath = path.join(__dirname, "package.json");
+    const pkg = JSON.parse(readFileSync(pkgPath, "utf8"));
+    const v = String(pkg?.version || "").trim();
+    return v || "0.0.0-dev";
+  } catch {
+    return "0.0.0-dev";
+  }
+}
 
 function clampInt(raw, fallback, min, max) {
   const n = Number(raw);
@@ -38,6 +50,13 @@ loadDotEnv(path.join(__dirname, ".env"));
 const PORT = Number(process.env.PORT || 4173);
 const HOST = process.env.HOST || "0.0.0.0";
 const MAX_REQUEST_BODY_BYTES = Number(process.env.MAX_REQUEST_BODY_BYTES || 16 * 1024);
+const APP_VERSION = process.env.APP_VERSION || readAppVersionFromPackage();
+const APP_COMMIT =
+  process.env.APP_COMMIT
+  || process.env.RENDER_GIT_COMMIT
+  || process.env.GIT_COMMIT
+  || "dev";
+const APP_BUILD_TIME = process.env.APP_BUILD_TIME || new Date().toISOString();
 
 const NKRY_API_BASE_URL = process.env.NKRY_API_BASE_URL || "https://ruscorpora.ru/api/v1/";
 const NKRY_SEARCH_PATH = process.env.NKRY_SEARCH_PATH || "lex-gramm/concordance";
@@ -46,18 +65,41 @@ const NKRY_API_KEY_HEADER = process.env.NKRY_API_KEY_HEADER || "Authorization";
 const NKRY_API_AUTH_PREFIX = process.env.NKRY_API_AUTH_PREFIX || "Bearer";
 const NKRY_CORPUS_TYPE = process.env.NKRY_CORPUS_TYPE || "MAIN";
 const NKRY_SORTING = process.env.NKRY_SORTING || "grcreated";
-const NKRY_FETCH_TIMEOUT_MS = clampInt(process.env.NKRY_FETCH_TIMEOUT_MS, 9000, 1500, 30000);
-const NKRY_FETCH_RETRIES = clampInt(process.env.NKRY_FETCH_RETRIES, 2, 0, 6);
+const NKRY_ALGO_REVISION = "chrono-v2";
+const NKRY_FETCH_TIMEOUT_MS = clampInt(process.env.NKRY_FETCH_TIMEOUT_MS, 12000, 1500, 45000);
+const NKRY_FETCH_RETRIES = clampInt(process.env.NKRY_FETCH_RETRIES, 1, 0, 6);
 const NKRY_FETCH_BACKOFF_MS = clampInt(process.env.NKRY_FETCH_BACKOFF_MS, 280, 60, 3000);
+const NKRY_FETCH_BACKOFF_JITTER_MS = clampInt(process.env.NKRY_FETCH_BACKOFF_JITTER_MS, 220, 0, 2000);
+const NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC = clampInt(process.env.NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC, 6, 1, 180);
+const NKRY_RATE_LIMIT_COOLDOWN_MAX_SEC = Math.max(
+  NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC,
+  clampInt(process.env.NKRY_RATE_LIMIT_COOLDOWN_MAX_SEC, 120, 1, 900)
+);
 const NKRY_FIRST_USAGE_MAX_PAGES = clampInt(process.env.NKRY_FIRST_USAGE_MAX_PAGES, 12, 1, 60);
 const NKRY_DEEP_SCAN_MAX_PAGES = clampInt(process.env.NKRY_DEEP_SCAN_MAX_PAGES, 42, 1, 200);
 const NKRY_DEEP_SCAN_YEAR_THRESHOLD = clampInt(process.env.NKRY_DEEP_SCAN_YEAR_THRESHOLD, 1900, 1600, 2100);
 const NKRY_SPREAD_SCAN_POINTS = clampInt(process.env.NKRY_SPREAD_SCAN_POINTS, 18, 0, 120);
 const NKRY_TAIL_SCAN_PAGES = clampInt(process.env.NKRY_TAIL_SCAN_PAGES, 28, 0, 120);
+const NKRY_HIGH_FREQ_PAGE_THRESHOLD = clampInt(process.env.NKRY_HIGH_FREQ_PAGE_THRESHOLD, 1200, 50, 10000);
+const NKRY_HIGH_FREQ_DEEP_SCAN_MAX_PAGES = clampInt(process.env.NKRY_HIGH_FREQ_DEEP_SCAN_MAX_PAGES, 28, 8, 200);
+const NKRY_HIGH_FREQ_SPREAD_SCAN_POINTS = clampInt(process.env.NKRY_HIGH_FREQ_SPREAD_SCAN_POINTS, 10, 0, 80);
+const NKRY_HIGH_FREQ_TAIL_SCAN_PAGES = clampInt(process.env.NKRY_HIGH_FREQ_TAIL_SCAN_PAGES, 12, 0, 80);
 const NKRY_MAX_TOTAL_PAGES = clampInt(process.env.NKRY_MAX_TOTAL_PAGES, 96, 8, 400);
-const NKRY_MAX_TOTAL_MS = clampInt(process.env.NKRY_MAX_TOTAL_MS, 18000, 3000, 60000);
+const NKRY_MAX_TOTAL_MS = clampInt(process.env.NKRY_MAX_TOTAL_MS, 12000, 3000, 60000);
+const NKRY_STRICT_MAX_TOTAL_PAGES = clampInt(process.env.NKRY_STRICT_MAX_TOTAL_PAGES, 220, 20, 1500);
+const NKRY_STRICT_MAX_TOTAL_MS = clampInt(process.env.NKRY_STRICT_MAX_TOTAL_MS, 28000, 5000, 120000);
+const NKRY_EMPTY_SCAN_STOP_PAGES = clampInt(process.env.NKRY_EMPTY_SCAN_STOP_PAGES, 6, 2, 40);
+const NKRY_EARLY_EXIT_YEAR = clampInt(process.env.NKRY_EARLY_EXIT_YEAR, 1850, 1600, 2100);
 const NKRY_CACHE_TTL_MS = clampInt(process.env.NKRY_CACHE_TTL_MS, 5 * 60 * 1000, 1000, 60 * 60 * 1000);
+const NKRY_CACHE_STALE_TTL_MS = clampInt(process.env.NKRY_CACHE_STALE_TTL_MS, 60 * 60 * 1000, 5000, 24 * 60 * 60 * 1000);
 const NKRY_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_CACHE_MAX_ENTRIES, 300, 20, 2000);
+const NKRY_PAGE_CACHE_TTL_MS = clampInt(process.env.NKRY_PAGE_CACHE_TTL_MS, 90 * 1000, 1000, 20 * 60 * 1000);
+const NKRY_PAGE_CACHE_STALE_TTL_MS = clampInt(process.env.NKRY_PAGE_CACHE_STALE_TTL_MS, 30 * 60 * 1000, 5000, 6 * 60 * 60 * 1000);
+const NKRY_PAGE_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_PAGE_CACHE_MAX_ENTRIES, 2000, 100, 20000);
+const NKRY_WARM_CACHE_ENABLED = process.env.NKRY_WARM_CACHE_ENABLED !== "0";
+const NKRY_WARM_CACHE_INTERVAL_MS = clampInt(process.env.NKRY_WARM_CACHE_INTERVAL_MS, 45000, 8000, 5 * 60 * 1000);
+const NKRY_WARM_CACHE_TOP_WORDS = clampInt(process.env.NKRY_WARM_CACHE_TOP_WORDS, 8, 1, 100);
+const NKRY_WARM_CACHE_MIN_HITS = clampInt(process.env.NKRY_WARM_CACHE_MIN_HITS, 2, 1, 100);
 const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
 const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
 const NKRY_STRICT_CHRONOLOGY_DEFAULT = process.env.NKRY_STRICT_CHRONOLOGY_DEFAULT !== "0";
@@ -67,8 +109,24 @@ const NKRY_MIN_RELEVANCE_SCORE = Math.max(
   0,
   Math.min(1, Number(process.env.NKRY_MIN_RELEVANCE_SCORE || 0.72))
 );
-const queryCache = new Map();
+const freshCache = new Map();
+const staleCache = new Map();
+const pageFreshCache = new Map();
+const pageStaleCache = new Map();
+const requestWordStats = new Map();
+let warmCacheRunning = false;
 let nkryCooldownUntil = 0;
+let requestSeq = 0;
+
+function logEvent(event, payload = {}, level = "info") {
+  const line = {
+    ts: new Date().toISOString(),
+    level,
+    event,
+    ...payload
+  };
+  console.log(JSON.stringify(line));
+}
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -94,6 +152,13 @@ function sendJson(res, status, payload) {
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function addJitter(ms, jitterMaxMs) {
+  const base = Math.max(0, Number(ms || 0));
+  const jitter = Math.max(0, Number(jitterMaxMs || 0));
+  if (!jitter) return base;
+  return base + Math.floor(Math.random() * (jitter + 1));
 }
 
 function parseRetryAfterSeconds(value) {
@@ -188,17 +253,69 @@ function buildNkryPayload(word, fieldName = "lex") {
   };
 }
 
-function withPage(endpoint, page) {
+function withPage(endpoint, page, sorting = NKRY_SORTING) {
   const url = new URL(endpoint);
   url.searchParams.set("page", String(page));
-  if (NKRY_SORTING) url.searchParams.set("sorting", NKRY_SORTING);
+  if (sorting) url.searchParams.set("sorting", sorting);
   return url.toString();
 }
 
-async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "lex") {
+function createRequestBudget(strictChronology = false) {
+  return {
+    maxPages: strictChronology ? NKRY_STRICT_MAX_TOTAL_PAGES : NKRY_MAX_TOTAL_PAGES,
+    maxMs: strictChronology ? NKRY_STRICT_MAX_TOTAL_MS : NKRY_MAX_TOTAL_MS,
+    startedAt: Date.now(),
+    pagesUsed: 0,
+    stopReason: ""
+  };
+}
+
+function isBudgetExhausted(budget) {
+  if (!budget) return false;
+  if (budget.pagesUsed >= budget.maxPages) {
+    budget.stopReason ||= "maxPages";
+    return true;
+  }
+  if (Date.now() - budget.startedAt >= budget.maxMs) {
+    budget.stopReason ||= "maxMs";
+    return true;
+  }
+  return false;
+}
+
+function markBudgetPageUse(budget) {
+  if (!budget) return;
+  budget.pagesUsed += 1;
+}
+
+function pageCacheKey(word, page, fieldName, sorting = NKRY_SORTING) {
+  return [
+    NKRY_ALGO_REVISION,
+    NKRY_CORPUS_TYPE,
+    sorting || "",
+    String(fieldName || "lex"),
+    String(word || ""),
+    String(page || 1)
+  ].join("|");
+}
+
+async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "lex", budget = null, sorting = NKRY_SORTING) {
   let lastError = null;
-  const pageEndpoint = withPage(endpoint, page);
+  const pageEndpoint = withPage(endpoint, page, sorting);
+  const pKey = pageCacheKey(word, page, fieldName, sorting);
+  const cachedPage = getFromCache(pageFreshCache, pKey, false);
+  if (cachedPage) return cachedPage;
+
+  if (isBudgetExhausted(budget)) {
+    const err = new Error("Достигнут бюджет запроса до НКРЯ.");
+    err.code = "NKRY_BUDGET_EXCEEDED";
+    throw err;
+  }
+  markBudgetPageUse(budget);
+
   if (Date.now() < nkryCooldownUntil) {
+    const stalePage = getFromCache(pageStaleCache, pKey, false);
+    if (stalePage) return stalePage;
     const waitSec = Math.max(1, Math.ceil((nkryCooldownUntil - Date.now()) / 1000));
     const err = new Error(`НКРЯ временно ограничил частоту запросов. Повторите через ${waitSec} сек.`);
     err.code = "NKRY_RATE_LIMIT";
@@ -226,8 +343,14 @@ async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "l
         const err = new Error(`НКРЯ API вернул статус ${response.status}: ${text.slice(0, 250)}`);
         if (response.status === 429) {
           const retryAfterSec = parseRetryAfterSeconds(response.headers.get("retry-after"));
-          const cooldownSec = Math.max(6, retryAfterSec || 0);
-          nkryCooldownUntil = Date.now() + cooldownSec * 1000;
+          const cooldownSec = Math.max(
+            NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC,
+            Math.min(
+              NKRY_RATE_LIMIT_COOLDOWN_MAX_SEC,
+              retryAfterSec || NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC
+            )
+          );
+          nkryCooldownUntil = Math.max(nkryCooldownUntil, Date.now() + cooldownSec * 1000);
           err.code = "NKRY_RATE_LIMIT";
           err.retryAfterSec = cooldownSec;
         }
@@ -235,7 +358,10 @@ async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "l
         if (!retriable || attempt >= NKRY_FETCH_RETRIES) throw err;
         lastError = err;
       } else {
-        return response.json();
+        const payload = await response.json();
+        setToCache(pageFreshCache, pKey, payload, NKRY_PAGE_CACHE_TTL_MS, NKRY_PAGE_CACHE_MAX_ENTRIES);
+        setToCache(pageStaleCache, pKey, payload, NKRY_PAGE_CACHE_STALE_TTL_MS, NKRY_PAGE_CACHE_MAX_ENTRIES);
+        return payload;
       }
     } catch (error) {
       const retriable =
@@ -251,7 +377,7 @@ async function fetchNkryPage(endpoint, authValue, word, page = 1, fieldName = "l
       clearTimeout(timeout);
     }
 
-    await sleep(NKRY_FETCH_BACKOFF_MS * (attempt + 1));
+    await sleep(addJitter(NKRY_FETCH_BACKOFF_MS * (attempt + 1), NKRY_FETCH_BACKOFF_JITTER_MS));
   }
 
   throw lastError || new Error("НКРЯ недоступен.");
@@ -487,6 +613,14 @@ function computeYearConfidence(best, candidates, modes) {
   return Math.max(0, Math.min(1, Number(score.toFixed(2))));
 }
 
+function isSufficientlyEarlyYear(yearNum, strictChronology = false) {
+  if (!Number.isFinite(yearNum)) return false;
+  const threshold = strictChronology
+    ? Math.min(NKRY_EARLY_EXIT_YEAR, NKRY_STRICT_EARLY_YEAR_TARGET)
+    : NKRY_EARLY_EXIT_YEAR;
+  return yearNum <= threshold;
+}
+
 function buildSpreadPages(maxAvailablePage, startPage, points) {
   const maxPage = Math.max(1, Number(maxAvailablePage || 1));
   const start = Math.max(1, Number(startPage || 1));
@@ -521,9 +655,9 @@ function buildOrthographyVariants(word) {
 }
 
 async function collectCandidatesForField(endpoint, authValue, word, fieldName = "lex", options = {}) {
-  const deadlineAt = Number(options.deadlineAt || Number.POSITIVE_INFINITY);
   const budget = options.budget || null;
   const strictChronology = Boolean(options.strictChronology);
+  const sorting = String(options.sorting || NKRY_SORTING);
 
   const firstPhaseMax = strictChronology
     ? Math.min(NKRY_FIRST_USAGE_MAX_PAGES * 2, NKRY_STRICT_MAX_PAGES)
@@ -539,10 +673,13 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     : NKRY_TAIL_SCAN_PAGES;
 
   async function fetchBudgeted(page) {
-    if (Date.now() > deadlineAt) return null;
-    if (budget && budget.remaining <= 0) return null;
-    if (budget) budget.remaining -= 1;
-    return fetchNkryPage(endpoint, authValue, word, page, fieldName);
+    if (isBudgetExhausted(budget)) return null;
+    try {
+      return await fetchNkryPage(endpoint, authValue, word, page, fieldName, budget, sorting);
+    } catch (error) {
+      if (error?.code === "NKRY_BUDGET_EXCEEDED") return null;
+      throw error;
+    }
   }
 
   const firstPayload = await fetchBudgeted(1);
@@ -559,11 +696,19 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
   const parsedFirst = parseConcordanceCandidates(firstPayload, word, 1);
 
   const maxAvailablePage = Math.max(1, Number(parsedFirst.maxPage || 1));
+  const isHighFrequencyWord = !strictChronology && maxAvailablePage >= NKRY_HIGH_FREQ_PAGE_THRESHOLD;
+  const tunedSpreadPoints = isHighFrequencyWord
+    ? Math.min(spreadPoints, NKRY_HIGH_FREQ_SPREAD_SCAN_POINTS)
+    : spreadPoints;
+  const tunedTailPagesCount = isHighFrequencyWord
+    ? Math.min(tailPagesCount, NKRY_HIGH_FREQ_TAIL_SCAN_PAGES)
+    : tailPagesCount;
   const phaseOneMaxPage = Math.max(1, Math.min(maxAvailablePage, firstPhaseMax));
 
   let allCandidates = [...parsedFirst.candidates];
   let scannedPages = 1;
   const scannedPageSet = new Set([1]);
+  let emptyStreak = parsedFirst.candidates.length ? 0 : 1;
 
   for (let page = 2; page <= phaseOneMaxPage; page += 1) {
     try {
@@ -573,6 +718,23 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
       allCandidates = allCandidates.concat(parsed.candidates);
       scannedPages += 1;
       scannedPageSet.add(page);
+      if (parsed.candidates.length) {
+        emptyStreak = 0;
+      } else if (!allCandidates.length) {
+        emptyStreak += 1;
+      }
+      if (!allCandidates.length && emptyStreak >= NKRY_EMPTY_SCAN_STOP_PAGES) break;
+      const maybeBest = pickEarliestCandidate(allCandidates);
+      if (maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology)) {
+        return {
+          fieldName,
+          allCandidates,
+          best: maybeBest,
+          scannedPages,
+          maxAvailablePage,
+          appliedSorting: parsedFirst.appliedSorting || ""
+        };
+      }
     } catch {
       // keep successful pages only
     }
@@ -584,7 +746,10 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     && phaseOneMaxPage < maxAvailablePage;
 
   if (shouldDeepScan) {
-    const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, deepPhaseMax));
+    const deepPhaseCap = isHighFrequencyWord
+      ? Math.min(deepPhaseMax, NKRY_HIGH_FREQ_DEEP_SCAN_MAX_PAGES)
+      : deepPhaseMax;
+    const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, deepPhaseCap));
     for (let page = phaseOneMaxPage + 1; page <= phaseTwoMaxPage; page += 1) {
       try {
         const payload = await fetchBudgeted(page);
@@ -593,6 +758,23 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
         scannedPageSet.add(page);
+        if (parsed.candidates.length) {
+          emptyStreak = 0;
+        } else if (!allCandidates.length) {
+          emptyStreak += 1;
+        }
+        if (!allCandidates.length && emptyStreak >= NKRY_EMPTY_SCAN_STOP_PAGES) break;
+        const maybeBest = pickEarliestCandidate(allCandidates);
+        if (maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology)) {
+          return {
+            fieldName,
+            allCandidates,
+            best: maybeBest,
+            scannedPages,
+            maxAvailablePage,
+            appliedSorting: parsedFirst.appliedSorting || ""
+          };
+        }
       } catch {
         // ignore failed deep pages
       }
@@ -603,7 +785,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
       (!best || !Number.isFinite(best.yearNum) || best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD)
       && phaseTwoMaxPage < maxAvailablePage;
     if (shouldSpreadScan) {
-      const spreadPages = buildSpreadPages(maxAvailablePage, phaseTwoMaxPage + 1, spreadPoints);
+      const spreadPages = buildSpreadPages(maxAvailablePage, phaseTwoMaxPage + 1, tunedSpreadPoints);
       for (const page of spreadPages) {
         if (scannedPageSet.has(page)) continue;
         try {
@@ -613,6 +795,23 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
           allCandidates = allCandidates.concat(parsed.candidates);
           scannedPages += 1;
           scannedPageSet.add(page);
+          if (parsed.candidates.length) {
+            emptyStreak = 0;
+          } else if (!allCandidates.length) {
+            emptyStreak += 1;
+          }
+          if (!allCandidates.length && emptyStreak >= NKRY_EMPTY_SCAN_STOP_PAGES) break;
+          const maybeBest = pickEarliestCandidate(allCandidates);
+          if (maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology)) {
+            return {
+              fieldName,
+              allCandidates,
+              best: maybeBest,
+              scannedPages,
+              maxAvailablePage,
+              appliedSorting: parsedFirst.appliedSorting || ""
+            };
+          }
         } catch {
           // ignore failed sampled pages
         }
@@ -622,7 +821,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
   }
 
   if (maxAvailablePage > 1) {
-    const tailPages = buildTailPages(maxAvailablePage, tailPagesCount);
+    const tailPages = buildTailPages(maxAvailablePage, tunedTailPagesCount);
     for (const page of tailPages) {
       if (scannedPageSet.has(page)) continue;
       try {
@@ -632,6 +831,23 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
         scannedPageSet.add(page);
+        if (parsed.candidates.length) {
+          emptyStreak = 0;
+        } else if (!allCandidates.length) {
+          emptyStreak += 1;
+        }
+        if (!allCandidates.length && emptyStreak >= NKRY_EMPTY_SCAN_STOP_PAGES) break;
+        const maybeBest = pickEarliestCandidate(allCandidates);
+        if (maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology)) {
+          return {
+            fieldName,
+            allCandidates,
+            best: maybeBest,
+            scannedPages,
+            maxAvailablePage,
+            appliedSorting: parsedFirst.appliedSorting || ""
+          };
+        }
       } catch {
         // ignore failed tail pages
       }
@@ -656,6 +872,23 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
         allCandidates = allCandidates.concat(parsed.candidates);
         scannedPages += 1;
         scannedPageSet.add(page);
+        if (parsed.candidates.length) {
+          emptyStreak = 0;
+        } else if (!allCandidates.length) {
+          emptyStreak += 1;
+        }
+        if (!allCandidates.length && emptyStreak >= NKRY_EMPTY_SCAN_STOP_PAGES) break;
+        const maybeBest = pickEarliestCandidate(allCandidates);
+        if (maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, true)) {
+          return {
+            fieldName,
+            allCandidates,
+            best: maybeBest,
+            scannedPages,
+            maxAvailablePage,
+            appliedSorting: parsedFirst.appliedSorting || ""
+          };
+        }
       } catch {
         // ignore failed strict-scan pages
       }
@@ -669,55 +902,130 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     best,
     scannedPages,
     maxAvailablePage,
+    isHighFrequencyWord,
     appliedSorting: parsedFirst.appliedSorting || ""
   };
+}
+
+function alternateChronologySorting(sorting) {
+  const current = String(sorting || "").trim();
+  if (current === "grcreated") return "grcreated_inv";
+  if (current === "grcreated_inv") return "grcreated";
+  return "";
 }
 
 async function findFirstUsage(word, options = {}) {
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
   const strictChronology = options.strictChronology ?? NKRY_STRICT_CHRONOLOGY_DEFAULT;
-  const budget = { remaining: NKRY_MAX_TOTAL_PAGES };
-  const deadlineAt = Date.now() + NKRY_MAX_TOTAL_MS;
+  const baseSorting = String(options.sorting || NKRY_SORTING);
+  const budget = createRequestBudget(strictChronology);
 
-  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", { deadlineAt, budget, strictChronology });
+  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", {
+    budget,
+    strictChronology,
+    sorting: baseSorting
+  });
   let combinedCandidates = [...lexProbe.allCandidates];
   let scannedPages = lexProbe.scannedPages;
   let appliedSorting = lexProbe.appliedSorting;
   const modes = ["lex"];
+  let highFrequencyTuned = Boolean(lexProbe.isHighFrequencyWord);
+  let earlyExited = Boolean(lexProbe.best && isSufficientlyEarlyYear(lexProbe.best.yearNum, strictChronology));
 
   const shouldProbeForm =
-    NKRY_USE_FORM_FALLBACK
+    !earlyExited
+    && NKRY_USE_FORM_FALLBACK
     && (!lexProbe.best || !Number.isFinite(lexProbe.best.yearNum) || lexProbe.best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD);
   if (shouldProbeForm) {
     try {
-      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget, strictChronology });
+      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", {
+        budget,
+        strictChronology,
+        sorting: baseSorting
+      });
       combinedCandidates = combinedCandidates.concat(formProbe.allCandidates);
       scannedPages += formProbe.scannedPages;
       if (!appliedSorting) appliedSorting = formProbe.appliedSorting;
       modes.push("form");
+      highFrequencyTuned = highFrequencyTuned || Boolean(formProbe.isHighFrequencyWord);
+      const maybeBest = pickEarliestCandidate(combinedCandidates);
+      earlyExited = Boolean(maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology));
     } catch {
       // keep lex results if form query failed
     }
   }
 
-  if (NKRY_USE_OLD_ORTHO_VARIANTS && shouldProbeForm) {
+  if (NKRY_USE_OLD_ORTHO_VARIANTS && shouldProbeForm && !earlyExited) {
     const variants = buildOrthographyVariants(word).filter((v) => v !== word);
     for (const variant of variants) {
+      if (earlyExited || isBudgetExhausted(budget)) break;
       try {
-        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form", { deadlineAt, budget, strictChronology });
+        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form", {
+          budget,
+          strictChronology,
+          sorting: baseSorting
+        });
         combinedCandidates = combinedCandidates.concat(variantProbe.allCandidates);
         scannedPages += variantProbe.scannedPages;
         if (!appliedSorting) appliedSorting = variantProbe.appliedSorting;
         modes.push(`form:${variant}`);
+        highFrequencyTuned = highFrequencyTuned || Boolean(variantProbe.isHighFrequencyWord);
+        const maybeBest = pickEarliestCandidate(combinedCandidates);
+        earlyExited = Boolean(maybeBest && isSufficientlyEarlyYear(maybeBest.yearNum, strictChronology));
       } catch {
         // keep other probes if a single variant fails
       }
     }
   }
 
-  const allCandidates = combinedCandidates;
-  const best = pickEarliestCandidate(allCandidates);
+  let allCandidates = combinedCandidates;
+  let best = pickEarliestCandidate(allCandidates);
+  const triedSortings = [baseSorting];
+  let switchedSorting = false;
+
+  const altSorting = alternateChronologySorting(baseSorting);
+  if (
+    strictChronology
+    && altSorting
+    && best
+    && Number.isFinite(best.yearNum)
+    && best.yearNum > NKRY_STRICT_EARLY_YEAR_TARGET
+  ) {
+    const altBudget = createRequestBudget(true);
+    const altLexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", {
+      budget: altBudget,
+      strictChronology: true,
+      sorting: altSorting
+    });
+    const altCandidates = [...altLexProbe.allCandidates];
+    let altScannedPages = altLexProbe.scannedPages;
+
+    if (NKRY_USE_FORM_FALLBACK) {
+      try {
+        const altFormProbe = await collectCandidatesForField(endpoint, authValue, word, "form", {
+          budget: altBudget,
+          strictChronology: true,
+          sorting: altSorting
+        });
+        altCandidates.push(...altFormProbe.allCandidates);
+        altScannedPages += altFormProbe.scannedPages;
+      } catch {
+        // preserve alt lex results
+      }
+    }
+
+    const altBest = pickEarliestCandidate(altCandidates);
+    if (altBest && (!best || altBest.yearNum < best.yearNum)) {
+      allCandidates = allCandidates.concat(altCandidates);
+      best = altBest;
+      scannedPages += altScannedPages;
+      if (!appliedSorting) appliedSorting = altLexProbe.appliedSorting;
+      switchedSorting = true;
+    }
+    triedSortings.push(altSorting);
+  }
+
   const yearConfidence = computeYearConfidence(best, allCandidates, modes);
 
   if (!best) return null;
@@ -735,10 +1043,19 @@ async function findFirstUsage(word, options = {}) {
       candidates: allCandidates.length,
       chosenPage: best.page,
       chosenYear: Number.isFinite(best.yearNum) ? best.yearNum : null,
-      sortingRequested: NKRY_SORTING,
+      sortingRequested: baseSorting,
       sortingApplied: appliedSorting || "",
+      triedSortings,
+      switchedSorting,
       searchModes: modes,
       strictChronology,
+      highFrequencyTuned,
+      budgetMaxPages: budget.maxPages,
+      budgetMaxMs: budget.maxMs,
+      budgetUsedPages: budget.pagesUsed,
+      budgetStopReason: budget.stopReason || "",
+      earlyExitYear: NKRY_EARLY_EXIT_YEAR,
+      earlyExited,
       yearConfidence,
       relevanceThreshold: NKRY_MIN_RELEVANCE_SCORE,
       chosenRelevanceScore: Number(best.relevanceScore || 0),
@@ -748,29 +1065,85 @@ async function findFirstUsage(word, options = {}) {
 }
 
 function cacheKey(word, strictChronology = NKRY_STRICT_CHRONOLOGY_DEFAULT) {
-  return `${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${strictChronology ? "strict" : "normal"}|${word}`;
+  return `${NKRY_ALGO_REVISION}|${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${strictChronology ? "strict" : "normal"}|${word}`;
 }
 
-function getCached(key, allowStale = false) {
-  const hit = queryCache.get(key);
+function getFromCache(map, key, allowStale = false) {
+  const hit = map.get(key);
   if (!hit) return null;
   if (Date.now() > hit.expiresAt && !allowStale) {
-    queryCache.delete(key);
+    map.delete(key);
     return null;
   }
   return hit.value;
 }
 
-function setCached(key, value) {
-  if (queryCache.size >= NKRY_CACHE_MAX_ENTRIES) {
-    const firstKey = queryCache.keys().next().value;
-    if (firstKey) queryCache.delete(firstKey);
+function setToCache(map, key, value, ttlMs, maxEntries = NKRY_CACHE_MAX_ENTRIES) {
+  if (map.size >= maxEntries) {
+    const firstKey = map.keys().next().value;
+    if (firstKey) map.delete(firstKey);
   }
-  queryCache.set(key, { value, expiresAt: Date.now() + NKRY_CACHE_TTL_MS });
+  map.set(key, { value, expiresAt: Date.now() + ttlMs });
+}
+
+function getFreshCached(key) {
+  return getFromCache(freshCache, key, false);
+}
+
+function getStaleCached(key) {
+  return getFromCache(staleCache, key, false);
+}
+
+function setCached(key, value) {
+  setToCache(freshCache, key, value, NKRY_CACHE_TTL_MS);
+  setToCache(staleCache, key, value, NKRY_CACHE_STALE_TTL_MS);
+}
+
+function markWordRequested(word) {
+  const key = normalizeWord(word);
+  if (!key) return;
+  const prev = requestWordStats.get(key) || 0;
+  requestWordStats.set(key, prev + 1);
+}
+
+function getWarmWords() {
+  return Array.from(requestWordStats.entries())
+    .filter(([, count]) => count >= NKRY_WARM_CACHE_MIN_HITS)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, NKRY_WARM_CACHE_TOP_WORDS)
+    .map(([word]) => word);
+}
+
+async function runWarmCachePass() {
+  if (!NKRY_WARM_CACHE_ENABLED || warmCacheRunning) return;
+  if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) return;
+  if (Date.now() < nkryCooldownUntil) return;
+
+  const words = getWarmWords();
+  if (!words.length) return;
+
+  warmCacheRunning = true;
+  try {
+    for (const word of words) {
+      if (Date.now() < nkryCooldownUntil) break;
+      const key = cacheKey(word, NKRY_STRICT_CHRONOLOGY_DEFAULT);
+      if (getFreshCached(key)) continue;
+      try {
+        const result = await findFirstUsage(word, { strictChronology: NKRY_STRICT_CHRONOLOGY_DEFAULT });
+        if (result) setCached(key, result);
+      } catch {
+        // warm-cache is best-effort only
+      }
+    }
+  } finally {
+    warmCacheRunning = false;
+  }
 }
 
 async function handleNkrySearch(req, res) {
+  const reqId = req.__reqId || "";
   if (!NKRY_API_BASE_URL || !NKRY_SEARCH_PATH || !NKRY_API_KEY) {
+    logEvent("nkry.search.unconfigured", { reqId }, "warn");
     sendJson(res, 503, {
       error: "НКРЯ не настроен на сервере. Задайте NKRY_API_BASE_URL, NKRY_SEARCH_PATH и NKRY_API_KEY."
     });
@@ -782,23 +1155,28 @@ async function handleNkrySearch(req, res) {
     body = await parseRequestBody(req);
   } catch (error) {
     if (error?.message === "payload_too_large") {
+      logEvent("nkry.search.payload_too_large", { reqId }, "warn");
       sendJson(res, 413, { error: "Слишком большой JSON в запросе." });
       return;
     }
+    logEvent("nkry.search.bad_json", { reqId }, "warn");
     sendJson(res, 400, { error: "Некорректный JSON в запросе." });
     return;
   }
 
   const validation = validateOneWord(body.word);
   if (!validation.ok) {
+    logEvent("nkry.search.bad_input", { reqId, reason: validation.reason }, "warn");
     sendJson(res, 400, { error: validation.reason });
     return;
   }
+  markWordRequested(validation.value);
+
+  const strictChronology = body?.strictChronology ?? NKRY_STRICT_CHRONOLOGY_DEFAULT;
 
   try {
-    const strictChronology = body?.strictChronology ?? NKRY_STRICT_CHRONOLOGY_DEFAULT;
     const key = cacheKey(validation.value, strictChronology);
-    const cached = getCached(key);
+    const cached = getFreshCached(key);
     const result = cached || await findFirstUsage(validation.value, { strictChronology });
     if (!result) {
       sendJson(res, 404, {
@@ -807,6 +1185,14 @@ async function handleNkrySearch(req, res) {
       return;
     }
     if (!cached) setCached(key, result);
+    logEvent("nkry.search.success", {
+      reqId,
+      word: validation.value,
+      strictChronology,
+      cached: Boolean(cached),
+      chosenYear: result?.meta?.chosenYear ?? null,
+      pagesScanned: result?.meta?.pagesScanned ?? null
+    });
 
     sendJson(res, 200, {
       quote: {
@@ -822,8 +1208,13 @@ async function handleNkrySearch(req, res) {
   } catch (error) {
     if (error?.code === "NKRY_RATE_LIMIT") {
       const key = cacheKey(validation.value, strictChronology);
-      const stale = getCached(key, true);
+      const stale = getStaleCached(key);
       if (stale) {
+        logEvent("nkry.search.rate_limited_cache_fallback", {
+          reqId,
+          word: validation.value,
+          retryAfterSec: error?.retryAfterSec || null
+        }, "warn");
         sendJson(res, 200, {
           quote: {
             quote: stale.quote,
@@ -844,11 +1235,22 @@ async function handleNkrySearch(req, res) {
         return;
       }
 
+      logEvent("nkry.search.rate_limited", {
+        reqId,
+        word: validation.value,
+        retryAfterSec: error?.retryAfterSec || null
+      }, "warn");
       sendJson(res, 429, {
-        error: `НКРЯ временно ограничил частоту запросов. Подождите ${error?.retryAfterSec || 10} сек и повторите.`
+        error: `НКРЯ временно ограничил частоту запросов. Подождите ${error?.retryAfterSec || 10} сек и повторите.`,
+        retryAfterSec: error?.retryAfterSec || 10
       });
       return;
     }
+    logEvent("nkry.search.error", {
+      reqId,
+      word: validation.value,
+      message: String(error?.message || "unknown")
+    }, "error");
     sendJson(res, 502, {
       error: `Ошибка обращения к НКРЯ: ${error?.message || "неизвестная ошибка"}`
     });
@@ -899,6 +1301,19 @@ function serveStatic(req, res) {
 }
 
 const server = http.createServer(async (req, res) => {
+  const reqId = `${Date.now().toString(36)}-${(requestSeq += 1).toString(36)}`;
+  req.__reqId = reqId;
+  const startedAt = Date.now();
+  res.once("finish", () => {
+    logEvent("http.request.completed", {
+      reqId,
+      method: req.method,
+      path: req.url?.split("?")[0] || "",
+      status: res.statusCode,
+      durationMs: Date.now() - startedAt
+    });
+  });
+
   try {
     if (req.method === "POST" && req.url === "/api/nkry/search") {
       await handleNkrySearch(req, res);
@@ -906,7 +1321,17 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (req.method === "GET" && req.url === "/api/health") {
-      sendJson(res, 200, { ok: true, corpus: NKRY_CORPUS_TYPE, now: new Date().toISOString() });
+      sendJson(res, 200, {
+        ok: true,
+        now: new Date().toISOString(),
+        uptimeSec: Math.floor((Date.now() - processStartedAt) / 1000),
+        corpus: NKRY_CORPUS_TYPE,
+        build: {
+          version: APP_VERSION,
+          commit: APP_COMMIT,
+          builtAt: APP_BUILD_TIME
+        }
+      });
       return;
     }
 
@@ -922,8 +1347,51 @@ const server = http.createServer(async (req, res) => {
 });
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (NKRY_WARM_CACHE_ENABLED) {
+    setInterval(() => {
+      runWarmCachePass().catch(() => {});
+    }, NKRY_WARM_CACHE_INTERVAL_MS).unref();
+  }
+
   server.listen(PORT, HOST, () => {
-    console.log(`Server started: http://${HOST}:${PORT}`);
+    logEvent("server.started", {
+      url: `http://${HOST}:${PORT}`,
+      build: {
+        version: APP_VERSION,
+        commit: APP_COMMIT,
+        builtAt: APP_BUILD_TIME
+      },
+      governor: {
+        retries: NKRY_FETCH_RETRIES,
+        backoffMs: NKRY_FETCH_BACKOFF_MS,
+        jitterMs: NKRY_FETCH_BACKOFF_JITTER_MS,
+        cooldownMinSec: NKRY_RATE_LIMIT_COOLDOWN_MIN_SEC,
+        cooldownMaxSec: NKRY_RATE_LIMIT_COOLDOWN_MAX_SEC
+      },
+      budget: {
+        maxPages: NKRY_MAX_TOTAL_PAGES,
+        maxMs: NKRY_MAX_TOTAL_MS,
+        strictMaxPages: NKRY_STRICT_MAX_TOTAL_PAGES,
+        strictMaxMs: NKRY_STRICT_MAX_TOTAL_MS,
+        earlyExitYear: NKRY_EARLY_EXIT_YEAR,
+        emptyScanStopPages: NKRY_EMPTY_SCAN_STOP_PAGES
+      },
+      highFrequencyTuning: {
+        pageThreshold: NKRY_HIGH_FREQ_PAGE_THRESHOLD,
+        deepScanMaxPages: NKRY_HIGH_FREQ_DEEP_SCAN_MAX_PAGES,
+        spreadScanPoints: NKRY_HIGH_FREQ_SPREAD_SCAN_POINTS,
+        tailScanPages: NKRY_HIGH_FREQ_TAIL_SCAN_PAGES
+      },
+      cache: {
+        freshMs: NKRY_CACHE_TTL_MS,
+        staleMs: NKRY_CACHE_STALE_TTL_MS,
+        entries: NKRY_CACHE_MAX_ENTRIES,
+        pageFreshMs: NKRY_PAGE_CACHE_TTL_MS,
+        pageStaleMs: NKRY_PAGE_CACHE_STALE_TTL_MS,
+        pageEntries: NKRY_PAGE_CACHE_MAX_ENTRIES
+      },
+      warmCache: NKRY_WARM_CACHE_ENABLED ? `on/${NKRY_WARM_CACHE_INTERVAL_MS}ms` : "off"
+    });
   });
 }
 
