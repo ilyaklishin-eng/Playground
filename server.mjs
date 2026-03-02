@@ -1,7 +1,7 @@
 import http from "node:http";
 import path from "node:path";
 import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +60,9 @@ const NKRY_CACHE_TTL_MS = clampInt(process.env.NKRY_CACHE_TTL_MS, 5 * 60 * 1000,
 const NKRY_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_CACHE_MAX_ENTRIES, 300, 20, 2000);
 const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
 const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
+const NKRY_STRICT_CHRONOLOGY_DEFAULT = process.env.NKRY_STRICT_CHRONOLOGY_DEFAULT !== "0";
+const NKRY_STRICT_EARLY_YEAR_TARGET = clampInt(process.env.NKRY_STRICT_EARLY_YEAR_TARGET, 1900, 1600, 2100);
+const NKRY_STRICT_MAX_PAGES = clampInt(process.env.NKRY_STRICT_MAX_PAGES, 220, 20, 1500);
 const NKRY_MIN_RELEVANCE_SCORE = Math.max(
   0,
   Math.min(1, Number(process.env.NKRY_MIN_RELEVANCE_SCORE || 0.72))
@@ -414,7 +417,14 @@ function parseConcordanceCandidates(payload, word, page) {
             matchedWord: word,
             page,
             relevanceScore,
-            relevanceMode: hasHit ? "hit" : matchInfo.mode
+            relevanceMode: hasHit ? "hit" : matchInfo.mode,
+            docId: String(
+              snippet?.source?.docSource?.docId
+              || doc?.info?.source?.docId
+              || ""
+            ),
+            snippetStart: Number(snippet?.source?.start ?? NaN),
+            snippetEnd: Number(snippet?.source?.end ?? NaN)
           });
         }
       }
@@ -428,10 +438,29 @@ function parseConcordanceCandidates(payload, word, page) {
 function pickEarliestCandidate(candidates) {
   if (!Array.isArray(candidates) || !candidates.length) return null;
 
+  function better(left, right) {
+    if (!right) return left;
+    if (!left) return right;
+    if (left.yearNum !== right.yearNum) return left.yearNum < right.yearNum ? left : right;
+    if ((left.relevanceScore || 0) !== (right.relevanceScore || 0)) {
+      return (left.relevanceScore || 0) > (right.relevanceScore || 0) ? left : right;
+    }
+    if ((left.page || Number.POSITIVE_INFINITY) !== (right.page || Number.POSITIVE_INFINITY)) {
+      return (left.page || Number.POSITIVE_INFINITY) < (right.page || Number.POSITIVE_INFINITY) ? left : right;
+    }
+    return left.quote.length <= right.quote.length ? left : right;
+  }
+
   const dedup = new Map();
   for (const candidate of candidates) {
-    const key = `${candidate.quote}__${candidate.author}__${candidate.title}`;
-    if (!dedup.has(key)) dedup.set(key, candidate);
+    const hasDocFragment =
+      candidate?.docId
+      && Number.isFinite(candidate?.snippetStart)
+      && Number.isFinite(candidate?.snippetEnd);
+    const key = hasDocFragment
+      ? `${candidate.docId}__${candidate.snippetStart}__${candidate.snippetEnd}`
+      : `${candidate.quote}__${candidate.author}__${candidate.title}`;
+    dedup.set(key, better(candidate, dedup.get(key)));
   }
 
   const unique = Array.from(dedup.values());
@@ -494,6 +523,20 @@ function buildOrthographyVariants(word) {
 async function collectCandidatesForField(endpoint, authValue, word, fieldName = "lex", options = {}) {
   const deadlineAt = Number(options.deadlineAt || Number.POSITIVE_INFINITY);
   const budget = options.budget || null;
+  const strictChronology = Boolean(options.strictChronology);
+
+  const firstPhaseMax = strictChronology
+    ? Math.min(NKRY_FIRST_USAGE_MAX_PAGES * 2, NKRY_STRICT_MAX_PAGES)
+    : NKRY_FIRST_USAGE_MAX_PAGES;
+  const deepPhaseMax = strictChronology
+    ? Math.min(Math.max(NKRY_DEEP_SCAN_MAX_PAGES * 2, firstPhaseMax), NKRY_STRICT_MAX_PAGES)
+    : NKRY_DEEP_SCAN_MAX_PAGES;
+  const spreadPoints = strictChronology
+    ? Math.max(NKRY_SPREAD_SCAN_POINTS, 40)
+    : NKRY_SPREAD_SCAN_POINTS;
+  const tailPagesCount = strictChronology
+    ? Math.max(NKRY_TAIL_SCAN_PAGES, 40)
+    : NKRY_TAIL_SCAN_PAGES;
 
   async function fetchBudgeted(page) {
     if (Date.now() > deadlineAt) return null;
@@ -516,7 +559,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
   const parsedFirst = parseConcordanceCandidates(firstPayload, word, 1);
 
   const maxAvailablePage = Math.max(1, Number(parsedFirst.maxPage || 1));
-  const phaseOneMaxPage = Math.max(1, Math.min(maxAvailablePage, NKRY_FIRST_USAGE_MAX_PAGES));
+  const phaseOneMaxPage = Math.max(1, Math.min(maxAvailablePage, firstPhaseMax));
 
   let allCandidates = [...parsedFirst.candidates];
   let scannedPages = 1;
@@ -541,7 +584,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     && phaseOneMaxPage < maxAvailablePage;
 
   if (shouldDeepScan) {
-    const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, NKRY_DEEP_SCAN_MAX_PAGES));
+    const phaseTwoMaxPage = Math.max(phaseOneMaxPage, Math.min(maxAvailablePage, deepPhaseMax));
     for (let page = phaseOneMaxPage + 1; page <= phaseTwoMaxPage; page += 1) {
       try {
         const payload = await fetchBudgeted(page);
@@ -560,7 +603,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
       (!best || !Number.isFinite(best.yearNum) || best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD)
       && phaseTwoMaxPage < maxAvailablePage;
     if (shouldSpreadScan) {
-      const spreadPages = buildSpreadPages(maxAvailablePage, phaseTwoMaxPage + 1, NKRY_SPREAD_SCAN_POINTS);
+      const spreadPages = buildSpreadPages(maxAvailablePage, phaseTwoMaxPage + 1, spreadPoints);
       for (const page of spreadPages) {
         if (scannedPageSet.has(page)) continue;
         try {
@@ -579,7 +622,7 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
   }
 
   if (maxAvailablePage > 1) {
-    const tailPages = buildTailPages(maxAvailablePage, NKRY_TAIL_SCAN_PAGES);
+    const tailPages = buildTailPages(maxAvailablePage, tailPagesCount);
     for (const page of tailPages) {
       if (scannedPageSet.has(page)) continue;
       try {
@@ -596,6 +639,30 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
     best = pickEarliestCandidate(allCandidates);
   }
 
+  if (
+    strictChronology
+    && maxAvailablePage > 1
+    && best
+    && Number.isFinite(best.yearNum)
+    && best.yearNum > NKRY_STRICT_EARLY_YEAR_TARGET
+  ) {
+    const strictEndPage = Math.max(1, Math.min(maxAvailablePage, NKRY_STRICT_MAX_PAGES));
+    for (let page = 2; page <= strictEndPage; page += 1) {
+      if (scannedPageSet.has(page)) continue;
+      try {
+        const payload = await fetchBudgeted(page);
+        if (!payload) break;
+        const parsed = parseConcordanceCandidates(payload, word, page);
+        allCandidates = allCandidates.concat(parsed.candidates);
+        scannedPages += 1;
+        scannedPageSet.add(page);
+      } catch {
+        // ignore failed strict-scan pages
+      }
+    }
+    best = pickEarliestCandidate(allCandidates);
+  }
+
   return {
     fieldName,
     allCandidates,
@@ -606,13 +673,14 @@ async function collectCandidatesForField(endpoint, authValue, word, fieldName = 
   };
 }
 
-async function findFirstUsage(word) {
+async function findFirstUsage(word, options = {}) {
   const endpoint = new URL(String(NKRY_SEARCH_PATH || "").replace(/^\/+/, ""), NKRY_API_BASE_URL).toString();
   const authValue = NKRY_API_AUTH_PREFIX ? `${NKRY_API_AUTH_PREFIX} ${NKRY_API_KEY}` : NKRY_API_KEY;
+  const strictChronology = options.strictChronology ?? NKRY_STRICT_CHRONOLOGY_DEFAULT;
   const budget = { remaining: NKRY_MAX_TOTAL_PAGES };
   const deadlineAt = Date.now() + NKRY_MAX_TOTAL_MS;
 
-  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", { deadlineAt, budget });
+  const lexProbe = await collectCandidatesForField(endpoint, authValue, word, "lex", { deadlineAt, budget, strictChronology });
   let combinedCandidates = [...lexProbe.allCandidates];
   let scannedPages = lexProbe.scannedPages;
   let appliedSorting = lexProbe.appliedSorting;
@@ -623,7 +691,7 @@ async function findFirstUsage(word) {
     && (!lexProbe.best || !Number.isFinite(lexProbe.best.yearNum) || lexProbe.best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD);
   if (shouldProbeForm) {
     try {
-      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget });
+      const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget, strictChronology });
       combinedCandidates = combinedCandidates.concat(formProbe.allCandidates);
       scannedPages += formProbe.scannedPages;
       if (!appliedSorting) appliedSorting = formProbe.appliedSorting;
@@ -637,7 +705,7 @@ async function findFirstUsage(word) {
     const variants = buildOrthographyVariants(word).filter((v) => v !== word);
     for (const variant of variants) {
       try {
-        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form", { deadlineAt, budget });
+        const variantProbe = await collectCandidatesForField(endpoint, authValue, variant, "form", { deadlineAt, budget, strictChronology });
         combinedCandidates = combinedCandidates.concat(variantProbe.allCandidates);
         scannedPages += variantProbe.scannedPages;
         if (!appliedSorting) appliedSorting = variantProbe.appliedSorting;
@@ -670,6 +738,7 @@ async function findFirstUsage(word) {
       sortingRequested: NKRY_SORTING,
       sortingApplied: appliedSorting || "",
       searchModes: modes,
+      strictChronology,
       yearConfidence,
       relevanceThreshold: NKRY_MIN_RELEVANCE_SCORE,
       chosenRelevanceScore: Number(best.relevanceScore || 0),
@@ -678,8 +747,8 @@ async function findFirstUsage(word) {
   };
 }
 
-function cacheKey(word) {
-  return `${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${word}`;
+function cacheKey(word, strictChronology = NKRY_STRICT_CHRONOLOGY_DEFAULT) {
+  return `${NKRY_CORPUS_TYPE}|${NKRY_SORTING}|${strictChronology ? "strict" : "normal"}|${word}`;
 }
 
 function getCached(key, allowStale = false) {
@@ -727,9 +796,10 @@ async function handleNkrySearch(req, res) {
   }
 
   try {
-    const key = cacheKey(validation.value);
+    const strictChronology = body?.strictChronology ?? NKRY_STRICT_CHRONOLOGY_DEFAULT;
+    const key = cacheKey(validation.value, strictChronology);
     const cached = getCached(key);
-    const result = cached || await findFirstUsage(validation.value);
+    const result = cached || await findFirstUsage(validation.value, { strictChronology });
     if (!result) {
       sendJson(res, 404, {
         error: `Для слова «${validation.value}» в выбранном корпусе не найдено цитат.`
@@ -751,7 +821,7 @@ async function handleNkrySearch(req, res) {
     });
   } catch (error) {
     if (error?.code === "NKRY_RATE_LIMIT") {
-      const key = cacheKey(validation.value);
+      const key = cacheKey(validation.value, strictChronology);
       const stale = getCached(key, true);
       if (stale) {
         sendJson(res, 200, {
@@ -851,6 +921,15 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, HOST, () => {
-  console.log(`Server started: http://${HOST}:${PORT}`);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  server.listen(PORT, HOST, () => {
+    console.log(`Server started: http://${HOST}:${PORT}`);
+  });
+}
+
+export {
+  parseConcordanceCandidates,
+  pickEarliestCandidate,
+  computeYearConfidence,
+  validateOneWord
+};
