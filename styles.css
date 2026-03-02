@@ -1,19 +1,21 @@
 :root {
-  --bg: #f7f4ed;
-  --bg-2: #efe9db;
-  --surface: #fffefb;
-  --surface-2: #f8f4eb;
-  --ink: #141a2a;
-  --ink-soft: #5b6780;
-  --line: #ddd4c3;
-  --brand: #1b4f95;
-  --brand-strong: #123d76;
-  --highlight: #f6eaa9;
+  --bg: #f5f3ee;
+  --bg-2: #ece9e1;
+  --surface: #fffdfa;
+  --surface-2: #f6f3eb;
+  --ink: #161c2b;
+  --ink-soft: #57627b;
+  --line: #d9d4c8;
+  --brand: #1f5aa8;
+  --brand-strong: #174680;
+  --highlight: #f7e38e;
   --error: #a23d36;
   --ok: #2a5f3f;
-  --radius-xl: 26px;
-  --radius-lg: 16px;
+  --radius-xl: 30px;
+  --radius-lg: 18px;
   --radius-md: 12px;
+  --shadow-soft: 0 20px 38px rgba(20, 26, 42, 0.08);
+  --shadow-panel: 0 2px 0 rgba(255, 255, 255, 0.8) inset, var(--shadow-soft);
 }
 
 * {
@@ -30,19 +32,19 @@ body {
   color: var(--ink);
   font-family: "Sora", "Segoe UI", sans-serif;
   background:
-    radial-gradient(860px 520px at -15% -20%, #dee8fb 0%, transparent 70%),
-    radial-gradient(740px 480px at 115% 5%, #f2ddbc 0%, transparent 70%),
+    radial-gradient(860px 520px at -15% -20%, #dbe7fa 0%, transparent 70%),
+    radial-gradient(760px 480px at 115% 5%, #f1e1c8 0%, transparent 70%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
 }
 
 .page {
-  width: min(980px, calc(100% - 28px));
+  width: min(1140px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 30px 0 56px;
+  padding: 36px 0 62px;
 }
 
 .hero {
-  margin: 0 0 18px;
+  margin: 0 0 24px;
   text-align: center;
 }
 
@@ -58,10 +60,11 @@ body {
 .hero h1 {
   margin: 10px 0 0;
   font-family: "Prata", Georgia, serif;
-  font-size: clamp(40px, 5.7vw, 74px);
-  line-height: 0.94;
+  font-size: clamp(44px, 7.2vw, 106px);
+  line-height: 0.9;
   letter-spacing: -0.02em;
   font-weight: 400;
+  text-wrap: balance;
 }
 
 .hero h1 span {
@@ -69,27 +72,25 @@ body {
 }
 
 .subtitle {
-  margin: 12px auto 0;
-  max-width: 760px;
+  margin: 14px auto 0;
+  max-width: 840px;
   color: var(--ink-soft);
-  font-size: clamp(16px, 1.9vw, 24px);
-  line-height: 1.36;
-  font-weight: 500;
+  font-size: clamp(18px, 2.15vw, 38px);
+  line-height: 1.3;
+  font-weight: 600;
   text-wrap: balance;
 }
 
 .panel {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, var(--surface) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, var(--surface) 100%);
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
-  padding: 26px;
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.85) inset,
-    0 18px 34px rgba(20, 26, 42, 0.08);
+  padding: 30px;
+  box-shadow: var(--shadow-panel);
 }
 
 .panel + .panel {
-  margin-top: 14px;
+  margin-top: 18px;
 }
 
 .label {
@@ -107,14 +108,14 @@ body {
 
 input[type="text"] {
   width: 100%;
-  min-height: 68px;
-  padding: 14px 18px;
+  min-height: 74px;
+  padding: 14px 20px;
   border-radius: var(--radius-lg);
   border: 1px solid #c8d4e9;
   background: #ffffff;
   color: var(--ink);
   font: inherit;
-  font-size: clamp(23px, 2.5vw, 35px);
+  font-size: clamp(30px, 3vw, 52px);
   line-height: 1.1;
   transition: border-color 0.14s ease, box-shadow 0.14s ease;
 }
@@ -130,21 +131,21 @@ input[type="text"]:focus-visible {
 }
 
 .actions {
-  margin-top: 16px;
+  margin-top: 18px;
 }
 
 button {
-  min-height: 52px;
+  min-height: 56px;
   border: 0;
   border-radius: 999px;
-  padding: 10px 22px;
+  padding: 11px 28px;
   font: inherit;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(180deg, #2c66b2 0%, var(--brand) 100%);
+  background: linear-gradient(180deg, #2f6fbe 0%, var(--brand) 100%);
   cursor: pointer;
-  box-shadow: 0 10px 20px rgba(18, 61, 118, 0.26);
+  box-shadow: 0 10px 24px rgba(18, 61, 118, 0.28);
   transition: transform 0.14s ease, filter 0.14s ease;
 }
 
@@ -173,7 +174,7 @@ button:disabled {
 
 .result {
   border-color: #b6c7e6;
-  background: linear-gradient(180deg, #ffffff 0%, #fafdff 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
 }
 
 .result-head {
@@ -202,11 +203,12 @@ button:disabled {
 
 .quote {
   margin: 0;
-  padding-left: 14px;
+  max-width: 24ch;
+  padding-left: 16px;
   border-left: 4px solid #9ab4dc;
   font-family: "Prata", Georgia, serif;
-  font-size: clamp(30px, 3.2vw, 48px);
-  line-height: 1.18;
+  font-size: clamp(34px, 4vw, 70px);
+  line-height: 1.13;
   letter-spacing: -0.005em;
   text-wrap: pretty;
 }
@@ -219,40 +221,41 @@ button:disabled {
 
 .meta {
   margin: 14px 0 0;
-  font-size: clamp(16px, 1.45vw, 21px);
+  max-width: 68ch;
+  font-size: clamp(18px, 1.65vw, 28px);
   font-weight: 600;
-  line-height: 1.32;
+  line-height: 1.28;
 }
 
 .source {
-  margin: 7px 0 0;
+  margin: 8px 0 0;
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .context-grid {
-  margin-top: 16px;
+  margin-top: 22px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 16px;
 }
 
 .context-card {
   display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 14px;
+  grid-template-columns: 190px 1fr;
+  gap: 18px;
   align-items: center;
-  min-height: 206px;
-  padding: 16px;
+  min-height: 242px;
+  padding: 18px;
   border: 1px solid #d3dff0;
   border-radius: var(--radius-md);
   background: linear-gradient(180deg, #f7fbff 0%, #eef4fc 100%);
 }
 
 .context-card img {
-  width: 150px;
-  height: 150px;
-  border-radius: 10px;
+  width: 190px;
+  height: 190px;
+  border-radius: 14px;
   object-fit: cover;
   border: 1px solid #c9d8ef;
   background: #edf2fa;
@@ -269,15 +272,16 @@ button:disabled {
 
 .context-title {
   margin: 0;
-  font-size: 18px;
-  line-height: 1.28;
-  font-weight: 600;
+  font-size: clamp(24px, 1.7vw, 34px);
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 .context-meta {
-  margin: 5px 0 0;
+  margin: 8px 0 0;
   color: var(--ink-soft);
-  font-size: 15px;
+  font-size: clamp(18px, 1.25vw, 22px);
+  line-height: 1.28;
 }
 
 .hidden {
@@ -306,7 +310,7 @@ button:disabled {
   }
 
   .panel {
-    padding: 16px;
+    padding: 18px;
     border-radius: 16px;
   }
 
@@ -330,12 +334,12 @@ button:disabled {
 
   .context-card {
     min-height: auto;
-    grid-template-columns: 108px 1fr;
+    grid-template-columns: 120px 1fr;
   }
 
   .context-card img {
-    width: 108px;
-    height: 108px;
+    width: 120px;
+    height: 120px;
   }
 
   button {
