@@ -60,6 +60,10 @@ const NKRY_CACHE_TTL_MS = clampInt(process.env.NKRY_CACHE_TTL_MS, 5 * 60 * 1000,
 const NKRY_CACHE_MAX_ENTRIES = clampInt(process.env.NKRY_CACHE_MAX_ENTRIES, 300, 20, 2000);
 const NKRY_USE_FORM_FALLBACK = process.env.NKRY_USE_FORM_FALLBACK !== "0";
 const NKRY_USE_OLD_ORTHO_VARIANTS = process.env.NKRY_USE_OLD_ORTHO_VARIANTS !== "0";
+const NKRY_MIN_RELEVANCE_SCORE = Math.max(
+  0,
+  Math.min(1, Number(process.env.NKRY_MIN_RELEVANCE_SCORE || 0.72))
+);
 const queryCache = new Map();
 let nkryCooldownUntil = 0;
 
@@ -359,17 +363,19 @@ function commonPrefixLength(a, b) {
 
 function quoteRoughlyMatchesWord(quote, word) {
   const target = normalizeMatchValue(word);
-  if (!target) return false;
+  if (!target) return { matched: false, score: 0, mode: "none" };
 
   const tokens = String(quote || "").match(/[A-Za-zА-Яа-яЁё0-9-]+/gu) || [];
   for (const token of tokens) {
     const n = normalizeMatchValue(token);
     if (!n) continue;
-    if (n === target) return true;
-    if (n.startsWith(target) || target.startsWith(n)) return true;
-    if (commonPrefixLength(n, target) >= Math.min(4, Math.max(3, target.length - 1))) return true;
+    if (n === target) return { matched: true, score: 1, mode: "exact" };
+    if (n.startsWith(target) || target.startsWith(n)) return { matched: true, score: 0.92, mode: "prefix" };
+    if (commonPrefixLength(n, target) >= Math.min(4, Math.max(3, target.length - 1))) {
+      return { matched: true, score: 0.82, mode: "stem" };
+    }
   }
-  return false;
+  return { matched: false, score: 0, mode: "none" };
 }
 
 function parseConcordanceCandidates(payload, word, page) {
@@ -393,7 +399,10 @@ function parseConcordanceCandidates(payload, word, page) {
           const hasHit = (snippet?.sequences || []).some((sequence) =>
             (sequence?.words || []).some((w) => w?.displayParams?.hit)
           );
-          if (!hasHit && !quoteRoughlyMatchesWord(quote, word)) continue;
+          const matchInfo = quoteRoughlyMatchesWord(quote, word);
+          const relevanceScore = hasHit ? 1 : matchInfo.score;
+          if (!hasHit && !matchInfo.matched) continue;
+          if (relevanceScore < NKRY_MIN_RELEVANCE_SCORE) continue;
 
           candidates.push({
             quote,
@@ -403,7 +412,9 @@ function parseConcordanceCandidates(payload, word, page) {
             yearNum: Number.isFinite(year) ? year : Number.POSITIVE_INFINITY,
             sourceName: "НКРЯ",
             matchedWord: word,
-            page
+            page,
+            relevanceScore,
+            relevanceMode: hasHit ? "hit" : matchInfo.mode
           });
         }
       }
@@ -426,11 +437,25 @@ function pickEarliestCandidate(candidates) {
   const unique = Array.from(dedup.values());
   unique.sort((a, b) => {
     if (a.yearNum !== b.yearNum) return a.yearNum - b.yearNum;
+    if ((b.relevanceScore || 0) !== (a.relevanceScore || 0)) return (b.relevanceScore || 0) - (a.relevanceScore || 0);
     if (a.page !== b.page) return a.page - b.page;
     return a.quote.length - b.quote.length;
   });
 
   return unique[0] || null;
+}
+
+function computeYearConfidence(best, candidates, modes) {
+  if (!best || !Number.isFinite(best.yearNum)) return 0;
+  const sameYearCount = candidates.filter((c) => c.yearNum === best.yearNum).length;
+  const hasStrictHit = candidates.some((c) => c.yearNum === best.yearNum && c.relevanceMode === "hit");
+  let score = 0.5;
+  if (hasStrictHit) score += 0.22;
+  if (sameYearCount >= 2) score += 0.12;
+  if (sameYearCount >= 4) score += 0.08;
+  if ((best.relevanceScore || 0) >= 0.9) score += 0.06;
+  if ((modes || []).some((m) => String(m).startsWith("form:"))) score -= 0.04;
+  return Math.max(0, Math.min(1, Number(score.toFixed(2))));
 }
 
 function buildSpreadPages(maxAvailablePage, startPage, points) {
@@ -595,7 +620,7 @@ async function findFirstUsage(word) {
 
   const shouldProbeForm =
     NKRY_USE_FORM_FALLBACK
-    && (word.length <= 4 || !lexProbe.best || !Number.isFinite(lexProbe.best.yearNum) || lexProbe.best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD);
+    && (!lexProbe.best || !Number.isFinite(lexProbe.best.yearNum) || lexProbe.best.yearNum > NKRY_DEEP_SCAN_YEAR_THRESHOLD);
   if (shouldProbeForm) {
     try {
       const formProbe = await collectCandidatesForField(endpoint, authValue, word, "form", { deadlineAt, budget });
@@ -625,6 +650,7 @@ async function findFirstUsage(word) {
 
   const allCandidates = combinedCandidates;
   const best = pickEarliestCandidate(allCandidates);
+  const yearConfidence = computeYearConfidence(best, allCandidates, modes);
 
   if (!best) return null;
 
@@ -636,13 +662,18 @@ async function findFirstUsage(word) {
     sourceName: best.sourceName,
     meta: {
       matchedWord: word,
+      pagesScanned: scannedPages,
       scannedPages,
       candidates: allCandidates.length,
       chosenPage: best.page,
       chosenYear: Number.isFinite(best.yearNum) ? best.yearNum : null,
       sortingRequested: NKRY_SORTING,
       sortingApplied: appliedSorting || "",
-      searchModes: modes
+      searchModes: modes,
+      yearConfidence,
+      relevanceThreshold: NKRY_MIN_RELEVANCE_SCORE,
+      chosenRelevanceScore: Number(best.relevanceScore || 0),
+      chosenRelevanceMode: String(best.relevanceMode || "")
     }
   };
 }
