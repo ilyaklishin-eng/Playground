@@ -43,9 +43,16 @@ const slugify = (text = "") =>
     .replace(/-+/g, "-")
     .slice(0, 72) || "item";
 
+const toArray = (value) => (Array.isArray(value) ? value.filter(Boolean) : []);
+
 const buildPostHtml = (item, postPath) => {
   const title = `${item.title} | Ilya Klishin Digest`;
-  const description = item.digest || "Fact-based digest entry with source link.";
+  const summary = item.summary || item.digest || "";
+  const keyIdeas = toArray(item.key_ideas);
+  const quotes = toArray(item.quotes);
+  const valueContext = item.value_context || "";
+  const semanticTags = toArray(item.semantic_tags);
+  const description = summary || "Fact-based digest entry with source link.";
   const canonical = `${baseUrl}/${postPath}`;
   const sourceLink = item.url;
   const htmlLang = toHtmlLang(item.language);
@@ -66,6 +73,7 @@ const buildPostHtml = (item, postPath) => {
     mainEntityOfPage: canonical,
     url: canonical,
     description,
+    keywords: semanticTags.join(", "),
   };
 
   return `<!doctype html>
@@ -88,8 +96,13 @@ const buildPostHtml = (item, postPath) => {
       a { color: #0b4f7b; }
       .meta { color: #555; font-size: 0.95rem; }
       .back { margin-bottom: 20px; display: inline-block; }
+      .section { margin-top: 18px; }
+      h2 { margin: 0 0 8px; font-size: 1.05rem; }
+      ul { margin: 0; padding-left: 18px; }
+      li { margin: 6px 0; }
+      .quote { color: #444; font-style: italic; }
+      .tags { color: #555; font-size: 0.9rem; }
       .source { margin-top: 24px; }
-      blockquote { margin: 20px 0; padding: 14px 18px; background: #fff; border-left: 4px solid #0b4f7b; }
     </style>
   </head>
   <body>
@@ -97,8 +110,30 @@ const buildPostHtml = (item, postPath) => {
       <a class="back" href="../index.html">&larr; Back to digest index</a>
       <h1>${htmlEscape(item.title)}</h1>
       <p class="meta">${htmlEscape(item.source || "-")} | ${htmlEscape(item.date || "-")} | ${htmlEscape(item.language || "-")} | ${htmlEscape(item.topic || "-")}</p>
-      <p>${htmlEscape(item.digest || "")}</p>
-      <blockquote>${htmlEscape(item.quote || "")}</blockquote>
+      <section class="section">
+        <h2>Summary</h2>
+        <p>${htmlEscape(summary)}</p>
+      </section>
+      <section class="section">
+        <h2>Key Ideas</h2>
+        <ul>
+${keyIdeas.map((idea) => `          <li>${htmlEscape(idea)}</li>`).join("\n")}
+        </ul>
+      </section>
+      <section class="section">
+        <h2>Quotes</h2>
+        <ul>
+${quotes.map((q) => `          <li class="quote">${htmlEscape(q)} — ${htmlEscape(item.source || "Source")}</li>`).join("\n")}
+        </ul>
+      </section>
+      <section class="section">
+        <h2>Value / Context</h2>
+        <p>${htmlEscape(valueContext)}</p>
+      </section>
+      <section class="section">
+        <h2>Semantic Tags</h2>
+        <p class="tags">${htmlEscape(semanticTags.join(", "))}</p>
+      </section>
       <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">Open original source</a></p>
     </main>
   </body>
@@ -168,7 +203,9 @@ const buildRss = (entries) => {
     .map((entry) => {
       const link = `${baseUrl}/posts/${entry.postPath}`;
       const source = entry.item.url || "";
-      const description = `${entry.item.digest || ""}\n\nOriginal source: ${source}`;
+      const summary = entry.item.summary || entry.item.digest || "";
+      const valueContext = entry.item.value_context || "";
+      const description = `${summary}\n\n${valueContext}\n\nOriginal source: ${source}`;
       return `    <item>
       <title>${xmlEscape(entry.item.title)}</title>
       <link>${xmlEscape(link)}</link>
@@ -206,7 +243,8 @@ const main = async () => {
 
   const entries = [];
   for (const item of items) {
-    const slug = `${item.id || "item"}-${slugify(item.title || "entry")}`;
+    const explicitSlug = String(item.slug || "").trim().replace(/\.html$/i, "");
+    const slug = explicitSlug || `${item.id || "item"}-${slugify(item.title || "entry")}`;
     const postPath = `${slug}.html`;
     const html = buildPostHtml(item, `posts/${postPath}`);
     await fs.writeFile(path.join(postsDir, postPath), html, "utf8");

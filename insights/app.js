@@ -47,11 +47,19 @@ function render() {
     if (!langMatch) return false;
     if (!state.query) return true;
 
+    const keyIdeasText = Array.isArray(item.key_ideas) ? item.key_ideas.join(" ") : "";
+    const quotesText = Array.isArray(item.quotes) ? item.quotes.join(" ") : item.quote || "";
+    const tagsText = Array.isArray(item.semantic_tags) ? item.semantic_tags.join(" ") : "";
     const haystack = [
       item.title,
       item.source,
       item.topic,
+      item.summary,
       item.digest,
+      keyIdeasText,
+      quotesText,
+      item.value_context,
+      tagsText,
       item.language,
     ]
       .join(" ")
@@ -127,6 +135,12 @@ function renderGrid(items) {
   for (const item of items) {
     const node = template.content.firstElementChild.cloneNode(true);
 
+    const summary = item.summary || item.digest || "";
+    const keyIdeas = Array.isArray(item.key_ideas) ? item.key_ideas : [];
+    const quotes = Array.isArray(item.quotes) ? item.quotes : item.quote ? [item.quote] : [];
+    const valueContext = item.value_context || "";
+    const tags = Array.isArray(item.semantic_tags) ? item.semantic_tags : [];
+
     node.querySelector(".lang-tag").textContent = item.language;
 
     const statusTag = node.querySelector(".status-tag");
@@ -135,8 +149,26 @@ function renderGrid(items) {
 
     node.querySelector(".card-title").textContent = item.title;
     node.querySelector(".card-meta").textContent = `${item.source} • ${item.date} • ${item.topic}`;
-    node.querySelector(".card-digest").textContent = item.digest;
-    node.querySelector(".card-quote").textContent = item.quote;
+    node.querySelector(".card-summary").textContent = summary;
+
+    const ideasNode = node.querySelector(".card-ideas");
+    ideasNode.innerHTML = "";
+    for (const idea of keyIdeas) {
+      const li = document.createElement("li");
+      li.textContent = idea;
+      ideasNode.appendChild(li);
+    }
+
+    const quotesNode = node.querySelector(".card-quotes");
+    quotesNode.innerHTML = "";
+    for (const quote of quotes) {
+      const li = document.createElement("li");
+      li.textContent = `${quote} — ${item.source}`;
+      quotesNode.appendChild(li);
+    }
+
+    node.querySelector(".card-value").textContent = valueContext;
+    node.querySelector(".card-tags").textContent = tags.join(", ");
 
     const link = node.querySelector(".card-link");
     link.href = item.url;
