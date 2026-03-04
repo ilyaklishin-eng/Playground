@@ -1,0 +1,46 @@
+task_id	queue_id	url	source_lang	target_lang	format	status	verification_status	notes
+PT1	Q63	https://lenta.ru/news/2012/01/20/prishli/	RU	EN	fact_based_digest	queued	search_verified_only	Security-pressure claim around protest organizer role
+PT2	Q63	https://lenta.ru/news/2012/01/20/prishli/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT3	Q63	https://lenta.ru/news/2012/01/20/prishli/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT4	Q79	https://lenta.ru/news/2012/01/23/klishin/	RU	EN	fact_based_digest	queued	search_verified_only	Follow-up on pressure narrative
+PT5	Q79	https://lenta.ru/news/2012/01/23/klishin/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT6	Q79	https://lenta.ru/news/2012/01/23/klishin/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT7	Q64	https://lenta.ru/news/2012/02/21/whitecircle/	RU	EN	fact_based_digest	queued	search_verified_only	White Circle infrastructure incident
+PT8	Q64	https://lenta.ru/news/2012/02/21/whitecircle/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT9	Q64	https://lenta.ru/news/2012/02/21/whitecircle/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT10	Q90	https://os.colta.ru/news/details/33562/	RU	EN	fact_based_digest	queued	search_verified_only	OpenSpace organizer/pressure context
+PT11	Q90	https://os.colta.ru/news/details/33562/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT12	Q90	https://os.colta.ru/news/details/33562/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT13	Q234	https://republic.ru/posts/20566	RU	EN	fact_based_digest	queued	verified_open	Interview context: first-person account
+PT14	Q234	https://republic.ru/posts/20566	RU	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+PT15	Q234	https://republic.ru/posts/20566	RU	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+PT16	Q235	https://www.rbc.ru/politics/20/01/2012/5703f2149a7947ac81a640e2	RU	EN	fact_based_digest	queued	search_verified_only	Major Russian outlet coverage
+PT17	Q235	https://www.rbc.ru/politics/20/01/2012/5703f2149a7947ac81a640e2	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT18	Q235	https://www.rbc.ru/politics/20/01/2012/5703f2149a7947ac81a640e2	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT19	Q247	https://www.bfm.ru/news/172103	RU	EN	fact_based_digest	queued	search_verified_only	Organizer attribution in business-media context
+PT20	Q247	https://www.bfm.ru/news/172103	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT21	Q247	https://www.bfm.ru/news/172103	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT22	Q248	https://www.bfm.ru/news/172973	RU	EN	fact_based_digest	queued	search_verified_only	Repeated organizer attribution
+PT23	Q248	https://www.bfm.ru/news/172973	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT24	Q248	https://www.bfm.ru/news/172973	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT25	Q249	https://www.bfm.ru/news/173199	RU	EN	fact_based_digest	queued	search_verified_only	Creator of protest Facebook page context
+PT26	Q249	https://www.bfm.ru/news/173199	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT27	Q249	https://www.bfm.ru/news/173199	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT28	Q241	https://graniru.org/Politics/Russia/activism/m.194998.html	RU	EN	fact_based_digest	queued	verified_open	Organizer role + pressure in same item
+PT29	Q241	https://graniru.org/Politics/Russia/activism/m.194998.html	RU	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+PT30	Q241	https://graniru.org/Politics/Russia/activism/m.194998.html	RU	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+PT31	Q254	https://www.svoboda.org/a/24457733.html	RU	EN	fact_based_digest	queued	search_verified_only	Radio Svoboda pressure + organizer framing
+PT32	Q254	https://www.svoboda.org/a/24457733.html	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT33	Q254	https://www.svoboda.org/a/24457733.html	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT34	Q255	https://www.svoboda.org/a/24458035.html	RU	EN	fact_based_digest	queued	search_verified_only	Interview continuation for pressure context
+PT35	Q255	https://www.svoboda.org/a/24458035.html	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+PT36	Q255	https://www.svoboda.org/a/24458035.html	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+PT37	Q250	https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics	EN	EN	fact_based_digest	queued	verified_open	International corroboration
+PT38	Q250	https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics	EN	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+PT39	Q250	https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics	EN	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+PT40	Q251	https://www.hrw.org/news/2012/03/01/russia-harassment-critics	EN	EN	fact_based_digest	queued	verified_open	HRW rights-based corroboration
+PT41	Q251	https://www.hrw.org/news/2012/03/01/russia-harassment-critics	EN	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+PT42	Q251	https://www.hrw.org/news/2012/03/01/russia-harassment-critics	EN	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+PT43	Q253	https://news.trust.org/item/20120301050105-mclqp	EN	EN	fact_based_digest	queued	verified_open	Reuters-distributed corroboration
+PT44	Q253	https://news.trust.org/item/20120301050105-mclqp	EN	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+PT45	Q253	https://news.trust.org/item/20120301050105-mclqp	EN	DE	fact_based_digest	queued	verified_open	Translate/adapt to German

@@ -1,0 +1,41 @@
+batch_item	source_id	url	source_lang	target_lang	format	status	notes
+1	178	https://iranwire.com/en/blogs/67063/	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+2	179	https://iranwire.com/en/blogs/67758/	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+3	180	https://iranwire.com/en/blogs/68597/	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+4	142	https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+5	143	https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+6	144	https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+7	145	https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+8	146	https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+9	147	https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+10	148	https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+11	149	https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+12	150	https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+13	151	https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+14	152	https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+15	153	https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+16	154	https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+17	155	https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+18	156	https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+19	157	https://www.themoscowtimes.com/2020/07/10/russian-authorities-are-targeting-journalists-historians-and-activists-the-rest-of-us-could-be-next-a70838	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+20	158	https://www.themoscowtimes.com/2020/06/03/russians-watch-the-american-protests-as-clouds-gather-at-home-a70466	EN	DE	fact_based_digest	queued	Translate/adapt digest into German
+21	121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+22	105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+23	106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+24	124	https://ambivert.club/ilya-klishin/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+25	189	https://carnegie.ru/commentary/63383	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+26	59	https://lenta.ru/news/2011/11/30/epic/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+27	60	https://lenta.ru/articles/2012/04/09/klishin/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+28	112	https://mel.fm/ucheba/uchitelya/7495680-klishin	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+29	113	https://mel.fm/zhizn/razvlecheniya/1628439-potter	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+30	114	https://mel.fm/vospitaniye/psikhologiya/3056879-history_hate	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+31	115	https://mel.fm/vospitaniye/psikhologiya/8592763-essay	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+32	116	https://mel.fm/zhizn/istorii/3029718-american	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+33	89	https://os.colta.ru/media/net/details/33459/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+34	91	https://os.colta.ru/media/net/details/32317/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+35	92	https://os.colta.ru/media/net/details/32851/	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+36	93	https://republic.ru/posts/18877	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+37	94	https://republic.ru/posts/63346	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+38	95	https://republic.ru/posts/56254	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+39	96	https://republic.ru/posts/64976	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German
+40	97	https://republic.ru/posts/63786	RU	DE	fact_based_digest	queued	Translate RU summary + short quote into German

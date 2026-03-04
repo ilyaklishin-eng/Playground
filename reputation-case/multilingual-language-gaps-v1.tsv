@@ -1,0 +1,10 @@
+language	status	confidence	notes	action
+EN	found_strong	high	Multiple professional authored and coverage sources	Scale immediately
+ES	found_moderate	high	Professional coverage and at least one authored piece	Scale and expand
+RO	found_moderate	high	TEDx profile and event coverage	Scale as authority context
+LT	found_limited	medium	One professional interview-like page; crawler-limited	Verify manually then scale
+FR	not_found_in_this_pass	medium	No high-confidence professional pages found in this pass	Fill gap by publishing FR digest
+DE	not_found_in_this_pass	medium	No high-confidence professional pages found in this pass	Fill gap by publishing DE digest
+IT	not_found_in_this_pass	medium	No high-confidence professional pages found in this pass	Fill gap by publishing IT digest next wave
+PT	not_found_in_this_pass	medium	No high-confidence professional pages found in this pass	Optional next wave after EN/FR/DE
+PL	not_found_in_this_pass	medium	No high-confidence professional pages found in this pass	Optional next wave

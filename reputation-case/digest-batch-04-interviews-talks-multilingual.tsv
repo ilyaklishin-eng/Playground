@@ -1,0 +1,64 @@
+task_id	queue_id	url	source_lang	target_lang	format	status	verification_status	notes
+T1	Q48	https://www.the-village.ru/city/situation-comment/236513-klishin	RU	EN	fact_based_digest	queued	verified	Interview
+T2	Q48	https://www.the-village.ru/city/situation-comment/236513-klishin	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T3	Q48	https://www.the-village.ru/city/situation-comment/236513-klishin	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T4	Q59	https://lenta.ru/news/2011/11/30/epic/	RU	EN	fact_based_digest	queued	verified	Epic Hero coverage
+T5	Q59	https://lenta.ru/news/2011/11/30/epic/	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T6	Q59	https://lenta.ru/news/2011/11/30/epic/	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T7	Q60	https://lenta.ru/articles/2012/04/09/klishin/	RU	EN	fact_based_digest	queued	verified	Main interview
+T8	Q60	https://lenta.ru/articles/2012/04/09/klishin/	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T9	Q60	https://lenta.ru/articles/2012/04/09/klishin/	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T10	Q91	https://os.colta.ru/media/net/details/32317/	RU	EN	fact_based_digest	queued	verified	Interview
+T11	Q91	https://os.colta.ru/media/net/details/32317/	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T12	Q91	https://os.colta.ru/media/net/details/32317/	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T13	Q105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	RU	EN	fact_based_digest	queued	verified	Interview
+T14	Q105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T15	Q105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T16	Q106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	RU	EN	fact_based_digest	queued	verified	Interview
+T17	Q106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T18	Q106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T19	Q121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	RU	EN	fact_based_digest	queued	verified	Emigration project interview
+T20	Q121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T21	Q121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T22	Q124	https://ambivert.club/ilya-klishin/	RU	EN	fact_based_digest	queued	verified	Profile interview
+T23	Q124	https://ambivert.club/ilya-klishin/	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T24	Q124	https://ambivert.club/ilya-klishin/	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T25	Q135	https://www.youtube.com/watch?v=J5ON16Vfg8g	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T26	Q135	https://www.youtube.com/watch?v=J5ON16Vfg8g	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T27	Q135	https://www.youtube.com/watch?v=J5ON16Vfg8g	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T28	Q136	https://www.youtube.com/watch?v=v5UM_PtM6OI	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T29	Q136	https://www.youtube.com/watch?v=v5UM_PtM6OI	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T30	Q136	https://www.youtube.com/watch?v=v5UM_PtM6OI	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T31	Q137	https://www.youtube.com/watch?v=bUf_-k3ecMw	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T32	Q137	https://www.youtube.com/watch?v=bUf_-k3ecMw	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T33	Q137	https://www.youtube.com/watch?v=bUf_-k3ecMw	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T34	Q138	https://www.youtube.com/watch?v=89Er1NnSa5U	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T35	Q138	https://www.youtube.com/watch?v=89Er1NnSa5U	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T36	Q138	https://www.youtube.com/watch?v=89Er1NnSa5U	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T37	Q139	https://www.youtube.com/watch?v=1I0Ljo1rD9k	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T38	Q139	https://www.youtube.com/watch?v=1I0Ljo1rD9k	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T39	Q139	https://www.youtube.com/watch?v=1I0Ljo1rD9k	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T40	Q140	https://www.youtube.com/watch?v=r50qN2u8fQ0	RU	EN	fact_based_digest	queued	verified	From Wikipedia ext link; verify authenticity
+T41	Q140	https://www.youtube.com/watch?v=r50qN2u8fQ0	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T42	Q140	https://www.youtube.com/watch?v=r50qN2u8fQ0	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T43	Q190	https://www.ted.com/tedx/events/3947	EN	EN	fact_based_digest	queued	verified	Official TEDx event speaker profile (Ilya Klishin)
+T44	Q190	https://www.ted.com/tedx/events/3947	EN	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T45	Q190	https://www.ted.com/tedx/events/3947	EN	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T46	Q191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	RO	EN	fact_based_digest	queued	verified	Media coverage of TEDxChisinau talk
+T47	Q191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	RO	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T48	Q191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	RO	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T49	Q202	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	RO	EN	fact_based_digest	queued	verified	Romanian coverage of TEDx event
+T50	Q202	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	RO	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T51	Q202	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	RO	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T52	Q203	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	RO	EN	fact_based_digest	queued	verified	Romanian speaker list incl. Ilya Klishin
+T53	Q203	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	RO	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T54	Q203	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	RO	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T55	Q204	https://tedxchisinau.com/live/	RO	EN	fact_based_digest	queued	verified	Official TEDxChisinau site page
+T56	Q204	https://tedxchisinau.com/live/	RO	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T57	Q204	https://tedxchisinau.com/live/	RO	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T58	Q205	https://holod.media/2023/07/13/klishin-interview/	RU	EN	fact_based_digest	queued	verified	Confirmed by user on 2026-03-04
+T59	Q205	https://holod.media/2023/07/13/klishin-interview/	RU	FR	fact_based_digest	queued	verified	Translate/adapt to French
+T60	Q205	https://holod.media/2023/07/13/klishin-interview/	RU	DE	fact_based_digest	queued	verified	Translate/adapt to German
+T61	Q233	https://www.youtube.com/watch?v=5UAZpvKKAJY	EN	EN	fact_based_digest	queued	verified_user	User-provided TED talk video URL (2026-03-04)
+T62	Q233	https://www.youtube.com/watch?v=5UAZpvKKAJY	EN	FR	fact_based_digest	queued	verified_user	Translate/adapt to French
+T63	Q233	https://www.youtube.com/watch?v=5UAZpvKKAJY	EN	DE	fact_based_digest	queued	verified_user	Translate/adapt to German

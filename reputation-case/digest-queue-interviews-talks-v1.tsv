@@ -1,0 +1,24 @@
+queue_id	source_type	source_id	url	outlet	language	relation	priority	verification_status	notes
+Q48	verified	48	https://www.the-village.ru/city/situation-comment/236513-klishin	The Village	RU	interview_with_ilya	P1	verified	Interview
+Q59	verified	59	https://lenta.ru/news/2011/11/30/epic/	Lenta	RU	interview_with_ilya	P1	verified	Epic Hero coverage
+Q60	verified	60	https://lenta.ru/articles/2012/04/09/klishin/	Lenta	RU	interview_with_ilya	P1	verified	Main interview
+Q91	verified	91	https://os.colta.ru/media/net/details/32317/	OpenSpace/Colta	RU	interview_with_ilya	P1	verified	Interview
+Q105	verified	105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	AdIndex	RU	interview_with_ilya	P1	verified	Interview
+Q106	verified	106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	AdIndex	RU	interview_with_ilya	P1	verified	Interview
+Q121	verified	121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	7x7	RU	interview_with_ilya	P1	verified	Emigration project interview
+Q124	verified	124	https://ambivert.club/ilya-klishin/	Ambivert	RU	interview_with_ilya	P1	verified	Profile interview
+Q135	verified	135	https://www.youtube.com/watch?v=J5ON16Vfg8g	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q136	verified	136	https://www.youtube.com/watch?v=v5UM_PtM6OI	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q137	verified	137	https://www.youtube.com/watch?v=bUf_-k3ecMw	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q138	verified	138	https://www.youtube.com/watch?v=89Er1NnSa5U	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q139	verified	139	https://www.youtube.com/watch?v=1I0Ljo1rD9k	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q140	verified	140	https://www.youtube.com/watch?v=r50qN2u8fQ0	YouTube	RU	interview_with_ilya	P1	verified	From Wikipedia ext link; verify authenticity
+Q190	verified	190	https://www.ted.com/tedx/events/3947	TEDx / TED.com	EN	speaker_profile_tedx	P1	verified	Official TEDx event speaker profile (Ilya Klishin)
+Q191	verified	191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	RO	tedx_talk_coverage	P2	verified	Media coverage of TEDxChisinau talk
+Q202	verified	202	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	RO	tedx_talk_coverage	P2	verified	Romanian coverage of TEDx event
+Q203	verified	203	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	RO	tedx_talk_coverage	P2	verified	Romanian speaker list incl. Ilya Klishin
+Q204	verified	204	https://tedxchisinau.com/live/	TEDxChisinau	RO	tedx_talk_coverage	P2	verified	Official TEDxChisinau site page
+Q205	verified	205	https://holod.media/2023/07/13/klishin-interview/	Holod	RU	interview_with_ilya	P1	verified	Confirmed by user on 2026-03-04
+Q233	verified	233	https://www.youtube.com/watch?v=5UAZpvKKAJY	YouTube	EN	ted_talk_video	P1	verified_user	User-provided TED talk URL on 2026-03-04
+C1	candidate	1	https://www.ted.com/talks/ilya_klishin_social_media_propaganda_in_eastern_europe	TED / TEDx	EN	tedx_talk_video	P1	candidate_unverified	Potential talk URL candidate; verify exact TED talk page or YouTube mirror
+C3	candidate	3	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB (Lithuania)	LT	interview_with_ilya	P2	candidate_unverified	Search-verified; crawler fetch limited
