@@ -8,6 +8,14 @@ const siteDir = path.resolve(__dirname, "..");
 const dataPath = path.join(siteDir, "data", "digests.json");
 const postsDir = path.join(siteDir, "posts");
 const baseUrl = "https://ilyaklishin-eng.github.io/Playground/insights";
+const toHtmlLang = (value = "") => {
+  const lang = String(value || "").toUpperCase();
+  if (lang === "EN") return "en";
+  if (lang === "FR") return "fr";
+  if (lang === "DE") return "de";
+  if (lang === "ES") return "es";
+  return "en";
+};
 
 const htmlEscape = (value = "") =>
   String(value)
@@ -40,11 +48,12 @@ const buildPostHtml = (item, postPath) => {
   const description = item.digest || "Fact-based digest entry with source link.";
   const canonical = `${baseUrl}/${postPath}`;
   const sourceLink = item.url;
+  const htmlLang = toHtmlLang(item.language);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: item.title,
-    inLanguage: item.language,
+    inLanguage: htmlLang,
     datePublished: item.date || undefined,
     author: {
       "@type": "Person",
@@ -60,7 +69,7 @@ const buildPostHtml = (item, postPath) => {
   };
 
   return `<!doctype html>
-<html lang="en">
+<html lang="${htmlLang}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
