@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://ilyaklishin-eng.github.io/Playground/reputation-case/site/sitemap.xml

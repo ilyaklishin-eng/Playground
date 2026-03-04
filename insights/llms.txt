@@ -1,0 +1,16 @@
+# Ilya Klishin Fact-Based Digest
+
+Primary index page:
+https://ilyaklishin-eng.github.io/Playground/insights/index.html
+
+Static archive:
+https://ilyaklishin-eng.github.io/Playground/insights/posts/index.html
+
+Sitemap:
+https://ilyaklishin-eng.github.io/Playground/insights/sitemap.xml
+
+Policy:
+- Fact-based summaries only
+- Short quote snippets
+- Link to original publication in every item
+- No reposting of full texts
