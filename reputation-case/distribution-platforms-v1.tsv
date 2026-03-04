@@ -1,0 +1,32 @@
+priority	platform	format	publish_route	automation_level	agent_can_publish_after_one_time_setup	main_blocker	notes	official_source
+P1	Own Digest Site (GitHub Pages)	Website	Git push -> Pages publish	API/Git full	Yes	Need repo + token once	Fastest and safest primary canonical hub	https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
+P1	WordPress.com	Blog	REST API create/edit posts	API full	Yes	Need OAuth/app password	Strong SEO and plugin ecosystem	https://developer.wordpress.com/docs/api/getting-started/
+P1	WordPress (self-hosted)	Blog	/wp-json/wp/v2/posts	API full	Yes	Need site auth + role	Can syndicate to many mirrors	https://developer.wordpress.org/rest-api/reference/posts/
+P1	Ghost	Newsletter+Blog	Admin API POST /posts	API full	Yes	Need admin integration key	Excellent for multilingual long-form	https://ghost.org/docs/admin-api/
+P1	Hashnode	Blog	GraphQL mutations (create/publish)	API full	Yes	Need API token	Developer audience and SEO-friendly author pages	https://apidocs.hashnode.com/
+P1	DEV / Forem	Blog/community	Publish article endpoint	API full	Yes	Need api-key	Good discoverability in EN tech/media circles	https://developers.forem.com/api/v1
+P1	HubSpot CMS Blog	Blog	CMS Blog Posts API	API full	Yes	Need HubSpot app token	Enterprise-grade blog + multilingual fields	https://developers.hubspot.com/beta-docs/guides/api/cms/blogs/blog-posts
+P1	Wix Blog	Blog	Create draft + publish draft via API	API full	Yes	Need Wix app/user auth	Can bulk-create drafts and publish	https://dev.wix.com/docs/api-reference/business-solutions/blog/draft-posts/create-draft-post
+P1	Webflow CMS	Website CMS	Create/update/publish items	API full	Yes	Need Webflow token + collection mapping	Good for branded static-like publication	https://developers.webflow.com/data/docs/working-with-the-cms/publishing
+P1	Tumblr	Microblog	Tumblr API create post	API full	Yes	Need OAuth app	Indexable posts + tags + easy cross-posting	https://www.tumblr.com/docs/en/api/v2
+P1	Blogger	Blog	Google Blogger posts.insert	API full	Yes	Need Google OAuth	Simple and stable for long-term archives	https://developers.google.com/blogger/docs/3.0/reference/posts/insert
+P1	Write.as	Blog	POST /api/posts or /collections/{alias}/posts	API full	Yes	Need token/account setup	Minimalist SEO pages; easy automation	https://developers.write.as/docs/api/
+P1	Telegra.ph	Lightweight pages	createPage API	API full	Yes	Need access_token	Very fast publication and Telegram ecosystem reach	https://telegra.ph/api
+P1	Mastodon	Social long-post snippets	POST /api/v1/statuses	API full	Yes	Need OAuth user token	Use as distribution layer linking digest pages	https://docs.joinmastodon.org/methods/statuses/
+P1	Telegram channel	Distribution	Bot API sendMessage/sendPhoto	API full	Yes	Need bot token + channel admin	Strong RU/EU reach for link distribution	https://core.telegram.org/bots/api
+P1	Kit (ConvertKit)	Newsletter+web archive	Create broadcast (public=true)	API full	Yes	Need X-Kit-Api-Key	Broadcasts can be published to web URLs	https://developers.kit.com/api-reference/broadcasts/create-a-broadcast
+P1	Buttondown	Newsletter+archives	Create email via API	API full	Yes	Need API token	Public archives + RSS for syndication	https://docs.buttondown.com/api-emails-create
+P1	MailerLite	Newsletter	Create campaign via API	API full	Yes	Need API token	Useful for multilingual email and archives	https://developers.mailerlite.com/docs/campaigns
+P1	Brevo	Newsletter	Create email campaign API	API full	Yes	Need api-key	Good API ergonomics and sending controls	https://developers.brevo.com/reference/create-email-campaign
+P1	Mailchimp	Newsletter	Campaigns API + set content + send	API full	Yes	Need OAuth/API key	Mature ecosystem + automation	https://mailchimp.com/developer/marketing/api/campaigns/
+P2	Notion (public pages)	Knowledge pages	Create page / update markdown APIs	API full	Yes	Need Notion integration token	Can serve as multilingual fact sheets	https://developers.notion.com/reference/post-page
+P2	Substack	Newsletter+posts	Web publishing + import posts/RSS	Manual/import	Partial	No public write API for post publishing	High reputation weight for writer-branding; use manual + imports	https://support.substack.com/hc/en-us/articles/360037830351-How-do-I-import-my-posts-from-another-platform-such-as-Mailchimp-WordPress-Medium-or-Ghost
+P2	Substack profiles posting	Social posts	Publish directly from profile/dashboard	Manual	Partial	Web/app UI only	Useful as additional EN-facing stream	https://support.substack.com/hc/en-us/articles/29152946791188-How-can-I-publish-on-Substack
+P2	Medium	Long-form articles	Write/import story + publish	Manual/import	Partial	No reliable modern write API route in docs	Can import existing URL and set canonical	https://help.medium.com/hc/en-us/articles/214550207-Importing-a-post-to-Medium
+P2	Medium canonical control	SEO hygiene	Set canonical link in story settings	Manual	Partial	Web UI	Protects against duplicate-content SEO issues	https://help.medium.com/hc/en-us/articles/360033930293-Set-a-canonical-link
+P2	Beehiiv	Newsletter+web posts	Create post endpoint	API limited	Partial	Create-post API currently enterprise/beta	High-quality publication pages when available	https://developers.beehiiv.com/api-reference/posts/create
+P2	LinkedIn	Professional social	Share on LinkedIn (w_member_social)	API constrained	Partial	API approvals/scopes and policy limits	Strong brand reputation surface for name queries	https://learn.microsoft.com/en-us/linkedin/shared/authentication/getting-access
+P3	Squarespace	Website	Developer platform + templates/git	Manual/devops	Partial	No simple public blog-post API parity	Good branded hub if design-first is priority	https://developers.squarespace.com/
+P3	Discourse (self-hosted/community)	Forum publishing	API key based topic/post creation	API full	Yes	Need own Discourse instance/key	Useful as indexed Q&A and long-thread evidence hub	https://meta.discourse.org/t/create-and-configure-an-api-key/230124
+P2	X (Twitter)	Distribution	POST /2/tweets	API full	Yes	Need developer app + token	Fast amplification of each digest URL in EN sphere	https://docs.x.com/x-api/posts/create-or-edit-post
+P2	YouTube (video digest)	Video publishing	videos.insert	API constrained	Partial	Channel auth + API audit limits	Can publish short multilingual digest videos linking to site	https://developers.google.com/youtube/v3/docs/videos/insert

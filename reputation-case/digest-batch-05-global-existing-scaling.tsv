@@ -1,0 +1,116 @@
+task_id	source_id	source_lang	target_lang	url	outlet	verification_status	scaling_priority	status	notes
+G1	1	EN	EN	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	verified_open	P1	queued	Primary wave
+G2	1	EN	FR	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	verified_open	P1	queued	Translate/adapt to French
+G3	1	EN	DE	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	verified_open	P1	queued	Translate/adapt to German
+G4	1	EN	ES	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	verified_open	P1	queued	Translate/adapt to Spanish
+G5	1	EN	IT	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	verified_open	P1	queued	Translate/adapt to Italian
+G6	2	EN	EN	https://iranwire.com/en/blogs/67063/	IranWire	verified_open	P1	queued	Primary wave
+G7	2	EN	FR	https://iranwire.com/en/blogs/67063/	IranWire	verified_open	P1	queued	Translate/adapt to French
+G8	2	EN	DE	https://iranwire.com/en/blogs/67063/	IranWire	verified_open	P1	queued	Translate/adapt to German
+G9	2	EN	ES	https://iranwire.com/en/blogs/67063/	IranWire	verified_open	P1	queued	Translate/adapt to Spanish
+G10	2	EN	IT	https://iranwire.com/en/blogs/67063/	IranWire	verified_open	P1	queued	Translate/adapt to Italian
+G11	3	EN	EN	https://iranwire.com/en/blogs/67758/	IranWire	verified_open	P1	queued	Primary wave
+G12	3	EN	FR	https://iranwire.com/en/blogs/67758/	IranWire	verified_open	P1	queued	Translate/adapt to French
+G13	3	EN	DE	https://iranwire.com/en/blogs/67758/	IranWire	verified_open	P1	queued	Translate/adapt to German
+G14	3	EN	ES	https://iranwire.com/en/blogs/67758/	IranWire	verified_open	P1	queued	Translate/adapt to Spanish
+G15	3	EN	IT	https://iranwire.com/en/blogs/67758/	IranWire	verified_open	P1	queued	Translate/adapt to Italian
+G16	4	EN	EN	https://iranwire.com/en/blogs/68597/	IranWire	verified_open	P1	queued	Primary wave
+G17	4	EN	FR	https://iranwire.com/en/blogs/68597/	IranWire	verified_open	P1	queued	Translate/adapt to French
+G18	4	EN	DE	https://iranwire.com/en/blogs/68597/	IranWire	verified_open	P1	queued	Translate/adapt to German
+G19	4	EN	ES	https://iranwire.com/en/blogs/68597/	IranWire	verified_open	P1	queued	Translate/adapt to Spanish
+G20	4	EN	IT	https://iranwire.com/en/blogs/68597/	IranWire	verified_open	P1	queued	Translate/adapt to Italian
+G21	5	EN	EN	https://theins.ru/en/opinion/ilya-klishin	The Insider	verified_open	P1	queued	Primary wave
+G22	5	EN	FR	https://theins.ru/en/opinion/ilya-klishin	The Insider	verified_open	P1	queued	Translate/adapt to French
+G23	5	EN	DE	https://theins.ru/en/opinion/ilya-klishin	The Insider	verified_open	P1	queued	Translate/adapt to German
+G24	5	EN	ES	https://theins.ru/en/opinion/ilya-klishin	The Insider	verified_open	P1	queued	Translate/adapt to Spanish
+G25	5	EN	IT	https://theins.ru/en/opinion/ilya-klishin	The Insider	verified_open	P1	queued	Translate/adapt to Italian
+G26	6	EN	EN	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	verified_open	P1	queued	Primary wave
+G27	6	EN	FR	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	verified_open	P1	queued	Translate/adapt to French
+G28	6	EN	DE	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	verified_open	P1	queued	Translate/adapt to German
+G29	6	EN	ES	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	verified_open	P1	queued	Translate/adapt to Spanish
+G30	6	EN	IT	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	verified_open	P1	queued	Translate/adapt to Italian
+G31	7	EN	EN	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	verified_open	P1	queued	Primary wave
+G32	7	EN	FR	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	verified_open	P1	queued	Translate/adapt to French
+G33	7	EN	DE	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	verified_open	P1	queued	Translate/adapt to German
+G34	7	EN	ES	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	verified_open	P1	queued	Translate/adapt to Spanish
+G35	7	EN	IT	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	verified_open	P1	queued	Translate/adapt to Italian
+G36	11	EN	EN	https://www.ted.com/tedx/events/3947	TEDx/TED.com	verified_open	P1	queued	Primary wave
+G37	11	EN	FR	https://www.ted.com/tedx/events/3947	TEDx/TED.com	verified_open	P1	queued	Translate/adapt to French
+G38	11	EN	DE	https://www.ted.com/tedx/events/3947	TEDx/TED.com	verified_open	P1	queued	Translate/adapt to German
+G39	11	EN	ES	https://www.ted.com/tedx/events/3947	TEDx/TED.com	verified_open	P1	queued	Translate/adapt to Spanish
+G40	11	EN	IT	https://www.ted.com/tedx/events/3947	TEDx/TED.com	verified_open	P1	queued	Translate/adapt to Italian
+G41	14	ES	EN	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	verified_open	P1	queued	Primary wave
+G42	14	ES	FR	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	verified_open	P1	queued	Translate/adapt to French
+G43	14	ES	DE	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	verified_open	P1	queued	Translate/adapt to German
+G44	14	ES	ES	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	verified_open	P1	queued	Translate/adapt to Spanish
+G45	14	ES	IT	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	verified_open	P1	queued	Translate/adapt to Italian
+G46	20	RU	EN	https://holod.media/2023/07/13/klishin-interview/	Holod	verified_open	P1	queued	Primary wave
+G47	20	RU	FR	https://holod.media/2023/07/13/klishin-interview/	Holod	verified_open	P1	queued	Translate/adapt to French
+G48	20	RU	DE	https://holod.media/2023/07/13/klishin-interview/	Holod	verified_open	P1	queued	Translate/adapt to German
+G49	20	RU	ES	https://holod.media/2023/07/13/klishin-interview/	Holod	verified_open	P1	queued	Translate/adapt to Spanish
+G50	20	RU	IT	https://holod.media/2023/07/13/klishin-interview/	Holod	verified_open	P1	queued	Translate/adapt to Italian
+G51	21	RU	EN	https://snob.ru/selected/entry/81618/	Snob	verified_user	P1	queued	Primary wave
+G52	21	RU	FR	https://snob.ru/selected/entry/81618/	Snob	verified_user	P1	queued	Translate/adapt to French
+G53	21	RU	DE	https://snob.ru/selected/entry/81618/	Snob	verified_user	P1	queued	Translate/adapt to German
+G54	21	RU	ES	https://snob.ru/selected/entry/81618/	Snob	verified_user	P1	queued	Translate/adapt to Spanish
+G55	21	RU	IT	https://snob.ru/selected/entry/81618/	Snob	verified_user	P1	queued	Translate/adapt to Italian
+G56	22	RU	EN	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	verified_user	P1	queued	Primary wave
+G57	22	RU	FR	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	verified_user	P1	queued	Translate/adapt to French
+G58	22	RU	DE	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	verified_user	P1	queued	Translate/adapt to German
+G59	22	RU	ES	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	verified_user	P1	queued	Translate/adapt to Spanish
+G60	22	RU	IT	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	verified_user	P1	queued	Translate/adapt to Italian
+G61	24	EN	EN	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	verified_open	P1	queued	Primary wave; profile list includes Ilya Klishin (#20)
+G62	24	EN	FR	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	verified_open	P1	queued	Translate/adapt to French
+G63	24	EN	DE	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	verified_open	P1	queued	Translate/adapt to German
+G64	24	EN	ES	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	verified_open	P1	queued	Translate/adapt to Spanish
+G65	24	EN	IT	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	verified_open	P1	queued	Translate/adapt to Italian
+G1001	8	EN	EN	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	verified_open	P2	on_hold	Second wave after P1
+G1002	8	EN	FR	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	verified_open	P2	on_hold	Second wave after P1
+G1003	8	EN	DE	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	verified_open	P2	on_hold	Second wave after P1
+G1004	8	EN	ES	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	verified_open	P2	on_hold	Second wave after P1
+G1005	8	EN	IT	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	verified_open	P2	on_hold	Second wave after P1
+G1006	9	EN	EN	https://www.kyivpost.com/post/15197	Kyiv Post	verified_open	P2	excluded_do_not_publish	Hard-excluded per user strategy: do not amplify Current Time/Kyiv Post trope
+G1007	9	EN	FR	https://www.kyivpost.com/post/15197	Kyiv Post	verified_open	P2	excluded_do_not_publish	Hard-excluded per user strategy: do not amplify Current Time/Kyiv Post trope
+G1008	9	EN	DE	https://www.kyivpost.com/post/15197	Kyiv Post	verified_open	P2	excluded_do_not_publish	Hard-excluded per user strategy: do not amplify Current Time/Kyiv Post trope
+G1009	9	EN	ES	https://www.kyivpost.com/post/15197	Kyiv Post	verified_open	P2	excluded_do_not_publish	Hard-excluded per user strategy: do not amplify Current Time/Kyiv Post trope
+G1010	9	EN	IT	https://www.kyivpost.com/post/15197	Kyiv Post	verified_open	P2	excluded_do_not_publish	Hard-excluded per user strategy: do not amplify Current Time/Kyiv Post trope
+G1011	15	RO	EN	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1012	15	RO	FR	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1013	15	RO	DE	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1014	15	RO	ES	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1015	15	RO	IT	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1016	16	RO	EN	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1017	16	RO	FR	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1018	16	RO	DE	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1019	16	RO	ES	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1020	16	RO	IT	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1021	17	RO	EN	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1022	17	RO	FR	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1023	17	RO	DE	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1024	17	RO	ES	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1025	17	RO	IT	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	verified_open	P2	on_hold	Second wave after P1
+G1026	18	RO	EN	https://tedxchisinau.com/live/	TEDxChisinau	verified_open	P2	on_hold	Second wave after P1
+G1027	18	RO	FR	https://tedxchisinau.com/live/	TEDxChisinau	verified_open	P2	on_hold	Second wave after P1
+G1028	18	RO	DE	https://tedxchisinau.com/live/	TEDxChisinau	verified_open	P2	on_hold	Second wave after P1
+G1029	18	RO	ES	https://tedxchisinau.com/live/	TEDxChisinau	verified_open	P2	on_hold	Second wave after P1
+G1030	18	RO	IT	https://tedxchisinau.com/live/	TEDxChisinau	verified_open	P2	on_hold	Second wave after P1
+G2001	10	EN	EN	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2002	10	EN	FR	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2003	10	EN	DE	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2004	10	EN	ES	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2005	10	EN	IT	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2006	12	ES	EN	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2007	12	ES	FR	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2008	12	ES	DE	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2009	12	ES	ES	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2010	12	ES	IT	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2011	13	ES	EN	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2012	13	ES	FR	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2013	13	ES	DE	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2014	13	ES	ES	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2015	13	ES	IT	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2016	19	LT	EN	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2017	19	LT	FR	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2018	19	LT	DE	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2019	19	LT	ES	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification
+G2020	19	LT	IT	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	search_verified_only	P2	blocked_needs_manual_verify	Needs browser verification

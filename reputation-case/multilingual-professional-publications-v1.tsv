@@ -1,0 +1,25 @@
+id	language	url	outlet	type	relevance	professional_tone	scaling_priority	verification_status	scaling_route	notes
+1	EN	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times	author_profile	high	high	P1	verified_open	already_english_canonical	Core English author page
+2	EN	https://iranwire.com/en/blogs/67063/	IranWire	article	high	high	P1	verified_open	already_english_canonical	English authored piece
+3	EN	https://iranwire.com/en/blogs/67758/	IranWire	article	high	high	P1	verified_open	already_english_canonical	English authored piece
+4	EN	https://iranwire.com/en/blogs/68597/	IranWire	article	high	high	P1	verified_open	already_english_canonical	English authored piece
+5	EN	https://theins.ru/en/opinion/ilya-klishin	The Insider	author_profile	high	high	P1	verified_open	already_english_canonical	English author page
+6	EN	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider	article	high	high	P1	verified_open	already_english_canonical	English opinion byline
+7	EN	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider	article	high	high	P1	verified_open	already_english_canonical	English opinion byline
+8	EN	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	VOA	coverage	medium	high	P2	verified_open	digest_only_summary_quote	Professional international outlet
+9	EN	https://www.kyivpost.com/post/15197	Kyiv Post	coverage	low	high	EXCLUDE	verified_open	no_scale_monitor_only	Hard-excluded from positive scaling per user strategy (ignore Current Time/Kyiv Post trope)
+10	EN	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	coverage	medium	high	P2	search_verified_only	digest_only_summary_quote	Crawler-limited AMP page
+11	EN	https://www.ted.com/tedx/events/3947	TEDx/TED.com	speaker_profile	high	high	P1	verified_open	already_english_canonical	Official TEDx profile
+12	ES	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	coverage	medium	high	P2	search_verified_only	digest_only_summary_quote	Spanish professional coverage
+13	ES	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	coverage	medium	high	P2	search_verified_only	digest_only_summary_quote	Spanish professional coverage
+14	ES	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	article	high	high	P1	verified_open	digest_only_summary_quote	Spanish authored article (Iliá Klishin)
+15	RO	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	coverage	medium	high	P2	verified_open	digest_only_summary_quote	Romanian coverage of TEDx talk
+16	RO	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	coverage	medium	high	P2	verified_open	digest_only_summary_quote	Romanian event coverage
+17	RO	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	coverage	medium	high	P2	verified_open	digest_only_summary_quote	Romanian speaker list with Ilya Klishin
+18	RO	https://tedxchisinau.com/live/	TEDxChisinau	event_page	medium	high	P2	verified_open	already_english_canonical	Official TEDxChisinau page
+19	LT	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB	interview	medium	medium	P2	search_verified_only	digest_only_summary_quote	Lithuania regional media page (crawler-limited)
+20	RU	https://holod.media/2023/07/13/klishin-interview/	Holod	interview	high	high	P1	verified_open	digest_only_summary_quote	Professional interview URL verified open on 2026-03-04
+21	RU	https://snob.ru/selected/entry/81618/	Snob	article	high	high	P1	verified_user	digest_only_summary_quote	User-preferred essay selected by Ilya on 2026-03-04
+22	RU	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	article	high	high	P1	verified_user	digest_only_summary_quote	Strategic user-highlighted proof point (2014 authored piece; early warning theme)
+23	EN	https://www.youtube.com/watch?v=5UAZpvKKAJY	YouTube	ted_talk_video	high	high	P1	verified_user	digest_only_summary_quote	User-provided TED talk video URL on 2026-03-04
+24	EN	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	profile_list	high	high	P1	verified_open	already_english_canonical	Guardian New East "30 under 30" includes Ilya Klishin (entry #20) with TV Rain + Big White Circle context

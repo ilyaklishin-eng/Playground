@@ -1,0 +1,265 @@
+id	url	outlet	language	relation	translation_route	priority	notes
+1	https://www.vedomosti.ru/authors/ilya-klishin	Vedomosti	RU	author_profile	digest_only_summary_quote	P1	Seed page for authored columns
+2	https://www.vedomosti.ru/opinion/columns/2019/10/30/815138-skuchayuschaya-propaganda	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+3	https://www.vedomosti.ru/opinion/columns/2019/07/24/807255-nezavisimie-kandidati	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+4	https://www.vedomosti.ru/opinion/columns/2019/02/07/793498-dud-kiselev	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+5	https://www.vedomosti.ru/opinion/columns/2018/11/08/785835-novaya-mediinaya-realnost	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+6	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Maximalnyi retvit; Strategic proof point on 2026-03-04; User-highlighted: early warning theme before later US election cycles
+7	https://www.vedomosti.ru/opinion/columns/2018/04/26/767921-mozhno-priviknut-k-plohomu	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+8	https://www.vedomosti.ru/opinion/columns/2020/06/17/832880-viuchennoi-bespomoschnosti	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+9	https://www.vedomosti.ru/opinion/columns/2020/05/20/830688-buduschee-otmenili	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+10	https://www.vedomosti.ru/newspaper/articles/2014/02/12/fejk-propaganda-na-novom-urovne	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Maximalnyi retvit
+11	https://www.vedomosti.ru/opinion/articles/2013/06/19/netradicionnaya_rossiya	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+12	https://www.vedomosti.ru/opinion/articles/2012/12/19/dinamika_protiv_stabilnosti	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+13	https://www.vedomosti.ru/opinion/articles/2012/10/19/pochemu_ne_vyklyuchat_facebook	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+14	https://www.vedomosti.ru/opinion/articles/2013/05/22/kak_tvitter_meshaet_uvidet_repressii	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+15	https://www.vedomosti.ru/opinion/articles/2012/09/21/molodogvardejcy_kardinala	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+16	https://www.vedomosti.ru/opinion/articles/2013/01/30/glupost_ili_izmena	Vedomosti	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+17	https://www.vedomosti.ru/opinion/articles/2016/12/06/668288-gde-bili-dekabrya	Vedomosti	RU	about_ilya	digest_only_summary_quote	P2	Mention/context
+18	https://www.vedomosti.ru/politics/articles/2014/12/20/stranica-akcii-v-podderzhku-navalnogo-v-facebook-nedostupna	Vedomosti	RU	about_ilya	digest_only_summary_quote	P2	Quote mention
+19	https://www.moscowtimes.ru/author/ilya-klishin	The Moscow Times RU	RU	author_profile	digest_only_summary_quote	P1	Seed page
+20	https://www.moscowtimes.ru/2022/02/14/peregovori-putina-i-makrona-viyavili-probeli-v-znaniyah-o-rossii-a17479	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+21	https://www.moscowtimes.ru/2021/12/09/kak-interpretirovat-porazhenie-k-desyatiletiyu-massovih-protestov-za-chestnie-vibori-a16145	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+22	https://www.moscowtimes.ru/2020/09/25/glubokaya-glotka-moskovskogo-karantina-a523	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+23	https://www.moscowtimes.ru/2020/09/14/mitingi-v-putinskoi-rossii-kak-kot-shredingera-a480	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+24	https://www.moscowtimes.ru/2020/08/17/na-derevnyu-dedushke-a399	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+25	https://www.moscowtimes.ru/2020/07/10/noveishii-tridtsat-sedmoi-a308	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+26	https://www.moscowtimes.ru/2020/06/03/zachem-rossiya-v-ozhidanii-buri-tak-vnimatelno-smotrit-na-amerikanskie-protesti-a226	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+27	https://www.moscowtimes.ru/2020/05/25/chto-oznachayut-slova-putina-pro-russkuyu-tsivilizatsiyu-a206	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+28	https://www.moscowtimes.ru/2020/04/28/emotsionalnoe-onemenie-ot-tsenzuri-a143	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+29	https://www.moscowtimes.ru/2020/04/15/putin-tsuntsvage-a111	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+30	https://www.moscowtimes.ru/2020/03/18/grechka-i-apokalipsis-nekotorie-osobennosti-kontsa-sveta-v-rossii-a17	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+31	https://www.moscowtimes.ru/2020/11/20/russkie-lyudi-ne-pozvolyayut-nad-soboi-smeyatsya-a101552	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+32	https://ru.themoscowtimes.com/2020/09/25/glubokaya-glotka-moskovskogo-karantina-a523	ru.themoscowtimes	RU	authored_by_ilya	digest_only_summary_quote	P1	Mirror domain
+33	https://ru.themoscowtimes.com/2020/12/28/material-ustal-a102263	ru.themoscowtimes	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+34	https://www.moscowtimes.ru/2020/10/02/mitingi-v-putinskoi-rossii-kak-kot-shredingera	The Moscow Times RU	RU	authored_by_ilya	digest_only_summary_quote	P1	Canonical variant
+35	https://snob.ru/profile/28206/about/	Snob	RU	author_profile	digest_only_summary_quote	P1	Seed page
+36	https://snob.ru/profile/28206/blog/	Snob	RU	author_profile	digest_only_summary_quote	P1	Seed page
+37	https://snob.ru/selected/entry/116806/	Snob	RU	authored_by_ilya	digest_only_summary_quote	P1	Editorial material
+38	https://snob.ru/entry/84040/	Snob	RU	authored_by_ilya	digest_only_summary_quote	P1	Magazine text
+39	https://snob.ru/selected/entry/81618/	Snob	RU	authored_by_ilya	digest_only_summary_quote	P1	Travel text; User preferred on 2026-03-04
+40	https://snob.ru/selected/entry/70993/	Snob	RU	about_ilya	digest_only_summary_quote	P2	News mention
+41	https://snob.ru/selected/entry/99684/	Snob	RU	about_ilya	digest_only_summary_quote	P2	News mention
+42	https://snob.ru/entry/171888/	Snob	RU	context_mention	digest_only_summary_quote	P3	Compilation mention
+43	https://snob.ru/entry/181934/	Snob	RU	context_mention	digest_only_summary_quote	P3	Compilation mention
+44	https://snob.ru/entry/186879/	Snob	RU	context_mention	digest_only_summary_quote	P3	Compilation mention
+45	https://snob.ru/selected/entry/65743/	Snob	RU	context_mention	digest_only_summary_quote	P3	List mention
+46	https://www.the-village.ru/city/city/246017-rtvi	The Village	RU	about_ilya	digest_only_summary_quote	P2	Media appointment coverage
+47	https://www.the-village.ru/weekend/news/369813-buddy	The Village	RU	about_ilya	digest_only_summary_quote	P2	Startup coverage
+48	https://www.the-village.ru/city/situation-comment/236513-klishin	The Village	RU	interview_with_ilya	digest_only_summary_quote	P1	Interview
+49	https://www.the-village.ru/tag/way-out	The Village	RU	category_page	digest_only_summary_quote	P3	Contains related card
+50	https://meduza.io/shapito/2016/08/10/tjournal-zablokiroval-tjournal-dlya-sotrudnikov-dozhdya-i-lenty-ru	Meduza	RU	about_ilya	digest_only_summary_quote	P2	News mention
+51	https://meduza.io/news/2025/09/17/servis-tribute-zablokiroval-donaty-emigrantskomu-izdaniyu-volna-i-potreboval-udalit-posty-v-kotoryh-byli-emodzi-s-lgbtk-flagom	Meduza	RU	about_ilya	digest_only_summary_quote	P2	Volna context
+52	https://amp.meduza.io/feature/2016/11/02/vechnoe-ntv	Meduza AMP	RU	about_ilya	digest_only_summary_quote	P2	Feature mention
+53	https://meduza.io/feature/2016/11/02/vechnoe-ntv	Meduza	RU	about_ilya	digest_only_summary_quote	P2	Feature mention
+54	https://amp.meduza.io/feature/2024/03/14/nash-volan-de-mort-vo-dvortse	Meduza AMP	RU	context_mention	digest_only_summary_quote	P3	Long-form mention
+55	https://meduza.io/feature/2024/03/14/nash-volan-de-mort-vo-dvortse	Meduza	RU	context_mention	digest_only_summary_quote	P3	Long-form mention
+56	https://meduza.io/shapito/2017/10/19/rebyata-chto-znachit-azaza	Meduza	RU	context_mention	digest_only_summary_quote	P3	Mention
+57	https://meduza.io/news/2021/05/25/mediazona-zapustila-konkurs-mediynyh-proektov	Meduza	RU	context_mention	digest_only_summary_quote	P3	Jury mention
+58	https://meduza.io/news/2016/10/11/google-predupredil-rossiyskih-aktivistov-i-zhurnalistov-o-popytkah-spetssluzhb-vzlomat-ih-pochtu	Meduza	RU	context_mention	digest_only_summary_quote	P3	Mention
+59	https://lenta.ru/news/2011/11/30/epic/	Lenta	RU	interview_with_ilya	digest_only_summary_quote	P1	Epic Hero coverage
+60	https://lenta.ru/articles/2012/04/09/klishin/	Lenta	RU	interview_with_ilya	digest_only_summary_quote	P1	Main interview
+61	https://lenta.ru/news/2012/02/20/circle/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Protest org context
+62	https://lenta.ru/news/2012/03/01/pushka/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Protest context
+63	https://lenta.ru/news/2012/01/20/prishli/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Security pressure story
+64	https://lenta.ru/news/2012/02/21/whitecircle/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Follow-up story
+65	https://lenta.ru/news/2013/12/18/dozhd/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Dozhd site story
+66	https://lenta.ru/news/2014/01/27/raingate/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Dozhd blockade poll context
+67	https://lenta.ru/news/2014/01/27/dozhd/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Political campaign statement
+68	https://lenta.ru/news/2014/01/29/peskov/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Poll controversy
+69	https://lenta.ru/news/2013/12/18/dodzh/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Ownership clarification
+70	https://lenta.ru/articles/2014/01/30/tvrain/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Long read
+71	https://lenta.ru/articles/2014/02/04/sindvino/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Interview with owners
+72	https://lenta.ru/news/2013/09/27/letter/	Lenta	RU	context_mention	digest_only_summary_quote	P3	Open letter list
+73	https://lenta.ru/articles/2011/12/09/palustris/	Lenta	RU	context_mention	digest_only_summary_quote	P3	Protest context
+74	https://lenta.ru/news/2011/12/12/newone/	Lenta	RU	context_mention	digest_only_summary_quote	P3	Protest context
+75	https://lenta.ru/articles/2012/01/20/antifa/	Lenta	RU	context_mention	digest_only_summary_quote	P3	Context mention
+76	https://lenta.ru/news/2017/06/08/spisokfraz/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Social media flashmob
+77	https://lenta.ru/articles/2016/12/13/fatefulpost/	Lenta	RU	context_mention	digest_only_summary_quote	P3	Quote mention
+78	https://lenta.ru/news/2012/01/23/klishin/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Follow-up to pressure story
+79	https://www.gazeta.ru/business/news/2016/07/27/n_8929421.shtml	Gazeta.ru	RU	about_ilya	digest_only_summary_quote	P2	Dozhd departure news
+80	https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml	Gazeta.ru	RU	about_ilya	digest_only_summary_quote	P2	Quote mention
+81	https://www.gazeta.ru/politics/2012/12/04_a_4878797.shtml	Gazeta.ru	RU	about_ilya	digest_only_summary_quote	P2	Interview quote set
+82	https://www.gazeta.ru/tech/2016/11/02/10300031/fancy_bear_microsoft.shtml	Gazeta.ru	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+83	https://www.forbes.ru/news/250291-peskov-sravnil-opros-dozhdya-s-peresecheniem-krasnoi-linii	Forbes Russia	RU	about_ilya	digest_only_summary_quote	P2	Poll controversy
+84	https://www.forbes.ru/news/250347-spch-poprosil-geprokuraturu-proverit-otklyuchivshikh-dozhd-operatorov	Forbes Russia	RU	about_ilya	digest_only_summary_quote	P2	Poll controversy
+85	https://www.rbc.ru/rbcfreenews/55bcc8dd9a7947589ccec48a	RBC	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+86	https://www.rbc.ru/spb_sz/06/02/2014/5592aad39a794719538d1af6	RBC	RU	about_ilya	digest_only_summary_quote	P2	Dozhd context
+87	https://tvrain.tv/teleshow/sobchak_zhivem/pivovarov-418427/	TV Rain	RU	context_mention	digest_only_summary_quote	P3	Mention in interview
+88	https://tvrain.tv/amp/403350/	TV Rain	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+89	https://os.colta.ru/media/net/details/33459/	OpenSpace/Colta	RU	authored_by_ilya	digest_only_summary_quote	P1	Co-authored report
+90	https://os.colta.ru/news/details/33562/	OpenSpace/Colta	RU	about_ilya	digest_only_summary_quote	P2	News mention
+91	https://os.colta.ru/media/net/details/32317/	OpenSpace/Colta	RU	interview_with_ilya	digest_only_summary_quote	P1	Interview
+92	https://os.colta.ru/media/net/details/32851/	OpenSpace/Colta	RU	authored_by_ilya	digest_only_summary_quote	P1	Interview byline
+93	https://republic.ru/posts/18877	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Co-byline analysis
+94	https://republic.ru/posts/63346	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+95	https://republic.ru/posts/56254	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+96	https://republic.ru/posts/64976	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Books column
+97	https://republic.ru/posts/63786	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+98	https://republic.ru/posts/56811	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+99	https://republic.ru/posts/69382	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Books column
+100	https://republic.ru/posts/18837	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+101	https://republic.ru/posts/1487280	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+102	https://republic.ru/posts/18899	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Co-byline analysis
+103	https://republic.ru/posts/61235	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion
+104	https://republic.ru/posts/18856	Republic	RU	authored_by_ilya	digest_only_summary_quote	P1	Co-byline analysis
+105	https://adindex.ru/publication/archive_2005_2008/interviews/9514.phtml	AdIndex	RU	interview_with_ilya	digest_only_summary_quote	P1	Interview
+106	https://adindex.ru/publication/interviews/2011/06/6/66979.phtml	AdIndex	RU	interview_with_ilya	digest_only_summary_quote	P1	Interview
+107	https://adindex.ru/publication/tools/2010/10/28/56186.phtml	AdIndex	RU	about_ilya	digest_only_summary_quote	P2	Quote in article
+108	https://adindex.ru/news/media/2013/12/18/105230.phtml	AdIndex	RU	about_ilya	digest_only_summary_quote	P2	Dozhd news
+109	https://adindex.ru/news/offtop/2014/05/21/110404.phtml	AdIndex	RU	about_ilya	digest_only_summary_quote	P2	Reference to Vedomosti column
+110	https://adindex.ru/news/design/2017/04/26/159473.phtml	AdIndex	RU	about_ilya	digest_only_summary_quote	P2	RTVi context
+111	https://mel.fm/author/ilya-klishin	Mel.fm	RU	author_profile	digest_only_summary_quote	P1	Seed page
+112	https://mel.fm/ucheba/uchitelya/7495680-klishin	Mel.fm	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+113	https://mel.fm/zhizn/razvlecheniya/1628439-potter	Mel.fm	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+114	https://mel.fm/vospitaniye/psikhologiya/3056879-history_hate	Mel.fm	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+115	https://mel.fm/vospitaniye/psikhologiya/8592763-essay	Mel.fm	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+116	https://mel.fm/zhizn/istorii/3029718-american	Mel.fm	RU	authored_by_ilya	digest_only_summary_quote	P1	Column
+117	https://mel.fm/novosti/819476-history	Mel.fm	RU	context_mention	digest_only_summary_quote	P3	Contains reference to his article
+118	https://ru.wikinews.org/wiki/%D0%9A%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D1%8F%3A%D0%98%D0%BB%D1%8C%D1%8F_%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD	Wikinews	RU	index_about_ilya	digest_only_summary_quote	P2	Contains multiple texts list
+119	https://ru.wikinews.org/wiki/%D0%98%D0%BB%D1%8C%D1%8F_%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD%3A_%C2%AB%D0%9E%D1%81%D0%B2%D0%B5%D0%BD%D1%86%D0%B8%D0%BC_%D0%BD%D0%B0%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D1%82%C2%BB	Wikinews	RU	authored_by_ilya	digest_only_summary_quote	P1	Opinion text
+120	https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD%2C_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87	Wikipedia	RU	bio_reference	digest_only_summary_quote	P2	Entity anchor
+121	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	7x7	RU	interview_with_ilya	digest_only_summary_quote	P1	Emigration project interview
+122	https://habr.com/ru/articles/138597/	Habr	RU	about_ilya	digest_only_summary_quote	P2	News repost with mention
+123	https://myseldon.com/ru/news/index/156517876	Seldon News	RU	about_ilya	digest_only_summary_quote	P2	RTVi appointment repost
+124	https://ambivert.club/ilya-klishin/	Ambivert	RU	interview_with_ilya	digest_only_summary_quote	P1	Profile interview
+125	https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429	News24	EN	about_ilya	digest_only_summary_quote	P2	English coverage of 2012 case
+126	https://www.kommersant.ru/doc/5329979	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+127	https://www.kommersant.ru/doc/2052013	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+128	https://www.kommersant.ru/doc/4033743	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Low-signal mention
+129	https://novayagazeta.ru/articles/2012/01/30/47965-kak-vesti-sebya-na-profbesede-v-tsentre-171-e-187	Novaya Gazeta	RU	context_mention	digest_only_summary_quote	P3	Indirect context
+130	https://www.kommersant.ru/doc/7402704	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Likely unrelated (manual review)
+131	https://www.kommersant.ru/doc/4762600	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Likely unrelated (manual review)
+134	https://www.kommersant.ru/doc/2577922	Kommersant	RU	context_mention	digest_only_summary_quote	P3	Quote of Klishin partners lawyer possible collision
+135	https://www.youtube.com/watch?v=J5ON16Vfg8g	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+136	https://www.youtube.com/watch?v=v5UM_PtM6OI	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+137	https://www.youtube.com/watch?v=bUf_-k3ecMw	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+138	https://www.youtube.com/watch?v=89Er1NnSa5U	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+139	https://www.youtube.com/watch?v=1I0Ljo1rD9k	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+140	https://www.youtube.com/watch?v=r50qN2u8fQ0	YouTube	RU	interview_with_ilya	manual_rights_review	P1	From Wikipedia ext link; verify authenticity
+141	https://www.themoscowtimes.com/author/ilya-klishin	The Moscow Times EN	EN	author_profile	already_english_canonical	P1	High-leverage English author page
+142	https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+143	https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+144	https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+145	https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+146	https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+147	https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+148	https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+149	https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+150	https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+151	https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+152	https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+153	https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+154	https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+155	https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+156	https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+157	https://www.themoscowtimes.com/2020/07/10/russian-authorities-are-targeting-journalists-historians-and-activists-the-rest-of-us-could-be-next-a70838	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+158	https://www.themoscowtimes.com/2020/06/03/russians-watch-the-american-protests-as-clouds-gather-at-home-a70466	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+159	https://www.themoscowtimes.com/2020/05/25/putin-and-the-distinct-russian-civilization-a70370	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+160	https://www.themoscowtimes.com/2020/05/05/why-showcase-the-prime-ministers-illness-on-tv-a70194	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+161	https://www.themoscowtimes.com/2020/04/27/how-censorship-leads-to-emotional-numbness-a70116	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+162	https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+163	https://www.themoscowtimes.com/2020/03/31/as-russia-battles-the-coronavirus-crisis-where-is-putin-a69807	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+164	https://www.themoscowtimes.com/2020/03/25/why-russian-pensioners-wont-self-isolate-a69746	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+165	https://www.themoscowtimes.com/2020/03/18/buckwheat-and-the-coronavirus-how-russians-cope-with-the-end-of-the-world-a69668	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+166	https://www.themoscowtimes.com/2020/01/17/russians-have-little-say-in-their-future-a68952	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+167	https://www.themoscowtimes.com/2019/12/19/surviving-against-the-odds-how-russian-media-learned-to-adopt-in-the-2010s-a68687	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+168	https://www.themoscowtimes.com/2019/11/22/why-it-is-nearly-impossible-for-a-common-russian-to-follow-the-upcoming-us-elections-a68270	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+169	https://www.themoscowtimes.com/2019/11/11/putin-wants-to-own-the-russian-language-a68124	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+170	https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+171	https://www.themoscowtimes.com/2019/10/16/whats-behind-russian-medias-obsession-with-the-death-penalty-a67760	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+172	https://www.themoscowtimes.com/2019/10/14/putin-has-achieved-everything-he-wanted-but-it-will-never-be-enough-for-young-russians-a67718	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+173	https://www.themoscowtimes.com/2019/09/30/how-tiktok-is-bringing-russias-youth-closer-to-the-west-a67515	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+174	https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+175	https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+176	https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651	The Moscow Times EN	EN	authored_by_ilya	already_english_canonical	P1	Opinion
+177	https://www.themoscowtimes.com/2015/12/04/inoculated-against-russian-propaganda-a51029	The Moscow Times EN	EN	about_ilya	already_english_canonical	P2	Profile/feature mentioning Ilya
+178	https://iranwire.com/en/blogs/67063/	IranWire EN	EN	authored_by_ilya	already_english_canonical	P1	Guest opinion
+179	https://iranwire.com/en/blogs/67758/	IranWire EN	EN	authored_by_ilya	already_english_canonical	P1	Guest opinion
+180	https://iranwire.com/en/blogs/68597/	IranWire EN	EN	authored_by_ilya	already_english_canonical	P1	Guest opinion
+181	https://iranwire.com/author/1092/	IranWire EN	EN	author_profile	already_english_canonical	P2	Author page (may require manual access)
+182	https://visitprussia.com/contributors/ilya_klishin/	VisitPrussia	RU	author_profile	digest_only_summary_quote	P2	Contributor profile
+183	https://visitprussia.com/blog/kaliningrad_i_pribaltika/	VisitPrussia	RU	authored_by_ilya	digest_only_summary_quote	P2	Authored travel essay
+184	https://vc.ru/media/18649-klishin-rtvi	VC.ru	RU	about_ilya	digest_only_summary_quote	P2	Career news item
+185	https://www.colta.ru/news/1576	Colta	RU	about_ilya	digest_only_summary_quote	P2	Industry news item
+186	https://theins.ru/authors/ilya-klishin	The Insider	RU	author_profile	digest_only_summary_quote	P1	Author page
+187	https://theins.ru/history/258578	The Insider	RU	authored_by_ilya	digest_only_summary_quote	P1	Long-form authored piece
+188	https://rtvi.com/editors-archive/ilya-klishin/	RTVI	RU	author_profile	digest_only_summary_quote	P1	Editor archive/profile
+189	https://carnegie.ru/commentary/63383	Carnegie.ru	RU	authored_by_ilya	digest_only_summary_quote	P1	Reference from Wikipedia (may need manual verification)
+190	https://www.ted.com/tedx/events/3947	TEDx / TED.com	EN	speaker_profile_tedx	already_english_canonical	P1	Official TEDx event speaker profile (Ilya Klishin)
+191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	RO	tedx_talk_coverage	digest_only_summary_quote	P2	Media coverage of TEDxChisinau talk
+192	https://theins.ru/en/opinion/ilya-klishin	The Insider EN	EN	author_profile	already_english_canonical	P1	English opinion author page
+193	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider EN	EN	authored_by_ilya	already_english_canonical	P1	English opinion by Ilya Klishin
+194	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider EN	EN	authored_by_ilya	already_english_canonical	P1	English opinion by Ilya Klishin
+195	https://www.voanews.com/a/russia-s-tv-rain-an-island-in-sea-of-kremlin-propaganda/3303338.html	Voice of America	EN	professional_coverage	already_english_canonical	P2	Professional media coverage mentioning Ilya Klishin
+196	https://www.kyivpost.com/post/15197	Kyiv Post	EN	professional_coverage	no_scale_monitor_only	P3	Excluded from positive scaling per user strategy: do not amplify Current Time/Kyiv Post trope
+197	https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/	Detector Media	EN	professional_coverage	no_scale_monitor_only	P3	Excluded from positive scaling per user strategy: do not amplify Current Time trope
+198	https://www.rbth.com/society/2014/01/30/dozhd_tv_channel_taken_off_air_in_some_markets_after_offensive_poll_33707.html	Russia Beyond EN	EN	professional_coverage	already_english_canonical	P2	English coverage with quote mention
+199	https://es.rbth.com/articles/2012/01/20/la_oposicion_rusa_pide_autorizacion_para_celebrar_nuevos_actos_de_pr_15238	Russia Beyond ES	ES	professional_coverage	digest_only_summary_quote	P2	Spanish professional coverage
+200	https://es.rbth.com/sociedad/2014/01/31/canal_de_television_ruso_en_problemas_tras_polemica_encuesta_sobre_e_36873	Russia Beyond ES	ES	professional_coverage	digest_only_summary_quote	P2	Spanish professional coverage
+201	https://es.rbth.com/internacional/2014/05/23/guerra_de_hashtags_40271	Russia Beyond ES	ES	authored_by_ilya	digest_only_summary_quote	P1	Spanish byline (Iliá Klishin)
+202	https://diez.md/2015/05/16/livetext-foto-ce-se-intampla-la-tedxchisinau-crossroads/	Diez	RO	tedx_talk_coverage	digest_only_summary_quote	P2	Romanian coverage of TEDx event
+203	https://diez.md/2015/04/17/tedxchisinau-2015-vezi-aici-lista-completa-a-speaker-ilor-evenimentului-din-16-mai/	Diez	RO	tedx_talk_coverage	digest_only_summary_quote	P2	Romanian speaker list incl. Ilya Klishin
+204	https://tedxchisinau.com/live/	TEDxChisinau	RO	tedx_talk_coverage	already_english_canonical	P2	Official TEDxChisinau site page
+205	https://holod.media/2023/07/13/klishin-interview/	Holod	RU	interview_with_ilya	digest_only_summary_quote	P1	Confirmed by user on 2026-03-04
+206	https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/	TV Rain	RU	dozhd_project_2014	digest_only_summary_quote	P1	Core hub for 2014 Donbas soldiers investigation coverage
+207	https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/	TV Rain	RU	dozhd_project_2014	digest_only_summary_quote	P1	Project launch/explainer with evidence-collection call
+208	http://tvrain.ru/soldat/	TV Rain	RU	project_archive_reference	digest_only_summary_quote	P1	Historical project page "Nashi soldaty" referenced by TV Rain and external sources
+209	https://tvrain.tv/news/telekanal_dozhd_nachal_sbor_informatsii_o_pogibshih_na_ukraine_rossijskih_voennyh-374549/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P1	Launch news; URL extracted from official TV Rain hub
+210	https://tvrain.tv/news/kto_oni_i_skolko_ih_dozhd_prodolzhaet_sobirat_spisok_rossijskih_voennyh_pogibshih_i_plenennyh_na_territorii_ukrainy-374347/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P1	Project list update; URL extracted from official TV Rain hub
+211	https://tvrain.tv/news/chto_izvestno_o_pskovskih_desantnikah_i_pochemu_ih_mogily_ishhut_zhurnalisty_i_blogery-374411/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P1	Explainer on Pskov paratrooper graves; URL extracted from official hub
+212	https://tvrain.tv/news/komitet_soldatskih_materej_ob_uchastii_rossijskih_voennyh_v_konflikte_na_ukraine_chinovniki_hotjat_zakryt_nam_rot-374477/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P1	Soldiers' Mothers Committee angle; URL extracted from official hub
+213	https://tvrain.tv/news/reporter_dozhdja_posetil_mogilu_predpolozhitelno_pogibshego_na_ukraine_desantnika_v_pskove-374370/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P1	Field reporting evidence point; URL extracted from official hub
+214	https://tvrain.tv/news/chto_rossijskie_i_ukrainskie_smi_pisali_o_rossijskih_desantnikah_na_territorii_ukrainy-374310/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Media comparison around paratrooper case; URL extracted from official hub
+215	https://tvrain.tv/news/v_pskove_horonjat_desjat_dvuh_desantnikov_reuters_soobschil_ob_ih_uchastii_v_bojah_na_ukraine-374015/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Pskov burials + Reuters linkage; URL extracted from official hub
+216	https://tvrain.tv/news/sovet_po_pravam_cheloveka_poprosit_proverit_dannye_o_pogibshih_na_ukraine_rossijskih_voennyh-374095/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	SPCH verification call; URL extracted from official hub
+217	https://tvrain.tv/news/pochemu_v_pskove_nikto_ne_hochet_obsuzhdat_sudbu_desantnikov_i_vojnu_s_ukrainoj-374041/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Local silence/reporting barriers in Pskov
+218	https://tvrain.tv/news/ja_ne_vjuju_nikogo_iz_nashih_tam_net_desjat_samyh_nelepih_otvetov_na_vopros_ob_uchastii_rossii_v_konflikte_na_ukraine-373996/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Compilation of official denials; URL extracted from official hub
+219	https://tvrain.tv/news/dvuh_zaderzhannyh_na_ukraine_desantnikov_v_pskove_reshili_provodit_po_tihomu-373455/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Detained paratroopers case; URL extracted from official hub
+220	https://tvrain.tv/news/na_vostoke_ukrainy_vzjat_v_plen_rossijskij_desantnik_76-j_divizii-373275/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Captured serviceman case; URL extracted from official hub
+221	https://tvrain.tv/news/smi_soobschili_o_zahoronenii_dvuh_desantnikov_iz_76_divizii_v_pskovskoj_oblasti-373579/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Early burial reports in Pskov region
+222	https://tvrain.tv/news/v_pskove_na_kladbische_izbili_peterburgskih_zhurnalistov_dozhdja_i_fotografa_russkoj_planety-373621/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Violence against reporters covering burials
+223	https://tvrain.tv/news/mestoraspolozhenie_desantnikov_v_ukraine_vychislili_po_geotegam_v_instagrame-373851/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	OSINT/geotag evidence angle
+224	https://tvrain.tv/news/dozhd_vyyasnil_chto_zaderzhannyj_na_ukraine_desantnik_i-_skonchavshijsya_v_pskovskom_gospitale_soldat_sluzhili_v_76-j_divizii-373845/	TV Rain	RU	dozhd_project_followup	digest_only_summary_quote	P2	Service-unit linkage evidence
+225	https://www.pravda.com.ua/articles/2017/05/17/7144148/	Ukrainska Pravda	UK	external_reference_project	digest_only_summary_quote	P1	Retrospective mentions Dozhd's own 2014 soldier list and project page
+226	https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html	Los Angeles Times	EN	external_reference_project	already_english_canonical	P1	English coverage referencing TV Rain investigations into soldiers in Ukraine
+227	https://www.researchgate.net/publication/318460026_Understanding_Russian_Communication_Strategies	ResearchGate	EN	external_reference_project	already_english_canonical	P2	Research report citing TV Rain project and related links
+228	https://www.researchgate.net/publication/318460018_Information_wars_New_patterns_in_media-political_conflicts	ResearchGate	EN	external_reference_project	already_english_canonical	P2	Research report citing TV Rain list project
+229	https://www.academia.edu/34217779/Information_wars_New_patterns_in_media_political_conflicts	Academia.edu	EN	external_reference_project	already_english_canonical	P2	Mirror publication of report with TV Rain citations
+230	https://freedomhouse.org/country/russia/nations-transit/2015	Freedom House	EN	external_reference_project	already_english_canonical	P2	Nations in Transit 2015 references Dozhd reporting on soldier deaths
+231	https://euromaidanpress.com/2014/09/09/russian-anti-war-movement-appeals-to-soldiers-mothers/	Euromaidan Press	EN	external_reference_project	already_english_canonical	P2	English contextual coverage on anti-war movement and soldiers' families
+232	http://peacekeeping-centre.in.ua/Museum/East/Ubit/Dozd.htm	Peacekeeping Centre mirror	RU	mirror_attribution_reference	digest_only_summary_quote	P2	Mirror text explicitly credits "Mikhail Zygar and Ilya Klishin" in Nashi Soldaty project context
+233	https://www.youtube.com/watch?v=5UAZpvKKAJY	YouTube	EN	ted_talk_video	digest_only_summary_quote	P1	User-provided TED talk URL on 2026-03-04; title/metadata pending manual confirmation
+234	https://republic.ru/posts/20566	Republic	RU	about_ilya	digest_only_summary_quote	P1	Interview context around pressure against protest organizer; includes own statement
+235	https://www.rbc.ru/politics/20/01/2012/5703f2149a7947ac81a640e2	RBC	RU	about_ilya	digest_only_summary_quote	P1	News coverage of pressure claim tied to protest organizing role
+236	https://www.mk.ru/politics/2012/01/20/662481-odin-iz-organizatorov-protestnyih-mitingov-v-moskve-soobschaet-o-davlenii-so-storonyi-fsb.html	MK.ru	RU	about_ilya	digest_only_summary_quote	P2	Headline-level organizer + pressure framing
+237	https://www.mk.ru/politics/2012/01/20/662621-fsb-otritsaet-chto-roditeli-klishina-vyizyivalis-na-dopros-klishin-utverzhdaet-obratnoe.html	MK.ru	RU	about_ilya	digest_only_summary_quote	P2	Follow-up dispute around pressure claim
+238	https://www.trud.ru/article/20-01-2012/271690_organizatorov_protestnyx_mitingov_vzjal_v_razrabotku_tsentr_e.html	Trud	RU	about_ilya	digest_only_summary_quote	P2	Coverage of Center E pressure narrative around protest organizers
+239	https://txt.newsru.com/russia/23jan2012/klishin.html	Newsru	RU	about_ilya	digest_only_summary_quote	P2	Follow-up reporting on law-enforcement attention after public pressure claims
+240	https://www.newsru.com/russia/20jan2012/willbutwont.html	Newsru	RU	about_ilya	digest_only_summary_quote	P2	Early report on claims of pressure connected to protest activity
+241	https://graniru.org/Politics/Russia/activism/m.194998.html	Grani.ru	RU	about_ilya	digest_only_summary_quote	P2	Explicitly frames Klishin as one of protest organizers and reports pressure
+242	https://os.colta.ru/society/russia/details/33597/	OpenSpace/Colta	RU	about_ilya	digest_only_summary_quote	P2	Related context thread on post-election protest pressure environment
+243	https://www.lb.ua/world/2012/02/20/137751_sayt_bolshoy_beliy_krug_zakrili.html	LB.ua	RU	about_ilya	digest_only_summary_quote	P2	Quotes Klishin as organizer in White Circle infrastructure incident
+244	https://newdaynews.ru/incidents/368279.html	New Day News	RU	about_ilya	digest_only_summary_quote	P3	Syndicated report: organizer role plus pressure claim (secondary)
+245	https://newdaynews.ru/incidents/368434.html	New Day News	RU	about_ilya	digest_only_summary_quote	P3	Secondary follow-up in same pressure narrative cluster
+246	https://www.ridus.ru/news/18791	Ridus	RU	about_ilya	digest_only_summary_quote	P2	Mentions organizer role and Center E questioning of father
+247	https://www.bfm.ru/news/172103	Business FM	RU	about_ilya	digest_only_summary_quote	P1	Direct quote as one of organizers of For Fair Elections rally series
+248	https://www.bfm.ru/news/172973	Business FM	RU	about_ilya	digest_only_summary_quote	P1	Direct quote as organizer of post-election protest rally
+249	https://www.bfm.ru/news/173199	Business FM	RU	about_ilya	digest_only_summary_quote	P1	Mentions Klishin as one of creators of protest Facebook page
+250	https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics	The Guardian	EN	about_ilya	already_english_canonical	P1	International outlet reporting intimidation claim involving Klishin family
+251	https://www.hrw.org/news/2012/03/01/russia-harassment-critics	Human Rights Watch	EN	about_ilya	already_english_canonical	P1	HRW documents case in broader pre-election harassment pattern
+252	https://www.hrw.org/ru/news/2012/03/01/245471	Human Rights Watch	RU	about_ilya	digest_only_summary_quote	P1	Russian-language HRW version with same case context
+253	https://news.trust.org/item/20120301050105-mclqp	Thomson Reuters Foundation	EN	about_ilya	already_english_canonical	P1	Reuters Trust distribution of HRW-linked harassment coverage
+254	https://www.svoboda.org/a/24457733.html	Radio Svoboda	RU	about_ilya	digest_only_summary_quote	P1	Directly states pressure on family and organizer role in protest pages
+255	https://www.svoboda.org/a/24458035.html	Radio Svoboda	RU	about_ilya	digest_only_summary_quote	P1	Interview-format detail on questioning and pressure context
+256	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	The Guardian	EN	professional_profile_list	already_english_canonical	P1	Guardian New East list includes Ilya Klishin (#20), TV Rain role, and Big White Circle technology attribution
+257	https://daily.afisha.ru/brain/10759-kto-ne-podpisan-u-togo-forsa-net-kak-poyavlyalis-mediasobytiya-v-rossii-2010-h/	Afisha Daily	RU	interview_with_ilya	digest_only_summary_quote	P1	Wiki reference [4]; supports media-career context
+258	https://polutona.ru/?show=0319150555	Polutona	RU	profile_reference	digest_only_summary_quote	P2	Wiki reference [3]; crawler-limited in current run
+259	https://kf.agency/articles/biography	KF Agency	RU	self_profile_reference	manual_rights_review	P3	Wiki reference [1]; primary/self-published source
+260	https://lenta.ru/news/2012/01/20/klishin/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Wiki reference [6]; protest/pressure context
+261	https://lenta.ru/news/2012/03/16/epichero/	Lenta	RU	about_ilya	digest_only_summary_quote	P2	Wiki reference [9]; Epic Hero transaction context
+262	https://www.colta.ru/articles/literature/11839	Colta	RU	authored_by_ilya	digest_only_summary_quote	P1	Wiki reference [20]; crawler-limited in current run
+263	https://www.theins.ru/politika/48709	The Insider	RU	authored_by_ilya	digest_only_summary_quote	P1	Wiki reference [17]; crawler-limited in current run
+264	https://www.youtube.com/channel/UCdoP3MKiS6f9bl_f9x59utw	YouTube	RU	author_channel_reference	manual_rights_review	P2	Wiki external link [25]; channel-level reference
+265	https://kfconsulting.tilda.ws/	KFConsulting	RU	self_profile_reference	manual_rights_review	P3	Wiki reference [13]; primary/self-published source
+266	https://twitter.com/iklishin	X (Twitter)	RU	self_profile_reference	manual_rights_review	P3	Wiki reference [14]; primary/self-published source

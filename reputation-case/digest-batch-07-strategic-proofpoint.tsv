@@ -1,0 +1,6 @@
+task_id	source_id	source_lang	target_lang	url	outlet	status	notes
+SP1	22	RU	EN	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	queued_priority_boost	Strategic proof point selected by user
+SP2	22	RU	FR	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	queued_priority_boost	Strategic proof point selected by user
+SP3	22	RU	DE	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	queued_priority_boost	Strategic proof point selected by user
+SP4	22	RU	ES	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	queued_priority_boost	Strategic proof point selected by user
+SP5	22	RU	IT	https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad	Vedomosti	queued_priority_boost	Strategic proof point selected by user

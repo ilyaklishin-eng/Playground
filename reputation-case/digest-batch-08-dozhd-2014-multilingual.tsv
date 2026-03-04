@@ -1,0 +1,37 @@
+task_id	queue_id	url	source_lang	target_lang	format	status	verification_status	notes
+DS1	Q206	https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/	RU	EN	fact_based_digest	queued	verified_open	Core hub; 2014 Donbas soldiers coverage
+DS2	Q206	https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/	RU	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+DS3	Q206	https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/	RU	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+DS4	Q207	https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/	RU	EN	fact_based_digest	queued	verified_open	Project launch/explainer
+DS5	Q207	https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/	RU	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+DS6	Q207	https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/	RU	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+DS7	Q208	http://tvrain.ru/soldat/	RU	EN	fact_based_digest	queued	search_verified_only	Historical project page reference
+DS8	Q208	http://tvrain.ru/soldat/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS9	Q208	http://tvrain.ru/soldat/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS10	Q209	https://tvrain.tv/news/telekanal_dozhd_nachal_sbor_informatsii_o_pogibshih_na_ukraine_rossijskih_voennyh-374549/	RU	EN	fact_based_digest	queued	search_verified_only	Launch news URL from official hub
+DS11	Q209	https://tvrain.tv/news/telekanal_dozhd_nachal_sbor_informatsii_o_pogibshih_na_ukraine_rossijskih_voennyh-374549/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS12	Q209	https://tvrain.tv/news/telekanal_dozhd_nachal_sbor_informatsii_o_pogibshih_na_ukraine_rossijskih_voennyh-374549/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS13	Q210	https://tvrain.tv/news/kto_oni_i_skolko_ih_dozhd_prodolzhaet_sobirat_spisok_rossijskih_voennyh_pogibshih_i_plenennyh_na_territorii_ukrainy-374347/	RU	EN	fact_based_digest	queued	search_verified_only	List update on killed/captured soldiers
+DS14	Q210	https://tvrain.tv/news/kto_oni_i_skolko_ih_dozhd_prodolzhaet_sobirat_spisok_rossijskih_voennyh_pogibshih_i_plenennyh_na_territorii_ukrainy-374347/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS15	Q210	https://tvrain.tv/news/kto_oni_i_skolko_ih_dozhd_prodolzhaet_sobirat_spisok_rossijskih_voennyh_pogibshih_i_plenennyh_na_territorii_ukrainy-374347/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS16	Q211	https://tvrain.tv/news/chto_izvestno_o_pskovskih_desantnikah_i_pochemu_ih_mogily_ishhut_zhurnalisty_i_blogery-374411/	RU	EN	fact_based_digest	queued	search_verified_only	Pskov paratrooper evidence explainer
+DS17	Q211	https://tvrain.tv/news/chto_izvestno_o_pskovskih_desantnikah_i_pochemu_ih_mogily_ishhut_zhurnalisty_i_blogery-374411/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS18	Q211	https://tvrain.tv/news/chto_izvestno_o_pskovskih_desantnikah_i_pochemu_ih_mogily_ishhut_zhurnalisty_i_blogery-374411/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS19	Q212	https://tvrain.tv/news/komitet_soldatskih_materej_ob_uchastii_rossijskih_voennyh_v_konflikte_na_ukraine_chinovniki_hotjat_zakryt_nam_rot-374477/	RU	EN	fact_based_digest	queued	search_verified_only	Soldiers' Mothers Committee context
+DS20	Q212	https://tvrain.tv/news/komitet_soldatskih_materej_ob_uchastii_rossijskih_voennyh_v_konflikte_na_ukraine_chinovniki_hotjat_zakryt_nam_rot-374477/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS21	Q212	https://tvrain.tv/news/komitet_soldatskih_materej_ob_uchastii_rossijskih_voennyh_v_konflikte_na_ukraine_chinovniki_hotjat_zakryt_nam_rot-374477/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS22	Q223	https://tvrain.tv/news/mestoraspolozhenie_desantnikov_v_ukraine_vychislili_po_geotegam_v_instagrame-373851/	RU	EN	fact_based_digest	queued	search_verified_only	OSINT geotag proof-point
+DS23	Q223	https://tvrain.tv/news/mestoraspolozhenie_desantnikov_v_ukraine_vychislili_po_geotegam_v_instagrame-373851/	RU	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS24	Q223	https://tvrain.tv/news/mestoraspolozhenie_desantnikov_v_ukraine_vychislili_po_geotegam_v_instagrame-373851/	RU	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS25	Q225	https://www.pravda.com.ua/articles/2017/05/17/7144148/	UK	EN	fact_based_digest	queued	search_verified_only	Ukrainian retrospective reference
+DS26	Q225	https://www.pravda.com.ua/articles/2017/05/17/7144148/	UK	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS27	Q225	https://www.pravda.com.ua/articles/2017/05/17/7144148/	UK	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS28	Q226	https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html	EN	EN	fact_based_digest	queued	search_verified_only	English professional context source
+DS29	Q226	https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html	EN	FR	fact_based_digest	queued	search_verified_only	Translate/adapt to French
+DS30	Q226	https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html	EN	DE	fact_based_digest	queued	search_verified_only	Translate/adapt to German
+DS31	Q230	https://freedomhouse.org/country/russia/nations-transit/2015	EN	EN	fact_based_digest	queued	verified_open	Institutional citation of Dozhd reporting
+DS32	Q230	https://freedomhouse.org/country/russia/nations-transit/2015	EN	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+DS33	Q230	https://freedomhouse.org/country/russia/nations-transit/2015	EN	DE	fact_based_digest	queued	verified_open	Translate/adapt to German
+DS34	Q232	http://peacekeeping-centre.in.ua/Museum/East/Ubit/Dozd.htm	RU	EN	fact_based_digest	queued	verified_open	Mirror attribution support ("Mikhail Zygar and Ilya Klishin")
+DS35	Q232	http://peacekeeping-centre.in.ua/Museum/East/Ubit/Dozd.htm	RU	FR	fact_based_digest	queued	verified_open	Translate/adapt to French
+DS36	Q232	http://peacekeeping-centre.in.ua/Museum/East/Ubit/Dozd.htm	RU	DE	fact_based_digest	queued	verified_open	Translate/adapt to German

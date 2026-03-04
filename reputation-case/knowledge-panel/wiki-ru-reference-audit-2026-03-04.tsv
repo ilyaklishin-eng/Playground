@@ -1,0 +1,29 @@
+ref_no	wiki_section	source_title	url	check_status	source_quality	note	recommended_action
+1	Lead	Ilya Klishin — biography (KF Agency)	https://kf.agency/articles/biography	blocked_in_crawler	self_published	Used for lead bio facts but domain is own agency profile	Replace with independent media references for core bio claims
+2	Lead	7x7 interview about Volna	https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran	verified	independent_interview	Confirms co-founder role and Volna context	Keep
+3	Lead	Полутона: Илья Клишин	https://polutona.ru/?show=0319150555	blocked_in_crawler	independent_but_old	Not machine-verified in this run	Manually check or replace with stronger mainstream source
+4	Lead	Afisha Daily interview	https://daily.afisha.ru/brain/10759-kto-ne-podpisan-u-togo-forsa-net-kak-poyavlyalis-mediasobytiya-v-rossii-2010-h/	verified	independent_interview	Supports media-career context	Keep
+5	Biography	MEL: FLEX article	unresolved_from_page_title_only	unverified	unknown	Crawler could not open wiki-cited URL directly	Replace with verified MEL URL: https://mel.fm/zhizn/istorii/3029718-american
+6	Biography	Lenta: organizer pressure case	https://lenta.ru/news/2012/01/20/klishin/	verified	independent_news	Supports protest-organizer/pressure context	Keep, optionally pair with HRW/Guardian
+7	Biography	Lenta: Big White Circle	https://lenta.ru/news/2012/02/20/circle/	blocked_in_crawler	independent_news	Likely correct URL by title match; not machine-opened	Keep with archive mirror or second source
+8	Biography	Carnegie: Kremlin vs internet	https://carnegie.ru/commentary/63383	blocked_in_crawler	independent_analysis	Used to support publication profile list	Keep only if manually verified; otherwise replace by other verified bylines
+9	Biography	Lenta: Epic Hero sale	https://lenta.ru/news/2012/03/16/epichero/	blocked_in_crawler	independent_news	Title matched; not opened in crawler	Add second source already in registry (OpenSpace/Colta)
+10	Biography	TV Rain paid subscription news	https://tvrain.ru/news/dozhd_vvedet_platnuyu_podpisku_na_svoj_kontent_s_1_fevralya-361662/	blocked_in_crawler	independent_news	Likely supports role at Dozhd and blockade-poll aftermath context	Prefer stronger source specifically about poll/apology (Forbes refs already collected)
+11	Biography	The Guardian 30 under 30	https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list	verified	high_quality_international	Explicitly contains profile entry #20 and Big White Circle attribution	Keep (high value)
+12	Biography	Echo: RTVI appointment	unresolved_from_page_title_only	unverified	unknown	Echo domain often unstable/archived	Replace with available business-media sources in registry (RBC/Gazeta/Kommersant)
+13	Biography	KFConsulting site	https://kfconsulting.tilda.ws/	blocked_in_crawler	self_published	Primary source only	Keep only for non-controversial company existence, add independent corroboration
+14	Biography	Personal Twitter	https://twitter.com/iklishin	blocked_in_crawler	self_published	Used for relocation claim	Replace with independent interview source for BLP stability
+15	Biography	Holod interview	https://holod.media/2023/07/13/klishin-interview/	verified	independent_interview	Supports post-2022 relocation/community media context	Keep
+16	Publications	Vedomosti column	https://www.vedomosti.ru/opinion/articles/2013/01/30/glupost_ili_izmena	verified	independent_major_media	Confirms byline and publication profile	Keep
+17	Publications	The Insider article	https://www.theins.ru/politika/48709	blocked_in_crawler	independent_media	Link exists in wiki, crawler access unstable	Keep after manual click-check
+18	Publications	The Moscow Times author page	https://www.moscowtimes.ru/author/ilya-klishin	verified	independent_major_media	Confirms sustained byline presence	Keep
+19	Publications	Snob: Заполярное расстройство	https://snob.ru/entry/84040/	verified	independent_media	Confirms authored publication	Keep
+20	Publications	Colta: Покемоны и враги открытого общества	https://www.colta.ru/articles/literature/11839	blocked_in_crawler	independent_media	Likely valid; crawler could not open	Keep after manual check or use os.colta alternatives from registry
+21	Publications	Delfi column	unresolved_from_page_title_only	unverified	unknown	Could not retrieve URL from crawler	Replace or drop if URL dead
+22	Publications	MEL interview	unresolved_from_page_title_only	partially_verified	independent_media	Likely replaced by verified MEL authored text URL	Prefer verified MEL URL(s) from registry
+23	External links	Forbes profile	unresolved_from_page_title_only	unverified	unknown	Not resolved in crawler run	Optional; verify manually or remove from wiki external links
+24	External links	MEL author profile	https://mel.fm/author/ilya-klishin	verified	independent_media	Valid author profile	Keep
+25	External links	YouTube channel	https://www.youtube.com/channel/UCdoP3MKiS6f9bl_f9x59utw	verified	platform_primary	Valid but platform-primary	Keep as external link only
+26	External links	Snob author profile	https://snob.ru/profile/28206/blog/	verified	independent_media	Valid profile URL	Keep
+27	External links	The Moscow Times author page	https://www.moscowtimes.ru/author/ilya-klishin	verified	independent_major_media	Valid author page	Keep
+28	External links	Delfi profile	unresolved_from_page_title_only	unverified	unknown	Could not resolve URL	Remove if dead or replace

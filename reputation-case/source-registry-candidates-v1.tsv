@@ -1,0 +1,4 @@
+id	url	outlet	language	relation	translation_route	priority	notes
+1	https://www.ted.com/talks/ilya_klishin_social_media_propaganda_in_eastern_europe	TED / TEDx	EN	tedx_talk_video	already_english_canonical	P1	Potential talk URL candidate; verify exact TED talk page or YouTube mirror
+2	https://www.rferl.org/amp/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html	RFE/RL	EN	professional_coverage	already_english_canonical	P2	Search-verified; crawler fetch limited (AMP/internal error)
+3	https://mrftb.lt/turinys/rusu-klb/3991/komu-verit-s-ilei-klisinym-razoblacenie-feikov-o-litve-i-putevoditel-po-emigracii	MRFTB (Lithuania)	LT	interview_with_ilya	digest_only_summary_quote	P2	Search-verified; crawler fetch limited
