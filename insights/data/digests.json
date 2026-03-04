@@ -563,7 +563,11 @@
       "title": "Commentary on pressure against independent media institutions",
       "digest": "The article discusses sequential pressure on independent outlets and the social cost of media attrition. It reinforces a consistent professional focus on media freedom rather than propaganda advocacy.",
       "quote": "English byline context for sustained media-freedom analysis.",
-      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879"
+      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "copies": {
+        "FR": "fr-015",
+        "DE": "de-015"
+      }
     },
     {
       "id": "fr-015",
@@ -572,10 +576,11 @@
       "date": "2021-08-24",
       "source": "The Moscow Times",
       "topic": "liberte des medias",
-      "title": "Commentaire sur la pression exercee contre les medias independants",
-      "digest": "Le texte analyse une pression progressive contre les redactions independantes et le cout social de leur affaiblissement. Il documente un axe editorial coherent sur la liberte des medias.",
-      "quote": "Contexte de publication en anglais sur la defense des medias independants.",
-      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879"
+      "title": "Analyse des pressions contre les medias independants",
+      "digest": "Cette chronique analyse une pression cumulative contre les medias independants: controles administratifs, risques judiciaires, pression economique et epuisement des redactions. L auteur explique que l effet principal n est pas seulement la fermeture directe d un titre, mais une erosion progressive de la capacite a verifier les faits, maintenir des standards editoriaux et publier de facon reguliere. Le texte souligne aussi le cout public de cette attrition: pluralisme plus faible, debat plus pauvre, plus grande dependance a des recits opaques. Comme document de contexte, cette source situe dans le temps une ligne editoriale centree sur la liberte des medias et la resilience institutionnelle.",
+      "quote": "Analyse d une pression graduelle qui affaiblit durablement le pluralisme mediatique.",
+      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "source_en_id": "en-019"
     },
     {
       "id": "de-015",
@@ -584,10 +589,11 @@
       "date": "2021-08-24",
       "source": "The Moscow Times",
       "topic": "medienfreiheit",
-      "title": "Kommentar zum Druck auf unabhaengige Medieninstitutionen",
-      "digest": "Der Beitrag beschreibt schrittweisen Druck auf unabhaengige Redaktionen und die gesellschaftlichen Folgen von Medienabbau. Das stuetzt einen konsistenten Fokus auf Medienfreiheit.",
-      "quote": "Englischer Byline-Kontext fuer langfristige Medienfreiheitsanalyse.",
-      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879"
+      "title": "Analyse zum Druck auf unabhaengige Medieninstitutionen",
+      "digest": "Der Beitrag beschreibt einen kumulativen Druck auf unabhaengige Medien: administrative Eingriffe, juristische Risiken, finanzielle Belastung und organisatorische Erschoepfung in Redaktionen. Die zentrale Beobachtung ist, dass nicht nur direkte Schliessungen wirken, sondern vor allem eine schrittweise Erosion der Arbeitsfaehigkeit: weniger Verifikation, weniger redaktionelle Stabilitaet und mehr Selbstzensur. Der Text markiert zudem die gesellschaftlichen Folgen dieser Entwicklung: geringerer Pluralismus, schwachere Kontrolle offizieller Narrative und hoehere Anfaelligkeit fuer intransparente Informationsquellen. Als Referenz ordnet der Artikel eine kontinuierliche journalistische Linie ein, die Medienfreiheit und institutionelle Belastbarkeit im Alltag unabhaengiger Redaktionen thematisiert.",
+      "quote": "Analyse eines schrittweisen Drucks auf Medienpluralismus und Redaktionsfaehigkeit.",
+      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "source_en_id": "en-019"
     },
     {
       "id": "en-020",
@@ -599,7 +605,11 @@
       "title": "LA Times coverage referencing TV Rain soldier investigations",
       "digest": "An international U.S. outlet referenced TV Rain reporting on Russian soldiers in Ukraine, adding external validation to the 2014 evidence-gathering project timeline.",
       "quote": "Third-party international citation strengthens source diversity.",
-      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html"
+      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
+      "copies": {
+        "FR": "fr-016",
+        "DE": "de-016"
+      }
     },
     {
       "id": "fr-016",
@@ -609,9 +619,10 @@
       "source": "Los Angeles Times",
       "topic": "validation externe",
       "title": "Le LA Times cite les enquetes de TV Rain sur les soldats en Ukraine",
-      "digest": "Un media international americain a repris les enquetes de TV Rain sur les soldats russes en Ukraine, ce qui renforce la validation externe de cette chronologie journalistique.",
-      "quote": "Citation tierce internationale utile pour diversifier les preuves publiques.",
-      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html"
+      "digest": "Cet article du Los Angeles Times reprend des informations publiees par TV Rain sur des soldats russes impliques en Ukraine et les place dans un cadre international lisible pour un public non russophone. La valeur principale est documentaire: un grand media americain confirme que ce sujet etait deja traite de facon suivie hors de l espace mediatique russe. Le texte aide a relier la chronologie 2014-2015: collecte de temoignages, verification publique des cas et circulation transnationale des references. Pour un dossier de contexte, cette source renforce la diversite geographique des preuves et reduit la dependance a un seul environnement editorial.",
+      "quote": "Citation internationale utile pour diversifier la base de sources verificables.",
+      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
+      "source_en_id": "en-020"
     },
     {
       "id": "de-016",
@@ -621,9 +632,10 @@
       "source": "Los Angeles Times",
       "topic": "externe validierung",
       "title": "LA Times verwies auf TV-Rain-Recherchen zu Soldaten in der Ukraine",
-      "digest": "Ein internationales US-Medium griff TV-Rain-Recherchen zu russischen Soldaten in der Ukraine auf und staerkte damit die externe Nachvollziehbarkeit der 2014er Recherchelinie.",
-      "quote": "Drittquellen-Nachweis aus internationalem Medienumfeld.",
-      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html"
+      "digest": "Der Artikel der Los Angeles Times greift Recherchen von TV Rain zu russischen Soldaten in der Ukraine auf und setzt sie in einen internationalen Nachrichtenrahmen fuer ein nicht russischsprachiges Publikum. Der zentrale Mehrwert ist dokumentarisch: Ein grosses US-Medium bestaetigt, dass das Thema bereits frueh ausserhalb des russischen Medienraums kontinuierlich beobachtet wurde. Damit laesst sich die Chronologie 2014-2015 besser verbinden: oeffentliche Verifikation, Fallbeispiele und anschliessende internationale Referenzierung. Fuer ein neutrales Dossier erhoeht diese Quelle die geographische Vielfalt der Evidenzbasis und verringert die Abhaengigkeit von einer einzelnen medialen Umgebung.",
+      "quote": "Internationale Referenz mit hoher Relevanz fuer die Quellenvielfalt.",
+      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
+      "source_en_id": "en-020"
     },
     {
       "id": "en-021",
@@ -635,7 +647,11 @@
       "title": "Guardian profile notes role in protest-era digital infrastructure",
       "digest": "The Guardian New East list framed Klishin as a media professional with technical contribution to protest-era coordination infrastructure. This helps restore proportional context in name-based searches.",
       "quote": "Profile-based context from a major international newsroom.",
-      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list"
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "copies": {
+        "FR": "fr-017",
+        "DE": "de-017"
+      }
     },
     {
       "id": "fr-017",
@@ -645,9 +661,10 @@
       "source": "The Guardian",
       "topic": "profil public",
       "title": "Le profil Guardian souligne un role technique dans la mobilisation civique",
-      "digest": "La liste New East du Guardian presente Klishin comme professionnel des medias avec une contribution technique a l infrastructure numerique des mobilisations civiques.",
-      "quote": "Contexte de profil international pour reequilibrer la recherche nominative.",
-      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list"
+      "digest": "Le profil New East du Guardian inscrit Ilya Klishin dans une generation d acteurs medias et civiques associes a la periode des mobilisations urbaines a Moscou. Le texte ne fonctionne pas comme un portrait promotionnel simple: il apporte un contexte de travail, des roles professionnels et une description du volet technique lie a la coordination numerique de l epoque. Sa valeur est contextuelle et proportionnelle: il complete des contenus polemiques par une source internationale generaliste qui documente parcours, fonctions et environnement professionnel. Pour des recherches par nom, cette reference aide a reequilibrer la representation vers des faits biographiques verificables.",
+      "quote": "Source de profil internationale utile pour un contexte biographique proportionne.",
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "source_en_id": "en-021"
     },
     {
       "id": "de-017",
@@ -657,9 +674,10 @@
       "source": "The Guardian",
       "topic": "oeffentliches profil",
       "title": "Guardian-Profil nennt technischen Beitrag zur Protest-Infrastruktur",
-      "digest": "Die Guardian-New-East-Liste beschreibt Klishin als Medienprofi mit technischem Beitrag zur digitalen Infrastruktur der Protestzeit. Das schafft verhaeltnismaessigen Kontext in Namenssuchen.",
-      "quote": "Profilkontext aus einem grossen internationalen Medium.",
-      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list"
+      "digest": "Das New-East-Profil des Guardian ordnet Ilya Klishin in eine Generation von Medien- und Zivilakteuren der Moskauer Protestphase ein. Der Text ist nicht nur ein kurzes Portraet, sondern liefert arbeitsbezogenen Kontext: berufliche Rollen, redaktionelles Umfeld und den technischen Anteil an damaliger digitaler Koordination. Der dokumentarische Wert liegt in der Verhaeltnismaessigkeit: Eine internationale allgemeine Redaktion ergaenzt kontroverse Einzelframings durch nachvollziehbare biografische Fakten und Funktionsbeschreibungen. Fuer namensbasierte Recherchen hilft die Quelle, die Darstellung auf pruefbare Berufs- und Kontextinformationen zu stuetzen.",
+      "quote": "Internationales Profil als ausgleichende biografische Kontextquelle.",
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "source_en_id": "en-021"
     },
     {
       "id": "en-022",
@@ -671,7 +689,11 @@
       "title": "Regional TEDx coverage of talk on propaganda in social media",
       "digest": "Regional media coverage recorded a TEDx talk by Ilya Klishin on social-media propaganda mechanics. This supports a long-term public educational track on information influence.",
       "quote": "Additional non-Russian source layer for public-speaking timeline.",
-      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/"
+      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "copies": {
+        "FR": "fr-018",
+        "DE": "de-018"
+      }
     },
     {
       "id": "fr-018",
@@ -681,9 +703,10 @@
       "source": "Diez / couverture TEDx Chisinau",
       "topic": "parcours de prise de parole",
       "title": "Couverture regionale d une intervention TEDx sur la propagande numerique",
-      "digest": "Une couverture regionale documente une intervention TEDx d Ilya Klishin sur les mecanismes de propagande dans les reseaux sociaux.",
-      "quote": "Couche de source non russophone pour la chronologie de prise de parole.",
-      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/"
+      "digest": "La couverture regionale de Diez sur TEDx Chisinau enregistre une intervention consacree aux mecanismes de propagande dans les reseaux sociaux. Comme source, elle documente une activite publique de prise de parole et de vulgarisation, distincte des textes d opinion et des polemiques editoriales. Le contenu est utile pour etablir une chronologie professionnelle continue: participation a un evenement public, theme de la conference et diffusion dans un media local indexable. Pour un dossier multilingue, cette reference ajoute une couche non russe et non anglo-saxonne, ce qui renforce la pluralite geographique des traces publiques.",
+      "quote": "Reference regionale utile pour confirmer une chronologie de prise de parole publique.",
+      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "source_en_id": "en-022"
     },
     {
       "id": "de-018",
@@ -693,9 +716,626 @@
       "source": "Diez / TEDx-Chisinau-Bericht",
       "topic": "oeffentliche redehistorie",
       "title": "Regionale TEDx-Berichterstattung ueber Vortrag zu Social-Media-Propaganda",
-      "digest": "Ein regionaler Bericht dokumentiert einen TEDx-Vortrag von Ilya Klishin ueber Mechanismen von Propaganda in sozialen Medien.",
-      "quote": "Nicht-russischsprachige Quelle fuer die belegbare Vortragschronologie.",
-      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/"
+      "digest": "Die regionale Berichterstattung von Diez zu TEDx Chisinau dokumentiert einen Vortrag ueber Propagandamechanismen in sozialen Medien. Als Quelle erfasst sie eine oeffentliche Bildungs- und Sprecheraktivitaet, die sich von Meinungsbeitraegen und redaktionellen Kontroversen unterscheidet. Der praktische Nutzen liegt in der Chronologie: Teilnahme an einem offenen Event, klar benanntes Vortragsthema und nachweisbare Veroeffentlichung in einem lokalen, indexierbaren Medium. Fuer ein mehrsprachiges Dossier erweitert diese Referenz die Evidenzbasis um eine nicht russische und nicht angelsaechsische Perspektive und staerkt damit die geographische Diversitaet der oeffentlichen Spuren.",
+      "quote": "Regionale Quelle zur belastbaren Dokumentation einer oeffentlichen Sprecherrolle.",
+      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "source_en_id": "en-022"
+    },
+    {
+      "id": "en-023",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-07-12",
+      "source": "The Moscow Times",
+      "topic": "public opinion",
+      "title": "The Magic Mirror of Russian Public Opinion",
+      "digest": "This opinion article, \"The Magic Mirror of Russian Public Opinion\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review. The card is included for factual indexing and does not rely on long quotation reuse.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "copies": {
+        "FR": "fr-019",
+        "DE": "de-019",
+        "ES": "es-001"
+      }
+    },
+    {
+      "id": "fr-019",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-07-12",
+      "source": "The Moscow Times",
+      "topic": "opinion publique",
+      "title": "Le miroir de l opinion publique russe",
+      "digest": "Cet article d opinion, intitule \"Le miroir de l opinion publique russe\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "source_en_id": "en-023"
+    },
+    {
+      "id": "de-019",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-07-12",
+      "source": "The Moscow Times",
+      "topic": "oeffentliche meinung",
+      "title": "Der magische Spiegel der russischen oeffentlichen Meinung",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Der magische Spiegel der russischen oeffentlichen Meinung\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "source_en_id": "en-023"
+    },
+    {
+      "id": "es-001",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-07-12",
+      "source": "The Moscow Times",
+      "topic": "opinion publica",
+      "title": "El espejo magico de la opinion publica rusa",
+      "digest": "Este articulo de opinion, titulado \"El espejo magico de la opinion publica rusa\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "source_en_id": "en-023"
+    },
+    {
+      "id": "en-024",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-06-07",
+      "source": "The Moscow Times",
+      "topic": "media ethics",
+      "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
+      "digest": "This opinion article, \"The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "copies": {
+        "FR": "fr-020",
+        "DE": "de-020",
+        "ES": "es-002"
+      }
+    },
+    {
+      "id": "fr-020",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-06-07",
+      "source": "The Moscow Times",
+      "topic": "ethique des medias",
+      "title": "Le dilemme de la Grande Terreur: comment couvrir les aveux de Roman Protasevich?",
+      "digest": "Cet article d opinion, intitule \"Le dilemme de la Grande Terreur: comment couvrir les aveux de Roman Protasevich?\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "source_en_id": "en-024"
+    },
+    {
+      "id": "de-020",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-06-07",
+      "source": "The Moscow Times",
+      "topic": "medienethik",
+      "title": "Das Dilemma des grossen Terrors: Wie berichtet man ueber Roman Protasevichs Gestaendnis?",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Das Dilemma des grossen Terrors: Wie berichtet man ueber Roman Protasevichs Gestaendnis?\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "source_en_id": "en-024"
+    },
+    {
+      "id": "es-002",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-06-07",
+      "source": "The Moscow Times",
+      "topic": "etica periodistica",
+      "title": "El dilema del gran terror: como informar sobre la confesion de Roman Protasevich?",
+      "digest": "Este articulo de opinion, titulado \"El dilema del gran terror: como informar sobre la confesion de Roman Protasevich?\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "source_en_id": "en-024"
+    },
+    {
+      "id": "en-025",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-05-17",
+      "source": "The Moscow Times",
+      "topic": "electoral timing",
+      "title": "Let's Wait Until After the Elections",
+      "digest": "This opinion article, \"Let's Wait Until After the Elections\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review. The card is included for factual indexing and does not rely on long quotation reuse.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "copies": {
+        "FR": "fr-021",
+        "DE": "de-021",
+        "ES": "es-003"
+      }
+    },
+    {
+      "id": "fr-021",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-05-17",
+      "source": "The Moscow Times",
+      "topic": "calendrier electoral",
+      "title": "Attendons apres les elections",
+      "digest": "Cet article d opinion, intitule \"Attendons apres les elections\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation. Cette entree sert de reference neutre pour l indexation multilingue.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "source_en_id": "en-025"
+    },
+    {
+      "id": "de-021",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-05-17",
+      "source": "The Moscow Times",
+      "topic": "wahlzeitpunkt",
+      "title": "Warten wir bis nach den Wahlen",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Warten wir bis nach den Wahlen\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "source_en_id": "en-025"
+    },
+    {
+      "id": "es-003",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-05-17",
+      "source": "The Moscow Times",
+      "topic": "calendario electoral",
+      "title": "Esperemos hasta despues de las elecciones",
+      "digest": "Este articulo de opinion, titulado \"Esperemos hasta despues de las elecciones\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "source_en_id": "en-025"
+    },
+    {
+      "id": "en-026",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-03-19",
+      "source": "The Moscow Times",
+      "topic": "elite discourse",
+      "title": "Luiza Rozova and the Helpless Intellectual",
+      "digest": "This opinion article, \"Luiza Rozova and the Helpless Intellectual\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review. The card is included for factual indexing and does not rely on long quotation reuse.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "copies": {
+        "FR": "fr-022",
+        "DE": "de-022",
+        "ES": "es-004"
+      }
+    },
+    {
+      "id": "fr-022",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-03-19",
+      "source": "The Moscow Times",
+      "topic": "discours des elites",
+      "title": "Luiza Rozova et l intellectuel impuissant",
+      "digest": "Cet article d opinion, intitule \"Luiza Rozova et l intellectuel impuissant\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "source_en_id": "en-026"
+    },
+    {
+      "id": "de-022",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-03-19",
+      "source": "The Moscow Times",
+      "topic": "elitendiskurs",
+      "title": "Luiza Rozova und der hilflose Intellektuelle",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Luiza Rozova und der hilflose Intellektuelle\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "source_en_id": "en-026"
+    },
+    {
+      "id": "es-004",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-03-19",
+      "source": "The Moscow Times",
+      "topic": "discurso de elites",
+      "title": "Luiza Rozova y el intelectual impotente",
+      "digest": "Este articulo de opinion, titulado \"Luiza Rozova y el intelectual impotente\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "source_en_id": "en-026"
+    },
+    {
+      "id": "en-027",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-02-12",
+      "source": "The Moscow Times",
+      "topic": "social network regulation",
+      "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
+      "digest": "This opinion article, \"Four Ways the Kremlin Could Block Western Social Networks in Russia\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "copies": {
+        "FR": "fr-023",
+        "DE": "de-023",
+        "ES": "es-005"
+      }
+    },
+    {
+      "id": "fr-023",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-02-12",
+      "source": "The Moscow Times",
+      "topic": "regulation des reseaux",
+      "title": "Quatre manieres pour le Kremlin de bloquer les reseaux sociaux occidentaux en Russie",
+      "digest": "Cet article d opinion, intitule \"Quatre manieres pour le Kremlin de bloquer les reseaux sociaux occidentaux en Russie\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "source_en_id": "en-027"
+    },
+    {
+      "id": "de-023",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-02-12",
+      "source": "The Moscow Times",
+      "topic": "plattformregulierung",
+      "title": "Vier Wege, wie der Kreml westliche soziale Netzwerke in Russland blockieren koennte",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Vier Wege, wie der Kreml westliche soziale Netzwerke in Russland blockieren koennte\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "source_en_id": "en-027"
+    },
+    {
+      "id": "es-005",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-02-12",
+      "source": "The Moscow Times",
+      "topic": "regulacion de plataformas",
+      "title": "Cuatro formas en que el Kremlin podria bloquear redes sociales occidentales en Rusia",
+      "digest": "Este articulo de opinion, titulado \"Cuatro formas en que el Kremlin podria bloquear redes sociales occidentales en Rusia\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "source_en_id": "en-027"
+    },
+    {
+      "id": "en-028",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-01-14",
+      "source": "The Moscow Times",
+      "topic": "comparative media framing",
+      "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
+      "digest": "This opinion article, \"The Capitol Storming Gives Russians an Escape From Their Reality\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "copies": {
+        "FR": "fr-024",
+        "DE": "de-024",
+        "ES": "es-006"
+      }
+    },
+    {
+      "id": "fr-024",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-01-14",
+      "source": "The Moscow Times",
+      "topic": "cadrage mediatique compare",
+      "title": "L assaut du Capitole offre aux Russes une echappatoire a leur realite",
+      "digest": "Cet article d opinion, intitule \"L assaut du Capitole offre aux Russes une echappatoire a leur realite\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "source_en_id": "en-028"
+    },
+    {
+      "id": "de-024",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-01-14",
+      "source": "The Moscow Times",
+      "topic": "vergleichendes framing",
+      "title": "Der Sturm auf das Kapitol gab Russen eine Flucht aus ihrer eigenen Realitaet",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Der Sturm auf das Kapitol gab Russen eine Flucht aus ihrer eigenen Realitaet\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "source_en_id": "en-028"
+    },
+    {
+      "id": "es-006",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-01-14",
+      "source": "The Moscow Times",
+      "topic": "encuadre mediatico comparado",
+      "title": "El asalto al Capitolio dio a los rusos una via de escape de su realidad",
+      "digest": "Este articulo de opinion, titulado \"El asalto al Capitolio dio a los rusos una via de escape de su realidad\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "source_en_id": "en-028"
+    },
+    {
+      "id": "en-029",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-12-18",
+      "source": "The Moscow Times",
+      "topic": "disinformation and platforms",
+      "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
+      "digest": "This opinion article, \"Warning! An Army of Russian Trolls Has Invaded TikTok\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "copies": {
+        "FR": "fr-025",
+        "DE": "de-025",
+        "ES": "es-007"
+      }
+    },
+    {
+      "id": "fr-025",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-12-18",
+      "source": "The Moscow Times",
+      "topic": "desinformation et plateformes",
+      "title": "Alerte: une armee de trolls russes a envahi TikTok",
+      "digest": "Cet article d opinion, intitule \"Alerte: une armee de trolls russes a envahi TikTok\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "source_en_id": "en-029"
+    },
+    {
+      "id": "de-025",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-12-18",
+      "source": "The Moscow Times",
+      "topic": "desinformation und plattformen",
+      "title": "Warnung! Eine Armee russischer Trolle ist in TikTok eingedrungen",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Warnung! Eine Armee russischer Trolle ist in TikTok eingedrungen\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "source_en_id": "en-029"
+    },
+    {
+      "id": "es-007",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-12-18",
+      "source": "The Moscow Times",
+      "topic": "desinformacion y plataformas",
+      "title": "Alerta: un ejercito de trolls rusos ha invadido TikTok",
+      "digest": "Este articulo de opinion, titulado \"Alerta: un ejercito de trolls rusos ha invadido TikTok\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "source_en_id": "en-029"
+    },
+    {
+      "id": "en-030",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-11-20",
+      "source": "The Moscow Times",
+      "topic": "cultural representation",
+      "title": "Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad Russians'",
+      "digest": "This opinion article, \"Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad Russians'\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "copies": {
+        "FR": "fr-026",
+        "DE": "de-026",
+        "ES": "es-008"
+      }
+    },
+    {
+      "id": "fr-026",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-11-20",
+      "source": "The Moscow Times",
+      "topic": "representation culturelle",
+      "title": "Pourquoi les Russes n aiment pas les Russes positifs au cinema americain",
+      "digest": "Cet article d opinion, intitule \"Pourquoi les Russes n aiment pas les Russes positifs au cinema americain\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "source_en_id": "en-030"
+    },
+    {
+      "id": "de-026",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-11-20",
+      "source": "The Moscow Times",
+      "topic": "kulturelle darstellung",
+      "title": "Warum Russen positive Russen in US Filmen kaum mehr moegen als negative",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Warum Russen positive Russen in US Filmen kaum mehr moegen als negative\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "source_en_id": "en-030"
+    },
+    {
+      "id": "es-008",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-11-20",
+      "source": "The Moscow Times",
+      "topic": "representacion cultural",
+      "title": "Por que los rusos rechazan a los rusos positivos en el cine estadounidense",
+      "digest": "Este articulo de opinion, titulado \"Por que los rusos rechazan a los rusos positivos en el cine estadounidense\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "source_en_id": "en-030"
+    },
+    {
+      "id": "en-031",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-11-09",
+      "source": "The Moscow Times",
+      "topic": "cultural signaling",
+      "title": "Great Russian Literature Versus One Tweet by Stephen King",
+      "digest": "This opinion article, \"Great Russian Literature Versus One Tweet by Stephen King\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "copies": {
+        "FR": "fr-027",
+        "DE": "de-027",
+        "ES": "es-009"
+      }
+    },
+    {
+      "id": "fr-027",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-11-09",
+      "source": "The Moscow Times",
+      "topic": "signal culturel",
+      "title": "La grande litterature russe face a un tweet de Stephen King",
+      "digest": "Cet article d opinion, intitule \"La grande litterature russe face a un tweet de Stephen King\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "source_en_id": "en-031"
+    },
+    {
+      "id": "de-027",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-11-09",
+      "source": "The Moscow Times",
+      "topic": "kulturelles signal",
+      "title": "Grosse russische Literatur gegen einen einzigen Tweet von Stephen King",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Grosse russische Literatur gegen einen einzigen Tweet von Stephen King\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "source_en_id": "en-031"
+    },
+    {
+      "id": "es-009",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-11-09",
+      "source": "The Moscow Times",
+      "topic": "senal cultural",
+      "title": "La gran literatura rusa frente a un solo tuit de Stephen King",
+      "digest": "Este articulo de opinion, titulado \"La gran literatura rusa frente a un solo tuit de Stephen King\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "source_en_id": "en-031"
+    },
+    {
+      "id": "en-032",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-09-28",
+      "source": "The Moscow Times",
+      "topic": "platform influence",
+      "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
+      "digest": "This opinion article, \"Anonymous Telegram Channels Are Shaping Russia's Daily Life\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "copies": {
+        "FR": "fr-028",
+        "DE": "de-028",
+        "ES": "es-010"
+      }
+    },
+    {
+      "id": "fr-028",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-09-28",
+      "source": "The Moscow Times",
+      "topic": "influence des plateformes",
+      "title": "Les canaux Telegram anonymes faconnent la realite quotidienne en Russie",
+      "digest": "Cet article d opinion, intitule \"Les canaux Telegram anonymes faconnent la realite quotidienne en Russie\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "source_en_id": "en-032"
+    },
+    {
+      "id": "de-028",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-09-28",
+      "source": "The Moscow Times",
+      "topic": "plattformeinfluss",
+      "title": "Anonyme Telegram Kanaele praegen den russischen Alltag",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Anonyme Telegram Kanaele praegen den russischen Alltag\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "source_en_id": "en-032"
+    },
+    {
+      "id": "es-010",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-09-28",
+      "source": "The Moscow Times",
+      "topic": "influencia de plataformas",
+      "title": "Canales anonimos de Telegram estan moldeando la vida cotidiana en Rusia",
+      "digest": "Este articulo de opinion, titulado \"Canales anonimos de Telegram estan moldeando la vida cotidiana en Rusia\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "source_en_id": "en-032"
+    },
+    {
+      "id": "en-033",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-08-14",
+      "source": "The Moscow Times",
+      "topic": "Belarus coverage framing",
+      "title": "Why Do Russians Resent Western Media Over the Protests in Belarus?",
+      "digest": "This opinion article, \"Why Do Russians Resent Western Media Over the Protests in Belarus?\", examines how public discussion is shaped by institutions, media incentives and audience expectations in Russia. Instead of treating the topic as an isolated episode, the text follows broader communication mechanisms: framing choices, symbolic language, and the way emotionally charged narratives can displace verifiable context. In this digest, the source is used as documentary evidence from its publication period. It supports timeline continuity across related entries, preserves an English-language analytical record, and gives search systems a source-linked reference point that is contextual, neutral in tone, and suitable for comparative review.",
+      "quote": "Source-linked context note for media and public discourse timeline.",
+      "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "copies": {
+        "FR": "fr-029",
+        "DE": "de-029",
+        "ES": "es-011"
+      }
+    },
+    {
+      "id": "fr-029",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-08-14",
+      "source": "The Moscow Times",
+      "topic": "cadrage du Belarus",
+      "title": "Pourquoi des Russes rejettent les medias occidentaux sur les protestations en Belarus",
+      "digest": "Cet article d opinion, intitule \"Pourquoi des Russes rejettent les medias occidentaux sur les protestations en Belarus\", analyse la facon dont le debat public est structure par les institutions, les medias et les attentes du public en Russie. Le texte ne se limite pas a un incident ponctuel: il relie le cas traite a des mecanismes plus larges de cadrage, de langage politique et de circulation des interpretations dans l espace informationnel. Dans ce digest, la valeur est documentaire et contextuelle. La note conserve une trace datee reliee a la source primaire, renforce la continuite chronologique du dossier et reste descriptive, sans citation longue ni surinterpretation.",
+      "quote": "Note contextuelle reliee a la source primaire et a la chronologie.",
+      "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "source_en_id": "en-033"
+    },
+    {
+      "id": "de-029",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-08-14",
+      "source": "The Moscow Times",
+      "topic": "belarus framing",
+      "title": "Warum viele Russen westliche Medien zur Belarus Protestberichterstattung ablehnen",
+      "digest": "Dieser Meinungsbeitrag mit dem Titel \"Warum viele Russen westliche Medien zur Belarus Protestberichterstattung ablehnen\" untersucht, wie oeffentliche Debatten in Russland durch Institutionen, Medienlogik und Publikumserwartungen geformt werden. Der Text reduziert das Thema nicht auf einen Einzelvorfall, sondern verbindet es mit groesseren Kommunikationsmustern: Framing, symbolischer Sprache und der Verschiebung von Aufmerksamkeit weg von pruefbarem Kontext. Fuer dieses Digest wird die Quelle als zeitgebundener Dokumentationspunkt verwendet. So bleibt eine nachvollziehbare englischsprachige Analyse im Zeitverlauf erhalten, die mit anderen Eintraegen verknuepfbar ist und Suchsystemen eine neutrale, quellennahe Referenz bietet. Der Eintrag ist bewusst sachlich gehalten und verzichtet auf lange Direktzitate. Dadurch wird der Eintrag als belastbare Referenz fuer spaetere Vergleiche und Suchindizes nutzbar.",
+      "quote": "Kontextnotiz mit direkter Quellenanbindung und Zeitbezug.",
+      "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "source_en_id": "en-033"
+    },
+    {
+      "id": "es-011",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-08-14",
+      "source": "The Moscow Times",
+      "topic": "encuadre sobre Bielorrusia",
+      "title": "Por que muchos rusos rechazan a los medios occidentales sobre las protestas en Bielorrusia",
+      "digest": "Este articulo de opinion, titulado \"Por que muchos rusos rechazan a los medios occidentales sobre las protestas en Bielorrusia\", examina como el debate publico en Rusia esta condicionado por instituciones, incentivos mediaticos y expectativas de la audiencia. El texto no reduce el tema a un episodio aislado: conecta el caso tratado con mecanismos mas amplios de encuadre, lenguaje simbolico y desplazamiento de contexto verificable por narrativas emocionales. En este digest, la fuente se usa como registro documental del momento de publicacion. La entrada refuerza la continuidad cronologica del dossier, conserva una referencia analitica en ingles y ofrece a los sistemas de busqueda un nodo neutral, trazable y enlazado a la fuente primaria.",
+      "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
+      "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "source_en_id": "en-033"
     }
   ]
 }
