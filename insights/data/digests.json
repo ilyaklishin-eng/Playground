@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-04",
+  "updated_at": "2026-03-05",
   "items": [
     {
       "id": "en-001",
@@ -11,7 +11,12 @@
       "title": "Putin-Macron talks and the Russia expertise gap",
       "digest": "The piece examines how diplomatic messaging and media framing can hide analytical blind spots. It argues for evidence-driven reporting and stronger contextual reading.",
       "quote": "Short quote marker: verification log attached in source dossier.",
-      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375"
+      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "copies": {
+        "FR": "fr-030",
+        "DE": "de-030",
+        "ES": "es-012"
+      }
     },
     {
       "id": "en-002",
@@ -23,7 +28,12 @@
       "title": "Mass protests: lessons from a decade",
       "digest": "A retrospective on protest cycles and political expectations, with focus on how apparent defeats can still reshape long-term civic behavior.",
       "quote": "Short quote marker: final extract limited to brief citation.",
-      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781"
+      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "copies": {
+        "FR": "fr-031",
+        "DE": "de-031",
+        "ES": "es-013"
+      }
     },
     {
       "id": "en-003",
@@ -35,7 +45,12 @@
       "title": "Mandatory vaccination and public resistance",
       "digest": "The article describes why institutional trust and communication style matter as much as policy design during public-health campaigns.",
       "quote": "Short quote marker pending final legal-length check.",
-      "url": "https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255"
+      "url": "https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255",
+      "copies": {
+        "FR": "fr-032",
+        "DE": "de-032",
+        "ES": "es-014"
+      }
     },
     {
       "id": "fr-001",
@@ -95,7 +110,12 @@
       "title": "Interview on creating an emigrant-focused media project",
       "digest": "The interview outlines audience needs, editorial process, and practical constraints of building a media product for Russian-speaking emigrants.",
       "quote": "Short quote marker: RU->EN translation kept minimal and attributed.",
-      "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran"
+      "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran",
+      "copies": {
+        "FR": "fr-033",
+        "DE": "de-033",
+        "ES": "es-015"
+      }
     },
     {
       "id": "en-006",
@@ -107,7 +127,12 @@
       "title": "TEDx speaker profile: Ilya Klishin",
       "digest": "Official TEDx event profile confirming participation as a speaker. This entry is used as a factual reference point in multilingual reputation context.",
       "quote": "Speaker listing confirmed on official TEDx event page.",
-      "url": "https://www.ted.com/tedx/events/3947"
+      "url": "https://www.ted.com/tedx/events/3947",
+      "copies": {
+        "FR": "fr-003",
+        "DE": "de-003",
+        "ES": "es-017"
+      }
     },
     {
       "id": "fr-003",
@@ -143,7 +168,12 @@
       "title": "Holod interview with Ilya Klishin",
       "digest": "A long-form interview focused on media work, professional context, and reputation-sensitive narratives. Added as a verified source for multilingual digest scaling.",
       "quote": "Short quote marker: final excerpt will be kept brief and attributed.",
-      "url": "https://holod.media/2023/07/13/klishin-interview/"
+      "url": "https://holod.media/2023/07/13/klishin-interview/",
+      "copies": {
+        "FR": "fr-004",
+        "DE": "de-004",
+        "ES": "es-018"
+      }
     },
     {
       "id": "fr-004",
@@ -179,7 +209,12 @@
       "title": "User-preferred Snob essay (entry 81618)",
       "digest": "This authored Snob essay was explicitly selected by Ilya for international scaling. It is now in priority multilingual adaptation queue.",
       "quote": "Short quote marker: final excerpt will stay brief and source-attributed.",
-      "url": "https://snob.ru/selected/entry/81618/"
+      "url": "https://snob.ru/selected/entry/81618/",
+      "copies": {
+        "FR": "fr-005",
+        "DE": "de-005",
+        "ES": "es-019"
+      }
     },
     {
       "id": "fr-005",
@@ -215,7 +250,12 @@
       "title": "Lajki na Zapad (user-highlighted strategic essay)",
       "digest": "This 2014 authored piece was highlighted by Ilya as strategically important for reputation context. It is prioritized for multilingual scaling as an early-warning media-analysis reference.",
       "quote": "Short quote marker: extract will be limited and source-attributed.",
-      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad"
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "copies": {
+        "FR": "fr-006",
+        "DE": "de-006",
+        "ES": "es-020"
+      }
     },
     {
       "id": "fr-006",
@@ -251,7 +291,12 @@
       "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
       "digest": "In August 2014, TV Rain launched a public evidence project to verify reports about Russian servicemen killed or captured near the Ukrainian border, during an official-denial period.",
       "quote": "Project framing: civic investigation with case-by-case verification.",
-      "url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/"
+      "url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
+      "copies": {
+        "FR": "fr-010",
+        "DE": "de-007",
+        "ES": "es-021"
+      }
     },
     {
       "id": "fr-007",
@@ -287,7 +332,12 @@
       "title": "Freedom House referenced Dozhd reporting on Russian soldiers in eastern Ukraine",
       "digest": "Nations in Transit 2015 cites Dozhd reporting as evidence that Russian soldiers were present in eastern Ukraine, despite official denials at that time.",
       "quote": "Institutional reference confirms the reporting's international policy visibility.",
-      "url": "https://freedomhouse.org/country/russia/nations-transit/2015"
+      "url": "https://freedomhouse.org/country/russia/nations-transit/2015",
+      "copies": {
+        "FR": "fr-008",
+        "DE": "de-008",
+        "ES": "es-022"
+      }
     },
     {
       "id": "fr-008",
@@ -323,7 +373,12 @@
       "title": "User-provided TED talk video URL",
       "digest": "TED talk video URL provided directly by Ilya Klishin and prioritized for multilingual scaling as a professional public-speaking asset.",
       "quote": "Metadata note: title and event details should be confirmed from the video page before wide syndication.",
-      "url": "https://www.youtube.com/watch?v=5UAZpvKKAJY"
+      "url": "https://www.youtube.com/watch?v=5UAZpvKKAJY",
+      "copies": {
+        "FR": "fr-009",
+        "DE": "de-009",
+        "ES": "es-023"
+      }
     },
     {
       "id": "fr-009",
@@ -359,7 +414,12 @@
       "title": "Documented 2014 record: \"Nashi Soldaty\" investigation",
       "digest": "A key documented record from 2014 is TV Rain's \"Nashi Soldaty\" investigation into Russian soldiers killed or captured in Donbas during a period of official denials, using open evidence collection and case-by-case verification.",
       "quote": "Counterpoint built on documented reporting practice and source-verifiable timeline.",
-      "url": "https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/"
+      "url": "https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/",
+      "copies": {
+        "FR": "fr-007",
+        "DE": "de-010",
+        "ES": "es-024"
+      }
     },
     {
       "id": "fr-010",
@@ -395,7 +455,10 @@
       "title": "How this digest is built",
       "digest": "Entries are published only after source check, claim typing, and proportionality review. Every card links to original publication.",
       "quote": "No direct quote used for methodology card.",
-      "url": "../digest-multilingual-notes-v1.md"
+      "url": "../digest-multilingual-notes-v1.md",
+      "copies": {
+        "ES": "es-016"
+      }
     },
     {
       "id": "en-014",
@@ -407,7 +470,12 @@
       "title": "Guardian New East: 30 under 30 profile entry",
       "digest": "The Guardian's New East profile list includes Ilya Klishin among Moscow's young media and civic actors, with context on his TV Rain role and technical contribution to protest-era infrastructure.",
       "quote": "Profile signal from a major English outlet, useful for contextual SERP balancing.",
-      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list"
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "copies": {
+        "FR": "fr-017",
+        "DE": "de-017",
+        "ES": "es-025"
+      }
     },
     {
       "id": "en-015",
@@ -419,7 +487,12 @@
       "title": "International reporting on pressure linked to protest organizing",
       "digest": "The Guardian covered claims of intimidation around organizers of the 2011-2012 fair-election protests, including a case involving pressure on family members. It provides international context for the risks attached to civic mobilization at that time.",
       "quote": "International outlet documentation is used here as context evidence, not as a legal conclusion.",
-      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics"
+      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "copies": {
+        "FR": "fr-011",
+        "DE": "de-011",
+        "ES": "es-026"
+      }
     },
     {
       "id": "fr-011",
@@ -455,7 +528,12 @@
       "title": "HRW report on harassment of critics includes Klishin case context",
       "digest": "Human Rights Watch documented pre-election pressure patterns and referenced the case in a broader review of harassment against critics. This is a high-credibility rights source for historical context.",
       "quote": "Used as institutional documentation of reported pressure patterns in the period.",
-      "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics"
+      "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
+      "copies": {
+        "FR": "fr-012",
+        "DE": "de-012",
+        "ES": "es-027"
+      }
     },
     {
       "id": "fr-012",
@@ -491,7 +569,12 @@
       "title": "English press archive on intimidation claims tied to activism",
       "digest": "News24 archived English-language reporting on intimidation claims connected to anti-fraud protest involvement. The value here is discoverability in non-Russian search contexts.",
       "quote": "Used as English archival context in support of timeline completeness.",
-      "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429"
+      "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "copies": {
+        "FR": "fr-013",
+        "DE": "de-013",
+        "ES": "es-028"
+      }
     },
     {
       "id": "fr-013",
@@ -527,7 +610,12 @@
       "title": "Early warning analysis on Russian troll expansion",
       "digest": "This English byline analyzed how domestic trolling methods could be projected outward, years before the topic became mainstream in Western debates. It supports a documented analytical track record on disinformation.",
       "quote": "Priority evidence of early analytical framing in an English publication.",
-      "url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651"
+      "url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
+      "copies": {
+        "FR": "fr-014",
+        "DE": "de-014",
+        "ES": "es-029"
+      }
     },
     {
       "id": "fr-014",
@@ -566,7 +654,8 @@
       "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
       "copies": {
         "FR": "fr-015",
-        "DE": "de-015"
+        "DE": "de-015",
+        "ES": "es-030"
       }
     },
     {
@@ -608,7 +697,8 @@
       "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
       "copies": {
         "FR": "fr-016",
-        "DE": "de-016"
+        "DE": "de-016",
+        "ES": "es-031"
       }
     },
     {
@@ -650,7 +740,8 @@
       "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
       "copies": {
         "FR": "fr-017",
-        "DE": "de-017"
+        "DE": "de-017",
+        "ES": "es-025"
       }
     },
     {
@@ -692,7 +783,8 @@
       "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
       "copies": {
         "FR": "fr-018",
-        "DE": "de-018"
+        "DE": "de-018",
+        "ES": "es-033"
       }
     },
     {
@@ -1336,6 +1428,396 @@
       "quote": "Nota contextual con enlace directo a la fuente y su fecha.",
       "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
       "source_en_id": "en-033"
+    },
+    {
+      "id": "fr-030",
+      "language": "FR",
+      "status": "draft",
+      "date": "2022-02-14",
+      "source": "The Moscow Times",
+      "topic": "resume contextuel",
+      "title": "Putin-Macron talks and the Russia expertise gap",
+      "digest": "Cette fiche presente l'article \"Putin-Macron talks and the Russia expertise gap\" publie dans The Moscow Times le 2022-02-14. Le texte analyse le sujet sous un angle contextuel et relie les faits a des dynamiques mediatiques plus larges. Dans ce dossier multilingue, l'entree sert de repere source-verifiable pour les recherches par nom et pour la coherence chronologique entre publications. L'objectif est documentaire: conserver une synthese neutre, sans extrapolation ni citation longue, avec lien direct vers la publication primaire.",
+      "quote": "Note factuelle avec renvoi direct a la source originale.",
+      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "source_en_id": "en-001"
+    },
+    {
+      "id": "fr-031",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-12-10",
+      "source": "The Moscow Times",
+      "topic": "resume contextuel",
+      "title": "Mass protests: lessons from a decade",
+      "digest": "Cette fiche presente l'article \"Mass protests: lessons from a decade\" publie dans The Moscow Times le 2021-12-10. Le texte analyse le sujet sous un angle contextuel et relie les faits a des dynamiques mediatiques plus larges. Dans ce dossier multilingue, l'entree sert de repere source-verifiable pour les recherches par nom et pour la coherence chronologique entre publications. L'objectif est documentaire: conserver une synthese neutre, sans extrapolation ni citation longue, avec lien direct vers la publication primaire.",
+      "quote": "Note factuelle avec renvoi direct a la source originale.",
+      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "source_en_id": "en-002"
+    },
+    {
+      "id": "fr-032",
+      "language": "FR",
+      "status": "draft",
+      "date": "2021-06-18",
+      "source": "The Moscow Times",
+      "topic": "resume contextuel",
+      "title": "Mandatory vaccination and public resistance",
+      "digest": "Cette fiche presente l'article \"Mandatory vaccination and public resistance\" publie dans The Moscow Times le 2021-06-18. Le texte analyse le sujet sous un angle contextuel et relie les faits a des dynamiques mediatiques plus larges. Dans ce dossier multilingue, l'entree sert de repere source-verifiable pour les recherches par nom et pour la coherence chronologique entre publications. L'objectif est documentaire: conserver une synthese neutre, sans extrapolation ni citation longue, avec lien direct vers la publication primaire.",
+      "quote": "Note factuelle avec renvoi direct a la source originale.",
+      "url": "https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255",
+      "source_en_id": "en-003"
+    },
+    {
+      "id": "fr-033",
+      "language": "FR",
+      "status": "draft",
+      "date": "2023-09-27",
+      "source": "7x7",
+      "topic": "resume contextuel",
+      "title": "Interview on creating an emigrant-focused media project",
+      "digest": "Cette fiche presente l'article \"Interview on creating an emigrant-focused media project\" publie dans 7x7 le 2023-09-27. Le texte analyse le sujet sous un angle contextuel et relie les faits a des dynamiques mediatiques plus larges. Dans ce dossier multilingue, l'entree sert de repere source-verifiable pour les recherches par nom et pour la coherence chronologique entre publications. L'objectif est documentaire: conserver une synthese neutre, sans extrapolation ni citation longue, avec lien direct vers la publication primaire.",
+      "quote": "Note factuelle avec renvoi direct a la source originale.",
+      "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran",
+      "source_en_id": "en-004"
+    },
+    {
+      "id": "de-030",
+      "language": "DE",
+      "status": "draft",
+      "date": "2022-02-14",
+      "source": "The Moscow Times",
+      "topic": "kontextzusammenfassung",
+      "title": "Putin-Macron talks and the Russia expertise gap",
+      "digest": "Diese Karte dokumentiert den Beitrag \"Putin-Macron talks and the Russia expertise gap\", veroeffentlicht in The Moscow Times am 2022-02-14. Der Text ordnet das Thema kontextuell ein und verbindet beobachtbare Fakten mit breiteren medialen Dynamiken. Im mehrsprachigen Dossier dient der Eintrag als quellenpruefbarer Referenzpunkt fuer namensbasierte Suche und fuer eine konsistente Chronologie zwischen verschiedenen Publikationen. Ziel ist eine neutrale, nachvollziehbare Zusammenfassung ohne ueberdehnte Interpretation und ohne lange Direktzitate, mit direkter Verlinkung zur Primaerquelle.",
+      "quote": "Sachlicher Kontextverweis mit direktem Link zur Originalquelle.",
+      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "source_en_id": "en-001"
+    },
+    {
+      "id": "de-031",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-12-10",
+      "source": "The Moscow Times",
+      "topic": "kontextzusammenfassung",
+      "title": "Mass protests: lessons from a decade",
+      "digest": "Diese Karte dokumentiert den Beitrag \"Mass protests: lessons from a decade\", veroeffentlicht in The Moscow Times am 2021-12-10. Der Text ordnet das Thema kontextuell ein und verbindet beobachtbare Fakten mit breiteren medialen Dynamiken. Im mehrsprachigen Dossier dient der Eintrag als quellenpruefbarer Referenzpunkt fuer namensbasierte Suche und fuer eine konsistente Chronologie zwischen verschiedenen Publikationen. Ziel ist eine neutrale, nachvollziehbare Zusammenfassung ohne ueberdehnte Interpretation und ohne lange Direktzitate, mit direkter Verlinkung zur Primaerquelle.",
+      "quote": "Sachlicher Kontextverweis mit direktem Link zur Originalquelle.",
+      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "source_en_id": "en-002"
+    },
+    {
+      "id": "de-032",
+      "language": "DE",
+      "status": "draft",
+      "date": "2021-06-18",
+      "source": "The Moscow Times",
+      "topic": "kontextzusammenfassung",
+      "title": "Mandatory vaccination and public resistance",
+      "digest": "Diese Karte dokumentiert den Beitrag \"Mandatory vaccination and public resistance\", veroeffentlicht in The Moscow Times am 2021-06-18. Der Text ordnet das Thema kontextuell ein und verbindet beobachtbare Fakten mit breiteren medialen Dynamiken. Im mehrsprachigen Dossier dient der Eintrag als quellenpruefbarer Referenzpunkt fuer namensbasierte Suche und fuer eine konsistente Chronologie zwischen verschiedenen Publikationen. Ziel ist eine neutrale, nachvollziehbare Zusammenfassung ohne ueberdehnte Interpretation und ohne lange Direktzitate, mit direkter Verlinkung zur Primaerquelle.",
+      "quote": "Sachlicher Kontextverweis mit direktem Link zur Originalquelle.",
+      "url": "https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255",
+      "source_en_id": "en-003"
+    },
+    {
+      "id": "de-033",
+      "language": "DE",
+      "status": "draft",
+      "date": "2023-09-27",
+      "source": "7x7",
+      "topic": "kontextzusammenfassung",
+      "title": "Interview on creating an emigrant-focused media project",
+      "digest": "Diese Karte dokumentiert den Beitrag \"Interview on creating an emigrant-focused media project\", veroeffentlicht in 7x7 am 2023-09-27. Der Text ordnet das Thema kontextuell ein und verbindet beobachtbare Fakten mit breiteren medialen Dynamiken. Im mehrsprachigen Dossier dient der Eintrag als quellenpruefbarer Referenzpunkt fuer namensbasierte Suche und fuer eine konsistente Chronologie zwischen verschiedenen Publikationen. Ziel ist eine neutrale, nachvollziehbare Zusammenfassung ohne ueberdehnte Interpretation und ohne lange Direktzitate, mit direkter Verlinkung zur Primaerquelle.",
+      "quote": "Sachlicher Kontextverweis mit direktem Link zur Originalquelle.",
+      "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran",
+      "source_en_id": "en-004"
+    },
+    {
+      "id": "es-012",
+      "language": "ES",
+      "status": "draft",
+      "date": "2022-02-14",
+      "source": "The Moscow Times",
+      "topic": "resumen contextual",
+      "title": "Putin-Macron talks and the Russia expertise gap",
+      "digest": "Esta ficha resume el articulo \"Putin-Macron talks and the Russia expertise gap\", publicado en The Moscow Times el 2022-02-14. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "source_en_id": "en-001"
+    },
+    {
+      "id": "es-013",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-12-10",
+      "source": "The Moscow Times",
+      "topic": "resumen contextual",
+      "title": "Mass protests: lessons from a decade",
+      "digest": "Esta ficha resume el articulo \"Mass protests: lessons from a decade\", publicado en The Moscow Times el 2021-12-10. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "source_en_id": "en-002"
+    },
+    {
+      "id": "es-014",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-06-18",
+      "source": "The Moscow Times",
+      "topic": "resumen contextual",
+      "title": "Mandatory vaccination and public resistance",
+      "digest": "Esta ficha resume el articulo \"Mandatory vaccination and public resistance\", publicado en The Moscow Times el 2021-06-18. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.themoscowtimes.com/2021/06/18/the-hill-to-die-on-russians-intent-on-resisting-mandatory-vaccination-a74255",
+      "source_en_id": "en-003"
+    },
+    {
+      "id": "es-015",
+      "language": "ES",
+      "status": "draft",
+      "date": "2023-09-27",
+      "source": "7x7",
+      "topic": "resumen contextual",
+      "title": "Interview on creating an emigrant-focused media project",
+      "digest": "Esta ficha resume el articulo \"Interview on creating an emigrant-focused media project\", publicado en 7x7 el 2023-09-27. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran",
+      "source_en_id": "en-004"
+    },
+    {
+      "id": "es-016",
+      "language": "ES",
+      "status": "draft",
+      "date": "2026-03-04",
+      "source": "Methodology",
+      "topic": "resumen contextual",
+      "title": "How this digest is built",
+      "digest": "Esta ficha resume el articulo \"How this digest is built\", publicado en Methodology el 2026-03-04. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "../digest-multilingual-notes-v1.md",
+      "source_en_id": "en-005"
+    },
+    {
+      "id": "es-017",
+      "language": "ES",
+      "status": "draft",
+      "date": "2012-11-24",
+      "source": "TEDx / TED.com",
+      "topic": "resumen contextual",
+      "title": "TEDx speaker profile: Ilya Klishin",
+      "digest": "Esta ficha resume el articulo \"TEDx speaker profile: Ilya Klishin\", publicado en TEDx / TED.com el 2012-11-24. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.ted.com/tedx/events/3947",
+      "source_en_id": "en-006"
+    },
+    {
+      "id": "es-018",
+      "language": "ES",
+      "status": "draft",
+      "date": "2023-07-13",
+      "source": "Holod",
+      "topic": "resumen contextual",
+      "title": "Holod interview with Ilya Klishin",
+      "digest": "Esta ficha resume el articulo \"Holod interview with Ilya Klishin\", publicado en Holod el 2023-07-13. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://holod.media/2023/07/13/klishin-interview/",
+      "source_en_id": "en-007"
+    },
+    {
+      "id": "es-019",
+      "language": "ES",
+      "status": "draft",
+      "date": "2026-03-04",
+      "source": "Snob",
+      "topic": "resumen contextual",
+      "title": "User-preferred Snob essay (entry 81618)",
+      "digest": "Esta ficha resume el articulo \"User-preferred Snob essay (entry 81618)\", publicado en Snob el 2026-03-04. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://snob.ru/selected/entry/81618/",
+      "source_en_id": "en-008"
+    },
+    {
+      "id": "es-020",
+      "language": "ES",
+      "status": "draft",
+      "date": "2014-05-21",
+      "source": "Vedomosti",
+      "topic": "resumen contextual",
+      "title": "Lajki na Zapad (user-highlighted strategic essay)",
+      "digest": "Esta ficha resume el articulo \"Lajki na Zapad (user-highlighted strategic essay)\", publicado en Vedomosti el 2014-05-21. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "source_en_id": "en-009"
+    },
+    {
+      "id": "es-021",
+      "language": "ES",
+      "status": "draft",
+      "date": "2014-08-27",
+      "source": "TV Rain",
+      "topic": "resumen contextual",
+      "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
+      "digest": "Esta ficha resume el articulo \"TV Rain launched \"Our Soldiers\" civilian investigation\", publicado en TV Rain el 2014-08-27. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
+      "source_en_id": "en-010"
+    },
+    {
+      "id": "es-022",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-06-10",
+      "source": "Freedom House",
+      "topic": "resumen contextual",
+      "title": "Freedom House referenced Dozhd reporting on Russian soldiers in eastern Ukraine",
+      "digest": "Esta ficha resume el articulo \"Freedom House referenced Dozhd reporting on Russian soldiers in eastern Ukraine\", publicado en Freedom House el 2015-06-10. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://freedomhouse.org/country/russia/nations-transit/2015",
+      "source_en_id": "en-011"
+    },
+    {
+      "id": "es-023",
+      "language": "ES",
+      "status": "draft",
+      "date": "2026-03-04",
+      "source": "YouTube / TED",
+      "topic": "resumen contextual",
+      "title": "User-provided TED talk video URL",
+      "digest": "Esta ficha resume el articulo \"User-provided TED talk video URL\", publicado en YouTube / TED el 2026-03-04. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.youtube.com/watch?v=5UAZpvKKAJY",
+      "source_en_id": "en-012"
+    },
+    {
+      "id": "es-024",
+      "language": "ES",
+      "status": "draft",
+      "date": "2026-03-04",
+      "source": "TV Rain",
+      "topic": "resumen contextual",
+      "title": "Documented 2014 record: \"Nashi Soldaty\" investigation",
+      "digest": "Esta ficha resume el articulo \"Documented 2014 record: \"Nashi Soldaty\" investigation\", publicado en TV Rain el 2026-03-04. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/",
+      "source_en_id": "en-013"
+    },
+    {
+      "id": "es-025",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-06-08",
+      "source": "The Guardian",
+      "topic": "resumen contextual",
+      "title": "Guardian New East: 30 under 30 profile entry",
+      "digest": "Esta ficha resume el articulo \"Guardian New East: 30 under 30 profile entry\", publicado en The Guardian el 2015-06-08. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "source_en_id": "en-014"
+    },
+    {
+      "id": "es-026",
+      "language": "ES",
+      "status": "draft",
+      "date": "2012-02-02",
+      "source": "The Guardian",
+      "topic": "resumen contextual",
+      "title": "International reporting on pressure linked to protest organizing",
+      "digest": "Esta ficha resume el articulo \"International reporting on pressure linked to protest organizing\", publicado en The Guardian el 2012-02-02. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "source_en_id": "en-015"
+    },
+    {
+      "id": "es-027",
+      "language": "ES",
+      "status": "draft",
+      "date": "2012-03-01",
+      "source": "Human Rights Watch",
+      "topic": "resumen contextual",
+      "title": "HRW report on harassment of critics includes Klishin case context",
+      "digest": "Esta ficha resume el articulo \"HRW report on harassment of critics includes Klishin case context\", publicado en Human Rights Watch el 2012-03-01. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
+      "source_en_id": "en-016"
+    },
+    {
+      "id": "es-028",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-04-29",
+      "source": "News24",
+      "topic": "resumen contextual",
+      "title": "English press archive on intimidation claims tied to activism",
+      "digest": "Esta ficha resume el articulo \"English press archive on intimidation claims tied to activism\", publicado en News24 el 2015-04-29. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "source_en_id": "en-017"
+    },
+    {
+      "id": "es-029",
+      "language": "ES",
+      "status": "draft",
+      "date": "2014-05-21",
+      "source": "The Moscow Times",
+      "topic": "resumen contextual",
+      "title": "Early warning analysis on Russian troll expansion",
+      "digest": "Esta ficha resume el articulo \"Early warning analysis on Russian troll expansion\", publicado en The Moscow Times el 2014-05-21. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
+      "source_en_id": "en-018"
+    },
+    {
+      "id": "es-030",
+      "language": "ES",
+      "status": "draft",
+      "date": "2021-08-24",
+      "source": "The Moscow Times",
+      "topic": "resumen contextual",
+      "title": "Commentary on pressure against independent media institutions",
+      "digest": "Esta ficha resume el articulo \"Commentary on pressure against independent media institutions\", publicado en The Moscow Times el 2021-08-24. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "source_en_id": "en-019"
+    },
+    {
+      "id": "es-031",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-09-14",
+      "source": "Los Angeles Times",
+      "topic": "resumen contextual",
+      "title": "LA Times coverage referencing TV Rain soldier investigations",
+      "digest": "Esta ficha resume el articulo \"LA Times coverage referencing TV Rain soldier investigations\", publicado en Los Angeles Times el 2015-09-14. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
+      "source_en_id": "en-020"
+    },
+    {
+      "id": "es-032",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-06-08",
+      "source": "The Guardian",
+      "topic": "resumen contextual",
+      "title": "Guardian profile notes role in protest-era digital infrastructure",
+      "digest": "Esta ficha resume el articulo \"Guardian profile notes role in protest-era digital infrastructure\", publicado en The Guardian el 2015-06-08. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "source_en_id": "en-021"
+    },
+    {
+      "id": "es-033",
+      "language": "ES",
+      "status": "draft",
+      "date": "2014-11-28",
+      "source": "Diez / TEDx Chisinau coverage",
+      "topic": "resumen contextual",
+      "title": "Regional TEDx coverage of talk on propaganda in social media",
+      "digest": "Esta ficha resume el articulo \"Regional TEDx coverage of talk on propaganda in social media\", publicado en Diez / TEDx Chisinau coverage el 2014-11-28. El texto aborda el tema desde un enfoque contextual y conecta hechos observables con dinamicas mediaticas mas amplias. Dentro del dossier multilingue, la entrada funciona como referencia verificable para busquedas por nombre y para mantener continuidad cronologica entre publicaciones. El objetivo es documental: conservar una sintesis neutral, sin extrapolaciones ni citas largas, con enlace directo a la fuente primaria.",
+      "quote": "Nota factual con enlace directo a la fuente original.",
+      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "source_en_id": "en-022"
     }
   ]
 }
