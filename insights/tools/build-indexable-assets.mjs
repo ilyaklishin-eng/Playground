@@ -45,6 +45,22 @@ const slugify = (text = "") =>
 
 const toArray = (value) => (Array.isArray(value) ? value.filter(Boolean) : []);
 
+const toIsoTimestamp = (value = "") => {
+  const ts = Date.parse(String(value || ""));
+  if (Number.isNaN(ts)) return null;
+  return new Date(ts).toISOString();
+};
+
+const latestBuildIso = (entries) => {
+  let latest = null;
+  for (const entry of entries) {
+    const iso = toIsoTimestamp(entry?.item?.date);
+    if (!iso) continue;
+    if (!latest || iso > latest) latest = iso;
+  }
+  return latest || "1970-01-01T00:00:00.000Z";
+};
+
 const buildPostHtml = (item, postPath) => {
   const title = `${item.title} | Ilya Klishin Digest`;
   const summary = item.summary || item.digest || "";
@@ -175,19 +191,23 @@ ${entries
 `;
 
 const buildSitemap = (entries) => {
-  const now = new Date().toISOString();
+  const buildIso = latestBuildIso(entries);
   const urls = [
-    `${baseUrl}/index.html`,
-    `${baseUrl}/posts/index.html`,
-    `${baseUrl}/rss.xml`,
-    ...entries.map((entry) => `${baseUrl}/posts/${entry.postPath}`),
+    { url: `${baseUrl}/index.html`, lastmod: buildIso },
+    { url: `${baseUrl}/posts/index.html`, lastmod: buildIso },
+    { url: `${baseUrl}/rss.xml`, lastmod: buildIso },
+    ...entries.map((entry) => ({
+      url: `${baseUrl}/posts/${entry.postPath}`,
+      lastmod: toIsoTimestamp(entry.item?.date) || buildIso,
+    })),
   ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    (url) => `  <url><loc>${xmlEscape(url)}</loc><lastmod>${now}</lastmod><changefreq>weekly</changefreq></url>`
+    (item) =>
+      `  <url><loc>${xmlEscape(item.url)}</loc><lastmod>${item.lastmod}</lastmod><changefreq>weekly</changefreq></url>`
   )
   .join("\n")}
 </urlset>
@@ -195,7 +215,8 @@ ${urls
 };
 
 const buildRss = (entries) => {
-  const now = new Date().toUTCString();
+  const buildIso = latestBuildIso(entries);
+  const now = new Date(buildIso).toUTCString();
   const items = entries
     .slice()
     .sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")))
@@ -206,11 +227,12 @@ const buildRss = (entries) => {
       const summary = entry.item.summary || entry.item.digest || "";
       const valueContext = entry.item.value_context || "";
       const description = `${summary}\n\n${valueContext}\n\nOriginal source: ${source}`;
+      const pubDate = new Date(toIsoTimestamp(entry.item.date) || buildIso).toUTCString();
       return `    <item>
       <title>${xmlEscape(entry.item.title)}</title>
       <link>${xmlEscape(link)}</link>
       <guid>${xmlEscape(link)}</guid>
-      <pubDate>${new Date(entry.item.date || Date.now()).toUTCString()}</pubDate>
+      <pubDate>${pubDate}</pubDate>
       <description>${xmlEscape(description)}</description>
     </item>`;
     })
@@ -249,6 +271,16 @@ const main = async () => {
     const html = buildPostHtml(item, `posts/${postPath}`);
     await fs.writeFile(path.join(postsDir, postPath), html, "utf8");
     entries.push({ item, postPath });
+  }
+
+  // Remove stale generated HTML pages left from old slugs/names.
+  const desiredHtmlFiles = new Set(entries.map((entry) => entry.postPath));
+  desiredHtmlFiles.add("index.html");
+  const existingPosts = await fs.readdir(postsDir);
+  for (const file of existingPosts) {
+    if (!file.toLowerCase().endsWith(".html")) continue;
+    if (desiredHtmlFiles.has(file)) continue;
+    await fs.unlink(path.join(postsDir, file));
   }
 
   await fs.writeFile(path.join(postsDir, "index.html"), buildPostsIndexHtml(entries), "utf8");
