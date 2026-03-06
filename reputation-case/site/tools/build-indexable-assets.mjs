@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const siteDir = "/Users/ilyaklishin/Documents/Playground/reputation-case/site";
+const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const dataPath = path.join(siteDir, "data", "digests.json");
 const postsDir = path.join(siteDir, "posts");
 const baseUrl = "https://www.klishin.work";
