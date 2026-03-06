@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Archive | Ilia Klishin</title>
+    <meta
+      name="description"
+      content="Archive hub with sitemap, RSS, static post index, and source registry for machine-readable discovery."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://www.klishin.work/archive/" />
+    <link rel="alternate" hreflang="en" href="https://www.klishin.work/archive/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/archive/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Archive | Ilia Klishin" />
+    <meta
+      property="og:description"
+      content="Archive endpoints for search indexing and machine crawlers: sitemap, RSS, static posts, and source registry."
+    />
+    <meta property="og:url" content="https://www.klishin.work/archive/" />
+    <meta property="og:site_name" content="Ilia Klishin" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Archive | Ilia Klishin" />
+    <meta
+      name="twitter:description"
+      content="Archive endpoints for search indexing and machine crawlers: sitemap, RSS, static posts, and source registry."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "url": "https://www.klishin.work/",
+            "sameAs": [
+              "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+              "https://www.moscowtimes.ru/author/ilya-klishin",
+              "https://www.vedomosti.ru/authors/ilya-klishin"
+            ]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin Digest",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" },
+            "sameAs": ["https://www.klishin.work/", "https://www.klishin.work/archive/"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "about": { "@id": "https://www.klishin.work/#person" }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.klishin.work/archive/#webpage",
+            "url": "https://www.klishin.work/archive/",
+            "name": "Archive",
+            "description": "Archive endpoints and crawlable indexes for the Ilia Klishin site.",
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+        line-height: 1.5;
+        color: #121212;
+        background: #f5f3ef;
+      }
+      main {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 28px 20px 50px;
+      }
+      nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      nav a {
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: #1c1c1c;
+        background: #fff;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-family: "Spectral", Georgia, serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+      }
+      ul {
+        margin: 10px 0 0;
+        padding-left: 20px;
+      }
+      li {
+        margin: 8px 0;
+      }
+      a {
+        color: #0f4c81;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/insights/">Insights</a>
+        <a href="/archive/">Archive</a>
+      </nav>
+
+      <h1>Archive</h1>
+      <p>
+        This section exposes machine-readable and crawl-ready endpoints used by search engines, aggregators, and AI
+        crawlers.
+      </p>
+      <ul>
+        <li><a href="/sitemap.xml">Sitemap index</a></li>
+        <li><a href="/sitemap-core.xml">Sitemap core pages</a></li>
+        <li><a href="/sitemap-en.xml">Sitemap EN</a></li>
+        <li><a href="/sitemap-fr.xml">Sitemap FR</a></li>
+        <li><a href="/sitemap-de.xml">Sitemap DE</a></li>
+        <li><a href="/sitemap-es.xml">Sitemap ES</a></li>
+        <li><a href="/robots.txt">Robots policy</a></li>
+        <li><a href="/rss.xml">RSS feed</a></li>
+        <li><a href="/posts/">Static post index</a></li>
+        <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
+        <li><a href="/data/digests.json">Digest dataset (JSON)</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

@@ -3,12 +3,161 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex,nofollow" />
-    <meta http-equiv="refresh" content="0; url=https://ilyaklishin-eng.github.io/Playground/insights/index.html" />
-    <title>Moved</title>
-    <link rel="canonical" href="https://ilyaklishin-eng.github.io/Playground/insights/index.html" />
+    <title>Ilia Klishin | Personal Site, Insights and Source Archive</title>
+    <meta
+      name="description"
+      content="Personal website of Ilia Klishin with multilingual source-linked insights, archive pages, and factual context cards in English, French, German, and Spanish."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://www.klishin.work/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ilia Klishin | Personal Site, Insights and Source Archive" />
+    <meta
+      property="og:description"
+      content="Multilingual fact-based digest and source archive with direct links to original publications."
+    />
+    <meta property="og:url" content="https://www.klishin.work/" />
+    <meta property="og:site_name" content="Ilia Klishin" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ilia Klishin | Personal Site, Insights and Source Archive" />
+    <meta
+      name="twitter:description"
+      content="Multilingual fact-based digest and source archive with direct links to original publications."
+    />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Ilya Klishin Digest RSS"
+      href="/rss.xml"
+    />
+    <link rel="alternate" hreflang="en" href="https://www.klishin.work/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "url": "https://www.klishin.work/",
+            "sameAs": [
+              "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+              "https://www.moscowtimes.ru/author/ilya-klishin",
+              "https://www.vedomosti.ru/authors/ilya-klishin"
+            ]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin Digest",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" },
+            "sameAs": ["https://www.klishin.work/", "https://www.klishin.work/archive/"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://www.klishin.work/#webpage",
+            "url": "https://www.klishin.work/",
+            "name": "Ilia Klishin | Personal Site, Insights and Source Archive",
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <p>This page has moved to <a href="https://ilyaklishin-eng.github.io/Playground/insights/index.html">/insights/</a>.</p>
+    <div class="bg-ornament" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand">Ilya Klishin</div>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/insights/">Insights</a>
+        <a href="/archive/">Archive</a>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Personal Site and Source Archive</p>
+        <h1>Ilia Klishin: verified context and multilingual source mapping</h1>
+        <p class="lead">
+          This website provides a structured, source-linked archive of publications and commentary connected to Ilia Klishin.
+          The core section is a multilingual digest (EN, FR, DE, ES) with neutral summaries and direct links to original sources.
+        </p>
+        <p class="lead">
+          Start with <a href="/insights/">Insights</a> and <a href="/archive/">Archive</a>, or browse the
+          <a href="/posts/">complete static digest pages</a>.
+        </p>
+        <p class="lead">
+          Additional references: <a href="/source-registry-v1.tsv">Source Registry (TSV)</a> and
+          <a href="/rss.xml">RSS feed</a>.
+        </p>
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <section class="controls" aria-label="Filters">
+        <div class="lang-switch" id="langSwitch">
+          <button class="lang-btn active" data-lang="ALL" type="button">All</button>
+          <button class="lang-btn" data-lang="EN" type="button">EN</button>
+          <button class="lang-btn" data-lang="FR" type="button">FR</button>
+          <button class="lang-btn" data-lang="DE" type="button">DE</button>
+          <button class="lang-btn" data-lang="ES" type="button">ES</button>
+        </div>
+        <label class="search-wrap" for="searchInput">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Topic, source, keyword" />
+        </label>
+      </section>
+
+      <section class="digest-grid" id="digestGrid" aria-live="polite"></section>
+    </main>
+
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card-head">
+          <span class="lang-tag"></span>
+          <span class="status-tag"></span>
+        </div>
+        <h2 class="card-title"></h2>
+        <p class="card-meta"></p>
+        <p class="card-digest"></p>
+        <blockquote class="card-quote"></blockquote>
+        <a class="card-link" target="_blank" rel="noreferrer">Read original source</a>
+      </article>
+    </template>
+
+    <footer class="footer">
+      <p>
+        Updated: <span id="updatedAt">-</span>
+      </p>
+    </footer>
+
+    <script type="module" src="./app.js"></script>
   </body>
 </html>

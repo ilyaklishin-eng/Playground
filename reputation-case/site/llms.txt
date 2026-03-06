@@ -1,0 +1,27 @@
+# Ilya Klishin Fact-Based Digest
+
+Primary index page:
+https://www.klishin.work/
+
+Section pages:
+https://www.klishin.work/about/
+https://www.klishin.work/insights/
+https://www.klishin.work/archive/
+
+Static archive:
+https://www.klishin.work/posts/
+
+Sitemap index:
+https://www.klishin.work/sitemap.xml
+
+Language sitemaps:
+https://www.klishin.work/sitemap-en.xml
+https://www.klishin.work/sitemap-fr.xml
+https://www.klishin.work/sitemap-de.xml
+https://www.klishin.work/sitemap-es.xml
+
+Policy:
+- Fact-based summaries only
+- Short quote snippets
+- Link to original publication in every item
+- No reposting of full texts

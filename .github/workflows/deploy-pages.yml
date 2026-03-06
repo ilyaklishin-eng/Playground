@@ -15,6 +15,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  PAGES_DOMAIN: "www.klishin.work"
+
 jobs:
   deploy:
     environment:
@@ -25,14 +28,108 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build static digest assets
+        run: node reputation-case/site/tools/build-indexable-assets.mjs
+
+      - name: Copy source registry into published root
+        run: cp reputation-case/source-registry-v1.tsv reputation-case/site/source-registry-v1.tsv
+
+      - name: Ensure CNAME for custom domain
+        run: printf '%s\n' '${{ env.PAGES_DOMAIN }}' > reputation-case/site/CNAME
+
+      - name: Write IndexNow key file (optional)
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          if [ -z "${INDEXNOW_KEY:-}" ]; then
+            echo "INDEXNOW_KEY is empty; skipping key file."
+            exit 0
+          fi
+          printf '%s\n' "$INDEXNOW_KEY" > "reputation-case/site/${INDEXNOW_KEY}.txt"
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: reputation-case/site
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify-indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Submit changed URLs to IndexNow
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "Not a push event; skipping IndexNow submission."
+            exit 0
+          fi
+          if [ -z "${INDEXNOW_KEY:-}" ]; then
+            echo "INDEXNOW_KEY is empty; skipping IndexNow submission."
+            exit 0
+          fi
+          if printf '%s' '${{ env.PAGES_DOMAIN }}' | grep -E -q '<MY_DOMAIN>|\\.example$'; then
+            echo 'PAGES_DOMAIN is placeholder domain; skipping IndexNow submission.'
+            exit 0
+          fi
+          DOMAIN="https://${{ env.PAGES_DOMAIN }}"
+          BEFORE='${{ github.event.before }}'
+          AFTER='${{ github.sha }}'
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE="$(git rev-list --max-parents=0 "$AFTER")"
+          fi
+
+          git diff --name-only "$BEFORE" "$AFTER" \
+            | awk '/^reputation-case\/site\/.*\.(html|xml)$/ {print}' \
+            | while read -r file; do
+                rel="${file#reputation-case/site/}"
+                if [ "$rel" = "index.html" ]; then
+                  echo "$DOMAIN/"
+                elif [ "$rel" = "posts/index.html" ]; then
+                  echo "$DOMAIN/posts/"
+                elif [ "$rel" = "about/index.html" ]; then
+                  echo "$DOMAIN/about/"
+                elif [ "$rel" = "insights/index.html" ]; then
+                  echo "$DOMAIN/insights/"
+                elif [ "$rel" = "archive/index.html" ]; then
+                  echo "$DOMAIN/archive/"
+                else
+                  echo "$DOMAIN/$rel"
+                fi
+              done \
+            | sort -u > urls.txt
+
+          if [ ! -s urls.txt ]; then
+            printf '%s\n' "$DOMAIN/" > urls.txt
+            printf '%s\n' "$DOMAIN/sitemap.xml" >> urls.txt
+          fi
+
+          jq -Rn --arg host '${{ env.PAGES_DOMAIN }}' --arg key "$INDEXNOW_KEY" \
+            '{
+              host: $host,
+              key: $key,
+              keyLocation: ("https://" + $host + "/" + $key + ".txt"),
+              urlList: [inputs]
+            }' urls.txt > indexnow.json
+
+          curl -fsS 'https://api.indexnow.org/indexnow' \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data @indexnow.json
