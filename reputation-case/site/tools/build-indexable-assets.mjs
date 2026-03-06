@@ -582,30 +582,67 @@ Disallow: /tools/
 
 User-agent: Googlebot
 Allow: /
+Disallow: /tools/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /tools/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /tools/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /tools/
+
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /tools/
+
+User-agent: Applebot
+Allow: /
+Disallow: /tools/
+
+User-agent: Yandex
+Allow: /
+Disallow: /tools/
+
+User-agent: YandexBot
+Allow: /
+Disallow: /tools/
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /tools/
 
 User-agent: GPTBot
 Allow: /
+Disallow: /tools/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /tools/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /tools/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /tools/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /tools/
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /tools/
 
 User-agent: CCBot
 Allow: /
+Disallow: /tools/
 
 Sitemap: ${canonicalUrl("sitemap.xml")}
 `;
