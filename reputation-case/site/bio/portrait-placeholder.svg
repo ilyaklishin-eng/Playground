@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1260" viewBox="0 0 900 1260" role="img" aria-label="Portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f2eee7" />
+      <stop offset="100%" stop-color="#e6dfd5" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1260" fill="url(#bg)" />
+  <circle cx="450" cy="390" r="170" fill="#c9c1b6" />
+  <rect x="245" y="560" width="410" height="430" rx="210" fill="#c9c1b6" />
+  <text x="450" y="1080" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#6e675f">
+    Portrait file pending upload
+  </text>
+  <text x="450" y="1128" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" fill="#6e675f">
+    /bio/ilia-klishin-portrait.jpg
+  </text>
+</svg>

@@ -13,11 +13,24 @@ const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
 const PERSON_ALT_NAMES = ["Ilya Klishin", "Ilia S. Klishin"];
 const PERSON_SAME_AS = [
+  "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
   "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
   "https://www.moscowtimes.ru/author/ilya-klishin",
   "https://www.vedomosti.ru/authors/ilya-klishin",
 ];
-const STATIC_SECTIONS = ["about/index.html", "insights/index.html", "archive/index.html"];
+const STATIC_SECTIONS = [
+  "about/index.html",
+  "bio/index.html",
+  "bio/fr/index.html",
+  "bio/de/index.html",
+  "bio/es/index.html",
+  "cases/index.html",
+  "cases/fr/index.html",
+  "cases/de/index.html",
+  "cases/es/index.html",
+  "insights/index.html",
+  "archive/index.html",
+];
 const LANGS = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
@@ -327,6 +340,9 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
     <main>
       <nav class="topnav" aria-label="Primary">
         <a href="/">Home</a>
+        <a href="/bio/">Bio</a>
+        <a href="/cases/">Cases</a>
+        <a href="/about/">About</a>
         <a href="/insights/">Insights</a>
         <a href="/archive/">Archive</a>
       </nav>
@@ -418,7 +434,10 @@ const buildPostsIndexHtml = (entries) => {
       <h1>${DIGEST_NAME} Posts</h1>
       <p>
         <a href="/">Home</a> ·
+        <a href="/bio/">Bio</a> ·
+        <a href="/cases/">Cases</a> ·
         <a href="/about/">About</a> ·
+        <a href="/insights/">Insights</a> ·
         <a href="/archive/">Archive</a>
       </p>
       <ul>

@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-03-06T07:46:24.870Z",
+  "generated_at": "2026-03-06T10:28:11.067Z",
   "canonical_domain": "https://www.klishin.work",
   "totals": {
-    "html_pages": 405,
+    "html_pages": 413,
     "post_pages": 400,
-    "indexable_pages": 405,
+    "indexable_pages": 413,
     "article_jsonld_pages": 400,
-    "website_jsonld_pages": 405,
-    "person_jsonld_pages": 405,
-    "organization_jsonld_pages": 405,
-    "pages_with_all_core_entity_ids": 405
+    "website_jsonld_pages": 413,
+    "person_jsonld_pages": 413,
+    "organization_jsonld_pages": 413,
+    "pages_with_all_core_entity_ids": 413
   },
   "checks": {
     "robots_txt_exists": true,
@@ -80,6 +80,286 @@
         {
           "hreflang": "x-default",
           "href": "https://www.klishin.work/archive/"
+        }
+      ]
+    },
+    {
+      "path": "/bio/de/",
+      "canonical": "https://www.klishin.work/bio/de/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/bio/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/bio/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/bio/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/bio/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/bio/"
+        }
+      ]
+    },
+    {
+      "path": "/bio/es/",
+      "canonical": "https://www.klishin.work/bio/es/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/bio/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/bio/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/bio/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/bio/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/bio/"
+        }
+      ]
+    },
+    {
+      "path": "/bio/fr/",
+      "canonical": "https://www.klishin.work/bio/fr/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/bio/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/bio/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/bio/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/bio/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/bio/"
+        }
+      ]
+    },
+    {
+      "path": "/bio/",
+      "canonical": "https://www.klishin.work/bio/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/bio/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/bio/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/bio/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/bio/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/bio/"
+        }
+      ]
+    },
+    {
+      "path": "/cases/de/",
+      "canonical": "https://www.klishin.work/cases/de/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/cases/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/cases/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/cases/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/cases/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/cases/"
+        }
+      ]
+    },
+    {
+      "path": "/cases/es/",
+      "canonical": "https://www.klishin.work/cases/es/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/cases/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/cases/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/cases/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/cases/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/cases/"
+        }
+      ]
+    },
+    {
+      "path": "/cases/fr/",
+      "canonical": "https://www.klishin.work/cases/fr/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/cases/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/cases/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/cases/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/cases/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/cases/"
+        }
+      ]
+    },
+    {
+      "path": "/cases/",
+      "canonical": "https://www.klishin.work/cases/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": [
+        {
+          "hreflang": "en",
+          "href": "https://www.klishin.work/cases/"
+        },
+        {
+          "hreflang": "fr",
+          "href": "https://www.klishin.work/cases/fr/"
+        },
+        {
+          "hreflang": "de",
+          "href": "https://www.klishin.work/cases/de/"
+        },
+        {
+          "hreflang": "es",
+          "href": "https://www.klishin.work/cases/es/"
+        },
+        {
+          "hreflang": "x-default",
+          "href": "https://www.klishin.work/cases/"
         }
       ]
     },

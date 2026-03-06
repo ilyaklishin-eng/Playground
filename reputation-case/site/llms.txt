@@ -5,6 +5,14 @@ https://www.klishin.work/
 
 Section pages:
 https://www.klishin.work/about/
+https://www.klishin.work/bio/
+https://www.klishin.work/bio/fr/
+https://www.klishin.work/bio/de/
+https://www.klishin.work/bio/es/
+https://www.klishin.work/cases/
+https://www.klishin.work/cases/fr/
+https://www.klishin.work/cases/de/
+https://www.klishin.work/cases/es/
 https://www.klishin.work/insights/
 https://www.klishin.work/archive/
 
