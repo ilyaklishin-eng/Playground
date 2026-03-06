@@ -88,9 +88,15 @@ jobs:
       - name: Ensure CNAME for custom domain
         run: printf '%s\n' '${{ env.PAGES_DOMAIN }}' > reputation-case/site/CNAME
 
-      - name: Write IndexNow key file
-        if: ${{ secrets.INDEXNOW_KEY != '' }}
-        run: printf '%s\n' '${{ secrets.INDEXNOW_KEY }}' > reputation-case/site/${{ secrets.INDEXNOW_KEY }}.txt
+      - name: Write IndexNow key file (optional)
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          if [ -z "${INDEXNOW_KEY:-}" ]; then
+            echo "INDEXNOW_KEY is empty; skipping key file."
+            exit 0
+          fi
+          printf '%s\n' "$INDEXNOW_KEY" > "reputation-case/site/${INDEXNOW_KEY}.txt"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -107,7 +113,6 @@ jobs:
   notify-indexnow:
     needs: deploy
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && secrets.INDEXNOW_KEY != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -119,6 +124,14 @@ jobs:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -euo pipefail
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "Not a push event; skipping IndexNow submission."
+            exit 0
+          fi
+          if [ -z "${INDEXNOW_KEY:-}" ]; then
+            echo "INDEXNOW_KEY is empty; skipping IndexNow submission."
+            exit 0
+          fi
           if printf '%s' '${{ env.PAGES_DOMAIN }}' | grep -E -q '<MY_DOMAIN>|\\.example$'; then
             echo 'PAGES_DOMAIN is placeholder domain; skipping IndexNow submission.'
             exit 0
