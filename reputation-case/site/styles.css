@@ -65,6 +65,27 @@ body {
   font-size: 0.86rem;
 }
 
+.primary-nav {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.primary-nav a {
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.86rem;
+  background: var(--paper);
+}
+
+.primary-nav a:hover {
+  border-color: var(--accent);
+}
+
 .hero {
   padding: 2.2rem 0 1.1rem;
 }
@@ -264,7 +285,9 @@ h1 {
     grid-template-columns: 1fr;
   }
 
-  .source-link {
-    display: none;
+  .topbar {
+    align-items: flex-start;
+    gap: 0.6rem;
+    flex-direction: column;
   }
 }

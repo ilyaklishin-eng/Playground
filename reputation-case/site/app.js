@@ -4,12 +4,19 @@ const stats = document.getElementById("stats");
 const updatedAt = document.getElementById("updatedAt");
 const langSwitch = document.getElementById("langSwitch");
 const searchInput = document.getElementById("searchInput");
+const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 
 const state = {
   lang: "ALL",
   query: "",
   items: [],
 };
+
+function wordsPreview(text, maxWords = 38) {
+  const tokens = String(text || "").trim().split(/\s+/).filter(Boolean);
+  if (tokens.length <= maxWords) return tokens.join(" ");
+  return `${tokens.slice(0, maxWords).join(" ")}...`;
+}
 
 init();
 
@@ -18,6 +25,7 @@ async function init() {
   const payload = await response.json();
   state.items = payload.items;
   updatedAt.textContent = payload.updated_at || "-";
+  renderLanguageSwitch();
   bindEvents();
   render();
 }
@@ -62,6 +70,31 @@ function render() {
   renderGrid(filtered);
 }
 
+function getOrderedLanguages() {
+  const seen = new Set(state.items.map((item) => String(item.language || "").toUpperCase()).filter(Boolean));
+  const extra = [...seen]
+    .filter((lang) => !LANGUAGE_PRIORITY.includes(lang))
+    .sort((a, b) => a.localeCompare(b));
+  return [...LANGUAGE_PRIORITY, ...extra];
+}
+
+function renderLanguageSwitch() {
+  const languages = getOrderedLanguages();
+  const allowed = new Set(["ALL", ...languages]);
+  if (!allowed.has(state.lang)) state.lang = "ALL";
+
+  langSwitch.innerHTML = "";
+  const options = ["ALL", ...languages];
+  for (const lang of options) {
+    const button = document.createElement("button");
+    button.className = `lang-btn${state.lang === lang ? " active" : ""}`;
+    button.type = "button";
+    button.dataset.lang = lang;
+    button.textContent = lang === "ALL" ? "All" : lang;
+    langSwitch.appendChild(button);
+  }
+}
+
 function renderStats() {
   const counts = state.items.reduce(
     (acc, item) => {
@@ -73,14 +106,16 @@ function renderStats() {
   );
 
   stats.innerHTML = "";
-  [`Total: ${counts.total}`, `EN: ${counts.EN || 0}`, `FR: ${counts.FR || 0}`, `DE: ${counts.DE || 0}`].forEach(
-    (text) => {
-      const pill = document.createElement("span");
-      pill.className = "stat-pill";
-      pill.textContent = text;
-      stats.appendChild(pill);
-    }
-  );
+  const labels = [`Total: ${counts.total}`];
+  for (const lang of getOrderedLanguages()) {
+    labels.push(`${lang}: ${counts[lang] || 0}`);
+  }
+  for (const text of labels) {
+    const pill = document.createElement("span");
+    pill.className = "stat-pill";
+    pill.textContent = text;
+    stats.appendChild(pill);
+  }
 }
 
 function renderGrid(items) {
@@ -106,8 +141,12 @@ function renderGrid(items) {
 
     node.querySelector(".card-title").textContent = item.title;
     node.querySelector(".card-meta").textContent = `${item.source} • ${item.date} • ${item.topic}`;
-    node.querySelector(".card-digest").textContent = item.digest;
-    node.querySelector(".card-quote").textContent = item.quote;
+    node.querySelector(".card-digest").textContent = wordsPreview(item.summary || item.digest, 38);
+
+    const quoteCandidates = Array.isArray(item.quotes) && item.quotes.length > 0
+      ? item.quotes
+      : [item.quote].filter(Boolean);
+    node.querySelector(".card-quote").textContent = quoteCandidates[0] || "";
 
     const link = node.querySelector(".card-link");
     link.href = item.url;

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Ilia Klishin | Personal Site</title>
+    <meta
+      name="description"
+      content="Background page for Ilia Klishin with scope of this website, editorial approach, and navigation to insights and source archive."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://www.klishin.work/about/" />
+    <link rel="alternate" hreflang="en" href="https://www.klishin.work/about/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/about/" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content="About Ilia Klishin | Personal Site" />
+    <meta
+      property="og:description"
+      content="Background page with context, editorial method, and links to multilingual insights and archive pages."
+    />
+    <meta property="og:url" content="https://www.klishin.work/about/" />
+    <meta property="og:site_name" content="Ilia Klishin" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="About Ilia Klishin | Personal Site" />
+    <meta
+      name="twitter:description"
+      content="Background page with context, editorial method, and links to multilingual insights and archive pages."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "url": "https://www.klishin.work/",
+            "sameAs": [
+              "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+              "https://www.moscowtimes.ru/author/ilya-klishin",
+              "https://www.vedomosti.ru/authors/ilya-klishin"
+            ]
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin Digest",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" },
+            "sameAs": ["https://www.klishin.work/", "https://www.klishin.work/archive/"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "about": { "@id": "https://www.klishin.work/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.klishin.work/about/#webpage",
+            "url": "https://www.klishin.work/about/",
+            "name": "About Ilia Klishin",
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "mainEntity": { "@id": "https://www.klishin.work/#person" },
+            "inLanguage": "en"
+          }
+        ]
+      }
+    </script>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+        line-height: 1.5;
+        color: #121212;
+        background: #f5f3ef;
+      }
+      main {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 28px 20px 50px;
+      }
+      nav {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+      }
+      nav a {
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: #1c1c1c;
+        background: #fff;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-family: "Spectral", Georgia, serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+      }
+      p {
+        margin: 0 0 12px;
+      }
+      .box {
+        background: #fff;
+        border: 1px solid #ddd7ce;
+        border-radius: 12px;
+        padding: 16px;
+        margin-top: 18px;
+      }
+      .muted {
+        color: #55524c;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/insights/">Insights</a>
+        <a href="/archive/">Archive</a>
+      </nav>
+
+      <h1>About this site</h1>
+      <p>
+        This is the personal website of Ilia Klishin. It is built as a source-linked, multilingual publication layer for
+        factual context and discoverable references.
+      </p>
+      <p>
+        The main objective is technical clarity for readers and crawlers: each card links to an original publication,
+        uses short attributed excerpts, and keeps neutral summaries for reliable indexing.
+      </p>
+
+      <div class="box">
+        <p><strong>Primary sections</strong></p>
+        <p class="muted">Home: multilingual digest index and filtering by language/topic.</p>
+        <p class="muted">Insights: crawlable static list of all digest entries.</p>
+        <p class="muted">Archive: sitemap, RSS, source registry, and machine-readable references.</p>
+      </div>
+    </main>
+  </body>
+</html>

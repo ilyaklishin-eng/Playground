@@ -1,3 +1,32 @@
 User-agent: *
 Allow: /
-Sitemap: https://ilyaklishin-eng.github.io/Playground/reputation-case/site/sitemap.xml
+Disallow: /tools/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://www.klishin.work/sitemap.xml

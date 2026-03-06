@@ -1,13 +1,24 @@
 # Ilya Klishin Fact-Based Digest
 
 Primary index page:
-https://ilyaklishin-eng.github.io/Playground/reputation-case/site/index.html
+https://www.klishin.work/
+
+Section pages:
+https://www.klishin.work/about/
+https://www.klishin.work/insights/
+https://www.klishin.work/archive/
 
 Static archive:
-https://ilyaklishin-eng.github.io/Playground/reputation-case/site/posts/index.html
+https://www.klishin.work/posts/
 
-Sitemap:
-https://ilyaklishin-eng.github.io/Playground/reputation-case/site/sitemap.xml
+Sitemap index:
+https://www.klishin.work/sitemap.xml
+
+Language sitemaps:
+https://www.klishin.work/sitemap-en.xml
+https://www.klishin.work/sitemap-fr.xml
+https://www.klishin.work/sitemap-de.xml
+https://www.klishin.work/sitemap-es.xml
 
 Policy:
 - Fact-based summaries only
