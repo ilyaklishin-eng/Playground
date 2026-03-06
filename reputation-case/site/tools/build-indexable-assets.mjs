@@ -566,7 +566,7 @@ const buildRss = (entries) => {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Ilya Klishin Fact-Based Digest</title>
+    <title>Ilia Klishin Fact-Based Digest</title>
     <link>${xmlEscape(canonicalUrl("index.html"))}</link>
     <description>Fact-based multilingual digest with original source links.</description>
     <lastBuildDate>${now}</lastBuildDate>

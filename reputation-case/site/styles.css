@@ -54,6 +54,11 @@ body {
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: var(--muted);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--ink);
 }
 
 .source-link {
