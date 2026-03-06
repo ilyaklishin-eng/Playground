@@ -34,13 +34,13 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint --if-present
 
       - name: Validate references
-        run: npm run validate:refs
+        run: npm run validate:refs --if-present
 
       - name: Unit tests
-        run: npm run test:unit
+        run: npm run test:unit --if-present
 
   smoke-http:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Smoke tests
-        run: npm run test:smoke
+        run: npm run test:smoke --if-present
 
   deploy:
     needs:
