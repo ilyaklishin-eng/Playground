@@ -6,7 +6,7 @@
     <title>About Ilia Klishin | Personal Site</title>
     <meta
       name="description"
-      content="Background page for Ilia Klishin with scope of this website, editorial approach, and navigation to insights and source archive."
+      content="About page for Ilia Klishin website: works and publications archive, biography context, and multilingual navigation with direct source references."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/about/" />
@@ -34,13 +34,19 @@
             "@type": "Person",
             "@id": "https://www.klishin.work/#person",
             "name": "Ilia Klishin",
-            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
             "url": "https://www.klishin.work/",
             "sameAs": [
               "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
               "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
-              "https://www.moscowtimes.ru/author/ilya-klishin",
-              "https://www.vedomosti.ru/authors/ilya-klishin"
+              "https://www.ted.com/tedx/events/3947",
+              "https://www.themoscowtimes.com/author/ilya-klishin",
+              "https://www.vedomosti.ru/authors/ilya-klishin",
+              "https://polutona.ru/?show=1104154256",
+              "https://snob.ru/profile/28206/about/",
+              "https://snob.ru/profile/28206/blog/",
+              "https://rtvi.com/editors-archive/ilya-klishin/",
+              "https://kf.agency/articles/biography"
             ]
           },
           {
@@ -58,7 +64,14 @@
             "url": "https://www.klishin.work/",
             "inLanguage": ["en", "fr", "de", "es"],
             "publisher": { "@id": "https://www.klishin.work/#organization" },
-            "about": { "@id": "https://www.klishin.work/#person" }
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "hasPart": [
+              { "@id": "https://www.klishin.work/#webpage" },
+              { "@id": "https://www.klishin.work/bio/#webpage" },
+              { "@id": "https://www.klishin.work/cases/#webpage" },
+              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/archive/#webpage" }
+            ]
           },
           {
             "@type": "ProfilePage",
@@ -66,6 +79,7 @@
             "url": "https://www.klishin.work/about/",
             "name": "About Ilia Klishin",
             "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "about": { "@id": "https://www.klishin.work/#person" },
             "mainEntity": { "@id": "https://www.klishin.work/#person" },
             "inLanguage": "en"
           }
@@ -138,18 +152,16 @@
 
       <h1>About this site</h1>
       <p>
-        This is the personal website of Ilia Klishin. It functions as a multilingual, source-linked reference layer: a place
-        where biographical context, publications, and supporting sources are presented in a clear, verifiable format.
+        This is the personal website of Ilia Klishin (also published as Ilya Klishin; Илья Клишин). It is a source-attributed
+        archive of his works and publications, plus core biography and context pages.
       </p>
       <p>
-        The site is designed for both readers and search systems. Its purpose is to reduce ambiguity, improve factual
-        discoverability, and provide reliable context around publications, public mentions, and biography-related claims. Each
-        page links back to original sources, uses short attributed excerpts where relevant, and keeps summaries neutral and
-        machine-readable.
+        The site is designed for both readers and search systems: every card links to an original source, keeps quotations short,
+        and uses neutral summaries for verifiable context.
       </p>
       <p>
-        The structure of the site favors semantic clarity over self-promotion. In practice, this means consistent attribution,
-        explicit sourcing, and formats that help with indexing, entity disambiguation, and fact-checking across languages.
+        Main goal: make it easy to find Ilia Klishin's articles and professional records in one place, with stable URLs and
+        multilingual navigation.
       </p>
 
       <div class="box">
@@ -161,7 +173,20 @@
         </p>
         <p class="muted">Home: a multilingual entry point to the site's digest content, with filtering by language and topic.</p>
         <p class="muted">Insights: a crawlable static index of all digest entries.</p>
-        <p class="muted">Archive: sitemap, RSS, source registry, and machine-readable reference files.</p>
+        <p class="muted">Archive: sitemap, RSS, source registry, and reference files for open reuse.</p>
+      </div>
+
+      <div class="box">
+        <p><strong>Related materials</strong></p>
+        <p class="muted">
+          Start from <a href="/">Home</a> for filtered digest cards, then use <a href="/posts/">Full Static Digest</a> for
+          crawlable HTML versions.
+        </p>
+        <p class="muted">
+          For reference files, see <a href="/source-registry-v1.tsv">Source Registry (TSV)</a>,
+          <a href="/data/digests.json">digest dataset (JSON)</a>, <a href="/rss.xml">RSS</a>, and
+          <a href="/sitemap.xml">sitemap index</a>.
+        </p>
       </div>
     </main>
   </body>

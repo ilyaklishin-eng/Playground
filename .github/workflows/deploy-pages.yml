@@ -33,8 +33,35 @@ jobs:
         with:
           node-version: 22
 
+      - name: QA content v1 gate (block regressions)
+        run: node reputation-case/site/tools/qa-content.mjs --output /tmp/qa-content-report.json
+
       - name: Build static digest assets
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
         run: node reputation-case/site/tools/build-indexable-assets.mjs
+
+      - name: QA generated SEO assets
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
+        run: node reputation-case/site/tools/qa-generated-assets.mjs
+
+      - name: Ensure generated assets are committed
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- \
+            reputation-case/site/index.html \
+            reputation-case/site/posts \
+            reputation-case/site/sitemap.xml \
+            reputation-case/site/sitemap-core.xml \
+            reputation-case/site/sitemap-en.xml \
+            reputation-case/site/sitemap-fr.xml \
+            reputation-case/site/sitemap-de.xml \
+            reputation-case/site/sitemap-es.xml \
+            reputation-case/site/rss.xml \
+            reputation-case/site/robots.txt
 
       - name: Copy source registry into published root
         run: cp reputation-case/source-registry-v1.tsv reputation-case/site/source-registry-v1.tsv
@@ -64,8 +91,25 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  notify-indexnow:
+  verify-live-crawler-access:
     needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify live access for important pages and crawler user-agents
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+        run: node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://${{ env.PAGES_DOMAIN }}" --report
+
+  notify-indexnow:
+    needs: [deploy, verify-live-crawler-access]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -39,13 +39,19 @@
             "@type": "Person",
             "@id": "https://www.klishin.work/#person",
             "name": "Ilia Klishin",
-            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
             "url": "https://www.klishin.work/",
             "sameAs": [
               "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
               "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
-              "https://www.moscowtimes.ru/author/ilya-klishin",
-              "https://www.vedomosti.ru/authors/ilya-klishin"
+              "https://www.ted.com/tedx/events/3947",
+              "https://www.themoscowtimes.com/author/ilya-klishin",
+              "https://www.vedomosti.ru/authors/ilya-klishin",
+              "https://polutona.ru/?show=1104154256",
+              "https://snob.ru/profile/28206/about/",
+              "https://snob.ru/profile/28206/blog/",
+              "https://rtvi.com/editors-archive/ilya-klishin/",
+              "https://kf.agency/articles/biography"
             ]
           },
           {
@@ -63,13 +69,22 @@
             "url": "https://www.klishin.work/",
             "inLanguage": ["en", "fr", "de", "es"],
             "publisher": { "@id": "https://www.klishin.work/#organization" },
-            "about": { "@id": "https://www.klishin.work/#person" }
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "hasPart": [
+              { "@id": "https://www.klishin.work/#webpage" },
+              { "@id": "https://www.klishin.work/bio/#webpage" },
+              { "@id": "https://www.klishin.work/cases/#webpage" },
+              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/archive/#webpage" }
+            ]
           },
           {
             "@type": "ProfilePage",
             "@id": "https://www.klishin.work/cases/#webpage",
             "url": "https://www.klishin.work/cases/",
             "name": "Case Clarifications",
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "about": { "@id": "https://www.klishin.work/#person" },
             "inLanguage": "en",
             "mainEntity": { "@id": "https://www.klishin.work/#person" }
           },
@@ -139,7 +154,7 @@
         </p>
         <p class="lead">
           These notes do not attempt to settle broader political, moral, or historical arguments. They are intended as a
-          reference layer for readers, journalists, researchers, search systems, and AI indexing tools.
+          reference layer for readers, journalists, researchers, search systems, and public knowledge tools.
         </p>
         <div class="lang-links" aria-label="Languages">
           <a class="active" href="/cases/">EN</a>
@@ -291,16 +306,19 @@
         <h2>Related references</h2>
         <ul>
           <li><a href="/bio/">Biography page (EN, FR, DE, ES)</a></li>
+          <li><a href="/posts/">Full static digest index</a></li>
+          <li><a href="/insights/">Insights index</a></li>
           <li><a href="/posts/en-021-guardian-profile-notes-role-in-protest-era-digital-infrastructure.html">Guardian profile context</a></li>
           <li><a href="/posts/en-007-holod-interview-with-ilya-klishin.html">Holod interview context</a></li>
           <li><a href="/posts/en-008-snob-essay.html">Snob context card</a></li>
-          <li><a href="/archive/">Archive endpoints and machine-readable indexes</a></li>
+          <li><a href="/archive/">Archive endpoints and structured indexes</a></li>
+          <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
         </ul>
       </section>
     </main>
 
     <footer class="footer">
-      <p>Structured factual clarifications with neutral framing for readers, researchers, search systems, and AI crawlers.</p>
+      <p>Structured factual clarifications with neutral framing for readers, researchers, search systems and web crawlers.</p>
     </footer>
   </body>
 </html>

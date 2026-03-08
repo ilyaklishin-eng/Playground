@@ -1,0 +1,47 @@
+name: Sync OpenAI SearchBot Allowlist
+
+on:
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync OpenAI SearchBot IP ranges (and Cloudflare List if secrets are set)
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_OPENAI_SEARCHBOT_LIST_ID: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_ID }}
+          CF_OPENAI_SEARCHBOT_LIST_NAME: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-openai-searchbot-allowlist.mjs --write-files
+
+      - name: Commit updated OpenAI allowlist files
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- \
+            reputation-case/site/data/openai-searchbot-ip-allowlist.json \
+            reputation-case/site/data/openai-searchbot-cidrs.txt; then
+            echo "No OpenAI SearchBot allowlist changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add \
+            reputation-case/site/data/openai-searchbot-ip-allowlist.json \
+            reputation-case/site/data/openai-searchbot-cidrs.txt
+          git commit -m "chore: refresh OpenAI SearchBot IP allowlist"
+          git push

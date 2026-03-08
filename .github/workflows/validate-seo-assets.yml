@@ -1,0 +1,52 @@
+name: Validate SEO Assets
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-generated-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: QA content v1 gate (block regressions)
+        run: node reputation-case/site/tools/qa-content.mjs --output /tmp/qa-content-report.json
+
+      - name: Build static digest assets
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
+        run: node reputation-case/site/tools/build-indexable-assets.mjs
+
+      - name: QA generated SEO assets
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
+        run: node reputation-case/site/tools/qa-generated-assets.mjs
+
+      - name: Ensure generated assets are committed
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- \
+            reputation-case/site/index.html \
+            reputation-case/site/posts \
+            reputation-case/site/sitemap.xml \
+            reputation-case/site/sitemap-core.xml \
+            reputation-case/site/sitemap-en.xml \
+            reputation-case/site/sitemap-fr.xml \
+            reputation-case/site/sitemap-de.xml \
+            reputation-case/site/sitemap-es.xml \
+            reputation-case/site/rss.xml \
+            reputation-case/site/robots.txt

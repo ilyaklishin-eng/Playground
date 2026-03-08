@@ -70,15 +70,159 @@ Set repository secret:
 
 ### Google Search Console
 
-1. Add URL-prefix property: `https://www.klishin.work/`
-2. Verify ownership (DNS TXT in Cloudflare)
-3. Submit sitemap: `https://www.klishin.work/sitemap.xml`
+1. Add property: `https://www.klishin.work/` (URL prefix).
+2. Verify ownership:
+- preferred: DNS TXT in Cloudflare (`klishin.work` zone, root `@`).
+- alternative: HTML tag verification on home page.
+3. In `Indexing -> Sitemaps`, submit:
+- `https://www.klishin.work/sitemap.xml`
+4. Optional: request indexing for:
+- `https://www.klishin.work/`
+- `https://www.klishin.work/bio/`
+- `https://www.klishin.work/cases/`
 
 ### Bing Webmaster Tools
 
 1. Add site: `https://www.klishin.work/`
-2. Verify ownership (DNS TXT or import from GSC)
-3. Submit sitemap: `https://www.klishin.work/sitemap.xml`
+2. Verify ownership:
+- DNS TXT in Cloudflare, or
+- import from Search Console.
+3. In `Sitemaps`, submit:
+- `https://www.klishin.work/sitemap.xml`
+4. Optional: run URL inspection for home/bio/cases pages.
+
+### Cloudflare anti-bot policy for search/AI crawlers
+
+Goal:
+- keep DNS records for GitHub Pages as `DNS only`;
+- avoid challenge/CAPTCHA for verified search and AI crawlers.
+
+Recommended settings in Cloudflare (`klishin.work` zone):
+
+1. DNS:
+- `www` CNAME and apex A/AAAA records -> `DNS only` (grey cloud).
+
+2. Security/WAF:
+- Do not create rules that force challenge for all bots.
+- If challenge rules already exist, add a `Skip` rule above them for:
+  - `cf.client.bot`
+  - and user-agent contains one of:
+    - `Googlebot`, `Google-Extended`, `Bingbot`, `OAI-SearchBot`, `GPTBot`,
+      `ClaudeBot`, `anthropic-ai`, `PerplexityBot`, `Perplexity-User`, `CCBot`.
+- For Perplexity, use a stricter AND-condition (UA + source IP list):
+  - Source JSON feeds:
+    - `https://www.perplexity.ai/perplexitybot.json`
+    - `https://www.perplexity.ai/perplexity-user.json`
+  - Recommended Cloudflare expression:
+    - `(http.user_agent contains "PerplexityBot" and ip.src in $perplexitybot_ips) or (http.user_agent contains "Perplexity-User" and ip.src in $perplexity_user_ips)`
+- For ChatGPT Search (OpenAI), use a stricter AND-condition (UA + source IP list):
+  - Source JSON feed:
+    - `https://openai.com/searchbot.json`
+  - Recommended Cloudflare expression:
+    - `(http.user_agent contains "OAI-SearchBot" and ip.src in $openai_searchbot_ips)`
+- For ChatGPT-User (user-initiated browsing, not automatic search crawl), use UA + source IP list:
+  - Source JSON feed:
+    - `https://openai.com/chatgpt-user.json`
+  - Recommended Cloudflare expression:
+    - `(http.user_agent contains "ChatGPT-User" and ip.src in $openai_chatgpt_user_ips)`
+- For GPTBot (OpenAI model training crawler), use UA + source IP list:
+  - Source JSON feed:
+    - `https://openai.com/gptbot.json`
+  - Recommended Cloudflare expression:
+    - `(http.user_agent contains "GPTBot" and ip.src in $openai_gptbot_ips)`
+
+3. Bot Fight Mode / Super Bot Fight Mode:
+- keep on only if verified bots are exempted;
+- otherwise disable strict challenge mode for the zone.
+
+4. Rate limiting:
+- never apply global challenge to `robots.txt`, `sitemap*.xml`, `rss.xml`.
+
+### Automatic Perplexity allowlist sync
+
+Included workflow:
+- `.github/workflows/sync-perplexity-allowlist.yml` (daily + manual run)
+
+Generated artifacts:
+- `reputation-case/site/data/perplexity-ip-allowlist.json`
+- `reputation-case/site/data/perplexitybot-cidrs.txt`
+- `reputation-case/site/data/perplexity-user-cidrs.txt`
+- `reputation-case/site/data/perplexity-cidrs-combined.txt`
+
+Optional Cloudflare sync (if secrets are set):
+- `CF_API_TOKEN` (Account Rules Lists write permission)
+- `CF_ACCOUNT_ID`
+- Optional:
+  - `CF_PERPLEXITYBOT_LIST_ID` / `CF_PERPLEXITYUSER_LIST_ID`
+  - `CF_PERPLEXITYBOT_LIST_NAME` / `CF_PERPLEXITYUSER_LIST_NAME`
+
+### Automatic OpenAI SearchBot allowlist sync
+
+Included workflow:
+- `.github/workflows/sync-openai-searchbot-allowlist.yml` (daily + manual run)
+
+Generated artifacts:
+- `reputation-case/site/data/openai-searchbot-ip-allowlist.json`
+- `reputation-case/site/data/openai-searchbot-cidrs.txt`
+
+Optional Cloudflare sync (if secrets are set):
+- `CF_API_TOKEN` (Account Rules Lists write permission)
+- `CF_ACCOUNT_ID`
+- Optional:
+  - `CF_OPENAI_SEARCHBOT_LIST_ID`
+  - `CF_OPENAI_SEARCHBOT_LIST_NAME`
+
+### Automatic OpenAI GPTBot allowlist sync
+
+Included workflow:
+- `.github/workflows/sync-openai-gptbot-allowlist.yml` (daily + manual run)
+
+Generated artifacts:
+- `reputation-case/site/data/openai-gptbot-ip-allowlist.json`
+- `reputation-case/site/data/openai-gptbot-cidrs.txt`
+
+Optional Cloudflare sync (if secrets are set):
+- `CF_API_TOKEN` (Account Rules Lists write permission)
+- `CF_ACCOUNT_ID`
+- Optional:
+  - `CF_OPENAI_GPTBOT_LIST_ID`
+  - `CF_OPENAI_GPTBOT_LIST_NAME`
+
+### Automatic OpenAI ChatGPT-User allowlist sync
+
+Included workflow:
+- `.github/workflows/sync-openai-chatgpt-user-allowlist.yml` (daily + manual run)
+
+Generated artifacts:
+- `reputation-case/site/data/openai-chatgpt-user-ip-allowlist.json`
+- `reputation-case/site/data/openai-chatgpt-user-cidrs.txt`
+
+Optional Cloudflare sync (if secrets are set):
+- `CF_API_TOKEN` (Account Rules Lists write permission)
+- `CF_ACCOUNT_ID`
+- Optional:
+  - `CF_OPENAI_CHATGPT_USER_LIST_ID`
+  - `CF_OPENAI_CHATGPT_USER_LIST_NAME`
+
+### GPTBot policy in robots.txt (allow / deny / custom paths)
+
+`build-indexable-assets.mjs` supports:
+- `GPTBOT_POLICY=allow` (default)
+- `GPTBOT_POLICY=deny` (writes `User-agent: GPTBot` + `Disallow: /`)
+- `GPTBOT_POLICY=custom` with `GPTBOT_DISALLOW_PATHS` (comma-separated paths)
+
+Examples:
+- Allow GPTBot (default):
+  - `GPTBOT_POLICY=allow`
+- Block GPTBot site-wide:
+  - `GPTBOT_POLICY=deny`
+- Block GPTBot only on selected paths:
+  - `GPTBOT_POLICY=custom`
+  - `GPTBOT_DISALLOW_PATHS=/private/,/internal/`
+
+For GitHub Actions, set repository variables:
+- `GPTBOT_POLICY`
+- `GPTBOT_DISALLOW_PATHS` (only for `custom`)
 
 ## 5) What is already implemented in code
 
@@ -101,10 +245,26 @@ Set repository secret:
   - `/sitemap-es.xml`
 - Home page has `title`, `description`, `canonical`, OG, Twitter tags, and JSON-LD (`Person`, `Organization`, `WebSite`, `WebPage`)
 - Post pages include `Article` JSON-LD and hreflang alternates (`en/fr/de/es/x-default`)
+- Home page is HTML-first:
+  - static fallback cards are injected at build time from `digests.json`
+  - JS enhances filtering/search, but content is not JS-only
+- Live crawler access checks are automated:
+  - on deploy: `.github/workflows/deploy-pages.yml` job `verify-live-crawler-access`
+  - on schedule: `.github/workflows/monitor-crawler-access.yml` (every 6 hours)
 
 ## 6) Verification commands
 
 ```bash
+node reputation-case/site/tools/build-indexable-assets.mjs
+node reputation-case/site/tools/qa-generated-assets.mjs
+node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://www.klishin.work" --report
+node reputation-case/site/tools/sync-perplexity-allowlist.mjs --write-files
+node reputation-case/site/tools/sync-openai-searchbot-allowlist.mjs --write-files
+node reputation-case/site/tools/sync-openai-gptbot-allowlist.mjs --write-files
+node reputation-case/site/tools/sync-openai-chatgpt-user-allowlist.mjs --write-files
+
+rg -n "HTML_FIRST_CARDS_START|HTML_FIRST_CARDS_END" reputation-case/site/index.html
+
 curl -sSI https://www.klishin.work/robots.txt
 curl -sSI https://www.klishin.work/sitemap.xml
 curl -sSI https://www.klishin.work/sitemap-en.xml
@@ -119,3 +279,5 @@ Expected:
 - sitemap index and child sitemaps return 200
 - no `noindex` on public pages
 - no canonical URLs to `github.io`
+- `qa-generated-assets.mjs` exits with success and zero errors
+- endpoint check script reports no `403`, `429`, or challenge markers for `/`, `/cases/`, `/bio/`, `/insights/` under browser + `ChatGPT-User` + `OAI-SearchBot` + Perplexity UAs (and `GPTBot` unless `GPTBOT_POLICY=deny`)

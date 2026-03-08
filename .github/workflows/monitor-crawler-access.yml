@@ -1,0 +1,26 @@
+name: Monitor Crawler Access
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Verify important pages for browser + OpenAI + Perplexity user-agents
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+        run: node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://www.klishin.work" --report

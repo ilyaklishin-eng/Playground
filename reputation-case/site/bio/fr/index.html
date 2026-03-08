@@ -39,7 +39,7 @@
             "@type": "Person",
             "@id": "https://www.klishin.work/#person",
             "name": "Ilia Klishin",
-            "alternateName": ["Ilya Klishin", "Ilia S. Klishin"],
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
             "url": "https://www.klishin.work/",
             "image": "https://www.klishin.work/bio/ilia-klishin-portrait.jpeg",
             "jobTitle": "Media strategist, journalist, and editor",
@@ -65,9 +65,14 @@
             "sameAs": [
               "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
               "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
-              "https://www.moscowtimes.ru/author/ilya-klishin",
+              "https://www.ted.com/tedx/events/3947",
+              "https://www.themoscowtimes.com/author/ilya-klishin",
               "https://www.vedomosti.ru/authors/ilya-klishin",
-              "https://polutona.ru/?show=1104154256"
+              "https://polutona.ru/?show=1104154256",
+              "https://snob.ru/profile/28206/about/",
+              "https://snob.ru/profile/28206/blog/",
+              "https://rtvi.com/editors-archive/ilya-klishin/",
+              "https://kf.agency/articles/biography"
             ]
           },
           {
@@ -85,13 +90,22 @@
             "url": "https://www.klishin.work/",
             "inLanguage": ["en", "fr", "de", "es"],
             "publisher": { "@id": "https://www.klishin.work/#organization" },
-            "about": { "@id": "https://www.klishin.work/#person" }
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "hasPart": [
+              { "@id": "https://www.klishin.work/#webpage" },
+              { "@id": "https://www.klishin.work/bio/#webpage" },
+              { "@id": "https://www.klishin.work/cases/#webpage" },
+              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/archive/#webpage" }
+            ]
           },
           {
             "@type": "ProfilePage",
             "@id": "https://www.klishin.work/bio/fr/#webpage",
             "url": "https://www.klishin.work/bio/fr/",
             "name": "Biographie | Ilia Klishin",
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "about": { "@id": "https://www.klishin.work/#person" },
             "inLanguage": "fr",
             "mainEntity": { "@id": "https://www.klishin.work/#person" }
           }
@@ -206,6 +220,9 @@
           <li><a href="https://kf.agency/" rel="noreferrer" target="_blank">KF Agency (site officiel)</a></li>
           <li><a href="/posts/fr-014-analyse-precoce-sur-l-expansion-internationale-des-fermes-de-trolls.html">Contexte d analyse precoce sur la desinformation</a></li>
           <li><a href="/posts/fr-033-interview-on-creating-an-emigrant-focused-media-project.html">Contexte d entretien sur un projet media pour emigres</a></li>
+          <li><a href="/cases/fr/">Clarifications de cas (EN, FR, DE, ES)</a></li>
+          <li><a href="/posts/">Digest statique complet</a></li>
+          <li><a href="/archive/">Archive et references structured</a></li>
         </ul>
       </section>
     </main>

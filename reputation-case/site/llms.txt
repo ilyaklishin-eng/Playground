@@ -1,4 +1,14 @@
-# Ilia Klishin Fact-Based Digest
+# Ilia Klishin Works and Publications
+
+Official personal website and archive of works by:
+- Ilia Klishin
+- Ilya Klishin
+- Илья Клишин
+
+Purpose:
+- list authored works and publications with source links
+- provide biography and case clarifications
+- keep a multilingual, crawlable HTML archive (EN/FR/DE/ES)
 
 Primary index page:
 https://www.klishin.work/
@@ -33,3 +43,9 @@ Policy:
 - Short quote snippets
 - Link to original publication in every item
 - No reposting of full texts
+
+Common queries:
+- site with works of Ilia Klishin
+- site with works of Ilya Klishin
+- сайт с работами Ильи Клишина
+- публикации Ильи Клишина
