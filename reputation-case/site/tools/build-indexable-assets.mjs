@@ -4,19 +4,36 @@ import path from "node:path";
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const dataPath = path.join(siteDir, "data", "digests.json");
 const postsDir = path.join(siteDir, "posts");
+const homeIndexPath = path.join(siteDir, "index.html");
 const baseUrl = "https://www.klishin.work";
+const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
+const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
+const HOME_FALLBACK_LIMIT = 24;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
 const PERSON_ID = `${baseUrl}/#person`;
 const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
-const PERSON_ALT_NAMES = ["Ilya Klishin", "Ilia S. Klishin"];
+const PERSON_ALT_NAMES = ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"];
 const PERSON_SAME_AS = [
   "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
   "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
-  "https://www.moscowtimes.ru/author/ilya-klishin",
+  "https://www.ted.com/tedx/events/3947",
+  "https://www.themoscowtimes.com/author/ilya-klishin",
   "https://www.vedomosti.ru/authors/ilya-klishin",
+  "https://polutona.ru/?show=1104154256",
+  "https://snob.ru/profile/28206/about/",
+  "https://snob.ru/profile/28206/blog/",
+  "https://rtvi.com/editors-archive/ilya-klishin/",
+  "https://kf.agency/articles/biography",
+];
+const WEBSITE_HAS_PART = [
+  `${baseUrl}/#webpage`,
+  `${baseUrl}/bio/#webpage`,
+  `${baseUrl}/cases/#webpage`,
+  `${baseUrl}/insights/#webpage`,
+  `${baseUrl}/archive/#webpage`,
 ];
 const STATIC_SECTIONS = [
   "about/index.html",
@@ -85,6 +102,18 @@ const canonicalUrl = (relativePath = "") => {
   return `${baseUrl}/${clean}`;
 };
 
+const normalizeSourceUrl = (value = "") => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (raw.startsWith("//")) return `https:${raw}`;
+  try {
+    return new URL(raw, `${baseUrl}/`).toString();
+  } catch {
+    return raw;
+  }
+};
+
 const latestBuildIso = (entries) => {
   let latest = null;
   for (const entry of entries) {
@@ -116,10 +145,38 @@ const normalizedArray = (value) => {
   return out;
 };
 
+const previewSummary = (text = "") => {
+  const plain = String(text || "").replace(/\s+/g, " ").trim();
+  if (!plain) return "";
+
+  const sentenceMatches = plain.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const sentences = Array.isArray(sentenceMatches)
+    ? sentenceMatches.map((sentence) => sentence.trim()).filter(Boolean)
+    : [plain];
+
+  if (sentences.length <= 3) return sentences.join(" ");
+  return sentences.slice(0, 3).join(" ");
+};
+
+const escapeRegExp = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const lower = (value = "") => String(value || "").replace(/\s+/g, " ").trim().toLowerCase();
+
 const normalizeLang = (value = "") => {
   const lang = String(value || "").trim().toUpperCase();
   if (LANGS.includes(lang)) return lang;
   return "EN";
+};
+
+const parseDateForSort = (value = "") => {
+  const ts = Date.parse(String(value || ""));
+  return Number.isNaN(ts) ? 0 : ts;
+};
+
+const sortEntriesByDateDesc = (a, b) => {
+  const delta = parseDateForSort(b?.item?.date) - parseDateForSort(a?.item?.date);
+  if (delta !== 0) return delta;
+  return String(a?.item?.id || "").localeCompare(String(b?.item?.id || ""));
 };
 
 const sortHreflangAlternates = (items) =>
@@ -238,6 +295,7 @@ const buildCoreEntities = () => {
     inLanguage: ["en", "fr", "de", "es"],
     publisher: { "@id": ORGANIZATION_ID },
     about: { "@id": PERSON_ID },
+    hasPart: WEBSITE_HAS_PART.map((id) => ({ "@id": id })),
     potentialAction: {
       "@type": "SearchAction",
       target: `${canonicalUrl("index.html")}?q={search_term_string}`,
@@ -247,7 +305,158 @@ const buildCoreEntities = () => {
   return { person, organization, website };
 };
 
-const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
+const pickUniqueEntries = (entries, max, used) => {
+  const out = [];
+  for (const entry of entries) {
+    const id = String(entry?.item?.id || "").trim();
+    if (!id || used.has(id)) continue;
+    used.add(id);
+    out.push(entry);
+    if (out.length >= max) break;
+  }
+  return out;
+};
+
+const buildRelatedPostGroups = (item, entries) => {
+  const itemId = String(item?.id || "").trim();
+  const itemLang = normalizeLang(item?.language);
+  const itemTopic = lower(item?.topic);
+  const itemSource = lower(item?.source);
+
+  const candidates = entries.filter((entry) => String(entry?.item?.id || "").trim() !== itemId);
+  const sameLang = candidates
+    .filter((entry) => normalizeLang(entry?.item?.language) === itemLang)
+    .sort(sortEntriesByDateDesc);
+
+  const sameTopicLang = sameLang.filter((entry) => lower(entry?.item?.topic) === itemTopic);
+  const sameTopicAny = candidates
+    .filter((entry) => lower(entry?.item?.topic) === itemTopic)
+    .sort(sortEntriesByDateDesc);
+
+  const sameSourceLang = sameLang.filter((entry) => lower(entry?.item?.source) === itemSource);
+  const sameSourceAny = candidates
+    .filter((entry) => lower(entry?.item?.source) === itemSource)
+    .sort(sortEntriesByDateDesc);
+
+  const used = new Set();
+  const relatedByTopic = [
+    ...pickUniqueEntries(sameTopicLang, 3, used),
+    ...pickUniqueEntries(sameTopicAny, 3, used),
+  ].slice(0, 3);
+
+  const relatedBySource = [
+    ...pickUniqueEntries(sameSourceLang, 3, used),
+    ...pickUniqueEntries(sameSourceAny, 3, used),
+  ].slice(0, 3);
+
+  const latestSameLanguage = pickUniqueEntries(sameLang, 3, used);
+
+  return { relatedByTopic, relatedBySource, latestSameLanguage };
+};
+
+const buildRelatedLinks = (entries) =>
+  entries.map((entry) => {
+    const href = canonicalUrl(`posts/${entry.postPath}`);
+    const title = htmlEscape(String(entry?.item?.title || "Untitled"));
+    const source = htmlEscape(String(entry?.item?.source || "-"));
+    const date = htmlEscape(String(entry?.item?.date || "-"));
+    return `<li><a href="${href}">${title}</a> — ${source} • ${date}</li>`;
+  });
+
+const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
+
+const sortEntriesForHome = (a, b) => {
+  const statusDelta = homeStatusRank(a?.item?.status) - homeStatusRank(b?.item?.status);
+  if (statusDelta !== 0) return statusDelta;
+  return sortEntriesByDateDesc(a, b);
+};
+
+const pickHomeFallbackEntries = (entries, limit) => {
+  const groups = new Map();
+  for (const lang of LANGS) groups.set(lang, []);
+
+  for (const entry of entries.slice().sort(sortEntriesForHome)) {
+    const lang = normalizeLang(entry?.item?.language);
+    if (!groups.has(lang)) groups.set(lang, []);
+    groups.get(lang).push(entry);
+  }
+
+  const picked = [];
+  while (picked.length < limit) {
+    let progressed = false;
+    for (const lang of LANGS) {
+      const queue = groups.get(lang) || [];
+      if (!queue.length) continue;
+      picked.push(queue.shift());
+      progressed = true;
+      if (picked.length >= limit) break;
+    }
+    if (!progressed) break;
+  }
+
+  if (picked.length >= limit) return picked.slice(0, limit);
+
+  const usedIds = new Set(picked.map((entry) => String(entry?.item?.id || "").trim()));
+  const rest = entries
+    .slice()
+    .sort(sortEntriesForHome)
+    .filter((entry) => {
+      const id = String(entry?.item?.id || "").trim();
+      if (!id || usedIds.has(id)) return false;
+      usedIds.add(id);
+      return true;
+    });
+
+  return [...picked, ...rest].slice(0, limit);
+};
+
+const buildHomeFallbackCards = (entries) => {
+  const top = pickHomeFallbackEntries(entries, HOME_FALLBACK_LIMIT);
+  return top
+    .map((entry) => {
+      const item = entry.item || {};
+      const lang = htmlEscape(String(item.language || "-"));
+      const status = htmlEscape(String(item.status || "ready"));
+      const title = htmlEscape(String(item.title || "Untitled"));
+      const source = htmlEscape(String(item.source || "-"));
+      const date = htmlEscape(String(item.date || "-"));
+      const topic = htmlEscape(String(item.topic || "-"));
+      const digest = htmlEscape(previewSummary(item.summary || item.digest || ""));
+      const quoteCandidates =
+        Array.isArray(item.quotes) && item.quotes.length > 0
+          ? item.quotes
+          : [item.quote].filter(Boolean);
+      const quote = htmlEscape(String(quoteCandidates[0] || ""));
+      const digestHref = canonicalUrl(`posts/${entry.postPath}`);
+      return `        <article class="card">
+          <div class="card-head">
+            <span class="lang-tag">${lang}</span>
+            <span class="status-tag" data-status="${status}">${status}</span>
+          </div>
+          <h2 class="card-title">${title}</h2>
+          <p class="card-meta">${source} • ${date} • ${topic}</p>
+          <p class="card-digest">${digest}</p>
+          ${quote ? `<blockquote class="card-quote">${quote}</blockquote>` : ""}
+          <a class="card-link" href="${digestHref}">Open digest card</a>
+        </article>`;
+    })
+    .join("\n");
+};
+
+const updateHomeHtmlFirstCards = async (entries) => {
+  const html = await fs.readFile(homeIndexPath, "utf8");
+  if (!html.includes(HOME_FALLBACK_START) || !html.includes(HOME_FALLBACK_END)) {
+    throw new Error(`Missing fallback markers in ${homeIndexPath}.`);
+  }
+  const replacement = `${HOME_FALLBACK_START}
+${buildHomeFallbackCards(entries)}
+        ${HOME_FALLBACK_END}`;
+  const re = new RegExp(`${escapeRegExp(HOME_FALLBACK_START)}[\\s\\S]*?${escapeRegExp(HOME_FALLBACK_END)}`, "m");
+  const next = html.replace(re, replacement);
+  await fs.writeFile(homeIndexPath, next, "utf8");
+};
+
+const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
   const title = `${item.title} | ${DIGEST_NAME}`;
   const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
   const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
@@ -257,7 +466,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
   const semanticTags = normalizedArray(item.semantic_tags);
   const valueContext = String(item.value_context || "").replace(/\s+/g, " ").trim();
   const canonical = canonicalUrl(postPath);
-  const sourceLink = item.url;
+  const sourceLink = normalizeSourceUrl(item.url);
   const htmlLang = toHtmlLang(item.language);
   const { alternates, xDefaultHref } = getAlternatesForItem(item, idToPostPath, idToCluster);
   const hreflangHeadLinks = buildHeadHreflangLinks(alternates, xDefaultHref);
@@ -265,10 +474,15 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
     (alt) =>
       `<li><a href="${htmlEscape(alt.href)}">${htmlEscape(String(alt.hreflang).toUpperCase())}</a></li>`
   );
+  const { relatedByTopic, relatedBySource, latestSameLanguage } = buildRelatedPostGroups(item, entries);
+  const topicLinks = buildRelatedLinks(relatedByTopic);
+  const sourceLinks = buildRelatedLinks(relatedBySource);
+  const latestLanguageLinks = buildRelatedLinks(latestSameLanguage);
   const { person, organization, website } = buildCoreEntities();
   const pageId = `${canonical}#webpage`;
   const articleId = `${canonical}#article`;
   const publishedIso = toIsoTimestamp(item.date) || item.date || undefined;
+  const modifiedIso = toIsoTimestamp(item.lastmod || item.date) || publishedIso;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -291,14 +505,25 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
         description,
         inLanguage: htmlLang,
         datePublished: publishedIso,
-        dateModified: publishedIso,
-        author: { "@id": PERSON_ID },
-        publisher: { "@id": ORGANIZATION_ID },
+        dateModified: modifiedIso,
+        author: {
+          "@type": "Person",
+          "@id": PERSON_ID,
+          name: PERSON_NAME,
+          url: canonicalUrl("index.html"),
+        },
+        publisher: {
+          "@type": "Organization",
+          "@id": ORGANIZATION_ID,
+          name: DIGEST_NAME,
+          url: canonicalUrl("index.html"),
+        },
         isPartOf: { "@id": WEBSITE_ID },
         mainEntityOfPage: { "@id": pageId },
         about: { "@id": PERSON_ID },
         url: canonical,
         citation: sourceLink || undefined,
+        isBasedOn: sourceLink || undefined,
         isAccessibleForFree: true,
       },
     ],
@@ -328,6 +553,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
       .topnav a { margin-right: 12px; }
       section { margin-top: 18px; }
       h2 { margin: 0 0 8px; font-size: 1.12rem; }
+      h3 { margin: 14px 0 8px; font-size: 0.98rem; }
       ul { margin: 0; padding-left: 22px; }
       li { margin: 6px 0; }
       .source { margin-top: 24px; }
@@ -365,6 +591,20 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster) => {
       ${languageLinks.length > 0
         ? `<section><h2>Language Copies</h2><ul>${languageLinks.join("")}</ul></section>`
         : ""}
+      <section>
+        <h2>Related Materials</h2>
+        <h3>Core site sections</h3>
+        <ul>
+          <li><a href="/">Home digest index</a></li>
+          <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
+          <li><a href="/cases/">Case clarifications (EN/FR/DE/ES)</a></li>
+          <li><a href="/insights/">Insights hub</a></li>
+          <li><a href="/archive/">Archive hub</a></li>
+        </ul>
+        ${topicLinks.length > 0 ? `<h3>More on this topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
+        ${sourceLinks.length > 0 ? `<h3>From the same source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
+        ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
+      </section>
       <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">Open original source</a></p>
     </main>
   </body>
@@ -440,6 +680,18 @@ const buildPostsIndexHtml = (entries) => {
         <a href="/insights/">Insights</a> ·
         <a href="/archive/">Archive</a>
       </p>
+      <section>
+        <h2>Related Materials</h2>
+        <ul>
+          <li><a href="/">Interactive digest with filters</a></li>
+          <li><a href="/insights/">Insights hub</a></li>
+          <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
+          <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
+          <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
+          <li><a href="/rss.xml">RSS feed</a></li>
+          <li><a href="/sitemap.xml">Sitemap index</a></li>
+        </ul>
+      </section>
       <ul>
 ${entries
   .map(
@@ -550,7 +802,7 @@ const buildRss = (entries) => {
     .slice(0, 50)
     .map((entry) => {
       const link = canonicalUrl(`posts/${entry.postPath}`);
-      const source = entry.item.url || "";
+      const source = normalizeSourceUrl(entry.item.url || "");
       const description = `${entry.item.digest || ""}\n\nOriginal source: ${source}`;
       const pubDate = new Date(toIsoTimestamp(entry.item.date) || buildIso).toUTCString();
       return `    <item>
@@ -576,76 +828,75 @@ ${items}
 `;
 };
 
-const buildRobots = () => `User-agent: *
-Allow: /
-Disallow: /tools/
+const normalizePolicy = (value = "") => {
+  const normalized = String(value || "").trim().toLowerCase();
+  if (normalized === "deny" || normalized === "disallow" || normalized === "off") return "deny";
+  if (normalized === "custom" || normalized === "paths") return "custom";
+  return "allow";
+};
 
-User-agent: Googlebot
-Allow: /
-Disallow: /tools/
+const normalizeDisallowPath = (value = "") => {
+  let pathValue = String(value || "").trim();
+  if (!pathValue) return "";
+  if (!pathValue.startsWith("/")) pathValue = `/${pathValue}`;
+  return pathValue;
+};
 
-User-agent: Google-Extended
-Allow: /
-Disallow: /tools/
+const parsePathList = (raw, fallback = []) => {
+  const values = String(raw || "")
+    .split(",")
+    .map((item) => normalizeDisallowPath(item))
+    .filter(Boolean);
 
-User-agent: Bingbot
-Allow: /
-Disallow: /tools/
+  const resolved = values.length > 0 ? values : fallback.map((item) => normalizeDisallowPath(item)).filter(Boolean);
+  return [...new Set(resolved)];
+};
 
-User-agent: DuckDuckBot
-Allow: /
-Disallow: /tools/
+const renderBotBlock = (agent, { allowRoot = true, disallowPaths = ["/tools/"] } = {}) => {
+  const lines = [`User-agent: ${agent}`];
+  if (allowRoot) lines.push("Allow: /");
+  for (const disallow of disallowPaths) {
+    lines.push(`Disallow: ${disallow}`);
+  }
+  return lines.join("\n");
+};
 
-User-agent: DuckAssistBot
-Allow: /
-Disallow: /tools/
+const buildGptBotBlock = () => {
+  const policy = normalizePolicy(process.env.GPTBOT_POLICY || "allow");
+  if (policy === "deny") {
+    return renderBotBlock("GPTBot", { allowRoot: false, disallowPaths: ["/"] });
+  }
+  if (policy === "custom") {
+    const paths = parsePathList(process.env.GPTBOT_DISALLOW_PATHS, ["/tools/"]);
+    const allowRoot = !paths.includes("/");
+    return renderBotBlock("GPTBot", { allowRoot, disallowPaths: paths });
+  }
+  return renderBotBlock("GPTBot", { allowRoot: true, disallowPaths: ["/tools/"] });
+};
 
-User-agent: Applebot
-Allow: /
-Disallow: /tools/
+const buildRobots = () => {
+  const blocks = [
+    renderBotBlock("*", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Googlebot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Google-Extended", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Bingbot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("DuckDuckBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("DuckAssistBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Applebot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Yandex", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("YandexBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("OAI-SearchBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    buildGptBotBlock(),
+    renderBotBlock("ChatGPT-User", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("ClaudeBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("anthropic-ai", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("PerplexityBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("Perplexity-User", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    renderBotBlock("CCBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+  ];
 
-User-agent: Yandex
-Allow: /
-Disallow: /tools/
-
-User-agent: YandexBot
-Allow: /
-Disallow: /tools/
-
-User-agent: OAI-SearchBot
-Allow: /
-Disallow: /tools/
-
-User-agent: GPTBot
-Allow: /
-Disallow: /tools/
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /tools/
-
-User-agent: ClaudeBot
-Allow: /
-Disallow: /tools/
-
-User-agent: anthropic-ai
-Allow: /
-Disallow: /tools/
-
-User-agent: PerplexityBot
-Allow: /
-Disallow: /tools/
-
-User-agent: Perplexity-User
-Allow: /
-Disallow: /tools/
-
-User-agent: CCBot
-Allow: /
-Disallow: /tools/
-
-Sitemap: ${canonicalUrl("sitemap.xml")}
-`;
+  return `${blocks.join("\n\n")}\n\nSitemap: ${canonicalUrl("sitemap.xml")}\n`;
+};
 
 const main = async () => {
   const raw = await fs.readFile(dataPath, "utf8");
@@ -664,7 +915,7 @@ const main = async () => {
   const idToCluster = buildLanguageClusters(items);
 
   for (const entry of entries) {
-    const html = buildPostHtml(entry.item, `posts/${entry.postPath}`, idToPostPath, idToCluster);
+    const html = buildPostHtml(entry.item, `posts/${entry.postPath}`, idToPostPath, idToCluster, entries);
     await fs.writeFile(path.join(postsDir, entry.postPath), html, "utf8");
   }
 
@@ -686,9 +937,17 @@ const main = async () => {
   }
   await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(entries), "utf8");
   await fs.writeFile(path.join(siteDir, "robots.txt"), buildRobots(), "utf8");
+  const notesSource = path.resolve(process.cwd(), "reputation-case", "digest-multilingual-notes-v1.md");
+  const notesTarget = path.join(siteDir, "digest-multilingual-notes-v1.md");
+  try {
+    await fs.copyFile(notesSource, notesTarget);
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
+  await updateHomeHtmlFirstCards(entries);
 
   console.log(
-    `Generated ${entries.length} post pages, sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt`
+    `Generated ${entries.length} post pages, sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, home HTML-first cards`
   );
 };
 

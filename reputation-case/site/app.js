@@ -12,10 +12,17 @@ const state = {
   items: [],
 };
 
-function wordsPreview(text, maxWords = 38) {
-  const tokens = String(text || "").trim().split(/\s+/).filter(Boolean);
-  if (tokens.length <= maxWords) return tokens.join(" ");
-  return `${tokens.slice(0, maxWords).join(" ")}...`;
+function summaryPreview(text) {
+  const plain = String(text || "").replace(/\s+/g, " ").trim();
+  if (!plain) return "";
+
+  const sentenceMatches = plain.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const sentences = Array.isArray(sentenceMatches)
+    ? sentenceMatches.map((sentence) => sentence.trim()).filter(Boolean)
+    : [plain];
+
+  if (sentences.length <= 3) return sentences.join(" ");
+  return sentences.slice(0, 3).join(" ");
 }
 
 init();
@@ -141,7 +148,7 @@ function renderGrid(items) {
 
     node.querySelector(".card-title").textContent = item.title;
     node.querySelector(".card-meta").textContent = `${item.source} • ${item.date} • ${item.topic}`;
-    node.querySelector(".card-digest").textContent = wordsPreview(item.summary || item.digest, 38);
+    node.querySelector(".card-digest").textContent = summaryPreview(item.summary || item.digest);
 
     const quoteCandidates = Array.isArray(item.quotes) && item.quotes.length > 0
       ? item.quotes
