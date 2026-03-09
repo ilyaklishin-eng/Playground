@@ -6,7 +6,7 @@
     <title>Archive | Ilia Klishin</title>
     <meta
       name="description"
-      content="Archive hub with sitemap, RSS, static post index, and source registry for structured discovery."
+      content="Archive layer with sitemap files, RSS, static post index, and source registries."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/archive/" />
@@ -16,7 +16,7 @@
     <meta property="og:title" content="Archive | Ilia Klishin" />
     <meta
       property="og:description"
-      content="Archive endpoints for search indexing and machine crawlers: sitemap, RSS, static posts, and source registry."
+      content="Archive endpoints and reference files: sitemaps, robots, RSS, static cards, and datasets."
     />
     <meta property="og:url" content="https://www.klishin.work/archive/" />
     <meta property="og:site_name" content="Ilia Klishin" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="Archive | Ilia Klishin" />
     <meta
       name="twitter:description"
-      content="Archive endpoints for search indexing and machine crawlers: sitemap, RSS, static posts, and source registry."
+      content="Archive endpoints and reference files: sitemaps, robots, RSS, static cards, and datasets."
     />
     <script type="application/ld+json">
       {
@@ -135,6 +135,27 @@
       a {
         color: #0f4c81;
       }
+      .secondary-nav {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid #ddd7ce;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .secondary-nav a {
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: #4c4943;
+        background: #fff;
+        font-size: 0.82rem;
+      }
+      .secondary-nav a:hover {
+        border-color: #0f4c81;
+        color: #0f4c81;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -147,17 +168,16 @@
     <main>
       <nav aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/cases/">Cases</a>
-        <a href="/about/">About</a>
-        <a href="/insights/">Insights</a>
-        <a href="/archive/">Archive</a>
+        <a href="/bio/">Bio / About</a>
+        <a href="/insights/">Selected Work</a>
+        <a href="/cases/">Cases / Clarifications</a>
+        <a href="/#contact">Contact</a>
       </nav>
 
-      <h1>Archive</h1>
+      <h1>Archive (Research Layer)</h1>
       <p>
-        This section exposes public archive endpoints used by search engines, aggregators, and AI
-        crawlers.
+        This section keeps technical reference endpoints public and stable: sitemaps, feed files, static cards, and dataset
+        files used for research and indexing workflows.
       </p>
       <ul>
         <li><a href="/bio/">Biography pages (EN, FR, DE, ES)</a></li>
@@ -177,12 +197,21 @@
 
       <h2>Related materials</h2>
       <ul>
-        <li><a href="/">Home digest index</a></li>
-        <li><a href="/insights/">Insights hub</a></li>
+        <li><a href="/">Public home feed</a></li>
+        <li><a href="/insights/">Insights research hub</a></li>
         <li><a href="/posts/">Full static digest</a></li>
         <li><a href="/about/">About this site</a></li>
         <li><a href="/rss.xml">RSS feed</a></li>
       </ul>
+
+      <footer class="secondary-nav" aria-label="Secondary">
+        <a href="/archive/">Archive</a>
+        <a href="/posts/">Posts</a>
+        <a href="/#curated-feed">Search</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/source-registry-v1.tsv">Data / Registry</a>
+      </footer>
     </main>
   </body>
 </html>

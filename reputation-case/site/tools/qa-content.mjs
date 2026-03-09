@@ -9,10 +9,11 @@ const parseArgs = (argv) => {
   const opts = {
     input: DEFAULT_INPUT,
     output: DEFAULT_OUTPUT,
-    minSummaryWords: 150,
-    minSummarySentences: 3,
+    minSummaryWords: 80,
+    maxSummaryWords: 100,
+    minSummarySentences: 2,
     minQuoteWords: 4,
-    maxQuoteWords: 18,
+    maxQuoteWords: 12,
     minQuotes: 2,
     maxQuotes: 3,
     minKeyIdeaWords: 8,
@@ -20,6 +21,8 @@ const parseArgs = (argv) => {
     requiredKeyIdeas: 3,
     minValueContextWords: 20,
     maxValueContextWords: 40,
+    minSemanticTags: 8,
+    maxSemanticTags: 12,
     repeatedSentenceThreshold: 6,
     maxConsoleItems: 30,
     failOnError: true,
@@ -30,6 +33,7 @@ const parseArgs = (argv) => {
     if (arg === "--input") opts.input = path.resolve(argv[++i] || "");
     else if (arg === "--output") opts.output = path.resolve(argv[++i] || "");
     else if (arg === "--min-summary-words") opts.minSummaryWords = Number(argv[++i] || opts.minSummaryWords);
+    else if (arg === "--max-summary-words") opts.maxSummaryWords = Number(argv[++i] || opts.maxSummaryWords);
     else if (arg === "--min-summary-sentences")
       opts.minSummarySentences = Number(argv[++i] || opts.minSummarySentences);
     else if (arg === "--min-quote-words") opts.minQuoteWords = Number(argv[++i] || opts.minQuoteWords);
@@ -44,6 +48,8 @@ const parseArgs = (argv) => {
       opts.minValueContextWords = Number(argv[++i] || opts.minValueContextWords);
     else if (arg === "--max-value-context-words")
       opts.maxValueContextWords = Number(argv[++i] || opts.maxValueContextWords);
+    else if (arg === "--min-semantic-tags") opts.minSemanticTags = Number(argv[++i] || opts.minSemanticTags);
+    else if (arg === "--max-semantic-tags") opts.maxSemanticTags = Number(argv[++i] || opts.maxSemanticTags);
     else if (arg === "--repeated-sentence-threshold")
       opts.repeatedSentenceThreshold = Number(argv[++i] || opts.repeatedSentenceThreshold);
     else if (arg === "--max-console-items") opts.maxConsoleItems = Number(argv[++i] || opts.maxConsoleItems);
@@ -311,7 +317,7 @@ const checkQuotes = (item, opts, issues) => {
   }
 
   for (const quote of quotes) {
-    const body = trim(String(quote).replace(/\s*[-—]\s*[^-—]+$/, ""));
+    const body = trim(String(quote).replace(/\s[-—]\s.+$/, ""));
     const wordsInQuote = wordCount(body);
     if (wordsInQuote < opts.minQuoteWords || wordsInQuote > opts.maxQuoteWords) {
       pushIssue(
@@ -334,6 +340,19 @@ const checkQuotes = (item, opts, issues) => {
           "quotes.banned-lexicon",
           "quotes",
           "Quote contains banned meta/technical lexicon.",
+          { value: quote }
+        )
+      );
+    }
+
+    if (!/\s[-—]\s.+$/.test(quote)) {
+      pushIssue(
+        issues,
+        makeIssue(
+          "error",
+          "quotes.attribution.missing",
+          "quotes",
+          "Quote must include source attribution with dash separator.",
           { value: quote }
         )
       );
@@ -380,10 +399,22 @@ const checkSummary = (item, opts, issues) => {
   }
 
   const wc = wordCount(summary);
-  if (wc < opts.minSummaryWords) {
+  if (wc < opts.minSummaryWords || wc > opts.maxSummaryWords) {
     pushIssue(
       issues,
-      makeIssue("error", "summary.too-short", "summary", `Summary is too short: ${wc} words (min ${opts.minSummaryWords}).`)
+      makeIssue(
+        "error",
+        "summary.word-range.invalid",
+        "summary",
+        `Summary must be ${opts.minSummaryWords}-${opts.maxSummaryWords} words; found ${wc}.`
+      )
+    );
+  }
+
+  if (/\n/.test(String(item.summary || ""))) {
+    pushIssue(
+      issues,
+      makeIssue("error", "summary.multiline", "summary", "Summary must be a single paragraph without line breaks.")
     );
   }
 
@@ -541,6 +572,48 @@ const checkValueContext = (item, opts, issues) => {
   }
 };
 
+const checkSemanticTags = (item, opts, issues) => {
+  const tags = Array.isArray(item.semantic_tags) ? item.semantic_tags.map((t) => trim(t)).filter(Boolean) : [];
+  if (tags.length < opts.minSemanticTags || tags.length > opts.maxSemanticTags) {
+    pushIssue(
+      issues,
+      makeIssue(
+        "error",
+        "semantic_tags.count.invalid",
+        "semantic_tags",
+        `Semantic tags must contain ${opts.minSemanticTags}-${opts.maxSemanticTags} items; found ${tags.length}.`
+      )
+    );
+  }
+
+  const seen = new Set();
+  for (const tag of tags) {
+    const key = lower(tag);
+    if (seen.has(key)) {
+      pushIssue(
+        issues,
+        makeIssue("error", "semantic_tags.duplicate-local", "semantic_tags", "Duplicate semantic tag in card.", {
+          value: tag,
+        })
+      );
+    }
+    seen.add(key);
+
+    if (BANNED_PUBLIC_LEXICON.test(tag)) {
+      pushIssue(
+        issues,
+        makeIssue(
+          "error",
+          "semantic_tags.banned-lexicon",
+          "semantic_tags",
+          "Semantic tag contains banned meta/technical lexicon.",
+          { value: tag }
+        )
+      );
+    }
+  }
+};
+
 const checkTemplatePhrasesInField = (value, field, issues) => {
   const text = trim(value);
   if (!text) return;
@@ -579,6 +652,7 @@ const main = async () => {
     checkKeyIdeas(item, opts, report.issues);
     checkQuotes(item, opts, report.issues);
     checkValueContext(item, opts, report.issues);
+    checkSemanticTags(item, opts, report.issues);
     checkTemplatePhrasesInField(item.value_context, "value_context", report.issues);
     checkTemplatePhrasesInField(item.digest, "digest", report.issues);
 
@@ -736,6 +810,7 @@ const main = async () => {
     total_items: items.length,
     thresholds: {
       min_summary_words: opts.minSummaryWords,
+      max_summary_words: opts.maxSummaryWords,
       min_summary_sentences: opts.minSummarySentences,
       min_quote_words: opts.minQuoteWords,
       max_quote_words: opts.maxQuoteWords,
@@ -746,6 +821,8 @@ const main = async () => {
       max_key_idea_words: opts.maxKeyIdeaWords,
       min_value_context_words: opts.minValueContextWords,
       max_value_context_words: opts.maxValueContextWords,
+      min_semantic_tags: opts.minSemanticTags,
+      max_semantic_tags: opts.maxSemanticTags,
       repeated_sentence_threshold: opts.repeatedSentenceThreshold,
     },
     totals: {

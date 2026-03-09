@@ -215,6 +215,32 @@ h1 {
   font-size: 0.83rem;
 }
 
+.footer p {
+  margin: 0;
+}
+
+.secondary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.5rem;
+}
+
+.secondary-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.62rem;
+  font-size: 0.76rem;
+  background: var(--paper);
+}
+
+.secondary-nav a:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
 @media (max-width: 860px) {
   .layout {
     grid-template-columns: 1fr;

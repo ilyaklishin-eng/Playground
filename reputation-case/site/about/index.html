@@ -6,7 +6,7 @@
     <title>About Ilia Klishin | Personal Site</title>
     <meta
       name="description"
-      content="About page for Ilia Klishin website: works and publications archive, biography context, and multilingual navigation with direct source references."
+      content="About the Ilia Klishin website: public profile layer, research archive layer, and source-based navigation."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/about/" />
@@ -16,7 +16,7 @@
     <meta property="og:title" content="About Ilia Klishin | Personal Site" />
     <meta
       property="og:description"
-      content="Background page with context, editorial method, and links to multilingual insights and archive pages."
+      content="How this site separates public-facing profile pages from research/archive interfaces."
     />
     <meta property="og:url" content="https://www.klishin.work/about/" />
     <meta property="og:site_name" content="Ilia Klishin" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="About Ilia Klishin | Personal Site" />
     <meta
       name="twitter:description"
-      content="Background page with context, editorial method, and links to multilingual insights and archive pages."
+      content="How this site separates public-facing profile pages from research/archive interfaces."
     />
     <script type="application/ld+json">
       {
@@ -131,6 +131,27 @@
       .muted {
         color: #55524c;
       }
+      .secondary-nav {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid #ddd7ce;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .secondary-nav a {
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: #4c4943;
+        background: #fff;
+        font-size: 0.82rem;
+      }
+      .secondary-nav a:hover {
+        border-color: #0f4c81;
+        color: #0f4c81;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -143,51 +164,64 @@
     <main>
       <nav aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/cases/">Cases</a>
-        <a href="/about/">About</a>
-        <a href="/insights/">Insights</a>
-        <a href="/archive/">Archive</a>
+        <a href="/bio/">Bio / About</a>
+        <a href="/insights/">Selected Work</a>
+        <a href="/cases/">Cases / Clarifications</a>
+        <a href="/#contact">Contact</a>
       </nav>
 
       <h1>About this site</h1>
       <p>
-        This is the personal website of Ilia Klishin (also published as Ilya Klishin; Илья Клишин). It is a source-attributed
-        archive of his works and publications, plus core biography and context pages.
+        This is the personal website of Ilia Klishin (also published as Ilya Klishin; Илья Клишин). The project uses a
+        two-layer structure: a human-first public layer and a research/archive layer.
       </p>
       <p>
-        The site is designed for both readers and search systems: every card links to an original source, keeps quotations short,
-        and uses neutral summaries for verifiable context.
+        The public layer is designed for everyday readers. It focuses on biography, professional context, and case clarifications
+        in clear language with direct links to original publications.
       </p>
       <p>
-        Main goal: make it easy to find Ilia Klishin's articles and professional records in one place, with stable URLs and
-        multilingual navigation.
+        The research/archive layer keeps static cards, source registries, feeds, and index files available for researchers,
+        editors, and automated discovery workflows without turning the main user experience into a technical dashboard.
       </p>
 
       <div class="box">
-        <p><strong>Primary sections</strong></p>
-        <p class="muted">Bio: multilingual biography pages (EN, FR, DE, ES) based on verified references.</p>
+        <p><strong>Public layer</strong></p>
+        <p class="muted">Home: curated feed of published cards only, filtered by language and keyword.</p>
+        <p class="muted">Bio: multilingual professional biography pages (EN, FR, DE, ES).</p>
         <p class="muted">
-          Cases: first-person clarifications addressing disputed, misrepresented, or incomplete biography-related claims (EN,
-          FR, DE, ES).
+          Cases: first-person clarifications on recurring disputed claims (EN, FR, DE, ES).
         </p>
-        <p class="muted">Home: a multilingual entry point to the site's digest content, with filtering by language and topic.</p>
-        <p class="muted">Insights: a crawlable static index of all digest entries.</p>
-        <p class="muted">Archive: sitemap, RSS, source registry, and reference files for open reuse.</p>
+        <p class="muted">Contact: direct email and current project links.</p>
       </div>
 
       <div class="box">
-        <p><strong>Related materials</strong></p>
+        <p><strong>Research/archive layer</strong></p>
+        <p class="muted">Insights: navigational hub for full static digest and discovery paths.</p>
+        <p class="muted">Archive: sitemap set, robots policy, RSS, and structured reference files.</p>
+        <p class="muted">Posts: static per-card HTML pages with source links and metadata.</p>
+      </div>
+
+      <div class="box">
+        <p><strong>Reference endpoints</strong></p>
         <p class="muted">
-          Start from <a href="/">Home</a> for filtered digest cards, then use <a href="/posts/">Full Static Digest</a> for
-          crawlable HTML versions.
+          <a href="/source-registry-v1.tsv">Source Registry (TSV)</a>,
+          <a href="/data/digests.json">Digest dataset (JSON)</a>,
+          <a href="/rss.xml">RSS</a>,
+          <a href="/sitemap.xml">Sitemap index</a>.
         </p>
         <p class="muted">
-          For reference files, see <a href="/source-registry-v1.tsv">Source Registry (TSV)</a>,
-          <a href="/data/digests.json">digest dataset (JSON)</a>, <a href="/rss.xml">RSS</a>, and
-          <a href="/sitemap.xml">sitemap index</a>.
+          These files are public and stable, while the primary reading flow stays in the public layer.
         </p>
       </div>
+
+      <footer class="secondary-nav" aria-label="Secondary">
+        <a href="/archive/">Archive</a>
+        <a href="/posts/">Posts</a>
+        <a href="/#curated-feed">Search</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/source-registry-v1.tsv">Data / Registry</a>
+      </footer>
     </main>
   </body>
 </html>

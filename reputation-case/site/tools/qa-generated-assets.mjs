@@ -11,6 +11,8 @@ const HOME_INDEX = path.join(SITE_DIR, "index.html");
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const LANGS = ["en", "fr", "de", "es"];
+const PUBLISHED_STATUS = "ready";
+const EXTRA_POST_INDEX_FILES = new Set(["index.html", "drafts.html"]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Google-Extended",
@@ -226,7 +228,7 @@ const checkPosts = async (items, issues) => {
   const existing = files.filter((x) => x.toLowerCase().endsWith(".html"));
   const existingSet = new Set(existing);
   const missing = [...expected].filter((x) => !existingSet.has(x));
-  const stale = existing.filter((x) => x !== "index.html" && !expected.has(x));
+  const stale = existing.filter((x) => !EXTRA_POST_INDEX_FILES.has(x) && !expected.has(x));
 
   if (!existingSet.has("index.html")) {
     pushError(issues, "posts.index.exists", "Missing posts/index.html.");
@@ -521,7 +523,7 @@ const checkHtmlSeoSemantics = async (issues) => {
   }
 
   for (const file of postFiles) {
-    if (file === "index.html") continue;
+    if (EXTRA_POST_INDEX_FILES.has(file)) continue;
     const htmlPath = path.join(POSTS_DIR, file);
     const rel = `posts/${file}`;
     const html = await fs.readFile(htmlPath, "utf8");
@@ -594,10 +596,13 @@ const main = async () => {
   const raw = await fs.readFile(DATA_PATH, "utf8");
   const payload = JSON.parse(raw);
   const items = Array.isArray(payload.items) ? payload.items : [];
+  const publishedItems = items.filter(
+    (item) => String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS
+  );
 
   await checkPosts(items, issues);
   await checkSitemaps(issues);
-  await checkRss(items.length, issues);
+  await checkRss(publishedItems.length, issues);
   await checkRobots(issues);
   await checkHtmlSeoSemantics(issues);
   await checkHomeHtmlFirst(issues);

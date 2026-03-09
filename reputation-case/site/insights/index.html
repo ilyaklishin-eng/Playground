@@ -6,7 +6,7 @@
     <title>Insights | Ilia Klishin</title>
     <meta
       name="description"
-      content="Insights hub with direct links to multilingual digest entries and static crawlable pages."
+      content="Research hub for multilingual digest entries, static post pages, and source-based navigation."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/insights/" />
@@ -16,7 +16,7 @@
     <meta property="og:title" content="Insights | Ilia Klishin" />
     <meta
       property="og:description"
-      content="Access all multilingual digest entries and browse the static insights archive."
+      content="Research-facing hub to browse digest entries, post index, and archive references."
     />
     <meta property="og:url" content="https://www.klishin.work/insights/" />
     <meta property="og:site_name" content="Ilia Klishin" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="Insights | Ilia Klishin" />
     <meta
       name="twitter:description"
-      content="Access all multilingual digest entries and browse the static insights archive."
+      content="Research-facing hub to browse digest entries, post index, and archive references."
     />
     <script type="application/ld+json">
       {
@@ -135,6 +135,27 @@
       a {
         color: #0f4c81;
       }
+      .secondary-nav {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid #ddd7ce;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .secondary-nav a {
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: #4c4943;
+        background: #fff;
+        font-size: 0.82rem;
+      }
+      .secondary-nav a:hover {
+        border-color: #0f4c81;
+        color: #0f4c81;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -147,21 +168,20 @@
     <main>
       <nav aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/cases/">Cases</a>
-        <a href="/about/">About</a>
-        <a href="/insights/">Insights</a>
-        <a href="/archive/">Archive</a>
+        <a href="/bio/">Bio / About</a>
+        <a href="/insights/">Selected Work</a>
+        <a href="/cases/">Cases / Clarifications</a>
+        <a href="/#contact">Contact</a>
       </nav>
 
-      <h1>Insights</h1>
+      <h1>Insights (Research Layer)</h1>
       <p>
-        Browse the multilingual digest in both interactive and static forms. Static pages are useful for search engines,
-        AI crawlers, and archival systems.
+        This section is the research-facing entry point for the publication corpus. It groups the full digest inventory,
+        static card pages, and source-linked reference files.
       </p>
       <ul>
-        <li><a href="/">Interactive digest index (filters by language and keyword)</a></li>
-        <li><a href="/posts/">Static digest pages (all entries)</a></li>
+        <li><a href="/">Public home feed (published cards only)</a></li>
+        <li><a href="/posts/">Static digest pages (full corpus)</a></li>
         <li><a href="/rss.xml">RSS feed</a></li>
       </ul>
 
@@ -169,10 +189,19 @@
       <ul>
         <li><a href="/bio/">Biography pages (EN, FR, DE, ES)</a></li>
         <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
-        <li><a href="/archive/">Archive hub with sitemap and source files</a></li>
+        <li><a href="/archive/">Archive endpoints (sitemaps, robots, feeds, datasets)</a></li>
         <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
         <li><a href="/data/digests.json">Digest dataset (JSON)</a></li>
       </ul>
+
+      <footer class="secondary-nav" aria-label="Secondary">
+        <a href="/archive/">Archive</a>
+        <a href="/posts/">Posts</a>
+        <a href="/#curated-feed">Search</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/source-registry-v1.tsv">Data / Registry</a>
+      </footer>
     </main>
   </body>
 </html>

@@ -8,7 +8,7 @@ const homeIndexPath = path.join(siteDir, "index.html");
 const baseUrl = "https://www.klishin.work";
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
-const HOME_FALLBACK_LIMIT = 24;
+const HOME_FALLBACK_LIMIT = 8;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
@@ -51,6 +51,7 @@ const STATIC_SECTIONS = [
 const LANGS = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
+const isPublishedStatus = (value = "") => String(value || "").trim().toLowerCase() === "ready";
 const toHtmlLang = (value = "") => {
   const lang = String(value || "").toUpperCase();
   if (lang === "EN") return "en";
@@ -149,13 +150,35 @@ const previewSummary = (text = "") => {
   const plain = String(text || "").replace(/\s+/g, " ").trim();
   if (!plain) return "";
 
-  const sentenceMatches = plain.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  // Keep home fallback previews short and human-first.
+  const stripped = plain
+    .replace(
+      /^This\s+.+?\s+piece\s+\(\d{4}-\d{2}-\d{2}\)\s+examines\s+a\s+concrete\s+case\s+related\s+to\s+Ilia\s+Klishin\s+and\s+situates\s+the\s+stakes\s+of\s+.+?\.\s*/i,
+      ""
+    )
+    .replace(
+      /^In\s+this\s+\d{4}-\d{2}-\d{2}\s+.+?\s+article,\s+the\s+central\s+argument\s+is\s+how\s+/i,
+      ""
+    )
+    .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
+    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
+    .trim();
+
+  const source = stripped || plain;
+  const sentenceMatches = source.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
   const sentences = Array.isArray(sentenceMatches)
     ? sentenceMatches.map((sentence) => sentence.trim()).filter(Boolean)
-    : [plain];
+    : [source];
 
-  if (sentences.length <= 3) return sentences.join(" ");
-  return sentences.slice(0, 3).join(" ");
+  const twoSentences = sentences.slice(0, 2).join(" ").trim();
+  if (!twoSentences) return "";
+  const promoteSentenceCase = (value) =>
+    String(value || "").replace(/^[a-z]/, (c) => c.toUpperCase());
+  if (twoSentences.length <= 320) return promoteSentenceCase(twoSentences);
+  const first = sentences[0] || "";
+  const clipped =
+    first.length <= 320 ? first.trim() : first.slice(0, 320).replace(/\s+\S*$/, "").trim();
+  return promoteSentenceCase(clipped);
 };
 
 const escapeRegExp = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -218,13 +241,17 @@ const buildLanguageClusters = (items) => {
   return idToCluster;
 };
 
-const getAlternatesForItem = (item, idToPostPath, idToCluster) => {
+const getAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new Map(), onlyPublished = false) => {
   const itemId = String(item?.id || "").trim();
   const selfLang = toHtmlLang(item?.language);
   const cluster = idToCluster.get(itemId) || { [normalizeLang(item?.language)]: itemId };
   const rawAlternates = [];
 
   for (const [clusterLang, clusterId] of Object.entries(cluster)) {
+    if (onlyPublished) {
+      const status = String(idToStatus.get(clusterId) || "").toLowerCase();
+      if (!isPublishedStatus(status)) continue;
+    }
     const postPath = idToPostPath.get(clusterId);
     if (!postPath) continue;
     rawAlternates.push({
@@ -372,51 +399,34 @@ const sortEntriesForHome = (a, b) => {
 };
 
 const pickHomeFallbackEntries = (entries, limit) => {
-  const groups = new Map();
-  for (const lang of LANGS) groups.set(lang, []);
-
-  for (const entry of entries.slice().sort(sortEntriesForHome)) {
-    const lang = normalizeLang(entry?.item?.language);
-    if (!groups.has(lang)) groups.set(lang, []);
-    groups.get(lang).push(entry);
-  }
-
-  const picked = [];
-  while (picked.length < limit) {
-    let progressed = false;
-    for (const lang of LANGS) {
-      const queue = groups.get(lang) || [];
-      if (!queue.length) continue;
-      picked.push(queue.shift());
-      progressed = true;
-      if (picked.length >= limit) break;
-    }
-    if (!progressed) break;
-  }
-
-  if (picked.length >= limit) return picked.slice(0, limit);
-
-  const usedIds = new Set(picked.map((entry) => String(entry?.item?.id || "").trim()));
-  const rest = entries
+  const published = entries
     .slice()
     .sort(sortEntriesForHome)
-    .filter((entry) => {
-      const id = String(entry?.item?.id || "").trim();
-      if (!id || usedIds.has(id)) return false;
-      usedIds.add(id);
-      return true;
-    });
+    .filter((entry) => isPublishedStatus(entry?.item?.status));
+  if (!published.length) return [];
 
-  return [...picked, ...rest].slice(0, limit);
+  const byLang = new Map();
+  for (const entry of published) {
+    const lang = normalizeLang(entry?.item?.language);
+    if (!byLang.has(lang)) byLang.set(lang, []);
+    byLang.get(lang).push(entry);
+  }
+
+  const preferredLang = byLang.has("EN")
+    ? "EN"
+    : [...byLang.keys()].sort((a, b) => a.localeCompare(b))[0];
+  return (byLang.get(preferredLang) || []).slice(0, limit);
 };
 
 const buildHomeFallbackCards = (entries) => {
   const top = pickHomeFallbackEntries(entries, HOME_FALLBACK_LIMIT);
+  if (top.length === 0) {
+    return `        <div class="empty">No published cards are available in the public feed yet.</div>`;
+  }
   return top
     .map((entry) => {
       const item = entry.item || {};
       const lang = htmlEscape(String(item.language || "-"));
-      const status = htmlEscape(String(item.status || "ready"));
       const title = htmlEscape(String(item.title || "Untitled"));
       const source = htmlEscape(String(item.source || "-"));
       const date = htmlEscape(String(item.date || "-"));
@@ -431,7 +441,6 @@ const buildHomeFallbackCards = (entries) => {
       return `        <article class="card">
           <div class="card-head">
             <span class="lang-tag">${lang}</span>
-            <span class="status-tag" data-status="${status}">${status}</span>
           </div>
           <h2 class="card-title">${title}</h2>
           <p class="card-meta">${source} • ${date} • ${topic}</p>
@@ -456,7 +465,8 @@ ${buildHomeFallbackCards(entries)}
   await fs.writeFile(homeIndexPath, next, "utf8");
 };
 
-const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
+const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToStatus = new Map()) => {
+  const itemIsPublished = isPublishedStatus(item?.status);
   const title = `${item.title} | ${DIGEST_NAME}`;
   const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
   const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
@@ -468,7 +478,13 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
   const canonical = canonicalUrl(postPath);
   const sourceLink = normalizeSourceUrl(item.url);
   const htmlLang = toHtmlLang(item.language);
-  const { alternates, xDefaultHref } = getAlternatesForItem(item, idToPostPath, idToCluster);
+  const { alternates, xDefaultHref } = getAlternatesForItem(
+    item,
+    idToPostPath,
+    idToCluster,
+    idToStatus,
+    itemIsPublished
+  );
   const hreflangHeadLinks = buildHeadHreflangLinks(alternates, xDefaultHref);
   const languageLinks = alternates.map(
     (alt) =>
@@ -542,7 +558,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
     <meta property="og:title" content="${htmlEscape(item.title)}" />
     <meta property="og:description" content="${htmlEscape(description)}" />
     <meta property="og:url" content="${canonical}" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
       body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
@@ -560,20 +576,22 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
       blockquote { margin: 8px 0; padding: 12px 16px; background: #fff; border-left: 4px solid #0b4f7b; }
       .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
       .tags li { margin: 0; border: 1px solid #d3cec4; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; }
+      .secondary-nav { margin-top: 26px; padding-top: 12px; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
+      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
     </style>
   </head>
   <body>
     <main>
       <nav class="topnav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/cases/">Cases</a>
-        <a href="/about/">About</a>
-        <a href="/insights/">Insights</a>
-        <a href="/archive/">Archive</a>
+        <a href="/bio/">Bio / About</a>
+        <a href="/insights/">Selected Work</a>
+        <a href="/cases/">Cases / Clarifications</a>
+        <a href="/#contact">Contact</a>
       </nav>
       <h1>${htmlEscape(item.title)}</h1>
       <p class="meta">${htmlEscape(item.source || "-")} | ${htmlEscape(item.date || "-")} | ${htmlEscape(item.language || "-")} | ${htmlEscape(item.topic || "-")}</p>
+      ${itemIsPublished ? "" : `<p class="meta"><strong>Draft:</strong> this page is excluded from indexing and public feeds.</p>`}
       <section>
         <h2>Summary</h2>
         <p>${htmlEscape(summary || digest)}</p>
@@ -606,14 +624,28 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries) => {
         ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
       </section>
       <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">Open original source</a></p>
+      <footer class="secondary-nav" aria-label="Secondary">
+        <a href="/archive/">Archive</a>
+        <a href="/posts/">Posts</a>
+        <a href="/#curated-feed">Search</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/source-registry-v1.tsv">Data / Registry</a>
+      </footer>
     </main>
   </body>
 </html>
 `;
 };
 
-const buildPostsIndexHtml = (entries) => {
-  const postsCanonical = canonicalUrl("posts/index.html");
+const buildPostsIndexHtml = (entries, options = {}) => {
+  const {
+    canonicalPath = "posts/index.html",
+    pageTitle = `${DIGEST_NAME} Posts`,
+    pageDescription = "Index of published digest posts for search and archive navigation.",
+    indexable = true,
+  } = options;
+  const postsCanonical = canonicalUrl(canonicalPath);
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
   const postsJsonLd = {
@@ -626,8 +658,8 @@ const buildPostsIndexHtml = (entries) => {
         "@type": "CollectionPage",
         "@id": `${postsCanonical}#webpage`,
         url: postsCanonical,
-        name: `${DIGEST_NAME} Posts`,
-        description: "Static index of multilingual digest entries with direct links to source pages.",
+        name: pageTitle,
+        description: pageDescription,
         inLanguage: ["en", "fr", "de", "es"],
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
@@ -655,30 +687,31 @@ const buildPostsIndexHtml = (entries) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${DIGEST_NAME} Posts</title>
-    <meta name="description" content="Index of digest posts for search and archive navigation." />
+    <title>${htmlEscape(pageTitle)}</title>
+    <meta name="description" content="${htmlEscape(pageDescription)}" />
     <link rel="canonical" href="${postsCanonical}" />
     <link rel="alternate" hreflang="en" href="${postsCanonical}" />
     <link rel="alternate" hreflang="${X_DEFAULT}" href="${postsCanonical}" />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="${indexable ? "index,follow" : "noindex,follow"}" />
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
       body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
       main { max-width: 880px; margin: 0 auto; padding: 40px 20px 72px; }
       li { margin: 8px 0; }
       a { color: #0b4f7b; }
+      .secondary-nav { margin-top: 22px; padding-top: 12px; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
+      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
     </style>
   </head>
   <body>
     <main>
-      <h1>${DIGEST_NAME} Posts</h1>
+      <h1>${htmlEscape(pageTitle)}</h1>
       <p>
         <a href="/">Home</a> ·
-        <a href="/bio/">Bio</a> ·
-        <a href="/cases/">Cases</a> ·
-        <a href="/about/">About</a> ·
-        <a href="/insights/">Insights</a> ·
-        <a href="/archive/">Archive</a>
+        <a href="/bio/">Bio / About</a> ·
+        <a href="/insights/">Selected Work</a> ·
+        <a href="/cases/">Cases / Clarifications</a> ·
+        <a href="/#contact">Contact</a>
       </p>
       <section>
         <h2>Related Materials</h2>
@@ -700,6 +733,14 @@ ${entries
   )
   .join("\n")}
       </ul>
+      <footer class="secondary-nav" aria-label="Secondary">
+        <a href="/archive/">Archive</a>
+        <a href="/posts/">Posts</a>
+        <a href="/#curated-feed">Search</a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/sitemap.xml">Sitemap</a>
+        <a href="/source-registry-v1.tsv">Data / Registry</a>
+      </footer>
     </main>
   </body>
 </html>
@@ -744,7 +785,7 @@ ${sitemaps
 </sitemapindex>
 `;
 
-const buildSitemaps = (entries, idToPostPath, idToCluster) => {
+const buildSitemaps = (entries, idToPostPath, idToCluster, idToStatus = new Map()) => {
   const buildIso = latestBuildIso(entries);
   const staticUrls = STATIC_SECTIONS.map((section) => ({
     url: canonicalUrl(section),
@@ -767,7 +808,13 @@ const buildSitemaps = (entries, idToPostPath, idToCluster) => {
     const langEntries = entries.filter((entry) => normalizeLang(entry?.item?.language) === lang);
     const urls = langEntries.map((entry) => {
       const canonical = canonicalUrl(`posts/${entry.postPath}`);
-      const { alternates, xDefaultHref } = getAlternatesForItem(entry.item, idToPostPath, idToCluster);
+      const { alternates, xDefaultHref } = getAlternatesForItem(
+        entry.item,
+        idToPostPath,
+        idToCluster,
+        idToStatus,
+        true
+      );
       const hreflangs = alternates.map((alt) => ({ hreflang: alt.hreflang, href: alt.href }));
       if (xDefaultHref) {
         hreflangs.push({ hreflang: X_DEFAULT, href: xDefaultHref });
@@ -911,11 +958,21 @@ const main = async () => {
     const postPath = `${slug}.html`;
     return { item, postPath };
   });
+  const idToStatus = new Map(items.map((item) => [String(item?.id || "").trim(), String(item?.status || "").toLowerCase()]));
+  const publishedEntries = entries.filter((entry) => isPublishedStatus(entry?.item?.status));
+  const draftEntries = entries.filter((entry) => !isPublishedStatus(entry?.item?.status));
   const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
   const idToCluster = buildLanguageClusters(items);
 
   for (const entry of entries) {
-    const html = buildPostHtml(entry.item, `posts/${entry.postPath}`, idToPostPath, idToCluster, entries);
+    const html = buildPostHtml(
+      entry.item,
+      `posts/${entry.postPath}`,
+      idToPostPath,
+      idToCluster,
+      publishedEntries,
+      idToStatus
+    );
     await fs.writeFile(path.join(postsDir, entry.postPath), html, "utf8");
   }
 
@@ -929,13 +986,40 @@ const main = async () => {
     await fs.unlink(path.join(postsDir, file));
   }
 
-  const sitemapFiles = buildSitemaps(entries, idToPostPath, idToCluster);
+  const sitemapFiles = buildSitemaps(publishedEntries, idToPostPath, idToCluster, idToStatus);
 
-  await fs.writeFile(path.join(postsDir, "index.html"), buildPostsIndexHtml(entries), "utf8");
+  await fs.writeFile(
+    path.join(postsDir, "index.html"),
+    buildPostsIndexHtml(publishedEntries, {
+      canonicalPath: "posts/index.html",
+      pageTitle: `${DIGEST_NAME} Posts`,
+      pageDescription: "Index of published digest posts for search and archive navigation.",
+      indexable: true,
+    }),
+    "utf8"
+  );
+  if (draftEntries.length > 0) {
+    await fs.writeFile(
+      path.join(postsDir, "drafts.html"),
+      buildPostsIndexHtml(draftEntries, {
+        canonicalPath: "posts/drafts.html",
+        pageTitle: `${DIGEST_NAME} Draft Posts`,
+        pageDescription: "Internal draft index; excluded from indexing and public discovery.",
+        indexable: false,
+      }),
+      "utf8"
+    );
+  } else {
+    try {
+      await fs.unlink(path.join(postsDir, "drafts.html"));
+    } catch (error) {
+      if (error?.code !== "ENOENT") throw error;
+    }
+  }
   for (const file of sitemapFiles) {
     await fs.writeFile(path.join(siteDir, file.name), file.content, "utf8");
   }
-  await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(entries), "utf8");
+  await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(publishedEntries), "utf8");
   await fs.writeFile(path.join(siteDir, "robots.txt"), buildRobots(), "utf8");
   const notesSource = path.resolve(process.cwd(), "reputation-case", "digest-multilingual-notes-v1.md");
   const notesTarget = path.join(siteDir, "digest-multilingual-notes-v1.md");
@@ -944,10 +1028,10 @@ const main = async () => {
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }
-  await updateHomeHtmlFirstCards(entries);
+  await updateHomeHtmlFirstCards(publishedEntries);
 
   console.log(
-    `Generated ${entries.length} post pages, sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, home HTML-first cards`
+    `Generated ${entries.length} post pages (${publishedEntries.length} ready, ${draftEntries.length} draft), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, home HTML-first cards`
   );
 };
 
