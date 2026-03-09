@@ -31,6 +31,9 @@
       href="/rss.xml"
     />
     <link rel="alternate" hreflang="en" href="https://www.klishin.work/" />
+    <link rel="alternate" hreflang="fr" href="https://www.klishin.work/fr/" />
+    <link rel="alternate" hreflang="de" href="https://www.klishin.work/de/" />
+    <link rel="alternate" hreflang="es" href="https://www.klishin.work/es/" />
     <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -111,7 +114,7 @@
       }
     </script>
   </head>
-  <body>
+  <body data-feed-lang="EN">
     <div class="bg-ornament" aria-hidden="true"></div>
     <header class="topbar">
       <a class="brand" href="/" aria-label="Go to home">Ilia Klishin</a>
@@ -122,6 +125,12 @@
         <a href="/cases/">Cases / Clarifications</a>
         <a href="/#contact">Contact</a>
       </nav>
+      <div class="site-lang-switch" aria-label="Site language">
+        <a class="active" href="/">EN</a>
+        <a href="/fr/">FR</a>
+        <a href="/de/">DE</a>
+        <a href="/es/">ES</a>
+      </div>
     </header>
 
     <main class="page">
@@ -376,6 +385,6 @@
       </nav>
     </footer>
 
-    <script type="module" src="./app.js?v=20260309-2"></script>
+    <script type="module" src="./app.js?v=20260309-3"></script>
   </body>
 </html>

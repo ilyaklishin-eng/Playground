@@ -3,15 +3,55 @@ const template = document.getElementById("cardTemplate");
 const updatedAt = document.getElementById("updatedAt");
 const langSwitch = document.getElementById("langSwitch");
 const searchInput = document.getElementById("searchInput");
+const uiLang = String(document?.documentElement?.lang || "en").trim().toLowerCase();
+const preferredFeedLang = String(document?.body?.dataset?.feedLang || "").trim().toUpperCase();
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const CURATED_FEED_LIMIT = 8;
+const UI_COPY = {
+  en: {
+    cardLink: "Read full card",
+    emptyFiltered: "No published cards match the current filter.",
+    emptyLanguage: "No published cards are available in {lang} yet.",
+    langTitlePublished: "{count} published cards",
+    langTitleEmpty: "No published cards in {lang} yet",
+  },
+  fr: {
+    cardLink: "Lire la fiche complete",
+    emptyFiltered: "Aucune fiche publiee ne correspond au filtre actuel.",
+    emptyLanguage: "Aucune fiche publiee n'est disponible en {lang} pour le moment.",
+    langTitlePublished: "{count} fiches publiees",
+    langTitleEmpty: "Aucune fiche publiee en {lang} pour le moment",
+  },
+  de: {
+    cardLink: "Vollstandige Karte lesen",
+    emptyFiltered: "Keine veroffentlichten Karten entsprechen dem aktuellen Filter.",
+    emptyLanguage: "Noch keine veroffentlichten Karten in {lang} verfugbar.",
+    langTitlePublished: "{count} veroffentlichte Karten",
+    langTitleEmpty: "Noch keine veroffentlichten Karten in {lang}",
+  },
+  es: {
+    cardLink: "Leer ficha completa",
+    emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
+    emptyLanguage: "Todavia no hay fichas publicadas en {lang}.",
+    langTitlePublished: "{count} fichas publicadas",
+    langTitleEmpty: "Todavia no hay fichas publicadas en {lang}",
+  },
+};
 
 const state = {
-  lang: "EN",
+  lang: LANGUAGE_PRIORITY.includes(preferredFeedLang) ? preferredFeedLang : "EN",
   query: "",
   items: [],
   publishedItems: [],
 };
+
+function t(key, vars = {}) {
+  const copy = UI_COPY[uiLang] || UI_COPY.en;
+  const templateText = String(copy[key] || UI_COPY.en[key] || "");
+  return templateText.replace(/\{([a-z_]+)\}/gi, (_, token) =>
+    Object.prototype.hasOwnProperty.call(vars, token) ? String(vars[token]) : ""
+  );
+}
 
 function summaryPreview(text) {
   const plain = String(text || "").replace(/\s+/g, " ").trim();
@@ -71,7 +111,7 @@ function publishedCounts() {
 }
 
 async function init() {
-  const response = await fetch("./data/digests.json", { cache: "no-store" });
+  const response = await fetch("/data/digests.json", { cache: "no-store" });
   const payload = await response.json();
   state.items = payload.items;
   state.publishedItems = state.items.filter(isPublished);
@@ -143,8 +183,8 @@ function getOrderedLanguages() {
 function renderLanguageSwitch() {
   const languages = getOrderedLanguages().filter((lang) => LANGUAGE_PRIORITY.includes(lang));
   const counts = publishedCounts();
-  const defaultLang = languages.find((lang) => (counts[lang] || 0) > 0) || "EN";
-  if (!languages.includes(state.lang) || (counts[state.lang] || 0) === 0) {
+  const defaultLang = languages.includes("EN") ? "EN" : languages[0] || "EN";
+  if (!languages.includes(state.lang)) {
     state.lang = defaultLang;
   }
 
@@ -156,8 +196,8 @@ function renderLanguageSwitch() {
     button.type = "button";
     button.dataset.lang = lang;
     button.textContent = lang;
-    button.disabled = count === 0;
-    button.title = count === 0 ? `No published cards in ${lang} yet` : `${count} published cards`;
+    button.title =
+      count === 0 ? t("langTitleEmpty", { lang }) : t("langTitlePublished", { count, lang });
     langSwitch.appendChild(button);
   }
 }
@@ -169,9 +209,9 @@ function renderGrid(items) {
     const empty = document.createElement("div");
     empty.className = "empty";
     if (state.query) {
-      empty.textContent = "No published cards match the current filter.";
+      empty.textContent = t("emptyFiltered");
     } else {
-      empty.textContent = `No published cards are available in ${state.lang} yet.`;
+      empty.textContent = t("emptyLanguage", { lang: state.lang });
     }
     grid.appendChild(empty);
     return;
@@ -194,7 +234,7 @@ function renderGrid(items) {
 
     const link = node.querySelector(".card-link");
     link.href = item.url;
-    link.textContent = "Read full card";
+    link.textContent = t("cardLink");
 
     fragment.appendChild(node);
   }

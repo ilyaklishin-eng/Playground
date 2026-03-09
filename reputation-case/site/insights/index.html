@@ -11,6 +11,9 @@
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/insights/" />
     <link rel="alternate" hreflang="en" href="https://www.klishin.work/insights/" />
+    <link rel="alternate" hreflang="fr" href="https://www.klishin.work/insights/fr/" />
+    <link rel="alternate" hreflang="de" href="https://www.klishin.work/insights/de/" />
+    <link rel="alternate" hreflang="es" href="https://www.klishin.work/insights/es/" />
     <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/insights/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Insights | Ilia Klishin" />
@@ -120,6 +123,28 @@
         color: #1c1c1c;
         background: #fff;
       }
+      .site-lang-switch {
+        margin: 8px 0 12px;
+        display: inline-flex;
+        gap: 6px;
+        border: 1px solid #d7d2ca;
+        border-radius: 999px;
+        padding: 4px 6px;
+        background: #fff;
+      }
+      .site-lang-switch a {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 2px 8px;
+        color: #4c4943;
+        text-decoration: none;
+        font-size: 0.82rem;
+      }
+      .site-lang-switch a.active {
+        border-color: #0f4c81;
+        color: #1c1c1c;
+        background: rgba(15, 76, 129, 0.12);
+      }
       h1 {
         margin: 0 0 10px;
         font-family: "Spectral", Georgia, serif;
@@ -173,6 +198,12 @@
         <a href="/cases/">Cases / Clarifications</a>
         <a href="/#contact">Contact</a>
       </nav>
+      <div class="site-lang-switch" aria-label="Site language">
+        <a class="active" href="/insights/">EN</a>
+        <a href="/insights/fr/">FR</a>
+        <a href="/insights/de/">DE</a>
+        <a href="/insights/es/">ES</a>
+      </div>
 
       <h1>Insights (Research Layer)</h1>
       <p>

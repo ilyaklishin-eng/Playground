@@ -52,6 +52,9 @@ const parsePathList = (raw, fallback = []) => {
 
 const CORE_SECTIONS = [
   "index.html",
+  "fr/index.html",
+  "de/index.html",
+  "es/index.html",
   "about/index.html",
   "bio/index.html",
   "bio/fr/index.html",
@@ -62,11 +65,24 @@ const CORE_SECTIONS = [
   "cases/de/index.html",
   "cases/es/index.html",
   "insights/index.html",
+  "insights/fr/index.html",
+  "insights/de/index.html",
+  "insights/es/index.html",
   "archive/index.html",
   "posts/index.html",
 ];
 
 const MULTILINGUAL_CLUSTERS = [
+  {
+    name: "home",
+    pages: {
+      en: "index.html",
+      fr: "fr/index.html",
+      de: "de/index.html",
+      es: "es/index.html",
+    },
+    xDefault: "index.html",
+  },
   {
     name: "bio",
     pages: {
@@ -86,6 +102,16 @@ const MULTILINGUAL_CLUSTERS = [
       es: "cases/es/index.html",
     },
     xDefault: "cases/index.html",
+  },
+  {
+    name: "insights",
+    pages: {
+      en: "insights/index.html",
+      fr: "insights/fr/index.html",
+      de: "insights/de/index.html",
+      es: "insights/es/index.html",
+    },
+    xDefault: "insights/index.html",
   },
 ];
 

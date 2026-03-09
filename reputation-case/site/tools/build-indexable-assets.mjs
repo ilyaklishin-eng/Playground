@@ -36,6 +36,9 @@ const WEBSITE_HAS_PART = [
   `${baseUrl}/archive/#webpage`,
 ];
 const STATIC_SECTIONS = [
+  "fr/index.html",
+  "de/index.html",
+  "es/index.html",
   "about/index.html",
   "bio/index.html",
   "bio/fr/index.html",
@@ -46,6 +49,9 @@ const STATIC_SECTIONS = [
   "cases/de/index.html",
   "cases/es/index.html",
   "insights/index.html",
+  "insights/fr/index.html",
+  "insights/de/index.html",
+  "insights/es/index.html",
   "archive/index.html",
 ];
 const LANGS = ["EN", "FR", "DE", "ES"];
