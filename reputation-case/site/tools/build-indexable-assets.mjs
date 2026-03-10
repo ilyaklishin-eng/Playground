@@ -717,9 +717,10 @@ const buildSearchIndex = (entries, selectedCards) => {
 
   const selected = Array.isArray(selectedCards) ? selectedCards : [];
   const items = [...publishedCards, ...selected];
+  const generatedAt = latestBuildIso(entries);
 
   return {
-    generated_at: new Date().toISOString(),
+    generated_at: generatedAt,
     counts: {
       total: items.length,
       posts: publishedCards.length,
