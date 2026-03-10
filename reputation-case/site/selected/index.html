@@ -266,6 +266,37 @@
             "url": "https://www.klishin.work/"
           },
           {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/search/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.klishin.work/selected/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.klishin.work/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Selected Work",
+                "item": "https://www.klishin.work/selected/"
+              }
+            ]
+          },
+          {
             "@type": "CollectionPage",
             "@id": "https://www.klishin.work/selected/#webpage",
             "url": "https://www.klishin.work/selected/",
@@ -273,6 +304,7 @@
             "description": "Manually curated route through key materials by Ilia Klishin.",
             "inLanguage": "en",
             "about": { "@id": "https://www.klishin.work/#person" },
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
             "mainEntity": { "@id": "https://www.klishin.work/selected/#itemlist" }
           },
           {

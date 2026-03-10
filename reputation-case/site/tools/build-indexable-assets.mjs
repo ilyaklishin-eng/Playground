@@ -747,6 +747,17 @@ const buildCoreEntities = () => {
   return { person, organization, website };
 };
 
+const buildBreadcrumbList = (id, items = []) => ({
+  "@type": "BreadcrumbList",
+  "@id": id,
+  itemListElement: items.map((item, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    name: item.name,
+    item: item.url,
+  })),
+});
+
 const normalizeSearchUrl = (href = "") => {
   const raw = String(href || "").trim();
   if (!raw) return canonicalUrl("selected/index.html");
@@ -1045,14 +1056,21 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const { person, organization, website } = buildCoreEntities();
   const pageId = `${canonical}#webpage`;
   const articleId = `${canonical}#article`;
+  const breadcrumbId = `${canonical}#breadcrumb`;
   const publishedIso = toIsoTimestamp(item.date) || item.date || undefined;
   const modifiedIso = toIsoTimestamp(item.lastmod || item.date) || publishedIso;
+  const breadcrumb = buildBreadcrumbList(breadcrumbId, [
+    { name: "Home", url: canonicalUrl("index.html") },
+    { name: "Posts", url: canonicalUrl("posts/index.html") },
+    { name: displayTitle, url: canonical },
+  ]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       person,
       organization,
       website,
+      breadcrumb,
       {
         "@type": "WebPage",
         "@id": pageId,
@@ -1213,12 +1231,28 @@ const buildPostsIndexHtml = (entries, options = {}) => {
   const postsCanonical = canonicalUrl(canonicalPath);
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
+  const breadcrumbId = `${postsCanonical}#breadcrumb`;
+  const sectionName =
+    canonicalPath === "posts/all.html"
+      ? "Full Corpus"
+      : canonicalPath === "posts/drafts.html"
+        ? "Draft Index"
+        : "Posts";
+  const breadcrumbItems = [
+    { name: "Home", url: canonicalUrl("index.html") },
+    { name: "Posts", url: canonicalUrl("posts/index.html") },
+  ];
+  if (canonicalPath !== "posts/index.html") {
+    breadcrumbItems.push({ name: sectionName, url: postsCanonical });
+  }
+  const breadcrumb = buildBreadcrumbList(breadcrumbId, breadcrumbItems);
   const postsJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       person,
       organization,
       website,
+      breadcrumb,
       {
         "@type": "CollectionPage",
         "@id": `${postsCanonical}#webpage`,
