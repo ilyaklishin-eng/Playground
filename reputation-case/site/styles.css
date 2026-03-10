@@ -277,6 +277,59 @@ h1 {
   margin: 1rem 0 0.8rem;
 }
 
+.trust-layer {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+  padding: 1rem 1.02rem;
+  margin: 0 0 0.95rem;
+}
+
+.trust-layer h2 {
+  margin: 0 0 0.3rem;
+  font-family: "Newsreader", "Times New Roman", serif;
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+}
+
+.trust-layer p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.trust-facts {
+  list-style: none;
+  margin: 0.78rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.56rem;
+}
+
+.trust-facts li {
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: #f8fbff;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.86rem;
+  color: #2b3e5f;
+}
+
+.trust-facts strong {
+  color: var(--ink);
+}
+
+.trust-facts a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.trust-facts a:hover {
+  text-decoration: underline;
+}
+
 .overview-card {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -647,7 +700,8 @@ h1 {
   }
 
   .digest-grid,
-  .home-overview {
+  .home-overview,
+  .trust-facts {
     grid-template-columns: 1fr;
   }
 

@@ -68,6 +68,58 @@
         max-width: 72ch;
       }
 
+      .selected-trust {
+        margin-top: 0.9rem;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+        padding: 0.95rem 1rem;
+      }
+
+      .selected-trust h2 {
+        margin: 0;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 1.28rem;
+        letter-spacing: -0.01em;
+      }
+
+      .selected-trust p {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+      }
+
+      .selected-trust-list {
+        list-style: none;
+        margin: 0.68rem 0 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.56rem;
+      }
+
+      .selected-trust-list li {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #f8fbff;
+        padding: 0.5rem 0.62rem;
+        font-size: 0.86rem;
+        color: #2b3e5f;
+      }
+
+      .selected-trust-list strong {
+        color: var(--ink);
+      }
+
+      .selected-trust-list a {
+        color: var(--accent-ink);
+        text-decoration: none;
+      }
+
+      .selected-trust-list a:hover {
+        text-decoration: underline;
+      }
+
       .reader-path {
         margin-top: 0.75rem;
         padding-left: 1rem;
@@ -245,6 +297,10 @@
       }
 
       @media (max-width: 920px) {
+        .selected-trust-list {
+          grid-template-columns: 1fr;
+        }
+
         .cluster-grid {
           grid-template-columns: 1fr;
         }
@@ -351,6 +407,46 @@
           <li>Continue with <strong>Propaganda / information systems</strong> for methodology and long-view analysis.</li>
           <li>Use <strong>Volna / diaspora media</strong> and <strong>Key public texts</strong> for profile context.</li>
         </ol>
+      </section>
+
+      <section class="selected-trust" aria-label="Trust snapshot">
+        <h2>Trust snapshot</h2>
+        <p>Core role markers with direct external references.</p>
+        <ul class="selected-trust-list">
+          <li>
+            <strong>Former Head of Digital Newsroom, TV Rain.</strong>
+            Sources:
+            <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87" target="_blank" rel="noreferrer">Wikipedia (RU)</a>,
+            <a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noreferrer">The Guardian</a>.
+          </li>
+          <li>
+            <strong>Former Digital Director, RTVI.</strong>
+            Source:
+            <a href="https://rtvi.com/editors-archive/ilya-klishin/" target="_blank" rel="noreferrer">RTVI archive profile</a>.
+          </li>
+          <li>
+            <strong>Co-founder and editor-in-chief, Volna Media.</strong>
+            Source:
+            <a href="https://linktr.ee/volnamedia" target="_blank" rel="noreferrer">Volna links</a>.
+          </li>
+          <li>
+            <strong>Founder, KF Agency.</strong>
+            Source:
+            <a href="https://kf.agency/" target="_blank" rel="noreferrer">KF Agency</a>.
+          </li>
+          <li>
+            <strong>Journalist/editor/media strategist by role and output.</strong>
+            Sources:
+            <a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="noreferrer">The Moscow Times</a>,
+            <a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="noreferrer">Vedomosti</a>.
+          </li>
+          <li>
+            <strong>Selected publications, interviews, and profile signals.</strong>
+            Sources:
+            <a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noreferrer">TEDx</a>,
+            <a href="/bio/">Bio</a>.
+          </li>
+        </ul>
       </section>
 
       <section class="cluster" id="journalism">
