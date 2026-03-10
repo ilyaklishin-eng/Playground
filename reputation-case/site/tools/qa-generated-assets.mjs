@@ -558,11 +558,12 @@ const checkSearchIndex = async (issues) => {
 
     const type = normalizeText(item?.type).toLowerCase();
     const url = normalizeText(item?.url);
-    if (!url || !isCanonicalUrl(url)) {
-      pushError(issues, "search-index.item.url.invalid", "Search index item has non-canonical URL.", { id, url });
-    }
+    const isExternalHttp = /^https?:\/\//i.test(url) && !url.includes(HOST);
 
     if (type === "post") {
+      if (!url || !isCanonicalUrl(url)) {
+        pushError(issues, "search-index.item.url.invalid", "Post search index item must use canonical URL.", { id, url });
+      }
       const status = normalizeText(item?.status).toLowerCase();
       if (status !== "ready") {
         pushError(issues, "search-index.item.post.status.invalid", "Search index includes non-ready post.", {
@@ -571,6 +572,14 @@ const checkSearchIndex = async (issues) => {
         });
       }
     } else if (type === "selected") {
+      if (!url || (!isCanonicalUrl(url) && !isExternalHttp)) {
+        pushError(
+          issues,
+          "search-index.item.url.invalid",
+          "Selected search index item must use canonical or absolute external URL.",
+          { id, url }
+        );
+      }
       selectedCount += 1;
     } else {
       pushError(issues, "search-index.item.type.invalid", "Search index item has unknown type.", { id, type });
