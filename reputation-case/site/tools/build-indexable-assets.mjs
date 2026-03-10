@@ -14,6 +14,9 @@ const HOME_FALLBACK_LIMIT = 8;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
+const DEFAULT_SOCIAL_IMAGE = `${baseUrl}/bio/ilia-klishin-portrait.jpeg`;
+const SOCIAL_IMAGE_WIDTH = "636";
+const SOCIAL_IMAGE_HEIGHT = "888";
 const PERSON_ID = `${baseUrl}/#person`;
 const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
@@ -244,6 +247,89 @@ const cleanDisplayTitle = (rawTitle = "") => {
   return cleaned || raw;
 };
 
+const smartTrim = (text = "", max = 80) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  if (value.length <= max) return value;
+  const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
+  return clipped || value.slice(0, max).trim();
+};
+
+const trimMetaDescription = (text = "", max = 170) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  if (value.length <= max) return /[.!?]$/.test(value) ? value : `${value}.`;
+  const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
+  if (!clipped) return value.slice(0, max).trim();
+  return /[.!?]$/.test(clipped) ? clipped : `${clipped}.`;
+};
+
+const GENERIC_SOURCE_TITLE_RE =
+  /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)\s*\(\d{4}-\d{2}-\d{2}\)(?:\s*-\s*.+)?$/i;
+const SOURCE_ONLY_TITLE_RE =
+  /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)$/i;
+
+const buildPostMetaTitle = (item = {}, displayTitle = "") => {
+  const source = normalizeText(item?.source || "Publication");
+  const topic = normalizeText(item?.topic || "");
+  const date = normalizeText(item?.date || "");
+  const raw = normalizeText(displayTitle || item?.title || "");
+  const looksGeneric =
+    !raw ||
+    raw.length < 12 ||
+    /^untitled$/i.test(raw) ||
+    /^entry$/i.test(raw) ||
+    GENERIC_SOURCE_TITLE_RE.test(raw) ||
+    SOURCE_ONLY_TITLE_RE.test(raw);
+
+  let core = raw;
+  if (looksGeneric) {
+    if (source && topic) {
+      core = `${source}: ${topic}`;
+    } else if (source && date) {
+      core = `${source} (${date})`;
+    } else {
+      core = source || "Publication";
+    }
+  }
+
+  return smartTrim(core, 82);
+};
+
+const buildPostMetaDescription = (item = {}) => {
+  const lang = normalizeLang(item?.language);
+  const source = normalizeText(item?.source || "");
+  const topic = normalizeText(item?.topic || "");
+  const date = normalizeText(item?.date || "");
+  const extracted = extractMetaSentence(item);
+
+  let summary = extracted;
+  if (!summary) {
+    if (lang === "FR") {
+      summary = `${source || "La publication"}${date ? ` (${date})` : ""} propose une analyse sur ${topic || "le sujet"} avec contexte editorial.`;
+    } else if (lang === "DE") {
+      summary = `${source || "Der Beitrag"}${date ? ` (${date})` : ""} bietet eine Analyse zu ${topic || "dem Thema"} mit publizistischem Kontext.`;
+    } else if (lang === "ES") {
+      summary = `${source || "La publicacion"}${date ? ` (${date})` : ""} ofrece un analisis sobre ${topic || "el tema"} con contexto editorial.`;
+    } else {
+      summary = `${source || "This publication"}${date ? ` (${date})` : ""} provides analysis on ${topic || "the topic"} with clear editorial context.`;
+    }
+  }
+
+  let value = summary;
+  if (source && !new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(value)) {
+    if (lang === "DE") value = `${value} Quelle: ${source}${date ? `, ${date}` : ""}.`;
+    else if (lang === "ES") value = `${value} Fuente: ${source}${date ? `, ${date}` : ""}.`;
+    else value = `${value} Source: ${source}${date ? `, ${date}` : ""}.`;
+  } else if (date && !value.includes(date)) {
+    if (lang === "FR") value = `${value} Date de publication: ${date}.`;
+    else if (lang === "DE") value = `${value} Veroeffentlicht: ${date}.`;
+    else if (lang === "ES") value = `${value} Publicado: ${date}.`;
+    else value = `${value} Published: ${date}.`;
+  }
+  return trimMetaDescription(value, 170);
+};
+
 const composeCardMeta = (item = {}) => {
   const source = normalizeText(item?.source || "-");
   const date = normalizeText(item?.date || "-");
@@ -331,6 +417,41 @@ const splitSentences = (text = "") => {
 
 const hasMachineFragments = (sentence = "") =>
   MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(String(sentence || "").trim()));
+
+const TEMPLATE_SENTENCE_PATTERNS = [
+  /^(this|ce texte|este texto|dieser beitrag|in diesem|la fiche|la carte|der eintrag)\b/i,
+  /\bexamines a concrete case related to ilia klishin\b/i,
+  /\bexamine un cas concret lie a ilia klishin\b/i,
+  /\bexamina un caso concreto vinculado con ilia klishin\b/i,
+  /\buntersucht einen konkreten fall mit bezug zu ilia klishin\b/i,
+  /\bthe text rebuilds the discussion\b/i,
+  /\bla fiche recompone el caso\b/i,
+  /\bla carte reconstitue le dossier\b/i,
+  /\bder eintrag ordnet das thema\b/i,
+  /^im kontext \d{4}-\d{2}-\d{2}\s+verbindet ilia klishin/i,
+  /^dans le contexte \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
+  /^en el contexto \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
+  /^in the \d{4}-\d{2}-\d{2} context,\s+ilia klishin/i,
+];
+
+const isTemplateSentence = (sentence = "") =>
+  TEMPLATE_SENTENCE_PATTERNS.some((pattern) => pattern.test(normalizeText(sentence)));
+
+const extractMetaSentence = (item = {}) => {
+  const pools = [item?.summary, item?.digest, item?.value_context];
+  for (const pool of pools) {
+    const cleaned = stripLeadScaffolding(normalizeText(pool || ""));
+    if (!cleaned) continue;
+    for (const sentence of splitSentences(cleaned)) {
+      const value = normalizeText(sentence);
+      if (!value || value.length < 40) continue;
+      if (hasMachineFragments(value)) continue;
+      if (isTemplateSentence(value)) continue;
+      return value;
+    }
+  }
+  return "";
+};
 
 const hashText = (value = "") => {
   let hash = 0;
@@ -891,10 +1012,11 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
   const itemIsPublished = isPublishedStatus(decision);
   const displayTitle = cleanDisplayTitle(item.title);
-  const title = `${displayTitle} | ${DIGEST_NAME}`;
+  const metaTitle = buildPostMetaTitle(item, displayTitle);
+  const title = `${metaTitle} | ${SITE_NAME}`;
   const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
   const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
-  const description = truncateChars(summary || digest || "Fact-based digest entry with source link.", 170);
+  const description = buildPostMetaDescription(item) || "Source-linked publication summary and context.";
   const keyIdeas = normalizedArray(item.key_ideas);
   const quotes = normalizedArray(item.quotes);
   const semanticTags = normalizedArray(item.semantic_tags);
@@ -981,9 +1103,18 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <link rel="canonical" href="${canonical}" />
     ${hreflangHeadLinks}
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="${htmlEscape(displayTitle)}" />
+    <meta property="og:title" content="${htmlEscape(metaTitle)}" />
     <meta property="og:description" content="${htmlEscape(description)}" />
     <meta property="og:url" content="${canonical}" />
+    <meta property="og:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta property="og:image:width" content="${SOCIAL_IMAGE_WIDTH}" />
+    <meta property="og:image:height" content="${SOCIAL_IMAGE_HEIGHT}" />
+    <meta property="og:site_name" content="${SITE_NAME}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${htmlEscape(metaTitle)}" />
+    <meta name="twitter:description" content="${htmlEscape(description)}" />
+    <meta name="twitter:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta name="twitter:creator" content="@vorewig" />
     <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
@@ -1124,6 +1255,19 @@ const buildPostsIndexHtml = (entries, options = {}) => {
     <link rel="canonical" href="${postsCanonical}" />
     <link rel="alternate" hreflang="en" href="${postsCanonical}" />
     <link rel="alternate" hreflang="${X_DEFAULT}" href="${postsCanonical}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${htmlEscape(pageTitle)}" />
+    <meta property="og:description" content="${htmlEscape(pageDescription)}" />
+    <meta property="og:url" content="${postsCanonical}" />
+    <meta property="og:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta property="og:image:width" content="${SOCIAL_IMAGE_WIDTH}" />
+    <meta property="og:image:height" content="${SOCIAL_IMAGE_HEIGHT}" />
+    <meta property="og:site_name" content="${SITE_NAME}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${htmlEscape(pageTitle)}" />
+    <meta name="twitter:description" content="${htmlEscape(pageDescription)}" />
+    <meta name="twitter:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta name="twitter:creator" content="@vorewig" />
     <meta name="robots" content="${indexable ? "index,follow" : "noindex,follow"}" />
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
