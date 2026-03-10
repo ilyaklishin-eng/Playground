@@ -265,6 +265,12 @@ const trimMetaDescription = (text = "", max = 170) => {
   return /[.!?]$/.test(clipped) ? clipped : `${clipped}.`;
 };
 
+const pickSeededVariant = (seed, variants) => {
+  if (!Array.isArray(variants) || variants.length === 0) return "";
+  const key = hashText(seed);
+  return variants[key % variants.length] || variants[0];
+};
+
 const GENERIC_SOURCE_TITLE_RE =
   /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)\s*\(\d{4}-\d{2}-\d{2}\)(?:\s*-\s*.+)?$/i;
 const SOURCE_ONLY_TITLE_RE =
@@ -306,14 +312,35 @@ const buildPostMetaDescription = (item = {}) => {
 
   let summary = extracted;
   if (!summary) {
+    const seed = `${item?.id || ""}|${source}|${topic}|${date}|${lang}`;
     if (lang === "FR") {
-      summary = `${source || "La publication"}${date ? ` (${date})` : ""} propose une analyse sur ${topic || "le sujet"} avec contexte editorial.`;
+      summary = pickSeededVariant(seed, [
+        `${source || "Ce texte"}${date ? ` (${date})` : ""} explique ${topic || "le sujet"} en reliant faits, acteurs et chronologie.`,
+        `Synthese de ${topic || "ce sujet"} a partir d une publication ${source || "sourcee"}${date ? ` (${date})` : ""}, avec points de verification.`,
+        `${source || "Publication"}${date ? ` (${date})` : ""}: lecture concise de ${topic || "la question"} avec contexte et implications.`,
+        `Page de reference sur ${topic || "le sujet"}, fondee sur la source ${source || "principale"}${date ? ` (${date})` : ""}.`,
+      ]);
     } else if (lang === "DE") {
-      summary = `${source || "Der Beitrag"}${date ? ` (${date})` : ""} bietet eine Analyse zu ${topic || "dem Thema"} mit publizistischem Kontext.`;
+      summary = pickSeededVariant(seed, [
+        `${source || "Der Beitrag"}${date ? ` (${date})` : ""} erklaert ${topic || "das Thema"} entlang von Fakten, Akteuren und Zeitleiste.`,
+        `Kurzfassung zu ${topic || "diesem Thema"} auf Basis der Quelle ${source || "mit belastbaren Bezugspunkten"}${date ? ` (${date})` : ""}.`,
+        `${source || "Publikation"}${date ? ` (${date})` : ""}: kompakte Einordnung von ${topic || "der Fragestellung"} mit Kontext.`,
+        `Referenzseite zu ${topic || "dem Thema"}, abgeleitet aus der Originalquelle ${source || ""}${date ? ` (${date})` : ""}.`,
+      ]);
     } else if (lang === "ES") {
-      summary = `${source || "La publicacion"}${date ? ` (${date})` : ""} ofrece un analisis sobre ${topic || "el tema"} con contexto editorial.`;
+      summary = pickSeededVariant(seed, [
+        `${source || "Este texto"}${date ? ` (${date})` : ""} explica ${topic || "el tema"} con foco en hechos, actores y cronologia.`,
+        `Resumen de ${topic || "esta cuestion"} basado en la fuente ${source || "principal"}${date ? ` (${date})` : ""}, con contexto verificable.`,
+        `${source || "Publicacion"}${date ? ` (${date})` : ""}: lectura breve de ${topic || "la materia"} y sus implicaciones publicas.`,
+        `Pagina de referencia sobre ${topic || "el tema"}, construida desde la fuente ${source || "original"}${date ? ` (${date})` : ""}.`,
+      ]);
     } else {
-      summary = `${source || "This publication"}${date ? ` (${date})` : ""} provides analysis on ${topic || "the topic"} with clear editorial context.`;
+      summary = pickSeededVariant(seed, [
+        `${source || "This text"}${date ? ` (${date})` : ""} explains ${topic || "the topic"} through facts, actors, and timeline context.`,
+        `A concise reading of ${topic || "this issue"} based on ${source || "the source"}${date ? ` (${date})` : ""}, with verifiable touchpoints.`,
+        `${source || "Publication"}${date ? ` (${date})` : ""}: focused summary of ${topic || "the core question"} and its public relevance.`,
+        `Reference page on ${topic || "the topic"}, grounded in the original source${source ? ` (${source})` : ""}${date ? `, ${date}` : ""}.`,
+      ]);
     }
   }
 
@@ -468,7 +495,9 @@ const previewSummary = (item = {}) => {
   if (!raw) return "";
 
   const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter((sentence) => !hasMachineFragments(sentence));
+  const candidates = splitSentences(cleaned).filter(
+    (sentence) => !hasMachineFragments(sentence) && !isTemplateSentence(sentence)
+  );
   const source = candidates.length > 0 ? candidates : [];
   if (source.length === 0) return fallbackSummary(item);
 
@@ -496,16 +525,39 @@ const fallbackSummary = (item = {}) => {
   const source = normalizeText(item?.source || "the source");
   const year = /^\d{4}/.test(String(item?.date || "")) ? String(item.date).slice(0, 4) : "";
   const lang = normalizeLang(item?.language);
+  const seed = `${item?.id || ""}|${topic}|${source}|${year}|summary`;
+  let result = "";
   if (lang === "FR") {
-    return `Ce texte de ${source}${year ? ` (${year})` : ""} explique l enjeu principal autour de ${topic} et resitue le contexte de publication.`;
+    result = pickSeededVariant(seed, [
+      `${source}${year ? ` (${year})` : ""}: le texte traite de ${topic} en liant evenement, acteurs et cadrage editorial.`,
+      `Cette publication${year ? ` de ${year}` : ""} revient sur ${topic} avec une synthese factuelle et une chronologie claire.`,
+      `Le sujet ${topic} est presente a partir de la source ${source}${year ? ` (${year})` : ""}, avec les points de contexte utiles.`,
+      `A partir de ${source}${year ? ` (${year})` : ""}, la note resume ${topic} et les consequences discutees publiquement.`,
+    ]);
+  } else if (lang === "DE") {
+    result = pickSeededVariant(seed, [
+      `${source}${year ? ` (${year})` : ""}: der Beitrag behandelt ${topic} anhand von Ereignisablauf, Akteuren und medialem Framing.`,
+      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} mit faktenbasierter Zusammenfassung und klarer Zeitleiste ein.`,
+      `${topic} wird auf Grundlage der Quelle ${source}${year ? ` (${year})` : ""} mit den zentralen Kontextpunkten dargestellt.`,
+      `Ausgehend von ${source}${year ? ` (${year})` : ""} fasst diese Notiz ${topic} und die oeffentlich diskutierten Folgen zusammen.`,
+    ]);
+  } else if (lang === "ES") {
+    result = pickSeededVariant(seed, [
+      `${source}${year ? ` (${year})` : ""}: el texto aborda ${topic} con hechos, actores y encuadre editorial.`,
+      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic} con una sintesis factual y una cronologia clara.`,
+      `${topic} se presenta desde la fuente ${source}${year ? ` (${year})` : ""}, con claves de contexto relevantes.`,
+      `A partir de ${source}${year ? ` (${year})` : ""}, esta nota resume ${topic} y sus efectos en el debate publico.`,
+    ]);
+  } else {
+    result = pickSeededVariant(seed, [
+      `${source}${year ? ` (${year})` : ""}: the piece examines ${topic} through events, actors, and editorial framing.`,
+      `This publication${year ? ` from ${year}` : ""} revisits ${topic} with a fact-based summary and a clear timeline.`,
+      `${topic} is outlined from the source ${source}${year ? ` (${year})` : ""}, with the key contextual markers.`,
+      `Based on ${source}${year ? ` (${year})` : ""}, this note summarizes ${topic} and the public implications discussed in the text.`,
+    ]);
   }
-  if (lang === "DE") {
-    return `Der Beitrag aus ${source}${year ? ` (${year})` : ""} erklaert den Kernpunkt zu ${topic} und ordnet den Publikationskontext ein.`;
-  }
-  if (lang === "ES") {
-    return `Este texto de ${source}${year ? ` (${year})` : ""} explica la idea central sobre ${topic} y ubica su contexto de publicacion.`;
-  }
-  return `This piece from ${source}${year ? ` (${year})` : ""} explains the central issue in ${topic} and anchors it in publication context.`;
+
+  return String(result || "").replace(/^[a-z]/, (char) => char.toUpperCase());
 };
 
 const fallbackContext = (item = {}) => {
@@ -517,52 +569,83 @@ const fallbackContext = (item = {}) => {
   const stamp = year ? ` (${year})` : "";
   if (lang === "FR") {
     const variants = [
-      `Repere utile: ce texte situe ${topic} dans son contexte editorial${stamp}.`,
-      `Repere utile: la fiche resume ${topic} et renvoie au texte original sur ${source}.`,
-      `Repere utile: cette publication donne un point de reference date sur ${topic}.`,
-      `Repere utile: le lecteur retrouve ${topic} avec une source primaire verifiable.`,
+      `Contexte: ce texte replace ${topic} dans son moment editorial${stamp}.`,
+      `Pertinence: la synthese relie ${topic} au texte original publie sur ${source}.`,
+      `Usage: point de reference date pour verifier les interpretations de ${topic}.`,
+      `Lecture utile: ${topic} est presente avec acces direct a la source primaire.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "DE") {
     const variants = [
-      `Nuetzlicher Kontext: Der Beitrag ordnet ${topic} im Zeitrahmen${stamp} ein.`,
-      `Nuetzlicher Kontext: Die Karte fasst ${topic} zusammen und verlinkt auf ${source}.`,
-      `Nuetzlicher Kontext: Diese Quelle bietet einen datierten Referenzpunkt zu ${topic}.`,
-      `Nuetzlicher Kontext: ${topic} wird mit direktem Zugang zur Primaerquelle erklaert.`,
+      `Kontext: Der Beitrag ordnet ${topic} im zeitlichen Rahmen${stamp} ein.`,
+      `Relevanz: Die Zusammenfassung verbindet ${topic} mit dem Originaltext auf ${source}.`,
+      `Nutzen: datierter Referenzpunkt, um spaetere Deutungen zu ${topic} zu pruefen.`,
+      `Lesewert: ${topic} wird mit direktem Zugang zur Primaerquelle erklaert.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "ES") {
     const variants = [
-      `Contexto util: el texto ubica ${topic} en su momento editorial${stamp}.`,
-      `Contexto util: esta ficha resume ${topic} y enlaza al original en ${source}.`,
-      `Contexto util: ofrece un punto de referencia fechado para ${topic}.`,
-      `Contexto util: explica ${topic} con acceso directo a la fuente primaria.`,
+      `Contexto: el texto ubica ${topic} en su momento editorial${stamp}.`,
+      `Relevancia: el resumen conecta ${topic} con el texto original en ${source}.`,
+      `Uso practico: punto de referencia fechado para contrastar lecturas sobre ${topic}.`,
+      `Valor de lectura: ${topic} se explica con acceso directo a la fuente primaria.`,
     ];
     return variants[key % variants.length];
   }
   const variants = [
-    `Why it matters: it places ${topic} in a concrete editorial moment${stamp}.`,
-    `Why it matters: it gives a dated reference point for ${topic} and links to ${source}.`,
-    `Why it matters: it helps compare current claims on ${topic} with the original text.`,
-    `Why it matters: it explains ${topic} with direct access to the primary source.`,
+    `Context: this piece places ${topic} in a concrete editorial moment${stamp}.`,
+    `Relevance: it provides a dated reference point for ${topic} with a direct source path.`,
+    `Use case: it helps compare later claims about ${topic} with the original text.`,
+    `Reader value: ${topic} is explained with immediate access to the primary source.`,
   ];
   return variants[key % variants.length];
+};
+
+const normalizeContextLead = (text = "", item = {}) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  const lang = normalizeLang(item?.language);
+  const seed = String(item?.id || value);
+
+  if (lang === "FR" && /^repere utile:\s*/i.test(value)) {
+    const core = value.replace(/^repere utile:\s*/i, "").trim();
+    const lead = pickSeededVariant(seed, ["Contexte", "Pertinence", "Usage", "Lecture utile"]) || "Contexte";
+    return `${lead}: ${core}`;
+  }
+  if (lang === "DE" && /^nuetzlicher kontext:\s*/i.test(value)) {
+    const core = value.replace(/^nuetzlicher kontext:\s*/i, "").trim();
+    const lead = pickSeededVariant(seed, ["Kontext", "Relevanz", "Nutzen", "Lesewert"]) || "Kontext";
+    return `${lead}: ${core}`;
+  }
+  if (lang === "ES" && /^contexto util:\s*/i.test(value)) {
+    const core = value.replace(/^contexto util:\s*/i, "").trim();
+    const lead = pickSeededVariant(seed, ["Contexto", "Relevancia", "Uso practico", "Valor de lectura"]) || "Contexto";
+    return `${lead}: ${core}`;
+  }
+  if (/^why it matters:\s*/i.test(value)) {
+    const core = value.replace(/^why it matters:\s*/i, "").trim();
+    const lead = pickSeededVariant(seed, ["Context", "Relevance", "Use case", "Reader value"]) || "Context";
+    return `${lead}: ${core}`;
+  }
+  return value;
 };
 
 const previewContext = (item = {}) => {
   const raw = normalizeText(item?.value_context || "");
   if (!raw) return fallbackContext(item);
   const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter((sentence) => !hasMachineFragments(sentence));
+  const candidates = splitSentences(cleaned).filter(
+    (sentence) => !hasMachineFragments(sentence) && !isTemplateSentence(sentence)
+  );
   let context = candidates[0] || "";
   if (!context || context.length < 36) context = fallbackContext(item);
   if (context.length > 200) {
     context = context.slice(0, 200).replace(/\s+\S*$/, "").trim();
     if (!/[.!?]$/.test(context)) context += ".";
   }
-  return context;
+  return normalizeContextLead(context, item);
 };
 
 const pickCardQuote = (item = {}) => {
@@ -976,7 +1059,7 @@ const buildHomeFallbackCards = (entries) => {
           <p class="card-digest">${digest}</p>
           <p class="card-context">${context}</p>
           ${quote ? `<blockquote class="card-quote">${quote}</blockquote>` : ""}
-          <a class="card-link" href="${digestHref}">Open digest card</a>
+          <a class="card-link" href="${digestHref}">Read full card</a>
         </article>`;
     })
     .join("\n");
@@ -1028,7 +1111,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const title = `${metaTitle} | ${SITE_NAME}`;
   const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
   const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
-  const description = buildPostMetaDescription(item) || "Source-linked publication summary and context.";
+  const description = buildPostMetaDescription(item) || "Publication summary with source context and key claims.";
   const keyIdeas = normalizedArray(item.key_ideas);
   const quotes = normalizedArray(item.quotes);
   const semanticTags = normalizedArray(item.semantic_tags);
@@ -1190,15 +1273,15 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           ? `<section><h2>Available languages</h2><ul>${languageLinks.join("")}</ul></section>`
           : ""}
         <section>
-          <h2>Related Materials</h2>
-          <h3>Core site sections</h3>
+          <h2>Continue Reading</h2>
+          <h3>Main site routes</h3>
           <ul>
-            <li><a href="/">Home digest index</a></li>
+            <li><a href="/">Home overview and latest cards</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
             <li><a href="/cases/">Case clarifications (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
-            <li><a href="/insights/">Insights research layer</a></li>
-            <li><a href="/archive/">Archive hub</a></li>
+            <li><a href="/insights/">Insights research index</a></li>
+            <li><a href="/archive/">Archive and reference files</a></li>
           </ul>
           ${topicLinks.length > 0 ? `<h3>More on this topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
           ${sourceLinks.length > 0 ? `<h3>From the same source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
@@ -1223,7 +1306,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
   const {
     canonicalPath = "posts/index.html",
     pageTitle = `${DIGEST_NAME} Posts`,
-    pageDescription = "Index of published digest posts for search and archive navigation.",
+    pageDescription = "Published post index with source-linked summaries and clean navigation by topic, source, and date.",
     listHeading = "Published posts",
     indexable = true,
   } = options;
@@ -1338,11 +1421,11 @@ const buildPostsIndexHtml = (entries, options = {}) => {
         <p class="lead">${htmlEscape(pageDescription)}</p>
       </section>
       <section>
-        <h2>Related Materials</h2>
+        <h2>Explore Next</h2>
         <ul>
-          <li><a href="/">Interactive digest with filters</a></li>
+          <li><a href="/">Home overview and latest cards</a></li>
           <li><a href="/selected/">Selected Work</a></li>
-          <li><a href="/insights/">Insights research layer</a></li>
+          <li><a href="/insights/">Insights research index</a></li>
           <li><a href="/posts/all.html">Full corpus (all cards, including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
           <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
@@ -1476,7 +1559,10 @@ const buildRss = (entries) => {
     .map((entry) => {
       const link = canonicalUrl(`posts/${entry.postPath}`);
       const source = normalizeSourceUrl(entry.item.url || "");
-      const description = `${entry.item.digest || ""}\n\nOriginal source: ${source}`;
+      const summary = previewSummary(entry.item);
+      const context = previewContext(entry.item);
+      const descriptionParts = [summary, context, source ? `Original source: ${source}` : ""].filter(Boolean);
+      const description = descriptionParts.join("\n\n");
       const pubDate = new Date(toIsoTimestamp(entry.item.date) || buildIso).toUTCString();
       return `    <item>
       <title>${xmlEscape(entry.item.title)}</title>
@@ -1491,9 +1577,9 @@ const buildRss = (entries) => {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Ilia Klishin Fact-Based Digest</title>
+    <title>Ilia Klishin Publications Feed</title>
     <link>${xmlEscape(canonicalUrl("index.html"))}</link>
-    <description>Fact-based multilingual digest with original source links.</description>
+    <description>Source-linked publication cards with short summaries, context notes, and original links.</description>
     <lastBuildDate>${now}</lastBuildDate>
 ${items}
   </channel>
@@ -1626,7 +1712,7 @@ const main = async () => {
     buildPostsIndexHtml(indexableEntries, {
       canonicalPath: "posts/index.html",
       pageTitle: `${DIGEST_NAME} Posts`,
-      pageDescription: "Index of published digest posts for search and archive navigation.",
+      pageDescription: "Published cards selected for public quality, with source references and clean chronological browsing.",
       listHeading: "Published and indexable posts",
       indexable: false,
     }),
@@ -1637,7 +1723,7 @@ const main = async () => {
     buildPostsIndexHtml(entries, {
       canonicalPath: "posts/all.html",
       pageTitle: `${DIGEST_NAME}: Full Corpus`,
-      pageDescription: "Complete list of all digest cards, including draft and published entries.",
+      pageDescription: "Complete corpus view of all cards, including drafts, for research and editorial review.",
       listHeading: "All cards (published + draft)",
       indexable: false,
     }),
@@ -1649,7 +1735,7 @@ const main = async () => {
       buildPostsIndexHtml(draftEntries, {
         canonicalPath: "posts/drafts.html",
         pageTitle: `${DIGEST_NAME} Draft Posts`,
-        pageDescription: "Internal draft index; excluded from indexing and public discovery.",
+        pageDescription: "Draft working index for editorial review; excluded from public indexing.",
         indexable: false,
       }),
       "utf8"
