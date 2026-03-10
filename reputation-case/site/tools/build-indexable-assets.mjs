@@ -80,6 +80,7 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["insights/de/index.html", "noindex"],
   ["insights/es/index.html", "noindex"],
   ["posts/index.html", "noindex"],
+  ["posts/all.html", "noindex"],
   ["posts/drafts.html", "noindex"],
 ]);
 const LANGS = ["EN", "FR", "DE", "ES"];
@@ -1205,6 +1206,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
     canonicalPath = "posts/index.html",
     pageTitle = `${DIGEST_NAME} Posts`,
     pageDescription = "Index of published digest posts for search and archive navigation.",
+    listHeading = "Published posts",
     indexable = true,
   } = options;
   const visibleEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
@@ -1307,6 +1309,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
           <li><a href="/">Interactive digest with filters</a></li>
           <li><a href="/selected/">Selected Work</a></li>
           <li><a href="/insights/">Insights research layer</a></li>
+          <li><a href="/posts/all.html">Full corpus (all cards, including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
           <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
           <li><a href="/rss.xml">RSS feed</a></li>
@@ -1314,7 +1317,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
         </ul>
       </section>
       <section>
-        <h2>Published posts</h2>
+        <h2>${htmlEscape(listHeading)}</h2>
         <ul>
 ${visibleEntries
   .map(
@@ -1573,6 +1576,8 @@ const main = async () => {
   // Remove stale generated HTML pages left from old slugs/names.
   const desiredHtmlFiles = new Set(entries.map((entry) => entry.postPath));
   desiredHtmlFiles.add("index.html");
+  desiredHtmlFiles.add("all.html");
+  desiredHtmlFiles.add("drafts.html");
   const existingPosts = await fs.readdir(postsDir);
   for (const file of existingPosts) {
     if (!file.toLowerCase().endsWith(".html")) continue;
@@ -1588,6 +1593,18 @@ const main = async () => {
       canonicalPath: "posts/index.html",
       pageTitle: `${DIGEST_NAME} Posts`,
       pageDescription: "Index of published digest posts for search and archive navigation.",
+      listHeading: "Published and indexable posts",
+      indexable: false,
+    }),
+    "utf8"
+  );
+  await fs.writeFile(
+    path.join(postsDir, "all.html"),
+    buildPostsIndexHtml(entries, {
+      canonicalPath: "posts/all.html",
+      pageTitle: `${DIGEST_NAME}: Full Corpus`,
+      pageDescription: "Complete list of all digest cards, including draft and published entries.",
+      listHeading: "All cards (published + draft)",
       indexable: false,
     }),
     "utf8"

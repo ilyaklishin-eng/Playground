@@ -13,7 +13,7 @@ const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const LANGS = ["en", "fr", "de", "es"];
 const PUBLISHED_STATUS = "ready";
-const EXTRA_POST_INDEX_FILES = new Set(["index.html", "drafts.html"]);
+const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", "drafts.html"]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Google-Extended",
@@ -89,6 +89,7 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["insights/de/index.html", "noindex"],
   ["insights/es/index.html", "noindex"],
   ["posts/index.html", "noindex"],
+  ["posts/all.html", "noindex"],
   ["posts/drafts.html", "noindex"],
 ]);
 const MACHINE_FRAGMENT_PATTERNS = [
