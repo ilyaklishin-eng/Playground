@@ -5,7 +5,7 @@ const ROOT = path.resolve(process.cwd());
 const REPORT_PATH = path.join(ROOT, "reputation-case", "site", "seo-endpoint-check-report.json");
 
 const DEFAULT_DOMAIN = "https://www.klishin.work";
-const IMPORTANT_PATHS = ["/", "/cases/", "/bio/", "/insights/"];
+const IMPORTANT_PATHS = ["/", "/cases/", "/bio/", "/contact/", "/selected/", "/search/", "/insights/"];
 
 const normalizePolicy = (value = "") => {
   const normalized = String(value || "").trim().toLowerCase();

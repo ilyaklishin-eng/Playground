@@ -74,7 +74,8 @@
               { "@id": "https://www.klishin.work/#webpage" },
               { "@id": "https://www.klishin.work/bio/#webpage" },
               { "@id": "https://www.klishin.work/cases/#webpage" },
-              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/contact/#webpage" },
+              { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
             ]
           },
@@ -124,10 +125,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./cases.css" />
+    <link rel="stylesheet" href="./cases.css?v=20260310-3" />
   </head>
   <body>
     <header class="topbar">
@@ -135,9 +136,10 @@
       <nav class="primary-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/bio/">Bio / About</a>
-        <a href="/insights/">Selected Work</a>
+        <a href="/selected/">Selected Work</a>
         <a href="/cases/">Cases / Clarifications</a>
-        <a href="/#contact">Contact</a>
+        <a href="/search/">Search</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </header>
 
@@ -314,6 +316,38 @@
           <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
         </ul>
       </section>
+
+      <section class="contact-route" aria-label="Contact route">
+        <h2>Contact route</h2>
+        <p>If you need clarification, interview context, or expert commentary, use the dedicated contact page.</p>
+        <div class="contact-route-grid">
+          <article class="contact-route-card">
+            <h3>Media consulting</h3>
+            <p>Editorial process, distribution risk, and audience strategy requests.</p>
+          </article>
+          <article class="contact-route-card">
+            <h3>Editorial / speaking inquiries</h3>
+            <p>Interviews, public panels, and background commentary.</p>
+          </article>
+          <article class="contact-route-card">
+            <h3>Research / academic contact</h3>
+            <p>Research collaboration, lectures, and source-context discussions.</p>
+          </article>
+        </div>
+        <p class="contact-route-links">
+          <a class="cta-btn cta-primary" href="/contact/">Open contact page</a>
+          <a
+            class="cta-btn js-email"
+            href="#"
+            data-user="ilya|klishin"
+            data-domain="gma|il.com"
+            data-label="Email Ilia Klishin"
+            data-subject="Inquiry from cases page"
+            >Email Ilia Klishin</a
+          >
+          <a class="cta-btn" href="https://t.me/vorewig" rel="noreferrer" target="_blank">Telegram @vorewig</a>
+        </p>
+      </section>
     </main>
 
     <footer class="footer">
@@ -321,11 +355,12 @@
       <nav class="secondary-nav" aria-label="Secondary">
         <a href="/archive/">Archive</a>
         <a href="/posts/">Posts</a>
-        <a href="/#curated-feed">Search</a>
+        <a href="/search/">Search</a>
         <a href="/rss.xml">RSS</a>
         <a href="/sitemap.xml">Sitemap</a>
         <a href="/source-registry-v1.tsv">Data / Registry</a>
       </nav>
     </footer>
+    <script defer src="/contact/contact.js?v=20260310-1"></script>
   </body>
 </html>

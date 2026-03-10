@@ -49,4 +49,5 @@ jobs:
             reputation-case/site/sitemap-de.xml \
             reputation-case/site/sitemap-es.xml \
             reputation-case/site/rss.xml \
-            reputation-case/site/robots.txt
+            reputation-case/site/robots.txt \
+            reputation-case/site/data/search-index.json

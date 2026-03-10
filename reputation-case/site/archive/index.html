@@ -8,7 +8,7 @@
       name="description"
       content="Archive layer with sitemap files, RSS, static post index, and source registries."
     />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content="noindex,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/archive/" />
     <link rel="alternate" hreflang="en" href="https://www.klishin.work/archive/" />
     <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/archive/" />
@@ -69,7 +69,8 @@
               { "@id": "https://www.klishin.work/#webpage" },
               { "@id": "https://www.klishin.work/bio/#webpage" },
               { "@id": "https://www.klishin.work/cases/#webpage" },
-              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/contact/#webpage" },
+              { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
             ]
           },
@@ -85,7 +86,8 @@
               { "@id": "https://www.klishin.work/#webpage" },
               { "@id": "https://www.klishin.work/bio/#webpage" },
               { "@id": "https://www.klishin.work/cases/#webpage" },
-              { "@id": "https://www.klishin.work/insights/#webpage" },
+              { "@id": "https://www.klishin.work/contact/#webpage" },
+              { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
             ],
             "inLanguage": "en"
@@ -96,7 +98,7 @@
     <style>
       body {
         margin: 0;
-        font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+        font-family: "Manrope", "Trebuchet MS", sans-serif;
         line-height: 1.5;
         color: #121212;
         background: #f5f3ef;
@@ -122,7 +124,7 @@
       }
       h1 {
         margin: 0 0 10px;
-        font-family: "Spectral", Georgia, serif;
+        font-family: "Newsreader", Georgia, serif;
         font-size: clamp(1.8rem, 4vw, 2.8rem);
       }
       ul {
@@ -160,7 +162,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -169,9 +171,9 @@
       <nav aria-label="Primary">
         <a href="/">Home</a>
         <a href="/bio/">Bio / About</a>
-        <a href="/insights/">Selected Work</a>
+        <a href="/selected/">Selected Work</a>
         <a href="/cases/">Cases / Clarifications</a>
-        <a href="/#contact">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
 
       <h1>Archive (Research Layer)</h1>
@@ -207,7 +209,7 @@
       <footer class="secondary-nav" aria-label="Secondary">
         <a href="/archive/">Archive</a>
         <a href="/posts/">Posts</a>
-        <a href="/#curated-feed">Search</a>
+        <a href="/search/">Search</a>
         <a href="/rss.xml">RSS</a>
         <a href="/sitemap.xml">Sitemap</a>
         <a href="/source-registry-v1.tsv">Data / Registry</a>

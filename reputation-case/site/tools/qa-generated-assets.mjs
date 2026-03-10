@@ -4,6 +4,7 @@ import path from "node:path";
 const SITE_DIR = path.resolve(process.cwd(), "reputation-case", "site");
 const POSTS_DIR = path.join(SITE_DIR, "posts");
 const DATA_PATH = path.join(SITE_DIR, "data", "digests.json");
+const SEARCH_INDEX_PATH = path.join(SITE_DIR, "data", "search-index.json");
 const REPORT_PATH = path.join(SITE_DIR, "qa-generated-assets-report.json");
 const DOMAIN = "https://www.klishin.work";
 const HOST = "www.klishin.work";
@@ -50,12 +51,12 @@ const parsePathList = (raw, fallback = []) => {
   return [...new Set(resolved)];
 };
 
-const CORE_SECTIONS = [
+const INDEXABLE_CORE_SECTIONS = [
   "index.html",
   "fr/index.html",
   "de/index.html",
   "es/index.html",
-  "about/index.html",
+  "selected/index.html",
   "bio/index.html",
   "bio/fr/index.html",
   "bio/de/index.html",
@@ -64,12 +65,56 @@ const CORE_SECTIONS = [
   "cases/fr/index.html",
   "cases/de/index.html",
   "cases/es/index.html",
-  "insights/index.html",
-  "insights/fr/index.html",
-  "insights/de/index.html",
-  "insights/es/index.html",
-  "archive/index.html",
-  "posts/index.html",
+];
+const STATIC_ROBOTS_POLICY = new Map([
+  ["index.html", "index"],
+  ["fr/index.html", "index"],
+  ["de/index.html", "index"],
+  ["es/index.html", "index"],
+  ["bio/index.html", "index"],
+  ["bio/fr/index.html", "index"],
+  ["bio/de/index.html", "index"],
+  ["bio/es/index.html", "index"],
+  ["cases/index.html", "index"],
+  ["cases/fr/index.html", "index"],
+  ["cases/de/index.html", "index"],
+  ["cases/es/index.html", "index"],
+  ["selected/index.html", "index"],
+  ["search/index.html", "noindex"],
+  ["about/index.html", "noindex"],
+  ["contact/index.html", "noindex"],
+  ["archive/index.html", "noindex"],
+  ["insights/index.html", "noindex"],
+  ["insights/fr/index.html", "noindex"],
+  ["insights/de/index.html", "noindex"],
+  ["insights/es/index.html", "noindex"],
+  ["posts/index.html", "noindex"],
+  ["posts/drafts.html", "noindex"],
+]);
+const MACHINE_FRAGMENT_PATTERNS = [
+  /\bmapped as\b/i,
+  /\bmachine[- ]?readable\b/i,
+  /\bsource[- ]?linked\b/i,
+  /\bentity disambiguation\b/i,
+  /\bsearch\/llm\/indexing\b/i,
+  /\bllm\b/i,
+  /\bindexing\b/i,
+  /\bthis page structures the topic\b/i,
+  /\bit structures the topic\b/i,
+  /\bthis card is valuable for timeline checks\b/i,
+  /\bas a dated source from\b/i,
+  /\bhelps verify chronology actors\b/i,
+  /\bcausal framing\b/i,
+  /\bmultilingual materials\b/i,
+  /\bpublic records\b/i,
+  /\battributable sourcing\b/i,
+  /\bnamed actors\b/i,
+  /\bdated events\b/i,
+  /\bpublication context\b/i,
+  /\bcontrole de timeline\b/i,
+  /\btimeline pruefung\b/i,
+  /\bchronologie akteure\b/i,
+  /\bkausalbezuge\b/i,
 ];
 
 const MULTILINGUAL_CLUSTERS = [
@@ -141,6 +186,59 @@ const slugify = (text = "") =>
     .replace(/-+/g, "-")
     .slice(0, 72) || "item";
 
+const normalizeText = (value = "") => String(value || "").replace(/\s+/g, " ").trim();
+
+const countWords = (text = "") =>
+  normalizeText(text)
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+const hasMachineText = (text = "") => {
+  const value = normalizeText(text);
+  if (!value) return false;
+  return MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(value));
+};
+
+const quoteCount = (item = {}) => {
+  const quotes = Array.isArray(item?.quotes) ? item.quotes : [item?.quote].filter(Boolean);
+  return quotes.map((x) => normalizeText(x)).filter(Boolean).length;
+};
+
+const isShowcaseCandidate = (item = {}) => {
+  const title = normalizeText(item?.title || "");
+  const source = normalizeText(item?.source || "").toLowerCase();
+  const topic = normalizeText(item?.topic || "").toLowerCase();
+  if (!title) return false;
+  if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
+  if (source === "methodology") return false;
+  if (topic.includes("editorial standard")) return false;
+  return true;
+};
+
+const isQaReviewedPost = (item = {}) => {
+  const summary = normalizeText(item?.summary || item?.digest || "");
+  const words = countWords(summary);
+  const keyIdeas = Array.isArray(item?.key_ideas)
+    ? item.key_ideas.map((x) => normalizeText(x)).filter(Boolean)
+    : [];
+  if (!summary) return false;
+  if (words < 75 || words > 150) return false;
+  if (keyIdeas.length < 3) return false;
+  if (quoteCount(item) < 2) return false;
+  return true;
+};
+
+const isIndexablePost = (item = {}) =>
+  String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS &&
+  isShowcaseCandidate(item) &&
+  isQaReviewedPost(item);
+
+const expectedPostFilename = (item = {}) => {
+  const explicitSlug = String(item?.slug || "").trim().replace(/\.html$/i, "");
+  const slug = explicitSlug || `${item?.id || "item"}-${slugify(item?.title || "entry")}`;
+  return `${slug}.html`;
+};
+
 const canonicalUrl = (relativePath = "") => {
   const clean = String(relativePath || "").replace(/^\/+/, "");
   if (!clean || clean === "index.html") return `${DOMAIN}/`;
@@ -158,6 +256,11 @@ const extractAll = (text = "", re) => [...text.matchAll(re)].map((m) => String(m
 const extractCanonical = (html = "") => {
   const match = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
   return match ? String(match[1] || "").trim() : "";
+};
+
+const extractRobotsMeta = (html = "") => {
+  const match = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']+)["']/i);
+  return match ? String(match[1] || "").trim().toLowerCase() : "";
 };
 
 const extractHreflangLinks = (html = "") => {
@@ -245,9 +348,7 @@ const pushWarn = (bucket, check, message, details = null) => {
 const checkPosts = async (items, issues) => {
   const expected = new Set();
   for (const item of items) {
-    const explicitSlug = String(item?.slug || "").trim().replace(/\.html$/i, "");
-    const slug = explicitSlug || `${item?.id || "item"}-${slugify(item?.title || "entry")}`;
-    expected.add(`${slug}.html`);
+    expected.add(expectedPostFilename(item));
   }
 
   const files = await fs.readdir(POSTS_DIR);
@@ -267,7 +368,7 @@ const checkPosts = async (items, issues) => {
   }
 };
 
-const checkSitemaps = async (issues) => {
+const checkSitemaps = async (indexableItems, issues) => {
   const requiredChildren = ["sitemap-core.xml", ...LANGS.map((l) => `sitemap-${l}.xml`)];
   const indexPath = path.join(SITE_DIR, "sitemap.xml");
   const indexXml = await fs.readFile(indexPath, "utf8");
@@ -306,7 +407,7 @@ const checkSitemaps = async (issues) => {
     }
   }
 
-  const coreExpected = CORE_SECTIONS.map((section) => canonicalUrl(section));
+  const coreExpected = INDEXABLE_CORE_SECTIONS.map((section) => canonicalUrl(section));
   const corePath = path.join(SITE_DIR, "sitemap-core.xml");
   const coreXml = await fs.readFile(corePath, "utf8");
   if (!/<urlset\b/i.test(coreXml)) {
@@ -358,6 +459,16 @@ const checkSitemaps = async (issues) => {
     }
 
     const locs = extractLocs(xml);
+    const expectedLangCount = indexableItems.filter(
+      (item) => String(item?.language || "").trim().toLowerCase() === lang
+    ).length;
+    if (locs.length !== expectedLangCount) {
+      pushError(
+        issues,
+        "sitemap.lang.count.mismatch",
+        `${name} has ${locs.length} URLs, expected ${expectedLangCount} indexable URLs.`
+      );
+    }
     for (const loc of locs) {
       if (!isCanonicalUrl(loc)) {
         pushError(issues, "sitemap.lang.non-canonical", `${name} has non-canonical URL.`, { loc });
@@ -401,6 +512,73 @@ const checkRss = async (entryCount, issues) => {
     if (!isCanonicalUrl(link)) {
       pushError(issues, "rss.item-link.non-canonical", "rss.xml item link is non-canonical.", { link });
     }
+  }
+};
+
+const checkSearchIndex = async (issues) => {
+  let raw;
+  try {
+    raw = await fs.readFile(SEARCH_INDEX_PATH, "utf8");
+  } catch (error) {
+    pushError(issues, "search-index.file.missing", "Missing data/search-index.json.");
+    return;
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch {
+    pushError(issues, "search-index.json.invalid", "data/search-index.json is not valid JSON.");
+    return;
+  }
+
+  const items = Array.isArray(payload?.items) ? payload.items : null;
+  if (!items) {
+    pushError(issues, "search-index.items.missing", "data/search-index.json is missing items array.");
+    return;
+  }
+
+  if (!payload?.generated_at || Number.isNaN(Date.parse(String(payload.generated_at)))) {
+    pushError(issues, "search-index.generated-at.invalid", "data/search-index.json has invalid generated_at.");
+  }
+
+  const seenIds = new Set();
+  let selectedCount = 0;
+  for (const item of items) {
+    const id = normalizeText(item?.id);
+    if (!id) {
+      pushError(issues, "search-index.item.id.missing", "Search index item is missing id.");
+      continue;
+    }
+    if (seenIds.has(id)) {
+      pushError(issues, "search-index.item.id.duplicate", "Duplicate search index id detected.", { id });
+      continue;
+    }
+    seenIds.add(id);
+
+    const type = normalizeText(item?.type).toLowerCase();
+    const url = normalizeText(item?.url);
+    if (!url || !isCanonicalUrl(url)) {
+      pushError(issues, "search-index.item.url.invalid", "Search index item has non-canonical URL.", { id, url });
+    }
+
+    if (type === "post") {
+      const status = normalizeText(item?.status).toLowerCase();
+      if (status !== "ready") {
+        pushError(issues, "search-index.item.post.status.invalid", "Search index includes non-ready post.", {
+          id,
+          status,
+        });
+      }
+    } else if (type === "selected") {
+      selectedCount += 1;
+    } else {
+      pushError(issues, "search-index.item.type.invalid", "Search index item has unknown type.", { id, type });
+    }
+  }
+
+  if (selectedCount === 0) {
+    pushError(issues, "search-index.selected.missing", "Search index has no selected-work entries.");
   }
 };
 
@@ -475,10 +653,9 @@ const checkRobots = async (issues) => {
   }
 };
 
-const checkHtmlSeoSemantics = async (issues) => {
-  const htmlPaths = [
-    ...CORE_SECTIONS.map((section) => path.join(SITE_DIR, section)),
-  ];
+const checkHtmlSeoSemantics = async (items, issues) => {
+  const htmlPaths = [...new Set([...STATIC_ROBOTS_POLICY.keys()].map((section) => path.join(SITE_DIR, section)))];
+  const itemByFile = new Map(items.map((item) => [expectedPostFilename(item), item]));
 
   const postFiles = (await fs.readdir(POSTS_DIR)).filter((x) => x.toLowerCase().endsWith(".html"));
   for (const file of postFiles) {
@@ -498,6 +675,22 @@ const checkHtmlSeoSemantics = async (issues) => {
       pushError(issues, "html.canonical.missing", `Missing canonical link in ${rel}.`);
     } else if (!isCanonicalUrl(canonical)) {
       pushError(issues, "html.canonical.non-canonical", `Canonical URL is not canonical in ${rel}.`, { canonical });
+    }
+
+    const robots = extractRobotsMeta(html);
+    if (!robots) {
+      pushError(issues, "html.robots.missing", `Missing robots meta in ${rel}.`);
+    }
+
+    const staticPolicy = STATIC_ROBOTS_POLICY.get(rel);
+    if (staticPolicy) {
+      const expectsIndex = staticPolicy === "index";
+      if (expectsIndex && !robots.includes("index,follow")) {
+        pushError(issues, "html.robots.static.index", `Expected index,follow robots policy in ${rel}.`, { robots });
+      }
+      if (!expectsIndex && !robots.includes("noindex,follow")) {
+        pushError(issues, "html.robots.static.noindex", `Expected noindex,follow robots policy in ${rel}.`, { robots });
+      }
     }
   }
 
@@ -553,6 +746,25 @@ const checkHtmlSeoSemantics = async (issues) => {
     const htmlPath = path.join(POSTS_DIR, file);
     const rel = `posts/${file}`;
     const html = await fs.readFile(htmlPath, "utf8");
+    const item = itemByFile.get(file);
+    if (!item) {
+      pushError(issues, "post.item.missing", `Cannot map generated file to source item: ${rel}`);
+      continue;
+    }
+
+    const postRobots = extractRobotsMeta(html);
+    const shouldIndex = isIndexablePost(item);
+    if (shouldIndex && !postRobots.includes("index,follow")) {
+      pushError(issues, "post.robots.index.mismatch", `Indexable post is not index,follow: ${rel}`, { robots: postRobots });
+    }
+    if (!shouldIndex && !postRobots.includes("noindex,follow")) {
+      pushError(
+        issues,
+        "post.robots.noindex.mismatch",
+        `Non-indexable post is not noindex,follow: ${rel}`,
+        { robots: postRobots }
+      );
+    }
 
     const nodes = flattenJsonLdNodes(extractJsonLdObjects(html));
     const article = nodes.find((node) => hasSchemaType(node, "Article"));
@@ -582,7 +794,7 @@ const checkHtmlSeoSemantics = async (issues) => {
   }
 };
 
-const checkHomeHtmlFirst = async (issues) => {
+const checkHomeHtmlFirst = async (minimumCards, issues) => {
   const html = await fs.readFile(HOME_INDEX, "utf8");
   if (!html.includes(HOME_FALLBACK_START) || !html.includes(HOME_FALLBACK_END)) {
     pushError(issues, "home.html-first.markers", "Home page is missing HTML-first fallback markers.");
@@ -598,11 +810,11 @@ const checkHomeHtmlFirst = async (issues) => {
 
   const between = html.slice(start + HOME_FALLBACK_START.length, end);
   const cardCount = (between.match(/<article class="card"/g) || []).length;
-  if (cardCount < 8) {
+  if (cardCount < minimumCards) {
     pushError(
       issues,
       "home.html-first.too-few-cards",
-      `Home page HTML-first fallback has too few cards: ${cardCount} (expected >= 8).`
+      `Home page HTML-first fallback has too few cards: ${cardCount} (expected >= ${minimumCards}).`
     );
   }
 
@@ -622,16 +834,17 @@ const main = async () => {
   const raw = await fs.readFile(DATA_PATH, "utf8");
   const payload = JSON.parse(raw);
   const items = Array.isArray(payload.items) ? payload.items : [];
-  const publishedItems = items.filter(
-    (item) => String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS
-  );
+  const publishedItems = items.filter((item) => String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS);
+  const indexableItems = items.filter((item) => isIndexablePost(item));
+  const minimumHomeCards = Math.min(8, Math.max(1, indexableItems.length));
 
   await checkPosts(items, issues);
-  await checkSitemaps(issues);
-  await checkRss(publishedItems.length, issues);
+  await checkSitemaps(indexableItems, issues);
+  await checkRss(indexableItems.length, issues);
+  await checkSearchIndex(issues);
   await checkRobots(issues);
-  await checkHtmlSeoSemantics(issues);
-  await checkHomeHtmlFirst(issues);
+  await checkHtmlSeoSemantics(items, issues);
+  await checkHomeHtmlFirst(minimumHomeCards, issues);
 
   const errors = issues.filter((x) => x.severity === "error");
   const warns = issues.filter((x) => x.severity === "warn");
@@ -641,12 +854,15 @@ const main = async () => {
       posts: true,
       sitemaps: true,
       rss: true,
+      search_index: true,
       robots: true,
       html_seo: true,
       home_html_first: true,
     },
     totals: {
       items: items.length,
+      published_items: publishedItems.length,
+      indexable_items: indexableItems.length,
       errors: errors.length,
       warnings: warns.length,
       issues: issues.length,

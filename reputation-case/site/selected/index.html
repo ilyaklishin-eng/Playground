@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selected Work | Ilia Klishin</title>
+    <meta
+      name="description"
+      content="Manually curated selection of Ilia Klishin's key journalism, analysis, diaspora-media work, essays, and public references."
+    />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://www.klishin.work/selected/" />
+    <link rel="alternate" hreflang="en" href="https://www.klishin.work/selected/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/selected/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Selected Work | Ilia Klishin" />
+    <meta
+      property="og:description"
+      content="A human-curated route through key publications and public texts."
+    />
+    <meta property="og:url" content="https://www.klishin.work/selected/" />
+    <meta property="og:site_name" content="Ilia Klishin" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Selected Work | Ilia Klishin" />
+    <meta
+      name="twitter:description"
+      content="A human-curated route through key publications and public texts."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css?v=20260310-3" />
+    <style>
+      .primary-nav a[aria-current="page"] {
+        border-color: var(--line-strong);
+        color: var(--ink);
+        background: var(--accent-soft);
+      }
+
+      .selected-page {
+        padding-bottom: 2rem;
+      }
+
+      .selected-hero {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--paper);
+        box-shadow: var(--shadow-card);
+        padding: 1.3rem 1.45rem;
+        margin-top: 1.35rem;
+      }
+
+      .selected-hero h1 {
+        margin: 0.35rem 0 0.5rem;
+      }
+
+      .selected-hero p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 72ch;
+      }
+
+      .reader-path {
+        margin-top: 0.75rem;
+        padding-left: 1rem;
+      }
+
+      .reader-path li {
+        margin: 0.3rem 0;
+      }
+
+      .cluster {
+        margin-top: 1rem;
+        border-top: 1px solid var(--line);
+        padding-top: 0.9rem;
+      }
+
+      .cluster h2 {
+        margin: 0;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 1.5rem;
+        letter-spacing: -0.01em;
+      }
+
+      .cluster-intro {
+        margin: 0.28rem 0 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .cluster-grid {
+        margin-top: 0.7rem;
+        display: grid;
+        gap: 0.95rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .work-card {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+        padding: 0.95rem 1rem;
+      }
+
+      .work-card h3 {
+        margin: 0;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 1.2rem;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+      }
+
+      .work-intro {
+        margin: 0.55rem 0 0;
+      }
+
+      .work-why {
+        margin: 0.52rem 0 0;
+        color: var(--muted);
+      }
+
+      .work-meta {
+        margin: 0.58rem 0 0;
+        padding-left: 1rem;
+      }
+
+      .work-meta li {
+        margin: 0.28rem 0;
+        color: var(--muted);
+      }
+
+      .work-meta strong {
+        color: var(--ink);
+      }
+
+      .work-meta a {
+        color: var(--accent-ink);
+        text-decoration: none;
+      }
+
+      .work-meta a:hover {
+        text-decoration: underline;
+      }
+
+      .selected-secondary {
+        margin-top: 1.1rem;
+        border-top: 1px solid var(--line);
+        padding-top: 0.8rem;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .selected-secondary a {
+        color: var(--accent-ink);
+        text-decoration: none;
+      }
+
+      .selected-secondary a:hover {
+        text-decoration: underline;
+      }
+
+      .selected-contact {
+        margin-top: 1.05rem;
+        border-top: 1px solid var(--line);
+        padding-top: 0.9rem;
+      }
+
+      .selected-contact h2 {
+        margin: 0;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 1.42rem;
+        letter-spacing: -0.01em;
+      }
+
+      .selected-contact > p {
+        margin: 0.4rem 0 0;
+        color: var(--muted);
+      }
+
+      .selected-contact-grid {
+        margin-top: 0.7rem;
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .selected-contact-card {
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+        padding: 0.72rem 0.8rem;
+      }
+
+      .selected-contact-card h3 {
+        margin: 0;
+        font-family: "Newsreader", Georgia, serif;
+        font-size: 1.04rem;
+        letter-spacing: -0.01em;
+      }
+
+      .selected-contact-card p {
+        margin: 0.42rem 0 0;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .selected-contact-links {
+        margin-top: 0.72rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .selected-contact-links .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0.48rem 0.88rem;
+        background: var(--paper);
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 0.84rem;
+        font-weight: 600;
+      }
+
+      .selected-contact-links .cta-btn:hover {
+        border-color: var(--line-strong);
+      }
+
+      .selected-contact-links .cta-primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: #fff;
+      }
+
+      @media (max-width: 920px) {
+        .cluster-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .selected-contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
+            "url": "https://www.klishin.work/"
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.klishin.work/selected/#webpage",
+            "url": "https://www.klishin.work/selected/",
+            "name": "Selected Work",
+            "description": "Manually curated route through key materials by Ilia Klishin.",
+            "inLanguage": "en",
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "mainEntity": { "@id": "https://www.klishin.work/selected/#itemlist" }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://www.klishin.work/selected/#itemlist",
+            "name": "Selected Work clusters",
+            "itemListOrder": "https://schema.org/ItemListOrderAscending",
+            "numberOfItems": 12
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div class="bg-ornament" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Go to home">Ilia Klishin</a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/bio/">Bio / About</a>
+        <a href="/selected/" aria-current="page">Selected Work</a>
+        <a href="/cases/">Cases / Clarifications</a>
+        <a href="/search/">Search</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="site-lang-switch" aria-label="Site language">
+        <a class="active" href="/selected/">EN</a>
+        <a href="/fr/">FR</a>
+        <a href="/de/">DE</a>
+        <a href="/es/">ES</a>
+      </div>
+    </header>
+
+    <main class="page selected-page">
+      <section class="selected-hero">
+        <p class="eyebrow">Manually Curated Route</p>
+        <h1>Selected Work</h1>
+        <p>
+          This page is a handpicked reading path for new visitors. It highlights key journalism, media-analysis work, public
+          texts, and project references without requiring a deep dive into the full archive.
+        </p>
+        <ol class="reader-path">
+          <li>Start with one piece from <strong>Journalism</strong> and one from <strong>Media strategy</strong>.</li>
+          <li>Continue with <strong>Propaganda / information systems</strong> for methodology and long-view analysis.</li>
+          <li>Use <strong>Volna / diaspora media</strong> and <strong>Key public texts</strong> for profile context.</li>
+        </ol>
+      </section>
+
+      <section class="cluster" id="journalism">
+        <h2>Journalism</h2>
+        <p class="cluster-intro">Public-interest reporting and commentary tied to concrete events and timelines.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>Putin-Macron talks and the Russia expertise gap</h3>
+            <p class="work-intro">
+              A February 2022 column on how a seemingly minor factual error in diplomatic coverage can expose a deeper expertise
+              problem in Russia reporting.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It shows a practical standard for distinguishing evidence-based analysis from
+              rumor-driven framing during a high-risk period.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Opinion column / media analysis</li>
+              <li><strong>Date:</strong> 2022-02-14</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Mass protests: lessons from a decade</h3>
+            <p class="work-intro">
+              A retrospective on the 2011-2012 protest cycle and the long-term political effects that can remain invisible in
+              short-horizon news judgments.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It provides context on civic mobilization beyond immediate outcomes and helps
+              interpret protest narratives with more historical precision.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Long-form commentary</li>
+              <li><strong>Date:</strong> 2021-12-10</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-002-mass-protests-lessons-from-a-decade.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cluster" id="media-strategy">
+        <h2>Media Strategy / Analysis</h2>
+        <p class="cluster-intro">Work on institutions, platform pressure, and editorial decision environments.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>Commentary on pressure against independent media institutions</h3>
+            <p class="work-intro">
+              A structural reading of how sustained pressure campaigns weaken independent newsrooms step by step rather than
+              through one isolated action.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It frames media pressure as a process with social consequences, useful for
+              readers evaluating institutional risk and resilience.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Institutional analysis / media freedom</li>
+              <li><strong>Date:</strong> 2021-08-24</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Four Ways the Kremlin Could Block Western Social Networks in Russia</h3>
+            <p class="work-intro">
+              A scenario-based piece that maps likely technical and regulatory pathways for restricting major social platforms.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It translates abstract censorship risk into concrete operational scenarios for
+              journalists, media managers, and platform observers.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Policy scenario analysis</li>
+              <li><strong>Date:</strong> 2021-02-12</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cluster" id="propaganda">
+        <h2>Propaganda / Information Systems</h2>
+        <p class="cluster-intro">Early and later-stage analysis of networked manipulation patterns.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>Early warning analysis on Russian troll expansion</h3>
+            <p class="work-intro">
+              A 2014 analysis arguing that domestic trolling practices were likely to scale outward into external influence
+              operations.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> This text captures an early analytical frame that later became central in wider
+              Western debates on disinformation.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Disinformation analysis</li>
+              <li><strong>Date:</strong> 2014-05-21</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Warning! An Army of Russian Trolls Has Invaded TikTok</h3>
+            <p class="work-intro">
+              A platform-focused follow-up that tracks how influence tactics adapt to new social formats and audience behavior.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It connects legacy troll-network logic to contemporary short-video ecosystems,
+              useful for understanding cross-platform evolution.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Platform influence analysis</li>
+              <li><strong>Date:</strong> 2020-12-18</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cluster" id="volna">
+        <h2>Volna / Diaspora Media</h2>
+        <p class="cluster-intro">Work on media products and audience needs in post-2022 exile environments.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>Volna Media project overview</h3>
+            <p class="work-intro">
+              A practical editorial initiative for Russian-speaking emigrant and refugee audiences across multiple European
+              countries.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It demonstrates applied media strategy under displacement conditions, where trust,
+              local relevance, and distribution resilience are critical.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Media project / editorial operations</li>
+              <li><strong>Date:</strong> 2022-present</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="https://linktr.ee/volnamedia" target="_blank" rel="noreferrer">Project page</a> ·
+                <a href="/bio/">Biography context</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Interview on creating an emigrant-focused media project</h3>
+            <p class="work-intro">
+              An interview discussing editorial rationale, product design, and practical constraints in building media for
+              dispersed diaspora communities.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It documents direct first-person context on strategy choices behind Volna’s
+              audience model and rollout.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Interview</li>
+              <li><strong>Date:</strong> 2023-09-27</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cluster" id="literature">
+        <h2>Literature / Essays / Cultural Commentary</h2>
+        <p class="cluster-intro">Texts on culture as a field where political meaning and identity framing are contested.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>Great Russian Literature Versus One Tweet by Stephen King</h3>
+            <p class="work-intro">
+              A commentary on symbolic conflict, cultural hierarchy, and the tension between classical authority and social-media
+              attention dynamics.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It illustrates how cultural rhetoric can be used as political signaling in public
+              discourse.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Cultural commentary</li>
+              <li><strong>Date:</strong> 2020-11-09</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Why Russians Dislike Good Russians in American Films</h3>
+            <p class="work-intro">
+              An essay on representation politics in cinema, focusing on how “positive” portrayals can still trigger rejection in
+              domestic interpretation.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It helps contextualize cultural narratives around image, identity, and external
+              framing.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Cultural essay</li>
+              <li><strong>Date:</strong> 2020-11-20</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">Digest card</a> ·
+                <a href="https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="cluster" id="public-texts">
+        <h2>Key Interviews / Public Texts</h2>
+        <p class="cluster-intro">High-visibility references useful for external profile verification and timeline context.</p>
+        <div class="cluster-grid">
+          <article class="work-card">
+            <h3>TEDx speaker profile: Ilya Klishin</h3>
+            <p class="work-intro">
+              Official TEDx event page confirming speaker participation and providing a stable external reference for public
+              speaking work.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It offers a neutral, independently hosted profile signal used in multilingual
+              biographical context.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Official speaker profile</li>
+              <li><strong>Date:</strong> 2012-11-24</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-006-tedx-speaker-profile-ilya-klishin.html">Digest card</a> ·
+                <a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+
+          <article class="work-card">
+            <h3>Guardian New East: 30 under 30 profile entry</h3>
+            <p class="work-intro">
+              The Guardian’s profile list placing Klishin among younger Moscow media and civic actors, with context on professional
+              role and technical contribution.
+            </p>
+            <p class="work-why">
+              <strong>Why this matters:</strong> It provides third-party international profile context outside Russian-language
+              media ecosystems.
+            </p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> Public profile / international media reference</li>
+              <li><strong>Date:</strong> 2015-06-08</li>
+              <li>
+                <strong>Links:</strong>
+                <a href="/posts/en-014-guardian-new-east-30-under-30-profile-entry.html">Digest card</a> ·
+                <a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noreferrer">Original source</a>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="selected-contact" aria-label="Contact route">
+        <h2>Contact route</h2>
+        <p>For media, speaking, and research requests, use the dedicated contact path.</p>
+        <div class="selected-contact-grid">
+          <article class="selected-contact-card">
+            <h3>Media consulting</h3>
+            <p>Editorial systems, audience growth strategy, and distribution architecture reviews.</p>
+          </article>
+          <article class="selected-contact-card">
+            <h3>Editorial / speaking inquiries</h3>
+            <p>Interviews, commentary, panel invitations, and public discussion formats.</p>
+          </article>
+          <article class="selected-contact-card">
+            <h3>Research / academic contact</h3>
+            <p>Collaboration, lectures, and source-context requests for media research.</p>
+          </article>
+        </div>
+        <div class="selected-contact-links">
+          <a class="cta-btn cta-primary" href="/contact/">Open contact page</a>
+          <a
+            class="cta-btn js-email"
+            href="#"
+            data-user="ilya|klishin"
+            data-domain="gma|il.com"
+            data-label="Email Ilia Klishin"
+            data-subject="Inquiry from selected work"
+            >Email Ilia Klishin</a
+          >
+          <a class="cta-btn" href="https://t.me/vorewig" target="_blank" rel="noreferrer">Telegram @vorewig</a>
+        </div>
+      </section>
+
+      <footer class="selected-secondary" aria-label="Secondary routes">
+        <a href="/insights/">Research/insights layer</a> ·
+        <a href="/posts/">Full static digest</a> ·
+        <a href="/archive/">Archive endpoints</a> ·
+        <a href="/source-registry-v1.tsv">Source registry (TSV)</a>
+      </footer>
+    </main>
+    <script defer src="/contact/contact.js?v=20260310-1"></script>
+  </body>
+</html>

@@ -61,7 +61,8 @@ jobs:
             reputation-case/site/sitemap-de.xml \
             reputation-case/site/sitemap-es.xml \
             reputation-case/site/rss.xml \
-            reputation-case/site/robots.txt
+            reputation-case/site/robots.txt \
+            reputation-case/site/data/search-index.json
 
       - name: Copy source registry into published root
         run: cp reputation-case/source-registry-v1.tsv reputation-case/site/source-registry-v1.tsv
