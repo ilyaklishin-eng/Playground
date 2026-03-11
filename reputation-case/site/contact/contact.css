@@ -72,16 +72,16 @@
   line-height: 1.62;
 }
 
-.contact-card a,
-.channel-card a,
-.expect-card a {
-  color: var(--accent-ink);
+.contact-card a:not(.cta-btn),
+.channel-card a:not(.cta-btn),
+.expect-card a:not(.cta-btn) {
+  color: var(--accent);
   text-decoration: none;
 }
 
-.contact-card a:hover,
-.channel-card a:hover,
-.expect-card a:hover {
+.contact-card a:not(.cta-btn):hover,
+.channel-card a:not(.cta-btn):hover,
+.expect-card a:not(.cta-btn):hover {
   text-decoration: underline;
 }
 
