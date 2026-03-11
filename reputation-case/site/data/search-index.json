@@ -1,8 +1,8 @@
 {
   "generated_at": "2026-03-06T00:00:00.000Z",
   "counts": {
-    "total": 31,
-    "posts": 19,
+    "total": 33,
+    "posts": 21,
     "selected": 12
   },
   "items": [
@@ -39,7 +39,7 @@
       "language": "EN",
       "status": "ready",
       "title": "Mass protests: lessons from a decade",
-      "summary": "Klishin traces the sequence from mass mobilization to repression: criminal cases, police violence, pressure on media owners, and harassment of public figures.",
+      "summary": "In this Dec 10, 2021 Moscow Times essay, Klishin revisits the 2011-2012 protest wave and questions the binary verdict that the movement simply failed. He traces how mass street mobilization shifted political language, expectations, and civic habits even without immediate institutional change.",
       "context": "The summary gives a clear reference point for later comparisons.",
       "topic": "civic protests",
       "source": "The Moscow Times",
@@ -377,6 +377,30 @@
       ]
     },
     {
+      "id": "en-108",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Bot Army: Why the Kremlin Fails at Soft Power",
+      "summary": "The column analyzes Kremlin bot infrastructure and explains why online aggression often undermines, rather than strengthens, the country's soft-power ambitions.",
+      "context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.",
+      "topic": "digital propaganda",
+      "source": "Carnegie.ru",
+      "date": "2015-07-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html",
+      "source_url": "https://carnegie.ru/commentary/60728",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "source-based summary"
+      ]
+    },
+    {
       "id": "en-017",
       "type": "post",
       "language": "EN",
@@ -428,6 +452,33 @@
         "investigative journalism",
         "2014",
         "war-reporting verification"
+      ]
+    },
+    {
+      "id": "en-009",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Likes Go West",
+      "summary": "In this May 21, 2014 Vedomosti column, Klishin argued that coordinated online manipulation techniques tested in Russia could be redirected toward Western audiences and political campaigns. He described an emerging operational mindset: escalation through provocative messaging, synthetic engagement, and cross-platform amplification rather than open persuasion.",
+      "context": "It connects media analysis with the original text published by Vedomosti.",
+      "topic": "media analysis",
+      "source": "Vedomosti",
+      "date": "2014-05-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation",
+        "troll operations",
+        "information warfare",
+        "social media",
+        "Russia",
+        "media analysis",
+        "influence campaigns",
+        "2014"
       ]
     },
     {

@@ -10,6 +10,9 @@ const preferredFeedLang = String(document?.body?.dataset?.feedLang || "").trim()
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
 const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
+const SHOWCASE_PINNED_IDS = {
+  EN: ["en-009", "en-002", "en-108"],
+};
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
 const UI_COPY = {
@@ -349,7 +352,7 @@ function render() {
     return haystack.includes(state.query);
   });
 
-  const curated = filtered
+  const sorted = filtered
     .slice()
     .sort((a, b) => {
       const aTs = Date.parse(String(a?.date || ""));
@@ -358,6 +361,16 @@ function render() {
       const safeB = Number.isNaN(bTs) ? 0 : bTs;
       if (safeB !== safeA) return safeB - safeA;
       return String(a?.id || "").localeCompare(String(b?.id || ""));
+    });
+
+  const pinnedIds = SHOWCASE_PINNED_IDS[state.lang] || [];
+  const pinnedRank = new Map(pinnedIds.map((id, index) => [id, index]));
+  const curated = sorted
+    .sort((a, b) => {
+      const rankA = pinnedRank.has(String(a?.id || "")) ? pinnedRank.get(String(a?.id || "")) : Number.POSITIVE_INFINITY;
+      const rankB = pinnedRank.has(String(b?.id || "")) ? pinnedRank.get(String(b?.id || "")) : Number.POSITIVE_INFINITY;
+      if (rankA !== rankB) return rankA - rankB;
+      return 0;
     })
     .slice(0, SHOWCASE_MAX_ITEMS);
 

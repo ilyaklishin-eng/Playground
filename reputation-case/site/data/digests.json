@@ -53,7 +53,7 @@
       "source": "The Moscow Times",
       "topic": "civic protests",
       "title": "Mass protests: lessons from a decade",
-      "digest": "This Dec. 10, 2021 Moscow Times article revisits the 2011-2012 fair-elections protests a decade later and asks whether the movement truly \"failed\" or instead reshaped the political field in slower ways. Klishin traces the sequence from mass mobilization to repression: criminal cases, police violence, pressure on media owners, and harassment of public figures.",
+      "digest": "In this Dec. 10, 2021 Moscow Times essay, Klishin revisits the 2011-2012 protest wave and questions the binary verdict that the movement simply failed. He traces how mass street mobilization shifted political language, expectations, and civic habits even without immediate institutional change. The piece argues that outcomes in authoritarian settings often unfold on delayed timelines: visible defeats can still alter social coordination, public memory, and future cycles of resistance. A decade later, the text frames protest history as a long process, not a one-season event.",
       "quote": "\"those demonstrations ended in defeat\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
       "copies": {
@@ -61,7 +61,7 @@
         "DE": "de-031",
         "ES": "es-013"
       },
-      "summary": "10, 2021 Moscow Times article revisits the 2011-2012 fair-elections protests a decade later and asks whether the movement truly \"failed\" or instead reshaped the political field in slower ways.",
+      "summary": "In this Dec. 10, 2021 Moscow Times essay, Klishin revisits the 2011-2012 protest wave and questions the binary verdict that the movement simply failed. He traces how mass street mobilization shifted political language, expectations, and civic habits even without immediate institutional change. The piece argues that outcomes in authoritarian settings often unfold on delayed timelines: visible defeats can still alter social coordination, public memory, and future cycles of resistance. A decade later, the text frames protest history as a long process, not a one-season event.",
       "key_ideas": [
         "The Moscow Times 2021 12 10 frames mass through named actors and decisions",
         "The text links protests to trust shifts and interpretation",
@@ -694,12 +694,12 @@
     {
       "id": "en-009",
       "language": "EN",
-      "status": "draft",
+      "status": "ready",
       "date": "2014-05-21",
       "source": "Vedomosti",
       "topic": "media analysis",
       "title": "Likes Go West",
-      "digest": "A Vedomosti column from 2014 about how techniques of online manipulation developed inside Russia could be redirected toward Western audiences. Read today, it feels like an early warning about troll infrastructures, platform pressure, and cross-border information campaigns.",
+      "digest": "In this May 21, 2014 Vedomosti column, Klishin argued that coordinated online manipulation techniques tested in Russia could be redirected toward Western audiences and political campaigns. He described an emerging operational mindset: escalation through provocative messaging, synthetic engagement, and cross-platform amplification rather than open persuasion. Read after the 2016 U.S. election cycle, the text functions as an early warning signal about infrastructure and intent, showing that intervention logic was already being articulated before it became a global mainstream security topic.",
       "quote": "\"Work aimed at the West was only beginning\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
       "copies": {
@@ -707,7 +707,7 @@
         "DE": "de-006",
         "ES": "es-020"
       },
-      "summary": "A Vedomosti column from 2014 about how techniques of online manipulation developed inside Russia could be redirected toward Western audiences. Read today, it feels like an early warning about troll infrastructures, platform pressure, and cross-border information campaigns.",
+      "summary": "In this May 21, 2014 Vedomosti column, Klishin argued that coordinated online manipulation techniques tested in Russia could be redirected toward Western audiences and political campaigns. He described an emerging operational mindset: escalation through provocative messaging, synthetic engagement, and cross-platform amplification rather than open persuasion. Read after the 2016 U.S. election cycle, the text functions as an early warning signal about infrastructure and intent, showing that intervention logic was already being articulated before it became a global mainstream security topic.",
       "key_ideas": [
         "Vedomosti 2014 05 21 frames vedomosti through named actors and decisions",
         "The text links 2014 to trust shifts and interpretation",
@@ -17778,7 +17778,7 @@
     {
       "id": "en-108",
       "language": "EN",
-      "status": "draft",
+      "status": "ready",
       "date": "2015-07-21",
       "source": "Carnegie.ru",
       "topic": "digital propaganda",

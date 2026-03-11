@@ -1439,6 +1439,9 @@ const buildRelatedLinks = (entries) =>
   });
 
 const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
+const HOME_PINNED_IDS = {
+  EN: ["en-009", "en-002", "en-108"],
+};
 
 const sortEntriesForHome = (a, b) => {
   const statusDelta = homeStatusRank(a?.item?.status) - homeStatusRank(b?.item?.status);
@@ -1464,7 +1467,18 @@ const pickHomeFallbackEntries = (entries, limit) => {
   const preferredLang = byLang.has("EN")
     ? "EN"
     : [...byLang.keys()].sort((a, b) => a.localeCompare(b))[0];
-  return (byLang.get(preferredLang) || []).slice(0, limit);
+  const preferred = (byLang.get(preferredLang) || []).slice();
+  const pinnedIds = HOME_PINNED_IDS[preferredLang] || [];
+  if (pinnedIds.length > 0) {
+    const rank = new Map(pinnedIds.map((id, index) => [id, index]));
+    preferred.sort((a, b) => {
+      const rankA = rank.has(String(a?.item?.id || "")) ? rank.get(String(a?.item?.id || "")) : Number.POSITIVE_INFINITY;
+      const rankB = rank.has(String(b?.item?.id || "")) ? rank.get(String(b?.item?.id || "")) : Number.POSITIVE_INFINITY;
+      if (rankA !== rankB) return rankA - rankB;
+      return sortEntriesByDateDesc(a, b);
+    });
+  }
+  return preferred.slice(0, limit);
 };
 
 const buildHomeFallbackCards = (entries) => {
