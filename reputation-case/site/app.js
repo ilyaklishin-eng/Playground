@@ -404,27 +404,30 @@ function render() {
 
   const pinnedIds = SHOWCASE_PINNED_IDS[state.lang] || [];
   const pinnedRank = new Map(pinnedIds.map((id, index) => [id, index]));
-  const curated = sorted
+  const prioritized = sorted
     .sort((a, b) => {
       const rankA = pinnedRank.has(String(a?.id || "")) ? pinnedRank.get(String(a?.id || "")) : Number.POSITIVE_INFINITY;
       const rankB = pinnedRank.has(String(b?.id || "")) ? pinnedRank.get(String(b?.id || "")) : Number.POSITIVE_INFINITY;
       if (rankA !== rankB) return rankA - rankB;
       return 0;
-    })
-    .slice(0, SHOWCASE_MAX_ITEMS);
+    });
 
-  const featured = curated.slice(0, 1);
+  const featured = prioritized.slice(0, 1);
   const featuredSet = new Set(featured);
-  const supportingPool = curated.filter((item) => !featuredSet.has(item));
+  const supportingPool = prioritized.filter((item) => !featuredSet.has(item));
   const supporting = pickDiverseBySource(supportingPool, 2, 1);
   const supportingSet = new Set(supporting);
   const additionalPool = supportingPool.filter((item) => !supportingSet.has(item));
-  const additional = pickDiverseBySource(additionalPool, ADDITIONAL_GRID_LIMIT, ADDITIONAL_MAX_PER_SOURCE);
+  const additional = pickDiverseBySource(additionalPool, ADDITIONAL_GRID_LIMIT, ADDITIONAL_MAX_PER_SOURCE).slice(
+    0,
+    Math.max(0, SHOWCASE_MAX_ITEMS - featured.length - supporting.length)
+  );
+  const renderedCount = featured.length + supporting.length + additional.length;
 
   renderShowcase(featured, supporting);
-  renderGrid(additional, { showEmpty: curated.length === 0 });
+  renderGrid(additional, { showEmpty: prioritized.length === 0 });
   if (moreWorkHead) moreWorkHead.hidden = additional.length === 0;
-  if (grid) grid.hidden = additional.length === 0 && curated.length > 0;
+  if (grid) grid.hidden = additional.length === 0 && renderedCount > 0;
 }
 
 function getOrderedLanguages() {
