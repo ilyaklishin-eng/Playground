@@ -488,10 +488,14 @@ function createCardNode(item, variant) {
   titleNode.appendChild(titleLink);
 
   node.querySelector(".card-meta").textContent = composeCardMeta(item);
-  node.querySelector(".card-digest").textContent = humanSummaryPreview(item, {
-    maxSentences: variant === "featured" ? 3 : 2,
-    maxLength: variant === "featured" ? 300 : 205,
-  });
+  const featuredFullDigest = normalizeText(item?.summary || item?.digest || "");
+  node.querySelector(".card-digest").textContent =
+    variant === "featured" && featuredFullDigest
+      ? featuredFullDigest
+      : humanSummaryPreview(item, {
+          maxSentences: 2,
+          maxLength: 205,
+        });
 
   const quoteNode = node.querySelector(".card-quote");
   const quoteText = variant === "featured" ? pickCardQuote(item) : "";
