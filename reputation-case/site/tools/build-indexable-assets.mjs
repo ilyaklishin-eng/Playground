@@ -303,6 +303,12 @@ const rewriteAssetLinksInHtml = async (assets) => {
         ...((asset.aliases || []).map((value) => String(value || "").trim()).filter(Boolean)),
       ]);
       const orderedAliases = [...aliases].sort((a, b) => b.length - a.length);
+      const ext = path.posix.extname(asset.sourceRelative);
+      const baseName = path.posix.basename(asset.sourceRelative, ext);
+      const dirName = path.posix.dirname(asset.sourceRelative);
+      const publicDir = dirName === "." ? "" : `/${dirName}`;
+      const canonicalDir = dirName === "." ? "" : `/${dirName}`;
+      const hashPattern = `[a-f0-9]{${FINGERPRINT_HEX_LENGTH}}`;
 
       const canonicalAbsoluteRe = new RegExp(
         `${escapeRegExpSafe(asset.sourceCanonicalAbsolute)}(?:\\?[^"'\\s)]+)?`,
@@ -310,10 +316,24 @@ const rewriteAssetLinksInHtml = async (assets) => {
       );
       html = html.replace(canonicalAbsoluteRe, asset.fingerprintCanonicalAbsolute);
 
+      // Rewrite any previous fingerprinted absolute canonical URL.
+      const oldCanonicalFingerprintedRe = new RegExp(
+        `${escapeRegExpSafe(baseUrl)}${escapeRegExpSafe(canonicalDir)}\\/${escapeRegExpSafe(baseName)}\\.${hashPattern}${escapeRegExpSafe(ext)}(?:\\?[^"'\\s)]+)?`,
+        "g"
+      );
+      html = html.replace(oldCanonicalFingerprintedRe, asset.fingerprintCanonicalAbsolute);
+
       for (const alias of orderedAliases) {
         const re = new RegExp(`${escapeRegExpSafe(alias)}(?:\\?[^"'\\s)]+)?`, "g");
         html = html.replace(re, asset.fingerprintPublicPath);
       }
+
+      // Rewrite any previous fingerprinted root-relative public path.
+      const oldPublicFingerprintedRe = new RegExp(
+        `${escapeRegExpSafe(publicDir)}\\/${escapeRegExpSafe(baseName)}\\.${hashPattern}${escapeRegExpSafe(ext)}(?:\\?[^"'\\s)]+)?`,
+        "g"
+      );
+      html = html.replace(oldPublicFingerprintedRe, asset.fingerprintPublicPath);
 
       const relativeFingerprintedRe = new RegExp(
         `(?:\\./|\\.\\./)+${escapeRegExpSafe(asset.fingerprintRelative)}(?:\\?[^"'\\s)]+)?`,
