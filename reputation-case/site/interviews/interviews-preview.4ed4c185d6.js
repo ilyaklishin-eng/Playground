@@ -1,13 +1,11 @@
 import interviews from "/data/interviews-data.js";
+import {
+  localizeInterviewItem,
+  matchesFormatFilter,
+} from "/interviews/interviews-localize.js";
 
 const grid = document.getElementById("interviewsPreviewGrid");
 const uiLang = String(document?.documentElement?.lang || "en").trim().slice(0, 2).toLowerCase();
-const CONTENT_LANG_BY_PAGE = {
-  en: "en",
-  fr: "fr",
-  de: "de",
-  es: "es",
-};
 const COPY = {
   en: { open: "Open material ->", empty: "No interviews are available in this language yet." },
   fr: { open: "Ouvrir le contenu ->", empty: "Aucun entretien n est encore disponible dans cette langue." },
@@ -19,13 +17,10 @@ const ACTIVE_COPY = COPY[uiLang] || COPY.en;
 if (!grid) {
   // script loaded on a page without interviews preview
 } else {
-  const expectedLang = CONTENT_LANG_BY_PAGE[uiLang];
   const items = interviews
-    .filter((item) => {
-      const language = normalizeLanguageCode(item.language);
-      return expectedLang ? language === expectedLang : true;
-    })
+    .map((item) => localizeInterviewItem(item, uiLang))
     .filter((item) => item.section === "interviews" || item.section === "features")
+    .filter((item) => matchesFormatFilter(item, "all"))
     .map((item) => ({ ...item, ts: parseDateToTimestamp(item.date) }))
     .sort((a, b) => {
       if (b.ts !== a.ts) return b.ts - a.ts;
@@ -34,15 +29,6 @@ if (!grid) {
     .slice(0, 6);
 
   renderPreview(items);
-}
-
-function normalizeLanguageCode(value = "") {
-  const language = String(value || "").trim().toLowerCase();
-  if (language.includes("english")) return "en";
-  if (language.includes("french")) return "fr";
-  if (language.includes("german") || language.includes("deutsch")) return "de";
-  if (language.includes("spanish")) return "es";
-  return "ru";
 }
 
 function parseDateToTimestamp(raw) {
@@ -103,7 +89,7 @@ function renderPreview(items) {
 
     const meta = document.createElement("p");
     meta.className = "interview-preview-meta";
-    meta.textContent = `${formatDisplayDate(item.date)} · ${item.language} · ${item.format}`;
+    meta.textContent = `${formatDisplayDate(item.date)} · ${item.languageLabel} · ${item.formatLabel}`;
 
     const title = document.createElement("h3");
     title.className = "interview-preview-title";

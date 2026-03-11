@@ -1,13 +1,11 @@
 import interviews from "/data/interviews-data.js";
+import {
+  localizeInterviewItem,
+  matchesFormatFilter,
+} from "/interviews/interviews-localize.js";
 
 const SECTION_ORDER = ["interviews", "features", "archive"];
 const uiLang = String(document?.documentElement?.lang || "en").trim().slice(0, 2).toLowerCase();
-const CONTENT_LANG_BY_PAGE = {
-  en: "en",
-  fr: "fr",
-  de: "de",
-  es: "es",
-};
 const COPY = {
   en: {
     empty: "No materials match the current filters.",
@@ -46,10 +44,9 @@ for (const section of SECTION_ORDER) {
 
 const preparedItems = interviews
   .map((item, index) => ({
-    ...item,
+    ...localizeInterviewItem(item, uiLang),
     id: `interview-${index + 1}`,
     ts: parseDateToTimestamp(item.date),
-    languageCode: normalizeLanguageCode(item.language),
   }))
   .sort((a, b) => {
     if (b.ts !== a.ts) return b.ts - a.ts;
@@ -104,21 +101,6 @@ function formatDisplayDate(raw) {
   return value;
 }
 
-function normalizeLanguageCode(value = "") {
-  const language = String(value || "").trim().toLowerCase();
-  if (language.includes("english")) return "en";
-  if (language.includes("french")) return "fr";
-  if (language.includes("german") || language.includes("deutsch")) return "de";
-  if (language.includes("spanish")) return "es";
-  return "ru";
-}
-
-function matchesPageLanguage(item) {
-  const expected = CONTENT_LANG_BY_PAGE[uiLang];
-  if (!expected) return true;
-  return item.languageCode === expected;
-}
-
 function bindFilters() {
   document.querySelectorAll(".filter-btn[data-format]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -140,25 +122,12 @@ function updateFormatButtons() {
 }
 
 function matchesFormat(item) {
-  if (state.format === "all") return true;
-  const value = String(item.format || "").toLowerCase();
-
-  if (state.format === "text") {
-    return value.includes("text") || value.includes("feature");
-  }
-  if (state.format === "video") {
-    return value.includes("video");
-  }
-  if (state.format === "podcasts") {
-    return value.includes("podcast");
-  }
-  return true;
+  return matchesFormatFilter(item, state.format);
 }
 
 function filterItems(items, section) {
   return items.filter((item) => {
     if (item.section !== section) return false;
-    if (!matchesPageLanguage(item)) return false;
     if (!matchesFormat(item)) return false;
     return true;
   });
@@ -197,8 +166,8 @@ function renderCard(item) {
 
   dateNode.textContent = formatDisplayDate(item.date);
   dateNode.setAttribute("content", normalizeIsoDate(item.date));
-  langNode.textContent = item.language;
-  formatNode.textContent = item.format;
+  langNode.textContent = item.languageLabel;
+  formatNode.textContent = item.formatLabel;
 
   const titleLink = node.querySelector(".interview-title-link");
   titleLink.href = item.url;
@@ -228,14 +197,14 @@ function normalizeIsoDate(raw) {
 }
 
 function injectStructuredData() {
-  const visibleItems = preparedItems.filter((item) => matchesPageLanguage(item));
+  const visibleItems = preparedItems;
   const listElements = visibleItems.map((item, index) => ({
     "@type": "ListItem",
     position: index + 1,
     item: {
       "@type": "CreativeWork",
       name: item.title,
-      inLanguage: item.languageCode,
+      inLanguage: uiLang,
       datePublished: normalizeIsoDate(item.date) || undefined,
       url: item.url,
       description: item.description
