@@ -162,6 +162,38 @@ const LANGS = ["EN", "FR", "DE", "ES"];
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
+const SELECTED_SECTION_CONFIG = [
+  {
+    id: "journalism",
+    title: "Journalism",
+    intro: "Public-interest reporting and commentary tied to concrete events and timelines.",
+  },
+  {
+    id: "media-strategy",
+    title: "Media Strategy / Analysis",
+    intro: "Work on institutions, platform pressure, and editorial decision environments.",
+  },
+  {
+    id: "propaganda",
+    title: "Propaganda / Information Systems",
+    intro: "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+  },
+  {
+    id: "volna",
+    title: "Volna / Diaspora Media",
+    intro: "Work on editorial products and audience needs in post-2022 exile environments.",
+  },
+  {
+    id: "literature",
+    title: "Literature / Essays / Cultural Commentary",
+    intro: "Texts on culture, representation, and symbolic politics in public discourse.",
+  },
+  {
+    id: "public-texts",
+    title: "Profiles and external records",
+    intro: "Third-party publications and institutional references used as external context.",
+  },
+];
 const isPublishedStatus = (value = "") => String(value || "").trim().toLowerCase() === "ready";
 const toHtmlLang = (value = "") => {
   const lang = String(value || "").toUpperCase();
@@ -457,6 +489,58 @@ const cleanDisplayTitle = (rawTitle = "") => {
     .replace(/\s+/g, " ")
     .trim();
   return cleaned || raw;
+};
+
+const normalizeTopicLabel = (value = "") => {
+  const normalized = normalizeText(value).replace(/[_-]+/g, " ").trim();
+  if (!normalized) return "Article";
+  return toTitleCase(normalized);
+};
+
+const isInterviewLike = (item = {}) => {
+  const text = normalizeText(
+    [item?.title, item?.topic, item?.source, item?.url, item?.relation, item?.material_type].join(" ")
+  ).toLowerCase();
+  if (!text) return false;
+  if (
+    /\b(interview|podcast|conversation|q&a|video interview|audio interview|roundtable)\b/.test(text)
+  ) {
+    return true;
+  }
+  if (/youtube\.com|youtu\.be|podcasts\.apple\.com|rss\.com\/podcasts/.test(text)) return true;
+  return false;
+};
+
+const classifySelectedSection = (item = {}) => {
+  const source = normalizeText(item?.source).toLowerCase();
+  const title = normalizeText(item?.title).toLowerCase();
+  const topic = normalizeText(item?.topic).toLowerCase();
+  const blob = `${title} ${topic} ${source}`;
+
+  if (/\b(volna|diaspora|emigrant|exile|refugee|migration)\b/.test(blob)) {
+    return "volna";
+  }
+  if (/\b(cultural|culture|literature|essay|cinema|representation|stephen king|film)\b/.test(blob)) {
+    return "literature";
+  }
+  if (
+    /\b(disinformation|propaganda|troll|bot army|platform influence|information systems|tik ?tok|telegram channels?)\b/.test(
+      blob
+    )
+  ) {
+    return "propaganda";
+  }
+  if (["human rights watch", "los angeles times", "news24"].includes(source)) {
+    return "public-texts";
+  }
+  if (
+    /\b(media freedom|media ethics|social network regulation|electoral timing|comparative media framing|public opinion|elite discourse)\b/.test(
+      blob
+    )
+  ) {
+    return "media-strategy";
+  }
+  return "journalism";
 };
 
 const PLACEHOLDER_TITLE_RE = [
@@ -1279,6 +1363,103 @@ const normalizeSearchUrl = (href = "") => {
   if (raw.startsWith("//")) return `https:${raw}`;
   if (raw.startsWith("/")) return canonicalUrl(raw.slice(1));
   return canonicalUrl(raw);
+};
+
+const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
+  const item = entry?.item || {};
+  const displayTitle = htmlEscape(resolveDisplayTitle(item));
+  const intro = htmlEscape(previewSummary(item));
+  const context = htmlEscape(previewContext(item));
+  const topicType = htmlEscape(normalizeTopicLabel(item?.topic));
+  const date = htmlEscape(normalizeText(item?.date || "-"));
+  const digestHref = canonicalUrl(`posts/${idToPostPath.get(item?.id) || entry?.postPath || ""}`);
+  const sourceHrefRaw = normalizeSourceUrl(item?.url || "");
+  const sourceHref = sourceHrefRaw ? htmlEscape(sourceHrefRaw) : htmlEscape(digestHref);
+  const sourceLabel = sourceHrefRaw ? "Original source" : "Digest card";
+
+  return `          <article class="work-card">
+            <h3>${displayTitle}</h3>
+            <p class="work-intro">${intro}</p>
+            <p class="work-why">${context}</p>
+            <ul class="work-meta">
+              <li><strong>Type:</strong> ${topicType}</li>
+              <li><strong>Date:</strong> ${date}</li>
+              <li>
+                <a href="${htmlEscape(digestHref)}">Digest card</a> ·
+                <a href="${sourceHref}" target="_blank" rel="noopener noreferrer">${sourceLabel}</a>
+              </li>
+            </ul>
+          </article>`;
+};
+
+const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
+  const scoped = entries
+    .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
+    .filter((entry) => isPublishedStatus(entry?.item?.status))
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => !isInterviewLike(entry?.item))
+    .slice()
+    .sort(sortEntriesByDateDesc);
+
+  const grouped = new Map(SELECTED_SECTION_CONFIG.map((section) => [section.id, []]));
+  for (const entry of scoped) {
+    const sectionId = classifySelectedSection(entry?.item);
+    if (!grouped.has(sectionId)) grouped.set(sectionId, []);
+    grouped.get(sectionId).push(entry);
+  }
+
+  const sections = SELECTED_SECTION_CONFIG.map((section) => {
+    const cards = grouped.get(section.id) || [];
+    const cardsHtml =
+      cards.length > 0
+        ? cards.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n")
+        : `          <p class="cluster-intro">No published articles in this section yet.</p>`;
+
+    return `<section class="cluster" id="${section.id}">
+        <h2>${section.title}</h2>
+        <p class="cluster-intro">${section.intro}</p>
+        <div class="cluster-grid">
+${cardsHtml}
+        </div>
+      </section>`;
+  });
+
+  return {
+    html: sections.join("\n\n"),
+    itemCount: scoped.length,
+  };
+};
+
+const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
+  let html;
+  try {
+    html = await fs.readFile(selectedPagePath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+
+  const { html: sectionsHtml, itemCount } = buildSelectedSectionsHtml(entries, idToPostPath);
+  const blockRe =
+    /<section class="cluster" id="journalism">[\s\S]*?(?=\s*<section class="selected-contact")/m;
+  if (!blockRe.test(html)) {
+    throw new Error(`Unable to locate Selected Work cluster block in ${selectedPagePath}`);
+  }
+
+  let next = html.replace(blockRe, `${sectionsHtml}\n\n`);
+  next = next.replace(
+    /("description":\s*")Manually curated route through key materials by Ilia Klishin\.(")/,
+    '$1Section-based index of published articles by Ilia Klishin, excluding interview materials.$2'
+  );
+  next = next.replace(/("numberOfItems":\s*)\d+/, `$1${itemCount}`);
+  next = next.replace(
+    /<p>\s*Start here if you want the clearest sense of my work\.\s*<\/p>/,
+    `<p>Browse all published article cards by section. Interview materials are kept in the separate Interviews page.</p>`
+  );
+
+  if (next !== html) {
+    await fs.writeFile(selectedPagePath, next, "utf8");
+  }
 };
 
 const extractSelectedCards = async () => {
@@ -2232,8 +2413,9 @@ const main = async () => {
   const publishedEntries = entries.filter((entry) => isPublishedStatus(entry?.item?.status));
   const indexableEntries = entries.filter((entry) => isIndexablePost(entry?.item));
   const draftEntries = entries.filter((entry) => !isPublishedStatus(entry?.item?.status));
-  const selectedCards = await extractSelectedCards();
   const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
+  await updateSelectedWorkPage(entries, idToPostPath);
+  const selectedCards = await extractSelectedCards();
   const idToCluster = buildLanguageClusters(items);
   const searchIndex = buildSearchIndex(entries, selectedCards, idToCluster);
   const idToIndexStatus = new Map(
