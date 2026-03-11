@@ -1,4 +1,6 @@
 const grid = document.getElementById("digestGrid");
+const showcase = document.getElementById("digestShowcase");
+const moreWorkHead = document.getElementById("moreWorkHead");
 const template = document.getElementById("cardTemplate");
 const updatedAt = document.getElementById("updatedAt");
 const langSwitch = document.getElementById("langSwitch");
@@ -6,31 +8,32 @@ const searchInput = document.getElementById("searchInput");
 const uiLang = String(document?.documentElement?.lang || "en").trim().toLowerCase();
 const preferredFeedLang = String(document?.body?.dataset?.feedLang || "").trim().toUpperCase();
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
-const CURATED_FEED_LIMIT = 8;
+const SHOWCASE_MAX_ITEMS = 12;
+const ADDITIONAL_GRID_LIMIT = 9;
 const UI_COPY = {
   en: {
-    cardLink: "Read full card",
+    cardLink: "Read article",
     emptyFiltered: "No published cards match the current filter.",
     emptyLanguage: "No published cards are available in {lang} yet.",
     langTitlePublished: "{count} published cards",
     langTitleEmpty: "No published cards in {lang} yet",
   },
   fr: {
-    cardLink: "Lire la fiche complete",
+    cardLink: "Lire l article",
     emptyFiltered: "Aucune fiche publiee ne correspond au filtre actuel.",
     emptyLanguage: "Aucune fiche publiee n'est disponible en {lang} pour le moment.",
     langTitlePublished: "{count} fiches publiees",
     langTitleEmpty: "Aucune fiche publiee en {lang} pour le moment",
   },
   de: {
-    cardLink: "Vollstandige Karte lesen",
+    cardLink: "Artikel lesen",
     emptyFiltered: "Keine veroffentlichten Karten entsprechen dem aktuellen Filter.",
     emptyLanguage: "Noch keine veroffentlichten Karten in {lang} verfugbar.",
     langTitlePublished: "{count} veroffentlichte Karten",
     langTitleEmpty: "Noch keine veroffentlichten Karten in {lang}",
   },
   es: {
-    cardLink: "Leer ficha completa",
+    cardLink: "Leer articulo",
     emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
     emptyLanguage: "Todavia no hay fichas publicadas en {lang}.",
     langTitlePublished: "{count} fichas publicadas",
@@ -125,7 +128,9 @@ function stripLeadScaffolding(text) {
     .replace(/^Publie par .+? le \d{4}-\d{2}-\d{2},\s*/i, "")
     .replace(/^Dieser Beitrag in .+? \(\d{4}-\d{2}-\d{2}\)\s+untersucht.+?\.\s*/i, "")
     .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
-    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
+    .replace(/\bThe narrative avoids reductive labels[^.]*\./gi, "")
+    .replace(/\bSo readers can separate reported facts from interpretation[^.]*\./gi, "")
+    .replace(/\bInstead of categorical labeling[^.]*\./gi, "")
     .trim();
 }
 
@@ -148,16 +153,9 @@ function hasMachineFragments(sentence) {
   return MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(value));
 }
 
-function hashText(value) {
-  let hash = 0;
-  const text = String(value || "");
-  for (let i = 0; i < text.length; i += 1) {
-    hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
-  }
-  return hash;
-}
-
-function humanSummaryPreview(item) {
+function humanSummaryPreview(item, options = {}) {
+  const maxSentences = Number.isFinite(options.maxSentences) ? options.maxSentences : 2;
+  const maxLength = Number.isFinite(options.maxLength) ? options.maxLength : 220;
   const raw = normalizeText(item?.summary || item?.digest || "");
   if (!raw) return "";
   const cleaned = stripLeadScaffolding(raw) || raw;
@@ -169,16 +167,16 @@ function humanSummaryPreview(item) {
   let total = 0;
   for (const sentence of source) {
     const lengthWithGap = sentence.length + (selected.length > 0 ? 1 : 0);
-    if (selected.length >= 2 && total + lengthWithGap > 360) break;
-    if (selected.length >= 3) break;
+    if (selected.length >= maxSentences && total + lengthWithGap > maxLength) break;
+    if (selected.length >= maxSentences) break;
     selected.push(sentence);
     total += lengthWithGap;
   }
 
   let preview = selected.join(" ").trim();
   if (!preview) preview = source[0] || "";
-  if (preview.length > 380) {
-    preview = preview.slice(0, 380).replace(/\s+\S*$/, "").trim();
+  if (preview.length > maxLength) {
+    preview = preview.slice(0, maxLength).replace(/\s+\S*$/, "").trim();
   }
   if (!/[.!?]$/.test(preview)) preview += ".";
   return preview.replace(/^[a-z]/, (char) => char.toUpperCase());
@@ -199,64 +197,6 @@ function fallbackSummary(item) {
     return `Este texto de ${source}${year ? ` (${year})` : ""} explica la idea central sobre ${topic} y ubica su contexto de publicacion.`;
   }
   return `This piece from ${source}${year ? ` (${year})` : ""} explains the central issue in ${topic} and anchors it in publication context.`;
-}
-
-function fallbackContext(item) {
-  const topic = normalizeText(item?.topic || "the topic");
-  const source = normalizeText(item?.source || "the source");
-  const year = /^\d{4}/.test(String(item?.date || "")) ? String(item.date).slice(0, 4) : "";
-  const key = hashText(item?.id || `${topic}-${source}`);
-  const stamp = year ? ` (${year})` : "";
-  const lang = String(item?.language || "").toUpperCase();
-  if (lang === "FR") {
-    const variants = [
-      `Repere utile: ce texte situe ${topic} dans son contexte editorial${stamp}.`,
-      `Repere utile: la fiche resume ${topic} et renvoie au texte original sur ${source}.`,
-      `Repere utile: cette publication donne un point de reference date sur ${topic}.`,
-      `Repere utile: le lecteur retrouve ${topic} avec une source primaire verifiable.`,
-    ];
-    return variants[key % variants.length];
-  }
-  if (lang === "DE") {
-    const variants = [
-      `Nuetzlicher Kontext: Der Beitrag ordnet ${topic} im Zeitrahmen${stamp} ein.`,
-      `Nuetzlicher Kontext: Die Karte fasst ${topic} zusammen und verlinkt auf ${source}.`,
-      `Nuetzlicher Kontext: Diese Quelle bietet einen datierten Referenzpunkt zu ${topic}.`,
-      `Nuetzlicher Kontext: ${topic} wird mit direktem Zugang zur Primaerquelle erklaert.`,
-    ];
-    return variants[key % variants.length];
-  }
-  if (lang === "ES") {
-    const variants = [
-      `Contexto util: el texto ubica ${topic} en su momento editorial${stamp}.`,
-      `Contexto util: esta ficha resume ${topic} y enlaza al original en ${source}.`,
-      `Contexto util: ofrece un punto de referencia fechado para ${topic}.`,
-      `Contexto util: explica ${topic} con acceso directo a la fuente primaria.`,
-    ];
-    return variants[key % variants.length];
-  }
-  const variants = [
-    `Why it matters: it places ${topic} in a concrete editorial moment${stamp}.`,
-    `Why it matters: it gives a dated reference point for ${topic} and links to ${source}.`,
-    `Why it matters: it helps compare current claims on ${topic} with the original text.`,
-    `Why it matters: it explains ${topic} with direct access to the primary source.`,
-  ];
-  return variants[key % variants.length];
-}
-
-function humanContextPreview(item) {
-  const raw = normalizeText(item?.value_context || "");
-  if (!raw) return fallbackContext(item);
-
-  const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter((sentence) => !hasMachineFragments(sentence));
-  let context = candidates[0] || "";
-  if (!context || context.length < 36) context = fallbackContext(item);
-  if (context.length > 200) {
-    context = context.slice(0, 200).replace(/\s+\S*$/, "").trim();
-    if (!/[.!?]$/.test(context)) context += ".";
-  }
-  return context;
 }
 
 function pickCardQuote(item) {
@@ -290,6 +230,43 @@ function pickCardQuote(item) {
   return "";
 }
 
+function isReference(item) {
+  const topic = String(item?.topic || "").toLowerCase();
+  const title = String(item?.title || "").toLowerCase();
+  const explicit = String(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (
+    /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/.test(
+      topic
+    )
+  ) {
+    return true;
+  }
+  if (
+    /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/.test(
+      title
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function cardActionLabel(item) {
+  const title = String(item?.title || "").toLowerCase();
+  const source = String(item?.source || "").toLowerCase();
+  const topic = String(item?.topic || "").toLowerCase();
+  const url = String(item?.url || "").toLowerCase();
+  const isVideo =
+    /\b(video|talk)\b/.test(title) ||
+    /\b(youtube|tedx)\b/.test(source) ||
+    /\bpublic speaking\b/.test(topic) ||
+    /youtube\.com|youtu\.be|ted\.com/.test(url);
+  if (isVideo) return uiLang === "fr" ? "Regarder la video" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver video" : "Watch video";
+  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle offnen" : uiLang === "es" ? "Abrir fuente" : "Open source";
+  return t("cardLink");
+}
+
 init();
 
 function normalizeStatus(value) {
@@ -318,10 +295,12 @@ async function init() {
   const response = await fetch("/data/digests.json", { cache: "no-store" });
   const payload = await response.json();
   state.items = payload.items;
-  state.publishedItems = state.items.filter(isPublished);
+  state.publishedItems = state.items.filter((item) => isPublished(item) && !isReference(item));
   updatedAt.textContent = payload.updated_at || "-";
   renderLanguageSwitch();
   bindEvents();
+  bindCardInteractions(showcase);
+  bindCardInteractions(grid);
   render();
 }
 
@@ -355,7 +334,7 @@ function render() {
       item.title,
       item.source,
       item.topic,
-      item.digest,
+      item.digest || item.summary,
       item.language,
     ]
       .join(" ")
@@ -374,9 +353,16 @@ function render() {
       if (safeB !== safeA) return safeB - safeA;
       return String(a?.id || "").localeCompare(String(b?.id || ""));
     })
-    .slice(0, CURATED_FEED_LIMIT);
+    .slice(0, SHOWCASE_MAX_ITEMS);
 
-  renderGrid(curated);
+  const featured = curated.slice(0, 1);
+  const supporting = curated.slice(1, 3);
+  const additional = curated.slice(3, 3 + ADDITIONAL_GRID_LIMIT);
+
+  renderShowcase(featured, supporting);
+  renderGrid(additional, { showEmpty: curated.length === 0 });
+  if (moreWorkHead) moreWorkHead.hidden = additional.length === 0;
+  if (grid) grid.hidden = additional.length === 0 && curated.length > 0;
 }
 
 function getOrderedLanguages() {
@@ -404,7 +390,7 @@ function renderLanguageSwitch() {
     button.dataset.lang = lang;
     button.textContent = lang;
     button.setAttribute("aria-pressed", state.lang === lang ? "true" : "false");
-    button.setAttribute("aria-controls", "digestGrid");
+    button.setAttribute("aria-controls", "digestShowcase digestGrid");
     button.setAttribute("aria-label", `Show ${lang} cards`);
     button.title =
       count === 0 ? t("langTitleEmpty", { lang }) : t("langTitlePublished", { count, lang });
@@ -412,10 +398,36 @@ function renderLanguageSwitch() {
   }
 }
 
-function renderGrid(items) {
+function renderShowcase(featuredItems, supportingItems) {
+  if (!showcase) return;
+  showcase.innerHTML = "";
+
+  if (!featuredItems.length && !supportingItems.length) return;
+
+  const fragment = document.createDocumentFragment();
+  const featured = featuredItems[0];
+  if (featured) {
+    fragment.appendChild(createCardNode(featured, "featured"));
+  }
+
+  if (supportingItems.length) {
+    const stack = document.createElement("div");
+    stack.className = "supporting-stack";
+    for (const item of supportingItems) {
+      stack.appendChild(createCardNode(item, "supporting"));
+    }
+    fragment.appendChild(stack);
+  }
+
+  showcase.appendChild(fragment);
+}
+
+function renderGrid(items, options = {}) {
+  const showEmpty = Boolean(options.showEmpty);
   grid.innerHTML = "";
 
   if (!items.length) {
+    if (!showEmpty) return;
     const empty = document.createElement("div");
     empty.className = "empty";
     if (state.query) {
@@ -428,35 +440,70 @@ function renderGrid(items) {
   }
 
   const fragment = document.createDocumentFragment();
-  for (const item of items) {
-    const node = template.content.firstElementChild.cloneNode(true);
-
-    node.querySelector(".lang-tag").textContent = item.language;
-
-    node.querySelector(".card-title").textContent = cleanDisplayTitle(item.title);
-    node.querySelector(".card-meta").textContent = composeCardMeta(item);
-    node.querySelector(".card-digest").textContent = humanSummaryPreview(item);
-    const contextNode = node.querySelector(".card-context");
-    if (contextNode) {
-      contextNode.textContent = humanContextPreview(item);
-    }
-
-    const quoteText = pickCardQuote(item);
-    const quoteNode = node.querySelector(".card-quote");
-    if (quoteText) {
-      quoteNode.textContent = quoteText;
-      quoteNode.hidden = false;
-    } else {
-      quoteNode.textContent = "";
-      quoteNode.hidden = true;
-    }
-
-    const link = node.querySelector(".card-link");
-    link.href = item.url;
-    link.textContent = t("cardLink");
-
-    fragment.appendChild(node);
-  }
+  for (const item of items) fragment.appendChild(createCardNode(item, "standard"));
 
   grid.appendChild(fragment);
+}
+
+function createCardNode(item, variant) {
+  const node = template.content.firstElementChild.cloneNode(true);
+  node.classList.add(`card-${variant}`, "card-clickable");
+  node.dataset.url = item.url;
+  node.setAttribute("role", "link");
+  node.setAttribute("tabindex", "0");
+  node.setAttribute("aria-label", `${cleanDisplayTitle(item.title)} — ${composeCardMeta(item)}`);
+
+  node.querySelector(".lang-tag").textContent = item.language;
+
+  const titleNode = node.querySelector(".card-title");
+  const titleLink = document.createElement("a");
+  titleLink.href = item.url;
+  titleLink.className = "card-title-link";
+  titleLink.textContent = cleanDisplayTitle(item.title);
+  titleNode.textContent = "";
+  titleNode.appendChild(titleLink);
+
+  node.querySelector(".card-meta").textContent = composeCardMeta(item);
+  node.querySelector(".card-digest").textContent = humanSummaryPreview(item, {
+    maxSentences: variant === "featured" ? 3 : 2,
+    maxLength: variant === "featured" ? 300 : 205,
+  });
+
+  const quoteNode = node.querySelector(".card-quote");
+  const quoteText = variant === "featured" ? pickCardQuote(item) : "";
+  if (quoteText) {
+    quoteNode.textContent = quoteText;
+    quoteNode.hidden = false;
+  } else {
+    quoteNode.textContent = "";
+    quoteNode.hidden = true;
+  }
+
+  const link = node.querySelector(".card-link");
+  link.href = item.url;
+  link.textContent = t("cardLink");
+
+  return node;
+}
+
+function bindCardInteractions(container) {
+  if (!container || container.dataset.cardInteractionsBound === "1") return;
+  container.dataset.cardInteractionsBound = "1";
+
+  container.addEventListener("click", (event) => {
+    const card = event.target.closest(".card-clickable");
+    if (!card || !container.contains(card)) return;
+    if (event.target.closest("a,button,input,label")) return;
+    const href = card.dataset.url;
+    if (href) window.location.href = href;
+  });
+
+  container.addEventListener("keydown", (event) => {
+    const card = event.target.closest(".card-clickable");
+    if (!card || !container.contains(card)) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    const href = card.dataset.url;
+    if (href) window.location.href = href;
+  });
 }
