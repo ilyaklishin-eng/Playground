@@ -232,12 +232,43 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "WebPage",
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
+            "url": "https://www.klishin.work/"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/search/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "SearchResultsPage",
             "@id": "https://www.klishin.work/search/#webpage",
             "url": "https://www.klishin.work/search/",
             "name": "Search | Ilia Klishin",
             "description": "Search across published digest cards and selected work.",
-            "inLanguage": "en"
+            "inLanguage": "en",
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" }
           },
           {
             "@type": "SearchAction",

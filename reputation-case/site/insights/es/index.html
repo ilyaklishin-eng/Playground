@@ -33,6 +33,52 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.klishin.work/#person",
+            "name": "Ilia Klishin",
+            "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
+            "url": "https://www.klishin.work/"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/search/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.klishin.work/insights/es/#webpage",
+            "url": "https://www.klishin.work/insights/es/",
+            "name": "Trabajo seleccionado",
+            "description": "Hub de investigacion y navegacion de fichas publicadas de Ilia Klishin en contexto multilingue.",
+            "inLanguage": "es",
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <main>
