@@ -3,14 +3,14 @@
   <channel>
     <title>Ilia Klishin Publications Feed</title>
     <link>https://www.klishin.work/</link>
-    <description>Source-linked publication cards with short summaries, context notes, and original links.</description>
+    <description>Publication cards with concise summaries and links to original sources.</description>
     <lastBuildDate>Mon, 14 Feb 2022 00:00:00 GMT</lastBuildDate>
     <item>
       <title>Putin-Macron talks and the Russia expertise gap</title>
       <link>https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html</link>
       <guid>https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html</guid>
       <pubDate>Mon, 14 Feb 2022 00:00:00 GMT</pubDate>
-      <description>Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia.
+      <description>In this Feb. 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.
 
 Relevance: it provides a dated reference point for media analysis with a direct source path.
 
@@ -21,7 +21,7 @@ Original source: https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-hi
       <link>https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html</link>
       <guid>https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html</guid>
       <pubDate>Fri, 10 Dec 2021 00:00:00 GMT</pubDate>
-      <description>Moscow Times article revisits the 2011-2012 fair-elections protests a decade later and asks whether the movement truly &quot;failed&quot; or instead reshaped the political field in slower ways.
+      <description>10, 2021 Moscow Times article revisits the 2011-2012 fair-elections protests a decade later and asks whether the movement truly &quot;failed&quot; or instead reshaped the political field in slower ways. Klishin traces the sequence from mass mobilization to repression: criminal cases, police violence, pressure on media owners, and harassment of public figures.
 
 Use case: it helps compare later claims about civic protests with the original text.
 
@@ -54,7 +54,7 @@ Original source: https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-p
       <link>https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html</link>
       <guid>https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html</guid>
       <pubDate>Mon, 07 Jun 2021 00:00:00 GMT</pubDate>
-      <description>Media ethics are tested when reporting on high-stakes coerced-confession footage.
+      <description>Media ethics is outlined from the source The Moscow Times (2021), with the key contextual markers.
 
 Use case: it helps compare later claims about media ethics with the original text.
 
@@ -76,7 +76,7 @@ Original source: https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after
       <link>https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html</link>
       <guid>https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html</guid>
       <pubDate>Fri, 19 Mar 2021 00:00:00 GMT</pubDate>
-      <description>Elite discourse reveals limits of symbolic criticism when institutional accountability is weak.
+      <description>The Moscow Times (2021): the piece examines elite discourse through events, actors, and editorial framing.
 
 Context: this piece places elite discourse in a concrete editorial moment (2021).
 
@@ -98,7 +98,7 @@ Original source: https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin
       <link>https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html</link>
       <guid>https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html</guid>
       <pubDate>Thu, 14 Jan 2021 00:00:00 GMT</pubDate>
-      <description>Coverage of the Capitol attack was reframed for Russian audiences as comparative narrative relief.
+      <description>This publication from 2021 revisits comparative media framing with a fact-based summary and a clear timeline.
 
 Use case: it helps compare later claims about comparative media framing with the original text.
 
@@ -116,11 +116,11 @@ Reader value: disinformation and platforms is explained with immediate access to
 Original source: https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410</description>
     </item>
     <item>
-      <title>The Moscow Times (2020-11-20) - Why Russians Dislike Good Russians In American Films</title>
+      <title>Signed column in The Moscow Times</title>
       <link>https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html</link>
       <guid>https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html</guid>
       <pubDate>Fri, 20 Nov 2020 00:00:00 GMT</pubDate>
-      <description>Cultural symbols and representation frames affect trust, identity, and audience reaction.
+      <description>Based on The Moscow Times (2020), this note summarizes cultural representation and the public implications discussed in the text.
 
 Relevance: it provides a dated reference point for cultural representation with a direct source path.
 
@@ -142,7 +142,7 @@ Original source: https://www.themoscowtimes.com/2020/11/09/great-russian-literat
       <link>https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html</link>
       <guid>https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html</guid>
       <pubDate>Mon, 28 Sep 2020 00:00:00 GMT</pubDate>
-      <description>Platform dynamics and troll methods move from domestic messaging into wider information spaces.
+      <description>The Moscow Times (2020): the piece examines platform influence through events, actors, and editorial framing.
 
 Reader value: platform influence is explained with immediate access to the primary source.
 
@@ -164,44 +164,11 @@ Original source: https://www.themoscowtimes.com/2020/08/14/why-do-russians-resen
       <link>https://www.klishin.work/posts/en-020-la-times-coverage-referencing-tv-rain-soldier-investigations.html</link>
       <guid>https://www.klishin.work/posts/en-020-la-times-coverage-referencing-tv-rain-soldier-investigations.html</guid>
       <pubDate>Mon, 14 Sep 2015 00:00:00 GMT</pubDate>
-      <description>Evidence on Russian soldiers in Ukraine was verified, documented, and later cited by external institutions.
+      <description>Based on Los Angeles Times (2015), this note summarizes external validation and the public implications discussed in the text.
 
 Use case: it helps compare later claims about external validation with the original text.
 
 Original source: https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html</description>
-    </item>
-    <item>
-      <title>Freedom House referenced TV Rain reporting on Russian soldiers in eastern Ukraine</title>
-      <link>https://www.klishin.work/posts/en-011-freedom-house-referenced-dozhd-reporting-on-russian-soldiers-in-eastern-.html</link>
-      <guid>https://www.klishin.work/posts/en-011-freedom-house-referenced-dozhd-reporting-on-russian-soldiers-in-eastern-.html</guid>
-      <pubDate>Wed, 10 Jun 2015 00:00:00 GMT</pubDate>
-      <description>Freedom House’s Nations in Transit 2015 report on Russia provides institutional documentation of political repression, media pressure, and war-related information control during 2014. For this digest context, the key section is Independent Media and related civil-society analysis.
-
-Context: this piece places institutional citation in a concrete editorial moment (2015).
-
-Original source: https://freedomhouse.org/country/russia/nations-transit/2015</description>
-    </item>
-    <item>
-      <title>Guardian New East: 30 under 30 profile entry</title>
-      <link>https://www.klishin.work/posts/en-014-guardian-new-east-30-under-30-profile-entry.html</link>
-      <guid>https://www.klishin.work/posts/en-014-guardian-new-east-30-under-30-profile-entry.html</guid>
-      <pubDate>Mon, 08 Jun 2015 00:00:00 GMT</pubDate>
-      <description>Profile coverage connected media work with technical contributions to protest-era coordination.
-
-Reader value: professional profile is explained with immediate access to the primary source.
-
-Original source: https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list</description>
-    </item>
-    <item>
-      <title>Guardian profile notes role in protest-era digital infrastructure</title>
-      <link>https://www.klishin.work/posts/en-021-guardian-profile-notes-role-in-protest-era-digital-infrastructure.html</link>
-      <guid>https://www.klishin.work/posts/en-021-guardian-profile-notes-role-in-protest-era-digital-infrastructure.html</guid>
-      <pubDate>Mon, 08 Jun 2015 00:00:00 GMT</pubDate>
-      <description>Why protest outcomes that look like defeat can still produce long-term civic learning.
-
-Reader value: public profile is explained with immediate access to the primary source.
-
-Original source: https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list</description>
     </item>
     <item>
       <title>English press archive on intimidation claims tied to activism</title>
@@ -215,22 +182,11 @@ Use case: it helps compare later claims about international press record with th
 Original source: https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429</description>
     </item>
     <item>
-      <title>A verifiable public-speaking record linked to event pages, videos, and program</title>
-      <link>https://www.klishin.work/posts/en-022-regional-tedx-coverage-of-talk-on-propaganda-in-social-media.html</link>
-      <guid>https://www.klishin.work/posts/en-022-regional-tedx-coverage-of-talk-on-propaganda-in-social-media.html</guid>
-      <pubDate>Fri, 28 Nov 2014 00:00:00 GMT</pubDate>
-      <description>In this 2014-11-28 Diez / TEDx Chisinau coverage public speaking article, the central argument is a verifiable public-speaking record linked to event pages, videos, and program context.
-
-Context: this piece places public speaking in a concrete editorial moment (2014).
-
-Original source: https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/</description>
-    </item>
-    <item>
       <title>TV Rain launched &quot;Our Soldiers&quot; civilian investigation</title>
       <link>https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html</link>
       <guid>https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html</guid>
       <pubDate>Wed, 27 Aug 2014 00:00:00 GMT</pubDate>
-      <description>The framing is explicit: the goal is not rhetorical escalation but factual clarification of identities, numbers, and circumstances.
+      <description>The framing is explicit: the goal is not rhetorical escalation but factual clarification of identities, numbers, and circumstances. The page states that if authorities withhold information, independent verification must be built from open submissions, witness reports, and case-level documentation.
 
 Reader value: war-reporting verification is explained with immediate access to the primary source.
 
@@ -241,44 +197,22 @@ Original source: https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjas
       <link>https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html</link>
       <guid>https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html</guid>
       <pubDate>Wed, 21 May 2014 00:00:00 GMT</pubDate>
-      <description>Platform dynamics and troll methods move from domestic messaging into wider information spaces.
+      <description>This publication from 2014 revisits disinformation analysis with a fact-based summary and a clear timeline.
 
 Reader value: disinformation analysis is explained with immediate access to the primary source.
 
 Original source: https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651</description>
     </item>
     <item>
-      <title>TEDx speaker profile: Ilya Klishin</title>
-      <link>https://www.klishin.work/posts/en-006-tedx-speaker-profile-ilya-klishin.html</link>
-      <guid>https://www.klishin.work/posts/en-006-tedx-speaker-profile-ilya-klishin.html</guid>
-      <pubDate>Sat, 24 Nov 2012 00:00:00 GMT</pubDate>
-      <description>TEDxChisinau documentation works as a verifiable event record and speaker-profile source rather than a long-form analytical text. It provides structured metadata that supports biography and timeline consistency: location (Chisinau), event date (September 23, 2012), venue details, and program framing under the theme &quot;Next Level.
-
-Use case: it helps compare later claims about public speaking with the original text.
-
-Original source: https://www.ted.com/tedx/events/3947</description>
-    </item>
-    <item>
       <title>HRW report on harassment of critics includes Klishin case context</title>
       <link>https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html</link>
       <guid>https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html</guid>
       <pubDate>Thu, 01 Mar 2012 00:00:00 GMT</pubDate>
-      <description>Intimidation and harassment patterns around critics were documented in international rights reporting.
+      <description>Based on Human Rights Watch (2012), this note summarizes human rights documentation and the public implications discussed in the text.
 
 Relevance: it provides a dated reference point for human rights documentation with a direct source path.
 
 Original source: https://www.hrw.org/news/2012/03/01/russia-harassment-critics</description>
-    </item>
-    <item>
-      <title>International reporting on pressure linked to protest organizing</title>
-      <link>https://www.klishin.work/posts/en-015-international-reporting-on-pressure-linked-to-protest-organizing.html</link>
-      <guid>https://www.klishin.work/posts/en-015-international-reporting-on-pressure-linked-to-protest-organizing.html</guid>
-      <pubDate>Thu, 02 Feb 2012 00:00:00 GMT</pubDate>
-      <description>Why protest outcomes that look like defeat can still produce long-term civic learning.
-
-Context: this piece places civic activism in a concrete editorial moment (2012).
-
-Original source: https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics</description>
     </item>
   </channel>
 </rss>

@@ -221,6 +221,9 @@ const MACHINE_FRAGMENT_PATTERNS = [
   /\btimeline pruefung\b/i,
   /\bchronologie akteure\b/i,
   /\bkausalbezuge\b/i,
+  /\bthe narrative avoids reductive labels\b/i,
+  /\bso readers can separate reported facts from interpretation\b/i,
+  /\binstead of categorical labeling\b/i,
 ];
 
 const TECHNICAL_TAG_PATTERNS = [
@@ -275,6 +278,10 @@ const GENERIC_SOURCE_TITLE_RE =
   /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)\s*\(\d{4}-\d{2}-\d{2}\)(?:\s*-\s*.+)?$/i;
 const SOURCE_ONLY_TITLE_RE =
   /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)$/i;
+const REFERENCE_TOPIC_RE =
+  /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/i;
+const REFERENCE_TITLE_RE =
+  /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/i;
 
 const buildPostMetaTitle = (item = {}, displayTitle = "") => {
   const source = normalizeText(item?.source || "Publication");
@@ -346,9 +353,10 @@ const buildPostMetaDescription = (item = {}) => {
 
   let value = summary;
   if (source && !new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(value)) {
-    if (lang === "DE") value = `${value} Quelle: ${source}${date ? `, ${date}` : ""}.`;
-    else if (lang === "ES") value = `${value} Fuente: ${source}${date ? `, ${date}` : ""}.`;
-    else value = `${value} Source: ${source}${date ? `, ${date}` : ""}.`;
+    if (lang === "FR") value = `${value} Publie dans ${source}${date ? ` (${date})` : ""}.`;
+    else if (lang === "DE") value = `${value} Veroeffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
+    else if (lang === "ES") value = `${value} Publicado en ${source}${date ? ` (${date})` : ""}.`;
+    else value = `${value} Published in ${source}${date ? ` (${date})` : ""}.`;
   } else if (date && !value.includes(date)) {
     if (lang === "FR") value = `${value} Date de publication: ${date}.`;
     else if (lang === "DE") value = `${value} Veroeffentlicht: ${date}.`;
@@ -364,11 +372,40 @@ const composeCardMeta = (item = {}) => {
   return `${source} • ${date}`;
 };
 
+const isReferenceCard = (item = {}) => {
+  const explicit = normalizeText(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (explicit === "writing") return false;
+
+  const topic = normalizeText(item?.topic || "");
+  const title = normalizeText(item?.title || "");
+  if (!title && !topic) return false;
+  if (REFERENCE_TOPIC_RE.test(topic)) return true;
+  if (REFERENCE_TITLE_RE.test(title)) return true;
+  return false;
+};
+
+const sourceActionLabel = (item = {}) => {
+  const title = normalizeText(item?.title || "").toLowerCase();
+  const source = normalizeText(item?.source || "").toLowerCase();
+  const topic = normalizeText(item?.topic || "").toLowerCase();
+  const url = normalizeSourceUrl(item?.url || "").toLowerCase();
+  const looksVideo =
+    /\b(video|talk)\b/.test(title) ||
+    /\b(youtube|tedx)\b/.test(source) ||
+    /\bpublic speaking\b/.test(topic) ||
+    /youtube\.com|youtu\.be|ted\.com/.test(url);
+  if (looksVideo) return "Watch video";
+  if (isReferenceCard(item)) return "Open source";
+  return "Read original";
+};
+
 const isShowcaseCandidate = (item = {}) => {
   const title = normalizeText(item?.title || "");
   const source = normalizeText(item?.source || "").toLowerCase();
   const topic = normalizeText(item?.topic || "").toLowerCase();
   if (!title) return false;
+  if (isReferenceCard(item)) return false;
   if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
   if (source === "methodology") return false;
   if (topic.includes("editorial standard")) return false;
@@ -400,13 +437,10 @@ const quoteCount = (item = {}) => {
 };
 
 const isQaReviewedPost = (item = {}) => {
-  const summary = normalizeText(item?.summary || item?.digest || "");
+  const summary = normalizeText(item?.digest || item?.summary || "");
   const words = countWords(summary);
-  const keyIdeas = normalizedArray(item?.key_ideas);
   if (!summary) return false;
-  if (words < 75 || words > 150) return false;
-  if (keyIdeas.length < 3) return false;
-  if (quoteCount(item) < 2) return false;
+  if (words < 18 || words > 220) return false;
   return true;
 };
 
@@ -427,19 +461,13 @@ const stripLeadScaffolding = (text = "") =>
     .replace(/^Publie par .+? le \d{4}-\d{2}-\d{2},\s*/i, "")
     .replace(/^Dieser Beitrag in .+? \(\d{4}-\d{2}-\d{2}\)\s+untersucht.+?\.\s*/i, "")
     .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
-    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
     .trim();
 
 const splitSentences = (text = "") => {
   const matches = String(text || "").match(/[^.!?]+[.!?]+|[^.!?]+$/g);
   if (!Array.isArray(matches)) return [];
   return matches
-    .map((sentence) =>
-      sentence
-        .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/, "")
-        .replace(/\s+/g, " ")
-        .trim()
-    )
+    .map((sentence) => sentence.replace(/\s+/g, " ").trim())
     .filter(Boolean);
 };
 
@@ -491,7 +519,7 @@ const hashText = (value = "") => {
 };
 
 const previewSummary = (item = {}) => {
-  const raw = normalizeText(item?.summary || item?.digest || "");
+  const raw = normalizeText(item?.digest || item?.summary || "");
   if (!raw) return "";
 
   const cleaned = stripLeadScaffolding(raw) || raw;
@@ -1047,9 +1075,8 @@ const buildHomeFallbackCards = (entries) => {
       const title = htmlEscape(cleanDisplayTitle(item.title || "Untitled"));
       const meta = htmlEscape(composeCardMeta(item));
       const digest = htmlEscape(previewSummary(item));
-      const context = htmlEscape(previewContext(item));
-      const quote = htmlEscape(pickCardQuote(item));
-      const digestHref = canonicalUrl(`posts/${entry.postPath}`);
+      const sourceHref = htmlEscape(normalizeSourceUrl(item?.url || canonicalUrl(`posts/${entry.postPath}`)));
+      const actionLabel = htmlEscape(sourceActionLabel(item));
       return `        <article class="card">
           <div class="card-head">
             <span class="lang-tag">${lang}</span>
@@ -1057,9 +1084,7 @@ const buildHomeFallbackCards = (entries) => {
           <h3 class="card-title">${title}</h3>
           <p class="card-meta">${meta}</p>
           <p class="card-digest">${digest}</p>
-          <p class="card-context">${context}</p>
-          ${quote ? `<blockquote class="card-quote">${quote}</blockquote>` : ""}
-          <a class="card-link" href="${digestHref}">Read full card</a>
+          <a class="card-link" href="${sourceHref}" target="_blank" rel="noreferrer">${actionLabel}</a>
         </article>`;
     })
     .join("\n");
@@ -1109,16 +1134,13 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const displayTitle = cleanDisplayTitle(item.title);
   const metaTitle = buildPostMetaTitle(item, displayTitle);
   const title = `${metaTitle} | ${SITE_NAME}`;
-  const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
-  const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
+  const summary = previewSummary(item);
   const description = buildPostMetaDescription(item) || "Publication summary with source context and key claims.";
-  const keyIdeas = normalizedArray(item.key_ideas);
-  const quotes = normalizedArray(item.quotes);
   const semanticTags = normalizedArray(item.semantic_tags);
   const publicSemanticTags = sanitizeSemanticTags(semanticTags);
-  const valueContext = String(item.value_context || "").replace(/\s+/g, " ").trim();
   const canonical = canonicalUrl(postPath);
   const sourceLink = normalizeSourceUrl(item.url);
+  const sourceCtaLabel = sourceActionLabel(item);
   const htmlLang = toHtmlLang(item.language);
   const { alternates, xDefaultHref } = getAlternatesForItem(
     item,
@@ -1277,35 +1299,24 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           <p class="meta">${htmlEscape(composeCardMeta(item))}</p>
         </header>
         <section>
-          <h2>Summary</h2>
-          <p>${htmlEscape(summary || digest)}</p>
+          <p>${htmlEscape(summary)}</p>
         </section>
-        ${keyIdeas.length > 0
-          ? `<section><h2>Key Ideas</h2><ul>${keyIdeas.map((x) => `<li>${htmlEscape(x)}</li>`).join("")}</ul></section>`
-          : ""}
-        ${quotes.length > 0
-          ? `<section><h2>Quotes</h2><ul>${quotes.map((x) => `<li><blockquote>${htmlEscape(x)}</blockquote></li>`).join("")}</ul></section>`
-          : ""}
-        ${valueContext ? `<section><h2>Value / Context</h2><p>${htmlEscape(valueContext)}</p></section>` : ""}
-        ${languageLinks.length > 0
-          ? `<section><h2>Available languages</h2><ul>${languageLinks.join("")}</ul></section>`
-          : ""}
         <section>
-          <h2>Continue Reading</h2>
-          <h3>Main site routes</h3>
+          <h2>Continue on site</h2>
           <ul>
             <li><a href="/">Home overview and latest cards</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
             <li><a href="/cases/">Case clarifications (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
             <li><a href="/insights/">Insights research index</a></li>
-            <li><a href="/archive/">Archive and reference files</a></li>
+            <li><a href="/archive/">Archive</a></li>
           </ul>
-          ${topicLinks.length > 0 ? `<h3>More on this topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
-          ${sourceLinks.length > 0 ? `<h3>From the same source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
+          ${languageLinks.length > 0 ? `<h3>Available languages</h3><ul>${languageLinks.join("")}</ul>` : ""}
+          ${topicLinks.length > 0 ? `<h3>Related topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
+          ${sourceLinks.length > 0 ? `<h3>From this source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
           ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
         </section>
-        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">Open original source</a></p>
+        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>
       </article>
     </main>
     <footer class="secondary-nav" aria-label="Secondary">
@@ -1324,11 +1335,14 @@ const buildPostsIndexHtml = (entries, options = {}) => {
   const {
     canonicalPath = "posts/index.html",
     pageTitle = `${DIGEST_NAME} Posts`,
-    pageDescription = "Published post index with source-linked summaries and clean navigation by topic, source, and date.",
+    pageDescription = "Published post index with concise summaries and clean navigation by topic, source, and date.",
     listHeading = "Published posts",
     indexable = true,
   } = options;
-  const visibleEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
+  const scopedEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
+  const writingEntries = scopedEntries.filter((entry) => !isReferenceCard(entry?.item));
+  const referenceEntries = scopedEntries.filter((entry) => isReferenceCard(entry?.item));
+  const visibleEntries = writingEntries;
   const postsCanonical = canonicalUrl(canonicalPath);
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
@@ -1460,7 +1474,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
           <li><a href="/">Home overview and latest cards</a></li>
           <li><a href="/selected/">Selected Work</a></li>
           <li><a href="/insights/">Insights research index</a></li>
-          <li><a href="/posts/all.html">Full corpus (all cards, including drafts)</a></li>
+          <li><a href="/posts/all.html">Full corpus (writing + references, including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
           <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
           <li><a href="/rss.xml">RSS feed</a></li>
@@ -1470,7 +1484,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
       <section>
         <h2>${htmlEscape(listHeading)}</h2>
         <ul>
-${visibleEntries
+${writingEntries
   .map(
     (entry) =>
       `        <li><a href="./${entry.postPath}">${htmlEscape(cleanDisplayTitle(entry.item.title))}</a> — ${htmlEscape(composeCardMeta(entry.item))}</li>`
@@ -1478,6 +1492,19 @@ ${visibleEntries
   .join("\n")}
         </ul>
       </section>
+      ${referenceEntries.length > 0
+        ? `<section>
+        <h2>References</h2>
+        <ul>
+${referenceEntries
+  .map(
+    (entry) =>
+      `        <li><a href="./${entry.postPath}">${htmlEscape(cleanDisplayTitle(entry.item.title))}</a> — ${htmlEscape(composeCardMeta(entry.item))}</li>`
+  )
+  .join("\n")}
+        </ul>
+      </section>`
+        : ""}
     </main>
     <footer class="secondary-nav" aria-label="Secondary">
       <a href="/archive/">Archive</a>
@@ -1613,7 +1640,7 @@ const buildRss = (entries) => {
   <channel>
     <title>Ilia Klishin Publications Feed</title>
     <link>${xmlEscape(canonicalUrl("index.html"))}</link>
-    <description>Source-linked publication cards with short summaries, context notes, and original links.</description>
+    <description>Publication cards with concise summaries and links to original sources.</description>
     <lastBuildDate>${now}</lastBuildDate>
 ${items}
   </channel>
@@ -1757,8 +1784,8 @@ const main = async () => {
     buildPostsIndexHtml(entries, {
       canonicalPath: "posts/all.html",
       pageTitle: `${DIGEST_NAME}: Full Corpus`,
-      pageDescription: "Complete corpus view of all cards, including drafts, for research and editorial review.",
-      listHeading: "All cards (published + draft)",
+      pageDescription: "Complete corpus view of writing cards and reference records, including drafts.",
+      listHeading: "Writing",
       indexable: false,
     }),
     "utf8"
@@ -1770,6 +1797,7 @@ const main = async () => {
         canonicalPath: "posts/drafts.html",
         pageTitle: `${DIGEST_NAME} Draft Posts`,
         pageDescription: "Draft working index for editorial review; excluded from public indexing.",
+        listHeading: "Draft cards",
         indexable: false,
       }),
       "utf8"

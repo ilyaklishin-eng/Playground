@@ -9,28 +9,28 @@ const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const CURATED_FEED_LIMIT = 8;
 const UI_COPY = {
   en: {
-    cardLink: "Read full card",
+    cardLink: "Read original",
     emptyFiltered: "No published cards match the current filter.",
     emptyLanguage: "No published cards are available in {lang} yet.",
     langTitlePublished: "{count} published cards",
     langTitleEmpty: "No published cards in {lang} yet",
   },
   fr: {
-    cardLink: "Lire la fiche complete",
+    cardLink: "Lire la source",
     emptyFiltered: "Aucune fiche publiee ne correspond au filtre actuel.",
     emptyLanguage: "Aucune fiche publiee n'est disponible en {lang} pour le moment.",
     langTitlePublished: "{count} fiches publiees",
     langTitleEmpty: "Aucune fiche publiee en {lang} pour le moment",
   },
   de: {
-    cardLink: "Vollstandige Karte lesen",
+    cardLink: "Original lesen",
     emptyFiltered: "Keine veroffentlichten Karten entsprechen dem aktuellen Filter.",
     emptyLanguage: "Noch keine veroffentlichten Karten in {lang} verfugbar.",
     langTitlePublished: "{count} veroffentlichte Karten",
     langTitleEmpty: "Noch keine veroffentlichten Karten in {lang}",
   },
   es: {
-    cardLink: "Leer ficha completa",
+    cardLink: "Leer original",
     emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
     emptyLanguage: "Todavia no hay fichas publicadas en {lang}.",
     langTitlePublished: "{count} fichas publicadas",
@@ -68,7 +68,9 @@ function summaryPreview(text) {
       ""
     )
     .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
-    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
+    .replace(/\bThe narrative avoids reductive labels[^.]*\./gi, "")
+    .replace(/\bSo readers can separate reported facts from interpretation[^.]*\./gi, "")
+    .replace(/\bInstead of categorical labeling[^.]*\./gi, "")
     .trim();
 
   const source = stripped || plain;
@@ -86,6 +88,43 @@ function summaryPreview(text) {
   const clipped =
     first.length <= 320 ? first.trim() : first.slice(0, 320).replace(/\s+\S*$/, "").trim();
   return promoteSentenceCase(clipped);
+}
+
+function isReference(item) {
+  const topic = String(item?.topic || "").toLowerCase();
+  const title = String(item?.title || "").toLowerCase();
+  const explicit = String(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (
+    /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/.test(
+      topic
+    )
+  ) {
+    return true;
+  }
+  if (
+    /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/.test(
+      title
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function cardActionLabel(item) {
+  const title = String(item?.title || "").toLowerCase();
+  const source = String(item?.source || "").toLowerCase();
+  const topic = String(item?.topic || "").toLowerCase();
+  const url = String(item?.url || "").toLowerCase();
+  const isVideo =
+    /\b(video|talk)\b/.test(title) ||
+    /\b(youtube|tedx)\b/.test(source) ||
+    /\bpublic speaking\b/.test(topic) ||
+    /youtube\.com|youtu\.be|ted\.com/.test(url);
+  if (isVideo) return uiLang === "fr" ? "Regarder la video" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver video" : "Watch video";
+  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle offnen" : uiLang === "es" ? "Abrir fuente" : "Open source";
+  return t("cardLink");
 }
 
 init();
@@ -114,7 +153,7 @@ async function init() {
   const response = await fetch("/data/digests.json", { cache: "no-store" });
   const payload = await response.json();
   state.items = payload.items;
-  state.publishedItems = state.items.filter(isPublished);
+  state.publishedItems = state.items.filter((item) => isPublished(item) && !isReference(item));
   updatedAt.textContent = payload.updated_at || "-";
   renderLanguageSwitch();
   bindEvents();
@@ -148,7 +187,7 @@ function render() {
       item.title,
       item.source,
       item.topic,
-      item.digest,
+      item.digest || item.summary,
       item.language,
     ]
       .join(" ")
@@ -224,17 +263,12 @@ function renderGrid(items) {
     node.querySelector(".lang-tag").textContent = item.language;
 
     node.querySelector(".card-title").textContent = item.title;
-    node.querySelector(".card-meta").textContent = `${item.source} • ${item.date} • ${item.topic}`;
-    node.querySelector(".card-digest").textContent = summaryPreview(item.summary || item.digest);
-
-    const quoteCandidates = Array.isArray(item.quotes) && item.quotes.length > 0
-      ? item.quotes
-      : [item.quote].filter(Boolean);
-    node.querySelector(".card-quote").textContent = quoteCandidates[0] || "";
+    node.querySelector(".card-meta").textContent = `${item.source} • ${item.date}`;
+    node.querySelector(".card-digest").textContent = summaryPreview(item.digest || item.summary);
 
     const link = node.querySelector(".card-link");
     link.href = item.url;
-    link.textContent = t("cardLink");
+    link.textContent = cardActionLabel(item);
 
     fragment.appendChild(node);
   }
