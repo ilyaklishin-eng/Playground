@@ -286,6 +286,8 @@ This split keeps HTML fresh while allowing long-lived immutable cache for hashed
 ## 7) Verification commands
 
 ```bash
+./reputation-case/site/tools/publish-main-safe.sh --dry-run
+
 node reputation-case/site/tools/build-indexable-assets.mjs
 node reputation-case/site/tools/qa-generated-assets.mjs
 node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://www.klishin.work" --report
@@ -312,3 +314,29 @@ Expected:
 - no canonical URLs to `github.io`
 - `qa-generated-assets.mjs` exits with success and zero errors
 - endpoint check script reports no `403`, `429`, or challenge markers for `/`, `/cases/`, `/bio/`, `/insights/` under browser + `ChatGPT-User` + `OAI-SearchBot` + Perplexity UAs (and `GPTBot` unless `GPTBOT_POLICY=deny`)
+
+## 8) Stable publish workflow (prevents stuck deploy attempts)
+
+Use the safe publisher script:
+
+```bash
+./reputation-case/site/tools/publish-main-safe.sh
+```
+
+What it does automatically:
+
+- removes stale git lock files only when no process owns them
+- aborts half-finished rebase/merge/cherry-pick states
+- commits local checkpoint if workspace is dirty
+- integrates `origin/main` with `merge.renames=false` and `-X ours`
+- rebuilds generated assets and commits the generated diff
+- pushes `HEAD` to `main` and prints recent deploy runs
+
+Useful flags:
+
+- `--dry-run`: run all steps except push
+- `--no-build`: skip asset rebuild/QA (not recommended for normal publish)
+
+Important:
+
+- if merge says it may take minutes, do not interrupt it; interrupting leaves stale git state and causes subsequent deploy failures
