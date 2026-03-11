@@ -21,8 +21,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: QA content v1 gate (block regressions)
-        run: node reputation-case/site/tools/qa-content.mjs --output /tmp/qa-content-report.json
+      - name: QA public content gate (block regressions)
+        run: node reputation-case/site/tools/qa-public-content.mjs --output /tmp/qa-public-content-report.json
 
       - name: Build static digest assets
         env:
