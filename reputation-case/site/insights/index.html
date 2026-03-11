@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Insights | Ilia Klishin</title>
     <meta
       name="description"
@@ -103,6 +103,7 @@
         line-height: 1.5;
         color: #121212;
         background: #f5f3ef;
+        overflow-x: clip;
       }
       main {
         max-width: 860px;
@@ -116,9 +117,12 @@
         margin-bottom: 18px;
       }
       nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         border: 1px solid #d7d2ca;
         border-radius: 999px;
-        padding: 6px 12px;
+        padding: 8px 14px;
         text-decoration: none;
         color: #1c1c1c;
         background: #fff;
@@ -133,9 +137,13 @@
         background: #fff;
       }
       .site-lang-switch a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
         border: 1px solid transparent;
         border-radius: 999px;
-        padding: 2px 8px;
+        padding: 4px 10px;
         color: #4c4943;
         text-decoration: none;
         font-size: 0.82rem;
@@ -169,9 +177,12 @@
         gap: 8px;
       }
       .secondary-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         border: 1px solid #d7d2ca;
         border-radius: 999px;
-        padding: 6px 12px;
+        padding: 8px 14px;
         text-decoration: none;
         color: #4c4943;
         background: #fff;
@@ -180,6 +191,24 @@
       .secondary-nav a:hover {
         border-color: #0f4c81;
         color: #0f4c81;
+      }
+
+      @media (max-width: 520px) {
+        main {
+          padding: 18px 12px 34px;
+        }
+
+        nav,
+        .secondary-nav {
+          gap: 7px;
+        }
+
+        nav a,
+        .site-lang-switch a,
+        .secondary-nav a {
+          font-size: 0.8rem;
+          padding: 7px 12px;
+        }
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

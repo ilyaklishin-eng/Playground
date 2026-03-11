@@ -5,19 +5,41 @@
   --muted: #5f5a53;
   --line: #dad5cd;
   --accent: #0f4c81;
+  --tap-min: 44px;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: clip;
   color: var(--ink);
   background: radial-gradient(1200px 500px at 100% -10%, #efe9df 0%, var(--bg) 55%), var(--bg);
   font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
   line-height: 1.55;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+a {
+  overflow-wrap: anywhere;
 }
 
 .topbar,
@@ -35,6 +57,10 @@ body {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0.16rem 0;
   font-size: 1rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -54,6 +80,9 @@ body {
 }
 
 .primary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: var(--ink);
   border: 1px solid var(--line);
@@ -106,6 +135,9 @@ h1 {
 }
 
 .lang-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: var(--ink);
   border: 1px solid var(--line);
@@ -199,6 +231,9 @@ h1 {
 }
 
 .secondary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: var(--muted);
   border: 1px solid var(--line);
@@ -218,5 +253,37 @@ h1 {
     align-items: flex-start;
     gap: 0.6rem;
     flex-direction: column;
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar,
+  .cases-page,
+  .footer {
+    width: min(1060px, calc(100% - 1.4rem));
+  }
+
+  .topbar {
+    padding: 0.9rem 0 0.7rem;
+  }
+
+  .hero {
+    padding: 1rem 0 0.85rem;
+  }
+
+  .lead {
+    font-size: 0.96rem;
+  }
+
+  .case-card,
+  .refs-card {
+    padding: 0.9rem;
+  }
+
+  .primary-nav a,
+  .lang-links a,
+  .secondary-nav a {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.74rem;
   }
 }

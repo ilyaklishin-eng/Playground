@@ -10,15 +10,22 @@
   --accent-strong: #0d45a2;
   --accent-soft: rgba(20, 89, 200, 0.1);
   --shadow-card: 0 14px 34px rgba(15, 23, 42, 0.06);
+  --tap-min: 44px;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: clip;
   color: var(--ink);
   background:
     radial-gradient(720px 460px at -8% -12%, #dce9ff 0%, transparent 60%),
@@ -26,6 +33,22 @@ body {
     linear-gradient(180deg, var(--paper) 0%, var(--bg) 100%);
   font-family: "Manrope", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.52;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+a,
+blockquote {
+  overflow-wrap: anywhere;
 }
 
 .bg-ornament {
@@ -62,6 +85,10 @@ body {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0.16rem 0;
   text-decoration: none;
   color: var(--ink);
   font-size: 0.95rem;
@@ -82,6 +109,9 @@ body {
 }
 
 .primary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: #1e293b;
   border: 1px solid var(--line);
@@ -110,6 +140,10 @@ body {
 }
 
 .site-lang-switch a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: var(--muted);
   border: 1px solid transparent;
@@ -241,6 +275,7 @@ h1 {
 .cta-btn {
   display: inline-flex;
   align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -396,6 +431,9 @@ h1 {
 }
 
 .route-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -438,6 +476,10 @@ h1 {
 }
 
 .lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap-min);
   border: 1px solid var(--line);
   background: #ffffff;
   color: #1f2937;
@@ -471,6 +513,7 @@ h1 {
   width: min(320px, 62vw);
   border: 1px solid var(--line);
   border-radius: 999px;
+  min-height: var(--tap-min);
   padding: 0.52rem 0.85rem;
   background: #ffffff;
   font: inherit;
@@ -556,7 +599,9 @@ h1 {
 }
 
 .card-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   margin-top: 0.86rem;
   font-size: 0.86rem;
   font-weight: 600;
@@ -652,6 +697,9 @@ h1 {
 }
 
 .secondary-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
   text-decoration: none;
   color: #475569;
   border: 1px solid var(--line);
@@ -721,5 +769,40 @@ h1 {
   .footer,
   .topbar {
     width: min(1160px, calc(100% - 1.4rem));
+  }
+}
+
+@media (max-width: 520px) {
+  .topbar {
+    margin-top: 0.56rem;
+    padding: 0.62rem 0.66rem;
+    border-radius: 14px;
+  }
+
+  .hero-showcase {
+    border-radius: 20px;
+    padding: 0.95rem;
+  }
+
+  .lead {
+    font-size: 0.96rem;
+  }
+
+  .primary-nav a,
+  .cta-btn,
+  .route-chip,
+  .lang-btn,
+  .secondary-nav a,
+  .site-lang-switch a {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.74rem;
+  }
+
+  .card {
+    padding: 0.88rem;
+  }
+
+  .card-title {
+    font-size: 1.18rem;
   }
 }

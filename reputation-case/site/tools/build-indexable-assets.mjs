@@ -1199,7 +1199,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
 <html lang="${htmlLang}">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${htmlEscape(title)}</title>
     <meta name="description" content="${htmlEscape(description)}" />
     <link rel="canonical" href="${canonical}" />
@@ -1220,16 +1220,28 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
-      .site-header { max-width: 860px; margin: 0 auto; padding: 30px 20px 0; }
-      main { max-width: 860px; margin: 0 auto; padding: 18px 20px 56px; }
-      a { color: #0b4f7b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; line-height: 1.56; overflow-x: clip; }
+      .site-header, main, .secondary-nav { width: min(860px, calc(100% - 2rem)); margin: 0 auto; }
+      .site-header { padding: 20px 0 0; }
+      main { padding: 14px 0 42px; }
+      a { color: #0b4f7b; overflow-wrap: anywhere; }
       .meta { color: #555; font-size: 0.95rem; }
-      .topnav { font-size: 0.95rem; }
-      .topnav a { margin-right: 12px; }
+      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
+      .topnav a, .secondary-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.45rem 0.78rem;
+        border: 1px solid #d3cec4;
+        border-radius: 999px;
+        text-decoration: none;
+        background: #fff;
+      }
       section { margin-top: 18px; }
-      h2 { margin: 0 0 8px; font-size: 1.12rem; }
-      h3 { margin: 14px 0 8px; font-size: 0.98rem; }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; }
+      h3 { margin: 14px 0 8px; font-size: 0.96rem; }
+      p, li, h1, h2, h3, blockquote { overflow-wrap: anywhere; }
       ul { margin: 0; padding-left: 22px; }
       li { margin: 6px 0; }
       .source { margin-top: 24px; }
@@ -1237,8 +1249,14 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
       .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
       .tags li { margin: 0; border: 1px solid #d3cec4; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; }
       .post-header h1 { margin: 0; }
-      .secondary-nav { max-width: 860px; margin: 0 auto 40px; padding: 12px 20px 0; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
-      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
+      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+      @media (max-width: 520px) {
+        .site-header, main, .secondary-nav { width: min(860px, calc(100% - 1.3rem)); }
+        .site-header { padding-top: 12px; }
+        .post-header h1 { font-size: 1.9rem; line-height: 1.1; }
+        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
+        ul { padding-left: 18px; }
+      }
     </style>
   </head>
   <body>
@@ -1368,7 +1386,7 @@ const buildPostsIndexHtml = (entries, options = {}) => {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${htmlEscape(pageTitle)}</title>
     <meta name="description" content="${htmlEscape(pageDescription)}" />
     <link rel="canonical" href="${postsCanonical}" />
@@ -1390,18 +1408,34 @@ const buildPostsIndexHtml = (entries, options = {}) => {
     <meta name="robots" content="${indexable ? "index,follow" : "noindex,follow"}" />
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
-      .site-header { max-width: 880px; margin: 0 auto; padding: 30px 20px 0; }
-      main { max-width: 880px; margin: 0 auto; padding: 18px 20px 56px; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; overflow-x: clip; line-height: 1.56; }
+      .site-header, main, .secondary-nav { width: min(880px, calc(100% - 2rem)); margin: 0 auto; }
+      .site-header { padding: 20px 0 0; }
+      main { padding: 14px 0 42px; }
       li { margin: 8px 0; }
-      a { color: #0b4f7b; }
-      .topnav { font-size: 0.95rem; }
-      .topnav a { margin-right: 12px; }
+      a { color: #0b4f7b; overflow-wrap: anywhere; }
+      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
+      .topnav a, .secondary-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.45rem 0.78rem;
+        border: 1px solid #d3cec4;
+        border-radius: 999px;
+        text-decoration: none;
+        background: #fff;
+      }
       section { margin-top: 16px; }
-      h2 { margin: 0 0 8px; font-size: 1.12rem; }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; }
+      p, li, h1, h2, h3 { overflow-wrap: anywhere; }
       .lead { margin: 8px 0 0; color: #555; }
-      .secondary-nav { max-width: 880px; margin: 0 auto 40px; padding: 12px 20px 0; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
-      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
+      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+      @media (max-width: 520px) {
+        .site-header, main, .secondary-nav { width: min(880px, calc(100% - 1.3rem)); }
+        .site-header { padding-top: 12px; }
+        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
+      }
     </style>
   </head>
   <body>

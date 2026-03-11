@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Search | Ilia Klishin</title>
     <meta
       name="description"
@@ -85,6 +85,7 @@
       .search-query input {
         border: 1px solid var(--line);
         border-radius: 12px;
+        min-height: 44px;
         padding: 0.62rem 0.72rem;
         font: inherit;
         background: #fff;
@@ -99,6 +100,9 @@
       }
 
       .lang-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         border: 1px solid var(--line);
         border-radius: 999px;
         background: #fff;
@@ -107,7 +111,8 @@
         font-size: 0.78rem;
         font-weight: 700;
         line-height: 1;
-        padding: 0.45rem 0.74rem;
+        min-height: 44px;
+        padding: 0.45rem 0.84rem;
         cursor: pointer;
       }
 
@@ -203,10 +208,14 @@
       }
 
       .result-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         color: var(--accent-ink);
         text-decoration: none;
         font-size: 0.88rem;
         font-weight: 600;
+        padding: 0.08rem 0.24rem;
       }
 
       .result-links a:hover {
@@ -224,6 +233,27 @@
       @media (max-width: 920px) {
         .search-controls {
           padding: 0.82rem;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .search-hero {
+          padding: 1rem;
+          border-radius: 18px;
+        }
+
+        .search-controls {
+          padding: 0.75rem;
+          border-radius: 16px;
+        }
+
+        .result-card {
+          padding: 0.84rem;
+          border-radius: 14px;
+        }
+
+        .result-card h2 {
+          font-size: 1.12rem;
         }
       }
     </style>
