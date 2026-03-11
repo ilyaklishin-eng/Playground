@@ -3,26 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ilia Klishin (Ilya Klishin) | Biography, Publications, Selected Work</title>
+    <title>Ilia Klishin | Journalist, Editor, Media Strategist</title>
     <meta
       name="description"
-      content="Personal website of Ilia Klishin with biography, published article cards, and a separate research archive layer."
+      content="Independent journalist and media strategist. Selected writing, interviews, background context, and direct contact."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Ilia Klishin (Ilya Klishin) | Biography, Publications, Selected Work" />
+    <meta property="og:title" content="Ilia Klishin | Journalist, Editor, Media Strategist" />
     <meta
       property="og:description"
-      content="Biography and published cards with direct links to original sources."
+      content="Selected writing, interviews, case notes, and direct contact."
     />
     <meta property="og:url" content="https://www.klishin.work/" />
     <meta property="og:site_name" content="Ilia Klishin" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Ilia Klishin (Ilya Klishin) | Biography, Publications, Selected Work" />
+    <meta name="twitter:title" content="Ilia Klishin | Journalist, Editor, Media Strategist" />
     <meta
       name="twitter:description"
-      content="Biography and published cards with direct links to original sources."
+      content="Selected writing, interviews, case notes, and direct contact."
     />
     <link
       rel="alternate"
@@ -41,7 +41,8 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260310-3" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/home/home.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -53,6 +54,12 @@
             "alternateName": ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"],
             "url": "https://www.klishin.work/",
             "sameAs": [
+              "https://www.linkedin.com/in/ilia-klishin-20282a1b/",
+              "https://x.com/Vorewig",
+              "https://www.instagram.com/vorewig",
+              "https://www.facebook.com/ilya.klishin",
+              "https://t.me/vorewig",
+              "https://t.me/bookswithklishin",
               "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
               "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
               "https://www.ted.com/tedx/events/3947",
@@ -86,6 +93,7 @@
               { "@id": "https://www.klishin.work/bio/#webpage" },
               { "@id": "https://www.klishin.work/cases/#webpage" },
               { "@id": "https://www.klishin.work/contact/#webpage" },
+              { "@id": "https://www.klishin.work/interviews/#collectionpage" },
               { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/search/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
@@ -108,6 +116,7 @@
               { "@id": "https://www.klishin.work/bio/#webpage" },
               { "@id": "https://www.klishin.work/cases/#webpage" },
               { "@id": "https://www.klishin.work/contact/#webpage" },
+              { "@id": "https://www.klishin.work/interviews/#collectionpage" },
               { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/search/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
@@ -117,20 +126,25 @@
         ]
       }
     </script>
+      <meta property="og:image" content="https://www.klishin.work/og/site-default.jpg" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/jpeg" />
+      <meta name="twitter:image" content="https://www.klishin.work/og/site-default.jpg" />
   </head>
-  <body data-feed-lang="EN">
+  <body class="home-page" data-feed-lang="EN">
     <div class="bg-ornament" aria-hidden="true"></div>
-    <header class="topbar">
+    <header class="topbar" id="siteTopbar">
       <a class="brand" href="/" aria-label="Go to home">Ilia Klishin</a>
       <nav class="primary-nav" aria-label="Primary">
-        <a href="/">Home</a>
+        <a href="/" aria-current="page">Home</a>
         <a href="/bio/">Bio / About</a>
         <a href="/selected/">Selected Work</a>
-        <a href="/cases/">Cases / Clarifications</a>
-        <a href="/search/">Search</a>
+        <a href="/interviews/">Interviews</a>
         <a href="/contact/">Contact</a>
       </nav>
       <nav class="site-lang-switch" aria-label="Site language">
+        <span class="lang-label">Lang</span>
         <a class="active" href="/">EN</a>
         <a href="/fr/">FR</a>
         <a href="/de/">DE</a>
@@ -138,110 +152,94 @@
       </nav>
     </header>
 
-    <main class="page">
-      <section class="hero hero-showcase">
-        <div class="hero-layout">
-          <div class="hero-main">
+    <main class="page home-editorial">
+      <section class="home-hero" aria-labelledby="home-title">
+        <div class="home-hero-grid">
+          <div class="home-hero-copy">
             <p class="eyebrow">Ilia Klishin (also published as Ilya Klishin)</p>
-            <h1>Ilia Klishin</h1>
-            <p class="lead role-line">Journalist, editor, and media strategist based in Vilnius.</p>
-            <p class="lead positioning">
-              Personal website with biography, selected publications, and clear professional context.
+            <h1 id="home-title">Journalist, Editor, and Media Strategist</h1>
+            <p class="lead role-line">Based in Vilnius, working across journalism, editorial leadership, and media strategy.</p>
+            <p class="lead">
+              I write about media institutions, political communication, and information pressure. This site brings
+              together selected analysis, interviews, and source-backed background context.
             </p>
-            <ul class="focus-list" aria-label="Main activity areas">
-              <li>Independent-media editorial leadership and newsroom operations.</li>
-              <li>Digital media strategy and audience development.</li>
-              <li>Analysis of propaganda, media framing, and information influence.</li>
-              <li>Public commentary and analysis across journalism, media, and politics.</li>
+            <ul class="hero-proof-list" aria-label="Professional proof points">
+              <li><strong>TV Rain (Dozhd):</strong> former Head of Digital Newsroom.</li>
+              <li><strong>RTVI:</strong> former Digital Director.</li>
+              <li><strong>Volna Media and KF Agency:</strong> founder/co-founder roles across media and strategy.</li>
             </ul>
-            <div class="cta-row" aria-label="Main routes">
-              <a class="cta-btn cta-primary" href="/bio/">Biography</a>
-              <a class="cta-btn" href="#curated-feed">Selected Insights</a>
-              <a class="cta-btn" href="/contact/">Contact</a>
+            <div class="hero-cta-row" aria-label="Primary routes">
+              <a class="cta-btn cta-primary" href="/selected/">Selected Work</a>
+              <a class="cta-btn cta-strong" href="/contact/">Contact</a>
             </div>
+            <p class="hero-secondary-link"><a href="/bio/">Read full biography</a></p>
           </div>
-          <figure class="hero-portrait">
-            <img src="/bio/ilia-klishin-portrait.jpeg" alt="Ilia Klishin portrait" width="636" height="888" />
-          </figure>
+          <aside class="home-hero-aside" aria-label="Portrait">
+            <figure class="hero-portrait">
+              <img src="/bio/ilia-klishin-portrait.1fc4104baa.jpeg" alt="Portrait of Ilia Klishin" width="636" height="888" />
+              <figcaption>Vilnius, 2026</figcaption>
+            </figure>
+            <p class="hero-aside-note">Selected writing, interviews, and case context are curated below.</p>
+          </aside>
         </div>
       </section>
 
-      <section class="quick-answers" aria-label="Start here">
-        <article class="quick-card">
-          <h2>Profile</h2>
-          <p>Who Ilia Klishin is, what he does, and where he works.</p>
-          <a href="/bio/">Open biography</a>
-        </article>
-        <article class="quick-card">
-          <h2>What to read first</h2>
-          <p>Start with selected publication summaries grouped by topic and source.</p>
-          <a href="#curated-feed">Open selected insights</a>
-        </article>
-        <article class="quick-card">
-          <h2>How to contact</h2>
-          <p>Contact route for consulting, speaking, media, and research requests.</p>
-          <a href="/contact/">Open contact route</a>
-        </article>
-      </section>
-
-      <section class="trust-strip" id="trust" aria-label="Trust and identity">
-        <article class="trust-panel">
-          <h2>About This Site</h2>
-          <p>
-            This is the official personal site of Ilia Klishin. It presents biography, selected work, and source-backed
-            references in a concise public format.
-          </p>
-        </article>
-        <article class="trust-panel">
-          <h2>Selected References</h2>
-          <ul>
-            <li><a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noreferrer">The Guardian New East “30 under 30” (2015)</a></li>
-            <li><a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noreferrer">Official TEDx speaker profile</a></li>
-            <li><a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="noreferrer">The Moscow Times author profile</a></li>
-            <li><a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="noreferrer">Vedomosti author profile</a></li>
-          </ul>
-        </article>
-      </section>
-
-      <section class="route-grid" aria-label="Main routes">
-        <article class="route-card">
-          <h2>Biography</h2>
-          <p>Professional timeline, roles, education, and verifiable references.</p>
-          <a href="/bio/">Go to Bio</a>
-        </article>
-        <article class="route-card">
-          <h2>Selected Insights</h2>
-          <p>Curated publication summaries with direct links to original sources.</p>
-          <a href="/selected/">Open Selected Work</a>
-        </article>
-        <article class="route-card">
-          <h2>Archive Layer</h2>
-          <p>Complete static corpus and technical references, separate from the public showcase.</p>
-          <a href="/archive/">Open Archive</a>
-        </article>
-      </section>
-
-      <section class="cards-intro" id="curated-feed">
-        <h2>Selected Insights</h2>
-        <p>
-          This feed shows published cards only. Use language buttons to switch EN, FR, DE, or ES.
-        </p>
-      </section>
-
-      <section class="controls" aria-label="Published card filters">
-        <div class="lang-switch" id="langSwitch" role="group" aria-label="Feed language">
-          <button class="lang-btn active" data-lang="EN" type="button" aria-pressed="true" aria-controls="digestGrid" aria-label="Show English cards">EN</button>
-          <button class="lang-btn" data-lang="FR" type="button" aria-pressed="false" aria-controls="digestGrid" aria-label="Show French cards">FR</button>
-          <button class="lang-btn" data-lang="DE" type="button" aria-pressed="false" aria-controls="digestGrid" aria-label="Show German cards">DE</button>
-          <button class="lang-btn" data-lang="ES" type="button" aria-pressed="false" aria-controls="digestGrid" aria-label="Show Spanish cards">ES</button>
+      <section class="home-proof" aria-labelledby="proof-title">
+        <h2 id="proof-title">Trust and expertise</h2>
+        <div class="trust-strip">
+          <article class="trust-item">
+            <h3>Editorial leadership</h3>
+            <p>Former head of the digital newsroom at TV Rain and former digital director at RTVI.</p>
+          </article>
+          <article class="trust-item">
+            <h3>Strategy practice</h3>
+            <p>Founder roles at Volna Media and KF Agency, focused on editorial systems and audience growth.</p>
+          </article>
+          <article class="trust-item">
+            <h3>Independent references</h3>
+            <p>
+              <a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="me noopener noreferrer"
+                >The Moscow Times</a
+              >,
+              <a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="me noopener noreferrer"
+                >Vedomosti</a
+              >,
+              <a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noopener noreferrer"
+                >The Guardian</a
+              >,
+              <a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noopener noreferrer">TEDx</a>.
+            </p>
+          </article>
         </div>
-        <label class="search-wrap" for="searchInput">
-          <span>Search</span>
-          <input id="searchInput" type="search" placeholder="Keyword, source, topic" aria-controls="digestGrid" />
-        </label>
       </section>
 
-      <section class="digest-grid" id="digestGrid" aria-live="polite">
+      <section class="work-section" id="curated-feed" aria-labelledby="work-title">
+        <div class="cards-intro">
+          <div>
+            <h2 id="work-title">Selected writing</h2>
+            <p>Published analysis and commentary selected as a starting point for new readers.</p>
+          </div>
+          <a class="cards-intro-link" href="/selected/">View full selected work</a>
+        </div>
+
+        <section class="controls" aria-label="Selected writing filters">
+          <div class="lang-switch" id="langSwitch" role="group" aria-label="Feed language">
+            <button class="lang-btn active" data-lang="EN" type="button" aria-pressed="true" aria-controls="digestShowcase digestGrid" aria-label="Show English cards">EN</button>
+            <button class="lang-btn" data-lang="FR" type="button" aria-pressed="false" aria-controls="digestShowcase digestGrid" aria-label="Show French cards">FR</button>
+            <button class="lang-btn" data-lang="DE" type="button" aria-pressed="false" aria-controls="digestShowcase digestGrid" aria-label="Show German cards">DE</button>
+            <button class="lang-btn" data-lang="ES" type="button" aria-pressed="false" aria-controls="digestShowcase digestGrid" aria-label="Show Spanish cards">ES</button>
+          </div>
+          <label class="search-wrap" for="searchInput">
+            <span>Search</span>
+            <input id="searchInput" type="search" placeholder="Keyword, source, topic" aria-controls="digestShowcase digestGrid" />
+          </label>
+        </section>
+
+        <section class="digest-showcase" id="digestShowcase" aria-live="polite"></section>
+        <div class="more-work-head" id="moreWorkHead">
+          <h3>Further reading</h3>
+        </div>
+        <section class="digest-grid" id="digestGrid" aria-live="polite">
         <!-- HTML_FIRST_CARDS_START -->
         <article class="card">
           <div class="card-head">
@@ -249,10 +247,11 @@
           </div>
           <h3 class="card-title">Putin-Macron talks and the Russia expertise gap</h3>
           <p class="card-meta">The Moscow Times • 2022-02-14</p>
-          <p class="card-digest">Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia.</p>
-          <p class="card-context">Why it matters: it gives a dated reference point for media analysis and links to The Moscow Times.</p>
-          <blockquote class="card-quote">&quot;every word spoken carries weight&quot; - The Moscow Times</blockquote>
-          <a class="card-link" href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Open digest card</a>
+          <p class="card-digest">
+            A column on how small factual mistakes in geopolitical coverage can reveal deeper expertise gaps and distort
+            audience understanding during high-risk periods.
+          </p>
+          <a class="card-link" href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Read article</a>
         </article>
         <article class="card">
           <div class="card-head">
@@ -260,10 +259,11 @@
           </div>
           <h3 class="card-title">Mass protests: lessons from a decade</h3>
           <p class="card-meta">The Moscow Times • 2021-12-10</p>
-          <p class="card-digest">Moscow Times article revisits the 2011-2012 fair-elections protests a decade later and asks whether the movement truly &quot;failed&quot; or instead reshaped the political field in slower ways.</p>
-          <p class="card-context">Why it matters: it helps compare current claims on civic protests with the original text.</p>
-          <blockquote class="card-quote">&quot;those demonstrations ended in defeat&quot; - The Moscow Times</blockquote>
-          <a class="card-link" href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Open digest card</a>
+          <p class="card-digest">
+            A retrospective on the 2011-2012 protest cycle, examining how apparent short-term defeat can still reshape
+            civic behavior over the long run.
+          </p>
+          <a class="card-link" href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Read article</a>
         </article>
         <article class="card">
           <div class="card-head">
@@ -271,10 +271,11 @@
           </div>
           <h3 class="card-title">Commentary on pressure against independent media institutions</h3>
           <p class="card-meta">The Moscow Times • 2021-08-24</p>
-          <p class="card-digest">This piece from The Moscow Times (2021) explains the central issue in media freedom and anchors it in publication context.</p>
-          <p class="card-context">Why it matters: it places media freedom in a concrete editorial moment (2021).</p>
-          
-          <a class="card-link" href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Open digest card</a>
+          <p class="card-digest">
+            Analysis of how institutional pressure accumulates against independent outlets and why prolonged attrition of
+            editorial space affects society beyond journalism itself.
+          </p>
+          <a class="card-link" href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Read article</a>
         </article>
         <article class="card">
           <div class="card-head">
@@ -282,108 +283,35 @@
           </div>
           <h3 class="card-title">The Magic Mirror of Russian Public Opinion</h3>
           <p class="card-meta">The Moscow Times • 2021-07-12</p>
-          <p class="card-digest">How public-opinion narratives are shaped by institutions, incentives, and media distribution logic.</p>
-          <p class="card-context">Why it matters: it gives a dated reference point for public opinion and links to The Moscow Times.</p>
-          
-          <a class="card-link" href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">Open digest card</a>
-        </article>
-        <article class="card">
-          <div class="card-head">
-            <span class="lang-tag">EN</span>
-          </div>
-          <h3 class="card-title">The Dilemma of the Great Terror: How to Report Roman Protasevich&#39;s Confession?</h3>
-          <p class="card-meta">The Moscow Times • 2021-06-07</p>
-          <p class="card-digest">Media ethics are tested when reporting on high-stakes coerced-confession footage.</p>
-          <p class="card-context">Why it matters: it helps compare current claims on media ethics with the original text.</p>
-          <blockquote class="card-quote">&quot;how media ethics are tested when reporting on high&quot; - The Moscow Times</blockquote>
-          <a class="card-link" href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">Open digest card</a>
-        </article>
-        <article class="card">
-          <div class="card-head">
-            <span class="lang-tag">EN</span>
-          </div>
-          <h3 class="card-title">Let&#39;s Wait Until After the Elections</h3>
-          <p class="card-meta">The Moscow Times • 2021-05-17</p>
-          <p class="card-digest">How election-timing rhetoric can postpone decisions and normalize strategic waiting.</p>
-          <p class="card-context">Why it matters: it explains electoral timing with direct access to the primary source.</p>
-          
-          <a class="card-link" href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">Open digest card</a>
-        </article>
-        <article class="card">
-          <div class="card-head">
-            <span class="lang-tag">EN</span>
-          </div>
-          <h3 class="card-title">Luiza Rozova and the Helpless Intellectual</h3>
-          <p class="card-meta">The Moscow Times • 2021-03-19</p>
-          <p class="card-digest">Elite discourse reveals limits of symbolic criticism when institutional accountability is weak.</p>
-          <p class="card-context">Why it matters: it places elite discourse in a concrete editorial moment (2021).</p>
-          <blockquote class="card-quote">&quot;how elite discourse reveals limits of symbolic criticism when institutional accountability is&quot; - The Moscow Times</blockquote>
-          <a class="card-link" href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">Open digest card</a>
-        </article>
-        <article class="card">
-          <div class="card-head">
-            <span class="lang-tag">EN</span>
-          </div>
-          <h3 class="card-title">Four Ways the Kremlin Could Block Western Social Networks in Russia</h3>
-          <p class="card-meta">The Moscow Times • 2021-02-12</p>
-          <p class="card-digest">Which technical and political mechanisms can be used to restrict social-network access.</p>
-          <p class="card-context">Why it matters: it gives a dated reference point for social network regulation and links to The Moscow Times.</p>
-          <blockquote class="card-quote">&quot;which technical and political mechanisms can be used to restrict social&quot; - The Moscow Times</blockquote>
-          <a class="card-link" href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Open digest card</a>
+          <p class="card-digest">
+            A piece on how polling narratives, incentives, and media framing can produce simplified images of public mood
+            that hide social complexity.
+          </p>
+          <a class="card-link" href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">Read article</a>
         </article>
         <!-- HTML_FIRST_CARDS_END -->
+        </section>
       </section>
 
-      <section class="archive-layer" aria-label="Archive and research layer">
-        <h2>Archive / Research Layer</h2>
-        <p>
-          Full static corpus and reference files are available separately from the public showcase.
-        </p>
-        <ul>
-          <li><a href="/insights/">Insights hub</a></li>
-          <li><a href="/posts/">Full static digest</a></li>
-          <li><a href="/archive/">Archive and reference endpoints</a></li>
-        </ul>
+      <section class="interviews-preview" aria-label="Interviews">
+        <div class="interviews-preview-head">
+          <h2>Interviews and conversations</h2>
+          <p>Recent interviews, podcasts, and long-form discussions.</p>
+        </div>
+        <div class="interviews-preview-grid" id="interviewsPreviewGrid"></div>
+        <div class="interviews-preview-actions">
+          <a class="cta-btn cta-primary" href="/interviews/">View all interviews</a>
+        </div>
       </section>
 
       <section class="contact-cta" id="contact" aria-label="Contact">
-        <h2>Contact route</h2>
-        <p>Choose request type, then use the direct channel that fits your timeline.</p>
-        <div class="contact-topic-grid">
-          <article class="contact-topic-card">
-            <h3>Media consulting</h3>
-            <p>Editorial systems, audience strategy, and distribution architecture.</p>
-          </article>
-          <article class="contact-topic-card">
-            <h3>Editorial / speaking inquiries</h3>
-            <p>Interviews, commentary, panel invitations, and public discussions.</p>
-          </article>
-          <article class="contact-topic-card">
-            <h3>Research / academic contact</h3>
-            <p>Research collaboration, lectures, and expert input on media and propaganda.</p>
-          </article>
+        <div class="contact-head">
+          <h2>Contact</h2>
+          <p>For consulting, speaking, media requests, and research collaboration.</p>
         </div>
-        <ul class="contact-list">
-          <li>
-            Email:
-            <a
-              class="js-email"
-              href="#"
-              data-user="ilya|klishin"
-              data-domain="gma|il.com"
-              data-label="Send email"
-              data-subject="Inquiry from klishin.work"
-              >Send email</a
-            >
-            <noscript>ilyaklishin [at] gmail [dot] com</noscript>
-          </li>
-          <li>Phone: <a href="tel:+37062631874">+370 (626) 31 874</a></li>
-          <li>Telegram: <a href="https://t.me/vorewig" target="_blank" rel="noreferrer">@vorewig</a></li>
-        </ul>
-        <div class="cta-row">
-          <a class="cta-btn cta-primary" href="/contact/">Open contact page</a>
+        <div class="contact-actions">
           <a
-            class="cta-btn js-email"
+            class="cta-btn cta-primary js-email"
             href="#"
             data-user="ilya|klishin"
             data-domain="gma|il.com"
@@ -391,9 +319,16 @@
             data-subject="Inquiry from klishin.work"
             >Email Ilia Klishin</a
           >
-          <a class="cta-btn" href="https://linktr.ee/volnamedia" target="_blank" rel="noreferrer">Volna Media</a>
-          <a class="cta-btn" href="https://kf.agency/" target="_blank" rel="noreferrer">KF Agency</a>
+          <a class="contact-link-secondary" href="https://t.me/vorewig" target="_blank" rel="me noopener noreferrer"
+            >Telegram @vorewig</a
+          >
         </div>
+        <ul class="contact-topics">
+          <li><strong>Consulting:</strong> editorial systems, audience strategy, and media distribution.</li>
+          <li><strong>Speaking:</strong> interviews, panels, and background briefings.</li>
+          <li><strong>Research:</strong> source context, lectures, and academic collaboration.</li>
+        </ul>
+        <p class="contact-meta">Phone: <a href="tel:+37062631874">+370 (626) 31 874</a> · <a href="/contact/">Full contact page</a></p>
       </section>
       <noscript>
         <p class="noscript-note">
@@ -411,27 +346,58 @@
         <h3 class="card-title"></h3>
         <p class="card-meta"></p>
         <p class="card-digest"></p>
-        <p class="card-context"></p>
         <blockquote class="card-quote"></blockquote>
-        <a class="card-link" target="_blank" rel="noreferrer">Read original source</a>
+        <a class="card-link">Read article</a>
       </article>
     </template>
 
     <footer class="footer">
-      <p>
-        Updated: <span id="updatedAt">-</span>
+      <p class="footer-updated">Updated: <span id="updatedAt">-</span></p>
+      <p class="home-footer-profiles">
+        Profiles:
+        <a href="https://www.linkedin.com/in/ilia-klishin-20282a1b/" target="_blank" rel="me noopener noreferrer">LinkedIn</a> ·
+        <a href="https://x.com/Vorewig" target="_blank" rel="me noopener noreferrer">X</a> ·
+        <a href="https://www.instagram.com/vorewig" target="_blank" rel="me noopener noreferrer">Instagram</a> ·
+        <a href="https://www.facebook.com/ilya.klishin" target="_blank" rel="me noopener noreferrer">Facebook</a> ·
+        <a href="https://t.me/vorewig" target="_blank" rel="me noopener noreferrer">Telegram @vorewig</a> ·
+        <a href="https://t.me/bookswithklishin" target="_blank" rel="me noopener noreferrer">Telegram ReadMe.txt</a> ·
+        <a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="me noopener noreferrer">The Moscow Times</a> ·
+        <a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="me noopener noreferrer">Vedomosti</a>
       </p>
+      <details class="footer-utility">
+        <summary>Archive and data links</summary>
+        <nav class="secondary-nav" aria-label="Utility">
+          <a href="/archive/">Archive</a>
+          <a href="/insights/">Insights</a>
+          <a href="/posts/">Published posts</a>
+          <a href="/search/">Search</a>
+          <a href="/rss.xml">RSS</a>
+          <a href="/sitemap.xml">Sitemap</a>
+          <a href="/source-registry-v1.tsv">Data / Registry</a>
+        </nav>
+      </details>
       <nav class="secondary-nav" aria-label="Secondary">
-        <a href="/archive/">Archive</a>
-        <a href="/posts/">Posts</a>
-        <a href="/search/">Search</a>
-        <a href="/rss.xml">RSS</a>
-        <a href="/sitemap.xml">Sitemap</a>
-        <a href="/source-registry-v1.tsv">Data / Registry</a>
+        <a href="/selected/">Selected Work</a>
+        <a href="/interviews/">Interviews</a>
+        <a href="/bio/">Bio</a>
+        <a href="/cases/">Case notes</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </footer>
 
-    <script type="module" src="./app.js?v=20260310-2"></script>
-    <script defer src="/contact/contact.js?v=20260310-1"></script>
+    <script>
+      (() => {
+        const topbar = document.getElementById("siteTopbar");
+        if (!topbar) return;
+        const syncTopbarState = () => {
+          topbar.classList.toggle("is-scrolled", window.scrollY > 12);
+        };
+        syncTopbarState();
+        window.addEventListener("scroll", syncTopbarState, { passive: true });
+      })();
+    </script>
+    <script type="module" src="/interviews/interviews-preview.js"></script>
+    <script type="module" src="/app.js"></script>
+    <script defer src="/contact/contact.js"></script>
   </body>
 </html>

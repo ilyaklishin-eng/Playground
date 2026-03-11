@@ -16,23 +16,29 @@
     <link rel="alternate" hreflang="es" href="https://www.klishin.work/insights/es/" />
     <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/insights/" />
     <style>
-      body { margin: 0; font-family: "Manrope", "Trebuchet MS", sans-serif; line-height: 1.5; color: #121212; background: #f5f3ef; }
+      body { margin: 0; font-family: "Manrope", "Trebuchet MS", sans-serif; line-height: 1.5; color: #121212; background: #f5f3ef; overflow-x: clip; }
       main { max-width: 860px; margin: 0 auto; padding: 28px 20px 50px; }
       nav { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
-      nav a { border: 1px solid #d7d2ca; border-radius: 999px; padding: 6px 12px; text-decoration: none; color: #1c1c1c; background: #fff; }
+      nav a { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid #d7d2ca; border-radius: 12px; padding: 8px 14px; text-decoration: none; color: #1c1c1c; background: #fff; }
       h1 { margin: 0 0 10px; font-family: "Newsreader", Georgia, serif; font-size: clamp(1.8rem, 4vw, 2.8rem); }
       ul { margin: 10px 0 0; padding-left: 20px; }
       li { margin: 8px 0; }
-      a { color: #0f4c81; }
-      .site-lang-switch { margin: 8px 0 12px; display: inline-flex; gap: 6px; border: 1px solid #d7d2ca; border-radius: 999px; padding: 4px 6px; background: #fff; }
-      .site-lang-switch a { border: 1px solid transparent; border-radius: 999px; padding: 2px 8px; color: #4c4943; text-decoration: none; font-size: 0.82rem; }
-      .site-lang-switch a.active { border-color: #0f4c81; color: #1c1c1c; background: rgba(15, 76, 129, 0.12); }
+      a { color: #2b3340; }
+      .site-lang-switch { margin: 8px 0 12px; display: inline-flex; gap: 6px; border: 1px solid #d7d2ca; border-radius: 12px; padding: 4px 6px; background: #fff; }
+      .site-lang-switch a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; border: 1px solid transparent; border-radius: 12px; padding: 4px 10px; color: #4c4943; text-decoration: none; font-size: 0.82rem; }
+      .site-lang-switch a.active { border-color: #2b3340; color: #1c1c1c; background: rgba(43, 51, 64, 0.1); }
       .secondary-nav { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd7ce; display: flex; flex-wrap: wrap; gap: 8px; }
-      .secondary-nav a { border: 1px solid #d7d2ca; border-radius: 999px; padding: 6px 12px; text-decoration: none; color: #4c4943; background: #fff; font-size: 0.82rem; }
+      .secondary-nav a { display: inline-flex; align-items: center; min-height: 44px; border: 1px solid #d7d2ca; border-radius: 12px; padding: 8px 14px; text-decoration: none; color: #4c4943; background: #fff; font-size: 0.82rem; }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap" rel="stylesheet" />
+      <meta property="og:image" content="https://www.klishin.work/og/site-default.jpg" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/jpeg" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="https://www.klishin.work/og/site-default.jpg" />
   </head>
   <body>
     <main>
@@ -40,6 +46,7 @@
         <a href="/de/">Start</a>
         <a href="/bio/de/">Bio / Uber mich</a>
         <a href="/insights/de/">Ausgewahlte Arbeiten</a>
+        <a href="/interviews/">Интервью</a>
         <a href="/cases/de/">Falle / Klarstellungen</a>
         <a href="/de/#contact">Kontakt</a>
       </nav>

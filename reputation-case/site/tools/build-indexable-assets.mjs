@@ -1,4 +1,5 @@
 import fs from "node:fs/promises";
+import crypto from "node:crypto";
 import path from "node:path";
 
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
@@ -8,6 +9,42 @@ const selectedPagePath = path.join(siteDir, "selected", "index.html");
 const postsDir = path.join(siteDir, "posts");
 const homeIndexPath = path.join(siteDir, "index.html");
 const baseUrl = "https://www.klishin.work";
+const FINGERPRINT_HEX_LENGTH = 10;
+const OG_IMAGE_WIDTH = "1200";
+const OG_IMAGE_HEIGHT = "630";
+const OG_IMAGE_TYPE = "image/jpeg";
+const SOCIAL_OG_IMAGE_BY_TYPE = {
+  default: `${baseUrl}/og/site-default.jpg`,
+  bio: `${baseUrl}/og/bio.jpg`,
+  selected: `${baseUrl}/og/selected-work.jpg`,
+  posts: `${baseUrl}/og/posts-fallback.jpg`,
+  cases: `${baseUrl}/og/cases-fallback.jpg`,
+};
+const FINGERPRINTABLE_ASSETS = [
+  { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
+  { source: "app.js", aliases: ["/app.js", "./app.js"] },
+  { source: "bio/bio.css", aliases: ["/bio/bio.css", "./bio.css", "../bio.css"] },
+  { source: "cases/cases.css", aliases: ["/cases/cases.css", "./cases.css", "../cases.css"] },
+  { source: "contact/contact.css", aliases: ["/contact/contact.css", "./contact.css", "../contact.css"] },
+  { source: "contact/contact.js", aliases: ["/contact/contact.js", "./contact.js", "../contact.js"] },
+  { source: "search/search.js", aliases: ["/search/search.js", "./search.js", "../search.js"] },
+  {
+    source: "interviews/interviews.js",
+    aliases: ["/interviews/interviews.js", "./interviews.js", "../interviews.js"],
+  },
+  {
+    source: "interviews/interviews-preview.js",
+    aliases: ["/interviews/interviews-preview.js", "./interviews-preview.js", "../interviews-preview.js"],
+  },
+  {
+    source: "bio/ilia-klishin-portrait.jpeg",
+    aliases: ["/bio/ilia-klishin-portrait.jpeg", "./ilia-klishin-portrait.jpeg", "../ilia-klishin-portrait.jpeg"],
+  },
+  {
+    source: "bio/portrait-placeholder.svg",
+    aliases: ["/bio/portrait-placeholder.svg", "./portrait-placeholder.svg", "../portrait-placeholder.svg"],
+  },
+];
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const HOME_FALLBACK_LIMIT = 8;
@@ -78,6 +115,32 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["insights/es/index.html", "noindex"],
   ["posts/index.html", "noindex"],
   ["posts/drafts.html", "noindex"],
+]);
+const STATIC_SOCIAL_IMAGE_POLICY = new Map([
+  ["index.html", "default"],
+  ["fr/index.html", "default"],
+  ["de/index.html", "default"],
+  ["es/index.html", "default"],
+  ["about/index.html", "default"],
+  ["archive/index.html", "default"],
+  ["contact/index.html", "default"],
+  ["search/index.html", "default"],
+  ["insights/index.html", "default"],
+  ["insights/fr/index.html", "default"],
+  ["insights/de/index.html", "default"],
+  ["insights/es/index.html", "default"],
+  ["interviews/index.html", "default"],
+  ["posts/index.html", "default"],
+  ["posts/drafts.html", "default"],
+  ["selected/index.html", "selected"],
+  ["bio/index.html", "bio"],
+  ["bio/fr/index.html", "bio"],
+  ["bio/de/index.html", "bio"],
+  ["bio/es/index.html", "bio"],
+  ["cases/index.html", "cases"],
+  ["cases/fr/index.html", "cases"],
+  ["cases/de/index.html", "cases"],
+  ["cases/es/index.html", "cases"],
 ]);
 const LANGS = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
@@ -160,6 +223,118 @@ const normalizeSourceUrl = (value = "") => {
   } catch {
     return raw;
   }
+};
+
+const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
+
+const escapeRegExpSafe = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const listHtmlFiles = async (dir) => {
+  const out = [];
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...(await listHtmlFiles(fullPath)));
+      continue;
+    }
+    if (entry.isFile() && entry.name.toLowerCase().endsWith(".html")) {
+      out.push(fullPath);
+    }
+  }
+  return out;
+};
+
+const fingerprintSingleAsset = async (sourceRelativePath = "") => {
+  const normalizedSource = toPosixPath(sourceRelativePath).replace(/^\/+/, "");
+  const sourceAbsolute = path.join(siteDir, normalizedSource);
+  let raw;
+  try {
+    raw = await fs.readFile(sourceAbsolute);
+  } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw error;
+  }
+
+  const hash = crypto.createHash("sha256").update(raw).digest("hex").slice(0, FINGERPRINT_HEX_LENGTH);
+  const ext = path.extname(normalizedSource);
+  const dirPosix = path.posix.dirname(normalizedSource);
+  const baseName = path.posix.basename(normalizedSource, ext);
+  const fingerprintName = `${baseName}.${hash}${ext}`;
+  const fingerprintRelative = dirPosix === "." ? fingerprintName : `${dirPosix}/${fingerprintName}`;
+  const fingerprintAbsolute = path.join(siteDir, fingerprintRelative);
+
+  await fs.writeFile(fingerprintAbsolute, raw);
+
+  const sourceDir = path.dirname(sourceAbsolute);
+  const siblings = await fs.readdir(sourceDir);
+  const stalePattern = new RegExp(
+    `^${escapeRegExpSafe(baseName)}\\.[a-f0-9]{${FINGERPRINT_HEX_LENGTH}}${escapeRegExpSafe(ext)}$`
+  );
+  for (const sibling of siblings) {
+    if (!stalePattern.test(sibling)) continue;
+    if (sibling === fingerprintName) continue;
+    await fs.unlink(path.join(sourceDir, sibling));
+  }
+
+  return {
+    sourceRelative: normalizedSource,
+    fingerprintRelative,
+    fingerprintPublicPath: `/${fingerprintRelative}`,
+    sourceCanonicalAbsolute: `${baseUrl}/${normalizedSource}`,
+    fingerprintCanonicalAbsolute: `${baseUrl}/${fingerprintRelative}`,
+  };
+};
+
+const rewriteAssetLinksInHtml = async (assets) => {
+  const htmlFiles = await listHtmlFiles(siteDir);
+  for (const htmlFile of htmlFiles) {
+    let html = await fs.readFile(htmlFile, "utf8");
+    const original = html;
+
+    for (const asset of assets) {
+      const aliases = new Set([
+        `/${asset.sourceRelative}`,
+        ...((asset.aliases || []).map((value) => String(value || "").trim()).filter(Boolean)),
+      ]);
+      const orderedAliases = [...aliases].sort((a, b) => b.length - a.length);
+
+      const canonicalAbsoluteRe = new RegExp(
+        `${escapeRegExpSafe(asset.sourceCanonicalAbsolute)}(?:\\?[^"'\\s)]+)?`,
+        "g"
+      );
+      html = html.replace(canonicalAbsoluteRe, asset.fingerprintCanonicalAbsolute);
+
+      for (const alias of orderedAliases) {
+        const re = new RegExp(`${escapeRegExpSafe(alias)}(?:\\?[^"'\\s)]+)?`, "g");
+        html = html.replace(re, asset.fingerprintPublicPath);
+      }
+
+      const relativeFingerprintedRe = new RegExp(
+        `(?:\\./|\\.\\./)+${escapeRegExpSafe(asset.fingerprintRelative)}(?:\\?[^"'\\s)]+)?`,
+        "g"
+      );
+      html = html.replace(relativeFingerprintedRe, asset.fingerprintPublicPath);
+    }
+
+    if (html !== original) {
+      await fs.writeFile(htmlFile, html, "utf8");
+    }
+  }
+};
+
+const fingerprintStaticAssets = async () => {
+  const mapped = [];
+  for (const config of FINGERPRINTABLE_ASSETS) {
+    const result = await fingerprintSingleAsset(config.source);
+    if (!result) continue;
+    mapped.push({
+      ...result,
+      aliases: config.aliases,
+    });
+  }
+  await rewriteAssetLinksInHtml(mapped);
+  return mapped;
 };
 
 const latestBuildIso = (entries) => {
@@ -885,6 +1060,44 @@ const applyStaticRobotsPolicies = async () => {
   }
 };
 
+const upsertMetaTag = (html = "", attrName = "", attrValue = "", content = "") => {
+  const normalizedContent = String(content || "").trim();
+  if (!normalizedContent) return html;
+  const tag = `<meta ${attrName}="${attrValue}" content="${htmlEscape(normalizedContent)}" />`;
+  const escapedAttr = escapeRegExpSafe(String(attrValue || ""));
+  const pairRe = new RegExp(
+    `<meta\\s+[^>]*${attrName}=["']${escapedAttr}["'][^>]*content=["'][^"']*["'][^>]*\\/?>|<meta\\s+[^>]*content=["'][^"']*["'][^>]*${attrName}=["']${escapedAttr}["'][^>]*\\/?>`,
+    "i"
+  );
+  if (pairRe.test(html)) {
+    return html.replace(pairRe, tag);
+  }
+  return html.replace(/<\/head>/i, `    ${tag}\n  </head>`);
+};
+
+const applyStaticSocialPreviewPolicies = async () => {
+  for (const [relativePath, imageType] of STATIC_SOCIAL_IMAGE_POLICY.entries()) {
+    const fullPath = path.join(siteDir, relativePath);
+    let html;
+    try {
+      html = await fs.readFile(fullPath, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+
+    const imageUrl = SOCIAL_OG_IMAGE_BY_TYPE[imageType] || SOCIAL_OG_IMAGE_BY_TYPE.default;
+    html = upsertMetaTag(html, "property", "og:image", imageUrl);
+    html = upsertMetaTag(html, "property", "og:image:width", OG_IMAGE_WIDTH);
+    html = upsertMetaTag(html, "property", "og:image:height", OG_IMAGE_HEIGHT);
+    html = upsertMetaTag(html, "property", "og:image:type", OG_IMAGE_TYPE);
+    html = upsertMetaTag(html, "name", "twitter:card", "summary_large_image");
+    html = upsertMetaTag(html, "name", "twitter:image", imageUrl);
+
+    await fs.writeFile(fullPath, html, "utf8");
+  }
+};
+
 const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToStatus = new Map()) => {
   const itemId = String(item?.id || "").trim();
   const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
@@ -900,6 +1113,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const publicSemanticTags = sanitizeSemanticTags(semanticTags);
   const valueContext = String(item.value_context || "").replace(/\s+/g, " ").trim();
   const canonical = canonicalUrl(postPath);
+  const postSocialImage = SOCIAL_OG_IMAGE_BY_TYPE.posts;
   const sourceLink = normalizeSourceUrl(item.url);
   const htmlLang = toHtmlLang(item.language);
   const { alternates, xDefaultHref } = getAlternatesForItem(
@@ -983,6 +1197,14 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <meta property="og:title" content="${htmlEscape(displayTitle)}" />
     <meta property="og:description" content="${htmlEscape(description)}" />
     <meta property="og:url" content="${canonical}" />
+    <meta property="og:image" content="${postSocialImage}" />
+    <meta property="og:image:width" content="${OG_IMAGE_WIDTH}" />
+    <meta property="og:image:height" content="${OG_IMAGE_HEIGHT}" />
+    <meta property="og:image:type" content="${OG_IMAGE_TYPE}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${htmlEscape(displayTitle)}" />
+    <meta name="twitter:description" content="${htmlEscape(description)}" />
+    <meta name="twitter:image" content="${postSocialImage}" />
     <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
@@ -1480,9 +1702,11 @@ const main = async () => {
   }
   await updateHomeHtmlFirstCards(indexableEntries);
   await applyStaticRobotsPolicies();
+  await applyStaticSocialPreviewPolicies();
+  const fingerprintedAssets = await fingerprintStaticAssets();
 
   console.log(
-    `Generated ${entries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${searchIndex.counts.total} docs), home HTML-first cards`
+    `Generated ${entries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${searchIndex.counts.total} docs), home HTML-first cards, fingerprinted assets (${fingerprintedAssets.length})`
   );
 };
 

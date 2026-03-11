@@ -1,0 +1,150 @@
+.contact-page {
+  padding-bottom: 2.2rem;
+}
+
+.contact-hero {
+  margin-top: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+  padding: 1.3rem 1.45rem;
+}
+
+.contact-hero h1 {
+  margin: 0.35rem 0 0.52rem;
+}
+
+.contact-hero p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 64ch;
+  line-height: 1.7;
+}
+
+.contact-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.95rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.contact-card,
+.channel-card,
+.expect-card {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+  padding: 0.95rem 1rem;
+}
+
+.contact-card h2,
+.channel-card h2,
+.expect-card h2 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.22rem;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+}
+
+.contact-card p,
+.channel-card p,
+.expect-card p {
+  margin: 0.52rem 0 0;
+  color: var(--muted);
+  line-height: 1.66;
+  max-width: 56ch;
+}
+
+.contact-card ul,
+.channel-card ul,
+.expect-card ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1rem;
+}
+
+.contact-card li,
+.channel-card li,
+.expect-card li {
+  margin: 0.34rem 0;
+  line-height: 1.62;
+}
+
+.contact-card a,
+.channel-card a,
+.expect-card a {
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.contact-card a:hover,
+.channel-card a:hover,
+.expect-card a:hover {
+  text-decoration: underline;
+}
+
+.contact-route {
+  margin-top: 0.95rem;
+  display: grid;
+  gap: 0.95rem;
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.contact-profiles {
+  margin-top: 0.95rem;
+}
+
+.profiles-list {
+  columns: 2;
+  column-gap: 1.4rem;
+}
+
+.profiles-list li {
+  break-inside: avoid;
+}
+
+.footer-profiles {
+  margin-top: 0.46rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.footer-profiles a {
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.footer-profiles a:hover {
+  text-decoration: underline;
+}
+
+.channel-actions {
+  margin-top: 0.78rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.channel-actions .cta-btn {
+  font-size: 0.84rem;
+}
+
+.human-note {
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 960px) {
+  .contact-grid,
+  .contact-route {
+    grid-template-columns: 1fr;
+  }
+
+  .profiles-list {
+    columns: 1;
+  }
+}

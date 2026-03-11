@@ -11,6 +11,56 @@ const HOST = "www.klishin.work";
 const HOME_INDEX = path.join(SITE_DIR, "index.html");
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
+const FINGERPRINT_HEX_LENGTH = 10;
+const OG_IMAGE_WIDTH = "1200";
+const OG_IMAGE_HEIGHT = "630";
+const OG_IMAGE_TYPE = "image/jpeg";
+const SOCIAL_OG_IMAGE_BY_TYPE = {
+  default: `${DOMAIN}/og/site-default.jpg`,
+  bio: `${DOMAIN}/og/bio.jpg`,
+  selected: `${DOMAIN}/og/selected-work.jpg`,
+  posts: `${DOMAIN}/og/posts-fallback.jpg`,
+  cases: `${DOMAIN}/og/cases-fallback.jpg`,
+};
+const STATIC_SOCIAL_IMAGE_POLICY = new Map([
+  ["index.html", "default"],
+  ["fr/index.html", "default"],
+  ["de/index.html", "default"],
+  ["es/index.html", "default"],
+  ["about/index.html", "default"],
+  ["archive/index.html", "default"],
+  ["contact/index.html", "default"],
+  ["search/index.html", "default"],
+  ["insights/index.html", "default"],
+  ["insights/fr/index.html", "default"],
+  ["insights/de/index.html", "default"],
+  ["insights/es/index.html", "default"],
+  ["interviews/index.html", "default"],
+  ["posts/index.html", "default"],
+  ["posts/drafts.html", "default"],
+  ["selected/index.html", "selected"],
+  ["bio/index.html", "bio"],
+  ["bio/fr/index.html", "bio"],
+  ["bio/de/index.html", "bio"],
+  ["bio/es/index.html", "bio"],
+  ["cases/index.html", "cases"],
+  ["cases/fr/index.html", "cases"],
+  ["cases/de/index.html", "cases"],
+  ["cases/es/index.html", "cases"],
+]);
+const FINGERPRINTED_ASSET_SOURCES = [
+  "styles.css",
+  "app.js",
+  "bio/bio.css",
+  "cases/cases.css",
+  "contact/contact.css",
+  "contact/contact.js",
+  "search/search.js",
+  "interviews/interviews.js",
+  "interviews/interviews-preview.js",
+  "bio/ilia-klishin-portrait.jpeg",
+  "bio/portrait-placeholder.svg",
+];
 const LANGS = ["en", "fr", "de", "es"];
 const PUBLISHED_STATUS = "ready";
 const EXTRA_POST_INDEX_FILES = new Set(["index.html", "drafts.html"]);
@@ -256,6 +306,40 @@ const extractAll = (text = "", re) => [...text.matchAll(re)].map((m) => String(m
 const extractCanonical = (html = "") => {
   const match = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
   return match ? String(match[1] || "").trim() : "";
+};
+
+const extractMetaContent = (html = "", attrName = "", attrValue = "") => {
+  const escaped = escapeRegExp(String(attrValue || ""));
+  const direct = new RegExp(
+    `<meta\\s+[^>]*${attrName}=["']${escaped}["'][^>]*content=["']([^"']+)["'][^>]*>`,
+    "i"
+  );
+  const reverse = new RegExp(
+    `<meta\\s+[^>]*content=["']([^"']+)["'][^>]*${attrName}=["']${escaped}["'][^>]*>`,
+    "i"
+  );
+  const hit = html.match(direct) || html.match(reverse);
+  return hit ? String(hit[1] || "").trim() : "";
+};
+
+const escapeRegExp = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
+
+const listHtmlFiles = async (dir) => {
+  const out = [];
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...(await listHtmlFiles(fullPath)));
+      continue;
+    }
+    if (entry.isFile() && entry.name.toLowerCase().endsWith(".html")) {
+      out.push(fullPath);
+    }
+  }
+  return out;
 };
 
 const extractRobotsMeta = (html = "") => {
@@ -701,6 +785,51 @@ const checkHtmlSeoSemantics = async (items, issues) => {
         pushError(issues, "html.robots.static.noindex", `Expected noindex,follow robots policy in ${rel}.`, { robots });
       }
     }
+
+    let expectedSocialImage = null;
+    const staticSocialType = STATIC_SOCIAL_IMAGE_POLICY.get(rel);
+    if (staticSocialType) {
+      expectedSocialImage = SOCIAL_OG_IMAGE_BY_TYPE[staticSocialType] || SOCIAL_OG_IMAGE_BY_TYPE.default;
+    } else if (rel.startsWith("posts/") && !EXTRA_POST_INDEX_FILES.has(path.basename(rel))) {
+      expectedSocialImage = SOCIAL_OG_IMAGE_BY_TYPE.posts;
+    }
+
+    if (expectedSocialImage) {
+      const ogImage = extractMetaContent(html, "property", "og:image");
+      const ogWidth = extractMetaContent(html, "property", "og:image:width");
+      const ogHeight = extractMetaContent(html, "property", "og:image:height");
+      const ogType = extractMetaContent(html, "property", "og:image:type");
+      const twitterCard = extractMetaContent(html, "name", "twitter:card");
+      const twitterImage = extractMetaContent(html, "name", "twitter:image");
+
+      if (!ogImage) {
+        pushError(issues, "html.social.og-image.missing", `Missing og:image in ${rel}.`);
+      } else if (ogImage !== expectedSocialImage) {
+        pushError(issues, "html.social.og-image.mismatch", `Unexpected og:image in ${rel}.`, {
+          expected: expectedSocialImage,
+          actual: ogImage,
+        });
+      }
+      if (ogWidth !== OG_IMAGE_WIDTH || ogHeight !== OG_IMAGE_HEIGHT || ogType !== OG_IMAGE_TYPE) {
+        pushError(issues, "html.social.og-image-meta.mismatch", `Invalid OG image metadata in ${rel}.`, {
+          expected: { width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, type: OG_IMAGE_TYPE },
+          actual: { width: ogWidth, height: ogHeight, type: ogType },
+        });
+      }
+      if (twitterCard !== "summary_large_image") {
+        pushError(issues, "html.social.twitter-card.invalid", `twitter:card must be summary_large_image in ${rel}.`, {
+          actual: twitterCard,
+        });
+      }
+      if (!twitterImage) {
+        pushError(issues, "html.social.twitter-image.missing", `Missing twitter:image in ${rel}.`);
+      } else if (twitterImage !== expectedSocialImage) {
+        pushError(issues, "html.social.twitter-image.mismatch", `Unexpected twitter:image in ${rel}.`, {
+          expected: expectedSocialImage,
+          actual: twitterImage,
+        });
+      }
+    }
   }
 
   for (const cluster of MULTILINGUAL_CLUSTERS) {
@@ -836,6 +965,88 @@ const checkHomeHtmlFirst = async (minimumCards, issues) => {
   }
 };
 
+const checkAssetFingerprinting = async (issues) => {
+  const htmlFiles = await listHtmlFiles(SITE_DIR);
+
+  for (const sourceRaw of FINGERPRINTED_ASSET_SOURCES) {
+    const source = toPosixPath(sourceRaw).replace(/^\/+/, "");
+    const sourceAbs = path.join(SITE_DIR, source);
+    let stat;
+    try {
+      stat = await fs.stat(sourceAbs);
+    } catch {
+      pushError(issues, "assets.source.missing", `Missing source asset for fingerprinting: ${source}`);
+      continue;
+    }
+    if (!stat.isFile()) {
+      pushError(issues, "assets.source.invalid", `Asset source is not a file: ${source}`);
+      continue;
+    }
+
+    const dirAbs = path.dirname(sourceAbs);
+    const ext = path.extname(source);
+    const base = path.basename(source, ext);
+    const expectedPattern = new RegExp(`^${escapeRegExp(base)}\\.[a-f0-9]{${FINGERPRINT_HEX_LENGTH}}${escapeRegExp(ext)}$`);
+    const siblings = await fs.readdir(dirAbs);
+    const fingerprinted = siblings.filter((name) => expectedPattern.test(name));
+
+    if (fingerprinted.length !== 1) {
+      pushError(
+        issues,
+        "assets.fingerprint.count",
+        `Expected exactly one fingerprinted variant for ${source}, got ${fingerprinted.length}.`,
+        fingerprinted
+      );
+      continue;
+    }
+
+    const currentFingerprinted = fingerprinted[0];
+    const hashedPublic = `/${toPosixPath(path.posix.join(path.posix.dirname(source), currentFingerprinted)).replace(/^\.\//, "")}`;
+    const sourcePublic = `/${source}`;
+    const sourceRefRe = new RegExp(`${escapeRegExp(sourcePublic)}(?:\\?[^"'\\s)]+)?`);
+    const hashedRefRe = new RegExp(`${escapeRegExp(hashedPublic)}(?:\\?[^"'\\s)]+)?`);
+    const sourceAbsoluteRe = new RegExp(`${escapeRegExp(`${DOMAIN}/${source}`)}(?:\\?[^"'\\s)]+)?`);
+    const hashedAbsoluteRe = new RegExp(`${escapeRegExp(`${DOMAIN}${hashedPublic}`)}(?:\\?[^"'\\s)]+)?`);
+
+    let hashedSeen = false;
+    for (const htmlPath of htmlFiles) {
+      const rel = toPosixPath(path.relative(SITE_DIR, htmlPath));
+      const html = await fs.readFile(htmlPath, "utf8");
+      if (sourceRefRe.test(html) || sourceAbsoluteRe.test(html)) {
+        pushError(
+          issues,
+          "assets.reference.unfingerprinted",
+          `HTML still references unfingerprinted asset path for ${source}.`,
+          { file: rel }
+        );
+      }
+      if (hashedRefRe.test(html) || hashedAbsoluteRe.test(html)) {
+        hashedSeen = true;
+      }
+    }
+
+    if (!hashedSeen) {
+      pushWarn(
+        issues,
+        "assets.reference.unused",
+        `No HTML references found for fingerprinted asset ${source}.`
+      );
+    }
+  }
+
+  for (const htmlPath of htmlFiles) {
+    const rel = toPosixPath(path.relative(SITE_DIR, htmlPath));
+    const html = await fs.readFile(htmlPath, "utf8");
+    if (
+      /(?:href|src)=["'](?:\/|\.\/|\.\.\/)[^"']+\.(?:css|js|png|jpe?g|webp|svg|woff2?)(?:\?[^"']*\bv=[^"']*)["']/i.test(
+        html
+      )
+    ) {
+      pushError(issues, "assets.query-version.present", `Found legacy ?v= asset query in ${rel}.`);
+    }
+  }
+};
+
 const main = async () => {
   const opts = parseArgs(process.argv.slice(2));
   const issues = [];
@@ -854,6 +1065,7 @@ const main = async () => {
   await checkRobots(issues);
   await checkHtmlSeoSemantics(items, issues);
   await checkHomeHtmlFirst(minimumHomeCards, issues);
+  await checkAssetFingerprinting(issues);
 
   const errors = issues.filter((x) => x.severity === "error");
   const warns = issues.filter((x) => x.severity === "warn");
@@ -867,6 +1079,8 @@ const main = async () => {
       robots: true,
       html_seo: true,
       home_html_first: true,
+      asset_fingerprints: true,
+      social_preview: true,
     },
     totals: {
       items: items.length,

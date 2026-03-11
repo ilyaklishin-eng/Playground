@@ -224,7 +224,38 @@ For GitHub Actions, set repository variables:
 - `GPTBOT_POLICY`
 - `GPTBOT_DISALLOW_PATHS` (only for `custom`)
 
-## 5) What is already implemented in code
+## 5) HTTP cache policy (static assets vs HTML)
+
+Current GitHub Pages origin behavior:
+- HTML and static files are served with `Cache-Control: max-age=600`.
+- To maximize repeat-visit performance, this project now fingerprints static asset filenames during build:
+  - `styles.[hash].css`
+  - `app.[hash].js`
+  - section CSS/JS files and key images (portrait assets)
+- HTML references are rewritten to hashed filenames automatically in `build-indexable-assets.mjs`.
+
+Recommended Cloudflare cache rules (zone: `klishin.work`):
+
+1. **Long cache for versioned assets**  
+Expression:
+- `(http.request.uri.path matches ".*\\.[a-f0-9]{10}\\.(css|js|png|jpg|jpeg|webp|svg|woff|woff2)$")`
+
+Action:
+- Cache level: `Cache Everything`
+- Edge TTL: `1 month` (or higher)
+- Browser TTL: `1 year`
+- Respect origin: `off`
+
+2. **Safe cache for HTML**
+Expression:
+- `(http.request.uri.path eq "/" or http.request.uri.path matches ".*\\.html$" or not http.request.uri.path contains ".")`
+
+Action:
+- Cache level: `Bypass cache` (or Browser TTL: `5 minutes` for conservative setup)
+
+This split keeps HTML fresh while allowing long-lived immutable cache for hashed static assets.
+
+## 6) What is already implemented in code
 
 - Canonical URLs point to `https://www.klishin.work/`
 - `robots.txt` allows indexing and explicitly allows:
@@ -252,7 +283,7 @@ For GitHub Actions, set repository variables:
   - on deploy: `.github/workflows/deploy-pages.yml` job `verify-live-crawler-access`
   - on schedule: `.github/workflows/monitor-crawler-access.yml` (every 6 hours)
 
-## 6) Verification commands
+## 7) Verification commands
 
 ```bash
 node reputation-case/site/tools/build-indexable-assets.mjs
