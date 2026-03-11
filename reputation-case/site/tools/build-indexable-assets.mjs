@@ -1741,9 +1741,8 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <header class="site-header">
       <nav class="topnav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio / About</a>
+        <a href="/bio/">Bio</a>
         <a href="/selected/">Selected Work</a>
-        <a href="/cases/">Cases / Clarifications</a>
         <a href="/search/">Search</a>
         <a href="/contact/">Contact</a>
       </nav>
@@ -1762,7 +1761,6 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
-            <li><a href="/cases/">Case notes (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
             <li><a href="/insights/">Research archive</a></li>
             <li><a href="/archive/">Archive</a></li>
@@ -1937,9 +1935,8 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
     <header class="site-header">
       <nav class="topnav" aria-label="Primary">
         <a href="/">Home</a>
-        <a href="/bio/">Bio / About</a>
+        <a href="/bio/">Bio</a>
         <a href="/selected/">Selected Work</a>
-        <a href="/cases/">Cases / Clarifications</a>
         <a href="/search/">Search</a>
         <a href="/contact/">Contact</a>
       </nav>
@@ -1957,7 +1954,6 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
           <li><a href="/insights/">Research archive</a></li>
           <li><a href="/posts/all.html">Full archive (including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
-          <li><a href="/cases/">Case notes (EN, FR, DE, ES)</a></li>
           <li><a href="/rss.xml">RSS feed</a></li>
           <li><a href="/sitemap.xml">Sitemap index</a></li>
         </ul>
