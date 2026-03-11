@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-08T19:57:19.456Z",
+  "updated_at": "2026-03-11",
   "items": [
     {
       "id": "en-001",
@@ -16788,6 +16788,2544 @@
       ],
       "source_en_id": "en-100",
       "slug": "es-100-texto-firmado-en-the-moscow-times-en-why-showcase-the-prime-ministers-il"
+    },
+    {
+      "id": "en-101",
+      "language": "EN",
+      "status": "draft",
+      "date": "2022-06-18",
+      "source": "The Insider",
+      "topic": "media history",
+      "title": "\"Body here, soul there.\" How 19th century Russian emigre press worked",
+      "digest": "A historical essay on Russian emigre newspapers of the nineteenth century and their political role in shaping debates, opposition networks, and public language beyond imperial censorship.",
+      "quote": "\"Body here, soul there\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/252347",
+      "copies": {
+        "FR": "fr-101",
+        "DE": "de-101",
+        "ES": "es-101"
+      },
+      "summary": "A historical essay on Russian emigre newspapers of the nineteenth century and their political role in shaping debates, opposition networks, and public language beyond imperial censorship.",
+      "key_ideas": [
+        "The article connects media history to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Body here, soul there\" — The Insider",
+        "\"19th century Russian emigre press\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "media history",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "en-101-insider-19th-century-russian-emigre-press"
+    },
+    {
+      "id": "fr-101",
+      "language": "FR",
+      "status": "draft",
+      "date": "2022-06-18",
+      "source": "The Insider",
+      "topic": "media history",
+      "title": "Corps ici, ame la-bas : comment fonctionnait la presse emigree russe du XIXe siecle",
+      "digest": "Essai historique sur la presse emigree russe du XIXe siecle et son role politique dans la formation des debats, des reseaux d opposition et du langage public hors censure imperiale.",
+      "quote": "\"Corps ici, ame la-bas\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/252347",
+      "summary": "Essai historique sur la presse emigree russe du XIXe siecle et son role politique dans la formation des debats, des reseaux d opposition et du langage public hors censure imperiale.",
+      "key_ideas": [
+        "Le texte relie media history a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Corps ici, ame la-bas\" — The Insider",
+        "\"presse emigree russe du XIXe siecle\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "media history",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "fr-101-insider-19th-century-russian-emigre-press"
+    },
+    {
+      "id": "de-101",
+      "language": "DE",
+      "status": "draft",
+      "date": "2022-06-18",
+      "source": "The Insider",
+      "topic": "media history",
+      "title": "Koerper hier, Seele dort: Wie die russische Emigrantenpresse des 19. Jahrhunderts funktionierte",
+      "digest": "Historischer Beitrag ueber die russische Emigrantenpresse des 19. Jahrhunderts und ihre politische Rolle bei Debatten, Oppositionsnetzwerken und oeffentlicher Sprache ausserhalb der Zensur.",
+      "quote": "\"Koerper hier, Seele dort\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/252347",
+      "summary": "Historischer Beitrag ueber die russische Emigrantenpresse des 19. Jahrhunderts und ihre politische Rolle bei Debatten, Oppositionsnetzwerken und oeffentlicher Sprache ausserhalb der Zensur.",
+      "key_ideas": [
+        "Der Beitrag verknuepft media history mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Koerper hier, Seele dort\" — The Insider",
+        "\"russische Emigrantenpresse des 19. Jahrhunderts\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "media history",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "de-101-insider-19th-century-russian-emigre-press"
+    },
+    {
+      "id": "es-101",
+      "language": "ES",
+      "status": "draft",
+      "date": "2022-06-18",
+      "source": "The Insider",
+      "topic": "media history",
+      "title": "Cuerpo aqui, alma alla: como funcionaba la prensa emigrada rusa del siglo XIX",
+      "digest": "Ensayo historico sobre la prensa emigrada rusa del siglo XIX y su papel politico en debates, redes de oposicion y lenguaje publico fuera de la censura imperial.",
+      "quote": "\"Cuerpo aqui, alma alla\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/252347",
+      "summary": "Ensayo historico sobre la prensa emigrada rusa del siglo XIX y su papel politico en debates, redes de oposicion y lenguaje publico fuera de la censura imperial.",
+      "key_ideas": [
+        "El texto conecta media history con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Cuerpo aqui, alma alla\" — The Insider",
+        "\"prensa emigrada rusa del siglo XIX\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "media history",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "es-101-insider-19th-century-russian-emigre-press"
+    },
+    {
+      "id": "en-102",
+      "language": "EN",
+      "status": "draft",
+      "date": "2022-09-24",
+      "source": "The Insider",
+      "topic": "historical propaganda",
+      "title": "\"Protecting the oppressed Ukrainians\" - how the Soviet press justified the Soviet invasion of Poland in 1939",
+      "digest": "The article reconstructs how Soviet media framed the 1939 invasion of Poland as liberation, showing rhetorical patterns that converted expansion into a moral narrative.",
+      "quote": "\"Protecting the oppressed Ukrainians\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/255382",
+      "copies": {
+        "FR": "fr-102",
+        "DE": "de-102",
+        "ES": "es-102"
+      },
+      "summary": "The article reconstructs how Soviet media framed the 1939 invasion of Poland as liberation, showing rhetorical patterns that converted expansion into a moral narrative.",
+      "key_ideas": [
+        "The article connects historical propaganda to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Protecting the oppressed Ukrainians\" — The Insider",
+        "\"justified the Soviet invasion of Poland\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "en-102-insider-soviet-press-and-poland-1939"
+    },
+    {
+      "id": "fr-102",
+      "language": "FR",
+      "status": "draft",
+      "date": "2022-09-24",
+      "source": "The Insider",
+      "topic": "historical propaganda",
+      "title": "\"Proteger les Ukrainiens opprimes\" : comment la presse sovietique a justifie l invasion de la Pologne en 1939",
+      "digest": "Le texte reconstitue la facon dont les medias sovietiques ont presente l invasion de 1939 comme une liberation, avec des procedes rhetoriques transformant l expansion en recit moral.",
+      "quote": "\"Proteger les Ukrainiens opprimes\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/255382",
+      "summary": "Le texte reconstitue la facon dont les medias sovietiques ont presente l invasion de 1939 comme une liberation, avec des procedes rhetoriques transformant l expansion en recit moral.",
+      "key_ideas": [
+        "Le texte relie historical propaganda a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Proteger les Ukrainiens opprimes\" — The Insider",
+        "\"justifie l invasion de la Pologne\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "fr-102-insider-soviet-press-and-poland-1939"
+    },
+    {
+      "id": "de-102",
+      "language": "DE",
+      "status": "draft",
+      "date": "2022-09-24",
+      "source": "The Insider",
+      "topic": "historical propaganda",
+      "title": "\"Zum Schutz der unterdrueckten Ukrainer\": Wie die sowjetische Presse den Einmarsch in Polen 1939 rechtfertigte",
+      "digest": "Der Beitrag zeigt, wie sowjetische Medien den Einmarsch 1939 als Befreiung darstellten und Expansion durch rhetorische Muster in eine moralische Erzaehlung uebersetzten.",
+      "quote": "\"Zum Schutz der unterdrueckten Ukrainer\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/255382",
+      "summary": "Der Beitrag zeigt, wie sowjetische Medien den Einmarsch 1939 als Befreiung darstellten und Expansion durch rhetorische Muster in eine moralische Erzaehlung uebersetzten.",
+      "key_ideas": [
+        "Der Beitrag verknuepft historical propaganda mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Zum Schutz der unterdrueckten Ukrainer\" — The Insider",
+        "\"rechtfertigte den Einmarsch in Polen\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "de-102-insider-soviet-press-and-poland-1939"
+    },
+    {
+      "id": "es-102",
+      "language": "ES",
+      "status": "draft",
+      "date": "2022-09-24",
+      "source": "The Insider",
+      "topic": "historical propaganda",
+      "title": "\"Proteger a los ucranianos oprimidos\": como la prensa sovietica justifico la invasion de Polonia en 1939",
+      "digest": "El articulo muestra como la prensa sovietica presento la invasion de 1939 como liberacion, convirtiendo la expansion en relato moral mediante patrones retoricos.",
+      "quote": "\"Proteger a los ucranianos oprimidos\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/255382",
+      "summary": "El articulo muestra como la prensa sovietica presento la invasion de 1939 como liberacion, convirtiendo la expansion en relato moral mediante patrones retoricos.",
+      "key_ideas": [
+        "El texto conecta historical propaganda con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Proteger a los ucranianos oprimidos\" — The Insider",
+        "\"justifico la invasion de Polonia\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "es-102-insider-soviet-press-and-poland-1939"
+    },
+    {
+      "id": "en-103",
+      "language": "EN",
+      "status": "draft",
+      "date": "2022-11-14",
+      "source": "The Insider",
+      "topic": "war and public culture",
+      "title": "Victory Day is no longer a holiday. Aggression in Ukraine will permanently rid Russia of militarism as a spiritual bond",
+      "digest": "A political-cultural analysis arguing that the ongoing war changes the social meaning of Victory Day and erodes militarism as a shared symbolic foundation in contemporary Russia.",
+      "quote": "\"Victory Day is no longer a holiday\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/256956",
+      "copies": {
+        "FR": "fr-103",
+        "DE": "de-103",
+        "ES": "es-103"
+      },
+      "summary": "A political-cultural analysis arguing that the ongoing war changes the social meaning of Victory Day and erodes militarism as a shared symbolic foundation in contemporary Russia.",
+      "key_ideas": [
+        "The article connects war and public culture to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Victory Day is no longer a holiday\" — The Insider",
+        "\"rid Russia of militarism as a spiritual bond\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "war and public culture",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "en-103-insider-victory-day-and-militarism"
+    },
+    {
+      "id": "fr-103",
+      "language": "FR",
+      "status": "draft",
+      "date": "2022-11-14",
+      "source": "The Insider",
+      "topic": "war and public culture",
+      "title": "Le Jour de la Victoire n est plus une fete : la guerre en Ukraine detruit le militarisme comme lien spirituel",
+      "digest": "Analyse politico-culturelle soutenant que la guerre en cours modifie le sens social du Jour de la Victoire et affaiblit le militarisme comme base symbolique commune en Russie.",
+      "quote": "\"Le Jour de la Victoire n est plus une fete\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/256956",
+      "summary": "Analyse politico-culturelle soutenant que la guerre en cours modifie le sens social du Jour de la Victoire et affaiblit le militarisme comme base symbolique commune en Russie.",
+      "key_ideas": [
+        "Le texte relie war and public culture a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Le Jour de la Victoire n est plus une fete\" — The Insider",
+        "\"detruit le militarisme comme lien spirituel\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "war and public culture",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "fr-103-insider-victory-day-and-militarism"
+    },
+    {
+      "id": "de-103",
+      "language": "DE",
+      "status": "draft",
+      "date": "2022-11-14",
+      "source": "The Insider",
+      "topic": "war and public culture",
+      "title": "Der Tag des Sieges ist kein Feiertag mehr: Der Krieg in der Ukraine zerstoert den Militarismus als geistige Klammer",
+      "digest": "Politisch-kulturelle Analyse: Der laufende Krieg veraendert die gesellschaftliche Bedeutung des Siegestags und untergraebt Militarismus als gemeinsame symbolische Grundlage Russlands.",
+      "quote": "\"Der Tag des Sieges ist kein Feiertag mehr\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/256956",
+      "summary": "Politisch-kulturelle Analyse: Der laufende Krieg veraendert die gesellschaftliche Bedeutung des Siegestags und untergraebt Militarismus als gemeinsame symbolische Grundlage Russlands.",
+      "key_ideas": [
+        "Der Beitrag verknuepft war and public culture mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Der Tag des Sieges ist kein Feiertag mehr\" — The Insider",
+        "\"Militarismus als geistige Klammer\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "war and public culture",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "de-103-insider-victory-day-and-militarism"
+    },
+    {
+      "id": "es-103",
+      "language": "ES",
+      "status": "draft",
+      "date": "2022-11-14",
+      "source": "The Insider",
+      "topic": "war and public culture",
+      "title": "El Dia de la Victoria ya no es una fiesta: la guerra en Ucrania destruye el militarismo como lazo espiritual",
+      "digest": "Analisis politico-cultural que sostiene que la guerra en curso cambia el significado social del Dia de la Victoria y erosiona el militarismo como base simbolica compartida en Rusia.",
+      "quote": "\"El Dia de la Victoria ya no es una fiesta\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/256956",
+      "summary": "Analisis politico-cultural que sostiene que la guerra en curso cambia el significado social del Dia de la Victoria y erosiona el militarismo como base simbolica compartida en Rusia.",
+      "key_ideas": [
+        "El texto conecta war and public culture con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"El Dia de la Victoria ya no es una fiesta\" — The Insider",
+        "\"militarismo como lazo espiritual\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "war and public culture",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "es-103-insider-victory-day-and-militarism"
+    },
+    {
+      "id": "en-104",
+      "language": "EN",
+      "status": "draft",
+      "date": "2022-12-16",
+      "source": "The Insider",
+      "topic": "literature and imperialism",
+      "title": "\"Comrade Moskal, at Ukraine, you don't poke fun.\" Was great Russian literature imperialistic or pro-Ukrainian?",
+      "digest": "The piece examines the dispute over imperial readings of Russian literature and the Ukrainian cultural dimension, separating inherited canon rhetoric from historical and political context.",
+      "quote": "\"Was great Russian literature imperialistic\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/257919",
+      "copies": {
+        "FR": "fr-104",
+        "DE": "de-104",
+        "ES": "es-104"
+      },
+      "summary": "The piece examines the dispute over imperial readings of Russian literature and the Ukrainian cultural dimension, separating inherited canon rhetoric from historical and political context.",
+      "key_ideas": [
+        "The article connects literature and imperialism to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Was great Russian literature imperialistic\" — The Insider",
+        "\"or pro-Ukrainian?\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "literature and imperialism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "en-104-insider-russian-literature-and-ukrainian-dimension"
+    },
+    {
+      "id": "fr-104",
+      "language": "FR",
+      "status": "draft",
+      "date": "2022-12-16",
+      "source": "The Insider",
+      "topic": "literature and imperialism",
+      "title": "\"Camarade Moskal, on ne plaisante pas en Ukraine\" : la grande litterature russe etait-elle imperialiste ou pro-ukrainienne ?",
+      "digest": "Le texte examine le conflit autour de la lecture imperiale de la litterature russe et de la dimension culturelle ukrainienne, en distinguant canon, histoire et contexte politique.",
+      "quote": "\"litterature russe ... imperialiste\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/257919",
+      "summary": "Le texte examine le conflit autour de la lecture imperiale de la litterature russe et de la dimension culturelle ukrainienne, en distinguant canon, histoire et contexte politique.",
+      "key_ideas": [
+        "Le texte relie literature and imperialism a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"litterature russe ... imperialiste\" — The Insider",
+        "\"ou pro-ukrainienne\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "literature and imperialism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "fr-104-insider-russian-literature-and-ukrainian-dimension"
+    },
+    {
+      "id": "de-104",
+      "language": "DE",
+      "status": "draft",
+      "date": "2022-12-16",
+      "source": "The Insider",
+      "topic": "literature and imperialism",
+      "title": "\"Genosse Moskal, in der Ukraine macht man keine Witze\": War die grosse russische Literatur imperial oder proukrainisch?",
+      "digest": "Der Beitrag analysiert den Streit um imperiale Lesarten russischer Literatur und die ukrainische kulturelle Dimension und trennt Kanonrhetorik von historischem Kontext.",
+      "quote": "\"russische Literatur imperial\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/257919",
+      "summary": "Der Beitrag analysiert den Streit um imperiale Lesarten russischer Literatur und die ukrainische kulturelle Dimension und trennt Kanonrhetorik von historischem Kontext.",
+      "key_ideas": [
+        "Der Beitrag verknuepft literature and imperialism mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"russische Literatur imperial\" — The Insider",
+        "\"oder proukrainisch\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "literature and imperialism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "de-104-insider-russian-literature-and-ukrainian-dimension"
+    },
+    {
+      "id": "es-104",
+      "language": "ES",
+      "status": "draft",
+      "date": "2022-12-16",
+      "source": "The Insider",
+      "topic": "literature and imperialism",
+      "title": "\"Camarada Moskal, en Ucrania no se bromea\": fue la gran literatura rusa imperialista o proucraniana?",
+      "digest": "El texto analiza la disputa sobre lecturas imperiales de la literatura rusa y la dimension cultural ucraniana, separando retorica canonica de contexto historico y politico.",
+      "quote": "\"literatura rusa imperialista\" — The Insider",
+      "url": "https://theins.ru/en/opinion/ilya-klishin/257919",
+      "summary": "El texto analiza la disputa sobre lecturas imperiales de la literatura rusa y la dimension cultural ucraniana, separando retorica canonica de contexto historico y politico.",
+      "key_ideas": [
+        "El texto conecta literature and imperialism con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"literatura rusa imperialista\" — The Insider",
+        "\"o proucraniana\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "literature and imperialism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2022",
+        "source-based summary"
+      ],
+      "slug": "es-104-insider-russian-literature-and-ukrainian-dimension"
+    },
+    {
+      "id": "en-105",
+      "language": "EN",
+      "status": "draft",
+      "date": "2023-01-23",
+      "source": "The Insider",
+      "topic": "history and authoritarianism",
+      "title": "\"People lived as if in hiding.\" Putin is following in the footsteps of Nicholas I, but where does this path lead?",
+      "digest": "A comparative historical essay linking contemporary Russian censorship, emigration pressures, and university control with the political model associated with Nicholas I.",
+      "quote": "\"People lived as if in hiding\" — The Insider",
+      "url": "https://theins.ru/en/history/258753",
+      "copies": {
+        "FR": "fr-105",
+        "DE": "de-105",
+        "ES": "es-105"
+      },
+      "summary": "A comparative historical essay linking contemporary Russian censorship, emigration pressures, and university control with the political model associated with Nicholas I.",
+      "key_ideas": [
+        "The article connects history and authoritarianism to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"People lived as if in hiding\" — The Insider",
+        "\"where does this path lead?\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "history and authoritarianism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "en-105-insider-putin-and-nicholas-i-parallel"
+    },
+    {
+      "id": "fr-105",
+      "language": "FR",
+      "status": "draft",
+      "date": "2023-01-23",
+      "source": "The Insider",
+      "topic": "history and authoritarianism",
+      "title": "\"Les gens vivaient comme caches\" : Poutine suit-il les pas de Nicolas Ier, et ou mene cette voie ?",
+      "digest": "Essai historique comparatif reliant censure contemporaine, pression a l emigration et controle des universites au modele politique associe a Nicolas Ier.",
+      "quote": "\"Les gens vivaient comme caches\" — The Insider",
+      "url": "https://theins.ru/en/history/258753",
+      "summary": "Essai historique comparatif reliant censure contemporaine, pression a l emigration et controle des universites au modele politique associe a Nicolas Ier.",
+      "key_ideas": [
+        "Le texte relie history and authoritarianism a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Les gens vivaient comme caches\" — The Insider",
+        "\"ou mene cette voie\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "history and authoritarianism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "fr-105-insider-putin-and-nicholas-i-parallel"
+    },
+    {
+      "id": "de-105",
+      "language": "DE",
+      "status": "draft",
+      "date": "2023-01-23",
+      "source": "The Insider",
+      "topic": "history and authoritarianism",
+      "title": "\"Die Menschen lebten wie im Versteck\": Folgt Putin den Spuren Nikolaus I. und wohin fuehrt dieser Weg?",
+      "digest": "Vergleichender historischer Essay ueber heutige Zensur, Emigrationsdruck und Universitaetskontrolle im Zusammenhang mit dem politischen Modell Nikolaus I.",
+      "quote": "\"lebten wie im Versteck\" — The Insider",
+      "url": "https://theins.ru/en/history/258753",
+      "summary": "Vergleichender historischer Essay ueber heutige Zensur, Emigrationsdruck und Universitaetskontrolle im Zusammenhang mit dem politischen Modell Nikolaus I.",
+      "key_ideas": [
+        "Der Beitrag verknuepft history and authoritarianism mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"lebten wie im Versteck\" — The Insider",
+        "\"wohin fuehrt dieser Weg\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "history and authoritarianism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "de-105-insider-putin-and-nicholas-i-parallel"
+    },
+    {
+      "id": "es-105",
+      "language": "ES",
+      "status": "draft",
+      "date": "2023-01-23",
+      "source": "The Insider",
+      "topic": "history and authoritarianism",
+      "title": "\"La gente vivia como escondida\": Putin sigue los pasos de Nicolas I y adonde conduce ese camino?",
+      "digest": "Ensayo historico comparativo que vincula censura contemporanea, presion migratoria y control universitario con el modelo politico asociado a Nicolas I.",
+      "quote": "\"vivia como escondida\" — The Insider",
+      "url": "https://theins.ru/en/history/258753",
+      "summary": "Ensayo historico comparativo que vincula censura contemporanea, presion migratoria y control universitario con el modelo politico asociado a Nicolas I.",
+      "key_ideas": [
+        "El texto conecta history and authoritarianism con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"vivia como escondida\" — The Insider",
+        "\"adonde conduce ese camino\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "history and authoritarianism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "es-105-insider-putin-and-nicholas-i-parallel"
+    },
+    {
+      "id": "en-106",
+      "language": "EN",
+      "status": "draft",
+      "date": "2023-02-15",
+      "source": "The Insider",
+      "topic": "historical memory",
+      "title": "\"Good Germans\": Resistance inside Nazi Germany",
+      "digest": "The article revisits anti-Nazi resistance inside Germany, challenging simplified Soviet-era templates and restoring a more complex map of actors, motives, and risks.",
+      "quote": "\"Good Germans\" — The Insider",
+      "url": "https://theins.ru/en/history/259425",
+      "copies": {
+        "FR": "fr-106",
+        "DE": "de-106",
+        "ES": "es-106"
+      },
+      "summary": "The article revisits anti-Nazi resistance inside Germany, challenging simplified Soviet-era templates and restoring a more complex map of actors, motives, and risks.",
+      "key_ideas": [
+        "The article connects historical memory to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Good Germans\" — The Insider",
+        "\"Resistance inside Nazi Germany\" — The Insider"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable The Insider source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical memory",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "en-106-insider-good-germans-resistance-nazi-germany"
+    },
+    {
+      "id": "fr-106",
+      "language": "FR",
+      "status": "draft",
+      "date": "2023-02-15",
+      "source": "The Insider",
+      "topic": "historical memory",
+      "title": "\"Les bons Allemands\" : la resistance a l interieur de l Allemagne nazie",
+      "digest": "L article revient sur la resistance antinazie en Allemagne et conteste les schemas simplifies de l ere sovietique, avec une cartographie plus complexe des acteurs et des risques.",
+      "quote": "\"Les bons Allemands\" — The Insider",
+      "url": "https://theins.ru/en/history/259425",
+      "summary": "L article revient sur la resistance antinazie en Allemagne et conteste les schemas simplifies de l ere sovietique, avec une cartographie plus complexe des acteurs et des risques.",
+      "key_ideas": [
+        "Le texte relie historical memory a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Les bons Allemands\" — The Insider",
+        "\"resistance ... Allemagne nazie\" — The Insider"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source The Insider datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical memory",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "fr-106-insider-good-germans-resistance-nazi-germany"
+    },
+    {
+      "id": "de-106",
+      "language": "DE",
+      "status": "draft",
+      "date": "2023-02-15",
+      "source": "The Insider",
+      "topic": "historical memory",
+      "title": "\"Gute Deutsche\": Widerstand innerhalb des NS-Staates",
+      "digest": "Der Beitrag beleuchtet den antinazistischen Widerstand in Deutschland neu, korrigiert vereinfachte sowjetische Deutungen und zeigt ein komplexeres Bild von Akteuren und Motiven.",
+      "quote": "\"Gute Deutsche\" — The Insider",
+      "url": "https://theins.ru/en/history/259425",
+      "summary": "Der Beitrag beleuchtet den antinazistischen Widerstand in Deutschland neu, korrigiert vereinfachte sowjetische Deutungen und zeigt ein komplexeres Bild von Akteuren und Motiven.",
+      "key_ideas": [
+        "Der Beitrag verknuepft historical memory mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Gute Deutsche\" — The Insider",
+        "\"Widerstand innerhalb\" — The Insider"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical memory",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "de-106-insider-good-germans-resistance-nazi-germany"
+    },
+    {
+      "id": "es-106",
+      "language": "ES",
+      "status": "draft",
+      "date": "2023-02-15",
+      "source": "The Insider",
+      "topic": "historical memory",
+      "title": "\"Buenos alemanes\": resistencia dentro de la Alemania nazi",
+      "digest": "El articulo revisa la resistencia antinazi dentro de Alemania, cuestiona esquemas simplificados de la epoca sovietica y recupera un mapa mas complejo de actores y riesgos.",
+      "quote": "\"Buenos alemanes\" — The Insider",
+      "url": "https://theins.ru/en/history/259425",
+      "summary": "El articulo revisa la resistencia antinazi dentro de Alemania, cuestiona esquemas simplificados de la epoca sovietica y recupera un mapa mas complejo de actores y riesgos.",
+      "key_ideas": [
+        "El texto conecta historical memory con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Buenos alemanes\" — The Insider",
+        "\"resistencia dentro\" — The Insider"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de The Insider.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Insider",
+        "historical memory",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2023",
+        "source-based summary"
+      ],
+      "slug": "es-106-insider-good-germans-resistance-nazi-germany"
+    },
+    {
+      "id": "en-107",
+      "language": "EN",
+      "status": "draft",
+      "date": "2015-01-30",
+      "source": "Global Voices",
+      "topic": "digital propaganda",
+      "title": "How Putin Secretly Conquered Russia's Social Media Over the Past 3 Years",
+      "digest": "An investigation into the gradual takeover of Russian social media through troll networks, agency ecosystems, and coordinated pressure on platforms and online communities.",
+      "quote": "\"secretly conquered Russia's social media\" — Global Voices",
+      "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "copies": {
+        "FR": "fr-107",
+        "DE": "de-107",
+        "ES": "es-107"
+      },
+      "summary": "An investigation into the gradual takeover of Russian social media through troll networks, agency ecosystems, and coordinated pressure on platforms and online communities.",
+      "key_ideas": [
+        "The article connects digital propaganda to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"secretly conquered Russia's social media\" — Global Voices",
+        "\"over the past 3 years\" — Global Voices"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Global Voices source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Global Voices",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "en-107-global-voices-putin-and-russian-social-media"
+    },
+    {
+      "id": "fr-107",
+      "language": "FR",
+      "status": "draft",
+      "date": "2015-01-30",
+      "source": "Global Voices",
+      "topic": "digital propaganda",
+      "title": "Comment Poutine a discretement conquis les reseaux sociaux russes en trois ans",
+      "digest": "Enquete sur la prise de controle progressive des reseaux sociaux russes via reseaux de trolls, ecosystemes d agences et pressions coordonnees sur plateformes et communautes.",
+      "quote": "\"conquis les reseaux sociaux russes\" — Global Voices",
+      "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "summary": "Enquete sur la prise de controle progressive des reseaux sociaux russes via reseaux de trolls, ecosystemes d agences et pressions coordonnees sur plateformes et communautes.",
+      "key_ideas": [
+        "Le texte relie digital propaganda a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"conquis les reseaux sociaux russes\" — Global Voices",
+        "\"en trois ans\" — Global Voices"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Global Voices datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Global Voices",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "fr-107-global-voices-putin-and-russian-social-media"
+    },
+    {
+      "id": "de-107",
+      "language": "DE",
+      "status": "draft",
+      "date": "2015-01-30",
+      "source": "Global Voices",
+      "topic": "digital propaganda",
+      "title": "Wie Putin Russlands soziale Medien in drei Jahren still eroberte",
+      "digest": "Recherche zur schrittweisen Kontrolle russischer sozialer Medien durch Trollnetzwerke, Agenturstrukturen und koordinierten Druck auf Plattformen und Communities.",
+      "quote": "\"soziale Medien still eroberte\" — Global Voices",
+      "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "summary": "Recherche zur schrittweisen Kontrolle russischer sozialer Medien durch Trollnetzwerke, Agenturstrukturen und koordinierten Druck auf Plattformen und Communities.",
+      "key_ideas": [
+        "Der Beitrag verknuepft digital propaganda mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"soziale Medien still eroberte\" — Global Voices",
+        "\"in drei Jahren\" — Global Voices"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Global Voices.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Global Voices",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "de-107-global-voices-putin-and-russian-social-media"
+    },
+    {
+      "id": "es-107",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-01-30",
+      "source": "Global Voices",
+      "topic": "digital propaganda",
+      "title": "Como Putin conquisto en secreto las redes sociales rusas en tres anos",
+      "digest": "Investigacion sobre la toma gradual de las redes sociales rusas mediante redes de troles, ecosistemas de agencias y presion coordinada sobre plataformas y comunidades.",
+      "quote": "\"conquisto ... las redes sociales\" — Global Voices",
+      "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "summary": "Investigacion sobre la toma gradual de las redes sociales rusas mediante redes de troles, ecosistemas de agencias y presion coordinada sobre plataformas y comunidades.",
+      "key_ideas": [
+        "El texto conecta digital propaganda con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"conquisto ... las redes sociales\" — Global Voices",
+        "\"en tres anos\" — Global Voices"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Global Voices.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Global Voices",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "es-107-global-voices-putin-and-russian-social-media"
+    },
+    {
+      "id": "en-108",
+      "language": "EN",
+      "status": "draft",
+      "date": "2015-07-21",
+      "source": "Carnegie.ru",
+      "topic": "digital propaganda",
+      "title": "Ботовойско. Почему у Кремля не получается играть в мягкую силу",
+      "digest": "The column analyzes Kremlin bot infrastructure and explains why online aggression often undermines, rather than strengthens, the country's soft-power ambitions.",
+      "quote": "\"Ботовойско\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60728",
+      "copies": {
+        "FR": "fr-108",
+        "DE": "de-108",
+        "ES": "es-108"
+      },
+      "summary": "The column analyzes Kremlin bot infrastructure and explains why online aggression often undermines, rather than strengthens, the country's soft-power ambitions.",
+      "key_ideas": [
+        "The article connects digital propaganda to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Ботовойско\" — Carnegie.ru",
+        "\"мягкую силу\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "en-108-carnegie-kremlin-bot-army-soft-power"
+    },
+    {
+      "id": "fr-108",
+      "language": "FR",
+      "status": "draft",
+      "date": "2015-07-21",
+      "source": "Carnegie.ru",
+      "topic": "digital propaganda",
+      "title": "Armee de bots : pourquoi le Kremlin echoue dans la logique du soft power",
+      "digest": "La chronique analyse l infrastructure de bots du Kremlin et explique pourquoi l agressivite en ligne affaiblit souvent, au lieu de renforcer, les ambitions de soft power.",
+      "quote": "\"armee de bots\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60728",
+      "summary": "La chronique analyse l infrastructure de bots du Kremlin et explique pourquoi l agressivite en ligne affaiblit souvent, au lieu de renforcer, les ambitions de soft power.",
+      "key_ideas": [
+        "Le texte relie digital propaganda a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"armee de bots\" — Carnegie.ru",
+        "\"logique du soft power\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "fr-108-carnegie-kremlin-bot-army-soft-power"
+    },
+    {
+      "id": "de-108",
+      "language": "DE",
+      "status": "draft",
+      "date": "2015-07-21",
+      "source": "Carnegie.ru",
+      "topic": "digital propaganda",
+      "title": "Bot-Armee: Warum der Kreml bei Soft Power scheitert",
+      "digest": "Die Kolumne untersucht die Bot-Infrastruktur des Kreml und zeigt, warum Online-Aggression Soft-Power-Ziele eher untergraebt als staerkt.",
+      "quote": "\"Bot-Armee\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60728",
+      "summary": "Die Kolumne untersucht die Bot-Infrastruktur des Kreml und zeigt, warum Online-Aggression Soft-Power-Ziele eher untergraebt als staerkt.",
+      "key_ideas": [
+        "Der Beitrag verknuepft digital propaganda mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Bot-Armee\" — Carnegie.ru",
+        "\"Soft Power\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "de-108-carnegie-kremlin-bot-army-soft-power"
+    },
+    {
+      "id": "es-108",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-07-21",
+      "source": "Carnegie.ru",
+      "topic": "digital propaganda",
+      "title": "Ejercito de bots: por que el Kremlin falla en el juego del poder blando",
+      "digest": "La columna analiza la infraestructura de bots del Kremlin y explica por que la agresion en linea debilita, en lugar de reforzar, sus ambiciones de poder blando.",
+      "quote": "\"ejercito de bots\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60728",
+      "summary": "La columna analiza la infraestructura de bots del Kremlin y explica por que la agresion en linea debilita, en lugar de reforzar, sus ambiciones de poder blando.",
+      "key_ideas": [
+        "El texto conecta digital propaganda con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"ejercito de bots\" — Carnegie.ru",
+        "\"poder blando\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "es-108-carnegie-kremlin-bot-army-soft-power"
+    },
+    {
+      "id": "en-109",
+      "language": "EN",
+      "status": "draft",
+      "date": "2015-09-14",
+      "source": "Carnegie.ru",
+      "topic": "post-soviet protests",
+      "title": "Против чего повторно собирался молдавский майдан",
+      "digest": "An analysis of Moldovan protest dynamics, post-Soviet political cycles, and the way familiar crisis scenarios reappear under new coalitions and media narratives.",
+      "quote": "\"молдавский майдан\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60186",
+      "copies": {
+        "FR": "fr-109",
+        "DE": "de-109",
+        "ES": "es-109"
+      },
+      "summary": "An analysis of Moldovan protest dynamics, post-Soviet political cycles, and the way familiar crisis scenarios reappear under new coalitions and media narratives.",
+      "key_ideas": [
+        "The article connects post-soviet protests to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"молдавский майдан\" — Carnegie.ru",
+        "\"повторно собирался\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "post-soviet protests",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "en-109-carnegie-moldovan-maidan-protest-cycle"
+    },
+    {
+      "id": "fr-109",
+      "language": "FR",
+      "status": "draft",
+      "date": "2015-09-14",
+      "source": "Carnegie.ru",
+      "topic": "post-soviet protests",
+      "title": "Contre quoi se rassemblait a nouveau le Maidan moldave",
+      "digest": "Analyse des mobilisations en Moldavie, des cycles politiques postsovietiques et de la repetition de scenarios de crise sous de nouvelles coalitions mediatisees.",
+      "quote": "\"Maidan moldave\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60186",
+      "summary": "Analyse des mobilisations en Moldavie, des cycles politiques postsovietiques et de la repetition de scenarios de crise sous de nouvelles coalitions mediatisees.",
+      "key_ideas": [
+        "Le texte relie post-soviet protests a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Maidan moldave\" — Carnegie.ru",
+        "\"a nouveau\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "post-soviet protests",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "fr-109-carnegie-moldovan-maidan-protest-cycle"
+    },
+    {
+      "id": "de-109",
+      "language": "DE",
+      "status": "draft",
+      "date": "2015-09-14",
+      "source": "Carnegie.ru",
+      "topic": "post-soviet protests",
+      "title": "Wogegen sich der moldauische Maidan erneut sammelte",
+      "digest": "Analyse moldauischer Protestdynamik, postsowjetischer Zyklen und der Wiederkehr vertrauter Krisenszenarien unter neuen politischen Konstellationen.",
+      "quote": "\"moldauischer Maidan\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60186",
+      "summary": "Analyse moldauischer Protestdynamik, postsowjetischer Zyklen und der Wiederkehr vertrauter Krisenszenarien unter neuen politischen Konstellationen.",
+      "key_ideas": [
+        "Der Beitrag verknuepft post-soviet protests mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"moldauischer Maidan\" — Carnegie.ru",
+        "\"erneut\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "post-soviet protests",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "de-109-carnegie-moldovan-maidan-protest-cycle"
+    },
+    {
+      "id": "es-109",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-09-14",
+      "source": "Carnegie.ru",
+      "topic": "post-soviet protests",
+      "title": "Contra que se volvia a reunir el maidan moldavo",
+      "digest": "Analisis de la dinamica de protesta en Moldavia, de los ciclos postsovieticos y de la repeticion de escenarios de crisis bajo nuevas coaliciones.",
+      "quote": "\"maidan moldavo\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/60186",
+      "summary": "Analisis de la dinamica de protesta en Moldavia, de los ciclos postsovieticos y de la repeticion de escenarios de crisis bajo nuevas coaliciones.",
+      "key_ideas": [
+        "El texto conecta post-soviet protests con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"maidan moldavo\" — Carnegie.ru",
+        "\"se volvia a reunir\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "post-soviet protests",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "es-109-carnegie-moldovan-maidan-protest-cycle"
+    },
+    {
+      "id": "en-110",
+      "language": "EN",
+      "status": "draft",
+      "date": "2015-10-22",
+      "source": "Carnegie.ru",
+      "topic": "social media and revolutions",
+      "title": "Самиздат и замещение: растут ли из соцсетей революции",
+      "digest": "The text questions linear causality between social platforms and revolutions, showing where digital mobilization matters and where political structure remains decisive.",
+      "quote": "\"растут ли из соцсетей революции\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/61708",
+      "copies": {
+        "FR": "fr-110",
+        "DE": "de-110",
+        "ES": "es-110"
+      },
+      "summary": "The text questions linear causality between social platforms and revolutions, showing where digital mobilization matters and where political structure remains decisive.",
+      "key_ideas": [
+        "The article connects social media and revolutions to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"растут ли из соцсетей революции\" — Carnegie.ru",
+        "\"Самиздат и замещение\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "social media and revolutions",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "en-110-carnegie-social-media-and-revolution-causality"
+    },
+    {
+      "id": "fr-110",
+      "language": "FR",
+      "status": "draft",
+      "date": "2015-10-22",
+      "source": "Carnegie.ru",
+      "topic": "social media and revolutions",
+      "title": "Samizdat et substitution : les revolutions naissent-elles des reseaux sociaux",
+      "digest": "Le texte questionne la causalite lineaire entre plateformes sociales et revolutions, en distinguant ce que la mobilisation numerique peut faire et ses limites structurelles.",
+      "quote": "\"revolutions ... reseaux sociaux\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/61708",
+      "summary": "Le texte questionne la causalite lineaire entre plateformes sociales et revolutions, en distinguant ce que la mobilisation numerique peut faire et ses limites structurelles.",
+      "key_ideas": [
+        "Le texte relie social media and revolutions a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"revolutions ... reseaux sociaux\" — Carnegie.ru",
+        "\"Samizdat et substitution\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "social media and revolutions",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "fr-110-carnegie-social-media-and-revolution-causality"
+    },
+    {
+      "id": "de-110",
+      "language": "DE",
+      "status": "draft",
+      "date": "2015-10-22",
+      "source": "Carnegie.ru",
+      "topic": "social media and revolutions",
+      "title": "Samisdat und Ersatz: Wachsen Revolutionen aus sozialen Netzwerken?",
+      "digest": "Der Beitrag hinterfragt lineare Kausalitaet zwischen sozialen Plattformen und Revolutionen und trennt digitale Mobilisierung von strukturellen Faktoren.",
+      "quote": "\"Revolutionen aus sozialen Netzwerken\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/61708",
+      "summary": "Der Beitrag hinterfragt lineare Kausalitaet zwischen sozialen Plattformen und Revolutionen und trennt digitale Mobilisierung von strukturellen Faktoren.",
+      "key_ideas": [
+        "Der Beitrag verknuepft social media and revolutions mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Revolutionen aus sozialen Netzwerken\" — Carnegie.ru",
+        "\"Samisdat und Ersatz\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "social media and revolutions",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "de-110-carnegie-social-media-and-revolution-causality"
+    },
+    {
+      "id": "es-110",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-10-22",
+      "source": "Carnegie.ru",
+      "topic": "social media and revolutions",
+      "title": "Samizdat y sustitucion: nacen las revoluciones de las redes sociales?",
+      "digest": "El texto cuestiona la causalidad lineal entre plataformas sociales y revoluciones, separando el impacto digital de los factores politicos estructurales.",
+      "quote": "\"revoluciones ... redes sociales\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/61708",
+      "summary": "El texto cuestiona la causalidad lineal entre plataformas sociales y revoluciones, separando el impacto digital de los factores politicos estructurales.",
+      "key_ideas": [
+        "El texto conecta social media and revolutions con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"revoluciones ... redes sociales\" — Carnegie.ru",
+        "\"Samizdat y sustitucion\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "social media and revolutions",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "es-110-carnegie-social-media-and-revolution-causality"
+    },
+    {
+      "id": "en-111",
+      "language": "EN",
+      "status": "draft",
+      "date": "2015-12-16",
+      "source": "Carnegie.ru",
+      "topic": "telegram and surveillance",
+      "title": "Как Павел Дуров бросил вызов ФСБ, а попал в ФБР",
+      "digest": "A history of Telegram at the intersection of Russian security pressure, privacy claims, surveillance politics, and international counterterrorism agendas.",
+      "quote": "\"бросил вызов ФСБ\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62055",
+      "copies": {
+        "FR": "fr-111",
+        "DE": "de-111",
+        "ES": "es-111"
+      },
+      "summary": "A history of Telegram at the intersection of Russian security pressure, privacy claims, surveillance politics, and international counterterrorism agendas.",
+      "key_ideas": [
+        "The article connects telegram and surveillance to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"бросил вызов ФСБ\" — Carnegie.ru",
+        "\"а попал в ФБР\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "telegram and surveillance",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "en-111-carnegie-telegram-between-fsb-and-fbi"
+    },
+    {
+      "id": "fr-111",
+      "language": "FR",
+      "status": "draft",
+      "date": "2015-12-16",
+      "source": "Carnegie.ru",
+      "topic": "telegram and surveillance",
+      "title": "Comment Pavel Dourov a defie le FSB et s est retrouve face au FBI",
+      "digest": "Histoire de Telegram a l intersection des pressions securitaires russes, des promesses de vie privee, de la politique de surveillance et du contreterrorisme international.",
+      "quote": "\"defie le FSB\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62055",
+      "summary": "Histoire de Telegram a l intersection des pressions securitaires russes, des promesses de vie privee, de la politique de surveillance et du contreterrorisme international.",
+      "key_ideas": [
+        "Le texte relie telegram and surveillance a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"defie le FSB\" — Carnegie.ru",
+        "\"face au FBI\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "telegram and surveillance",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "fr-111-carnegie-telegram-between-fsb-and-fbi"
+    },
+    {
+      "id": "de-111",
+      "language": "DE",
+      "status": "draft",
+      "date": "2015-12-16",
+      "source": "Carnegie.ru",
+      "topic": "telegram and surveillance",
+      "title": "Wie Pavel Durov den FSB herausforderte und beim FBI landete",
+      "digest": "Geschichte von Telegram im Spannungsfeld russischer Sicherheitsinteressen, Datenschutzversprechen, Ueberwachungspolitik und internationaler Terrorabwehr.",
+      "quote": "\"den FSB herausforderte\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62055",
+      "summary": "Geschichte von Telegram im Spannungsfeld russischer Sicherheitsinteressen, Datenschutzversprechen, Ueberwachungspolitik und internationaler Terrorabwehr.",
+      "key_ideas": [
+        "Der Beitrag verknuepft telegram and surveillance mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"den FSB herausforderte\" — Carnegie.ru",
+        "\"beim FBI landete\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "telegram and surveillance",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "de-111-carnegie-telegram-between-fsb-and-fbi"
+    },
+    {
+      "id": "es-111",
+      "language": "ES",
+      "status": "draft",
+      "date": "2015-12-16",
+      "source": "Carnegie.ru",
+      "topic": "telegram and surveillance",
+      "title": "Como Pavel Durov desafió al FSB y termino en el radar del FBI",
+      "digest": "Historia de Telegram en la interseccion entre presion de seguridad rusa, promesas de privacidad, politica de vigilancia y agendas antiterroristas internacionales.",
+      "quote": "\"desafio al FSB\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62055",
+      "summary": "Historia de Telegram en la interseccion entre presion de seguridad rusa, promesas de privacidad, politica de vigilancia y agendas antiterroristas internacionales.",
+      "key_ideas": [
+        "El texto conecta telegram and surveillance con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"desafio al FSB\" — Carnegie.ru",
+        "\"termino ... FBI\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "telegram and surveillance",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2015",
+        "source-based summary"
+      ],
+      "slug": "es-111-carnegie-telegram-between-fsb-and-fbi"
+    },
+    {
+      "id": "en-112",
+      "language": "EN",
+      "status": "draft",
+      "date": "2016-02-08",
+      "source": "Carnegie.ru",
+      "topic": "future of RuNet",
+      "title": "Что будет с интернетом в России. Три сценария",
+      "digest": "The article outlines three scenarios for the future of the Russian internet under growing state control, with implications for media, platforms, and civic communication.",
+      "quote": "\"Три сценария\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62632",
+      "copies": {
+        "FR": "fr-112",
+        "DE": "de-112",
+        "ES": "es-112"
+      },
+      "summary": "The article outlines three scenarios for the future of the Russian internet under growing state control, with implications for media, platforms, and civic communication.",
+      "key_ideas": [
+        "The article connects future of RuNet to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Три сценария\" — Carnegie.ru",
+        "\"интернетом в России\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "future of RuNet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "en-112-carnegie-three-scenarios-for-russian-internet"
+    },
+    {
+      "id": "fr-112",
+      "language": "FR",
+      "status": "draft",
+      "date": "2016-02-08",
+      "source": "Carnegie.ru",
+      "topic": "future of RuNet",
+      "title": "Que deviendra internet en Russie : trois scenarios",
+      "digest": "L article propose trois scenarios pour l avenir de l internet russe sous un controle etatique croissant et leurs implications pour medias, plateformes et communication civique.",
+      "quote": "\"trois scenarios\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62632",
+      "summary": "L article propose trois scenarios pour l avenir de l internet russe sous un controle etatique croissant et leurs implications pour medias, plateformes et communication civique.",
+      "key_ideas": [
+        "Le texte relie future of RuNet a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"trois scenarios\" — Carnegie.ru",
+        "\"internet en Russie\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "future of RuNet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "fr-112-carnegie-three-scenarios-for-russian-internet"
+    },
+    {
+      "id": "de-112",
+      "language": "DE",
+      "status": "draft",
+      "date": "2016-02-08",
+      "source": "Carnegie.ru",
+      "topic": "future of RuNet",
+      "title": "Was wird aus dem Internet in Russland? Drei Szenarien",
+      "digest": "Der Text entwirft drei Szenarien fuer die Zukunft des russischen Internets unter staerkerer staatlicher Kontrolle und deren Folgen fuer Medien und Oeffentlichkeit.",
+      "quote": "\"Drei Szenarien\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62632",
+      "summary": "Der Text entwirft drei Szenarien fuer die Zukunft des russischen Internets unter staerkerer staatlicher Kontrolle und deren Folgen fuer Medien und Oeffentlichkeit.",
+      "key_ideas": [
+        "Der Beitrag verknuepft future of RuNet mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Drei Szenarien\" — Carnegie.ru",
+        "\"Internet in Russland\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "future of RuNet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "de-112-carnegie-three-scenarios-for-russian-internet"
+    },
+    {
+      "id": "es-112",
+      "language": "ES",
+      "status": "draft",
+      "date": "2016-02-08",
+      "source": "Carnegie.ru",
+      "topic": "future of RuNet",
+      "title": "Que pasara con internet en Rusia: tres escenarios",
+      "digest": "El articulo presenta tres escenarios para el futuro del internet ruso bajo mayor control estatal y sus efectos en medios, plataformas y comunicacion civica.",
+      "quote": "\"tres escenarios\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/62632",
+      "summary": "El articulo presenta tres escenarios para el futuro del internet ruso bajo mayor control estatal y sus efectos en medios, plataformas y comunicacion civica.",
+      "key_ideas": [
+        "El texto conecta future of RuNet con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"tres escenarios\" — Carnegie.ru",
+        "\"internet en Rusia\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "future of RuNet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "es-112-carnegie-three-scenarios-for-russian-internet"
+    },
+    {
+      "id": "en-113",
+      "language": "EN",
+      "status": "draft",
+      "date": "2016-02-25",
+      "source": "Carnegie Endowment",
+      "topic": "platform design and politics",
+      "title": "Жизнь после лайка: последствия разделения главной кнопки для России и мира",
+      "digest": "The piece discusses how interface changes around the social \"like\" function can alter media incentives, political signaling, and audience behavior in Russia and beyond.",
+      "quote": "\"Жизнь после лайка\" — Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2016/02/zhizn-posle-lajka-posledstviya-razdeleniya-glavnoj-knopki-dlya-rossii-i-mira",
+      "copies": {
+        "FR": "fr-113",
+        "DE": "de-113",
+        "ES": "es-113"
+      },
+      "summary": "The piece discusses how interface changes around the social \"like\" function can alter media incentives, political signaling, and audience behavior in Russia and beyond.",
+      "key_ideas": [
+        "The article connects platform design and politics to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Жизнь после лайка\" — Carnegie Endowment",
+        "\"для России и мира\" — Carnegie Endowment"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie Endowment source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "platform design and politics",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "en-113-carnegie-life-after-like-russia-world"
+    },
+    {
+      "id": "fr-113",
+      "language": "FR",
+      "status": "draft",
+      "date": "2016-02-25",
+      "source": "Carnegie Endowment",
+      "topic": "platform design and politics",
+      "title": "La vie apres le like : consequences de la fragmentation du bouton central pour la Russie et le monde",
+      "digest": "Le texte montre comment des changements d interface autour du bouton \"like\" modifient les incitations mediatiques, les signaux politiques et le comportement des publics.",
+      "quote": "\"La vie apres le like\" — Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2016/02/zhizn-posle-lajka-posledstviya-razdeleniya-glavnoj-knopki-dlya-rossii-i-mira",
+      "summary": "Le texte montre comment des changements d interface autour du bouton \"like\" modifient les incitations mediatiques, les signaux politiques et le comportement des publics.",
+      "key_ideas": [
+        "Le texte relie platform design and politics a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"La vie apres le like\" — Carnegie Endowment",
+        "\"pour la Russie et le monde\" — Carnegie Endowment"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie Endowment datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "platform design and politics",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "fr-113-carnegie-life-after-like-russia-world"
+    },
+    {
+      "id": "de-113",
+      "language": "DE",
+      "status": "draft",
+      "date": "2016-02-25",
+      "source": "Carnegie Endowment",
+      "topic": "platform design and politics",
+      "title": "Leben nach dem Like: Folgen der Aufspaltung der zentralen Schaltflaeche fuer Russland und die Welt",
+      "digest": "Der Beitrag zeigt, wie Interface-Aenderungen rund um den \"Like\"-Button Medienanreize, politische Signale und Publikumsverhalten veraendern koennen.",
+      "quote": "\"Leben nach dem Like\" — Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2016/02/zhizn-posle-lajka-posledstviya-razdeleniya-glavnoj-knopki-dlya-rossii-i-mira",
+      "summary": "Der Beitrag zeigt, wie Interface-Aenderungen rund um den \"Like\"-Button Medienanreize, politische Signale und Publikumsverhalten veraendern koennen.",
+      "key_ideas": [
+        "Der Beitrag verknuepft platform design and politics mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Leben nach dem Like\" — Carnegie Endowment",
+        "\"fuer Russland und die Welt\" — Carnegie Endowment"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie Endowment.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "platform design and politics",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "de-113-carnegie-life-after-like-russia-world"
+    },
+    {
+      "id": "es-113",
+      "language": "ES",
+      "status": "draft",
+      "date": "2016-02-25",
+      "source": "Carnegie Endowment",
+      "topic": "platform design and politics",
+      "title": "Vida despues del like: consecuencias de dividir el boton principal para Rusia y el mundo",
+      "digest": "El texto analiza como cambios de interfaz en torno al boton \"like\" pueden alterar incentivos mediaticos, senales politicas y comportamiento de audiencias.",
+      "quote": "\"Vida despues del like\" — Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2016/02/zhizn-posle-lajka-posledstviya-razdeleniya-glavnoj-knopki-dlya-rossii-i-mira",
+      "summary": "El texto analiza como cambios de interfaz en torno al boton \"like\" pueden alterar incentivos mediaticos, senales politicas y comportamiento de audiencias.",
+      "key_ideas": [
+        "El texto conecta platform design and politics con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Vida despues del like\" — Carnegie Endowment",
+        "\"Rusia y el mundo\" — Carnegie Endowment"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie Endowment.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "platform design and politics",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "es-113-carnegie-life-after-like-russia-world"
+    },
+    {
+      "id": "en-114",
+      "language": "EN",
+      "status": "draft",
+      "date": "2016-05-20",
+      "source": "Carnegie.ru",
+      "topic": "state control of internet",
+      "title": "Кремль против интернета: подготовка к прошлой войне",
+      "digest": "An argument that Russian state policy toward the internet relies on outdated control methods that misread platform dynamics and communication behavior.",
+      "quote": "\"Кремль против интернета\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/63383",
+      "copies": {
+        "FR": "fr-114",
+        "DE": "de-114",
+        "ES": "es-114"
+      },
+      "summary": "An argument that Russian state policy toward the internet relies on outdated control methods that misread platform dynamics and communication behavior.",
+      "key_ideas": [
+        "The article connects state control of internet to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Кремль против интернета\" — Carnegie.ru",
+        "\"подготовка к прошлой войне\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "state control of internet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "en-114-carnegie-kremlin-against-internet-old-war"
+    },
+    {
+      "id": "fr-114",
+      "language": "FR",
+      "status": "draft",
+      "date": "2016-05-20",
+      "source": "Carnegie.ru",
+      "topic": "state control of internet",
+      "title": "Le Kremlin contre internet : preparation a une guerre du passe",
+      "digest": "L article soutient que la politique numerique de l Etat russe s appuie sur des methodes de controle depassees qui lisent mal la dynamique des plateformes.",
+      "quote": "\"Le Kremlin contre internet\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/63383",
+      "summary": "L article soutient que la politique numerique de l Etat russe s appuie sur des methodes de controle depassees qui lisent mal la dynamique des plateformes.",
+      "key_ideas": [
+        "Le texte relie state control of internet a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Le Kremlin contre internet\" — Carnegie.ru",
+        "\"guerre du passe\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "state control of internet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "fr-114-carnegie-kremlin-against-internet-old-war"
+    },
+    {
+      "id": "de-114",
+      "language": "DE",
+      "status": "draft",
+      "date": "2016-05-20",
+      "source": "Carnegie.ru",
+      "topic": "state control of internet",
+      "title": "Der Kreml gegen das Internet: Vorbereitung auf den vergangenen Krieg",
+      "digest": "Der Text argumentiert, dass russische Internetpolitik auf veralteten Kontrolllogiken beruht und Plattformdynamik nur unzureichend versteht.",
+      "quote": "\"Der Kreml gegen das Internet\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/63383",
+      "summary": "Der Text argumentiert, dass russische Internetpolitik auf veralteten Kontrolllogiken beruht und Plattformdynamik nur unzureichend versteht.",
+      "key_ideas": [
+        "Der Beitrag verknuepft state control of internet mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Der Kreml gegen das Internet\" — Carnegie.ru",
+        "\"vergangenen Krieg\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "state control of internet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "de-114-carnegie-kremlin-against-internet-old-war"
+    },
+    {
+      "id": "es-114",
+      "language": "ES",
+      "status": "draft",
+      "date": "2016-05-20",
+      "source": "Carnegie.ru",
+      "topic": "state control of internet",
+      "title": "El Kremlin contra internet: preparacion para una guerra del pasado",
+      "digest": "El texto sostiene que la politica digital del Estado ruso se basa en metodos de control obsoletos y entiende mal la dinamica de plataformas.",
+      "quote": "\"El Kremlin contra internet\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/63383",
+      "summary": "El texto sostiene que la politica digital del Estado ruso se basa en metodos de control obsoletos y entiende mal la dinamica de plataformas.",
+      "key_ideas": [
+        "El texto conecta state control of internet con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"El Kremlin contra internet\" — Carnegie.ru",
+        "\"guerra del pasado\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "state control of internet",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "es-114-carnegie-kremlin-against-internet-old-war"
+    },
+    {
+      "id": "en-115",
+      "language": "EN",
+      "status": "draft",
+      "date": "2016-05-23",
+      "source": "Carnegie.ru",
+      "topic": "generational conflict and regulation",
+      "title": "Разрыв поколений: почему «Новая» и Мизулина объединились против соцсетей",
+      "digest": "The article explores a generational conflict over social media, public morality, and state regulation, showing unlikely alliances around digital control.",
+      "quote": "\"Разрыв поколений\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/2016/05/23/ru-63642/ize3",
+      "copies": {
+        "FR": "fr-115",
+        "DE": "de-115",
+        "ES": "es-115"
+      },
+      "summary": "The article explores a generational conflict over social media, public morality, and state regulation, showing unlikely alliances around digital control.",
+      "key_ideas": [
+        "The article connects generational conflict and regulation to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Разрыв поколений\" — Carnegie.ru",
+        "\"против соцсетей\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "generational conflict and regulation",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "en-115-carnegie-generational-conflict-social-networks"
+    },
+    {
+      "id": "fr-115",
+      "language": "FR",
+      "status": "draft",
+      "date": "2016-05-23",
+      "source": "Carnegie.ru",
+      "topic": "generational conflict and regulation",
+      "title": "Rupture generationnelle : pourquoi Novaia et Mizoulina se sont unies contre les reseaux sociaux",
+      "digest": "Le texte analyse un conflit generationnel autour des reseaux sociaux, du moralisme public et de la regulation etatique, avec des alliances inattendues.",
+      "quote": "\"Rupture generationnelle\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/2016/05/23/ru-63642/ize3",
+      "summary": "Le texte analyse un conflit generationnel autour des reseaux sociaux, du moralisme public et de la regulation etatique, avec des alliances inattendues.",
+      "key_ideas": [
+        "Le texte relie generational conflict and regulation a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Rupture generationnelle\" — Carnegie.ru",
+        "\"contre les reseaux sociaux\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "generational conflict and regulation",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "fr-115-carnegie-generational-conflict-social-networks"
+    },
+    {
+      "id": "de-115",
+      "language": "DE",
+      "status": "draft",
+      "date": "2016-05-23",
+      "source": "Carnegie.ru",
+      "topic": "generational conflict and regulation",
+      "title": "Generationsbruch: Warum Novaya und Mizulina sich gegen soziale Netzwerke verbuendeten",
+      "digest": "Der Beitrag untersucht einen Generationenkonflikt um soziale Medien, Moralpolitik und staatliche Regulierung, inklusive ungewoehnlicher Allianzen.",
+      "quote": "\"Generationsbruch\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/2016/05/23/ru-63642/ize3",
+      "summary": "Der Beitrag untersucht einen Generationenkonflikt um soziale Medien, Moralpolitik und staatliche Regulierung, inklusive ungewoehnlicher Allianzen.",
+      "key_ideas": [
+        "Der Beitrag verknuepft generational conflict and regulation mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Generationsbruch\" — Carnegie.ru",
+        "\"gegen soziale Netzwerke\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "generational conflict and regulation",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "de-115-carnegie-generational-conflict-social-networks"
+    },
+    {
+      "id": "es-115",
+      "language": "ES",
+      "status": "draft",
+      "date": "2016-05-23",
+      "source": "Carnegie.ru",
+      "topic": "generational conflict and regulation",
+      "title": "Ruptura generacional: por que Novaya y Mizulina se unieron contra las redes sociales",
+      "digest": "El texto examina un conflicto generacional sobre redes sociales, moralismo publico y regulacion estatal, con alianzas politicas poco previsibles.",
+      "quote": "\"Ruptura generacional\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/2016/05/23/ru-63642/ize3",
+      "summary": "El texto examina un conflicto generacional sobre redes sociales, moralismo publico y regulacion estatal, con alianzas politicas poco previsibles.",
+      "key_ideas": [
+        "El texto conecta generational conflict and regulation con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Ruptura generacional\" — Carnegie.ru",
+        "\"contra las redes sociales\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "generational conflict and regulation",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "es-115-carnegie-generational-conflict-social-networks"
+    },
+    {
+      "id": "en-116",
+      "language": "EN",
+      "status": "draft",
+      "date": "2016-11-18",
+      "source": "Carnegie.ru",
+      "topic": "platform power",
+      "title": "Частный авторитаризм. Как Facebook и Google угрожают демократии",
+      "digest": "A critique of private platform power describing Facebook and Google as forms of non-state authority that can shape speech rules, visibility, and democratic process.",
+      "quote": "\"Частный авторитаризм\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/64518",
+      "copies": {
+        "FR": "fr-116",
+        "DE": "de-116",
+        "ES": "es-116"
+      },
+      "summary": "A critique of private platform power describing Facebook and Google as forms of non-state authority that can shape speech rules, visibility, and democratic process.",
+      "key_ideas": [
+        "The article connects platform power to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Частный авторитаризм\" — Carnegie.ru",
+        "\"Facebook и Google\" — Carnegie.ru"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "platform power",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "en-116-carnegie-private-authoritarianism-platforms"
+    },
+    {
+      "id": "fr-116",
+      "language": "FR",
+      "status": "draft",
+      "date": "2016-11-18",
+      "source": "Carnegie.ru",
+      "topic": "platform power",
+      "title": "Autoritarisme prive : comment Facebook et Google menacent la democratie",
+      "digest": "Critique du pouvoir prive des plateformes decrivant Facebook et Google comme des formes d autorite non etatique capables de modeler parole publique et visibilite.",
+      "quote": "\"Autoritarisme prive\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/64518",
+      "summary": "Critique du pouvoir prive des plateformes decrivant Facebook et Google comme des formes d autorite non etatique capables de modeler parole publique et visibilite.",
+      "key_ideas": [
+        "Le texte relie platform power a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"Autoritarisme prive\" — Carnegie.ru",
+        "\"Facebook et Google\" — Carnegie.ru"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Carnegie.ru datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "platform power",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "fr-116-carnegie-private-authoritarianism-platforms"
+    },
+    {
+      "id": "de-116",
+      "language": "DE",
+      "status": "draft",
+      "date": "2016-11-18",
+      "source": "Carnegie.ru",
+      "topic": "platform power",
+      "title": "Privater Autoritarismus: Wie Facebook und Google die Demokratie bedrohen",
+      "digest": "Kritik privater Plattformmacht: Facebook und Google erscheinen als nichtstaatliche Autoritaeten mit Einfluss auf Sichtbarkeit, Regeln und demokratische Prozesse.",
+      "quote": "\"Privater Autoritarismus\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/64518",
+      "summary": "Kritik privater Plattformmacht: Facebook und Google erscheinen als nichtstaatliche Autoritaeten mit Einfluss auf Sichtbarkeit, Regeln und demokratische Prozesse.",
+      "key_ideas": [
+        "Der Beitrag verknuepft platform power mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Privater Autoritarismus\" — Carnegie.ru",
+        "\"Facebook und Google\" — Carnegie.ru"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "platform power",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "de-116-carnegie-private-authoritarianism-platforms"
+    },
+    {
+      "id": "es-116",
+      "language": "ES",
+      "status": "draft",
+      "date": "2016-11-18",
+      "source": "Carnegie.ru",
+      "topic": "platform power",
+      "title": "Autoritarismo privado: como Facebook y Google amenazan la democracia",
+      "digest": "Critica del poder privado de plataformas: Facebook y Google aparecen como autoridades no estatales que moldean visibilidad, reglas y procesos democraticos.",
+      "quote": "\"Autoritarismo privado\" — Carnegie.ru",
+      "url": "https://carnegie.ru/commentary/64518",
+      "summary": "Critica del poder privado de plataformas: Facebook y Google aparecen como autoridades no estatales que moldean visibilidad, reglas y procesos democraticos.",
+      "key_ideas": [
+        "El texto conecta platform power con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"Autoritarismo privado\" — Carnegie.ru",
+        "\"Facebook y Google\" — Carnegie.ru"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Carnegie.ru.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "platform power",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2016",
+        "source-based summary"
+      ],
+      "slug": "es-116-carnegie-private-authoritarianism-platforms"
+    },
+    {
+      "id": "en-117",
+      "language": "EN",
+      "status": "draft",
+      "date": "2020-07-27",
+      "source": "LiveLib",
+      "topic": "literary criticism",
+      "title": "«Гроза как формула современной России»: зачем сегодня читать Островского?",
+      "digest": "A literary essay reading Ostrovsky as a key to contemporary Russian social structure, moving the play from school canon into present-day political and moral context.",
+      "quote": "\"Гроза как формула современной России\" — LiveLib",
+      "url": "https://www.livelib.ru/articles/post/57304-groza-kak-formula-sovremennoj-rossii-zachem-segodnya-chitat-ostrovskogo",
+      "copies": {
+        "FR": "fr-117",
+        "DE": "de-117",
+        "ES": "es-117"
+      },
+      "summary": "A literary essay reading Ostrovsky as a key to contemporary Russian social structure, moving the play from school canon into present-day political and moral context.",
+      "key_ideas": [
+        "The article connects literary criticism to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"Гроза как формула современной России\" — LiveLib",
+        "\"зачем сегодня читать Островского\" — LiveLib"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable LiveLib source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LiveLib",
+        "literary criticism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2020",
+        "source-based summary"
+      ],
+      "slug": "en-117-livelib-ostrovsky-and-contemporary-russia"
+    },
+    {
+      "id": "fr-117",
+      "language": "FR",
+      "status": "draft",
+      "date": "2020-07-27",
+      "source": "LiveLib",
+      "topic": "literary criticism",
+      "title": "\"L Orage\" comme formule de la Russie contemporaine : pourquoi lire Ostrovski aujourd hui",
+      "digest": "Essai litteraire lisant Ostrovski comme cle de la structure sociale russe contemporaine, en deplacant la piece du canon scolaire vers le contexte actuel.",
+      "quote": "\"formule de la Russie contemporaine\" — LiveLib",
+      "url": "https://www.livelib.ru/articles/post/57304-groza-kak-formula-sovremennoj-rossii-zachem-segodnya-chitat-ostrovskogo",
+      "summary": "Essai litteraire lisant Ostrovski comme cle de la structure sociale russe contemporaine, en deplacant la piece du canon scolaire vers le contexte actuel.",
+      "key_ideas": [
+        "Le texte relie literary criticism a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"formule de la Russie contemporaine\" — LiveLib",
+        "\"pourquoi lire Ostrovski\" — LiveLib"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source LiveLib datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LiveLib",
+        "literary criticism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2020",
+        "source-based summary"
+      ],
+      "slug": "fr-117-livelib-ostrovsky-and-contemporary-russia"
+    },
+    {
+      "id": "de-117",
+      "language": "DE",
+      "status": "draft",
+      "date": "2020-07-27",
+      "source": "LiveLib",
+      "topic": "literary criticism",
+      "title": "\"Das Gewitter\" als Formel des heutigen Russland: Warum man Ostrowski heute lesen sollte",
+      "digest": "Literarischer Essay, der Ostrowski als Schluessel zum heutigen russischen Gesellschaftsbild liest und das Werk aus dem Schulkanon in die Gegenwart holt.",
+      "quote": "\"Formel des heutigen Russland\" — LiveLib",
+      "url": "https://www.livelib.ru/articles/post/57304-groza-kak-formula-sovremennoj-rossii-zachem-segodnya-chitat-ostrovskogo",
+      "summary": "Literarischer Essay, der Ostrowski als Schluessel zum heutigen russischen Gesellschaftsbild liest und das Werk aus dem Schulkanon in die Gegenwart holt.",
+      "key_ideas": [
+        "Der Beitrag verknuepft literary criticism mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Formel des heutigen Russland\" — LiveLib",
+        "\"Ostrowski heute lesen\" — LiveLib"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von LiveLib.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LiveLib",
+        "literary criticism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2020",
+        "source-based summary"
+      ],
+      "slug": "de-117-livelib-ostrovsky-and-contemporary-russia"
+    },
+    {
+      "id": "es-117",
+      "language": "ES",
+      "status": "draft",
+      "date": "2020-07-27",
+      "source": "LiveLib",
+      "topic": "literary criticism",
+      "title": "\"La Tormenta\" como formula de la Rusia contemporanea: por que leer a Ostrovski hoy",
+      "digest": "Ensayo literario que lee a Ostrovski como clave de la estructura social rusa actual y traslada la obra del canon escolar al contexto contemporaneo.",
+      "quote": "\"formula de la Rusia contemporanea\" — LiveLib",
+      "url": "https://www.livelib.ru/articles/post/57304-groza-kak-formula-sovremennoj-rossii-zachem-segodnya-chitat-ostrovskogo",
+      "summary": "Ensayo literario que lee a Ostrovski como clave de la estructura social rusa actual y traslada la obra del canon escolar al contexto contemporaneo.",
+      "key_ideas": [
+        "El texto conecta literary criticism con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"formula de la Rusia contemporanea\" — LiveLib",
+        "\"leer a Ostrovski hoy\" — LiveLib"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de LiveLib.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LiveLib",
+        "literary criticism",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2020",
+        "source-based summary"
+      ],
+      "slug": "es-117-livelib-ostrovsky-and-contemporary-russia"
+    },
+    {
+      "id": "en-118",
+      "language": "EN",
+      "status": "draft",
+      "date": "2007-12-18",
+      "source": "Foma",
+      "topic": "church and society",
+      "title": "ЗАБЛУЖДЕНИЕ О ЦЕРКВИ",
+      "digest": "An early essay on church autonomy, social expectations, and the limits of projecting political demand onto religious institutions in post-Soviet public debate.",
+      "quote": "\"ЗАБЛУЖДЕНИЕ О ЦЕРКВИ\" — Фома",
+      "url": "https://foma.ru/zabluzhdenie-o-czerkvi.html",
+      "copies": {
+        "FR": "fr-118",
+        "DE": "de-118",
+        "ES": "es-118"
+      },
+      "summary": "An early essay on church autonomy, social expectations, and the limits of projecting political demand onto religious institutions in post-Soviet public debate.",
+      "key_ideas": [
+        "The article connects church and society to a concrete historical and political context.",
+        "Its core argument is developed without reductive propaganda framing.",
+        "The primary source remains directly available for verification."
+      ],
+      "quotes": [
+        "\"ЗАБЛУЖДЕНИЕ О ЦЕРКВИ\" — Фома",
+        "\"church autonomy and public expectations\" — Foma"
+      ],
+      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Foma source.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Foma",
+        "church and society",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2007",
+        "source-based summary"
+      ],
+      "slug": "en-118-foma-misconception-about-the-church"
+    },
+    {
+      "id": "fr-118",
+      "language": "FR",
+      "status": "draft",
+      "date": "2007-12-18",
+      "source": "Foma",
+      "topic": "church and society",
+      "title": "L illusion sur l Eglise",
+      "digest": "Texte precoce sur l autonomie de l Eglise, les attentes sociales et les limites de la projection des demandes politiques sur les institutions religieuses.",
+      "quote": "\"illusion sur l Eglise\" — Foma",
+      "url": "https://foma.ru/zabluzhdenie-o-czerkvi.html",
+      "summary": "Texte precoce sur l autonomie de l Eglise, les attentes sociales et les limites de la projection des demandes politiques sur les institutions religieuses.",
+      "key_ideas": [
+        "Le texte relie church and society a un contexte historique et politique concret.",
+        "Les arguments principaux sont formules sans simplification propagandiste.",
+        "La source primaire permet verification et lecture contextuelle."
+      ],
+      "quotes": [
+        "\"illusion sur l Eglise\" — Foma",
+        "\"autonomie et attentes sociales\" — Foma"
+      ],
+      "value_context": "Carte utile pour contextualiser les travaux de Klishin via une source Foma datee et verifiable.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Foma",
+        "church and society",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2007",
+        "source-based summary"
+      ],
+      "slug": "fr-118-foma-misconception-about-the-church"
+    },
+    {
+      "id": "de-118",
+      "language": "DE",
+      "status": "draft",
+      "date": "2007-12-18",
+      "source": "Foma",
+      "topic": "church and society",
+      "title": "Der Irrtum ueber die Kirche",
+      "digest": "Frueher Essay ueber kirchliche Autonomie, gesellschaftliche Erwartungen und die Grenzen politischer Projektionen auf religioese Institutionen.",
+      "quote": "\"Irrtum ueber die Kirche\" — Foma",
+      "url": "https://foma.ru/zabluzhdenie-o-czerkvi.html",
+      "summary": "Frueher Essay ueber kirchliche Autonomie, gesellschaftliche Erwartungen und die Grenzen politischer Projektionen auf religioese Institutionen.",
+      "key_ideas": [
+        "Der Beitrag verknuepft church and society mit einem konkreten historischen Kontext.",
+        "Die Hauptargumente werden ohne propagandistische Vereinfachung entfaltet.",
+        "Die Primaerquelle bleibt direkt pruefbar und kontextuell lesbar."
+      ],
+      "quotes": [
+        "\"Irrtum ueber die Kirche\" — Foma",
+        "\"Autonomie und gesellschaftliche Erwartungen\" — Foma"
+      ],
+      "value_context": "Nuetzliche Karte zur Einordnung von Klishins Arbeit anhand einer datierten, pruefbaren Quelle von Foma.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Foma",
+        "church and society",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2007",
+        "source-based summary"
+      ],
+      "slug": "de-118-foma-misconception-about-the-church"
+    },
+    {
+      "id": "es-118",
+      "language": "ES",
+      "status": "draft",
+      "date": "2007-12-18",
+      "source": "Foma",
+      "topic": "church and society",
+      "title": "El error sobre la Iglesia",
+      "digest": "Texto temprano sobre autonomia eclesial, expectativas sociales y limites de proyectar demandas politicas sobre instituciones religiosas.",
+      "quote": "\"error sobre la Iglesia\" — Foma",
+      "url": "https://foma.ru/zabluzhdenie-o-czerkvi.html",
+      "summary": "Texto temprano sobre autonomia eclesial, expectativas sociales y limites de proyectar demandas politicas sobre instituciones religiosas.",
+      "key_ideas": [
+        "El texto conecta church and society con un contexto historico y politico concreto.",
+        "Los argumentos centrales se presentan sin simplificaciones propagandisticas.",
+        "La fuente primaria permite verificacion y lectura contextual."
+      ],
+      "quotes": [
+        "\"error sobre la Iglesia\" — Foma",
+        "\"autonomia y expectativas sociales\" — Foma"
+      ],
+      "value_context": "Ficha util para contextualizar el trabajo de Klishin con una fuente fechada y verificable de Foma.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Foma",
+        "church and society",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "year-2007",
+        "source-based summary"
+      ],
+      "slug": "es-118-foma-misconception-about-the-church"
     }
   ],
   "card_format": "v1"
