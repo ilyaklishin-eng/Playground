@@ -1,10 +1,15 @@
 (() => {
-  const clean = (value = "") => String(value || "").replaceAll("|", "").trim();
+  const clean = (value = "") => String(value || "").replace(/\|/g, "").trim();
 
   const buildEmail = (node) => {
     const user = clean(node.dataset.user);
     const domain = clean(node.dataset.domain);
-    if (!user || !domain) return;
+    if (!user || !domain) {
+      if (!node.getAttribute("href") || node.getAttribute("href") === "#") {
+        node.setAttribute("href", "mailto:ilyaklishin@gmail.com");
+      }
+      return;
+    }
 
     const address = `${user}@${domain}`;
     const subject = clean(node.dataset.subject);
