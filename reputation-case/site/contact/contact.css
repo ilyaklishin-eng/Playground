@@ -96,6 +96,10 @@
   margin-top: 0.95rem;
 }
 
+.contact-page .trust-facts {
+  grid-template-columns: 1fr;
+}
+
 .profiles-list {
   columns: 2;
   column-gap: 1.4rem;
