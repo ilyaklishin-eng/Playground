@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Archive | Ilia Klishin</title>
     <meta
       name="description"
-      content="Archive layer with sitemap files, RSS, static post index, and source registries."
+      content="Archive indexes, feeds, and source files."
     />
     <meta name="robots" content="noindex,follow,max-image-preview:large" />
     <link rel="canonical" href="https://www.klishin.work/archive/" />
@@ -16,7 +16,7 @@
     <meta property="og:title" content="Archive | Ilia Klishin" />
     <meta
       property="og:description"
-      content="Archive endpoints and reference files: sitemaps, robots, RSS, static cards, and datasets."
+      content="Archive indexes, feeds, and source files."
     />
     <meta property="og:url" content="https://www.klishin.work/archive/" />
     <meta property="og:site_name" content="Ilia Klishin" />
@@ -24,7 +24,7 @@
     <meta name="twitter:title" content="Archive | Ilia Klishin" />
     <meta
       name="twitter:description"
-      content="Archive endpoints and reference files: sitemaps, robots, RSS, static cards, and datasets."
+      content="Archive indexes, feeds, and source files."
     />
     <script type="application/ld+json">
       {
@@ -71,6 +71,11 @@
             "inLanguage": ["en", "fr", "de", "es"],
             "publisher": { "@id": "https://www.klishin.work/#organization" },
             "about": { "@id": "https://www.klishin.work/#person" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/search/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            },
             "hasPart": [
               { "@id": "https://www.klishin.work/#webpage" },
               { "@id": "https://www.klishin.work/bio/#webpage" },
@@ -78,6 +83,24 @@
               { "@id": "https://www.klishin.work/contact/#webpage" },
               { "@id": "https://www.klishin.work/selected/#webpage" },
               { "@id": "https://www.klishin.work/archive/#webpage" }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.klishin.work/archive/#breadcrumb",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.klishin.work/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Archive",
+                "item": "https://www.klishin.work/archive/"
+              }
             ]
           },
           {
@@ -188,11 +211,8 @@
         <a href="/contact/">Contact</a>
       </nav>
 
-      <h1>Archive (Research Layer)</h1>
-      <p>
-        This section keeps technical reference endpoints public and stable: sitemaps, feed files, static cards, and dataset
-        files used for research and indexing workflows.
-      </p>
+      <h1>Archive</h1>
+      <p>This page collects the site's indexes, feeds, and source files.</p>
       <ul>
         <li><a href="/bio/">Biography pages (EN, FR, DE, ES)</a></li>
         <li><a href="/cases/">Case Clarifications pages (EN, FR, DE, ES)</a></li>
@@ -204,16 +224,19 @@
         <li><a href="/sitemap-es.xml">Sitemap ES</a></li>
         <li><a href="/robots.txt">Robots policy</a></li>
         <li><a href="/rss.xml">RSS feed</a></li>
-        <li><a href="/posts/">Static post index</a></li>
+        <li><a href="/posts/">Published post index</a></li>
+        <li><a href="/posts/all.html">Full corpus: all cards</a></li>
+        <li><a href="/posts/drafts.html">Draft cards index</a></li>
         <li><a href="/source-registry-v1.tsv">Source registry (TSV)</a></li>
         <li><a href="/data/digests.json">Digest dataset (JSON)</a></li>
       </ul>
 
-      <h2>Related materials</h2>
+      <h2>Where to continue</h2>
       <ul>
-        <li><a href="/">Public home feed</a></li>
-        <li><a href="/insights/">Insights research hub</a></li>
-        <li><a href="/posts/">Full static digest</a></li>
+        <li><a href="/">Public homepage</a></li>
+        <li><a href="/insights/">Insights index</a></li>
+        <li><a href="/posts/">Published cards index</a></li>
+        <li><a href="/posts/all.html">Full corpus (published + drafts)</a></li>
         <li><a href="/about/">About this site</a></li>
         <li><a href="/rss.xml">RSS feed</a></li>
       </ul>

@@ -1,7 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const SITE_DIR = "/Users/ilyaklishin/Documents/Playground/reputation-case/site";
+const ROOT = path.resolve(process.cwd());
+const SITE_DIR = process.env.SEO_AUDIT_SITE_DIR
+  ? path.resolve(process.env.SEO_AUDIT_SITE_DIR)
+  : path.join(ROOT, "reputation-case", "site");
 const DATA_PATH = path.join(SITE_DIR, "data", "digests.json");
 const CANONICAL_DOMAIN = "https://www.klishin.work";
 const CANONICAL_HOST = "www.klishin.work";

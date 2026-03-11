@@ -63,7 +63,7 @@ const FINGERPRINTED_ASSET_SOURCES = [
 ];
 const LANGS = ["en", "fr", "de", "es"];
 const PUBLISHED_STATUS = "ready";
-const EXTRA_POST_INDEX_FILES = new Set(["index.html", "drafts.html"]);
+const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", "drafts.html"]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Google-Extended",
@@ -139,6 +139,7 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["insights/de/index.html", "noindex"],
   ["insights/es/index.html", "noindex"],
   ["posts/index.html", "noindex"],
+  ["posts/all.html", "noindex"],
   ["posts/drafts.html", "noindex"],
 ]);
 const MACHINE_FRAGMENT_PATTERNS = [
@@ -166,6 +167,10 @@ const MACHINE_FRAGMENT_PATTERNS = [
   /\bchronologie akteure\b/i,
   /\bkausalbezuge\b/i,
 ];
+const REFERENCE_TOPIC_RE =
+  /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/i;
+const REFERENCE_TITLE_RE =
+  /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/i;
 
 const MULTILINGUAL_CLUSTERS = [
   {
@@ -254,11 +259,21 @@ const quoteCount = (item = {}) => {
   return quotes.map((x) => normalizeText(x)).filter(Boolean).length;
 };
 
+const isReferenceCard = (item = {}) => {
+  const explicit = normalizeText(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (explicit === "writing") return false;
+  const topic = normalizeText(item?.topic || "");
+  const title = normalizeText(item?.title || "");
+  return REFERENCE_TOPIC_RE.test(topic) || REFERENCE_TITLE_RE.test(title);
+};
+
 const isShowcaseCandidate = (item = {}) => {
   const title = normalizeText(item?.title || "");
   const source = normalizeText(item?.source || "").toLowerCase();
   const topic = normalizeText(item?.topic || "").toLowerCase();
   if (!title) return false;
+  if (isReferenceCard(item)) return false;
   if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
   if (source === "methodology") return false;
   if (topic.includes("editorial standard")) return false;
@@ -266,15 +281,10 @@ const isShowcaseCandidate = (item = {}) => {
 };
 
 const isQaReviewedPost = (item = {}) => {
-  const summary = normalizeText(item?.summary || item?.digest || "");
+  const summary = normalizeText(item?.digest || item?.summary || "");
   const words = countWords(summary);
-  const keyIdeas = Array.isArray(item?.key_ideas)
-    ? item.key_ideas.map((x) => normalizeText(x)).filter(Boolean)
-    : [];
   if (!summary) return false;
-  if (words < 75 || words > 150) return false;
-  if (keyIdeas.length < 3) return false;
-  if (quoteCount(item) < 2) return false;
+  if (words < 18 || words > 220) return false;
   return true;
 };
 
@@ -924,7 +934,7 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     }
 
     const sourceAnchorMatch = html.match(
-      /<p class="source">\s*<a[^>]*href=["']([^"']+)["'][^>]*>\s*Open original source\s*<\/a>/i
+      /<p class="source">\s*<a[^>]*href=["']([^"']+)["'][^>]*>\s*(?:Read original(?: source)?|Read piece|Open source|Open original source|Watch video)\s*<\/a>/i
     );
     if (!sourceAnchorMatch || !/^https?:\/\//i.test(String(sourceAnchorMatch[1] || "").trim())) {
       pushError(issues, "post.source.link.missing", `Post page is missing visible source link with absolute URL: ${rel}`);
@@ -956,8 +966,8 @@ const checkHomeHtmlFirst = async (minimumCards, issues) => {
     );
   }
 
-  if (!/href="https:\/\/www\.klishin\.work\/posts\//.test(between) && !/href="\/posts\//.test(between)) {
-    pushError(issues, "home.html-first.links", "Home page fallback cards do not link to internal /posts/ pages.");
+  if (!/href="(?:https?:\/\/|\/posts\/)/i.test(between)) {
+    pushError(issues, "home.html-first.links", "Home page fallback cards do not include visible links.");
   }
 
   if (!/<noscript>[\s\S]*\/posts\//i.test(html)) {

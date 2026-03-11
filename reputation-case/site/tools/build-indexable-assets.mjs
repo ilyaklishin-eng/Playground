@@ -51,6 +51,9 @@ const HOME_FALLBACK_LIMIT = 8;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
+const DEFAULT_SOCIAL_IMAGE = `${baseUrl}/bio/ilia-klishin-portrait.jpeg`;
+const SOCIAL_IMAGE_WIDTH = "636";
+const SOCIAL_IMAGE_HEIGHT = "888";
 const PERSON_ID = `${baseUrl}/#person`;
 const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
@@ -114,6 +117,7 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["insights/de/index.html", "noindex"],
   ["insights/es/index.html", "noindex"],
   ["posts/index.html", "noindex"],
+  ["posts/all.html", "noindex"],
   ["posts/drafts.html", "noindex"],
 ]);
 const STATIC_SOCIAL_IMAGE_POLICY = new Map([
@@ -143,6 +147,7 @@ const STATIC_SOCIAL_IMAGE_POLICY = new Map([
   ["cases/es/index.html", "cases"],
 ]);
 const LANGS = ["EN", "FR", "DE", "ES"];
+const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
 const isPublishedStatus = (value = "") => String(value || "").trim().toLowerCase() === "ready";
@@ -392,6 +397,9 @@ const MACHINE_FRAGMENT_PATTERNS = [
   /\btimeline pruefung\b/i,
   /\bchronologie akteure\b/i,
   /\bkausalbezuge\b/i,
+  /\bthe narrative avoids reductive labels\b/i,
+  /\bso readers can separate reported facts from interpretation\b/i,
+  /\binstead of categorical labeling\b/i,
 ];
 
 const TECHNICAL_TAG_PATTERNS = [
@@ -419,10 +427,283 @@ const cleanDisplayTitle = (rawTitle = "") => {
   return cleaned || raw;
 };
 
+const PLACEHOLDER_TITLE_RE = [
+  /^(vedomosti|the moscow times ru|ru\.themoscowtimes|snob|tv rain)$/i,
+  /^(signed column in|chronique signee dans|signierter beitrag in|texto firmado en)\b/i,
+  /^(interview on|entretien dans|interview in|entrevista en)\b/i,
+  /^(author page|autorenprofil|profil d auteur|perfil de autor)\b/i,
+  /^(editorial piece|texte editorial|redaktioneller text|texto editorial)$/i,
+  /^(magazine piece|texte de magazine|magazintext|texto de revista)$/i,
+  /^(interview|interview byline|co-authored report)$/i,
+  /\b(record|notice|entry|mirror domain|canonical variant)\b/i,
+];
+
+const SMALL_TITLE_WORDS = new Set([
+  "a",
+  "an",
+  "the",
+  "and",
+  "or",
+  "of",
+  "to",
+  "in",
+  "on",
+  "for",
+  "at",
+  "by",
+  "with",
+  "from",
+  "de",
+  "la",
+  "el",
+  "y",
+  "en",
+  "von",
+  "und",
+]);
+
+const toTitleCase = (value = "") =>
+  String(value || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word, idx) => {
+      const lowerWord = word.toLowerCase();
+      if (idx > 0 && SMALL_TITLE_WORDS.has(lowerWord)) return lowerWord;
+      return lowerWord.charAt(0).toUpperCase() + lowerWord.slice(1);
+    })
+    .join(" ");
+
+const humanizeSourceSlug = (value = "") => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (!/[a-z]/i.test(raw)) return "";
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    decoded = raw;
+  }
+  decoded = decoded
+    .replace(/\.html?$/i, "")
+    .replace(/^[a-z]{2}-\d{3}-/i, "")
+    .replace(/-a\d+$/i, "")
+    .replace(/^\d{3,}-/i, "")
+    .replace(/-\d{3,}$/i, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!decoded || decoded.length < 6) return "";
+  if (/^\d+(\.phtml)?$/i.test(decoded)) return "";
+  const words = decoded.split(/\s+/).filter(Boolean);
+  if (words.length < 2) return "";
+  if (/^(authors?|profile|selected|entry|tag|posts|opinion|columns|news|articles)$/i.test(decoded)) return "";
+  if (/^(klishin|details|interview|about|blog|material)$/i.test(decoded)) return "";
+  return toTitleCase(decoded);
+};
+
+const extractTitleFromSourceUrl = (sourceUrl = "") => {
+  const url = normalizeSourceUrl(sourceUrl);
+  if (!url) return "";
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return "";
+  }
+
+  const host = String(parsed.hostname || "").toLowerCase();
+  const pathname = String(parsed.pathname || "");
+  const segments = pathname.split("/").filter(Boolean);
+  const last = segments[segments.length - 1] || "";
+  const prev = segments[segments.length - 2] || "";
+
+  if (/authors?|author/.test(last) || /authors?|author/.test(prev)) {
+    if (host.includes("snob")) return "Snob author page";
+    if (host.includes("vedomosti")) return "Vedomosti author page";
+    if (host.includes("moscowtimes")) return "The Moscow Times author page";
+    return "Author page";
+  }
+
+  const fromLast = humanizeSourceSlug(last);
+  if (fromLast) return fromLast;
+  const fromPrev = humanizeSourceSlug(prev);
+  if (fromPrev) return fromPrev;
+  return "";
+};
+
+const fallbackTitleFromContext = (item = {}) => {
+  const source = normalizeText(item?.source || "Source");
+  const relation = normalizeText(item?.relation || "").toLowerCase();
+
+  if (/author_profile/.test(relation)) return `${source} author page`;
+  if (/interview/.test(relation)) return `Interview in ${source}`;
+  if (/opinion|column/.test(relation)) return `Column in ${source}`;
+  if (/republic/i.test(source)) return "Republic opinion column";
+  if (/open.?space|colta/i.test(source)) return "OpenSpace/Colta co-authored report";
+  if (/lenta/i.test(source)) return "Interview in Lenta";
+  if (/the village/i.test(source)) return "Interview in The Village";
+  if (/the moscow times ru/i.test(source)) return "Column in The Moscow Times RU";
+  return `Article in ${source}`;
+};
+
+const resolveDisplayTitle = (item = {}) => {
+  const cleaned = cleanDisplayTitle(item?.title || "");
+  const looksPlaceholder = PLACEHOLDER_TITLE_RE.some((re) => re.test(cleaned));
+  if (!looksPlaceholder) return cleaned;
+
+  const recovered = extractTitleFromSourceUrl(item?.url || "");
+  if (recovered) return recovered;
+
+  return fallbackTitleFromContext(item);
+};
+
+const smartTrim = (text = "", max = 80) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  if (value.length <= max) return value;
+  const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
+  return clipped || value.slice(0, max).trim();
+};
+
+const trimMetaDescription = (text = "", max = 170) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  if (value.length <= max) return /[.!?]$/.test(value) ? value : `${value}.`;
+  const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
+  if (!clipped) return value.slice(0, max).trim();
+  return /[.!?]$/.test(clipped) ? clipped : `${clipped}.`;
+};
+
+const pickSeededVariant = (seed, variants) => {
+  if (!Array.isArray(variants) || variants.length === 0) return "";
+  const key = hashText(seed);
+  return variants[key % variants.length] || variants[0];
+};
+
+const GENERIC_SOURCE_TITLE_RE =
+  /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)\s*\(\d{4}-\d{2}-\d{2}\)(?:\s*-\s*.+)?$/i;
+const SOURCE_ONLY_TITLE_RE =
+  /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)$/i;
+const REFERENCE_TOPIC_RE =
+  /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/i;
+const REFERENCE_TITLE_RE =
+  /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/i;
+
+const buildPostMetaTitle = (item = {}, displayTitle = "") => {
+  const source = normalizeText(item?.source || "Publication");
+  const topic = normalizeText(item?.topic || "");
+  const date = normalizeText(item?.date || "");
+  const raw = normalizeText(displayTitle || item?.title || "");
+  const looksGeneric =
+    !raw ||
+    raw.length < 12 ||
+    /^untitled$/i.test(raw) ||
+    /^entry$/i.test(raw) ||
+    GENERIC_SOURCE_TITLE_RE.test(raw) ||
+    SOURCE_ONLY_TITLE_RE.test(raw);
+
+  let core = raw;
+  if (looksGeneric) {
+    if (source && topic) {
+      core = `${source}: ${topic}`;
+    } else if (source && date) {
+      core = `${source} (${date})`;
+    } else {
+      core = source || "Publication";
+    }
+  }
+
+  return smartTrim(core, 82);
+};
+
+const buildPostMetaDescription = (item = {}) => {
+  const lang = normalizeLang(item?.language);
+  const source = normalizeText(item?.source || "");
+  const topic = normalizeText(item?.topic || "");
+  const date = normalizeText(item?.date || "");
+  const extracted = extractMetaSentence(item);
+
+  let summary = extracted;
+  if (!summary) {
+    const seed = `${item?.id || ""}|${source}|${topic}|${date}|${lang}`;
+    if (lang === "FR") {
+      summary = pickSeededVariant(seed, [
+        `${source || "Ce texte"}${date ? ` (${date})` : ""} explique ${topic || "le sujet"} en reliant faits, acteurs et chronologie.`,
+        `Synthese de ${topic || "ce sujet"} a partir d une publication ${source || "sourcee"}${date ? ` (${date})` : ""}, avec points de verification.`,
+        `${source || "Publication"}${date ? ` (${date})` : ""}: lecture concise de ${topic || "la question"} avec contexte et implications.`,
+        `Page de reference sur ${topic || "le sujet"}, fondee sur la source ${source || "principale"}${date ? ` (${date})` : ""}.`,
+      ]);
+    } else if (lang === "DE") {
+      summary = pickSeededVariant(seed, [
+        `${source || "Der Beitrag"}${date ? ` (${date})` : ""} erklaert ${topic || "das Thema"} entlang von Fakten, Akteuren und Zeitleiste.`,
+        `Kurzfassung zu ${topic || "diesem Thema"} auf Basis der Quelle ${source || "mit belastbaren Bezugspunkten"}${date ? ` (${date})` : ""}.`,
+        `${source || "Publikation"}${date ? ` (${date})` : ""}: kompakte Einordnung von ${topic || "der Fragestellung"} mit Kontext.`,
+        `Referenzseite zu ${topic || "dem Thema"}, abgeleitet aus der Originalquelle ${source || ""}${date ? ` (${date})` : ""}.`,
+      ]);
+    } else if (lang === "ES") {
+      summary = pickSeededVariant(seed, [
+        `${source || "Este texto"}${date ? ` (${date})` : ""} explica ${topic || "el tema"} con foco en hechos, actores y cronologia.`,
+        `Resumen de ${topic || "esta cuestion"} basado en la fuente ${source || "principal"}${date ? ` (${date})` : ""}, con contexto verificable.`,
+        `${source || "Publicacion"}${date ? ` (${date})` : ""}: lectura breve de ${topic || "la materia"} y sus implicaciones publicas.`,
+        `Pagina de referencia sobre ${topic || "el tema"}, construida desde la fuente ${source || "original"}${date ? ` (${date})` : ""}.`,
+      ]);
+    } else {
+      summary = pickSeededVariant(seed, [
+        `${source || "This text"}${date ? ` (${date})` : ""} explains ${topic || "the topic"} through facts, actors, and timeline context.`,
+        `A concise reading of ${topic || "this issue"} based on ${source || "the source"}${date ? ` (${date})` : ""}, with verifiable touchpoints.`,
+        `${source || "Publication"}${date ? ` (${date})` : ""}: focused summary of ${topic || "the core question"} and its public relevance.`,
+        `Reference page on ${topic || "the topic"}, grounded in the original source${source ? ` (${source})` : ""}${date ? `, ${date}` : ""}.`,
+      ]);
+    }
+  }
+
+  let value = summary;
+  if (source && !new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(value)) {
+    if (lang === "FR") value = `${value} Publie dans ${source}${date ? ` (${date})` : ""}.`;
+    else if (lang === "DE") value = `${value} Veroeffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
+    else if (lang === "ES") value = `${value} Publicado en ${source}${date ? ` (${date})` : ""}.`;
+    else value = `${value} Published in ${source}${date ? ` (${date})` : ""}.`;
+  } else if (date && !value.includes(date)) {
+    if (lang === "FR") value = `${value} Date de publication: ${date}.`;
+    else if (lang === "DE") value = `${value} Veroeffentlicht: ${date}.`;
+    else if (lang === "ES") value = `${value} Publicado: ${date}.`;
+    else value = `${value} Published: ${date}.`;
+  }
+  return trimMetaDescription(value, 170);
+};
+
 const composeCardMeta = (item = {}) => {
   const source = normalizeText(item?.source || "-");
   const date = normalizeText(item?.date || "-");
   return `${source} • ${date}`;
+};
+
+const isReferenceCard = (item = {}) => {
+  const explicit = normalizeText(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (explicit === "writing") return false;
+
+  const topic = normalizeText(item?.topic || "");
+  const title = normalizeText(item?.title || "");
+  if (!title && !topic) return false;
+  if (REFERENCE_TOPIC_RE.test(topic)) return true;
+  if (REFERENCE_TITLE_RE.test(title)) return true;
+  return false;
+};
+
+const sourceActionLabel = (item = {}) => {
+  const title = normalizeText(item?.title || "").toLowerCase();
+  const source = normalizeText(item?.source || "").toLowerCase();
+  const topic = normalizeText(item?.topic || "").toLowerCase();
+  const url = normalizeSourceUrl(item?.url || "").toLowerCase();
+  const looksVideo =
+    /\b(video|talk)\b/.test(title) ||
+    /\b(youtube|tedx)\b/.test(source) ||
+    /\bpublic speaking\b/.test(topic) ||
+    /youtube\.com|youtu\.be|ted\.com/.test(url);
+  if (looksVideo) return "Watch video";
+  if (isReferenceCard(item)) return "Open source";
+  return "Read piece";
 };
 
 const isShowcaseCandidate = (item = {}) => {
@@ -430,6 +711,7 @@ const isShowcaseCandidate = (item = {}) => {
   const source = normalizeText(item?.source || "").toLowerCase();
   const topic = normalizeText(item?.topic || "").toLowerCase();
   if (!title) return false;
+  if (isReferenceCard(item)) return false;
   if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
   if (source === "methodology") return false;
   if (topic.includes("editorial standard")) return false;
@@ -461,13 +743,10 @@ const quoteCount = (item = {}) => {
 };
 
 const isQaReviewedPost = (item = {}) => {
-  const summary = normalizeText(item?.summary || item?.digest || "");
+  const summary = normalizeText(item?.digest || item?.summary || "");
   const words = countWords(summary);
-  const keyIdeas = normalizedArray(item?.key_ideas);
   if (!summary) return false;
-  if (words < 75 || words > 150) return false;
-  if (keyIdeas.length < 3) return false;
-  if (quoteCount(item) < 2) return false;
+  if (words < 18 || words > 220) return false;
   return true;
 };
 
@@ -488,24 +767,60 @@ const stripLeadScaffolding = (text = "") =>
     .replace(/^Publie par .+? le \d{4}-\d{2}-\d{2},\s*/i, "")
     .replace(/^Dieser Beitrag in .+? \(\d{4}-\d{2}-\d{2}\)\s+untersucht.+?\.\s*/i, "")
     .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
-    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
     .trim();
 
 const splitSentences = (text = "") => {
-  const matches = String(text || "").match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const prepared = String(text || "").replace(
+    /\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi,
+    "$1"
+  );
+  const matches = prepared.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
   if (!Array.isArray(matches)) return [];
   return matches
-    .map((sentence) =>
-      sentence
-        .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/, "")
-        .replace(/\s+/g, " ")
-        .trim()
-    )
+    .map((sentence) => sentence.replace(/\s+/g, " ").trim())
     .filter(Boolean);
 };
 
 const hasMachineFragments = (sentence = "") =>
   MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(String(sentence || "").trim()));
+
+const TEMPLATE_SENTENCE_PATTERNS = [
+  /^(this|ce texte|este texto|dieser beitrag|in diesem|la fiche|la carte|der eintrag)\b/i,
+  /\bexamines a concrete case related to ilia klishin\b/i,
+  /\bexamine un cas concret lie a ilia klishin\b/i,
+  /\bexamina un caso concreto vinculado con ilia klishin\b/i,
+  /\buntersucht einen konkreten fall mit bezug zu ilia klishin\b/i,
+  /\bthe text rebuilds the discussion\b/i,
+  /\bla fiche recompone el caso\b/i,
+  /\bla carte reconstitue le dossier\b/i,
+  /\bder eintrag ordnet das thema\b/i,
+  /^im kontext \d{4}-\d{2}-\d{2}\s+verbindet ilia klishin/i,
+  /^dans le contexte \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
+  /^en el contexto \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
+  /^in the \d{4}-\d{2}-\d{2} context,\s+ilia klishin/i,
+  /\bis outlined from the source\b/i,
+  /\bwith the key contextual markers\b/i,
+  /\bthe piece examines .+ through events, actors, and editorial framing\b/i,
+];
+
+const isTemplateSentence = (sentence = "") =>
+  TEMPLATE_SENTENCE_PATTERNS.some((pattern) => pattern.test(normalizeText(sentence)));
+
+const extractMetaSentence = (item = {}) => {
+  const pools = [item?.summary, item?.digest, item?.value_context];
+  for (const pool of pools) {
+    const cleaned = stripLeadScaffolding(normalizeText(pool || ""));
+    if (!cleaned) continue;
+    for (const sentence of splitSentences(cleaned)) {
+      const value = normalizeText(sentence);
+      if (!value || value.length < 40) continue;
+      if (hasMachineFragments(value)) continue;
+      if (isTemplateSentence(value)) continue;
+      return value;
+    }
+  }
+  return "";
+};
 
 const hashText = (value = "") => {
   let hash = 0;
@@ -517,11 +832,13 @@ const hashText = (value = "") => {
 };
 
 const previewSummary = (item = {}) => {
-  const raw = normalizeText(item?.summary || item?.digest || "");
+  const raw = normalizeText(item?.digest || item?.summary || "");
   if (!raw) return "";
 
   const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter((sentence) => !hasMachineFragments(sentence));
+  const candidates = splitSentences(cleaned).filter(
+    (sentence) => !hasMachineFragments(sentence) && !isTemplateSentence(sentence)
+  );
   const source = candidates.length > 0 ? candidates : [];
   if (source.length === 0) return fallbackSummary(item);
 
@@ -549,16 +866,39 @@ const fallbackSummary = (item = {}) => {
   const source = normalizeText(item?.source || "the source");
   const year = /^\d{4}/.test(String(item?.date || "")) ? String(item.date).slice(0, 4) : "";
   const lang = normalizeLang(item?.language);
+  const seed = `${item?.id || ""}|${topic}|${source}|${year}|summary`;
+  let result = "";
   if (lang === "FR") {
-    return `Ce texte de ${source}${year ? ` (${year})` : ""} explique l enjeu principal autour de ${topic} et resitue le contexte de publication.`;
+    result = pickSeededVariant(seed, [
+      `Le texte porte sur ${topic} et explique pourquoi ce sujet compte dans le debat public${year ? ` en ${year}` : ""}.`,
+      `Cette publication${year ? ` de ${year}` : ""} examine ${topic} et met en avant les arguments principaux.`,
+      `Synthese concise de ${topic}, avec un lien direct vers la publication originale sur ${source}.`,
+      `L'article revient sur ${topic} et situe le sujet dans son contexte editorial${year ? ` (${year})` : ""}.`,
+    ]);
+  } else if (lang === "DE") {
+    result = pickSeededVariant(seed, [
+      `Der Beitrag behandelt ${topic} und zeigt, warum das Thema im oeffentlichen Diskurs relevant ist${year ? ` (${year})` : ""}.`,
+      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} ein und fasst die Kernargumente zusammen.`,
+      `Kurze Zusammenfassung zu ${topic} mit direktem Link zur Originalquelle bei ${source}.`,
+      `Der Text stellt ${topic} knapp dar und verortet den Fall im redaktionellen Kontext.`,
+    ]);
+  } else if (lang === "ES") {
+    result = pickSeededVariant(seed, [
+      `El texto aborda ${topic} y explica por que el tema importa en el debate publico${year ? ` de ${year}` : ""}.`,
+      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic} y resume los argumentos centrales.`,
+      `Resumen breve de ${topic} con enlace directo a la fuente original en ${source}.`,
+      `La pieza presenta ${topic} con contexto y una lectura clara para el lector general.`,
+    ]);
+  } else {
+    result = pickSeededVariant(seed, [
+      `The piece focuses on ${topic} and explains why the issue mattered in public debate${year ? ` in ${year}` : ""}.`,
+      `This ${source}${year ? ` (${year})` : ""} publication examines ${topic} and summarizes the main argument.`,
+      `A short summary of ${topic}, with a direct link to the original publication.`,
+      `The article outlines ${topic} in clear terms and places it in editorial context.`,
+    ]);
   }
-  if (lang === "DE") {
-    return `Der Beitrag aus ${source}${year ? ` (${year})` : ""} erklaert den Kernpunkt zu ${topic} und ordnet den Publikationskontext ein.`;
-  }
-  if (lang === "ES") {
-    return `Este texto de ${source}${year ? ` (${year})` : ""} explica la idea central sobre ${topic} y ubica su contexto de publicacion.`;
-  }
-  return `This piece from ${source}${year ? ` (${year})` : ""} explains the central issue in ${topic} and anchors it in publication context.`;
+
+  return String(result || "").replace(/^[a-z]/, (char) => char.toUpperCase());
 };
 
 const fallbackContext = (item = {}) => {
@@ -567,55 +907,81 @@ const fallbackContext = (item = {}) => {
   const lang = normalizeLang(item?.language);
   const year = /^\d{4}/.test(String(item?.date || "")) ? String(item.date).slice(0, 4) : "";
   const key = hashText(item?.id || `${topic}-${source}`);
-  const stamp = year ? ` (${year})` : "";
+  const stamp = year ? ` in ${year}` : "";
   if (lang === "FR") {
     const variants = [
-      `Repere utile: ce texte situe ${topic} dans son contexte editorial${stamp}.`,
-      `Repere utile: la fiche resume ${topic} et renvoie au texte original sur ${source}.`,
-      `Repere utile: cette publication donne un point de reference date sur ${topic}.`,
-      `Repere utile: le lecteur retrouve ${topic} avec une source primaire verifiable.`,
+      `Ce texte replace ${topic} dans son moment editorial${stamp}.`,
+      `La synthese relie ${topic} au texte original publie sur ${source}.`,
+      `Le sujet ${topic} est presente avec des points de verification clairs.`,
+      `La lecture donne un acces direct a la source primaire.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "DE") {
     const variants = [
-      `Nuetzlicher Kontext: Der Beitrag ordnet ${topic} im Zeitrahmen${stamp} ein.`,
-      `Nuetzlicher Kontext: Die Karte fasst ${topic} zusammen und verlinkt auf ${source}.`,
-      `Nuetzlicher Kontext: Diese Quelle bietet einen datierten Referenzpunkt zu ${topic}.`,
-      `Nuetzlicher Kontext: ${topic} wird mit direktem Zugang zur Primaerquelle erklaert.`,
+      `Der Beitrag ordnet ${topic} im zeitlichen Rahmen${stamp} ein.`,
+      `Die Zusammenfassung verbindet ${topic} mit dem Originaltext auf ${source}.`,
+      `${topic} wird mit den wichtigsten Bezugspunkten klar zusammengefasst.`,
+      `Der Text verweist direkt auf die Primaerquelle.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "ES") {
     const variants = [
-      `Contexto util: el texto ubica ${topic} en su momento editorial${stamp}.`,
-      `Contexto util: esta ficha resume ${topic} y enlaza al original en ${source}.`,
-      `Contexto util: ofrece un punto de referencia fechado para ${topic}.`,
-      `Contexto util: explica ${topic} con acceso directo a la fuente primaria.`,
+      `El texto ubica ${topic} en su momento editorial${stamp}.`,
+      `El resumen conecta ${topic} con el texto original en ${source}.`,
+      `${topic} se explica con referencias claras y verificables.`,
+      `La pieza da acceso directo a la fuente primaria.`,
     ];
     return variants[key % variants.length];
   }
   const variants = [
-    `Why it matters: it places ${topic} in a concrete editorial moment${stamp}.`,
-    `Why it matters: it gives a dated reference point for ${topic} and links to ${source}.`,
-    `Why it matters: it helps compare current claims on ${topic} with the original text.`,
-    `Why it matters: it explains ${topic} with direct access to the primary source.`,
+    `This piece places ${topic} in a concrete editorial moment${stamp}.`,
+    `It connects ${topic} with the original text published by ${source}.`,
+    `The summary gives a clear reference point for later comparisons.`,
+    `It explains ${topic} and links directly to the primary source.`,
   ];
   return variants[key % variants.length];
+};
+
+const normalizeContextLead = (text = "", item = {}) => {
+  const value = normalizeText(text);
+  if (!value) return "";
+  return value
+    .replace(/^why this matters:\s*/i, "")
+    .replace(/^relevance:\s*/i, "")
+    .replace(/^use case:\s*/i, "")
+    .replace(/^reader value:\s*/i, "")
+    .replace(/^context:\s*/i, "")
+    .replace(/^contexte:\s*/i, "")
+    .replace(/^pertinence:\s*/i, "")
+    .replace(/^usage:\s*/i, "")
+    .replace(/^lecture utile:\s*/i, "")
+    .replace(/^kontext:\s*/i, "")
+    .replace(/^relevanz:\s*/i, "")
+    .replace(/^nutzen:\s*/i, "")
+    .replace(/^lesewert:\s*/i, "")
+    .replace(/^contexto:\s*/i, "")
+    .replace(/^relevancia:\s*/i, "")
+    .replace(/^uso practico:\s*/i, "")
+    .replace(/^valor de lectura:\s*/i, "")
+    .trim();
 };
 
 const previewContext = (item = {}) => {
   const raw = normalizeText(item?.value_context || "");
   if (!raw) return fallbackContext(item);
   const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter((sentence) => !hasMachineFragments(sentence));
+  const candidates = splitSentences(cleaned).filter(
+    (sentence) => !hasMachineFragments(sentence) && !isTemplateSentence(sentence)
+  );
   let context = candidates[0] || "";
   if (!context || context.length < 36) context = fallbackContext(item);
   if (context.length > 200) {
     context = context.slice(0, 200).replace(/\s+\S*$/, "").trim();
     if (!/[.!?]$/.test(context)) context += ".";
   }
-  return context;
+  return normalizeContextLead(context, item);
 };
 
 const pickCardQuote = (item = {}) => {
@@ -709,6 +1075,69 @@ const buildLanguageClusters = (items) => {
   return idToCluster;
 };
 
+const languagePriorityRank = (lang = "") => {
+  const normalized = normalizeLang(lang);
+  const idx = LANGUAGE_PRIORITY.indexOf(normalized);
+  return idx === -1 ? 99 : idx;
+};
+
+const buildEntryGroupKey = (entry, idToCluster) => {
+  const item = entry?.item || {};
+  const itemId = String(item?.id || "").trim();
+  const cluster = idToCluster?.get(itemId);
+  if (cluster) {
+    const clusterIds = Object.values(cluster)
+      .map((id) => String(id || "").trim())
+      .filter(Boolean)
+      .sort();
+    if (clusterIds.length > 0) return `cluster:${clusterIds.join("|")}`;
+  }
+
+  const registry = String(item?.registry_id || "").trim();
+  if (registry) return `registry:${registry}`;
+
+  const sourceUrl = normalizeSourceUrl(item?.url || "");
+  if (sourceUrl) return `source:${sourceUrl.toLowerCase()}`;
+
+  return `fallback:${lower(item?.source)}|${String(item?.date || "").trim()}|${lower(item?.title)}`;
+};
+
+const pickGroupRepresentative = (entries = []) =>
+  entries
+    .slice()
+    .sort((a, b) => {
+      const langDelta = languagePriorityRank(a?.item?.language) - languagePriorityRank(b?.item?.language);
+      if (langDelta !== 0) return langDelta;
+      return sortEntriesByDateDesc(a, b);
+    })[0];
+
+const groupEntriesForListing = (entries = [], idToCluster = new Map()) => {
+  const buckets = new Map();
+  for (const entry of entries) {
+    const key = buildEntryGroupKey(entry, idToCluster);
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(entry);
+  }
+
+  const groups = [];
+  for (const [key, groupEntries] of buckets.entries()) {
+    const representative = pickGroupRepresentative(groupEntries);
+    if (!representative) continue;
+    const variants = groupEntries
+      .slice()
+      .sort((a, b) => languagePriorityRank(a?.item?.language) - languagePriorityRank(b?.item?.language))
+      .map((entry) => ({
+        language: normalizeLang(entry?.item?.language),
+        postPath: entry.postPath,
+        id: String(entry?.item?.id || "").trim(),
+      }))
+      .filter((variant, idx, arr) => arr.findIndex((x) => x.language === variant.language) === idx);
+    groups.push({ key, representative, entries: groupEntries, variants });
+  }
+
+  return groups.sort((a, b) => sortEntriesByDateDesc(a.representative, b.representative));
+};
+
 const getAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new Map(), onlyPublished = false) => {
   const itemId = String(item?.id || "").trim();
   const selfLang = toHtmlLang(item?.language);
@@ -800,6 +1229,17 @@ const buildCoreEntities = () => {
   return { person, organization, website };
 };
 
+const buildBreadcrumbList = (id, items = []) => ({
+  "@type": "BreadcrumbList",
+  "@id": id,
+  itemListElement: items.map((item, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    name: item.name,
+    item: item.url,
+  })),
+});
+
 const normalizeSearchUrl = (href = "") => {
   const raw = String(href || "").trim();
   if (!raw) return canonicalUrl("selected/index.html");
@@ -866,35 +1306,38 @@ const extractSelectedCards = async () => {
   return cards;
 };
 
-const buildSearchIndex = (entries, selectedCards) => {
-  const publishedCards = entries
-    .filter((entry) => isPublishedStatus(entry?.item?.status))
-    .filter((entry) => isShowcaseCandidate(entry?.item))
-    .map((entry) => {
-      const item = entry.item || {};
-      return {
-        id: String(item.id || "").trim() || entry.postPath.replace(/\.html$/i, ""),
-        type: "post",
-        language: normalizeLang(item.language),
-        status: "ready",
-        title: cleanDisplayTitle(item.title || "Untitled"),
-        summary: previewSummary(item),
-        context: previewContext(item),
-        topic: normalizeText(item.topic || ""),
-        source: normalizeText(item.source || ""),
-        date: normalizeText(item.date || ""),
-        material_type: "Digest card",
-        url: canonicalUrl(`posts/${entry.postPath}`),
-        source_url: normalizeSourceUrl(item.url),
-        semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
-      };
-    });
+const buildSearchIndex = (entries, selectedCards, idToCluster = new Map()) => {
+  const publishedGroups = groupEntriesForListing(
+    entries.filter((entry) => isPublishedStatus(entry?.item?.status)).filter((entry) => isShowcaseCandidate(entry?.item)),
+    idToCluster
+  );
+  const publishedCards = publishedGroups.map((group) => {
+    const entry = group.representative;
+    const item = entry?.item || {};
+    return {
+      id: String(item.id || "").trim() || entry.postPath.replace(/\.html$/i, ""),
+      type: "post",
+      language: normalizeLang(item.language),
+      status: "ready",
+      title: resolveDisplayTitle(item),
+      summary: previewSummary(item),
+      context: previewContext(item),
+      topic: normalizeText(item.topic || ""),
+      source: normalizeText(item.source || ""),
+      date: normalizeText(item.date || ""),
+      material_type: "Digest card",
+      url: canonicalUrl(`posts/${entry.postPath}`),
+      source_url: normalizeSourceUrl(item.url),
+      semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
+    };
+  });
 
   const selected = Array.isArray(selectedCards) ? selectedCards : [];
   const items = [...publishedCards, ...selected];
+  const generatedAt = latestBuildIso(entries);
 
   return {
-    generated_at: new Date().toISOString(),
+    generated_at: generatedAt,
     counts: {
       total: items.length,
       posts: publishedCards.length,
@@ -958,7 +1401,7 @@ const buildRelatedPostGroups = (item, entries) => {
 const buildRelatedLinks = (entries) =>
   entries.map((entry) => {
     const href = canonicalUrl(`posts/${entry.postPath}`);
-    const title = htmlEscape(cleanDisplayTitle(String(entry?.item?.title || "Untitled")));
+    const title = htmlEscape(resolveDisplayTitle(entry?.item || {}));
     const source = htmlEscape(String(entry?.item?.source || "-"));
     const date = htmlEscape(String(entry?.item?.date || "-"));
     return `<li><a href="${href}">${title}</a> — ${source} • ${date}</li>`;
@@ -1002,12 +1445,11 @@ const buildHomeFallbackCards = (entries) => {
     .map((entry) => {
       const item = entry.item || {};
       const lang = htmlEscape(String(item.language || "-"));
-      const title = htmlEscape(cleanDisplayTitle(item.title || "Untitled"));
+      const title = htmlEscape(resolveDisplayTitle(item));
       const meta = htmlEscape(composeCardMeta(item));
       const digest = htmlEscape(previewSummary(item));
-      const context = htmlEscape(previewContext(item));
-      const quote = htmlEscape(pickCardQuote(item));
-      const digestHref = canonicalUrl(`posts/${entry.postPath}`);
+      const sourceHref = htmlEscape(normalizeSourceUrl(item?.url || canonicalUrl(`posts/${entry.postPath}`)));
+      const actionLabel = htmlEscape(sourceActionLabel(item));
       return `        <article class="card">
           <div class="card-head">
             <span class="lang-tag">${lang}</span>
@@ -1015,9 +1457,7 @@ const buildHomeFallbackCards = (entries) => {
           <h3 class="card-title">${title}</h3>
           <p class="card-meta">${meta}</p>
           <p class="card-digest">${digest}</p>
-          <p class="card-context">${context}</p>
-          ${quote ? `<blockquote class="card-quote">${quote}</blockquote>` : ""}
-          <a class="card-link" href="${digestHref}">Open digest card</a>
+          <a class="card-link" href="${sourceHref}" target="_blank" rel="noreferrer">${actionLabel}</a>
         </article>`;
     })
     .join("\n");
@@ -1102,19 +1542,17 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const itemId = String(item?.id || "").trim();
   const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
   const itemIsPublished = isPublishedStatus(decision);
-  const displayTitle = cleanDisplayTitle(item.title);
-  const title = `${displayTitle} | ${DIGEST_NAME}`;
-  const summary = String(item.summary || item.digest || "").replace(/\s+/g, " ").trim();
-  const digest = String(item.digest || summary || "").replace(/\s+/g, " ").trim();
-  const description = truncateChars(summary || digest || "Fact-based digest entry with source link.", 170);
-  const keyIdeas = normalizedArray(item.key_ideas);
-  const quotes = normalizedArray(item.quotes);
+  const displayTitle = resolveDisplayTitle(item);
+  const metaTitle = buildPostMetaTitle(item, displayTitle);
+  const title = `${metaTitle} | ${SITE_NAME}`;
+  const summary = previewSummary(item);
+  const description = buildPostMetaDescription(item) || "Publication summary with source context and key claims.";
   const semanticTags = normalizedArray(item.semantic_tags);
   const publicSemanticTags = sanitizeSemanticTags(semanticTags);
-  const valueContext = String(item.value_context || "").replace(/\s+/g, " ").trim();
   const canonical = canonicalUrl(postPath);
   const postSocialImage = SOCIAL_OG_IMAGE_BY_TYPE.posts;
   const sourceLink = normalizeSourceUrl(item.url);
+  const sourceCtaLabel = sourceActionLabel(item);
   const htmlLang = toHtmlLang(item.language);
   const { alternates, xDefaultHref } = getAlternatesForItem(
     item,
@@ -1135,14 +1573,21 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const { person, organization, website } = buildCoreEntities();
   const pageId = `${canonical}#webpage`;
   const articleId = `${canonical}#article`;
+  const breadcrumbId = `${canonical}#breadcrumb`;
   const publishedIso = toIsoTimestamp(item.date) || item.date || undefined;
   const modifiedIso = toIsoTimestamp(item.lastmod || item.date) || publishedIso;
+  const breadcrumb = buildBreadcrumbList(breadcrumbId, [
+    { name: "Home", url: canonicalUrl("index.html") },
+    { name: "Posts", url: canonicalUrl("posts/index.html") },
+    { name: displayTitle, url: canonical },
+  ]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       person,
       organization,
       website,
+      breadcrumb,
       {
         "@type": "WebPage",
         "@id": pageId,
@@ -1188,13 +1633,13 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
 <html lang="${htmlLang}">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${htmlEscape(title)}</title>
     <meta name="description" content="${htmlEscape(description)}" />
     <link rel="canonical" href="${canonical}" />
     ${hreflangHeadLinks}
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="${htmlEscape(displayTitle)}" />
+    <meta property="og:title" content="${htmlEscape(metaTitle)}" />
     <meta property="og:description" content="${htmlEscape(description)}" />
     <meta property="og:url" content="${canonical}" />
     <meta property="og:image" content="${postSocialImage}" />
@@ -1208,16 +1653,28 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
-      .site-header { max-width: 860px; margin: 0 auto; padding: 30px 20px 0; }
-      main { max-width: 860px; margin: 0 auto; padding: 18px 20px 56px; }
-      a { color: #0b4f7b; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; line-height: 1.56; overflow-x: clip; }
+      .site-header, main, .secondary-nav { width: min(860px, calc(100% - 2rem)); margin: 0 auto; }
+      .site-header { padding: 20px 0 0; }
+      main { padding: 14px 0 42px; }
+      a { color: #0b4f7b; overflow-wrap: anywhere; }
       .meta { color: #555; font-size: 0.95rem; }
-      .topnav { font-size: 0.95rem; }
-      .topnav a { margin-right: 12px; }
+      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
+      .topnav a, .secondary-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.45rem 0.78rem;
+        border: 1px solid #d3cec4;
+        border-radius: 999px;
+        text-decoration: none;
+        background: #fff;
+      }
       section { margin-top: 18px; }
-      h2 { margin: 0 0 8px; font-size: 1.12rem; }
-      h3 { margin: 14px 0 8px; font-size: 0.98rem; }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; }
+      h3 { margin: 14px 0 8px; font-size: 0.96rem; }
+      p, li, h1, h2, h3, blockquote { overflow-wrap: anywhere; }
       ul { margin: 0; padding-left: 22px; }
       li { margin: 6px 0; }
       .source { margin-top: 24px; }
@@ -1225,8 +1682,14 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
       .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
       .tags li { margin: 0; border: 1px solid #d3cec4; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; }
       .post-header h1 { margin: 0; }
-      .secondary-nav { max-width: 860px; margin: 0 auto 40px; padding: 12px 20px 0; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
-      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
+      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+      @media (max-width: 520px) {
+        .site-header, main, .secondary-nav { width: min(860px, calc(100% - 1.3rem)); }
+        .site-header { padding-top: 12px; }
+        .post-header h1 { font-size: 1.9rem; line-height: 1.1; }
+        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
+        ul { padding-left: 18px; }
+      }
     </style>
   </head>
   <body>
@@ -1247,35 +1710,24 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           <p class="meta">${htmlEscape(composeCardMeta(item))}</p>
         </header>
         <section>
-          <h2>Summary</h2>
-          <p>${htmlEscape(summary || digest)}</p>
+          <p>${htmlEscape(summary)}</p>
         </section>
-        ${keyIdeas.length > 0
-          ? `<section><h2>Key Ideas</h2><ul>${keyIdeas.map((x) => `<li>${htmlEscape(x)}</li>`).join("")}</ul></section>`
-          : ""}
-        ${quotes.length > 0
-          ? `<section><h2>Quotes</h2><ul>${quotes.map((x) => `<li><blockquote>${htmlEscape(x)}</blockquote></li>`).join("")}</ul></section>`
-          : ""}
-        ${valueContext ? `<section><h2>Value / Context</h2><p>${htmlEscape(valueContext)}</p></section>` : ""}
-        ${languageLinks.length > 0
-          ? `<section><h2>Available languages</h2><ul>${languageLinks.join("")}</ul></section>`
-          : ""}
         <section>
-          <h2>Related Materials</h2>
-          <h3>Core site sections</h3>
+          <h2>Continue on site</h2>
           <ul>
-            <li><a href="/">Home digest index</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
-            <li><a href="/cases/">Case clarifications (EN/FR/DE/ES)</a></li>
+            <li><a href="/cases/">Case notes (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
-            <li><a href="/insights/">Insights research layer</a></li>
-            <li><a href="/archive/">Archive hub</a></li>
+            <li><a href="/insights/">Research archive</a></li>
+            <li><a href="/archive/">Archive</a></li>
           </ul>
-          ${topicLinks.length > 0 ? `<h3>More on this topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
-          ${sourceLinks.length > 0 ? `<h3>From the same source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
+          ${languageLinks.length > 0 ? `<h3>Available languages</h3><ul>${languageLinks.join("")}</ul>` : ""}
+          ${topicLinks.length > 0 ? `<h3>Related topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
+          ${sourceLinks.length > 0 ? `<h3>From this source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
           ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
         </section>
-        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">Open original source</a></p>
+        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>
       </article>
     </main>
     <footer class="secondary-nav" aria-label="Secondary">
@@ -1290,23 +1742,49 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
 `;
 };
 
-const buildPostsIndexHtml = (entries, options = {}) => {
+const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => {
   const {
     canonicalPath = "posts/index.html",
-    pageTitle = `${DIGEST_NAME} Posts`,
-    pageDescription = "Index of published digest posts for search and archive navigation.",
+    pageTitle = "Published pieces",
+    pageDescription = "Published pieces in chronological order.",
+    listHeading = "Published posts",
     indexable = true,
   } = options;
-  const visibleEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
+  const scopedEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
+  const writingGroups = groupEntriesForListing(
+    scopedEntries.filter((entry) => !isReferenceCard(entry?.item)),
+    idToCluster
+  );
+  const referenceGroups = groupEntriesForListing(
+    scopedEntries.filter((entry) => isReferenceCard(entry?.item)),
+    idToCluster
+  );
+  const visibleGroups = writingGroups;
   const postsCanonical = canonicalUrl(canonicalPath);
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
+  const breadcrumbId = `${postsCanonical}#breadcrumb`;
+  const sectionName =
+    canonicalPath === "posts/all.html"
+      ? "Full archive"
+      : canonicalPath === "posts/drafts.html"
+        ? "Draft archive"
+        : "Posts";
+  const breadcrumbItems = [
+    { name: "Home", url: canonicalUrl("index.html") },
+    { name: "Posts", url: canonicalUrl("posts/index.html") },
+  ];
+  if (canonicalPath !== "posts/index.html") {
+    breadcrumbItems.push({ name: sectionName, url: postsCanonical });
+  }
+  const breadcrumb = buildBreadcrumbList(breadcrumbId, breadcrumbItems);
   const postsJsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       person,
       organization,
       website,
+      breadcrumb,
       {
         "@type": "CollectionPage",
         "@id": `${postsCanonical}#webpage`,
@@ -1321,45 +1799,93 @@ const buildPostsIndexHtml = (entries, options = {}) => {
       {
         "@type": "ItemList",
         "@id": itemListId,
-        name: "Digest post index",
+        name: "Published pieces index",
         itemListOrder: "https://schema.org/ItemListOrderAscending",
-        numberOfItems: visibleEntries.length,
-        itemListElement: visibleEntries.map((entry, idx) => ({
+        numberOfItems: visibleGroups.length,
+        itemListElement: visibleGroups.map((group, idx) => ({
           "@type": "ListItem",
           position: idx + 1,
-          url: canonicalUrl(`posts/${entry.postPath}`),
-          name: cleanDisplayTitle(entry.item.title),
-          inLanguage: toHtmlLang(entry.item.language),
+          url: canonicalUrl(`posts/${group.representative.postPath}`),
+          name: resolveDisplayTitle(group.representative.item),
+          inLanguage: toHtmlLang(group.representative.item.language),
         })),
       },
     ],
   };
 
+  const renderGroupList = (groups) =>
+    groups
+      .map((group) => {
+        const rep = group.representative;
+        const title = htmlEscape(resolveDisplayTitle(rep.item));
+        const meta = htmlEscape(composeCardMeta(rep.item));
+        const alternates =
+          group.variants.length > 1
+            ? ` <span aria-label="Available languages">(${group.variants
+                .map(
+                  (variant) =>
+                    `<a href="./${htmlEscape(variant.postPath)}">${htmlEscape(String(variant.language || "").toUpperCase())}</a>`
+                )
+                .join(" · ")})</span>`
+            : "";
+        return `        <li><a href="./${rep.postPath}">${title}</a> — ${meta}${alternates}</li>`;
+      })
+      .join("\n");
+
   return `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${htmlEscape(pageTitle)}</title>
     <meta name="description" content="${htmlEscape(pageDescription)}" />
     <link rel="canonical" href="${postsCanonical}" />
     <link rel="alternate" hreflang="en" href="${postsCanonical}" />
     <link rel="alternate" hreflang="${X_DEFAULT}" href="${postsCanonical}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="${htmlEscape(pageTitle)}" />
+    <meta property="og:description" content="${htmlEscape(pageDescription)}" />
+    <meta property="og:url" content="${postsCanonical}" />
+    <meta property="og:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta property="og:image:width" content="${SOCIAL_IMAGE_WIDTH}" />
+    <meta property="og:image:height" content="${SOCIAL_IMAGE_HEIGHT}" />
+    <meta property="og:site_name" content="${SITE_NAME}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${htmlEscape(pageTitle)}" />
+    <meta name="twitter:description" content="${htmlEscape(pageDescription)}" />
+    <meta name="twitter:image" content="${DEFAULT_SOCIAL_IMAGE}" />
+    <meta name="twitter:creator" content="@vorewig" />
     <meta name="robots" content="${indexable ? "index,follow" : "noindex,follow"}" />
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; }
-      .site-header { max-width: 880px; margin: 0 auto; padding: 30px 20px 0; }
-      main { max-width: 880px; margin: 0 auto; padding: 18px 20px 56px; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; overflow-x: clip; line-height: 1.56; }
+      .site-header, main, .secondary-nav { width: min(880px, calc(100% - 2rem)); margin: 0 auto; }
+      .site-header { padding: 20px 0 0; }
+      main { padding: 14px 0 42px; }
       li { margin: 8px 0; }
-      a { color: #0b4f7b; }
-      .topnav { font-size: 0.95rem; }
-      .topnav a { margin-right: 12px; }
+      a { color: #0b4f7b; overflow-wrap: anywhere; }
+      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
+      .topnav a, .secondary-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0.45rem 0.78rem;
+        border: 1px solid #d3cec4;
+        border-radius: 999px;
+        text-decoration: none;
+        background: #fff;
+      }
       section { margin-top: 16px; }
-      h2 { margin: 0 0 8px; font-size: 1.12rem; }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; }
+      p, li, h1, h2, h3 { overflow-wrap: anywhere; }
       .lead { margin: 8px 0 0; color: #555; }
-      .secondary-nav { max-width: 880px; margin: 0 auto 40px; padding: 12px 20px 0; border-top: 1px solid #d3cec4; font-size: 0.9rem; color: #555; }
-      .secondary-nav a { margin-right: 10px; white-space: nowrap; }
+      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+      @media (max-width: 520px) {
+        .site-header, main, .secondary-nav { width: min(880px, calc(100% - 1.3rem)); }
+        .site-header { padding-top: 12px; }
+        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
+      }
     </style>
   </head>
   <body>
@@ -1379,28 +1905,32 @@ const buildPostsIndexHtml = (entries, options = {}) => {
         <p class="lead">${htmlEscape(pageDescription)}</p>
       </section>
       <section>
-        <h2>Related Materials</h2>
+        <h2>See also</h2>
         <ul>
-          <li><a href="/">Interactive digest with filters</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/selected/">Selected Work</a></li>
-          <li><a href="/insights/">Insights research layer</a></li>
+          <li><a href="/insights/">Research archive</a></li>
+          <li><a href="/posts/all.html">Full archive (including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
-          <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
+          <li><a href="/cases/">Case notes (EN, FR, DE, ES)</a></li>
           <li><a href="/rss.xml">RSS feed</a></li>
           <li><a href="/sitemap.xml">Sitemap index</a></li>
         </ul>
       </section>
       <section>
-        <h2>Published posts</h2>
+        <h2>${htmlEscape(listHeading)}</h2>
         <ul>
-${visibleEntries
-  .map(
-    (entry) =>
-      `        <li><a href="./${entry.postPath}">${htmlEscape(cleanDisplayTitle(entry.item.title))}</a> — ${htmlEscape(composeCardMeta(entry.item))}</li>`
-  )
-  .join("\n")}
+${renderGroupList(writingGroups)}
         </ul>
       </section>
+      ${referenceGroups.length > 0
+        ? `<section>
+        <h2>References</h2>
+        <ul>
+${renderGroupList(referenceGroups)}
+        </ul>
+      </section>`
+        : ""}
     </main>
     <footer class="secondary-nav" aria-label="Secondary">
       <a href="/archive/">Archive</a>
@@ -1516,10 +2046,13 @@ const buildRss = (entries) => {
     .map((entry) => {
       const link = canonicalUrl(`posts/${entry.postPath}`);
       const source = normalizeSourceUrl(entry.item.url || "");
-      const description = `${entry.item.digest || ""}\n\nOriginal source: ${source}`;
+      const summary = previewSummary(entry.item);
+      const context = previewContext(entry.item);
+      const descriptionParts = [summary, context, source ? `Original source: ${source}` : ""].filter(Boolean);
+      const description = descriptionParts.join("\n\n");
       const pubDate = new Date(toIsoTimestamp(entry.item.date) || buildIso).toUTCString();
       return `    <item>
-      <title>${xmlEscape(entry.item.title)}</title>
+      <title>${xmlEscape(resolveDisplayTitle(entry.item))}</title>
       <link>${xmlEscape(link)}</link>
       <guid>${xmlEscape(link)}</guid>
       <pubDate>${pubDate}</pubDate>
@@ -1531,9 +2064,9 @@ const buildRss = (entries) => {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Ilia Klishin Fact-Based Digest</title>
+    <title>Ilia Klishin Publications Feed</title>
     <link>${xmlEscape(canonicalUrl("index.html"))}</link>
-    <description>Fact-based multilingual digest with original source links.</description>
+    <description>Publication cards with concise summaries and links to original sources.</description>
     <lastBuildDate>${now}</lastBuildDate>
 ${items}
   </channel>
@@ -1628,9 +2161,9 @@ const main = async () => {
   const indexableEntries = entries.filter((entry) => isIndexablePost(entry?.item));
   const draftEntries = entries.filter((entry) => !isPublishedStatus(entry?.item?.status));
   const selectedCards = await extractSelectedCards();
-  const searchIndex = buildSearchIndex(entries, selectedCards);
   const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
   const idToCluster = buildLanguageClusters(items);
+  const searchIndex = buildSearchIndex(entries, selectedCards, idToCluster);
   const idToIndexStatus = new Map(
     entries.map((entry) => [String(entry?.item?.id || "").trim(), isIndexablePost(entry?.item) ? "ready" : "draft"])
   );
@@ -1650,6 +2183,8 @@ const main = async () => {
   // Remove stale generated HTML pages left from old slugs/names.
   const desiredHtmlFiles = new Set(entries.map((entry) => entry.postPath));
   desiredHtmlFiles.add("index.html");
+  desiredHtmlFiles.add("all.html");
+  desiredHtmlFiles.add("drafts.html");
   const existingPosts = await fs.readdir(postsDir);
   for (const file of existingPosts) {
     if (!file.toLowerCase().endsWith(".html")) continue;
@@ -1661,10 +2196,22 @@ const main = async () => {
 
   await fs.writeFile(
     path.join(postsDir, "index.html"),
-    buildPostsIndexHtml(indexableEntries, {
+    buildPostsIndexHtml(indexableEntries, idToCluster, {
       canonicalPath: "posts/index.html",
-      pageTitle: `${DIGEST_NAME} Posts`,
-      pageDescription: "Index of published digest posts for search and archive navigation.",
+      pageTitle: "Published pieces",
+      pageDescription: "Published pieces in chronological order.",
+      listHeading: "Published posts",
+      indexable: false,
+    }),
+    "utf8"
+  );
+  await fs.writeFile(
+    path.join(postsDir, "all.html"),
+    buildPostsIndexHtml(entries, idToCluster, {
+      canonicalPath: "posts/all.html",
+      pageTitle: "Full archive",
+      pageDescription: "Complete archive, including working drafts.",
+      listHeading: "Writing",
       indexable: false,
     }),
     "utf8"
@@ -1672,10 +2219,11 @@ const main = async () => {
   if (draftEntries.length > 0) {
     await fs.writeFile(
       path.join(postsDir, "drafts.html"),
-      buildPostsIndexHtml(draftEntries, {
+      buildPostsIndexHtml(draftEntries, idToCluster, {
         canonicalPath: "posts/drafts.html",
-        pageTitle: `${DIGEST_NAME} Draft Posts`,
-        pageDescription: "Internal draft index; excluded from indexing and public discovery.",
+        pageTitle: "Draft archive",
+        pageDescription: "Working draft archive. Not indexed.",
+        listHeading: "Draft pieces",
         indexable: false,
       }),
       "utf8"

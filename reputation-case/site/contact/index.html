@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact | Ilia Klishin</title>
     <meta
       name="description"
@@ -58,13 +58,36 @@
             ]
           },
           {
+            "@type": "Organization",
+            "@id": "https://www.klishin.work/#organization",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "founder": { "@id": "https://www.klishin.work/#person" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.klishin.work/#website",
+            "name": "Ilia Klishin",
+            "url": "https://www.klishin.work/",
+            "inLanguage": ["en", "fr", "de", "es"],
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://www.klishin.work/search/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
             "@type": "ContactPage",
             "@id": "https://www.klishin.work/contact/#webpage",
             "url": "https://www.klishin.work/contact/",
             "name": "Contact | Ilia Klishin",
             "description": "Contact for consulting, interviews, speaking requests, and research collaboration.",
             "inLanguage": "en",
-            "about": { "@id": "https://www.klishin.work/#person" }
+            "about": { "@id": "https://www.klishin.work/#person" },
+            "isPartOf": { "@id": "https://www.klishin.work/#website" },
+            "publisher": { "@id": "https://www.klishin.work/#organization" }
           }
         ]
       }
@@ -104,6 +127,46 @@
           For consulting, interviews, speaking, or research collaboration, use the channels below.
           The clearest requests usually include topic, format, timeline, and preferred language.
         </p>
+      </section>
+
+      <section class="trust-layer" aria-label="At a glance">
+        <h2>At a glance</h2>
+        <p>A few quick reference points.</p>
+        <ul class="trust-facts">
+          <li>
+            <strong>Former Head of Digital Newsroom at TV Rain (Dozhd).</strong>
+            References:
+            <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87" target="_blank" rel="noreferrer">Wikipedia (RU)</a>,
+            <a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noreferrer">The Guardian</a>.
+          </li>
+          <li>
+            <strong>Former Digital Director at RTVI.</strong>
+            Reference:
+            <a href="https://rtvi.com/editors-archive/ilya-klishin/" target="_blank" rel="noreferrer">RTVI archive profile</a>.
+          </li>
+          <li>
+            <strong>Co-founder and editor-in-chief of Volna Media.</strong>
+            Reference:
+            <a href="https://linktr.ee/volnamedia" target="_blank" rel="noreferrer">Volna links</a>.
+          </li>
+          <li>
+            <strong>Founder of KF Agency.</strong>
+            Reference:
+            <a href="https://kf.agency/" target="_blank" rel="noreferrer">KF Agency</a>.
+          </li>
+          <li>
+            <strong>Journalist / editor / media strategist with verifiable bylines.</strong>
+            References:
+            <a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="noreferrer">The Moscow Times</a>,
+            <a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="noreferrer">Vedomosti</a>.
+          </li>
+          <li>
+            <strong>Selected publications, interviews, and profile pages.</strong>
+            References:
+            <a href="/selected/">Selected Work</a>,
+            <a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noreferrer">TEDx profile</a>.
+          </li>
+        </ul>
       </section>
 
       <section class="contact-grid" aria-label="Inquiry types">

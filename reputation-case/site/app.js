@@ -128,7 +128,9 @@ function stripLeadScaffolding(text) {
     .replace(/^Publie par .+? le \d{4}-\d{2}-\d{2},\s*/i, "")
     .replace(/^Dieser Beitrag in .+? \(\d{4}-\d{2}-\d{2}\)\s+untersucht.+?\.\s*/i, "")
     .replace(/\s*In the \d{4}-\d{2}-\d{2} context, Ilia Klishin connects.+$/i, "")
-    .replace(/^(?:[A-Z][a-z]{2,9}\.?\s*)?\d{1,2},\s+\d{4}\s+/i, "")
+    .replace(/\bThe narrative avoids reductive labels[^.]*\./gi, "")
+    .replace(/\bSo readers can separate reported facts from interpretation[^.]*\./gi, "")
+    .replace(/\bInstead of categorical labeling[^.]*\./gi, "")
     .trim();
 }
 
@@ -228,6 +230,43 @@ function pickCardQuote(item) {
   return "";
 }
 
+function isReference(item) {
+  const topic = String(item?.topic || "").toLowerCase();
+  const title = String(item?.title || "").toLowerCase();
+  const explicit = String(item?.content_class || "").toLowerCase();
+  if (explicit === "reference") return true;
+  if (
+    /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/.test(
+      topic
+    )
+  ) {
+    return true;
+  }
+  if (
+    /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/.test(
+      title
+    )
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function cardActionLabel(item) {
+  const title = String(item?.title || "").toLowerCase();
+  const source = String(item?.source || "").toLowerCase();
+  const topic = String(item?.topic || "").toLowerCase();
+  const url = String(item?.url || "").toLowerCase();
+  const isVideo =
+    /\b(video|talk)\b/.test(title) ||
+    /\b(youtube|tedx)\b/.test(source) ||
+    /\bpublic speaking\b/.test(topic) ||
+    /youtube\.com|youtu\.be|ted\.com/.test(url);
+  if (isVideo) return uiLang === "fr" ? "Regarder la video" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver video" : "Watch video";
+  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle offnen" : uiLang === "es" ? "Abrir fuente" : "Open source";
+  return t("cardLink");
+}
+
 init();
 
 function normalizeStatus(value) {
@@ -256,7 +295,7 @@ async function init() {
   const response = await fetch("/data/digests.json", { cache: "no-store" });
   const payload = await response.json();
   state.items = payload.items;
-  state.publishedItems = state.items.filter(isPublished);
+  state.publishedItems = state.items.filter((item) => isPublished(item) && !isReference(item));
   updatedAt.textContent = payload.updated_at || "-";
   renderLanguageSwitch();
   bindEvents();
@@ -295,7 +334,7 @@ function render() {
       item.title,
       item.source,
       item.topic,
-      item.digest,
+      item.digest || item.summary,
       item.language,
     ]
       .join(" ")
