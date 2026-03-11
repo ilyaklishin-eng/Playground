@@ -8,6 +8,8 @@ const searchInput = document.getElementById("searchInput");
 const uiLang = String(document?.documentElement?.lang || "en").trim().toLowerCase();
 const preferredFeedLang = String(document?.body?.dataset?.feedLang || "").trim().toUpperCase();
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
+const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
+const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
 const UI_COPY = {
@@ -96,7 +98,7 @@ function isShowcaseCandidate(item) {
 }
 
 const state = {
-  lang: LANGUAGE_PRIORITY.includes(preferredFeedLang) ? preferredFeedLang : "EN",
+  lang: lockedFeedLang || (LANGUAGE_PRIORITY.includes(preferredFeedLang) ? preferredFeedLang : "EN"),
   query: "",
   items: [],
   publishedItems: [],
@@ -305,22 +307,26 @@ async function init() {
 }
 
 function bindEvents() {
-  langSwitch.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-lang]");
-    if (!button || button.disabled) return;
-    state.lang = button.dataset.lang;
-    langSwitch.querySelectorAll(".lang-btn").forEach((node) => {
-      const isActive = node === button;
-      node.classList.toggle("active", isActive);
-      node.setAttribute("aria-pressed", isActive ? "true" : "false");
+  if (langSwitch && !lockedFeedLang) {
+    langSwitch.addEventListener("click", (event) => {
+      const button = event.target.closest("button[data-lang]");
+      if (!button || button.disabled) return;
+      state.lang = button.dataset.lang;
+      langSwitch.querySelectorAll(".lang-btn").forEach((node) => {
+        const isActive = node === button;
+        node.classList.toggle("active", isActive);
+        node.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+      render();
     });
-    render();
-  });
+  }
 
-  searchInput.addEventListener("input", (event) => {
-    state.query = event.target.value.trim().toLowerCase();
-    render();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", (event) => {
+      state.query = event.target.value.trim().toLowerCase();
+      render();
+    });
+  }
 }
 
 function render() {
@@ -366,6 +372,7 @@ function render() {
 }
 
 function getOrderedLanguages() {
+  if (lockedFeedLang) return [lockedFeedLang];
   const seen = new Set(state.items.map((item) => String(item.language || "").toUpperCase()).filter(Boolean));
   const extra = [...seen]
     .filter((lang) => !LANGUAGE_PRIORITY.includes(lang))
@@ -374,11 +381,15 @@ function getOrderedLanguages() {
 }
 
 function renderLanguageSwitch() {
+  if (!langSwitch) return;
   const languages = getOrderedLanguages().filter((lang) => LANGUAGE_PRIORITY.includes(lang));
   const counts = publishedCounts();
-  const defaultLang = languages.includes("EN") ? "EN" : languages[0] || "EN";
+  const defaultLang = lockedFeedLang || (languages.includes("EN") ? "EN" : languages[0] || "EN");
   if (!languages.includes(state.lang)) {
     state.lang = defaultLang;
+  }
+  if (lockedFeedLang) {
+    state.lang = lockedFeedLang;
   }
 
   langSwitch.innerHTML = "";

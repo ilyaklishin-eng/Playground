@@ -228,13 +228,14 @@ function normalizeIsoDate(raw) {
 }
 
 function injectStructuredData() {
-  const listElements = preparedItems.map((item, index) => ({
+  const visibleItems = preparedItems.filter((item) => matchesPageLanguage(item));
+  const listElements = visibleItems.map((item, index) => ({
     "@type": "ListItem",
     position: index + 1,
     item: {
       "@type": "CreativeWork",
       name: item.title,
-      inLanguage: item.language === "English" ? "en" : "ru",
+      inLanguage: item.languageCode,
       datePublished: normalizeIsoDate(item.date) || undefined,
       url: item.url,
       description: item.description

@@ -219,6 +219,7 @@ const TITLE_TRANSLIT_TOKENS = new Set([
 
 const TITLE_META_PREFIX = /^(analyse|analysis|analisis|authored essay|media analysis|documented reporting|editorial methodology)\s*:/i;
 const CYRILLIC_RE = /[А-Яа-яЁёІіЇїЄє]/;
+const LANGUAGE_NO_CYRILLIC = new Set(["EN", "FR", "DE", "ES"]);
 const TRANSLIT_RE =
   /\b(lajki|zapad|nashi|soldaty|dozhd|peregovori|mitingi|nezavisimie|kandidati|buduschee|glubokaya|glotka|moskovskogo|karantina|viyavili|znaniyah|putina|makrona|novaya|mediinaya|realnost|dud|kiselev|skuchayuschaya|priviknut|plohomu|putinskoi|shredingera|tsivilizatsiyu|dinamika|tsuntsvage|viuchennoi|bespomoschnosti|netradicionnaya|tvitter|meshaet|uvidet|repressii|molodogvardejcy|kardinala|glupost|izmena|interpretirovat|porazhenie|desyatiletiyu|massovih|derevnyu|dedushke|noveishii|tridtsat|sedmoi|emotsionalnoe|onemenie|tsenzuri|grechka|apokalipsis|nekotorie|kontsa|pozvolyayut|smeyatsya)\b/i;
 
@@ -286,14 +287,14 @@ const checkTitle = (item, issues) => {
     );
   }
 
-  if (["FR", "DE", "ES"].includes(lang) && CYRILLIC_RE.test(title)) {
+  if (LANGUAGE_NO_CYRILLIC.has(lang) && CYRILLIC_RE.test(title)) {
     pushIssue(
       issues,
       makeIssue(
         "error",
-        "title.cyrillic.non-en",
+        "title.cyrillic.disallowed",
         "title",
-        "Title contains Cyrillic in FR/DE/ES card; use localized translation.",
+        "Title contains Cyrillic in EN/FR/DE/ES card; keep card text in page language.",
         { value: title }
       )
     );
@@ -359,10 +360,8 @@ const checkQuotes = (item, opts, issues) => {
     }
   }
 
-  if (!["FR", "DE", "ES"].includes(lang)) return;
-
   for (const quote of quotes) {
-    if (TRANSLIT_RE.test(quote)) {
+    if (["FR", "DE", "ES"].includes(lang) && TRANSLIT_RE.test(quote)) {
       pushIssue(
         issues,
         makeIssue(
@@ -375,14 +374,14 @@ const checkQuotes = (item, opts, issues) => {
       );
     }
 
-    if (CYRILLIC_RE.test(quote)) {
+    if (LANGUAGE_NO_CYRILLIC.has(lang) && CYRILLIC_RE.test(quote)) {
       pushIssue(
         issues,
         makeIssue(
           "error",
-          "quotes.cyrillic.non-en",
+          "quotes.cyrillic.disallowed",
           "quotes",
-          "Quote contains Cyrillic in FR/DE/ES card; use localized translation.",
+          "Quote contains Cyrillic in EN/FR/DE/ES card; keep card text in page language.",
           { value: quote }
         )
       );
@@ -460,6 +459,32 @@ const checkSummary = (item, opts, issues) => {
         "summary.banned-lexicon",
         "summary",
         "Summary contains banned meta/technical lexicon not allowed in public card text."
+      )
+    );
+  }
+
+  const lang = String(item.language || item.lang || "").trim().toUpperCase();
+  if (LANGUAGE_NO_CYRILLIC.has(lang) && CYRILLIC_RE.test(summary)) {
+    pushIssue(
+      issues,
+      makeIssue(
+        "error",
+        "summary.cyrillic.disallowed",
+        "summary",
+        "Summary contains Cyrillic in EN/FR/DE/ES card; keep card text in page language."
+      )
+    );
+  }
+
+  const digest = trim(item.digest);
+  if (digest && LANGUAGE_NO_CYRILLIC.has(lang) && CYRILLIC_RE.test(digest)) {
+    pushIssue(
+      issues,
+      makeIssue(
+        "error",
+        "digest.cyrillic.disallowed",
+        "digest",
+        "Digest contains Cyrillic in EN/FR/DE/ES card; keep card text in page language."
       )
     );
   }

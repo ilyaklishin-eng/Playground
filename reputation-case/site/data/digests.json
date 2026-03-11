@@ -296,7 +296,7 @@
       "topic": "emigration media",
       "title": "Interview on creating an emigrant-focused media project",
       "digest": "This Sept. 27, 2023 interview in 7x7 documents the launch logic and editorial method behind the Russian-language \"Volna\" project in Lithuania. Klishin describes the startup phase as fast and low-bureaucracy: no grant-first cycle, immediate publishing, and iterative format decisions based on user utility.",
-      "quote": "\"Идея как будто витала в воздухе\" - 7x7",
+      "quote": "\"The idea was already in the air\" - 7x7",
       "url": "https://www.semnasem.org/articles/2023/09/27/ideya-vitala-v-vozduhe-soosnovatel-telegram-kanala-volna-ilya-klishin-o-tom-kak-poyavilos-media-dlya-emigrantov-iz-raznyh-stran",
       "copies": {
         "FR": "fr-033",
@@ -310,9 +310,9 @@
         "Period context explains causes effects and stakes around emigrant"
       ],
       "quotes": [
-        "\"Идея как будто витала в воздухе\" - 7x7",
-        "\"Просто завели канал и начали писать\" - 7x7",
-        "\"я начинаю свое утро с Волны\" - 7x7"
+        "\"The idea was already in the air\" - 7x7",
+        "\"We simply opened a channel and started writing\" - 7x7",
+        "\"I start my morning by reading Volna\" - 7x7"
       ],
       "value_context": "",
       "semantic_tags": [
@@ -465,7 +465,7 @@
       "topic": "long-form interview",
       "title": "Holod interview with Ilya Klishin",
       "digest": "This July 13, 2023 interview in Holod gives an operational view of how the Volna media project was launched and scaled for Russian-speaking relocants in Lithuania, Latvia, Germany, and other destinations. Klishin describes the product logic as service-first: daily local digests, practical orientation, and lower-anxiety information flow for people adapting to new legal and social environments. The conversation explains why Volna did not copy high-frequency conflict feeds from major exile outlets; instead, it prioritized usable local context, from transport and documents to civic events, while keeping an explicit anti-war position.",
-      "quote": "\"Уважение к стране пребывания\" - Holod",
+      "quote": "\"Respect for the host country\" - Holod",
       "url": "https://holod.media/2023/07/13/klishin-interview/",
       "copies": {
         "FR": "fr-004",
@@ -479,9 +479,9 @@
         "Period context explains causes effects and stakes around ilya"
       ],
       "quotes": [
-        "\"Уважение к стране пребывания\" - Holod",
-        "\"Люди говорят, что начинают день с чтения Волны\" - Holod",
-        "\"мы не позиционируем себя как медиа для россиян\" - Holod"
+        "\"Respect for the host country\" - Holod",
+        "\"People say they begin the day by reading Volna\" - Holod",
+        "\"We do not position ourselves as media for Russians\" - Holod"
       ],
       "value_context": "As a dated source from Holod this card helps verify chronology actors and causal framing around long form interview useful for comparing claims across multilingual materials and public records.",
       "semantic_tags": [
@@ -584,7 +584,7 @@
       "topic": "authored essay",
       "title": "Arctic Neighbors, Diverging Paths: Murmansk and Finnmark",
       "digest": "A Snob essay comparing Russia's Murmansk region with Norway's Finnmark. The piece uses two neighboring Arctic territories to show how institutions, infrastructure, and public policy shape everyday life more than geography does.",
-      "quote": "\"И на этом идентичном фоне прямо\" - Snob",
+      "quote": "\"Against an identical backdrop, the differences stand out\" - Snob",
       "url": "https://snob.ru/selected/entry/81618/",
       "copies": {
         "FR": "fr-005",
@@ -594,8 +594,8 @@
       "summary": "A Snob essay comparing Russia's Murmansk region with Norway's Finnmark. The piece uses two neighboring Arctic territories to show how institutions, infrastructure, and public policy shape everyday life more than geography does.",
       "key_ideas": [],
       "quotes": [
-        "\"И на этом идентичном фоне прямо\" - Snob",
-        "\"В Финнмарке живет в десять раз меньше. В десять\" - Snob"
+        "\"Against an identical backdrop, the differences stand out\" - Snob",
+        "\"Finnmark has ten times fewer residents. Ten times.\" - Snob"
       ],
       "value_context": "",
       "semantic_tags": [
@@ -700,7 +700,7 @@
       "topic": "media analysis",
       "title": "Likes Go West",
       "digest": "A Vedomosti column from 2014 about how techniques of online manipulation developed inside Russia could be redirected toward Western audiences. Read today, it feels like an early warning about troll infrastructures, platform pressure, and cross-border information campaigns.",
-      "quote": "\"Работа на Запад еще только разворачивается\" - Vedomosti",
+      "quote": "\"Work aimed at the West was only beginning\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
       "copies": {
         "FR": "fr-006",
@@ -714,8 +714,8 @@
         "Period context explains causes effects and stakes around effects"
       ],
       "quotes": [
-        "\"Работа на Запад еще только разворачивается\" - Vedomosti",
-        "\"Необходимо оставлять более провокационные, более негативные отзывы\" - Vedomosti"
+        "\"Work aimed at the West was only beginning\" - Vedomosti",
+        "\"More provocative and negative comments were encouraged\" - Vedomosti"
       ],
       "value_context": "As a dated source from Vedomosti this card helps verify chronology actors and causal framing around media analysis useful for comparing claims across multilingual materials and public records.",
       "semantic_tags": [
@@ -816,7 +816,7 @@
       "topic": "war-reporting verification",
       "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
       "digest": "This August 2014 TV Rain project page introduces \"Our Soldiers,\" a public-facing investigation into reports of Russian servicemen killed, missing, or captured near the Ukrainian border during a period of official denials. The framing is explicit: the goal is not rhetorical escalation but factual clarification of identities, numbers, and circumstances. The page states that if authorities withhold information, independent verification must be built from open submissions, witness reports, and case-level documentation.",
-      "quote": "\"Единственное, что мы хотим, это разобраться\" - TV Rain",
+      "quote": "\"All we want is to understand what happened\" - TV Rain",
       "url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
       "copies": {
         "FR": "fr-010",
@@ -830,9 +830,9 @@
         "Period context explains causes effects and stakes around soldiers"
       ],
       "quotes": [
-        "\"Единственное, что мы хотим, это разобраться\" - TV Rain",
-        "\"Где и почему погибают российские военнослужащие\" - TV Rain",
-        "\"мы должны узнать правду сами\" - TV Rain"
+        "\"All we want is to understand what happened\" - TV Rain",
+        "\"Where and why Russian servicemen are dying\" - TV Rain",
+        "\"We had to find out the truth ourselves\" - TV Rain"
       ],
       "value_context": "As a dated source from TV Rain this card helps verify chronology actors and causal framing around war reporting verification useful for comparing claims across multilingual materials and public records.",
       "semantic_tags": [
@@ -952,9 +952,9 @@
         "Period context explains causes effects and stakes around referenced"
       ],
       "quotes": [
-        "\"authorities increased their harassment of Russia’s dwindling independent media outlets\" - Freedom House",
-        "\"Dozhd TV was dropped from cable providers under government pressure\" - Freedom House",
-        "\"Наши Солдаты [Our soldiers], Dozhd\" - Freedom House"
+        "\"authorities increased their harassment of independent media\" - Freedom House",
+        "\"Dozhd TV was dropped by cable providers under pressure\" - Freedom House",
+        "\"Our Soldiers [Nashi Soldaty], Dozhd\" - Freedom House"
       ],
       "value_context": "",
       "semantic_tags": [
@@ -15760,9 +15760,9 @@
       "registry_priority": "P1",
       "registry_note": "Opinion text",
       "topic": "authored commentary",
-      "title": "Signed column in Wikinews",
+      "title": "Wikinews column: \"Auschwitz in Reverse\"",
       "digest": "The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Authored Commentary: Wikinews (2026-03-06) - Opinion text\" published by Wikinews on 2026-03-06. The core topic is authored commentary, framed through identifiable actors, dated events, and wording used in the source publication.",
-      "quote": "\"Илья Клишин: «Освенцим наоборот\" - Wikinews",
+      "quote": "\"Auschwitz in Reverse\" - Wikinews",
       "summary": "The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles.",
       "key_ideas": [
         "Wikinews 2026 03 06 frames wikinews through named actors and decisions",
@@ -15770,9 +15770,8 @@
         "Period context explains causes effects and stakes around opinion"
       ],
       "quotes": [
-        "\"Илья Клишин: Освенцим наоборот\" - Wikinews",
-        "\"It structures the topic with explicit dates identifiable actors and source\" - Wikinews",
-        "\"The narrative avoids reductive labels and shows how wording choices can widen\" - Wikinews"
+        "\"Auschwitz in Reverse\" - Wikinews",
+        "\"A polemical text about memory and political language\" - Wikinews"
       ],
       "value_context": "",
       "semantic_tags": [
@@ -17783,9 +17782,9 @@
       "date": "2015-07-21",
       "source": "Carnegie.ru",
       "topic": "digital propaganda",
-      "title": "Ботовойско. Почему у Кремля не получается играть в мягкую силу",
+      "title": "Bot Army: Why the Kremlin Fails at Soft Power",
       "digest": "The column analyzes Kremlin bot infrastructure and explains why online aggression often undermines, rather than strengthens, the country's soft-power ambitions.",
-      "quote": "\"Ботовойско\" — Carnegie.ru",
+      "quote": "\"Bot army\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/60728",
       "copies": {
         "FR": "fr-108",
@@ -17799,8 +17798,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Ботовойско\" — Carnegie.ru",
-        "\"мягкую силу\" — Carnegie.ru"
+        "\"Bot army\" - Carnegie.ru",
+        "\"Soft power\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -17924,9 +17923,9 @@
       "date": "2015-09-14",
       "source": "Carnegie.ru",
       "topic": "post-soviet protests",
-      "title": "Против чего повторно собирался молдавский майдан",
+      "title": "What Moldova's Repeat Maidan Protest Was Against",
       "digest": "An analysis of Moldovan protest dynamics, post-Soviet political cycles, and the way familiar crisis scenarios reappear under new coalitions and media narratives.",
-      "quote": "\"молдавский майдан\" — Carnegie.ru",
+      "quote": "\"Moldovan Maidan\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/60186",
       "copies": {
         "FR": "fr-109",
@@ -17940,8 +17939,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"молдавский майдан\" — Carnegie.ru",
-        "\"повторно собирался\" — Carnegie.ru"
+        "\"Moldovan Maidan\" - Carnegie.ru",
+        "\"Repeated mobilization\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18065,9 +18064,9 @@
       "date": "2015-10-22",
       "source": "Carnegie.ru",
       "topic": "social media and revolutions",
-      "title": "Самиздат и замещение: растут ли из соцсетей революции",
+      "title": "Samizdat and Substitution: Do Revolutions Grow from Social Media?",
       "digest": "The text questions linear causality between social platforms and revolutions, showing where digital mobilization matters and where political structure remains decisive.",
-      "quote": "\"растут ли из соцсетей революции\" — Carnegie.ru",
+      "quote": "\"Do revolutions grow from social media?\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/61708",
       "copies": {
         "FR": "fr-110",
@@ -18081,8 +18080,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"растут ли из соцсетей революции\" — Carnegie.ru",
-        "\"Самиздат и замещение\" — Carnegie.ru"
+        "\"Do revolutions grow from social media?\" - Carnegie.ru",
+        "\"Samizdat and substitution\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18206,9 +18205,9 @@
       "date": "2015-12-16",
       "source": "Carnegie.ru",
       "topic": "telegram and surveillance",
-      "title": "Как Павел Дуров бросил вызов ФСБ, а попал в ФБР",
+      "title": "How Pavel Durov Challenged the FSB and Landed in the FBI Orbit",
       "digest": "A history of Telegram at the intersection of Russian security pressure, privacy claims, surveillance politics, and international counterterrorism agendas.",
-      "quote": "\"бросил вызов ФСБ\" — Carnegie.ru",
+      "quote": "\"Challenged the FSB\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/62055",
       "copies": {
         "FR": "fr-111",
@@ -18222,8 +18221,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"бросил вызов ФСБ\" — Carnegie.ru",
-        "\"а попал в ФБР\" — Carnegie.ru"
+        "\"Challenged the FSB\" - Carnegie.ru",
+        "\"Ended up in the FBI orbit\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18347,9 +18346,9 @@
       "date": "2016-02-08",
       "source": "Carnegie.ru",
       "topic": "future of RuNet",
-      "title": "Что будет с интернетом в России. Три сценария",
+      "title": "What Will Happen to the Russian Internet: Three Scenarios",
       "digest": "The article outlines three scenarios for the future of the Russian internet under growing state control, with implications for media, platforms, and civic communication.",
-      "quote": "\"Три сценария\" — Carnegie.ru",
+      "quote": "\"Three scenarios\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/62632",
       "copies": {
         "FR": "fr-112",
@@ -18363,8 +18362,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Три сценария\" — Carnegie.ru",
-        "\"интернетом в России\" — Carnegie.ru"
+        "\"Three scenarios\" - Carnegie.ru",
+        "\"The Russian internet\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18488,9 +18487,9 @@
       "date": "2016-02-25",
       "source": "Carnegie Endowment",
       "topic": "platform design and politics",
-      "title": "Жизнь после лайка: последствия разделения главной кнопки для России и мира",
+      "title": "Life After Like: What Splitting the Main Button Changed",
       "digest": "The piece discusses how interface changes around the social \"like\" function can alter media incentives, political signaling, and audience behavior in Russia and beyond.",
-      "quote": "\"Жизнь после лайка\" — Carnegie Endowment",
+      "quote": "\"Life after like\" - Carnegie Endowment",
       "url": "https://carnegieendowment.org/ru/posts/2016/02/zhizn-posle-lajka-posledstviya-razdeleniya-glavnoj-knopki-dlya-rossii-i-mira",
       "copies": {
         "FR": "fr-113",
@@ -18504,8 +18503,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Жизнь после лайка\" — Carnegie Endowment",
-        "\"для России и мира\" — Carnegie Endowment"
+        "\"Life after like\" - Carnegie Endowment",
+        "\"For Russia and the world\" - Carnegie Endowment"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie Endowment source.",
       "semantic_tags": [
@@ -18629,9 +18628,9 @@
       "date": "2016-05-20",
       "source": "Carnegie.ru",
       "topic": "state control of internet",
-      "title": "Кремль против интернета: подготовка к прошлой войне",
+      "title": "The Kremlin Versus the Internet: Preparing for the Previous War",
       "digest": "An argument that Russian state policy toward the internet relies on outdated control methods that misread platform dynamics and communication behavior.",
-      "quote": "\"Кремль против интернета\" — Carnegie.ru",
+      "quote": "\"The Kremlin versus the internet\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/63383",
       "copies": {
         "FR": "fr-114",
@@ -18645,8 +18644,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Кремль против интернета\" — Carnegie.ru",
-        "\"подготовка к прошлой войне\" — Carnegie.ru"
+        "\"The Kremlin versus the internet\" - Carnegie.ru",
+        "\"Preparing for the previous war\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18770,9 +18769,9 @@
       "date": "2016-05-23",
       "source": "Carnegie.ru",
       "topic": "generational conflict and regulation",
-      "title": "Разрыв поколений: почему «Новая» и Мизулина объединились против соцсетей",
+      "title": "Generational Split: Why Novaya and Mizulina United Against Social Networks",
       "digest": "The article explores a generational conflict over social media, public morality, and state regulation, showing unlikely alliances around digital control.",
-      "quote": "\"Разрыв поколений\" — Carnegie.ru",
+      "quote": "\"Generational split\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/2016/05/23/ru-63642/ize3",
       "copies": {
         "FR": "fr-115",
@@ -18786,8 +18785,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Разрыв поколений\" — Carnegie.ru",
-        "\"против соцсетей\" — Carnegie.ru"
+        "\"Generational split\" - Carnegie.ru",
+        "\"Against social networks\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -18911,9 +18910,9 @@
       "date": "2016-11-18",
       "source": "Carnegie.ru",
       "topic": "platform power",
-      "title": "Частный авторитаризм. Как Facebook и Google угрожают демократии",
+      "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
       "digest": "A critique of private platform power describing Facebook and Google as forms of non-state authority that can shape speech rules, visibility, and democratic process.",
-      "quote": "\"Частный авторитаризм\" — Carnegie.ru",
+      "quote": "\"Private authoritarianism\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/64518",
       "copies": {
         "FR": "fr-116",
@@ -18927,8 +18926,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Частный авторитаризм\" — Carnegie.ru",
-        "\"Facebook и Google\" — Carnegie.ru"
+        "\"Private authoritarianism\" - Carnegie.ru",
+        "\"Facebook and Google\" - Carnegie.ru"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
       "semantic_tags": [
@@ -19052,9 +19051,9 @@
       "date": "2020-07-27",
       "source": "LiveLib",
       "topic": "literary criticism",
-      "title": "«Гроза как формула современной России»: зачем сегодня читать Островского?",
+      "title": "\"The Storm\" as a Formula of Contemporary Russia: Why Read Ostrovsky Today?",
       "digest": "A literary essay reading Ostrovsky as a key to contemporary Russian social structure, moving the play from school canon into present-day political and moral context.",
-      "quote": "\"Гроза как формула современной России\" — LiveLib",
+      "quote": "\"The Storm as a formula of contemporary Russia\" - LiveLib",
       "url": "https://www.livelib.ru/articles/post/57304-groza-kak-formula-sovremennoj-rossii-zachem-segodnya-chitat-ostrovskogo",
       "copies": {
         "FR": "fr-117",
@@ -19068,8 +19067,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"Гроза как формула современной России\" — LiveLib",
-        "\"зачем сегодня читать Островского\" — LiveLib"
+        "\"The Storm as a formula of contemporary Russia\" - LiveLib",
+        "\"Why read Ostrovsky today\" - LiveLib"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable LiveLib source.",
       "semantic_tags": [
@@ -19193,9 +19192,9 @@
       "date": "2007-12-18",
       "source": "Foma",
       "topic": "church and society",
-      "title": "ЗАБЛУЖДЕНИЕ О ЦЕРКВИ",
+      "title": "A Misconception About the Church",
       "digest": "An early essay on church autonomy, social expectations, and the limits of projecting political demand onto religious institutions in post-Soviet public debate.",
-      "quote": "\"ЗАБЛУЖДЕНИЕ О ЦЕРКВИ\" — Фома",
+      "quote": "\"A misconception about the church\" - Foma",
       "url": "https://foma.ru/zabluzhdenie-o-czerkvi.html",
       "copies": {
         "FR": "fr-118",
@@ -19209,8 +19208,8 @@
         "The primary source remains directly available for verification."
       ],
       "quotes": [
-        "\"ЗАБЛУЖДЕНИЕ О ЦЕРКВИ\" — Фома",
-        "\"church autonomy and public expectations\" — Foma"
+        "\"A misconception about the church\" - Foma",
+        "\"Church autonomy and public expectations\" - Foma"
       ],
       "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Foma source.",
       "semantic_tags": [
