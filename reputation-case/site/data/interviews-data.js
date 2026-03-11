@@ -66,7 +66,7 @@ export const interviews = [
     section: "features",
     title: "Russian media of the new diaspora – a look at three projects",
     description:
-      "Англоязычный материал The Fix о новых русскоязычных медиа в эмиграции, включая «Волну».",
+      "An English-language feature in The Fix on new Russian-language diaspora media projects, including Volna.",
     url:
       "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/"
   },
@@ -102,7 +102,7 @@ export const interviews = [
     title:
       "Turning A Newspaper Into ‘Toilet Paper’: Business Daily Caught Up In Putin’s War On Journalism",
     description:
-      "Англоязычный материал RFE/RL с моими комментариями о медиасреде и давлении на независимую журналистику.",
+      "An RFE/RL feature with my commentary on media pressure and the shrinking space for independent journalism.",
     url:
       "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html"
   },
@@ -115,7 +115,7 @@ export const interviews = [
     title:
       "A Whole New Ecosystem: Independent Journalism Learns To Survive In Putin’s Russia",
     description:
-      "Большой англоязычный материал о независимой журналистике в России, построенный в том числе на моих комментариях.",
+      "A long English feature on how independent journalism adapted to pressure in Russia, built in part on my comments.",
     url:
       "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html"
   },
@@ -166,7 +166,7 @@ export const interviews = [
     title:
       "Russian police accused of scare tactics against protesters’ parents",
     description:
-      "Англоязычный материал The Guardian с моими комментариями о протестной кампании и давлении на активистов.",
+      "A Guardian feature with my comments on protest mobilization and intimidation pressure around activists.",
     url:
       "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics"
   },
