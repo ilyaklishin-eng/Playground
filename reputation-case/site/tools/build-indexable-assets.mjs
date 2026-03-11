@@ -48,6 +48,7 @@ const FINGERPRINTABLE_ASSETS = [
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const HOME_FALLBACK_LIMIT = 8;
+const HOME_FALLBACK_MAX_PER_SOURCE = 2;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
@@ -1478,7 +1479,37 @@ const pickHomeFallbackEntries = (entries, limit) => {
       return sortEntriesByDateDesc(a, b);
     });
   }
-  return preferred.slice(0, limit);
+  const selected = [];
+  const selectedSet = new Set();
+  const perSource = new Map();
+  const sourceKey = (entry) => {
+    const source = String(entry?.item?.source || "").trim().toLowerCase();
+    return source || `source:${String(entry?.item?.id || "")}`;
+  };
+  const tryAdd = (entry, perSourceCap) => {
+    if (selectedSet.has(entry)) return;
+    const key = sourceKey(entry);
+    const count = perSource.get(key) || 0;
+    if (count >= perSourceCap) return;
+    selected.push(entry);
+    selectedSet.add(entry);
+    perSource.set(key, count + 1);
+  };
+
+  for (const entry of preferred) {
+    if (selected.length >= limit) break;
+    tryAdd(entry, 1);
+  }
+  for (const entry of preferred) {
+    if (selected.length >= limit) break;
+    tryAdd(entry, HOME_FALLBACK_MAX_PER_SOURCE);
+  }
+  for (const entry of preferred) {
+    if (selected.length >= limit) break;
+    tryAdd(entry, Number.POSITIVE_INFINITY);
+  }
+
+  return selected;
 };
 
 const buildHomeFallbackCards = (entries) => {

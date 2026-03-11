@@ -15,6 +15,7 @@ const SHOWCASE_PINNED_IDS = {
 };
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
+const ADDITIONAL_MAX_PER_SOURCE = 2;
 const UI_COPY = {
   en: {
     cardLink: "Read article",
@@ -98,6 +99,44 @@ function isShowcaseCandidate(item) {
   if (source === "methodology") return false;
   if (topic.includes("editorial standard")) return false;
   return true;
+}
+
+function sourceKey(item) {
+  const source = normalizeText(item?.source || "").toLowerCase();
+  if (source) return source;
+  return `source:${normalizeText(item?.id || "")}`;
+}
+
+function pickDiverseBySource(items, limit, maxPerSource = 2) {
+  if (!Array.isArray(items) || items.length === 0 || limit <= 0) return [];
+  const cap = Number.isFinite(maxPerSource) && maxPerSource > 0 ? Math.floor(maxPerSource) : 1;
+  const selected = [];
+  const selectedSet = new Set();
+  const perSource = new Map();
+
+  const tryAdd = (item, perSourceCap) => {
+    if (selectedSet.has(item)) return;
+    const key = sourceKey(item);
+    const count = perSource.get(key) || 0;
+    if (count >= perSourceCap) return;
+    selected.push(item);
+    selectedSet.add(item);
+    perSource.set(key, count + 1);
+  };
+
+  for (const item of items) {
+    if (selected.length >= limit) break;
+    tryAdd(item, 1);
+  }
+  for (const item of items) {
+    if (selected.length >= limit) break;
+    tryAdd(item, cap);
+  }
+  for (const item of items) {
+    if (selected.length >= limit) break;
+    tryAdd(item, Number.POSITIVE_INFINITY);
+  }
+  return selected;
 }
 
 const state = {
@@ -375,8 +414,12 @@ function render() {
     .slice(0, SHOWCASE_MAX_ITEMS);
 
   const featured = curated.slice(0, 1);
-  const supporting = curated.slice(1, 3);
-  const additional = curated.slice(3, 3 + ADDITIONAL_GRID_LIMIT);
+  const featuredSet = new Set(featured);
+  const supportingPool = curated.filter((item) => !featuredSet.has(item));
+  const supporting = pickDiverseBySource(supportingPool, 2, 1);
+  const supportingSet = new Set(supporting);
+  const additionalPool = supportingPool.filter((item) => !supportingSet.has(item));
+  const additional = pickDiverseBySource(additionalPool, ADDITIONAL_GRID_LIMIT, ADDITIONAL_MAX_PER_SOURCE);
 
   renderShowcase(featured, supporting);
   renderGrid(additional, { showEmpty: curated.length === 0 });
