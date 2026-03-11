@@ -9,7 +9,7 @@ const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const CURATED_FEED_LIMIT = 8;
 const UI_COPY = {
   en: {
-    cardLink: "Read original",
+    cardLink: "Read piece",
     emptyFiltered: "No published cards match the current filter.",
     emptyLanguage: "No published cards are available in {lang} yet.",
     langTitlePublished: "{count} published cards",
@@ -74,7 +74,8 @@ function summaryPreview(text) {
     .trim();
 
   const source = stripped || plain;
-  const sentenceMatches = source.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const prepared = source.replace(/\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi, "$1");
+  const sentenceMatches = prepared.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
   const sentences = Array.isArray(sentenceMatches)
     ? sentenceMatches.map((sentence) => sentence.trim()).filter(Boolean)
     : [source];

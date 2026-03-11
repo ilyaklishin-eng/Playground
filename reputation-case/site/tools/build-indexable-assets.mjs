@@ -84,6 +84,7 @@ const STATIC_ROBOTS_POLICY = new Map([
   ["posts/drafts.html", "noindex"],
 ]);
 const LANGS = ["EN", "FR", "DE", "ES"];
+const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
 const isPublishedStatus = (value = "") => String(value || "").trim().toLowerCase() === "ready";
@@ -251,6 +252,136 @@ const cleanDisplayTitle = (rawTitle = "") => {
   return cleaned || raw;
 };
 
+const PLACEHOLDER_TITLE_RE = [
+  /^(vedomosti|the moscow times ru|ru\.themoscowtimes|snob|tv rain)$/i,
+  /^(signed column in|chronique signee dans|signierter beitrag in|texto firmado en)\b/i,
+  /^(interview on|entretien dans|interview in|entrevista en)\b/i,
+  /^(author page|autorenprofil|profil d auteur|perfil de autor)\b/i,
+  /^(editorial piece|texte editorial|redaktioneller text|texto editorial)$/i,
+  /^(magazine piece|texte de magazine|magazintext|texto de revista)$/i,
+  /^(interview|interview byline|co-authored report)$/i,
+  /\b(record|notice|entry|mirror domain|canonical variant)\b/i,
+];
+
+const SMALL_TITLE_WORDS = new Set([
+  "a",
+  "an",
+  "the",
+  "and",
+  "or",
+  "of",
+  "to",
+  "in",
+  "on",
+  "for",
+  "at",
+  "by",
+  "with",
+  "from",
+  "de",
+  "la",
+  "el",
+  "y",
+  "en",
+  "von",
+  "und",
+]);
+
+const toTitleCase = (value = "") =>
+  String(value || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word, idx) => {
+      const lowerWord = word.toLowerCase();
+      if (idx > 0 && SMALL_TITLE_WORDS.has(lowerWord)) return lowerWord;
+      return lowerWord.charAt(0).toUpperCase() + lowerWord.slice(1);
+    })
+    .join(" ");
+
+const humanizeSourceSlug = (value = "") => {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (!/[a-z]/i.test(raw)) return "";
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    decoded = raw;
+  }
+  decoded = decoded
+    .replace(/\.html?$/i, "")
+    .replace(/^[a-z]{2}-\d{3}-/i, "")
+    .replace(/-a\d+$/i, "")
+    .replace(/^\d{3,}-/i, "")
+    .replace(/-\d{3,}$/i, "")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!decoded || decoded.length < 6) return "";
+  if (/^\d+(\.phtml)?$/i.test(decoded)) return "";
+  const words = decoded.split(/\s+/).filter(Boolean);
+  if (words.length < 2) return "";
+  if (/^(authors?|profile|selected|entry|tag|posts|opinion|columns|news|articles)$/i.test(decoded)) return "";
+  if (/^(klishin|details|interview|about|blog|material)$/i.test(decoded)) return "";
+  return toTitleCase(decoded);
+};
+
+const extractTitleFromSourceUrl = (sourceUrl = "") => {
+  const url = normalizeSourceUrl(sourceUrl);
+  if (!url) return "";
+  let parsed;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return "";
+  }
+
+  const host = String(parsed.hostname || "").toLowerCase();
+  const pathname = String(parsed.pathname || "");
+  const segments = pathname.split("/").filter(Boolean);
+  const last = segments[segments.length - 1] || "";
+  const prev = segments[segments.length - 2] || "";
+
+  if (/authors?|author/.test(last) || /authors?|author/.test(prev)) {
+    if (host.includes("snob")) return "Snob author page";
+    if (host.includes("vedomosti")) return "Vedomosti author page";
+    if (host.includes("moscowtimes")) return "The Moscow Times author page";
+    return "Author page";
+  }
+
+  const fromLast = humanizeSourceSlug(last);
+  if (fromLast) return fromLast;
+  const fromPrev = humanizeSourceSlug(prev);
+  if (fromPrev) return fromPrev;
+  return "";
+};
+
+const fallbackTitleFromContext = (item = {}) => {
+  const source = normalizeText(item?.source || "Source");
+  const relation = normalizeText(item?.relation || "").toLowerCase();
+
+  if (/author_profile/.test(relation)) return `${source} author page`;
+  if (/interview/.test(relation)) return `Interview in ${source}`;
+  if (/opinion|column/.test(relation)) return `Column in ${source}`;
+  if (/republic/i.test(source)) return "Republic opinion column";
+  if (/open.?space|colta/i.test(source)) return "OpenSpace/Colta co-authored report";
+  if (/lenta/i.test(source)) return "Interview in Lenta";
+  if (/the village/i.test(source)) return "Interview in The Village";
+  if (/the moscow times ru/i.test(source)) return "Column in The Moscow Times RU";
+  return `Article in ${source}`;
+};
+
+const resolveDisplayTitle = (item = {}) => {
+  const cleaned = cleanDisplayTitle(item?.title || "");
+  const looksPlaceholder = PLACEHOLDER_TITLE_RE.some((re) => re.test(cleaned));
+  if (!looksPlaceholder) return cleaned;
+
+  const recovered = extractTitleFromSourceUrl(item?.url || "");
+  if (recovered) return recovered;
+
+  return fallbackTitleFromContext(item);
+};
+
 const smartTrim = (text = "", max = 80) => {
   const value = normalizeText(text);
   if (!value) return "";
@@ -397,7 +528,7 @@ const sourceActionLabel = (item = {}) => {
     /youtube\.com|youtu\.be|ted\.com/.test(url);
   if (looksVideo) return "Watch video";
   if (isReferenceCard(item)) return "Open source";
-  return "Read original";
+  return "Read piece";
 };
 
 const isShowcaseCandidate = (item = {}) => {
@@ -464,7 +595,11 @@ const stripLeadScaffolding = (text = "") =>
     .trim();
 
 const splitSentences = (text = "") => {
-  const matches = String(text || "").match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const prepared = String(text || "").replace(
+    /\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi,
+    "$1"
+  );
+  const matches = prepared.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
   if (!Array.isArray(matches)) return [];
   return matches
     .map((sentence) => sentence.replace(/\s+/g, " ").trim())
@@ -488,6 +623,9 @@ const TEMPLATE_SENTENCE_PATTERNS = [
   /^dans le contexte \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
   /^en el contexto \d{4}-\d{2}-\d{2}\s+ilia klishin/i,
   /^in the \d{4}-\d{2}-\d{2} context,\s+ilia klishin/i,
+  /\bis outlined from the source\b/i,
+  /\bwith the key contextual markers\b/i,
+  /\bthe piece examines .+ through events, actors, and editorial framing\b/i,
 ];
 
 const isTemplateSentence = (sentence = "") =>
@@ -557,31 +695,31 @@ const fallbackSummary = (item = {}) => {
   let result = "";
   if (lang === "FR") {
     result = pickSeededVariant(seed, [
-      `${source}${year ? ` (${year})` : ""}: le texte traite de ${topic} en liant evenement, acteurs et cadrage editorial.`,
-      `Cette publication${year ? ` de ${year}` : ""} revient sur ${topic} avec une synthese factuelle et une chronologie claire.`,
-      `Le sujet ${topic} est presente a partir de la source ${source}${year ? ` (${year})` : ""}, avec les points de contexte utiles.`,
-      `A partir de ${source}${year ? ` (${year})` : ""}, la note resume ${topic} et les consequences discutees publiquement.`,
+      `Le texte porte sur ${topic} et explique pourquoi ce sujet compte dans le debat public${year ? ` en ${year}` : ""}.`,
+      `Cette publication${year ? ` de ${year}` : ""} examine ${topic} et met en avant les arguments principaux.`,
+      `Synthese concise de ${topic}, avec un lien direct vers la publication originale sur ${source}.`,
+      `L'article revient sur ${topic} et situe le sujet dans son contexte editorial${year ? ` (${year})` : ""}.`,
     ]);
   } else if (lang === "DE") {
     result = pickSeededVariant(seed, [
-      `${source}${year ? ` (${year})` : ""}: der Beitrag behandelt ${topic} anhand von Ereignisablauf, Akteuren und medialem Framing.`,
-      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} mit faktenbasierter Zusammenfassung und klarer Zeitleiste ein.`,
-      `${topic} wird auf Grundlage der Quelle ${source}${year ? ` (${year})` : ""} mit den zentralen Kontextpunkten dargestellt.`,
-      `Ausgehend von ${source}${year ? ` (${year})` : ""} fasst diese Notiz ${topic} und die oeffentlich diskutierten Folgen zusammen.`,
+      `Der Beitrag behandelt ${topic} und zeigt, warum das Thema im oeffentlichen Diskurs relevant ist${year ? ` (${year})` : ""}.`,
+      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} ein und fasst die Kernargumente zusammen.`,
+      `Kurze Zusammenfassung zu ${topic} mit direktem Link zur Originalquelle bei ${source}.`,
+      `Der Text stellt ${topic} knapp dar und verortet den Fall im redaktionellen Kontext.`,
     ]);
   } else if (lang === "ES") {
     result = pickSeededVariant(seed, [
-      `${source}${year ? ` (${year})` : ""}: el texto aborda ${topic} con hechos, actores y encuadre editorial.`,
-      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic} con una sintesis factual y una cronologia clara.`,
-      `${topic} se presenta desde la fuente ${source}${year ? ` (${year})` : ""}, con claves de contexto relevantes.`,
-      `A partir de ${source}${year ? ` (${year})` : ""}, esta nota resume ${topic} y sus efectos en el debate publico.`,
+      `El texto aborda ${topic} y explica por que el tema importa en el debate publico${year ? ` de ${year}` : ""}.`,
+      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic} y resume los argumentos centrales.`,
+      `Resumen breve de ${topic} con enlace directo a la fuente original en ${source}.`,
+      `La pieza presenta ${topic} con contexto y una lectura clara para el lector general.`,
     ]);
   } else {
     result = pickSeededVariant(seed, [
-      `${source}${year ? ` (${year})` : ""}: the piece examines ${topic} through events, actors, and editorial framing.`,
-      `This publication${year ? ` from ${year}` : ""} revisits ${topic} with a fact-based summary and a clear timeline.`,
-      `${topic} is outlined from the source ${source}${year ? ` (${year})` : ""}, with the key contextual markers.`,
-      `Based on ${source}${year ? ` (${year})` : ""}, this note summarizes ${topic} and the public implications discussed in the text.`,
+      `The piece focuses on ${topic} and explains why the issue mattered in public debate${year ? ` in ${year}` : ""}.`,
+      `This ${source}${year ? ` (${year})` : ""} publication examines ${topic} and summarizes the main argument.`,
+      `A short summary of ${topic}, with a direct link to the original publication.`,
+      `The article outlines ${topic} in clear terms and places it in editorial context.`,
     ]);
   }
 
@@ -594,39 +732,39 @@ const fallbackContext = (item = {}) => {
   const lang = normalizeLang(item?.language);
   const year = /^\d{4}/.test(String(item?.date || "")) ? String(item.date).slice(0, 4) : "";
   const key = hashText(item?.id || `${topic}-${source}`);
-  const stamp = year ? ` (${year})` : "";
+  const stamp = year ? ` in ${year}` : "";
   if (lang === "FR") {
     const variants = [
-      `Contexte: ce texte replace ${topic} dans son moment editorial${stamp}.`,
-      `Pertinence: la synthese relie ${topic} au texte original publie sur ${source}.`,
-      `Usage: point de reference date pour verifier les interpretations de ${topic}.`,
-      `Lecture utile: ${topic} est presente avec acces direct a la source primaire.`,
+      `Ce texte replace ${topic} dans son moment editorial${stamp}.`,
+      `La synthese relie ${topic} au texte original publie sur ${source}.`,
+      `Le sujet ${topic} est presente avec des points de verification clairs.`,
+      `La lecture donne un acces direct a la source primaire.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "DE") {
     const variants = [
-      `Kontext: Der Beitrag ordnet ${topic} im zeitlichen Rahmen${stamp} ein.`,
-      `Relevanz: Die Zusammenfassung verbindet ${topic} mit dem Originaltext auf ${source}.`,
-      `Nutzen: datierter Referenzpunkt, um spaetere Deutungen zu ${topic} zu pruefen.`,
-      `Lesewert: ${topic} wird mit direktem Zugang zur Primaerquelle erklaert.`,
+      `Der Beitrag ordnet ${topic} im zeitlichen Rahmen${stamp} ein.`,
+      `Die Zusammenfassung verbindet ${topic} mit dem Originaltext auf ${source}.`,
+      `${topic} wird mit den wichtigsten Bezugspunkten klar zusammengefasst.`,
+      `Der Text verweist direkt auf die Primaerquelle.`,
     ];
     return variants[key % variants.length];
   }
   if (lang === "ES") {
     const variants = [
-      `Contexto: el texto ubica ${topic} en su momento editorial${stamp}.`,
-      `Relevancia: el resumen conecta ${topic} con el texto original en ${source}.`,
-      `Uso practico: punto de referencia fechado para contrastar lecturas sobre ${topic}.`,
-      `Valor de lectura: ${topic} se explica con acceso directo a la fuente primaria.`,
+      `El texto ubica ${topic} en su momento editorial${stamp}.`,
+      `El resumen conecta ${topic} con el texto original en ${source}.`,
+      `${topic} se explica con referencias claras y verificables.`,
+      `La pieza da acceso directo a la fuente primaria.`,
     ];
     return variants[key % variants.length];
   }
   const variants = [
-    `Context: this piece places ${topic} in a concrete editorial moment${stamp}.`,
-    `Relevance: it provides a dated reference point for ${topic} with a direct source path.`,
-    `Use case: it helps compare later claims about ${topic} with the original text.`,
-    `Reader value: ${topic} is explained with immediate access to the primary source.`,
+    `This piece places ${topic} in a concrete editorial moment${stamp}.`,
+    `It connects ${topic} with the original text published by ${source}.`,
+    `The summary gives a clear reference point for later comparisons.`,
+    `It explains ${topic} and links directly to the primary source.`,
   ];
   return variants[key % variants.length];
 };
@@ -634,30 +772,25 @@ const fallbackContext = (item = {}) => {
 const normalizeContextLead = (text = "", item = {}) => {
   const value = normalizeText(text);
   if (!value) return "";
-  const lang = normalizeLang(item?.language);
-  const seed = String(item?.id || value);
-
-  if (lang === "FR" && /^repere utile:\s*/i.test(value)) {
-    const core = value.replace(/^repere utile:\s*/i, "").trim();
-    const lead = pickSeededVariant(seed, ["Contexte", "Pertinence", "Usage", "Lecture utile"]) || "Contexte";
-    return `${lead}: ${core}`;
-  }
-  if (lang === "DE" && /^nuetzlicher kontext:\s*/i.test(value)) {
-    const core = value.replace(/^nuetzlicher kontext:\s*/i, "").trim();
-    const lead = pickSeededVariant(seed, ["Kontext", "Relevanz", "Nutzen", "Lesewert"]) || "Kontext";
-    return `${lead}: ${core}`;
-  }
-  if (lang === "ES" && /^contexto util:\s*/i.test(value)) {
-    const core = value.replace(/^contexto util:\s*/i, "").trim();
-    const lead = pickSeededVariant(seed, ["Contexto", "Relevancia", "Uso practico", "Valor de lectura"]) || "Contexto";
-    return `${lead}: ${core}`;
-  }
-  if (/^why it matters:\s*/i.test(value)) {
-    const core = value.replace(/^why it matters:\s*/i, "").trim();
-    const lead = pickSeededVariant(seed, ["Context", "Relevance", "Use case", "Reader value"]) || "Context";
-    return `${lead}: ${core}`;
-  }
-  return value;
+  return value
+    .replace(/^why this matters:\s*/i, "")
+    .replace(/^relevance:\s*/i, "")
+    .replace(/^use case:\s*/i, "")
+    .replace(/^reader value:\s*/i, "")
+    .replace(/^context:\s*/i, "")
+    .replace(/^contexte:\s*/i, "")
+    .replace(/^pertinence:\s*/i, "")
+    .replace(/^usage:\s*/i, "")
+    .replace(/^lecture utile:\s*/i, "")
+    .replace(/^kontext:\s*/i, "")
+    .replace(/^relevanz:\s*/i, "")
+    .replace(/^nutzen:\s*/i, "")
+    .replace(/^lesewert:\s*/i, "")
+    .replace(/^contexto:\s*/i, "")
+    .replace(/^relevancia:\s*/i, "")
+    .replace(/^uso practico:\s*/i, "")
+    .replace(/^valor de lectura:\s*/i, "")
+    .trim();
 };
 
 const previewContext = (item = {}) => {
@@ -765,6 +898,69 @@ const buildLanguageClusters = (items) => {
   }
 
   return idToCluster;
+};
+
+const languagePriorityRank = (lang = "") => {
+  const normalized = normalizeLang(lang);
+  const idx = LANGUAGE_PRIORITY.indexOf(normalized);
+  return idx === -1 ? 99 : idx;
+};
+
+const buildEntryGroupKey = (entry, idToCluster) => {
+  const item = entry?.item || {};
+  const itemId = String(item?.id || "").trim();
+  const cluster = idToCluster?.get(itemId);
+  if (cluster) {
+    const clusterIds = Object.values(cluster)
+      .map((id) => String(id || "").trim())
+      .filter(Boolean)
+      .sort();
+    if (clusterIds.length > 0) return `cluster:${clusterIds.join("|")}`;
+  }
+
+  const registry = String(item?.registry_id || "").trim();
+  if (registry) return `registry:${registry}`;
+
+  const sourceUrl = normalizeSourceUrl(item?.url || "");
+  if (sourceUrl) return `source:${sourceUrl.toLowerCase()}`;
+
+  return `fallback:${lower(item?.source)}|${String(item?.date || "").trim()}|${lower(item?.title)}`;
+};
+
+const pickGroupRepresentative = (entries = []) =>
+  entries
+    .slice()
+    .sort((a, b) => {
+      const langDelta = languagePriorityRank(a?.item?.language) - languagePriorityRank(b?.item?.language);
+      if (langDelta !== 0) return langDelta;
+      return sortEntriesByDateDesc(a, b);
+    })[0];
+
+const groupEntriesForListing = (entries = [], idToCluster = new Map()) => {
+  const buckets = new Map();
+  for (const entry of entries) {
+    const key = buildEntryGroupKey(entry, idToCluster);
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(entry);
+  }
+
+  const groups = [];
+  for (const [key, groupEntries] of buckets.entries()) {
+    const representative = pickGroupRepresentative(groupEntries);
+    if (!representative) continue;
+    const variants = groupEntries
+      .slice()
+      .sort((a, b) => languagePriorityRank(a?.item?.language) - languagePriorityRank(b?.item?.language))
+      .map((entry) => ({
+        language: normalizeLang(entry?.item?.language),
+        postPath: entry.postPath,
+        id: String(entry?.item?.id || "").trim(),
+      }))
+      .filter((variant, idx, arr) => arr.findIndex((x) => x.language === variant.language) === idx);
+    groups.push({ key, representative, entries: groupEntries, variants });
+  }
+
+  return groups.sort((a, b) => sortEntriesByDateDesc(a.representative, b.representative));
 };
 
 const getAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new Map(), onlyPublished = false) => {
@@ -935,29 +1131,31 @@ const extractSelectedCards = async () => {
   return cards;
 };
 
-const buildSearchIndex = (entries, selectedCards) => {
-  const publishedCards = entries
-    .filter((entry) => isPublishedStatus(entry?.item?.status))
-    .filter((entry) => isShowcaseCandidate(entry?.item))
-    .map((entry) => {
-      const item = entry.item || {};
-      return {
-        id: String(item.id || "").trim() || entry.postPath.replace(/\.html$/i, ""),
-        type: "post",
-        language: normalizeLang(item.language),
-        status: "ready",
-        title: cleanDisplayTitle(item.title || "Untitled"),
-        summary: previewSummary(item),
-        context: previewContext(item),
-        topic: normalizeText(item.topic || ""),
-        source: normalizeText(item.source || ""),
-        date: normalizeText(item.date || ""),
-        material_type: "Digest card",
-        url: canonicalUrl(`posts/${entry.postPath}`),
-        source_url: normalizeSourceUrl(item.url),
-        semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
-      };
-    });
+const buildSearchIndex = (entries, selectedCards, idToCluster = new Map()) => {
+  const publishedGroups = groupEntriesForListing(
+    entries.filter((entry) => isPublishedStatus(entry?.item?.status)).filter((entry) => isShowcaseCandidate(entry?.item)),
+    idToCluster
+  );
+  const publishedCards = publishedGroups.map((group) => {
+    const entry = group.representative;
+    const item = entry?.item || {};
+    return {
+      id: String(item.id || "").trim() || entry.postPath.replace(/\.html$/i, ""),
+      type: "post",
+      language: normalizeLang(item.language),
+      status: "ready",
+      title: resolveDisplayTitle(item),
+      summary: previewSummary(item),
+      context: previewContext(item),
+      topic: normalizeText(item.topic || ""),
+      source: normalizeText(item.source || ""),
+      date: normalizeText(item.date || ""),
+      material_type: "Digest card",
+      url: canonicalUrl(`posts/${entry.postPath}`),
+      source_url: normalizeSourceUrl(item.url),
+      semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
+    };
+  });
 
   const selected = Array.isArray(selectedCards) ? selectedCards : [];
   const items = [...publishedCards, ...selected];
@@ -1028,7 +1226,7 @@ const buildRelatedPostGroups = (item, entries) => {
 const buildRelatedLinks = (entries) =>
   entries.map((entry) => {
     const href = canonicalUrl(`posts/${entry.postPath}`);
-    const title = htmlEscape(cleanDisplayTitle(String(entry?.item?.title || "Untitled")));
+    const title = htmlEscape(resolveDisplayTitle(entry?.item || {}));
     const source = htmlEscape(String(entry?.item?.source || "-"));
     const date = htmlEscape(String(entry?.item?.date || "-"));
     return `<li><a href="${href}">${title}</a> — ${source} • ${date}</li>`;
@@ -1072,7 +1270,7 @@ const buildHomeFallbackCards = (entries) => {
     .map((entry) => {
       const item = entry.item || {};
       const lang = htmlEscape(String(item.language || "-"));
-      const title = htmlEscape(cleanDisplayTitle(item.title || "Untitled"));
+      const title = htmlEscape(resolveDisplayTitle(item));
       const meta = htmlEscape(composeCardMeta(item));
       const digest = htmlEscape(previewSummary(item));
       const sourceHref = htmlEscape(normalizeSourceUrl(item?.url || canonicalUrl(`posts/${entry.postPath}`)));
@@ -1131,7 +1329,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const itemId = String(item?.id || "").trim();
   const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
   const itemIsPublished = isPublishedStatus(decision);
-  const displayTitle = cleanDisplayTitle(item.title);
+  const displayTitle = resolveDisplayTitle(item);
   const metaTitle = buildPostMetaTitle(item, displayTitle);
   const title = `${metaTitle} | ${SITE_NAME}`;
   const summary = previewSummary(item);
@@ -1304,11 +1502,11 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         <section>
           <h2>Continue on site</h2>
           <ul>
-            <li><a href="/">Home overview and latest cards</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
-            <li><a href="/cases/">Case clarifications (EN/FR/DE/ES)</a></li>
+            <li><a href="/cases/">Case notes (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
-            <li><a href="/insights/">Insights research index</a></li>
+            <li><a href="/insights/">Research archive</a></li>
             <li><a href="/archive/">Archive</a></li>
           </ul>
           ${languageLinks.length > 0 ? `<h3>Available languages</h3><ul>${languageLinks.join("")}</ul>` : ""}
@@ -1331,27 +1529,33 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
 `;
 };
 
-const buildPostsIndexHtml = (entries, options = {}) => {
+const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => {
   const {
     canonicalPath = "posts/index.html",
-    pageTitle = `${DIGEST_NAME} Posts`,
-    pageDescription = "Published post index with concise summaries and clean navigation by topic, source, and date.",
+    pageTitle = "Published pieces",
+    pageDescription = "Published pieces in chronological order.",
     listHeading = "Published posts",
     indexable = true,
   } = options;
   const scopedEntries = indexable ? entries.filter((entry) => isShowcaseCandidate(entry?.item)) : entries;
-  const writingEntries = scopedEntries.filter((entry) => !isReferenceCard(entry?.item));
-  const referenceEntries = scopedEntries.filter((entry) => isReferenceCard(entry?.item));
-  const visibleEntries = writingEntries;
+  const writingGroups = groupEntriesForListing(
+    scopedEntries.filter((entry) => !isReferenceCard(entry?.item)),
+    idToCluster
+  );
+  const referenceGroups = groupEntriesForListing(
+    scopedEntries.filter((entry) => isReferenceCard(entry?.item)),
+    idToCluster
+  );
+  const visibleGroups = writingGroups;
   const postsCanonical = canonicalUrl(canonicalPath);
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
   const breadcrumbId = `${postsCanonical}#breadcrumb`;
   const sectionName =
     canonicalPath === "posts/all.html"
-      ? "Full Corpus"
+      ? "Full archive"
       : canonicalPath === "posts/drafts.html"
-        ? "Draft Index"
+        ? "Draft archive"
         : "Posts";
   const breadcrumbItems = [
     { name: "Home", url: canonicalUrl("index.html") },
@@ -1382,19 +1586,38 @@ const buildPostsIndexHtml = (entries, options = {}) => {
       {
         "@type": "ItemList",
         "@id": itemListId,
-        name: "Digest post index",
+        name: "Published pieces index",
         itemListOrder: "https://schema.org/ItemListOrderAscending",
-        numberOfItems: visibleEntries.length,
-        itemListElement: visibleEntries.map((entry, idx) => ({
+        numberOfItems: visibleGroups.length,
+        itemListElement: visibleGroups.map((group, idx) => ({
           "@type": "ListItem",
           position: idx + 1,
-          url: canonicalUrl(`posts/${entry.postPath}`),
-          name: cleanDisplayTitle(entry.item.title),
-          inLanguage: toHtmlLang(entry.item.language),
+          url: canonicalUrl(`posts/${group.representative.postPath}`),
+          name: resolveDisplayTitle(group.representative.item),
+          inLanguage: toHtmlLang(group.representative.item.language),
         })),
       },
     ],
   };
+
+  const renderGroupList = (groups) =>
+    groups
+      .map((group) => {
+        const rep = group.representative;
+        const title = htmlEscape(resolveDisplayTitle(rep.item));
+        const meta = htmlEscape(composeCardMeta(rep.item));
+        const alternates =
+          group.variants.length > 1
+            ? ` <span aria-label="Available languages">(${group.variants
+                .map(
+                  (variant) =>
+                    `<a href="./${htmlEscape(variant.postPath)}">${htmlEscape(String(variant.language || "").toUpperCase())}</a>`
+                )
+                .join(" · ")})</span>`
+            : "";
+        return `        <li><a href="./${rep.postPath}">${title}</a> — ${meta}${alternates}</li>`;
+      })
+      .join("\n");
 
   return `<!doctype html>
 <html lang="en">
@@ -1469,14 +1692,14 @@ const buildPostsIndexHtml = (entries, options = {}) => {
         <p class="lead">${htmlEscape(pageDescription)}</p>
       </section>
       <section>
-        <h2>Explore Next</h2>
+        <h2>See also</h2>
         <ul>
-          <li><a href="/">Home overview and latest cards</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/selected/">Selected Work</a></li>
-          <li><a href="/insights/">Insights research index</a></li>
-          <li><a href="/posts/all.html">Full corpus (writing + references, including drafts)</a></li>
+          <li><a href="/insights/">Research archive</a></li>
+          <li><a href="/posts/all.html">Full archive (including drafts)</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
-          <li><a href="/cases/">Case clarifications (EN, FR, DE, ES)</a></li>
+          <li><a href="/cases/">Case notes (EN, FR, DE, ES)</a></li>
           <li><a href="/rss.xml">RSS feed</a></li>
           <li><a href="/sitemap.xml">Sitemap index</a></li>
         </ul>
@@ -1484,24 +1707,14 @@ const buildPostsIndexHtml = (entries, options = {}) => {
       <section>
         <h2>${htmlEscape(listHeading)}</h2>
         <ul>
-${writingEntries
-  .map(
-    (entry) =>
-      `        <li><a href="./${entry.postPath}">${htmlEscape(cleanDisplayTitle(entry.item.title))}</a> — ${htmlEscape(composeCardMeta(entry.item))}</li>`
-  )
-  .join("\n")}
+${renderGroupList(writingGroups)}
         </ul>
       </section>
-      ${referenceEntries.length > 0
+      ${referenceGroups.length > 0
         ? `<section>
         <h2>References</h2>
         <ul>
-${referenceEntries
-  .map(
-    (entry) =>
-      `        <li><a href="./${entry.postPath}">${htmlEscape(cleanDisplayTitle(entry.item.title))}</a> — ${htmlEscape(composeCardMeta(entry.item))}</li>`
-  )
-  .join("\n")}
+${renderGroupList(referenceGroups)}
         </ul>
       </section>`
         : ""}
@@ -1626,7 +1839,7 @@ const buildRss = (entries) => {
       const description = descriptionParts.join("\n\n");
       const pubDate = new Date(toIsoTimestamp(entry.item.date) || buildIso).toUTCString();
       return `    <item>
-      <title>${xmlEscape(entry.item.title)}</title>
+      <title>${xmlEscape(resolveDisplayTitle(entry.item))}</title>
       <link>${xmlEscape(link)}</link>
       <guid>${xmlEscape(link)}</guid>
       <pubDate>${pubDate}</pubDate>
@@ -1735,9 +1948,9 @@ const main = async () => {
   const indexableEntries = entries.filter((entry) => isIndexablePost(entry?.item));
   const draftEntries = entries.filter((entry) => !isPublishedStatus(entry?.item?.status));
   const selectedCards = await extractSelectedCards();
-  const searchIndex = buildSearchIndex(entries, selectedCards);
   const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
   const idToCluster = buildLanguageClusters(items);
+  const searchIndex = buildSearchIndex(entries, selectedCards, idToCluster);
   const idToIndexStatus = new Map(
     entries.map((entry) => [String(entry?.item?.id || "").trim(), isIndexablePost(entry?.item) ? "ready" : "draft"])
   );
@@ -1770,21 +1983,21 @@ const main = async () => {
 
   await fs.writeFile(
     path.join(postsDir, "index.html"),
-    buildPostsIndexHtml(indexableEntries, {
+    buildPostsIndexHtml(indexableEntries, idToCluster, {
       canonicalPath: "posts/index.html",
-      pageTitle: `${DIGEST_NAME} Posts`,
-      pageDescription: "Published cards selected for public quality, with source references and clean chronological browsing.",
-      listHeading: "Published and indexable posts",
+      pageTitle: "Published pieces",
+      pageDescription: "Published pieces in chronological order.",
+      listHeading: "Published posts",
       indexable: false,
     }),
     "utf8"
   );
   await fs.writeFile(
     path.join(postsDir, "all.html"),
-    buildPostsIndexHtml(entries, {
+    buildPostsIndexHtml(entries, idToCluster, {
       canonicalPath: "posts/all.html",
-      pageTitle: `${DIGEST_NAME}: Full Corpus`,
-      pageDescription: "Complete corpus view of writing cards and reference records, including drafts.",
+      pageTitle: "Full archive",
+      pageDescription: "Complete archive, including working drafts.",
       listHeading: "Writing",
       indexable: false,
     }),
@@ -1793,11 +2006,11 @@ const main = async () => {
   if (draftEntries.length > 0) {
     await fs.writeFile(
       path.join(postsDir, "drafts.html"),
-      buildPostsIndexHtml(draftEntries, {
+      buildPostsIndexHtml(draftEntries, idToCluster, {
         canonicalPath: "posts/drafts.html",
-        pageTitle: `${DIGEST_NAME} Draft Posts`,
-        pageDescription: "Draft working index for editorial review; excluded from public indexing.",
-        listHeading: "Draft cards",
+        pageTitle: "Draft archive",
+        pageDescription: "Working draft archive. Not indexed.",
+        listHeading: "Draft pieces",
         indexable: false,
       }),
       "utf8"
