@@ -5023,37 +5023,6 @@
       "slug": "de-129-maximaler-retweet-sie-saeuberten-die-falschen"
     },
     {
-      "id": "de-130",
-      "language": "DE",
-      "status": "draft",
-      "date": "2014-03-26",
-      "source": "Vedomosti",
-      "topic": "internet control",
-      "title": "Maximaler Retweet: Was mit dem Runet nach der Krim geschieht",
-      "digest": "Wenige Tage nach der Krim publiziert, skizziert die Kolumne Szenarien fuer staerkere Internetkontrolle in Russland. Klishin beschreibt juristische, technische und politische Instrumente, die digitale Autonomie verringern und Ausnahme-Logik im Alltag normalisieren koennen.",
-      "quote": "\"Maximaler Retweet: Was mit dem Runet nach der Krim geschieht\" - Vedomosti",
-      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
-      "summary": "Wenige Tage nach der Krim publiziert, skizziert die Kolumne Szenarien fuer staerkere Internetkontrolle in Russland. Klishin beschreibt juristische, technische und politische Instrumente, die digitale Autonomie verringern und Ausnahme-Logik im Alltag normalisieren koennen.",
-      "key_ideas": [
-        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
-        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
-        "Die Karte verweist direkt auf die originale Quelle."
-      ],
-      "quotes": [
-        "\"Maximaler Retweet: Was mit dem Runet nach der Krim geschieht\" - Vedomosti"
-      ],
-      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Vedomosti",
-        "internet control",
-        "source-linked",
-        "publication archive",
-        "year-2014"
-      ],
-      "slug": "de-130-maximaler-retweet-was-mit-dem-runet-nach-der-krim-geschieht"
-    },
-    {
       "id": "de-131",
       "language": "DE",
       "status": "draft",
@@ -11354,42 +11323,6 @@
       }
     },
     {
-      "id": "en-130",
-      "language": "EN",
-      "status": "ready",
-      "date": "2014-03-26",
-      "source": "Vedomosti",
-      "topic": "internet control",
-      "title": "Maximum Retweet: What happens to Runet after Crimea",
-      "digest": "Published days after Crimea, the column maps scenarios for tightening internet control in Russia. Klishin outlines legal, technical, and political instruments that could shrink online autonomy and normalize emergency logic in everyday regulation.",
-      "quote": "\"Maximum Retweet: What happens to Runet after Crimea\" - Vedomosti",
-      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
-      "summary": "Published days after Crimea, the column maps scenarios for tightening internet control in Russia. Klishin outlines legal, technical, and political instruments that could shrink online autonomy and normalize emergency logic in everyday regulation.",
-      "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
-        "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
-      ],
-      "quotes": [
-        "\"Maximum Retweet: What happens to Runet after Crimea\" - Vedomosti"
-      ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Vedomosti",
-        "internet control",
-        "source-linked",
-        "publication archive",
-        "year-2014"
-      ],
-      "slug": "en-130-maximum-retweet-what-happens-to-runet-after-crimea",
-      "copies": {
-        "FR": "fr-130",
-        "DE": "de-130",
-        "ES": "es-130"
-      }
-    },
-    {
       "id": "en-131",
       "language": "EN",
       "status": "ready",
@@ -17237,37 +17170,6 @@
       "slug": "es-129-retuit-maximo-limpiaron-a-las-personas-equivocadas"
     },
     {
-      "id": "es-130",
-      "language": "ES",
-      "status": "draft",
-      "date": "2014-03-26",
-      "source": "Vedomosti",
-      "topic": "internet control",
-      "title": "Retuit maximo: que pasa con Runet despues de Crimea",
-      "digest": "Publicado dias despues de Crimea, el texto traza escenarios de mayor control estatal de internet en Rusia. Klishin describe instrumentos legales, tecnicos y politicos que pueden reducir la autonomia en linea y normalizar una logica de excepcion.",
-      "quote": "\"Retuit maximo: que pasa con Runet despues de Crimea\" - Vedomosti",
-      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
-      "summary": "Publicado dias despues de Crimea, el texto traza escenarios de mayor control estatal de internet en Rusia. Klishin describe instrumentos legales, tecnicos y politicos que pueden reducir la autonomia en linea y normalizar una logica de excepcion.",
-      "key_ideas": [
-        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
-        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
-        "La tarjeta mantiene enlace directo a la fuente original."
-      ],
-      "quotes": [
-        "\"Retuit maximo: que pasa con Runet despues de Crimea\" - Vedomosti"
-      ],
-      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Vedomosti",
-        "internet control",
-        "source-linked",
-        "publication archive",
-        "year-2014"
-      ],
-      "slug": "es-130-retuit-maximo-que-pasa-con-runet-despues-de-crimea"
-    },
-    {
       "id": "es-131",
       "language": "ES",
       "status": "draft",
@@ -23019,37 +22921,6 @@
         "year-2014"
       ],
       "slug": "fr-129-retweet-maximal-ils-ont-purge-les-mauvaises-personnes"
-    },
-    {
-      "id": "fr-130",
-      "language": "FR",
-      "status": "draft",
-      "date": "2014-03-26",
-      "source": "Vedomosti",
-      "topic": "internet control",
-      "title": "Retweet maximal : que devient le Runet apres la Crimee",
-      "digest": "Publie peu apres la Crimee, ce texte cartographie des scenarios de durcissement du controle d internet en Russie. Klishin decrit des instruments juridiques, techniques et politiques pouvant reduire l autonomie en ligne et normaliser une logique d urgence.",
-      "quote": "\"Retweet maximal : que devient le Runet apres la Crimee\" - Vedomosti",
-      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
-      "summary": "Publie peu apres la Crimee, ce texte cartographie des scenarios de durcissement du controle d internet en Russie. Klishin decrit des instruments juridiques, techniques et politiques pouvant reduire l autonomie en ligne et normaliser une logique d urgence.",
-      "key_ideas": [
-        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
-        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
-        "La carte conserve un lien direct vers la publication originale."
-      ],
-      "quotes": [
-        "\"Retweet maximal : que devient le Runet apres la Crimee\" - Vedomosti"
-      ],
-      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Vedomosti",
-        "internet control",
-        "source-linked",
-        "publication archive",
-        "year-2014"
-      ],
-      "slug": "fr-130-retweet-maximal-que-devient-le-runet-apres-la-crimee"
     },
     {
       "id": "fr-131",
