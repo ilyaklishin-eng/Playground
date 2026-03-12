@@ -14,7 +14,7 @@ const OG_IMAGE_WIDTH = "1200";
 const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: `${baseUrl}/og/site-default.jpg`,
+  default: `${baseUrl}/og/site-default-v2.jpg`,
   bio: `${baseUrl}/og/bio.jpg`,
   selected: `${baseUrl}/og/selected-work.jpg`,
   posts: `${baseUrl}/og/posts-fallback.jpg`,
@@ -1862,6 +1862,23 @@ const upsertMetaTag = (html = "", attrName = "", attrValue = "", content = "") =
   return html.replace(/<\/head>/i, `    ${tag}\n  </head>`);
 };
 
+const upsertLinkRel = (html = "", relValue = "", href = "") => {
+  const normalizedHref = String(href || "").trim();
+  if (!normalizedHref) return html;
+  const rel = String(relValue || "").trim();
+  if (!rel) return html;
+  const tag = `<link rel="${htmlEscape(rel)}" href="${htmlEscape(normalizedHref)}" />`;
+  const escapedRel = escapeRegExpSafe(rel);
+  const relRe = new RegExp(
+    `<link\\s+[^>]*rel=["']${escapedRel}["'][^>]*href=["'][^"']*["'][^>]*\\/?>|<link\\s+[^>]*href=["'][^"']*["'][^>]*rel=["']${escapedRel}["'][^>]*\\/?>`,
+    "i"
+  );
+  if (relRe.test(html)) {
+    return html.replace(relRe, tag);
+  }
+  return html.replace(/<\/head>/i, `    ${tag}\n  </head>`);
+};
+
 const applyStaticSocialPreviewPolicies = async () => {
   for (const [relativePath, imageType] of STATIC_SOCIAL_IMAGE_POLICY.entries()) {
     const fullPath = path.join(siteDir, relativePath);
@@ -1878,8 +1895,11 @@ const applyStaticSocialPreviewPolicies = async () => {
     html = upsertMetaTag(html, "property", "og:image:width", OG_IMAGE_WIDTH);
     html = upsertMetaTag(html, "property", "og:image:height", OG_IMAGE_HEIGHT);
     html = upsertMetaTag(html, "property", "og:image:type", OG_IMAGE_TYPE);
+    html = upsertMetaTag(html, "property", "og:image:secure_url", imageUrl);
     html = upsertMetaTag(html, "name", "twitter:card", "summary_large_image");
     html = upsertMetaTag(html, "name", "twitter:image", imageUrl);
+    html = upsertMetaTag(html, "name", "twitter:image:src", imageUrl);
+    html = upsertLinkRel(html, "image_src", imageUrl);
 
     await fs.writeFile(fullPath, html, "utf8");
   }
