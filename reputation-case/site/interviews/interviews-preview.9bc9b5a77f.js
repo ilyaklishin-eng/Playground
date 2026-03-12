@@ -13,6 +13,23 @@ const COPY = {
   es: { open: "Abrir material ->", empty: "Todavia no hay entrevistas disponibles en este idioma." },
 };
 const ACTIVE_COPY = COPY[uiLang] || COPY.en;
+const INTERVIEW_EMOJI_POOL = [
+  "🎙️",
+  "🎧",
+  "📚",
+  "🎥",
+  "🗣️",
+  "🌍",
+  "📰",
+  "📺",
+  "🧭",
+  "💬",
+  "📖",
+  "🔎",
+  "🧠",
+  "📡",
+  "🎞️",
+];
 
 if (!grid) {
   // script loaded on a page without interviews preview
@@ -71,6 +88,46 @@ function formatDisplayDate(raw) {
   return value;
 }
 
+function interviewEmojiCandidates(item) {
+  const format = String(item?.formatLabel || "").toLowerCase();
+  const section = String(item?.section || "").toLowerCase();
+  const lang = String(item?.languageLabel || "").toLowerCase();
+  const text = [item?.title, item?.description, item?.formatLabel].map((v) => String(v || "").toLowerCase()).join(" ");
+
+  if (/\bpodcast\b/.test(format) || /\bpodcast\b/.test(text)) {
+    return ["🎙️", "🎧", "🗣️", "💬"];
+  }
+  if (/\bvideo\b/.test(format) || /\byoutube|broadcast|talk\b/.test(text)) {
+    return ["🎥", "📺", "🎞️", "📡"];
+  }
+  if (/\btext\b/.test(format) || /\binterview|essay|feature\b/.test(text)) {
+    return ["📰", "📖", "🔎", "🧠"];
+  }
+  if (/\bbook|nabokov|literature|reading\b/.test(text)) {
+    return ["📚", "📖", "🧠", "🔎"];
+  }
+  if (section === "features" || /\benglish\b/.test(lang)) {
+    return ["🌍", "🧭", "📰", "📡"];
+  }
+  return ["💬", "🧭", "📰", "🎙️"];
+}
+
+function buildInterviewEmojiMap(items) {
+  const byUrl = new Map();
+  const used = new Set();
+
+  for (const item of items) {
+    const key = String(item?.url || "");
+    if (!key) continue;
+    const candidates = [...interviewEmojiCandidates(item), ...INTERVIEW_EMOJI_POOL];
+    const picked = candidates.find((emoji) => !used.has(emoji));
+    if (!picked) continue;
+    byUrl.set(key, picked);
+    used.add(picked);
+  }
+  return byUrl;
+}
+
 function renderPreview(items) {
   grid.innerHTML = "";
   if (!items.length) {
@@ -82,6 +139,7 @@ function renderPreview(items) {
   }
 
   const fragment = document.createDocumentFragment();
+  const emojiByUrl = buildInterviewEmojiMap(items);
 
   for (const item of items) {
     const card = document.createElement("article");
@@ -97,7 +155,8 @@ function renderPreview(items) {
     link.href = item.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    link.textContent = item.title;
+    const emoji = emojiByUrl.get(String(item.url || ""));
+    link.textContent = `${emoji ? `${emoji} ` : ""}${item.title}`;
     title.appendChild(link);
 
     const desc = document.createElement("p");
