@@ -1,11 +1,33 @@
 {
   "generated_at": "2026-03-06T00:00:00.000Z",
   "counts": {
-    "total": 92,
-    "posts": 46,
-    "selected": 46
+    "total": 109,
+    "posts": 55,
+    "selected": 54
   },
   "items": [
+    {
+      "id": "en-144",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Conflict in Current Time TV over possible appointment of Ilya Klishin",
+      "summary": "This Detector Media report documents an internal conflict around a proposed managerial appointment at Current Time. The article says archived statements were recirculated during the dispute and became a central argument against the candidacy in a tense newsroom environment.",
+      "context": "Reference entry for the 2023 Current Time controversy and how the dispute was publicly framed in a Ukrainian media outlet.",
+      "topic": "media industry conflict",
+      "source": "Detector Media",
+      "date": "2023-03-31",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-144-conflict-in-current-time-tv-over-possible-appointment-of-ilya-klishin.html",
+      "source_url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Detector Media",
+        "media industry conflict",
+        "2023",
+        "external reference"
+      ]
+    },
     {
       "id": "en-001",
       "type": "post",
@@ -154,6 +176,28 @@
         "wait",
         "until",
         "after"
+      ]
+    },
+    {
+      "id": "en-145",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
+      "summary": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
+      "context": "Reference card on how German-language coverage used Klishin commentary in the Sputnik V and trust debate.",
+      "topic": "public health communication",
+      "source": "Dekoder",
+      "date": "2021-04-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Dekoder",
+        "public health communication",
+        "2021",
+        "external reference"
       ]
     },
     {
@@ -608,6 +652,28 @@
       ]
     },
     {
+      "id": "en-148",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Freedom on the Net 2016 records pressure linked to Klishin and peers",
+      "summary": "Freedom House's 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators. The report is included as an institutional record in the wider timeline of digital intimidation and online-control practices.",
+      "context": "Institutional source supporting chronology and context for digital intimidation patterns around independent media and activists.",
+      "topic": "internet freedom report",
+      "source": "Freedom House",
+      "date": "2016-11-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html",
+      "source_url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Freedom House",
+        "internet freedom report",
+        "2016",
+        "external reference"
+      ]
+    },
+    {
       "id": "en-143",
       "type": "post",
       "language": "EN",
@@ -652,6 +718,52 @@
         "Carnegie Endowment",
         "internet governance",
         "publication archive"
+      ]
+    },
+    {
+      "id": "en-152",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Gazeta.ru interview on possible blocking of YouTube and Google",
+      "summary": "This Gazeta. ru interview records an expert comment on technical and political scenarios of blocking major platforms in Russia. Klishin is cited on the likely consequences of restricting YouTube or Google and the broader logic of digital control.",
+      "context": "Reference entry for early media discussion of platform blocking risks in Russia.",
+      "topic": "platform blocking commentary",
+      "source": "Gazeta.ru",
+      "date": "2016-01-16",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html",
+      "source_url": "https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Gazeta.ru",
+        "platform regulation",
+        "YouTube",
+        "Google",
+        "Russia",
+        "2016"
+      ]
+    },
+    {
+      "id": "en-151",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "JSIS profile: digital patriotism and nationalist agenda in Russian media",
+      "summary": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy. It is included as an institutional context source that references legal ambiguity, censorship practices, and commentary associated with Klishin's media analysis work.",
+      "context": "Reference entry linking academic policy analysis of Russian media controls to Klishin-related analytical context.",
+      "topic": "media profile and censorship",
+      "source": "JSIS Washington",
+      "date": "2016-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
+      "source_url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "JSIS Washington",
+        "media profile and censorship",
+        "2016",
+        "external reference"
       ]
     },
     {
@@ -757,6 +869,28 @@
       ]
     },
     {
+      "id": "en-150",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
+      "summary": "This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control. The piece is included as an institutional context source and cites arguments connected to Klishin's assessments of propaganda infrastructure.",
+      "context": "Institutional context card for understanding international policy framing of Russian media weaponization.",
+      "topic": "media systems report",
+      "source": "The Wilson Center",
+      "date": "2015-04-27",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
+      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Wilson Center",
+        "media systems report",
+        "2015",
+        "external reference"
+      ]
+    },
+    {
       "id": "en-119",
       "type": "post",
       "language": "EN",
@@ -830,6 +964,28 @@
         "investigative journalism",
         "2014",
         "war-reporting verification"
+      ]
+    },
+    {
+      "id": "en-146",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "Wikipedia war-coverage overview references Klishin claims",
+      "summary": "This encyclopedia overview of media coverage around the Russo-Ukrainian war includes references to claims associated with Klishin about manipulation channels and audience targeting. It is included as a secondary aggregation source, not as primary reporting.",
+      "context": "Useful as a public index layer showing how Klishin-linked assertions circulate in tertiary reference ecosystems.",
+      "topic": "war information coverage",
+      "source": "Wikipedia",
+      "date": "2014-08-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html",
+      "source_url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Wikipedia",
+        "war information coverage",
+        "2014",
+        "external reference"
       ]
     },
     {
@@ -1011,6 +1167,28 @@
       ]
     },
     {
+      "id": "en-149",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "RAND report RR295 on social media and political mobilization",
+      "summary": "RAND's RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.",
+      "context": "Methodological reference entry for research context on social media and political mobilization frameworks.",
+      "topic": "social media mobilization research",
+      "source": "RAND Corporation",
+      "date": "2013-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html",
+      "source_url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "RAND Corporation",
+        "social media mobilization research",
+        "2013",
+        "external reference"
+      ]
+    },
+    {
       "id": "en-133",
       "type": "post",
       "language": "EN",
@@ -1029,6 +1207,28 @@
         "Vedomosti",
         "disinformation mechanics",
         "publication archive"
+      ]
+    },
+    {
+      "id": "en-147",
+      "type": "post",
+      "language": "EN",
+      "status": "ready",
+      "title": "LSE analysis on protest mobilization references feb26.org coordination",
+      "summary": "This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement. It is included as an institutional context source on how online tools organized large offline actions.",
+      "context": "Institutional reference for research use, showing academic treatment of digital coordination tied to protest events.",
+      "topic": "digital protest infrastructure",
+      "source": "LSE EUROPP",
+      "date": "2012-03-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
+      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LSE EUROPP",
+        "digital protest infrastructure",
+        "2012",
+        "external reference"
       ]
     },
     {
@@ -1081,6 +1281,22 @@
       "id": "selected-journalism-1",
       "type": "selected",
       "language": "EN",
+      "title": "Conflict in Current Time TV over possible appointment of Ilya Klishin",
+      "summary": "This Detector Media report documents an internal conflict around a proposed managerial appointment at Current Time. The article says archived statements were recirculated during the dispute and became a central argument against the candidacy in a tense newsroom environment.",
+      "context": "Reference entry for the 2023 Current Time controversy and how the dispute was publicly framed in a Ukrainian media outlet.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2023-03-31",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
+      "source_url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/"
+    },
+    {
+      "id": "selected-journalism-2",
+      "type": "selected",
+      "language": "EN",
       "title": "Putin-Macron talks and the Russia expertise gap",
       "summary": "In this Feb 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.",
       "context": "It connects media analysis with the original text published by The Moscow Times.",
@@ -1094,7 +1310,7 @@
       "source_url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375"
     },
     {
-      "id": "selected-journalism-2",
+      "id": "selected-journalism-3",
       "type": "selected",
       "language": "EN",
       "title": "Mass protests: lessons from a decade",
@@ -1110,7 +1326,23 @@
       "source_url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781"
     },
     {
-      "id": "selected-journalism-3",
+      "id": "selected-journalism-4",
+      "type": "selected",
+      "language": "EN",
+      "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
+      "summary": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
+      "context": "Reference card on how German-language coverage used Klishin commentary in the Sputnik V and trust debate.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2021-04-01",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu"
+    },
+    {
+      "id": "selected-journalism-5",
       "type": "selected",
       "language": "EN",
       "title": "Bloomberg quotes Klishin on Russia’s Twitter crackdown",
@@ -1126,7 +1358,7 @@
       "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown"
     },
     {
-      "id": "selected-journalism-4",
+      "id": "selected-journalism-6",
       "type": "selected",
       "language": "EN",
       "title": "Why Do Russians Resent Western Media Over The",
@@ -1142,7 +1374,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155"
     },
     {
-      "id": "selected-journalism-5",
+      "id": "selected-journalism-7",
       "type": "selected",
       "language": "EN",
       "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
@@ -1158,7 +1390,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014"
     },
     {
-      "id": "selected-journalism-6",
+      "id": "selected-journalism-8",
       "type": "selected",
       "language": "EN",
       "title": "Why Medvedev's resignation and Putin's amendments changed nothing",
@@ -1174,7 +1406,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947"
     },
     {
-      "id": "selected-journalism-7",
+      "id": "selected-journalism-9",
       "type": "selected",
       "language": "EN",
       "title": "Who owns Russian? And who owns English?",
@@ -1190,7 +1422,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/11/11/9-a68123"
     },
     {
-      "id": "selected-journalism-8",
+      "id": "selected-journalism-10",
       "type": "selected",
       "language": "EN",
       "title": "Why shoot Navalny if you can bankrupt him",
@@ -1206,7 +1438,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972"
     },
     {
-      "id": "selected-journalism-9",
+      "id": "selected-journalism-11",
       "type": "selected",
       "language": "EN",
       "title": "How Putin Is Bankrupting the Russian Opposition",
@@ -1222,7 +1454,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971"
     },
     {
-      "id": "selected-journalism-10",
+      "id": "selected-journalism-12",
       "type": "selected",
       "language": "EN",
       "title": "How the death penalty debate linked to a ban on negative Ukraine coverage",
@@ -1238,7 +1470,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761"
     },
     {
-      "id": "selected-journalism-11",
+      "id": "selected-journalism-13",
       "type": "selected",
       "language": "EN",
       "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
@@ -1254,7 +1486,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400"
     },
     {
-      "id": "selected-journalism-12",
+      "id": "selected-journalism-14",
       "type": "selected",
       "language": "EN",
       "title": "The music of the media desert",
@@ -1270,7 +1502,7 @@
       "source_url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini"
     },
     {
-      "id": "selected-journalism-13",
+      "id": "selected-journalism-15",
       "type": "selected",
       "language": "EN",
       "title": "Moscow: clean city, cleansed city",
@@ -1286,7 +1518,23 @@
       "source_url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya"
     },
     {
-      "id": "selected-journalism-14",
+      "id": "selected-journalism-16",
+      "type": "selected",
+      "language": "EN",
+      "title": "Freedom on the Net 2016 records pressure linked to Klishin and peers",
+      "summary": "Freedom House's 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators. The report is included as an institutional record in the wider timeline of digital intimidation and online-control practices.",
+      "context": "Institutional source supporting chronology and context for digital intimidation patterns around independent media and activists.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2016-11-14",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "source_url": "https://freedomhouse.org/country/russia/freedom-net/2016"
+    },
+    {
+      "id": "selected-journalism-17",
       "type": "selected",
       "language": "EN",
       "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
@@ -1302,7 +1550,7 @@
       "source_url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii"
     },
     {
-      "id": "selected-journalism-15",
+      "id": "selected-journalism-18",
       "type": "selected",
       "language": "EN",
       "title": "Web of Control: The Future of the Russian Internet",
@@ -1318,7 +1566,23 @@
       "source_url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet"
     },
     {
-      "id": "selected-journalism-16",
+      "id": "selected-journalism-19",
+      "type": "selected",
+      "language": "EN",
+      "title": "JSIS profile: digital patriotism and nationalist agenda in Russian media",
+      "summary": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy. It is included as an institutional context source that references legal ambiguity, censorship practices, and commentary associated with Klishin's media analysis work.",
+      "context": "Reference entry linking academic policy analysis of Russian media controls to Klishin-related analytical context.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2016-01-01",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "source_url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/"
+    },
+    {
+      "id": "selected-journalism-20",
       "type": "selected",
       "language": "EN",
       "title": "Do Revolutions Grow Out of Social Media?",
@@ -1334,7 +1598,7 @@
       "source_url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii"
     },
     {
-      "id": "selected-journalism-17",
+      "id": "selected-journalism-21",
       "type": "selected",
       "language": "EN",
       "title": "What Sparked Moldova's Second Maidan?",
@@ -1350,7 +1614,23 @@
       "source_url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan"
     },
     {
-      "id": "selected-journalism-18",
+      "id": "selected-journalism-22",
+      "type": "selected",
+      "language": "EN",
+      "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
+      "summary": "This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control. The piece is included as an institutional context source and cites arguments connected to Klishin's assessments of propaganda infrastructure.",
+      "context": "Institutional context card for understanding international policy framing of Russian media weaponization.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2015-04-27",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons"
+    },
+    {
+      "id": "selected-journalism-23",
       "type": "selected",
       "language": "EN",
       "title": "Atlantic feature cites Klishin on Putin’s media machine",
@@ -1366,7 +1646,7 @@
       "source_url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/"
     },
     {
-      "id": "selected-journalism-19",
+      "id": "selected-journalism-24",
       "type": "selected",
       "language": "EN",
       "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
@@ -1382,7 +1662,23 @@
       "source_url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/"
     },
     {
-      "id": "selected-journalism-20",
+      "id": "selected-journalism-25",
+      "type": "selected",
+      "language": "EN",
+      "title": "Wikipedia war-coverage overview references Klishin claims",
+      "summary": "This encyclopedia overview of media coverage around the Russo-Ukrainian war includes references to claims associated with Klishin about manipulation channels and audience targeting. It is included as a secondary aggregation source, not as primary reporting.",
+      "context": "Useful as a public index layer showing how Klishin-linked assertions circulate in tertiary reference ecosystems.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2014-08-01",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "source_url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War"
+    },
+    {
+      "id": "selected-journalism-26",
       "type": "selected",
       "language": "EN",
       "title": "Likes Go West",
@@ -1398,7 +1694,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad"
     },
     {
-      "id": "selected-journalism-21",
+      "id": "selected-journalism-27",
       "type": "selected",
       "language": "EN",
       "title": "Maximum Retweet: Threats created by the Ministry of Truth",
@@ -1414,7 +1710,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy"
     },
     {
-      "id": "selected-journalism-22",
+      "id": "selected-journalism-28",
       "type": "selected",
       "language": "EN",
       "title": "Maximum Retweet: They purged the wrong people",
@@ -1430,7 +1726,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili"
     },
     {
-      "id": "selected-journalism-23",
+      "id": "selected-journalism-29",
       "type": "selected",
       "language": "EN",
       "title": "Maximum Retweet: What happens to Runet after Crimea",
@@ -1446,7 +1742,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma"
     },
     {
-      "id": "selected-journalism-24",
+      "id": "selected-journalism-30",
       "type": "selected",
       "language": "EN",
       "title": "Maximum Retweet: The web we got trapped in",
@@ -1462,7 +1758,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis"
     },
     {
-      "id": "selected-journalism-25",
+      "id": "selected-journalism-31",
       "type": "selected",
       "language": "EN",
       "title": "The internet will not do it automatically",
@@ -1478,7 +1774,39 @@
       "source_url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy"
     },
     {
-      "id": "selected-journalism-26",
+      "id": "selected-journalism-32",
+      "type": "selected",
+      "language": "EN",
+      "title": "RAND report RR295 on social media and political mobilization",
+      "summary": "RAND's RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.",
+      "context": "Methodological reference entry for research context on social media and political mobilization frameworks.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2013-01-01",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "source_url": "https://www.rand.org/pubs/research_reports/RR295.html"
+    },
+    {
+      "id": "selected-journalism-33",
+      "type": "selected",
+      "language": "EN",
+      "title": "LSE analysis on protest mobilization references feb26.org coordination",
+      "summary": "This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement. It is included as an institutional context source on how online tools organized large offline actions.",
+      "context": "Institutional reference for research use, showing academic treatment of digital coordination tied to protest events.",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2012-03-14",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/"
+    },
+    {
+      "id": "selected-journalism-34",
       "type": "selected",
       "language": "EN",
       "title": "Russia's New Decembrists",
@@ -1494,7 +1822,7 @@
       "source_url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/"
     },
     {
-      "id": "selected-media-strategy-27",
+      "id": "selected-media-strategy-35",
       "type": "selected",
       "language": "EN",
       "title": "Commentary on pressure against independent media institutions",
@@ -1510,7 +1838,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879"
     },
     {
-      "id": "selected-media-strategy-28",
+      "id": "selected-media-strategy-36",
       "type": "selected",
       "language": "EN",
       "title": "The Magic Mirror of Russian Public Opinion",
@@ -1526,7 +1854,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492"
     },
     {
-      "id": "selected-media-strategy-29",
+      "id": "selected-media-strategy-37",
       "type": "selected",
       "language": "EN",
       "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
@@ -1542,7 +1870,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125"
     },
     {
-      "id": "selected-media-strategy-30",
+      "id": "selected-media-strategy-38",
       "type": "selected",
       "language": "EN",
       "title": "Let's Wait Until After the Elections",
@@ -1558,7 +1886,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915"
     },
     {
-      "id": "selected-media-strategy-31",
+      "id": "selected-media-strategy-39",
       "type": "selected",
       "language": "EN",
       "title": "Luiza Rozova and the Helpless Intellectual",
@@ -1574,7 +1902,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301"
     },
     {
-      "id": "selected-media-strategy-32",
+      "id": "selected-media-strategy-40",
       "type": "selected",
       "language": "EN",
       "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
@@ -1590,7 +1918,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920"
     },
     {
-      "id": "selected-media-strategy-33",
+      "id": "selected-media-strategy-41",
       "type": "selected",
       "language": "EN",
       "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
@@ -1606,7 +1934,7 @@
       "source_url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598"
     },
     {
-      "id": "selected-propaganda-34",
+      "id": "selected-propaganda-42",
       "type": "selected",
       "language": "EN",
       "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
@@ -1622,7 +1950,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410"
     },
     {
-      "id": "selected-propaganda-35",
+      "id": "selected-propaganda-43",
       "type": "selected",
       "language": "EN",
       "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
@@ -1638,7 +1966,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588"
     },
     {
-      "id": "selected-propaganda-36",
+      "id": "selected-propaganda-44",
       "type": "selected",
       "language": "EN",
       "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
@@ -1654,7 +1982,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108"
     },
     {
-      "id": "selected-propaganda-37",
+      "id": "selected-propaganda-45",
       "type": "selected",
       "language": "EN",
       "title": "From Kremlin Web Brigades to Russian Troll Factories",
@@ -1670,7 +1998,7 @@
       "source_url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/"
     },
     {
-      "id": "selected-propaganda-38",
+      "id": "selected-propaganda-46",
       "type": "selected",
       "language": "EN",
       "title": "Bot Army: Why the Kremlin Fails at Soft Power",
@@ -1686,7 +2014,7 @@
       "source_url": "https://carnegie.ru/commentary/60728"
     },
     {
-      "id": "selected-propaganda-39",
+      "id": "selected-propaganda-47",
       "type": "selected",
       "language": "EN",
       "title": "How Putin quietly took over Russian social media",
@@ -1702,7 +2030,7 @@
       "source_url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/"
     },
     {
-      "id": "selected-propaganda-40",
+      "id": "selected-propaganda-48",
       "type": "selected",
       "language": "EN",
       "title": "Early warning analysis on Russian troll expansion",
@@ -1718,7 +2046,7 @@
       "source_url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651"
     },
     {
-      "id": "selected-propaganda-41",
+      "id": "selected-propaganda-49",
       "type": "selected",
       "language": "EN",
       "title": "Maximum Retweet: The war we overlooked",
@@ -1734,7 +2062,7 @@
       "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili"
     },
     {
-      "id": "selected-propaganda-42",
+      "id": "selected-propaganda-50",
       "type": "selected",
       "language": "EN",
       "title": "Zero multiplied by a million",
@@ -1750,7 +2078,7 @@
       "source_url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million"
     },
     {
-      "id": "selected-literature-43",
+      "id": "selected-literature-51",
       "type": "selected",
       "language": "EN",
       "title": "Why Russians Dislike Good Russians in American Films No Less Than Bad Russians",
@@ -1766,7 +2094,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097"
     },
     {
-      "id": "selected-literature-44",
+      "id": "selected-literature-52",
       "type": "selected",
       "language": "EN",
       "title": "Great Russian Literature Versus One Tweet by Stephen King",
@@ -1782,7 +2110,7 @@
       "source_url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993"
     },
     {
-      "id": "selected-public-texts-45",
+      "id": "selected-public-texts-53",
       "type": "selected",
       "language": "EN",
       "title": "English press archive on intimidation claims tied to activism",
@@ -1798,7 +2126,7 @@
       "source_url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429"
     },
     {
-      "id": "selected-public-texts-46",
+      "id": "selected-public-texts-54",
       "type": "selected",
       "language": "EN",
       "title": "HRW report on harassment of critics includes Klishin case context",
