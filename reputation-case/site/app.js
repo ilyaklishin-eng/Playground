@@ -12,7 +12,7 @@ const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
 const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
 const SHOWCASE_PINNED_IDS = {
-  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-002", "en-108"],
+  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-108", "en-150", "en-148"],
 };
 const HOME_EXCLUDED_IDS = {
   EN: new Set(["en-017"]),
@@ -23,8 +23,9 @@ const HOME_FIXED_TITLE_EMOJI = {
   "en-120": "📱",
   "en-141": "🧠",
   "en-107": "🕸️",
-  "en-002": "🪧",
   "en-108": "🛰️",
+  "en-150": "🏛️",
+  "en-148": "🛡️",
 };
 const HOME_EMOJI_POOL = [
   "🧭",
@@ -58,7 +59,7 @@ const HOME_EMOJI_POOL = [
 ];
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
-const ADDITIONAL_MAX_PER_SOURCE = 2;
+const ADDITIONAL_MAX_PER_SOURCE = 1;
 const UI_COPY = {
   en: {
     cardLink: "Read article",

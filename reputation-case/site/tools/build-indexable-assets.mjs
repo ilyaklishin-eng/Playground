@@ -48,7 +48,7 @@ const FINGERPRINTABLE_ASSETS = [
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const HOME_FALLBACK_LIMIT = 8;
-const HOME_FALLBACK_MAX_PER_SOURCE = 2;
+const HOME_FALLBACK_MAX_PER_SOURCE = 1;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
@@ -1613,7 +1613,7 @@ const buildRelatedLinks = (entries) =>
 
 const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
 const HOME_PINNED_IDS = {
-  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-002", "en-108"],
+  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-108", "en-150", "en-148"],
 };
 const HOME_EXCLUDED_IDS = {
   EN: new Set(["en-017"]),
@@ -1624,8 +1624,9 @@ const HOME_FIXED_TITLE_EMOJI = {
   "en-120": "📱",
   "en-141": "🧠",
   "en-107": "🕸️",
-  "en-002": "🪧",
   "en-108": "🛰️",
+  "en-150": "🏛️",
+  "en-148": "🛡️",
 };
 const HOME_EMOJI_POOL = [
   "🧭",
