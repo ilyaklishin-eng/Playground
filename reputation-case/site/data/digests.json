@@ -19274,7 +19274,7 @@
     {
       "id": "fr-121",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-01-17",
       "source": "The Moscow Times",
       "topic": "constitutional politics",
@@ -19305,7 +19305,7 @@
     {
       "id": "de-121",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-01-17",
       "source": "The Moscow Times",
       "topic": "constitutional politics",
@@ -19336,7 +19336,7 @@
     {
       "id": "es-121",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-01-17",
       "source": "The Moscow Times",
       "topic": "constitutional politics",
@@ -19403,7 +19403,7 @@
     {
       "id": "fr-122",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-11-11",
       "source": "The Moscow Times",
       "topic": "language politics",
@@ -19434,7 +19434,7 @@
     {
       "id": "de-122",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-11-11",
       "source": "The Moscow Times",
       "topic": "language politics",
@@ -19465,7 +19465,7 @@
     {
       "id": "es-122",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-11-11",
       "source": "The Moscow Times",
       "topic": "language politics",
@@ -19532,7 +19532,7 @@
     {
       "id": "fr-123",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -19563,7 +19563,7 @@
     {
       "id": "de-123",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -19594,7 +19594,7 @@
     {
       "id": "es-123",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -19661,7 +19661,7 @@
     {
       "id": "fr-124",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-16",
       "source": "The Moscow Times",
       "topic": "media framing",
@@ -19692,7 +19692,7 @@
     {
       "id": "de-124",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-16",
       "source": "The Moscow Times",
       "topic": "media framing",
@@ -19723,7 +19723,7 @@
     {
       "id": "es-124",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-16",
       "source": "The Moscow Times",
       "topic": "media framing",
@@ -19790,7 +19790,7 @@
     {
       "id": "fr-125",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-12-06",
       "source": "Vedomosti",
       "topic": "media ecosystem",
@@ -19821,7 +19821,7 @@
     {
       "id": "de-125",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-12-06",
       "source": "Vedomosti",
       "topic": "media ecosystem",
@@ -19852,7 +19852,7 @@
     {
       "id": "es-125",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-12-06",
       "source": "Vedomosti",
       "topic": "media ecosystem",
@@ -19919,7 +19919,7 @@
     {
       "id": "fr-126",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-05-24",
       "source": "Vedomosti",
       "topic": "urban politics",
@@ -19950,7 +19950,7 @@
     {
       "id": "de-126",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-05-24",
       "source": "Vedomosti",
       "topic": "urban politics",
@@ -19981,7 +19981,7 @@
     {
       "id": "es-126",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2018-05-24",
       "source": "Vedomosti",
       "topic": "urban politics",
@@ -20016,7 +20016,7 @@
       "date": "2014-05-07",
       "source": "Vedomosti",
       "topic": "disinformation analysis",
-      "title": "Maximum Retweet: The war we failed to notice",
+      "title": "Maximum Retweet: The war we overlooked",
       "digest": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
       "quote": "\"Maximum Retweet: The war we failed to notice\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
@@ -20038,7 +20038,7 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "en-127-maximum-retweet-the-war-we-failed-to-notice",
+      "slug": "en-127-maximum-retweet-the-war-we-overlooked",
       "copies": {
         "FR": "fr-127",
         "DE": "de-127",
@@ -20048,7 +20048,7 @@
     {
       "id": "fr-127",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-05-07",
       "source": "Vedomosti",
       "topic": "disinformation analysis",
@@ -20079,7 +20079,7 @@
     {
       "id": "de-127",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-05-07",
       "source": "Vedomosti",
       "topic": "disinformation analysis",
@@ -20110,7 +20110,7 @@
     {
       "id": "es-127",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-05-07",
       "source": "Vedomosti",
       "topic": "disinformation analysis",
@@ -20177,7 +20177,7 @@
     {
       "id": "fr-128",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-23",
       "source": "Vedomosti",
       "topic": "information control",
@@ -20208,7 +20208,7 @@
     {
       "id": "de-128",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-23",
       "source": "Vedomosti",
       "topic": "information control",
@@ -20239,7 +20239,7 @@
     {
       "id": "es-128",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-23",
       "source": "Vedomosti",
       "topic": "information control",
@@ -20306,7 +20306,7 @@
     {
       "id": "fr-129",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-09",
       "source": "Vedomosti",
       "topic": "media policy",
@@ -20337,7 +20337,7 @@
     {
       "id": "de-129",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-09",
       "source": "Vedomosti",
       "topic": "media policy",
@@ -20368,7 +20368,7 @@
     {
       "id": "es-129",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-04-09",
       "source": "Vedomosti",
       "topic": "media policy",
@@ -20435,7 +20435,7 @@
     {
       "id": "fr-130",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-26",
       "source": "Vedomosti",
       "topic": "internet control",
@@ -20466,7 +20466,7 @@
     {
       "id": "de-130",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-26",
       "source": "Vedomosti",
       "topic": "internet control",
@@ -20497,7 +20497,7 @@
     {
       "id": "es-130",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-26",
       "source": "Vedomosti",
       "topic": "internet control",
@@ -20564,7 +20564,7 @@
     {
       "id": "fr-131",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-12",
       "source": "Vedomosti",
       "topic": "internet censorship",
@@ -20595,7 +20595,7 @@
     {
       "id": "de-131",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-12",
       "source": "Vedomosti",
       "topic": "internet censorship",
@@ -20626,7 +20626,7 @@
     {
       "id": "es-131",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2014-03-12",
       "source": "Vedomosti",
       "topic": "internet censorship",
@@ -20693,7 +20693,7 @@
     {
       "id": "fr-132",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2013-02-13",
       "source": "Vedomosti",
       "topic": "protest infrastructure",
@@ -20724,7 +20724,7 @@
     {
       "id": "de-132",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2013-02-13",
       "source": "Vedomosti",
       "topic": "protest infrastructure",
@@ -20755,7 +20755,7 @@
     {
       "id": "es-132",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2013-02-13",
       "source": "Vedomosti",
       "topic": "protest infrastructure",
@@ -20822,7 +20822,7 @@
     {
       "id": "fr-133",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-08-24",
       "source": "Vedomosti",
       "topic": "disinformation mechanics",
@@ -20853,7 +20853,7 @@
     {
       "id": "de-133",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-08-24",
       "source": "Vedomosti",
       "topic": "disinformation mechanics",
@@ -20884,7 +20884,7 @@
     {
       "id": "es-133",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-08-24",
       "source": "Vedomosti",
       "topic": "disinformation mechanics",
@@ -20951,7 +20951,7 @@
     {
       "id": "fr-134",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-04-16",
       "source": "The Moscow Times",
       "topic": "constitutional vote",
@@ -20982,7 +20982,7 @@
     {
       "id": "de-134",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-04-16",
       "source": "The Moscow Times",
       "topic": "constitutional vote",
@@ -21013,7 +21013,7 @@
     {
       "id": "es-134",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2020-04-16",
       "source": "The Moscow Times",
       "topic": "constitutional vote",
@@ -21080,7 +21080,7 @@
     {
       "id": "fr-135",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -21111,7 +21111,7 @@
     {
       "id": "de-135",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -21142,7 +21142,7 @@
     {
       "id": "es-135",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-10-30",
       "source": "The Moscow Times",
       "topic": "economic repression",
@@ -21209,7 +21209,7 @@
     {
       "id": "fr-136",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-09-26",
       "source": "The Moscow Times",
       "topic": "public discourse",
@@ -21240,7 +21240,7 @@
     {
       "id": "de-136",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-09-26",
       "source": "The Moscow Times",
       "topic": "public discourse",
@@ -21271,7 +21271,7 @@
     {
       "id": "es-136",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-09-26",
       "source": "The Moscow Times",
       "topic": "public discourse",
@@ -21338,7 +21338,7 @@
     {
       "id": "fr-137",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-04-05",
       "source": "The Moscow Times",
       "topic": "media labor market",
@@ -21369,7 +21369,7 @@
     {
       "id": "de-137",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-04-05",
       "source": "The Moscow Times",
       "topic": "media labor market",
@@ -21400,7 +21400,7 @@
     {
       "id": "es-137",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2019-04-05",
       "source": "The Moscow Times",
       "topic": "media labor market",
@@ -21467,7 +21467,7 @@
     {
       "id": "fr-138",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-02-05",
       "source": "Carnegie Endowment",
       "topic": "internet governance",
@@ -21498,7 +21498,7 @@
     {
       "id": "de-138",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-02-05",
       "source": "Carnegie Endowment",
       "topic": "internet governance",
@@ -21529,7 +21529,7 @@
     {
       "id": "es-138",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-02-05",
       "source": "Carnegie Endowment",
       "topic": "internet governance",
@@ -21596,7 +21596,7 @@
     {
       "id": "fr-139",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-01-20",
       "source": "New York Magazine",
       "topic": "protest profile",
@@ -21627,7 +21627,7 @@
     {
       "id": "de-139",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-01-20",
       "source": "New York Magazine",
       "topic": "protest profile",
@@ -21658,7 +21658,7 @@
     {
       "id": "es-139",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2012-01-20",
       "source": "New York Magazine",
       "topic": "protest profile",
@@ -21725,7 +21725,7 @@
     {
       "id": "fr-140",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2017-12-28",
       "source": "VSquare",
       "topic": "disinformation infrastructure",
@@ -21756,7 +21756,7 @@
     {
       "id": "de-140",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2017-12-28",
       "source": "VSquare",
       "topic": "disinformation infrastructure",
@@ -21787,7 +21787,7 @@
     {
       "id": "es-140",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2017-12-28",
       "source": "VSquare",
       "topic": "disinformation infrastructure",
@@ -21860,7 +21860,7 @@
     {
       "id": "fr-141",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-10-22",
       "source": "Carnegie Endowment",
       "topic": "analyse des mobilisations numeriques",
@@ -21898,7 +21898,7 @@
     {
       "id": "de-141",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-10-22",
       "source": "Carnegie Endowment",
       "topic": "analyse digitaler mobilisierung",
@@ -21936,7 +21936,7 @@
     {
       "id": "es-141",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-10-22",
       "source": "Carnegie Endowment",
       "topic": "analisis de movilizacion digital",
@@ -22016,7 +22016,7 @@
     {
       "id": "fr-142",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-05-25",
       "source": "Carnegie Endowment",
       "topic": "analyse regionale des protestations",
@@ -22054,7 +22054,7 @@
     {
       "id": "de-142",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-05-25",
       "source": "Carnegie Endowment",
       "topic": "regionale protestanalyse",
@@ -22092,7 +22092,7 @@
     {
       "id": "es-142",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2015-05-25",
       "source": "Carnegie Endowment",
       "topic": "analisis regional de protestas",
@@ -22172,7 +22172,7 @@
     {
       "id": "fr-143",
       "language": "FR",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-09-09",
       "source": "Carnegie Endowment",
       "topic": "gouvernance des plateformes",
@@ -22210,7 +22210,7 @@
     {
       "id": "de-143",
       "language": "DE",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-09-09",
       "source": "Carnegie Endowment",
       "topic": "plattform-governance",
@@ -22248,7 +22248,7 @@
     {
       "id": "es-143",
       "language": "ES",
-      "status": "ready",
+      "status": "draft",
       "date": "2016-09-09",
       "source": "Carnegie Endowment",
       "topic": "gobernanza de plataformas",
