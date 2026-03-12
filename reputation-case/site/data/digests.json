@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-11",
+  "updated_at": "2026-03-12",
   "items": [
     {
       "id": "en-001",
@@ -19234,6 +19234,3054 @@
         "2021"
       ],
       "slug": "en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown"
+    },
+    {
+      "id": "en-121",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-01-17",
+      "source": "The Moscow Times",
+      "topic": "constitutional politics",
+      "title": "Why Medvedev's resignation and Putin's amendments changed nothing",
+      "digest": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
+      "quote": "\"Why Medvedev's resignation and Putin's amendments changed nothing\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "summary": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Why Medvedev's resignation and Putin's amendments changed nothing\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional politics",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing",
+      "copies": {
+        "FR": "fr-121",
+        "DE": "de-121",
+        "ES": "es-121"
+      }
+    },
+    {
+      "id": "fr-121",
+      "language": "FR",
+      "status": "ready",
+      "date": "2020-01-17",
+      "source": "The Moscow Times",
+      "topic": "constitutional politics",
+      "title": "Pourquoi la demission de Medvedev et les amendements de Poutine n'ont rien change",
+      "digest": "Cette chronique russophone du Moscow Times soutient que les deux evenements se deroulent dans un schema de pouvoir deja verrouille. Klishin decrit la rotation des postes et le theatre constitutionnel comme des gestes symboliques qui changent l image, pas le centre des decisions.",
+      "quote": "\"Pourquoi la demission de Medvedev et les amendements de Poutine n'ont rien change\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "summary": "Cette chronique russophone du Moscow Times soutient que les deux evenements se deroulent dans un schema de pouvoir deja verrouille. Klishin decrit la rotation des postes et le theatre constitutionnel comme des gestes symboliques qui changent l image, pas le centre des decisions.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Pourquoi la demission de Medvedev et les amendements de Poutine n'ont rien change\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional politics",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "fr-121-pourquoi-la-demission-de-medvedev-et-les-amendements-de-poutine-n-ont-rien-change"
+    },
+    {
+      "id": "de-121",
+      "language": "DE",
+      "status": "ready",
+      "date": "2020-01-17",
+      "source": "The Moscow Times",
+      "topic": "constitutional politics",
+      "title": "Warum Medwedews Ruecktritt und Putins Verfassungsaenderungen nichts aenderten",
+      "digest": "Diese russischsprachige Kolumne der Moscow Times argumentiert, dass beide Ereignisse in ein bereits festes Machtschema passen. Klishin beschreibt Personalwechsel und Verfassungstheater als symbolische Schritte, die die Optik aendern, aber nicht das eigentliche Entscheidungszentrum.",
+      "quote": "\"Warum Medwedews Ruecktritt und Putins Verfassungsaenderungen nichts aenderten\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "summary": "Diese russischsprachige Kolumne der Moscow Times argumentiert, dass beide Ereignisse in ein bereits festes Machtschema passen. Klishin beschreibt Personalwechsel und Verfassungstheater als symbolische Schritte, die die Optik aendern, aber nicht das eigentliche Entscheidungszentrum.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Warum Medwedews Ruecktritt und Putins Verfassungsaenderungen nichts aenderten\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional politics",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "de-121-warum-medwedews-ruecktritt-und-putins-verfassungsaenderungen-nichts-aenderten"
+    },
+    {
+      "id": "es-121",
+      "language": "ES",
+      "status": "ready",
+      "date": "2020-01-17",
+      "source": "The Moscow Times",
+      "topic": "constitutional politics",
+      "title": "Por que la renuncia de Medvedev y las enmiendas de Putin no cambiaron nada",
+      "digest": "Esta columna en ruso de The Moscow Times sostiene que ambos hechos ocurrieron dentro de un diseno de poder ya cerrado. Klishin describe la rotacion de cargos y el teatro constitucional como movimientos simbolicos que cambian la imagen, pero no el centro real de decision.",
+      "quote": "\"Por que la renuncia de Medvedev y las enmiendas de Putin no cambiaron nada\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "summary": "Esta columna en ruso de The Moscow Times sostiene que ambos hechos ocurrieron dentro de un diseno de poder ya cerrado. Klishin describe la rotacion de cargos y el teatro constitucional como movimientos simbolicos que cambian la imagen, pero no el centro real de decision.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Por que la renuncia de Medvedev y las enmiendas de Putin no cambiaron nada\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional politics",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "es-121-por-que-la-renuncia-de-medvedev-y-las-enmiendas-de-putin-no-cambiaron-nada"
+    },
+    {
+      "id": "en-122",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-11-11",
+      "source": "The Moscow Times",
+      "topic": "language politics",
+      "title": "Who owns Russian? And who owns English?",
+      "digest": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "quote": "\"Who owns Russian? And who owns English?\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "summary": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Who owns Russian? And who owns English?\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "language politics",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-122-who-owns-russian-and-who-owns-english",
+      "copies": {
+        "FR": "fr-122",
+        "DE": "de-122",
+        "ES": "es-122"
+      }
+    },
+    {
+      "id": "fr-122",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-11-11",
+      "source": "The Moscow Times",
+      "topic": "language politics",
+      "title": "A qui appartient le russe? Et a qui appartient l anglais?",
+      "digest": "La chronique examine la politisation de la langue comme instrument de controle culturel. Klishin compare les pretentions sur le russe et l anglais pour montrer que la politique linguistique masque souvent des luttes de pouvoir sur l identite, la legitimite et la norme publique.",
+      "quote": "\"A qui appartient le russe? Et a qui appartient l anglais?\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "summary": "La chronique examine la politisation de la langue comme instrument de controle culturel. Klishin compare les pretentions sur le russe et l anglais pour montrer que la politique linguistique masque souvent des luttes de pouvoir sur l identite, la legitimite et la norme publique.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"A qui appartient le russe? Et a qui appartient l anglais?\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "language politics",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-122-a-qui-appartient-le-russe-et-a-qui-appartient-l-anglais"
+    },
+    {
+      "id": "de-122",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-11-11",
+      "source": "The Moscow Times",
+      "topic": "language politics",
+      "title": "Wem gehoert Russisch? Und wem gehoert Englisch?",
+      "digest": "Die Kolumne untersucht, wie Sprache als Instrument kultureller Kontrolle politisiert wird. Klishin vergleicht Ansprueche auf Russisch und Englisch und zeigt, dass Sprachpolitik oft Machtkaempfe um Identitaet, Legitimation und oeffentliche Normen verdeckt.",
+      "quote": "\"Wem gehoert Russisch? Und wem gehoert Englisch?\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "summary": "Die Kolumne untersucht, wie Sprache als Instrument kultureller Kontrolle politisiert wird. Klishin vergleicht Ansprueche auf Russisch und Englisch und zeigt, dass Sprachpolitik oft Machtkaempfe um Identitaet, Legitimation und oeffentliche Normen verdeckt.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Wem gehoert Russisch? Und wem gehoert Englisch?\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "language politics",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-122-wem-gehoert-russisch-und-wem-gehoert-englisch"
+    },
+    {
+      "id": "es-122",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-11-11",
+      "source": "The Moscow Times",
+      "topic": "language politics",
+      "title": "A quien pertenece el ruso? Y a quien pertenece el ingles?",
+      "digest": "La columna analiza como el lenguaje se politiza como herramienta de control cultural. Klishin compara las reclamaciones sobre ruso e ingles para mostrar que la politica linguistica suele encubrir luchas de poder por identidad, legitimidad y normas publicas.",
+      "quote": "\"A quien pertenece el ruso? Y a quien pertenece el ingles?\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "summary": "La columna analiza como el lenguaje se politiza como herramienta de control cultural. Klishin compara las reclamaciones sobre ruso e ingles para mostrar que la politica linguistica suele encubrir luchas de poder por identidad, legitimidad y normas publicas.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"A quien pertenece el ruso? Y a quien pertenece el ingles?\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "language politics",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-122-a-quien-pertenece-el-ruso-y-a-quien-pertenece-el-ingles"
+    },
+    {
+      "id": "en-123",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Why shoot Navalny if you can bankrupt him",
+      "digest": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
+      "quote": "\"Why shoot Navalny if you can bankrupt him\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "summary": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Why shoot Navalny if you can bankrupt him\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-123-why-shoot-navalny-if-you-can-bankrupt-him",
+      "copies": {
+        "FR": "fr-123",
+        "DE": "de-123",
+        "ES": "es-123"
+      }
+    },
+    {
+      "id": "fr-123",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Pourquoi fusiller Navalny si on peut le ruiner",
+      "digest": "Cette chronique en russe presente la pression financiere comme outil central de repression moderne. Au lieu d une violence visible, les autorites peuvent epuiser les opposants par amendes, gels de comptes et frais juridiques tout en conservant une apparence de legalite procedurale.",
+      "quote": "\"Pourquoi fusiller Navalny si on peut le ruiner\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "summary": "Cette chronique en russe presente la pression financiere comme outil central de repression moderne. Au lieu d une violence visible, les autorites peuvent epuiser les opposants par amendes, gels de comptes et frais juridiques tout en conservant une apparence de legalite procedurale.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Pourquoi fusiller Navalny si on peut le ruiner\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-123-pourquoi-fusiller-navalny-si-on-peut-le-ruiner"
+    },
+    {
+      "id": "de-123",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Warum Navalny erschiessen, wenn man ihn ruinieren kann",
+      "digest": "Diese russischsprachige Kolumne beschreibt finanziellen Druck als zentrales Werkzeug moderner Repression. Statt sichtbarer Gewalt koennen Behoerden Gegner durch Strafen, Kontensperren und Rechtskosten erschoepfen und dabei den Schein formaler Legalitaet wahren.",
+      "quote": "\"Warum Navalny erschiessen, wenn man ihn ruinieren kann\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "summary": "Diese russischsprachige Kolumne beschreibt finanziellen Druck als zentrales Werkzeug moderner Repression. Statt sichtbarer Gewalt koennen Behoerden Gegner durch Strafen, Kontensperren und Rechtskosten erschoepfen und dabei den Schein formaler Legalitaet wahren.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Warum Navalny erschiessen, wenn man ihn ruinieren kann\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-123-warum-navalny-erschiessen-wenn-man-ihn-ruinieren-kann"
+    },
+    {
+      "id": "es-123",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Por que fusilar a Navalny si se le puede arruinar",
+      "digest": "Esta columna en ruso presenta la presion financiera como herramienta central de represion moderna. En lugar de violencia visible, las autoridades pueden agotar a los opositores con multas, bloqueo de cuentas y costos legales mientras mantienen una apariencia de legalidad.",
+      "quote": "\"Por que fusilar a Navalny si se le puede arruinar\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "summary": "Esta columna en ruso presenta la presion financiera como herramienta central de represion moderna. En lugar de violencia visible, las autoridades pueden agotar a los opositores con multas, bloqueo de cuentas y costos legales mientras mantienen una apariencia de legalidad.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Por que fusilar a Navalny si se le puede arruinar\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-123-por-que-fusilar-a-navalny-si-se-le-puede-arruinar"
+    },
+    {
+      "id": "en-124",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-10-16",
+      "source": "The Moscow Times",
+      "topic": "media framing",
+      "title": "How the death penalty debate linked to a ban on negative Ukraine coverage",
+      "digest": "Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.",
+      "quote": "\"How the death penalty debate linked to a ban on negative Ukraine coverage\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "summary": "Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"How the death penalty debate linked to a ban on negative Ukraine coverage\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media framing",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage",
+      "copies": {
+        "FR": "fr-124",
+        "DE": "de-124",
+        "ES": "es-124"
+      }
+    },
+    {
+      "id": "fr-124",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-10-16",
+      "source": "The Moscow Times",
+      "topic": "media framing",
+      "title": "Comment le debat sur la peine de mort a ete lie a l interdiction du negatif sur l Ukraine",
+      "digest": "Klishin relie deux agendas mediatiques pour montrer comment se construisent les campagnes de diversion. Le texte explique que des sujets tres emotionnels peuvent etre amplifies pour deplacer l attention publique et normaliser des frontieres selectives de l information.",
+      "quote": "\"Comment le debat sur la peine de mort a ete lie a l interdiction du negatif sur l Ukraine\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "summary": "Klishin relie deux agendas mediatiques pour montrer comment se construisent les campagnes de diversion. Le texte explique que des sujets tres emotionnels peuvent etre amplifies pour deplacer l attention publique et normaliser des frontieres selectives de l information.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Comment le debat sur la peine de mort a ete lie a l interdiction du negatif sur l Ukraine\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media framing",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-124-comment-le-debat-sur-la-peine-de-mort-a-ete-lie-a-l-interdiction-du-negatif-sur-l-ukraine"
+    },
+    {
+      "id": "de-124",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-10-16",
+      "source": "The Moscow Times",
+      "topic": "media framing",
+      "title": "Wie die Debatte ueber die Todesstrafe mit dem Verbot negativer Ukraine-Berichte verknuepft wurde",
+      "digest": "Klishin verknuepft zwei Medienagenden und zeigt, wie Ablenkungskampagnen konstruiert werden. Der Text argumentiert, dass emotional aufgeladene Themen verstaerkt werden koennen, um Aufmerksamkeit umzuleiten und selektive Informationsgrenzen bei sensiblen Narrativen zu normalisieren.",
+      "quote": "\"Wie die Debatte ueber die Todesstrafe mit dem Verbot negativer Ukraine-Berichte verknuepft wurde\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "summary": "Klishin verknuepft zwei Medienagenden und zeigt, wie Ablenkungskampagnen konstruiert werden. Der Text argumentiert, dass emotional aufgeladene Themen verstaerkt werden koennen, um Aufmerksamkeit umzuleiten und selektive Informationsgrenzen bei sensiblen Narrativen zu normalisieren.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Wie die Debatte ueber die Todesstrafe mit dem Verbot negativer Ukraine-Berichte verknuepft wurde\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media framing",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-124-wie-die-debatte-ueber-die-todesstrafe-mit-dem-verbot-negativer-ukraine-berichte-verknuepft-wurde"
+    },
+    {
+      "id": "es-124",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-10-16",
+      "source": "The Moscow Times",
+      "topic": "media framing",
+      "title": "Como el debate sobre la pena de muerte se vinculo con la prohibicion de cobertura negativa sobre Ucrania",
+      "digest": "Klishin conecta dos agendas mediaticas para mostrar como se construyen campanas de distraccion. El texto sostiene que temas con alta carga emocional pueden amplificarse para desviar la atencion publica y normalizar limites selectivos de informacion.",
+      "quote": "\"Como el debate sobre la pena de muerte se vinculo con la prohibicion de cobertura negativa sobre Ucrania\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "summary": "Klishin conecta dos agendas mediaticas para mostrar como se construyen campanas de distraccion. El texto sostiene que temas con alta carga emocional pueden amplificarse para desviar la atencion publica y normalizar limites selectivos de informacion.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Como el debate sobre la pena de muerte se vinculo con la prohibicion de cobertura negativa sobre Ucrania\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media framing",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-124-como-el-debate-sobre-la-pena-de-muerte-se-vinculo-con-la-prohibicion-de-cobertura-negativa-sobre-ucrania"
+    },
+    {
+      "id": "en-125",
+      "language": "EN",
+      "status": "ready",
+      "date": "2018-12-06",
+      "source": "Vedomosti",
+      "topic": "media ecosystem",
+      "title": "The music of the media desert",
+      "digest": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "quote": "\"The music of the media desert\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "summary": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"The music of the media desert\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media ecosystem",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "en-125-the-music-of-the-media-desert",
+      "copies": {
+        "FR": "fr-125",
+        "DE": "de-125",
+        "ES": "es-125"
+      }
+    },
+    {
+      "id": "fr-125",
+      "language": "FR",
+      "status": "ready",
+      "date": "2018-12-06",
+      "source": "Vedomosti",
+      "topic": "media ecosystem",
+      "title": "La musique du desert mediatique",
+      "digest": "Cette chronique de Vedomosti decrit comment la reduction du pluralisme cree un environnement mediatique repetitif et hostile. Klishin soutient que le systeme recompense le bruit et l intimidation, tandis que le debat public perd nuance, memoire et standards professionnels.",
+      "quote": "\"La musique du desert mediatique\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "summary": "Cette chronique de Vedomosti decrit comment la reduction du pluralisme cree un environnement mediatique repetitif et hostile. Klishin soutient que le systeme recompense le bruit et l intimidation, tandis que le debat public perd nuance, memoire et standards professionnels.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"La musique du desert mediatique\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media ecosystem",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "fr-125-la-musique-du-desert-mediatique"
+    },
+    {
+      "id": "de-125",
+      "language": "DE",
+      "status": "ready",
+      "date": "2018-12-06",
+      "source": "Vedomosti",
+      "topic": "media ecosystem",
+      "title": "Die Musik der medialen Wueste",
+      "digest": "Diese Vedomosti-Kolumne beschreibt, wie schwindender Pluralismus eine repetitive und feindliche Medienumgebung erzeugt. Klishin argumentiert, dass das System Larm und Einschuechterung belohnt, waehrend der oeffentliche Diskurs Nuance, Erinnerung und professionelle Standards verliert.",
+      "quote": "\"Die Musik der medialen Wueste\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "summary": "Diese Vedomosti-Kolumne beschreibt, wie schwindender Pluralismus eine repetitive und feindliche Medienumgebung erzeugt. Klishin argumentiert, dass das System Larm und Einschuechterung belohnt, waehrend der oeffentliche Diskurs Nuance, Erinnerung und professionelle Standards verliert.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Die Musik der medialen Wueste\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media ecosystem",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "de-125-die-musik-der-medialen-wueste"
+    },
+    {
+      "id": "es-125",
+      "language": "ES",
+      "status": "ready",
+      "date": "2018-12-06",
+      "source": "Vedomosti",
+      "topic": "media ecosystem",
+      "title": "La musica del desierto mediatico",
+      "digest": "Esta columna de Vedomosti describe como la reduccion del pluralismo crea un entorno mediatico repetitivo y hostil. Klishin sostiene que el sistema premia el ruido y la intimidacion, mientras el debate publico pierde matices, memoria y estandares profesionales.",
+      "quote": "\"La musica del desierto mediatico\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "summary": "Esta columna de Vedomosti describe como la reduccion del pluralismo crea un entorno mediatico repetitivo y hostil. Klishin sostiene que el sistema premia el ruido y la intimidacion, mientras el debate publico pierde matices, memoria y estandares profesionales.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"La musica del desierto mediatico\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media ecosystem",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "es-125-la-musica-del-desierto-mediatico"
+    },
+    {
+      "id": "en-126",
+      "language": "EN",
+      "status": "ready",
+      "date": "2018-05-24",
+      "source": "Vedomosti",
+      "topic": "urban politics",
+      "title": "Moscow: clean city, cleansed city",
+      "digest": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "quote": "\"Moscow: clean city, cleansed city\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "summary": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Moscow: clean city, cleansed city\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "urban politics",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "en-126-moscow-clean-city-cleansed-city",
+      "copies": {
+        "FR": "fr-126",
+        "DE": "de-126",
+        "ES": "es-126"
+      }
+    },
+    {
+      "id": "fr-126",
+      "language": "FR",
+      "status": "ready",
+      "date": "2018-05-24",
+      "source": "Vedomosti",
+      "topic": "urban politics",
+      "title": "Moscou : ville propre, ville purgee",
+      "digest": "La chronique utilise la proprete urbaine comme metaphore politique d un espace public controle. Klishin oppose l ordre esthetique a l exclusion sociale et montre que l amelioration visible peut coexister avec une participation civique reduite et une dissidence administree.",
+      "quote": "\"Moscou : ville propre, ville purgee\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "summary": "La chronique utilise la proprete urbaine comme metaphore politique d un espace public controle. Klishin oppose l ordre esthetique a l exclusion sociale et montre que l amelioration visible peut coexister avec une participation civique reduite et une dissidence administree.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Moscou : ville propre, ville purgee\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "urban politics",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "fr-126-moscou-ville-propre-ville-purgee"
+    },
+    {
+      "id": "de-126",
+      "language": "DE",
+      "status": "ready",
+      "date": "2018-05-24",
+      "source": "Vedomosti",
+      "topic": "urban politics",
+      "title": "Moskau: saubere Stadt, gesaeuberte Stadt",
+      "digest": "Die Kolumne nutzt staedtische Sauberkeit als politische Metapher fuer kontrollierten oeffentlichen Raum. Klishin stellt aesthetische Ordnung sozialer Ausgrenzung gegenueber und zeigt, dass sichtbare Verbesserungen mit eingeschraenkter Teilhabe und gesteuertem Widerspruch zusammengehen koennen.",
+      "quote": "\"Moskau: saubere Stadt, gesaeuberte Stadt\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "summary": "Die Kolumne nutzt staedtische Sauberkeit als politische Metapher fuer kontrollierten oeffentlichen Raum. Klishin stellt aesthetische Ordnung sozialer Ausgrenzung gegenueber und zeigt, dass sichtbare Verbesserungen mit eingeschraenkter Teilhabe und gesteuertem Widerspruch zusammengehen koennen.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Moskau: saubere Stadt, gesaeuberte Stadt\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "urban politics",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "de-126-moskau-saubere-stadt-gesaeuberte-stadt"
+    },
+    {
+      "id": "es-126",
+      "language": "ES",
+      "status": "ready",
+      "date": "2018-05-24",
+      "source": "Vedomosti",
+      "topic": "urban politics",
+      "title": "Moscu: ciudad limpia, ciudad depurada",
+      "digest": "La columna usa la limpieza urbana como metafora politica de un espacio publico controlado. Klishin contrapone orden estetico y exclusion social, y sostiene que la mejora visible puede coexistir con participacion civica reducida y disenso administrado.",
+      "quote": "\"Moscu: ciudad limpia, ciudad depurada\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "summary": "La columna usa la limpieza urbana como metafora politica de un espacio publico controlado. Klishin contrapone orden estetico y exclusion social, y sostiene que la mejora visible puede coexistir con participacion civica reducida y disenso administrado.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Moscu: ciudad limpia, ciudad depurada\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "urban politics",
+        "source-linked",
+        "publication archive",
+        "year-2018"
+      ],
+      "slug": "es-126-moscu-ciudad-limpia-ciudad-depurada"
+    },
+    {
+      "id": "en-127",
+      "language": "EN",
+      "status": "ready",
+      "date": "2014-05-07",
+      "source": "Vedomosti",
+      "topic": "disinformation analysis",
+      "title": "Maximum Retweet: The war we failed to notice",
+      "digest": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
+      "quote": "\"Maximum Retweet: The war we failed to notice\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "summary": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Maximum Retweet: The war we failed to notice\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation analysis",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "en-127-maximum-retweet-the-war-we-failed-to-notice",
+      "copies": {
+        "FR": "fr-127",
+        "DE": "de-127",
+        "ES": "es-127"
+      }
+    },
+    {
+      "id": "fr-127",
+      "language": "FR",
+      "status": "ready",
+      "date": "2014-05-07",
+      "source": "Vedomosti",
+      "topic": "disinformation analysis",
+      "title": "Retweet maximal : la guerre que nous n avons pas vue",
+      "digest": "Dans la serie Maximum Retweet, ce texte soutient que le conflit informationnel etait deja systemique avant d etre reconnu par le grand public. Klishin relie les incitations des plateformes, l amplification rapide et le cadrage emotionnel a une nouvelle logique d influence politique.",
+      "quote": "\"Retweet maximal : la guerre que nous n avons pas vue\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "summary": "Dans la serie Maximum Retweet, ce texte soutient que le conflit informationnel etait deja systemique avant d etre reconnu par le grand public. Klishin relie les incitations des plateformes, l amplification rapide et le cadrage emotionnel a une nouvelle logique d influence politique.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Retweet maximal : la guerre que nous n avons pas vue\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation analysis",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "fr-127-retweet-maximal-la-guerre-que-nous-n-avons-pas-vue"
+    },
+    {
+      "id": "de-127",
+      "language": "DE",
+      "status": "ready",
+      "date": "2014-05-07",
+      "source": "Vedomosti",
+      "topic": "disinformation analysis",
+      "title": "Maximaler Retweet: Der Krieg, den wir nicht bemerkten",
+      "digest": "Als Teil der Serie Maximum Retweet argumentiert der Text, dass der Informationskonflikt bereits systemisch war, bevor viele ihn erkannten. Klishin verbindet Plattformanreize, schnelle Verstaerkung und emotionale Rahmung mit einer neuen Logik politischer Einflussnahme.",
+      "quote": "\"Maximaler Retweet: Der Krieg, den wir nicht bemerkten\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "summary": "Als Teil der Serie Maximum Retweet argumentiert der Text, dass der Informationskonflikt bereits systemisch war, bevor viele ihn erkannten. Klishin verbindet Plattformanreize, schnelle Verstaerkung und emotionale Rahmung mit einer neuen Logik politischer Einflussnahme.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Maximaler Retweet: Der Krieg, den wir nicht bemerkten\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation analysis",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "de-127-maximaler-retweet-der-krieg-den-wir-nicht-bemerkten"
+    },
+    {
+      "id": "es-127",
+      "language": "ES",
+      "status": "ready",
+      "date": "2014-05-07",
+      "source": "Vedomosti",
+      "topic": "disinformation analysis",
+      "title": "Retuit maximo: la guerra que no vimos",
+      "digest": "Como parte de la serie Maximum Retweet, el texto sostiene que el conflicto informativo ya era sistemico antes de que gran parte del publico lo reconociera. Klishin vincula incentivos de plataformas, amplificacion rapida y encuadre emocional con una nueva logica de influencia politica.",
+      "quote": "\"Retuit maximo: la guerra que no vimos\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "summary": "Como parte de la serie Maximum Retweet, el texto sostiene que el conflicto informativo ya era sistemico antes de que gran parte del publico lo reconociera. Klishin vincula incentivos de plataformas, amplificacion rapida y encuadre emocional con una nueva logica de influencia politica.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Retuit maximo: la guerra que no vimos\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation analysis",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "es-127-retuit-maximo-la-guerra-que-no-vimos"
+    },
+    {
+      "id": "en-128",
+      "language": "EN",
+      "status": "ready",
+      "date": "2014-04-23",
+      "source": "Vedomosti",
+      "topic": "information control",
+      "title": "Maximum Retweet: Threats created by the Ministry of Truth",
+      "digest": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "quote": "\"Maximum Retweet: Threats created by the Ministry of Truth\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "summary": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Maximum Retweet: Threats created by the Ministry of Truth\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "information control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "en-128-maximum-retweet-threats-created-by-the-ministry-of-truth",
+      "copies": {
+        "FR": "fr-128",
+        "DE": "de-128",
+        "ES": "es-128"
+      }
+    },
+    {
+      "id": "fr-128",
+      "language": "FR",
+      "status": "ready",
+      "date": "2014-04-23",
+      "source": "Vedomosti",
+      "topic": "information control",
+      "title": "Retweet maximal : les menaces creees par le ministere de la Verite",
+      "digest": "Cette chronique examine comment la gestion etatique des recits peut creer des risques pour le systeme lui-meme. Klishin decrit une dynamique d escalation ou l infrastructure de propagande croît plus vite que le controle institutionnel et produit des effets instables.",
+      "quote": "\"Retweet maximal : les menaces creees par le ministere de la Verite\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "summary": "Cette chronique examine comment la gestion etatique des recits peut creer des risques pour le systeme lui-meme. Klishin decrit une dynamique d escalation ou l infrastructure de propagande croît plus vite que le controle institutionnel et produit des effets instables.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Retweet maximal : les menaces creees par le ministere de la Verite\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "information control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "fr-128-retweet-maximal-les-menaces-creees-par-le-ministere-de-la-verite"
+    },
+    {
+      "id": "de-128",
+      "language": "DE",
+      "status": "ready",
+      "date": "2014-04-23",
+      "source": "Vedomosti",
+      "topic": "information control",
+      "title": "Maximaler Retweet: Bedrohungen aus dem Ministerium der Wahrheit",
+      "digest": "Die Kolumne untersucht, wie staatlich gesteuertes Narrativmanagement Risiken fuer das System selbst erzeugen kann. Klishin beschreibt eine Eskalationsdynamik, in der die Propagandainfrastruktur schneller waechst als institutionelle Kontrolle und instabile Nebenfolgen produziert.",
+      "quote": "\"Maximaler Retweet: Bedrohungen aus dem Ministerium der Wahrheit\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "summary": "Die Kolumne untersucht, wie staatlich gesteuertes Narrativmanagement Risiken fuer das System selbst erzeugen kann. Klishin beschreibt eine Eskalationsdynamik, in der die Propagandainfrastruktur schneller waechst als institutionelle Kontrolle und instabile Nebenfolgen produziert.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Maximaler Retweet: Bedrohungen aus dem Ministerium der Wahrheit\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "information control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "de-128-maximaler-retweet-bedrohungen-aus-dem-ministerium-der-wahrheit"
+    },
+    {
+      "id": "es-128",
+      "language": "ES",
+      "status": "ready",
+      "date": "2014-04-23",
+      "source": "Vedomosti",
+      "topic": "information control",
+      "title": "Retuit maximo: amenazas creadas por el Ministerio de la Verdad",
+      "digest": "La columna analiza como la gestion estatal de narrativas puede crear riesgos para el propio sistema. Klishin describe una dinamica de escalada en la que la infraestructura de propaganda crece mas rapido que el control institucional y produce efectos inestables.",
+      "quote": "\"Retuit maximo: amenazas creadas por el Ministerio de la Verdad\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "summary": "La columna analiza como la gestion estatal de narrativas puede crear riesgos para el propio sistema. Klishin describe una dinamica de escalada en la que la infraestructura de propaganda crece mas rapido que el control institucional y produce efectos inestables.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Retuit maximo: amenazas creadas por el Ministerio de la Verdad\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "information control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "es-128-retuit-maximo-amenazas-creadas-por-el-ministerio-de-la-verdad"
+    },
+    {
+      "id": "en-129",
+      "language": "EN",
+      "status": "ready",
+      "date": "2014-04-09",
+      "source": "Vedomosti",
+      "topic": "media policy",
+      "title": "Maximum Retweet: They purged the wrong people",
+      "digest": "Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.",
+      "quote": "\"Maximum Retweet: They purged the wrong people\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "summary": "Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Maximum Retweet: They purged the wrong people\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media policy",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "en-129-maximum-retweet-they-purged-the-wrong-people",
+      "copies": {
+        "FR": "fr-129",
+        "DE": "de-129",
+        "ES": "es-129"
+      }
+    },
+    {
+      "id": "fr-129",
+      "language": "FR",
+      "status": "ready",
+      "date": "2014-04-09",
+      "source": "Vedomosti",
+      "topic": "media policy",
+      "title": "Retweet maximal : ils ont purge les mauvaises personnes",
+      "digest": "Klishin critique des purges selectives qui visent des acteurs visibles tout en laissant intacts les mecanismes centraux. Le texte affirme que ces purges cosmetiques peuvent durcir le systeme, renforcer le cynisme et ne pas toucher l architecture reelle de la manipulation.",
+      "quote": "\"Retweet maximal : ils ont purge les mauvaises personnes\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "summary": "Klishin critique des purges selectives qui visent des acteurs visibles tout en laissant intacts les mecanismes centraux. Le texte affirme que ces purges cosmetiques peuvent durcir le systeme, renforcer le cynisme et ne pas toucher l architecture reelle de la manipulation.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Retweet maximal : ils ont purge les mauvaises personnes\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media policy",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "fr-129-retweet-maximal-ils-ont-purge-les-mauvaises-personnes"
+    },
+    {
+      "id": "de-129",
+      "language": "DE",
+      "status": "ready",
+      "date": "2014-04-09",
+      "source": "Vedomosti",
+      "topic": "media policy",
+      "title": "Maximaler Retweet: Sie saeuberten die Falschen",
+      "digest": "Klishin kritisiert selektive Sauberungen, die sichtbare Akteure treffen, zentrale Mechanismen aber unangetastet lassen. Der Text argumentiert, dass kosmetische Purgen das System verhaerten, Zynismus vertiefen und die eigentliche Manipulationsarchitektur nicht veraendern.",
+      "quote": "\"Maximaler Retweet: Sie saeuberten die Falschen\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "summary": "Klishin kritisiert selektive Sauberungen, die sichtbare Akteure treffen, zentrale Mechanismen aber unangetastet lassen. Der Text argumentiert, dass kosmetische Purgen das System verhaerten, Zynismus vertiefen und die eigentliche Manipulationsarchitektur nicht veraendern.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Maximaler Retweet: Sie saeuberten die Falschen\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media policy",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "de-129-maximaler-retweet-sie-saeuberten-die-falschen"
+    },
+    {
+      "id": "es-129",
+      "language": "ES",
+      "status": "ready",
+      "date": "2014-04-09",
+      "source": "Vedomosti",
+      "topic": "media policy",
+      "title": "Retuit maximo: limpiaron a las personas equivocadas",
+      "digest": "Klishin critica las purgas selectivas que golpean actores visibles mientras dejan intactos los mecanismos centrales. El texto sostiene que esas purgas cosmeticas pueden endurecer el sistema, profundizar el cinismo y no tocar la arquitectura real de manipulacion.",
+      "quote": "\"Retuit maximo: limpiaron a las personas equivocadas\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "summary": "Klishin critica las purgas selectivas que golpean actores visibles mientras dejan intactos los mecanismos centrales. El texto sostiene que esas purgas cosmeticas pueden endurecer el sistema, profundizar el cinismo y no tocar la arquitectura real de manipulacion.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Retuit maximo: limpiaron a las personas equivocadas\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media policy",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "es-129-retuit-maximo-limpiaron-a-las-personas-equivocadas"
+    },
+    {
+      "id": "en-130",
+      "language": "EN",
+      "status": "ready",
+      "date": "2014-03-26",
+      "source": "Vedomosti",
+      "topic": "internet control",
+      "title": "Maximum Retweet: What happens to Runet after Crimea",
+      "digest": "Published days after Crimea, the column maps scenarios for tightening internet control in Russia. Klishin outlines legal, technical, and political instruments that could shrink online autonomy and normalize emergency logic in everyday regulation.",
+      "quote": "\"Maximum Retweet: What happens to Runet after Crimea\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
+      "summary": "Published days after Crimea, the column maps scenarios for tightening internet control in Russia. Klishin outlines legal, technical, and political instruments that could shrink online autonomy and normalize emergency logic in everyday regulation.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Maximum Retweet: What happens to Runet after Crimea\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "en-130-maximum-retweet-what-happens-to-runet-after-crimea",
+      "copies": {
+        "FR": "fr-130",
+        "DE": "de-130",
+        "ES": "es-130"
+      }
+    },
+    {
+      "id": "fr-130",
+      "language": "FR",
+      "status": "ready",
+      "date": "2014-03-26",
+      "source": "Vedomosti",
+      "topic": "internet control",
+      "title": "Retweet maximal : que devient le Runet apres la Crimee",
+      "digest": "Publie peu apres la Crimee, ce texte cartographie des scenarios de durcissement du controle d internet en Russie. Klishin decrit des instruments juridiques, techniques et politiques pouvant reduire l autonomie en ligne et normaliser une logique d urgence.",
+      "quote": "\"Retweet maximal : que devient le Runet apres la Crimee\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
+      "summary": "Publie peu apres la Crimee, ce texte cartographie des scenarios de durcissement du controle d internet en Russie. Klishin decrit des instruments juridiques, techniques et politiques pouvant reduire l autonomie en ligne et normaliser une logique d urgence.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Retweet maximal : que devient le Runet apres la Crimee\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "fr-130-retweet-maximal-que-devient-le-runet-apres-la-crimee"
+    },
+    {
+      "id": "de-130",
+      "language": "DE",
+      "status": "ready",
+      "date": "2014-03-26",
+      "source": "Vedomosti",
+      "topic": "internet control",
+      "title": "Maximaler Retweet: Was mit dem Runet nach der Krim geschieht",
+      "digest": "Wenige Tage nach der Krim publiziert, skizziert die Kolumne Szenarien fuer staerkere Internetkontrolle in Russland. Klishin beschreibt juristische, technische und politische Instrumente, die digitale Autonomie verringern und Ausnahme-Logik im Alltag normalisieren koennen.",
+      "quote": "\"Maximaler Retweet: Was mit dem Runet nach der Krim geschieht\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
+      "summary": "Wenige Tage nach der Krim publiziert, skizziert die Kolumne Szenarien fuer staerkere Internetkontrolle in Russland. Klishin beschreibt juristische, technische und politische Instrumente, die digitale Autonomie verringern und Ausnahme-Logik im Alltag normalisieren koennen.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Maximaler Retweet: Was mit dem Runet nach der Krim geschieht\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "de-130-maximaler-retweet-was-mit-dem-runet-nach-der-krim-geschieht"
+    },
+    {
+      "id": "es-130",
+      "language": "ES",
+      "status": "ready",
+      "date": "2014-03-26",
+      "source": "Vedomosti",
+      "topic": "internet control",
+      "title": "Retuit maximo: que pasa con Runet despues de Crimea",
+      "digest": "Publicado dias despues de Crimea, el texto traza escenarios de mayor control estatal de internet en Rusia. Klishin describe instrumentos legales, tecnicos y politicos que pueden reducir la autonomia en linea y normalizar una logica de excepcion.",
+      "quote": "\"Retuit maximo: que pasa con Runet despues de Crimea\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/26/chto-budet-s-runetom-posle-kryma",
+      "summary": "Publicado dias despues de Crimea, el texto traza escenarios de mayor control estatal de internet en Rusia. Klishin describe instrumentos legales, tecnicos y politicos que pueden reducir la autonomia en linea y normalizar una logica de excepcion.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Retuit maximo: que pasa con Runet despues de Crimea\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet control",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "es-130-retuit-maximo-que-pasa-con-runet-despues-de-crimea"
+    },
+    {
+      "id": "en-131",
+      "language": "EN",
+      "status": "ready",
+      "date": "2014-03-12",
+      "source": "Vedomosti",
+      "topic": "internet censorship",
+      "title": "Maximum Retweet: The web we got trapped in",
+      "digest": "This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.",
+      "quote": "\"Maximum Retweet: The web we got trapped in\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "summary": "This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Maximum Retweet: The web we got trapped in\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet censorship",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "en-131-maximum-retweet-the-web-we-got-trapped-in",
+      "copies": {
+        "FR": "fr-131",
+        "DE": "de-131",
+        "ES": "es-131"
+      }
+    },
+    {
+      "id": "fr-131",
+      "language": "FR",
+      "status": "ready",
+      "date": "2014-03-12",
+      "source": "Vedomosti",
+      "topic": "internet censorship",
+      "title": "Retweet maximal : la toile ou nous nous sommes retrouves pieges",
+      "digest": "Ce texte du debut 2014 decrit comment registres juridiques, pouvoirs du parquet et pression sur les plateformes ont forme une pile de censure pratique. Klishin montre que le controle s est etendu par des procedures ordinaires plutot que par une interdiction spectaculaire.",
+      "quote": "\"Retweet maximal : la toile ou nous nous sommes retrouves pieges\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "summary": "Ce texte du debut 2014 decrit comment registres juridiques, pouvoirs du parquet et pression sur les plateformes ont forme une pile de censure pratique. Klishin montre que le controle s est etendu par des procedures ordinaires plutot que par une interdiction spectaculaire.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Retweet maximal : la toile ou nous nous sommes retrouves pieges\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet censorship",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "fr-131-retweet-maximal-la-toile-ou-nous-nous-sommes-retrouves-pieges"
+    },
+    {
+      "id": "de-131",
+      "language": "DE",
+      "status": "ready",
+      "date": "2014-03-12",
+      "source": "Vedomosti",
+      "topic": "internet censorship",
+      "title": "Maximaler Retweet: Das Netz, in dem wir gefangen sind",
+      "digest": "Der fruehe Text von 2014 beschreibt, wie Rechtsregister, Staatsanwaltsbefugnisse und Plattformdruck einen praktischen Zensur-Stack bildeten. Klishin zeigt, dass Kontrolle durch Routineverfahren wuchs und nicht nur durch ein einzelnes spektakulaeres Verbot.",
+      "quote": "\"Maximaler Retweet: Das Netz, in dem wir gefangen sind\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "summary": "Der fruehe Text von 2014 beschreibt, wie Rechtsregister, Staatsanwaltsbefugnisse und Plattformdruck einen praktischen Zensur-Stack bildeten. Klishin zeigt, dass Kontrolle durch Routineverfahren wuchs und nicht nur durch ein einzelnes spektakulaeres Verbot.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Maximaler Retweet: Das Netz, in dem wir gefangen sind\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet censorship",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "de-131-maximaler-retweet-das-netz-in-dem-wir-gefangen-sind"
+    },
+    {
+      "id": "es-131",
+      "language": "ES",
+      "status": "ready",
+      "date": "2014-03-12",
+      "source": "Vedomosti",
+      "topic": "internet censorship",
+      "title": "Retuit maximo: la red en la que quedamos atrapados",
+      "digest": "Este texto de inicios de 2014 describe como registros legales, poderes de fiscalia y presion sobre plataformas formaron una pila practica de censura. Klishin muestra que el control crecio por procedimientos rutinarios y no por una sola prohibicion espectacular.",
+      "quote": "\"Retuit maximo: la red en la que quedamos atrapados\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "summary": "Este texto de inicios de 2014 describe como registros legales, poderes de fiscalia y presion sobre plataformas formaron una pila practica de censura. Klishin muestra que el control crecio por procedimientos rutinarios y no por una sola prohibicion espectacular.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Retuit maximo: la red en la que quedamos atrapados\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet censorship",
+        "source-linked",
+        "publication archive",
+        "year-2014"
+      ],
+      "slug": "es-131-retuit-maximo-la-red-en-la-que-quedamos-atrapados"
+    },
+    {
+      "id": "en-132",
+      "language": "EN",
+      "status": "ready",
+      "date": "2013-02-13",
+      "source": "Vedomosti",
+      "topic": "protest infrastructure",
+      "title": "The internet will not do it automatically",
+      "digest": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "quote": "\"The internet will not do it automatically\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "summary": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"The internet will not do it automatically\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "protest infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2013"
+      ],
+      "slug": "en-132-the-internet-will-not-do-it-automatically",
+      "copies": {
+        "FR": "fr-132",
+        "DE": "de-132",
+        "ES": "es-132"
+      }
+    },
+    {
+      "id": "fr-132",
+      "language": "FR",
+      "status": "ready",
+      "date": "2013-02-13",
+      "source": "Vedomosti",
+      "topic": "protest infrastructure",
+      "title": "Internet ne le fera pas automatiquement",
+      "digest": "Ce texte de 2013 dans Vedomosti met en cause le determinisme technologique en politique protestataire. Klishin affirme que les plateformes peuvent accelerer la coordination, mais que le changement durable depend encore des institutions, de la strategie et de l organisation hors ligne.",
+      "quote": "\"Internet ne le fera pas automatiquement\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "summary": "Ce texte de 2013 dans Vedomosti met en cause le determinisme technologique en politique protestataire. Klishin affirme que les plateformes peuvent accelerer la coordination, mais que le changement durable depend encore des institutions, de la strategie et de l organisation hors ligne.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Internet ne le fera pas automatiquement\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "protest infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2013"
+      ],
+      "slug": "fr-132-internet-ne-le-fera-pas-automatiquement"
+    },
+    {
+      "id": "de-132",
+      "language": "DE",
+      "status": "ready",
+      "date": "2013-02-13",
+      "source": "Vedomosti",
+      "topic": "protest infrastructure",
+      "title": "Das Internet wird es nicht automatisch tun",
+      "digest": "Der Vedomosti-Text von 2013 hinterfragt technologischen Determinismus in der Protestpolitik. Klishin argumentiert, dass Plattformen Koordination beschleunigen koennen, dauerhafte Veraenderung aber weiterhin von Institutionen, Strategie und offline Organisation abhaengt.",
+      "quote": "\"Das Internet wird es nicht automatisch tun\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "summary": "Der Vedomosti-Text von 2013 hinterfragt technologischen Determinismus in der Protestpolitik. Klishin argumentiert, dass Plattformen Koordination beschleunigen koennen, dauerhafte Veraenderung aber weiterhin von Institutionen, Strategie und offline Organisation abhaengt.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Das Internet wird es nicht automatisch tun\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "protest infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2013"
+      ],
+      "slug": "de-132-das-internet-wird-es-nicht-automatisch-tun"
+    },
+    {
+      "id": "es-132",
+      "language": "ES",
+      "status": "ready",
+      "date": "2013-02-13",
+      "source": "Vedomosti",
+      "topic": "protest infrastructure",
+      "title": "Internet no lo hara automaticamente",
+      "digest": "Este texto de Vedomosti de 2013 cuestiona el determinismo tecnologico en la politica de protesta. Klishin sostiene que las plataformas pueden acelerar la coordinacion, pero el cambio civico duradero sigue dependiendo de instituciones, estrategia y organizacion fuera de linea.",
+      "quote": "\"Internet no lo hara automaticamente\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "summary": "Este texto de Vedomosti de 2013 cuestiona el determinismo tecnologico en la politica de protesta. Klishin sostiene que las plataformas pueden acelerar la coordinacion, pero el cambio civico duradero sigue dependiendo de instituciones, estrategia y organizacion fuera de linea.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Internet no lo hara automaticamente\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "protest infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2013"
+      ],
+      "slug": "es-132-internet-no-lo-hara-automaticamente"
+    },
+    {
+      "id": "en-133",
+      "language": "EN",
+      "status": "ready",
+      "date": "2012-08-24",
+      "source": "Vedomosti",
+      "topic": "disinformation mechanics",
+      "title": "Zero multiplied by a million",
+      "digest": "One of Klishin's early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.",
+      "quote": "\"Zero multiplied by a million\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "summary": "One of Klishin's early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Zero multiplied by a million\" - Vedomosti"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation mechanics",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "en-133-zero-multiplied-by-a-million",
+      "copies": {
+        "FR": "fr-133",
+        "DE": "de-133",
+        "ES": "es-133"
+      }
+    },
+    {
+      "id": "fr-133",
+      "language": "FR",
+      "status": "ready",
+      "date": "2012-08-24",
+      "source": "Vedomosti",
+      "topic": "disinformation mechanics",
+      "title": "Zero multiplie par un million",
+      "digest": "Une des premieres chroniques de Klishin sur la repetition et l amplification en reseau de la propagande. L idee centrale est que des signaux faibles peuvent devenir socialement puissants lorsqu ils sont multiplies par des canaux qui fabriquent visibilite et consensus apparent.",
+      "quote": "\"Zero multiplie par un million\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "summary": "Une des premieres chroniques de Klishin sur la repetition et l amplification en reseau de la propagande. L idee centrale est que des signaux faibles peuvent devenir socialement puissants lorsqu ils sont multiplies par des canaux qui fabriquent visibilite et consensus apparent.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Zero multiplie par un million\" - Vedomosti"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation mechanics",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "fr-133-zero-multiplie-par-un-million"
+    },
+    {
+      "id": "de-133",
+      "language": "DE",
+      "status": "ready",
+      "date": "2012-08-24",
+      "source": "Vedomosti",
+      "topic": "disinformation mechanics",
+      "title": "Null mal eine Million",
+      "digest": "Eine fruehe Kolumne von Klishin ueber Wiederholung und Netzwerkverstaerkung in der Propaganda. Das Kernargument lautet, dass schwache Signale sozial wirksam werden koennen, wenn Kanaele Sichtbarkeit und scheinbaren Konsens massenhaft erzeugen.",
+      "quote": "\"Null mal eine Million\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "summary": "Eine fruehe Kolumne von Klishin ueber Wiederholung und Netzwerkverstaerkung in der Propaganda. Das Kernargument lautet, dass schwache Signale sozial wirksam werden koennen, wenn Kanaele Sichtbarkeit und scheinbaren Konsens massenhaft erzeugen.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Null mal eine Million\" - Vedomosti"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation mechanics",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "de-133-null-mal-eine-million"
+    },
+    {
+      "id": "es-133",
+      "language": "ES",
+      "status": "ready",
+      "date": "2012-08-24",
+      "source": "Vedomosti",
+      "topic": "disinformation mechanics",
+      "title": "Cero multiplicado por un millon",
+      "digest": "Una de las primeras columnas de Klishin sobre repeticion y amplificacion en red dentro de la propaganda. El argumento central es que senales debiles pueden volverse socialmente poderosas cuando canales multiplican visibilidad y consenso aparente.",
+      "quote": "\"Cero multiplicado por un millon\" - Vedomosti",
+      "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "summary": "Una de las primeras columnas de Klishin sobre repeticion y amplificacion en red dentro de la propaganda. El argumento central es que senales debiles pueden volverse socialmente poderosas cuando canales multiplican visibilidad y consenso aparente.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Cero multiplicado por un millon\" - Vedomosti"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation mechanics",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "es-133-cero-multiplicado-por-un-millon"
+    },
+    {
+      "id": "en-134",
+      "language": "EN",
+      "status": "ready",
+      "date": "2020-04-16",
+      "source": "The Moscow Times",
+      "topic": "constitutional vote",
+      "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
+      "digest": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "quote": "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "summary": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional vote",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote",
+      "copies": {
+        "FR": "fr-134",
+        "DE": "de-134",
+        "ES": "es-134"
+      }
+    },
+    {
+      "id": "fr-134",
+      "language": "FR",
+      "status": "ready",
+      "date": "2020-04-16",
+      "source": "The Moscow Times",
+      "topic": "constitutional vote",
+      "title": "Le coronavirus deraille le vote public de Poutine pour rester au pouvoir",
+      "digest": "La chronique explique comment la pandemie a perturbe un plebiscite constitutionnel soigneusement mis en scene. Klishin soutient que le Kremlin a perdu le controle du calendrier et s est retrouve dans un dilemme ou report et poursuite augmentaient les couts politiques.",
+      "quote": "\"Le coronavirus deraille le vote public de Poutine pour rester au pouvoir\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "summary": "La chronique explique comment la pandemie a perturbe un plebiscite constitutionnel soigneusement mis en scene. Klishin soutient que le Kremlin a perdu le controle du calendrier et s est retrouve dans un dilemme ou report et poursuite augmentaient les couts politiques.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Le coronavirus deraille le vote public de Poutine pour rester au pouvoir\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional vote",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "fr-134-le-coronavirus-deraille-le-vote-public-de-poutine-pour-rester-au-pouvoir"
+    },
+    {
+      "id": "de-134",
+      "language": "DE",
+      "status": "ready",
+      "date": "2020-04-16",
+      "source": "The Moscow Times",
+      "topic": "constitutional vote",
+      "title": "Coronavirus durchkreuzt Putins Abstimmung fuer ewige Macht",
+      "digest": "Die Kolumne zeigt, wie die Pandemie ein sorgfaeltig inszeniertes Verfassungsplebiszit stoerte. Klishin argumentiert, dass der Kreml die Zeitkontrolle verlor und in ein strategisches Dilemma geriet, in dem Aufschub wie Fortsetzung steigende politische Kosten erzeugten.",
+      "quote": "\"Coronavirus durchkreuzt Putins Abstimmung fuer ewige Macht\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "summary": "Die Kolumne zeigt, wie die Pandemie ein sorgfaeltig inszeniertes Verfassungsplebiszit stoerte. Klishin argumentiert, dass der Kreml die Zeitkontrolle verlor und in ein strategisches Dilemma geriet, in dem Aufschub wie Fortsetzung steigende politische Kosten erzeugten.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Coronavirus durchkreuzt Putins Abstimmung fuer ewige Macht\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional vote",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "de-134-coronavirus-durchkreuzt-putins-abstimmung-fuer-ewige-macht"
+    },
+    {
+      "id": "es-134",
+      "language": "ES",
+      "status": "ready",
+      "date": "2020-04-16",
+      "source": "The Moscow Times",
+      "topic": "constitutional vote",
+      "title": "El coronavirus arruina la votacion publica de Putin para perpetuarse en el poder",
+      "digest": "La columna explica como la pandemia altero un plebiscito constitucional cuidadosamente escenificado. Klishin sostiene que el Kremlin perdio el control del calendario y quedo en un dilema estrategico donde aplazar o continuar elevaba los costos politicos.",
+      "quote": "\"El coronavirus arruina la votacion publica de Putin para perpetuarse en el poder\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "summary": "La columna explica como la pandemia altero un plebiscito constitucional cuidadosamente escenificado. Klishin sostiene que el Kremlin perdio el control del calendario y quedo en un dilema estrategico donde aplazar o continuar elevaba los costos politicos.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"El coronavirus arruina la votacion publica de Putin para perpetuarse en el poder\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional vote",
+        "source-linked",
+        "publication archive",
+        "year-2020"
+      ],
+      "slug": "es-134-el-coronavirus-arruina-la-votacion-publica-de-putin-para-perpetuarse-en-el-poder"
+    },
+    {
+      "id": "en-135",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "How Putin Is Bankrupting the Russian Opposition",
+      "digest": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "quote": "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "summary": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-135-how-putin-is-bankrupting-the-russian-opposition",
+      "copies": {
+        "FR": "fr-135",
+        "DE": "de-135",
+        "ES": "es-135"
+      }
+    },
+    {
+      "id": "fr-135",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Comment Poutine ruine l opposition russe",
+      "digest": "Cette chronique en anglais decrit la faillite forcee comme instrument de repression calibree. Au lieu de grandes rafles spectaculaires, l Etat peut epuiser l opposition par dettes juridiques, sanctions et pression procedurale tout en conservant une plausibilite formelle.",
+      "quote": "\"Comment Poutine ruine l opposition russe\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "summary": "Cette chronique en anglais decrit la faillite forcee comme instrument de repression calibree. Au lieu de grandes rafles spectaculaires, l Etat peut epuiser l opposition par dettes juridiques, sanctions et pression procedurale tout en conservant une plausibilite formelle.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Comment Poutine ruine l opposition russe\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-135-comment-poutine-ruine-l-opposition-russe"
+    },
+    {
+      "id": "de-135",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Wie Putin die russische Opposition in den Bankrott treibt",
+      "digest": "Die englische Kolumne beschreibt erzwungene Insolvenz als kalibriertes Repressionsinstrument. Statt spektakulaerer Razzien kann der Staat oppositionelle Kapazitaet durch Rechtskosten, Strafen und Verfahrensdruck erschoepfen und zugleich formale Plausibilitaet bewahren.",
+      "quote": "\"Wie Putin die russische Opposition in den Bankrott treibt\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "summary": "Die englische Kolumne beschreibt erzwungene Insolvenz als kalibriertes Repressionsinstrument. Statt spektakulaerer Razzien kann der Staat oppositionelle Kapazitaet durch Rechtskosten, Strafen und Verfahrensdruck erschoepfen und zugleich formale Plausibilitaet bewahren.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Wie Putin die russische Opposition in den Bankrott treibt\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-135-wie-putin-die-russische-opposition-in-den-bankrott-treibt"
+    },
+    {
+      "id": "es-135",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-10-30",
+      "source": "The Moscow Times",
+      "topic": "economic repression",
+      "title": "Como Putin lleva a la quiebra a la oposicion rusa",
+      "digest": "Esta columna en ingles describe la quiebra forzada como instrumento calibrado de represion. En lugar de redadas espectaculares, el Estado puede agotar la capacidad opositora mediante deudas legales, sanciones y presion procesal, manteniendo una apariencia formal.",
+      "quote": "\"Como Putin lleva a la quiebra a la oposicion rusa\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "summary": "Esta columna en ingles describe la quiebra forzada como instrumento calibrado de represion. En lugar de redadas espectaculares, el Estado puede agotar la capacidad opositora mediante deudas legales, sanciones y presion procesal, manteniendo una apariencia formal.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Como Putin lleva a la quiebra a la oposicion rusa\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-135-como-putin-lleva-a-la-quiebra-a-la-oposicion-rusa"
+    },
+    {
+      "id": "en-136",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-09-26",
+      "source": "The Moscow Times",
+      "topic": "public discourse",
+      "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
+      "digest": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "quote": "\"Russias New Heroes Are Those Who Simply Say Things as They Are\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "summary": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Russias New Heroes Are Those Who Simply Say Things as They Are\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public discourse",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are",
+      "copies": {
+        "FR": "fr-136",
+        "DE": "de-136",
+        "ES": "es-136"
+      }
+    },
+    {
+      "id": "fr-136",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-09-26",
+      "source": "The Moscow Times",
+      "topic": "public discourse",
+      "title": "Les nouveaux heros de la Russie sont ceux qui disent simplement les choses",
+      "digest": "Klishin analyse pourquoi la parole factuelle est devenue politiquement significative dans un environnement informationnel deforme. Le texte soutient que, lorsque les institutions echouent, une honnetete minimale d acteurs internes peut deplacer l attention publique et recalibrer la legitimite.",
+      "quote": "\"Les nouveaux heros de la Russie sont ceux qui disent simplement les choses\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "summary": "Klishin analyse pourquoi la parole factuelle est devenue politiquement significative dans un environnement informationnel deforme. Le texte soutient que, lorsque les institutions echouent, une honnetete minimale d acteurs internes peut deplacer l attention publique et recalibrer la legitimite.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Les nouveaux heros de la Russie sont ceux qui disent simplement les choses\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public discourse",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-136-les-nouveaux-heros-de-la-russie-sont-ceux-qui-disent-simplement-les-choses"
+    },
+    {
+      "id": "de-136",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-09-26",
+      "source": "The Moscow Times",
+      "topic": "public discourse",
+      "title": "Russlands neue Helden sind jene, die Dinge einfach aussprechen",
+      "digest": "Klishin analysiert, warum schlichte Faktensprache in einem verzerrten Informationsumfeld politisch bedeutsam wurde. Der Text argumentiert, dass bei institutionellem Versagen selbst minimale Ehrlichkeit von Insidern oeffentliche Aufmerksamkeit verschieben und Legitimation neu justieren kann.",
+      "quote": "\"Russlands neue Helden sind jene, die Dinge einfach aussprechen\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "summary": "Klishin analysiert, warum schlichte Faktensprache in einem verzerrten Informationsumfeld politisch bedeutsam wurde. Der Text argumentiert, dass bei institutionellem Versagen selbst minimale Ehrlichkeit von Insidern oeffentliche Aufmerksamkeit verschieben und Legitimation neu justieren kann.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Russlands neue Helden sind jene, die Dinge einfach aussprechen\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public discourse",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-136-russlands-neue-helden-sind-jene-die-dinge-einfach-aussprechen"
+    },
+    {
+      "id": "es-136",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-09-26",
+      "source": "The Moscow Times",
+      "topic": "public discourse",
+      "title": "Los nuevos heroes de Rusia son quienes simplemente dicen las cosas como son",
+      "digest": "Klishin analiza por que el habla factual simple se volvio politicamente significativa en un entorno informativo distorsionado. El texto sostiene que, cuando las instituciones fallan, incluso una honestidad minima de actores internos puede mover la atencion publica y recalibrar legitimidad.",
+      "quote": "\"Los nuevos heroes de Rusia son quienes simplemente dicen las cosas como son\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "summary": "Klishin analiza por que el habla factual simple se volvio politicamente significativa en un entorno informativo distorsionado. El texto sostiene que, cuando las instituciones fallan, incluso una honestidad minima de actores internos puede mover la atencion publica y recalibrar legitimidad.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Los nuevos heroes de Rusia son quienes simplemente dicen las cosas como son\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public discourse",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-136-los-nuevos-heroes-de-rusia-son-quienes-simplemente-dicen-las-cosas-como-son"
+    },
+    {
+      "id": "en-137",
+      "language": "EN",
+      "status": "ready",
+      "date": "2019-04-05",
+      "source": "The Moscow Times",
+      "topic": "media labor market",
+      "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
+      "digest": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "quote": "\"Why Russian Journalists Find Refuge in Propaganda Outlets\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "summary": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Why Russian Journalists Find Refuge in Propaganda Outlets\" - The Moscow Times"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media labor market",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "en-137-why-russian-journalists-find-refuge-in-propaganda-outlets",
+      "copies": {
+        "FR": "fr-137",
+        "DE": "de-137",
+        "ES": "es-137"
+      }
+    },
+    {
+      "id": "fr-137",
+      "language": "FR",
+      "status": "ready",
+      "date": "2019-04-05",
+      "source": "The Moscow Times",
+      "topic": "media labor market",
+      "title": "Pourquoi des journalistes russes trouvent refuge dans des medias de propagande",
+      "digest": "L article examine les raisons structurelles qui poussent des journalistes independants vers des institutions de propagande. Klishin soutient que la contraction du marche independant et la precarite des carrieres creent des conditions ou le compromis ideologique devient une strategie de survie.",
+      "quote": "\"Pourquoi des journalistes russes trouvent refuge dans des medias de propagande\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "summary": "L article examine les raisons structurelles qui poussent des journalistes independants vers des institutions de propagande. Klishin soutient que la contraction du marche independant et la precarite des carrieres creent des conditions ou le compromis ideologique devient une strategie de survie.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Pourquoi des journalistes russes trouvent refuge dans des medias de propagande\" - The Moscow Times"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media labor market",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "fr-137-pourquoi-des-journalistes-russes-trouvent-refuge-dans-des-medias-de-propagande"
+    },
+    {
+      "id": "de-137",
+      "language": "DE",
+      "status": "ready",
+      "date": "2019-04-05",
+      "source": "The Moscow Times",
+      "topic": "media labor market",
+      "title": "Warum russische Journalisten Zuflucht in Propaganda-Medien suchen",
+      "digest": "Der Artikel untersucht strukturelle Gruende, warum unabhaengige Journalisten in Propaganda-Institutionen wechseln. Klishin argumentiert, dass Schrumpfung des unabhaengigen Marktes und berufliche Prekaritaet Bedingungen schaffen, unter denen ideologischer Kompromiss zur Ueberlebensstrategie wird.",
+      "quote": "\"Warum russische Journalisten Zuflucht in Propaganda-Medien suchen\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "summary": "Der Artikel untersucht strukturelle Gruende, warum unabhaengige Journalisten in Propaganda-Institutionen wechseln. Klishin argumentiert, dass Schrumpfung des unabhaengigen Marktes und berufliche Prekaritaet Bedingungen schaffen, unter denen ideologischer Kompromiss zur Ueberlebensstrategie wird.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Warum russische Journalisten Zuflucht in Propaganda-Medien suchen\" - The Moscow Times"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media labor market",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "de-137-warum-russische-journalisten-zuflucht-in-propaganda-medien-suchen"
+    },
+    {
+      "id": "es-137",
+      "language": "ES",
+      "status": "ready",
+      "date": "2019-04-05",
+      "source": "The Moscow Times",
+      "topic": "media labor market",
+      "title": "Por que periodistas rusos encuentran refugio en medios de propaganda",
+      "digest": "El articulo examina razones estructurales por las que periodistas independientes pasan a instituciones de propaganda. Klishin sostiene que la contraccion del mercado independiente y la precariedad profesional crean condiciones donde el compromiso ideologico se vuelve estrategia de supervivencia.",
+      "quote": "\"Por que periodistas rusos encuentran refugio en medios de propaganda\" - The Moscow Times",
+      "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "summary": "El articulo examina razones estructurales por las que periodistas independientes pasan a instituciones de propaganda. Klishin sostiene que la contraccion del mercado independiente y la precariedad profesional crean condiciones donde el compromiso ideologico se vuelve estrategia de supervivencia.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Por que periodistas rusos encuentran refugio en medios de propaganda\" - The Moscow Times"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media labor market",
+        "source-linked",
+        "publication archive",
+        "year-2019"
+      ],
+      "slug": "es-137-por-que-periodistas-rusos-encuentran-refugio-en-medios-de-propaganda"
+    },
+    {
+      "id": "en-138",
+      "language": "EN",
+      "status": "ready",
+      "date": "2016-02-05",
+      "source": "Carnegie Endowment",
+      "topic": "internet governance",
+      "title": "Web of Control: The Future of the Russian Internet",
+      "digest": "This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.",
+      "quote": "\"Web of Control: The Future of the Russian Internet\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "summary": "This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Web of Control: The Future of the Russian Internet\" - Carnegie Endowment"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "internet governance",
+        "source-linked",
+        "publication archive",
+        "year-2016"
+      ],
+      "slug": "en-138-web-of-control-the-future-of-the-russian-internet",
+      "copies": {
+        "FR": "fr-138",
+        "DE": "de-138",
+        "ES": "es-138"
+      }
+    },
+    {
+      "id": "fr-138",
+      "language": "FR",
+      "status": "ready",
+      "date": "2016-02-05",
+      "source": "Carnegie Endowment",
+      "topic": "internet governance",
+      "title": "Toile de controle : l avenir de l internet russe",
+      "digest": "Cette analyse Carnegie presente des scenarios de controle etatique de l internet russe. Elle suit comment la politique publique, la pression sur les plateformes et les coordinateurs institutionnels ont transforme des restrictions autrefois impensables en options routinieres.",
+      "quote": "\"Toile de controle : l avenir de l internet russe\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "summary": "Cette analyse Carnegie presente des scenarios de controle etatique de l internet russe. Elle suit comment la politique publique, la pression sur les plateformes et les coordinateurs institutionnels ont transforme des restrictions autrefois impensables en options routinieres.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Toile de controle : l avenir de l internet russe\" - Carnegie Endowment"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "internet governance",
+        "source-linked",
+        "publication archive",
+        "year-2016"
+      ],
+      "slug": "fr-138-toile-de-controle-l-avenir-de-l-internet-russe"
+    },
+    {
+      "id": "de-138",
+      "language": "DE",
+      "status": "ready",
+      "date": "2016-02-05",
+      "source": "Carnegie Endowment",
+      "topic": "internet governance",
+      "title": "Netz der Kontrolle: Die Zukunft des russischen Internets",
+      "digest": "Die Carnegie-Analyse skizziert Szenarien staatlicher Kontrolle ueber das russische Internet. Sie zeigt, wie Politik, Plattformdruck und institutionelle Koordinatoren frueher undenkbare Einschraenkungen zu routinemaessigen Optionen oeffentlicher Steuerung machten.",
+      "quote": "\"Netz der Kontrolle: Die Zukunft des russischen Internets\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "summary": "Die Carnegie-Analyse skizziert Szenarien staatlicher Kontrolle ueber das russische Internet. Sie zeigt, wie Politik, Plattformdruck und institutionelle Koordinatoren frueher undenkbare Einschraenkungen zu routinemaessigen Optionen oeffentlicher Steuerung machten.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Netz der Kontrolle: Die Zukunft des russischen Internets\" - Carnegie Endowment"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "internet governance",
+        "source-linked",
+        "publication archive",
+        "year-2016"
+      ],
+      "slug": "de-138-netz-der-kontrolle-die-zukunft-des-russischen-internets"
+    },
+    {
+      "id": "es-138",
+      "language": "ES",
+      "status": "ready",
+      "date": "2016-02-05",
+      "source": "Carnegie Endowment",
+      "topic": "internet governance",
+      "title": "Red de control: el futuro de internet en Rusia",
+      "digest": "Este analisis de Carnegie plantea escenarios de control estatal sobre internet en Rusia. Muestra como politica publica, presion sobre plataformas y coordinadores institucionales convirtieron restricciones antes impensables en opciones rutinarias de gobernanza.",
+      "quote": "\"Red de control: el futuro de internet en Rusia\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "summary": "Este analisis de Carnegie plantea escenarios de control estatal sobre internet en Rusia. Muestra como politica publica, presion sobre plataformas y coordinadores institucionales convirtieron restricciones antes impensables en opciones rutinarias de gobernanza.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Red de control: el futuro de internet en Rusia\" - Carnegie Endowment"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "internet governance",
+        "source-linked",
+        "publication archive",
+        "year-2016"
+      ],
+      "slug": "es-138-red-de-control-el-futuro-de-internet-en-rusia"
+    },
+    {
+      "id": "en-139",
+      "language": "EN",
+      "status": "ready",
+      "date": "2012-01-20",
+      "source": "New York Magazine",
+      "topic": "protest profile",
+      "title": "Russia's New Decembrists",
+      "digest": "This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations. It is included as an external profile context source, not as an authored publication by Klishin.",
+      "quote": "\"Russia's New Decembrists\" - New York Magazine",
+      "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "summary": "This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations. It is included as an external profile context source, not as an authored publication by Klishin.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"Russia's New Decembrists\" - New York Magazine"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "New York Magazine",
+        "protest profile",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "en-139-russia-s-new-decembrists",
+      "copies": {
+        "FR": "fr-139",
+        "DE": "de-139",
+        "ES": "es-139"
+      }
+    },
+    {
+      "id": "fr-139",
+      "language": "FR",
+      "status": "ready",
+      "date": "2012-01-20",
+      "source": "New York Magazine",
+      "topic": "protest profile",
+      "title": "Les nouveaux decembristes russes",
+      "digest": "Ce grand format de New York Magazine sur la vague protestataire 2011-2012 cite Ilia Klishin dans l infrastructure d organisation et de communication des manifestations. La carte est incluse comme source externe de contexte, et non comme publication signee par Klishin.",
+      "quote": "\"Les nouveaux decembristes russes\" - New York Magazine",
+      "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "summary": "Ce grand format de New York Magazine sur la vague protestataire 2011-2012 cite Ilia Klishin dans l infrastructure d organisation et de communication des manifestations. La carte est incluse comme source externe de contexte, et non comme publication signee par Klishin.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Les nouveaux decembristes russes\" - New York Magazine"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "New York Magazine",
+        "protest profile",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "fr-139-les-nouveaux-decembristes-russes"
+    },
+    {
+      "id": "de-139",
+      "language": "DE",
+      "status": "ready",
+      "date": "2012-01-20",
+      "source": "New York Magazine",
+      "topic": "protest profile",
+      "title": "Russlands neue Dekabristen",
+      "digest": "Die New-York-Magazine-Reportage zur Protestwelle 2011-2012 erwaehnt Ilia Klishin im organisatorischen und medialen Umfeld der Demonstrationen. Der Eintrag ist als externer Kontextbeleg enthalten und nicht als von Klishin verfasste Publikation.",
+      "quote": "\"Russlands neue Dekabristen\" - New York Magazine",
+      "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "summary": "Die New-York-Magazine-Reportage zur Protestwelle 2011-2012 erwaehnt Ilia Klishin im organisatorischen und medialen Umfeld der Demonstrationen. Der Eintrag ist als externer Kontextbeleg enthalten und nicht als von Klishin verfasste Publikation.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Russlands neue Dekabristen\" - New York Magazine"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "New York Magazine",
+        "protest profile",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "de-139-russlands-neue-dekabristen"
+    },
+    {
+      "id": "es-139",
+      "language": "ES",
+      "status": "ready",
+      "date": "2012-01-20",
+      "source": "New York Magazine",
+      "topic": "protest profile",
+      "title": "Los nuevos decembristas rusos",
+      "digest": "Este reportaje de New York Magazine sobre la ola de protestas 2011-2012 menciona a Ilia Klishin dentro de la infraestructura de organizacion y comunicacion de las manifestaciones. Se incluye como fuente externa de contexto, no como texto firmado por Klishin.",
+      "quote": "\"Los nuevos decembristas rusos\" - New York Magazine",
+      "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "summary": "Este reportaje de New York Magazine sobre la ola de protestas 2011-2012 menciona a Ilia Klishin dentro de la infraestructura de organizacion y comunicacion de las manifestaciones. Se incluye como fuente externa de contexto, no como texto firmado por Klishin.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"Los nuevos decembristas rusos\" - New York Magazine"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "New York Magazine",
+        "protest profile",
+        "source-linked",
+        "publication archive",
+        "year-2012"
+      ],
+      "slug": "es-139-los-nuevos-decembristas-rusos"
+    },
+    {
+      "id": "en-140",
+      "language": "EN",
+      "status": "ready",
+      "date": "2017-12-28",
+      "source": "VSquare",
+      "topic": "disinformation infrastructure",
+      "title": "From Kremlin Web Brigades to Russian Troll Factories",
+      "digest": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion. This card is included as an external analytical reference where his assessments are reused in broader reporting.",
+      "quote": "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare",
+      "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "summary": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion. This card is included as an external analytical reference where his assessments are reused in broader reporting.",
+      "key_ideas": [
+        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "It connects the material to a broader editorial and institutional context.",
+        "The entry keeps a direct link to the original source page."
+      ],
+      "quotes": [
+        "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare"
+      ],
+      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "VSquare",
+        "disinformation infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2017"
+      ],
+      "slug": "en-140-from-kremlin-web-brigades-to-russian-troll-factories",
+      "copies": {
+        "FR": "fr-140",
+        "DE": "de-140",
+        "ES": "es-140"
+      }
+    },
+    {
+      "id": "fr-140",
+      "language": "FR",
+      "status": "ready",
+      "date": "2017-12-28",
+      "source": "VSquare",
+      "topic": "disinformation infrastructure",
+      "title": "Des brigades web du Kremlin aux usines a trolls russes",
+      "digest": "L article de VSquare retrace l evolution des premieres brigades en ligne vers des operations de trolls industrialisees et cite Klishin dans cette discussion. La carte est incluse comme reference analytique externe ou ses evaluations sont reprises.",
+      "quote": "\"Des brigades web du Kremlin aux usines a trolls russes\" - VSquare",
+      "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "summary": "L article de VSquare retrace l evolution des premieres brigades en ligne vers des operations de trolls industrialisees et cite Klishin dans cette discussion. La carte est incluse comme reference analytique externe ou ses evaluations sont reprises.",
+      "key_ideas": [
+        "Le texte situe clairement les acteurs, les enjeux et la chronologie.",
+        "Il relie le cas a une logique editoriale et institutionnelle plus large.",
+        "La carte conserve un lien direct vers la publication originale."
+      ],
+      "quotes": [
+        "\"Des brigades web du Kremlin aux usines a trolls russes\" - VSquare"
+      ],
+      "value_context": "Entree ajoutee pour couvrir cette publication dans la version francaise avec source verifiee.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "VSquare",
+        "disinformation infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2017"
+      ],
+      "slug": "fr-140-des-brigades-web-du-kremlin-aux-usines-a-trolls-russes"
+    },
+    {
+      "id": "de-140",
+      "language": "DE",
+      "status": "ready",
+      "date": "2017-12-28",
+      "source": "VSquare",
+      "topic": "disinformation infrastructure",
+      "title": "Von Kreml-Webbrigaden zu russischen Trollfabriken",
+      "digest": "Der VSquare-Artikel zeichnet die Entwicklung von fruehen Online-Brigaden zu industrialisierten Troll-Operationen nach und zitiert Klishin in diesem Kontext. Der Eintrag ist als externer Analysebeleg enthalten, in dem seine Einschaetzungen weiterverwendet werden.",
+      "quote": "\"Von Kreml-Webbrigaden zu russischen Trollfabriken\" - VSquare",
+      "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "summary": "Der VSquare-Artikel zeichnet die Entwicklung von fruehen Online-Brigaden zu industrialisierten Troll-Operationen nach und zitiert Klishin in diesem Kontext. Der Eintrag ist als externer Analysebeleg enthalten, in dem seine Einschaetzungen weiterverwendet werden.",
+      "key_ideas": [
+        "Der Text ordnet Akteure, Konflikt und zeitlichen Rahmen nachvollziehbar ein.",
+        "Er verbindet den Fall mit einer groesseren redaktionellen Logik.",
+        "Die Karte verweist direkt auf die originale Quelle."
+      ],
+      "quotes": [
+        "\"Von Kreml-Webbrigaden zu russischen Trollfabriken\" - VSquare"
+      ],
+      "value_context": "Eintrag ergaenzt, damit diese Publikation in der deutschen Version mit verifizierter Quelle enthalten ist.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "VSquare",
+        "disinformation infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2017"
+      ],
+      "slug": "de-140-von-kreml-webbrigaden-zu-russischen-trollfabriken"
+    },
+    {
+      "id": "es-140",
+      "language": "ES",
+      "status": "ready",
+      "date": "2017-12-28",
+      "source": "VSquare",
+      "topic": "disinformation infrastructure",
+      "title": "De las brigadas web del Kremlin a las fabricas rusas de trolls",
+      "digest": "El articulo de VSquare sigue la evolucion desde brigadas en linea tempranas hasta operaciones de trolls industrializadas y cita a Klishin en ese marco. Esta tarjeta se incluye como referencia analitica externa donde se reutilizan sus evaluaciones.",
+      "quote": "\"De las brigadas web del Kremlin a las fabricas rusas de trolls\" - VSquare",
+      "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "summary": "El articulo de VSquare sigue la evolucion desde brigadas en linea tempranas hasta operaciones de trolls industrializadas y cita a Klishin en ese marco. Esta tarjeta se incluye como referencia analitica externa donde se reutilizan sus evaluaciones.",
+      "key_ideas": [
+        "El texto ubica con claridad actores, conflicto y cronologia del caso.",
+        "Relaciona el episodio con una logica editorial e institucional mas amplia.",
+        "La tarjeta mantiene enlace directo a la fuente original."
+      ],
+      "quotes": [
+        "\"De las brigadas web del Kremlin a las fabricas rusas de trolls\" - VSquare"
+      ],
+      "value_context": "Entrada agregada para incluir esta publicacion en la version en espanol con fuente verificada.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "VSquare",
+        "disinformation infrastructure",
+        "source-linked",
+        "publication archive",
+        "year-2017"
+      ],
+      "slug": "es-140-de-las-brigadas-web-del-kremlin-a-las-fabricas-rusas-de-trolls"
+    },
+    {
+      "id": "en-141",
+      "language": "EN",
+      "status": "ready",
+      "date": "2015-10-22",
+      "source": "Carnegie Endowment",
+      "topic": "digital mobilization analysis",
+      "title": "Do Revolutions Grow Out of Social Media?",
+      "digest": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures. Using post-Soviet examples, the text separates communication effects from causal claims about regime change and warns against technological determinism in media analysis.",
+      "quote": "\"Do revolutions grow out of social media?\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "copies": {
+        "FR": "fr-141",
+        "DE": "de-141",
+        "ES": "es-141"
+      },
+      "summary": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures. Using post-Soviet examples, the text separates communication effects from causal claims about regime change and warns against technological determinism in media analysis.",
+      "key_ideas": [
+        "Social networks amplify mobilization but do not create political agency alone.",
+        "Institutional conditions decide whether protest momentum becomes durable change.",
+        "The essay separates media effects from direct regime-change causality claims."
+      ],
+      "quotes": [
+        "\"Do revolutions grow out of social media?\" - Carnegie Endowment",
+        "\"social networks\" - Carnegie Endowment"
+      ],
+      "value_context": "Useful for separating media amplification from political causality in debates about digital protest dynamics across post-Soviet contexts.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "social media",
+        "protest movements",
+        "political mobilization",
+        "post-Soviet space",
+        "media effects",
+        "digital politics",
+        "2015",
+        "language-en",
+        "year-2015"
+      ],
+      "slug": "en-141-do-revolutions-grow-out-of-social-media"
+    },
+    {
+      "id": "fr-141",
+      "language": "FR",
+      "status": "ready",
+      "date": "2015-10-22",
+      "source": "Carnegie Endowment",
+      "topic": "analyse des mobilisations numeriques",
+      "title": "Les revolutions naissent-elles des reseaux sociaux?",
+      "digest": "Cet essai de Carnegie remet en cause le cliche selon lequel les reseaux sociaux produiraient directement des revolutions. Les plateformes peuvent accelerer la visibilite, la coordination et la contagion emotionnelle, mais elles ne remplacent ni les institutions, ni l organisation, ni les fenetres politiques. En s appuyant sur des exemples post-sovietiques, le texte distingue effets de communication et causalite politique.",
+      "quote": "\"Les revolutions naissent-elles des reseaux sociaux?\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "source_en_id": "en-141",
+      "summary": "Cet essai de Carnegie remet en cause le cliche selon lequel les reseaux sociaux produiraient directement des revolutions. Les plateformes peuvent accelerer la visibilite, la coordination et la contagion emotionnelle, mais elles ne remplacent ni les institutions, ni l organisation, ni les fenetres politiques. En s appuyant sur des exemples post-sovietiques, le texte distingue effets de communication et causalite politique.",
+      "key_ideas": [
+        "Les reseaux sociaux amplifient la mobilisation mais ne creent pas l agence politique.",
+        "Les conditions institutionnelles determinent la durabilite du changement protestataire.",
+        "Le texte separe effets mediatique et causalite directe de changement de regime."
+      ],
+      "quotes": [
+        "\"Les revolutions naissent-elles des reseaux sociaux?\" - Carnegie Endowment",
+        "\"reseaux sociaux\" - Carnegie Endowment"
+      ],
+      "value_context": "Utile pour distinguer amplification mediatique et causalite politique dans les debats sur les mobilisations numeriques postsovietiques.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "social media",
+        "protest movements",
+        "political mobilization",
+        "post-Soviet space",
+        "media effects",
+        "digital politics",
+        "2015",
+        "language-fr",
+        "year-2015"
+      ],
+      "slug": "fr-141-les-revolutions-naissent-elles-des-reseaux-sociaux"
+    },
+    {
+      "id": "de-141",
+      "language": "DE",
+      "status": "ready",
+      "date": "2015-10-22",
+      "source": "Carnegie Endowment",
+      "topic": "analyse digitaler mobilisierung",
+      "title": "Wachsen Revolutionen aus sozialen Netzwerken?",
+      "digest": "Dieser Carnegie-Text stellt das Klischee infrage, soziale Netzwerke wuerden direkt Revolutionen ausloesen. Plattformen koennen Sichtbarkeit, Koordination und emotionale Dynamik beschleunigen, ersetzen aber weder Institutionen noch Organisation noch politische Gelegenheitsstrukturen. An post-sowjetischen Beispielen trennt der Beitrag Kommunikationseffekte von kausalen Aussagen ueber Regimewandel und warnt vor technologischem Determinismus.",
+      "quote": "\"Wachsen Revolutionen aus sozialen Netzwerken?\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "source_en_id": "en-141",
+      "summary": "Dieser Carnegie-Text stellt das Klischee infrage, soziale Netzwerke wuerden direkt Revolutionen ausloesen. Plattformen koennen Sichtbarkeit, Koordination und emotionale Dynamik beschleunigen, ersetzen aber weder Institutionen noch Organisation noch politische Gelegenheitsstrukturen. An post-sowjetischen Beispielen trennt der Beitrag Kommunikationseffekte von kausalen Aussagen ueber Regimewandel und warnt vor technologischem Determinismus.",
+      "key_ideas": [
+        "Soziale Netzwerke verstaerken Mobilisierung, erzeugen aber keine politische Agency allein.",
+        "Institutionelle Bedingungen entscheiden ueber dauerhafte Wirkung von Protestdynamik.",
+        "Der Text trennt Medieneffekte von direkter Regimewechsel-Kausalitaet klar."
+      ],
+      "quotes": [
+        "\"Wachsen Revolutionen aus sozialen Netzwerken?\" - Carnegie Endowment",
+        "\"soziale Netzwerke\" - Carnegie Endowment"
+      ],
+      "value_context": "Hilfreich, um mediale Verstaerkung von politischer Kausalitaet in Debatten ueber digitale Proteste zu trennen.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "social media",
+        "protest movements",
+        "political mobilization",
+        "post-Soviet space",
+        "media effects",
+        "digital politics",
+        "2015",
+        "language-de",
+        "year-2015"
+      ],
+      "slug": "de-141-wachsen-revolutionen-aus-sozialen-netzwerken"
+    },
+    {
+      "id": "es-141",
+      "language": "ES",
+      "status": "ready",
+      "date": "2015-10-22",
+      "source": "Carnegie Endowment",
+      "topic": "analisis de movilizacion digital",
+      "title": "Nacen las revoluciones en las redes sociales?",
+      "digest": "Este ensayo de Carnegie cuestiona el cliche de que las redes sociales generan revoluciones de forma directa. Las plataformas pueden acelerar visibilidad, coordinacion y contagio emocional, pero no sustituyen instituciones, organizacion ni oportunidades politicas. Con ejemplos postsovieticos, el texto separa efectos de comunicacion y causalidad politica, y advierte contra el determinismo tecnologico en el analisis publico.",
+      "quote": "\"Nacen las revoluciones en las redes sociales?\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "source_en_id": "en-141",
+      "summary": "Este ensayo de Carnegie cuestiona el cliche de que las redes sociales generan revoluciones de forma directa. Las plataformas pueden acelerar visibilidad, coordinacion y contagio emocional, pero no sustituyen instituciones, organizacion ni oportunidades politicas. Con ejemplos postsovieticos, el texto separa efectos de comunicacion y causalidad politica, y advierte contra el determinismo tecnologico en el analisis publico.",
+      "key_ideas": [
+        "Las redes amplifican movilizacion, pero no crean agencia politica por si solas.",
+        "Las condiciones institucionales definen si el impulso protesta produce cambio.",
+        "El texto separa efectos mediaticos y causalidad directa de cambio politico."
+      ],
+      "quotes": [
+        "\"Nacen las revoluciones en las redes sociales?\" - Carnegie Endowment",
+        "\"redes sociales\" - Carnegie Endowment"
+      ],
+      "value_context": "Util para separar amplificacion mediatica y causalidad politica en debates sobre protesta digital postsovietica.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "social media",
+        "protest movements",
+        "political mobilization",
+        "post-Soviet space",
+        "media effects",
+        "digital politics",
+        "2015",
+        "language-es",
+        "year-2015"
+      ],
+      "slug": "es-141-nacen-las-revoluciones-en-las-redes-sociales"
+    },
+    {
+      "id": "en-142",
+      "language": "EN",
+      "status": "ready",
+      "date": "2015-05-25",
+      "source": "Carnegie Endowment",
+      "topic": "regional protest analysis",
+      "title": "What Sparked Moldova's Second Maidan?",
+      "digest": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs. The text tracks the gap between reform promises and lived outcomes, showing how repeated cycles of disappointment can reactivate street politics even when formal institutions remain unchanged. It is included as a regional case study of post-Soviet protest recurrence and narrative fatigue.",
+      "quote": "\"Moldova's second Maidan\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "copies": {
+        "FR": "fr-142",
+        "DE": "de-142",
+        "ES": "es-142"
+      },
+      "summary": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs. The text tracks the gap between reform promises and lived outcomes, showing how repeated cycles of disappointment can reactivate street politics even when formal institutions remain unchanged. It is included as a regional case study of post-Soviet protest recurrence and narrative fatigue.",
+      "key_ideas": [
+        "Electoral turnover did not eliminate structural drivers of public frustration.",
+        "Repeated unmet expectations can reactivate protest despite institutional continuity.",
+        "The case maps cyclical protest logic in post-Soviet political systems."
+      ],
+      "quotes": [
+        "\"second Maidan\" - Carnegie Endowment",
+        "\"Moldova\" - Carnegie Endowment"
+      ],
+      "value_context": "Adds a comparative regional case on protest recurrence, useful for interpreting delayed political effects after apparent electoral wins.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Moldova",
+        "protests",
+        "post-Soviet politics",
+        "political cycles",
+        "electoral reform",
+        "regional analysis",
+        "2015",
+        "language-en",
+        "year-2015"
+      ],
+      "slug": "en-142-what-sparked-moldovas-second-maidan"
+    },
+    {
+      "id": "fr-142",
+      "language": "FR",
+      "status": "ready",
+      "date": "2015-05-25",
+      "source": "Carnegie Endowment",
+      "topic": "analyse regionale des protestations",
+      "title": "Contre quoi se dressait le deuxieme Maidan moldave?",
+      "digest": "Cette analyse Carnegie etudie la reprise des mobilisations en Moldavie et demande pourquoi la frustration est revenue apres des avancees electorales precedentes. Le texte suit l ecart entre promesses de reforme et resultats vecus, montrant comment des cycles repetes de deception peuvent reactiver la rue meme sans changement institutionnel majeur. La carte sert de cas regional sur la recurrence protestataire postsovietique.",
+      "quote": "\"deuxieme Maidan moldave\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "source_en_id": "en-142",
+      "summary": "Cette analyse Carnegie etudie la reprise des mobilisations en Moldavie et demande pourquoi la frustration est revenue apres des avancees electorales precedentes. Le texte suit l ecart entre promesses de reforme et resultats vecus, montrant comment des cycles repetes de deception peuvent reactiver la rue meme sans changement institutionnel majeur. La carte sert de cas regional sur la recurrence protestataire postsovietique.",
+      "key_ideas": [
+        "Le changement electoral n a pas supprime les causes structurelles de frustration.",
+        "Les attentes decues repetees peuvent relancer la mobilisation de rue.",
+        "Le cas montre une logique cyclique des protestations postsovietiques."
+      ],
+      "quotes": [
+        "\"deuxieme Maidan\" - Carnegie Endowment",
+        "\"Moldavie\" - Carnegie Endowment"
+      ],
+      "value_context": "Ajoute un cas comparatif regional sur la recurrence protestataire apres des victoires electorales apparentes.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Moldova",
+        "protests",
+        "post-Soviet politics",
+        "political cycles",
+        "electoral reform",
+        "regional analysis",
+        "2015",
+        "language-fr",
+        "year-2015"
+      ],
+      "slug": "fr-142-contre-quoi-se-dressait-le-deuxieme-maidan-moldave"
+    },
+    {
+      "id": "de-142",
+      "language": "DE",
+      "status": "ready",
+      "date": "2015-05-25",
+      "source": "Carnegie Endowment",
+      "topic": "regionale protestanalyse",
+      "title": "Wogegen richtete sich Moldaus zweiter Maidan?",
+      "digest": "Diese Carnegie-Analyse untersucht erneute Protestmobilisierung in Moldau und fragt, warum Frustration nach frueheren Wahldurchbruechen zurueckkehrte. Der Beitrag verfolgt die Luecke zwischen Reformversprechen und Alltagsergebnissen und zeigt, wie wiederholte Enttaeuschung politische Strassenmobilisierung reaktivieren kann, auch ohne institutionellen Bruch. Der Eintrag dient als regionaler Fall zu wiederkehrender Protestdynamik im postsowjetischen Raum.",
+      "quote": "\"Moldaus zweiter Maidan\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "source_en_id": "en-142",
+      "summary": "Diese Carnegie-Analyse untersucht erneute Protestmobilisierung in Moldau und fragt, warum Frustration nach frueheren Wahldurchbruechen zurueckkehrte. Der Beitrag verfolgt die Luecke zwischen Reformversprechen und Alltagsergebnissen und zeigt, wie wiederholte Enttaeuschung politische Strassenmobilisierung reaktivieren kann, auch ohne institutionellen Bruch. Der Eintrag dient als regionaler Fall zu wiederkehrender Protestdynamik im postsowjetischen Raum.",
+      "key_ideas": [
+        "Wahlwechsel beseitigte strukturelle Ursachen oeffentlicher Frustration nicht nachhaltig.",
+        "Wiederholt enttaeuschte Erwartungen koennen Strassenmobilisierung erneut ausloesen.",
+        "Der Fall zeigt zyklische Protestlogik in postsowjetischen Systemen."
+      ],
+      "quotes": [
+        "\"zweiter Maidan\" - Carnegie Endowment",
+        "\"Moldau\" - Carnegie Endowment"
+      ],
+      "value_context": "Ergaenzt einen regionalen Vergleichsfall zur Wiederkehr von Protest nach scheinbaren Wahlerfolgen.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Moldova",
+        "protests",
+        "post-Soviet politics",
+        "political cycles",
+        "electoral reform",
+        "regional analysis",
+        "2015",
+        "language-de",
+        "year-2015"
+      ],
+      "slug": "de-142-wogegen-richtete-sich-moldaus-zweiter-maidan"
+    },
+    {
+      "id": "es-142",
+      "language": "ES",
+      "status": "ready",
+      "date": "2015-05-25",
+      "source": "Carnegie Endowment",
+      "topic": "analisis regional de protestas",
+      "title": "Contra que se levantaba el segundo Maidan moldavo?",
+      "digest": "Este analisis de Carnegie examina la reactivacion de protestas en Moldavia y pregunta por que regreso la frustracion tras avances electorales previos. El texto sigue la brecha entre promesas de reforma y resultados vividos, y muestra como ciclos repetidos de decepcion pueden devolver la politica a la calle incluso sin cambios institucionales. Se incluye como estudio regional sobre recurrencia protestataria postsovietica.",
+      "quote": "\"segundo Maidan moldavo\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "source_en_id": "en-142",
+      "summary": "Este analisis de Carnegie examina la reactivacion de protestas en Moldavia y pregunta por que regreso la frustracion tras avances electorales previos. El texto sigue la brecha entre promesas de reforma y resultados vividos, y muestra como ciclos repetidos de decepcion pueden devolver la politica a la calle incluso sin cambios institucionales. Se incluye como estudio regional sobre recurrencia protestataria postsovietica.",
+      "key_ideas": [
+        "El relevo electoral no elimino causas estructurales de frustracion publica.",
+        "Expectativas incumplidas repetidas pueden reactivar movilizacion callejera.",
+        "El caso muestra logica ciclica de protesta en sistemas postsovieticos."
+      ],
+      "quotes": [
+        "\"segundo Maidan\" - Carnegie Endowment",
+        "\"Moldavia\" - Carnegie Endowment"
+      ],
+      "value_context": "Aporta un caso regional comparativo sobre recurrencia de protesta tras aparentes victorias electorales.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Moldova",
+        "protests",
+        "post-Soviet politics",
+        "political cycles",
+        "electoral reform",
+        "regional analysis",
+        "2015",
+        "language-es",
+        "year-2015"
+      ],
+      "slug": "es-142-contra-que-se-levantaba-el-segundo-maidan-moldavo"
+    },
+    {
+      "id": "en-143",
+      "language": "EN",
+      "status": "ready",
+      "date": "2016-09-09",
+      "source": "Carnegie Endowment",
+      "topic": "platform governance",
+      "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
+      "digest": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls. The text is included as an early framing of platform power as a governance problem rather than only a technical or market issue.",
+      "quote": "\"Private authoritarianism\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "copies": {
+        "FR": "fr-143",
+        "DE": "de-143",
+        "ES": "es-143"
+      },
+      "summary": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls. The text is included as an early framing of platform power as a governance problem rather than only a technical or market issue.",
+      "key_ideas": [
+        "Platform design decisions can produce political effects without public oversight.",
+        "Algorithmic visibility rules act as private governance over civic discourse.",
+        "The essay reframes platform power as democratic accountability challenge."
+      ],
+      "quotes": [
+        "\"Private authoritarianism\" - Carnegie Endowment",
+        "\"Facebook and Google\" - Carnegie Endowment"
+      ],
+      "value_context": "Strengthens the archive with an early argument about platform governance, accountability, and democratic risk beyond state media frameworks.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Facebook",
+        "Google",
+        "platform governance",
+        "algorithmic moderation",
+        "democracy",
+        "media power",
+        "2016",
+        "language-en",
+        "year-2016"
+      ],
+      "slug": "en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy"
+    },
+    {
+      "id": "fr-143",
+      "language": "FR",
+      "status": "ready",
+      "date": "2016-09-09",
+      "source": "Carnegie Endowment",
+      "topic": "gouvernance des plateformes",
+      "title": "Autoritarisme prive : comment Facebook et Google menacent la democratie",
+      "digest": "Cet essai Carnegie soutient que les grandes plateformes privees ont acquis un pouvoir politique sans responsabilite democratique equivalente. Il analyse comment les algorithmes, la moderation et des decisions produit opaques peuvent orienter le debat public presque autant que les controles mediatique d Etat. Le texte est retenu comme cadrage precoce du pouvoir des plateformes comme probleme de gouvernance.",
+      "quote": "\"Autoritarisme prive\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "source_en_id": "en-143",
+      "summary": "Cet essai Carnegie soutient que les grandes plateformes privees ont acquis un pouvoir politique sans responsabilite democratique equivalente. Il analyse comment les algorithmes, la moderation et des decisions produit opaques peuvent orienter le debat public presque autant que les controles mediatique d Etat. Le texte est retenu comme cadrage precoce du pouvoir des plateformes comme probleme de gouvernance.",
+      "key_ideas": [
+        "Les choix de plateforme produisent des effets politiques sans controle public.",
+        "Les regles algorithmiques de visibilite deviennent une gouvernance privee.",
+        "Le texte recadre le pouvoir des plateformes comme enjeu democratique."
+      ],
+      "quotes": [
+        "\"Autoritarisme prive\" - Carnegie Endowment",
+        "\"Facebook et Google\" - Carnegie Endowment"
+      ],
+      "value_context": "Renforce l archive avec un argument precoce sur gouvernance des plateformes et risque democratique.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Facebook",
+        "Google",
+        "platform governance",
+        "algorithmic moderation",
+        "democracy",
+        "media power",
+        "2016",
+        "language-fr",
+        "year-2016"
+      ],
+      "slug": "fr-143-autoritarisme-prive-comment-facebook-et-google-menacent-la-democratie"
+    },
+    {
+      "id": "de-143",
+      "language": "DE",
+      "status": "ready",
+      "date": "2016-09-09",
+      "source": "Carnegie Endowment",
+      "topic": "plattform-governance",
+      "title": "Privater Autoritarismus: Wie Facebook und Google die Demokratie bedrohen",
+      "digest": "Dieser Carnegie-Text argumentiert, dass grosse private Plattformen politische Macht ohne gleichwertige demokratische Rechenschaft aufgebaut haben. Er zeigt, wie Ranking-Algorithmen, Moderationsregeln und intransparente Produktentscheidungen oeffentliche Debatten praegen koennen, teils so stark wie staatliche Medienkontrolle. Der Eintrag wird als fruehe Rahmung von Plattformmacht als Governance-Problem gefuehrt.",
+      "quote": "\"Privater Autoritarismus\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "source_en_id": "en-143",
+      "summary": "Dieser Carnegie-Text argumentiert, dass grosse private Plattformen politische Macht ohne gleichwertige demokratische Rechenschaft aufgebaut haben. Er zeigt, wie Ranking-Algorithmen, Moderationsregeln und intransparente Produktentscheidungen oeffentliche Debatten praegen koennen, teils so stark wie staatliche Medienkontrolle. Der Eintrag wird als fruehe Rahmung von Plattformmacht als Governance-Problem gefuehrt.",
+      "key_ideas": [
+        "Plattformentscheidungen erzeugen politische Effekte ohne ausreichende oeffentliche Kontrolle.",
+        "Algorithmische Sichtbarkeit wirkt als private Governance oeffentlicher Debatten.",
+        "Der Text rahmt Plattformmacht als demokratische Rechenschaftsfrage neu."
+      ],
+      "quotes": [
+        "\"Privater Autoritarismus\" - Carnegie Endowment",
+        "\"Facebook und Google\" - Carnegie Endowment"
+      ],
+      "value_context": "Staerkt das Archiv um eine fruehe Argumentation zu Plattform-Governance und demokratischem Risiko.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Facebook",
+        "Google",
+        "platform governance",
+        "algorithmic moderation",
+        "democracy",
+        "media power",
+        "2016",
+        "language-de",
+        "year-2016"
+      ],
+      "slug": "de-143-privater-autoritarismus-wie-facebook-und-google-die-demokratie-bedrohen"
+    },
+    {
+      "id": "es-143",
+      "language": "ES",
+      "status": "ready",
+      "date": "2016-09-09",
+      "source": "Carnegie Endowment",
+      "topic": "gobernanza de plataformas",
+      "title": "Autoritarismo privado: como Facebook y Google amenazan la democracia",
+      "digest": "Este ensayo de Carnegie sostiene que las grandes plataformas privadas acumularon poder politico sin una rendicion democratica equivalente. Analiza como ranking algoritmico, politicas de moderacion y decisiones opacas de producto pueden moldear el debate publico con una fuerza comparable al control mediatico estatal. Se incluye como marco temprano que trata el poder de plataformas como problema de gobernanza.",
+      "quote": "\"Autoritarismo privado\" - Carnegie Endowment",
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "source_en_id": "en-143",
+      "summary": "Este ensayo de Carnegie sostiene que las grandes plataformas privadas acumularon poder politico sin una rendicion democratica equivalente. Analiza como ranking algoritmico, politicas de moderacion y decisiones opacas de producto pueden moldear el debate publico con una fuerza comparable al control mediatico estatal. Se incluye como marco temprano que trata el poder de plataformas como problema de gobernanza.",
+      "key_ideas": [
+        "Decisiones de plataforma generan efectos politicos sin control publico suficiente.",
+        "Reglas algoritmicas de visibilidad funcionan como gobernanza privada del debate.",
+        "El ensayo reubica poder de plataformas en clave de responsabilidad democratica."
+      ],
+      "quotes": [
+        "\"Autoritarismo privado\" - Carnegie Endowment",
+        "\"Facebook y Google\" - Carnegie Endowment"
+      ],
+      "value_context": "Refuerza el archivo con un argumento temprano sobre gobernanza de plataformas y riesgo democratico.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Facebook",
+        "Google",
+        "platform governance",
+        "algorithmic moderation",
+        "democracy",
+        "media power",
+        "2016",
+        "language-es",
+        "year-2016"
+      ],
+      "slug": "es-143-autoritarismo-privado-como-facebook-y-google-amenazan-la-democracia"
     }
   ],
   "card_format": "v1"
