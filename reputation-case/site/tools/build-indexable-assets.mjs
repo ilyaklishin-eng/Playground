@@ -1613,12 +1613,16 @@ const buildRelatedLinks = (entries) =>
 
 const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
 const HOME_PINNED_IDS = {
-  EN: ["en-009", "en-119", "en-120", "en-107", "en-002", "en-108"],
+  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-002", "en-108"],
+};
+const HOME_EXCLUDED_IDS = {
+  EN: new Set(["en-017"]),
 };
 const HOME_FIXED_TITLE_EMOJI = {
   "en-009": "🧭",
   "en-119": "📰",
   "en-120": "📱",
+  "en-141": "🧠",
   "en-107": "🕸️",
   "en-002": "🪧",
   "en-108": "🛰️",
@@ -1678,7 +1682,8 @@ const pickHomeFallbackEntries = (entries, limit) => {
   const preferredLang = byLang.has("EN")
     ? "EN"
     : [...byLang.keys()].sort((a, b) => a.localeCompare(b))[0];
-  const preferred = (byLang.get(preferredLang) || []).slice();
+  const excludedForLang = HOME_EXCLUDED_IDS[preferredLang] || new Set();
+  const preferred = (byLang.get(preferredLang) || []).filter((entry) => !excludedForLang.has(String(entry?.item?.id || "")));
   const pinnedIds = HOME_PINNED_IDS[preferredLang] || [];
   if (pinnedIds.length > 0) {
     const rank = new Map(pinnedIds.map((id, index) => [id, index]));

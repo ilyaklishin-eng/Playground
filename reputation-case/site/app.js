@@ -12,12 +12,16 @@ const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
 const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
 const SHOWCASE_PINNED_IDS = {
-  EN: ["en-009", "en-119", "en-120", "en-107", "en-002", "en-108"],
+  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-002", "en-108"],
+};
+const HOME_EXCLUDED_IDS = {
+  EN: new Set(["en-017"]),
 };
 const HOME_FIXED_TITLE_EMOJI = {
   "en-009": "🧭",
   "en-119": "📰",
   "en-120": "📱",
+  "en-141": "🧠",
   "en-107": "🕸️",
   "en-002": "🪧",
   "en-108": "🛰️",
@@ -516,6 +520,10 @@ function render() {
     if (!isShowcaseCandidate(item)) return false;
     const langMatch = item.language === state.lang;
     if (!langMatch) return false;
+    if (IS_HOME_PAGE) {
+      const hiddenForLang = HOME_EXCLUDED_IDS[state.lang];
+      if (hiddenForLang?.has(String(item?.id || ""))) return false;
+    }
     if (!state.query) return true;
 
     const haystack = [
