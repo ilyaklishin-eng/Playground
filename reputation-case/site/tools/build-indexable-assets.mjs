@@ -1619,7 +1619,7 @@ const buildRelatedLinks = (entries) =>
 
 const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
 const HOME_PINNED_IDS = {
-  EN: ["en-009", "en-120", "en-107", "en-119", "en-002", "en-108"],
+  EN: ["en-009", "en-119", "en-120", "en-107", "en-002", "en-108"],
 };
 
 const sortEntriesForHome = (a, b) => {
