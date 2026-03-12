@@ -1479,9 +1479,11 @@ const extractSelectedCards = async () => {
       const whyRaw = htmlToText(cardHtml.match(/<p class="work-why">([\s\S]*?)<\/p>/i)?.[1] || "");
       const why = whyRaw.replace(/^Why this matters:\s*/i, "").trim();
       const type = htmlToText(cardHtml.match(/<li><strong>Type:<\/strong>\s*([\s\S]*?)<\/li>/i)?.[1] || "");
-      const date = htmlToText(cardHtml.match(/<li><strong>Date:<\/strong>\s*([\s\S]*?)<\/li>/i)?.[1] || "");
+      const date =
+        htmlToText(cardHtml.match(/<li><strong>Date:<\/strong>\s*([\s\S]*?)<\/li>/i)?.[1] || "") ||
+        htmlToText(cardHtml.match(/<p class="work-meta"><strong>Date:<\/strong>\s*([\s\S]*?)<\/p>/i)?.[1] || "");
 
-      const linkCandidates = [...cardHtml.matchAll(/<a\s+href="([^"]+)"/gi)].map((m) => String(m[1] || "").trim());
+      const linkCandidates = [...cardHtml.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)].map((m) => String(m[1] || "").trim());
       const digestLink = linkCandidates.find((href) => href.startsWith("/posts/"));
       const preferredLink = digestLink || linkCandidates[0] || `/selected/#${sectionId}`;
       const originalLink = linkCandidates.find((href) => /^https?:\/\//i.test(href)) || "";
