@@ -1438,12 +1438,20 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
   let next = html.replace(blockRe, `${sectionsHtml}\n\n`);
   next = next.replace(
     /("description":\s*")Manually curated route through key materials by Ilia Klishin\.(")/,
-    '$1Section-based index of published articles by Ilia Klishin, excluding interview materials.$2'
+    '$1Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin.$2'
+  );
+  next = next.replace(
+    /("description":\s*")Section-based index of published articles by Ilia Klishin, excluding interview materials\.(")/,
+    '$1Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin.$2'
   );
   next = next.replace(/("numberOfItems":\s*)\d+/, `$1${itemCount}`);
   next = next.replace(
     /<p>\s*Start here if you want the clearest sense of my work\.\s*<\/p>/,
-    `<p>Browse all published article cards by section. Interview materials are kept in the separate Interviews page.</p>`
+    `<p>Browse the full published corpus by section and by format in one place.</p>`
+  );
+  next = next.replace(
+    /<p>\s*Browse all published article cards by section\. Interview materials are kept in the separate Interviews page\.\s*<\/p>/,
+    `<p>Browse the full published corpus by section and by format in one place.</p>`
   );
 
   if (next !== html) {
