@@ -58,6 +58,9 @@ const isReferenceCard = (item) => {
   const explicit = lower(item?.content_class);
   if (explicit === "reference") return true;
   if (explicit === "writing") return false;
+  const relation = lower(item?.relation);
+  if (relation === "reference" || relation === "author_profile") return true;
+  if (relation === "authored_by_ilya" || relation === "interview_with_ilya") return false;
   const topic = trim(item?.topic);
   const title = trim(item?.title);
   return REFERENCE_TOPIC_RE.test(topic) || REFERENCE_TITLE_RE.test(title);
