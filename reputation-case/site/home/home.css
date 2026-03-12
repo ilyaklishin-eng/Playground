@@ -264,6 +264,33 @@
   color: #1b212d;
 }
 
+.home-page .hero-proof-link {
+  color: #161d29;
+  font-weight: 780;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.13em;
+  text-decoration-color: rgba(22, 29, 41, 0.45);
+  background: linear-gradient(transparent 52%, #ffe69a 52%);
+  border-radius: 0.24rem;
+  padding: 0 0.2rem;
+  transition:
+    background-color 0.16s ease,
+    text-decoration-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.home-page .hero-proof-link:hover {
+  color: #0f141d;
+  text-decoration-color: rgba(15, 20, 29, 0.75);
+  background: linear-gradient(transparent 46%, #ffd95f 46%);
+}
+
+.home-page .hero-proof-link:focus-visible {
+  outline: 2px solid #8f7a2b;
+  outline-offset: 2px;
+}
+
 .hero-cta-row {
   margin-top: 1.08rem;
   display: flex;
