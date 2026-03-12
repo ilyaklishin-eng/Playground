@@ -14,7 +14,7 @@ const OG_IMAGE_WIDTH = "1200";
 const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: `${baseUrl}/og/site-default-v2.jpg`,
+  default: `${baseUrl}/og/site-default.jpg`,
   bio: `${baseUrl}/og/bio.jpg`,
   selected: `${baseUrl}/og/selected-work.jpg`,
   posts: `${baseUrl}/og/posts-fallback.jpg`,
