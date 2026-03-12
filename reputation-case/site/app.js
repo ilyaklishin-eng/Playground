@@ -247,7 +247,6 @@ function hasMachineFragments(sentence) {
 
 function humanSummaryPreview(item, options = {}) {
   const maxSentences = Number.isFinite(options.maxSentences) ? options.maxSentences : 2;
-  const maxLength = Number.isFinite(options.maxLength) ? options.maxLength : 220;
   const raw = normalizeText(item?.summary || item?.digest || "");
   if (!raw) return "";
   const cleaned = stripLeadScaffolding(raw) || raw;
@@ -255,21 +254,10 @@ function humanSummaryPreview(item, options = {}) {
   const source = candidates.length > 0 ? candidates : [];
   if (source.length === 0) return fallbackSummary(item);
 
-  const selected = [];
-  let total = 0;
-  for (const sentence of source) {
-    const lengthWithGap = sentence.length + (selected.length > 0 ? 1 : 0);
-    if (selected.length >= maxSentences && total + lengthWithGap > maxLength) break;
-    if (selected.length >= maxSentences) break;
-    selected.push(sentence);
-    total += lengthWithGap;
-  }
+  const selected = source.slice(0, Math.max(1, maxSentences));
 
   let preview = selected.join(" ").trim();
   if (!preview) preview = source[0] || "";
-  if (preview.length > maxLength) {
-    preview = preview.slice(0, maxLength).replace(/\s+\S*$/, "").trim();
-  }
   if (!/[.!?]$/.test(preview)) preview += ".";
   return preview.replace(/^[a-z]/, (char) => char.toUpperCase());
 }
@@ -588,7 +576,6 @@ function createCardNode(item, variant) {
   } else {
     digestNode.textContent = humanSummaryPreview(item, {
       maxSentences: 2,
-      maxLength: 205,
     });
   }
 
