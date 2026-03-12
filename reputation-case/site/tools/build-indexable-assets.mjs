@@ -1367,25 +1367,17 @@ const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
   const displayTitle = htmlEscape(resolveDisplayTitle(item));
   const intro = htmlEscape(previewSummary(item));
   const context = htmlEscape(previewContext(item));
-  const topicType = htmlEscape(normalizeTopicLabel(item?.topic));
   const date = htmlEscape(normalizeText(item?.date || "-"));
   const digestHref = canonicalUrl(`posts/${idToPostPath.get(item?.id) || entry?.postPath || ""}`);
   const sourceHrefRaw = normalizeSourceUrl(item?.url || "");
-  const sourceHref = sourceHrefRaw ? htmlEscape(sourceHrefRaw) : htmlEscape(digestHref);
-  const sourceLabel = sourceHrefRaw ? "Original source" : "Digest card";
+  const sourceHref = sourceHrefRaw || digestHref;
+  const linkAttrs = sourceHrefRaw ? ` target="_blank" rel="noopener noreferrer"` : "";
 
   return `          <article class="work-card">
-            <h3>${displayTitle}</h3>
+            <h3><a class="work-title-link" href="${htmlEscape(sourceHref)}"${linkAttrs}>${displayTitle}</a></h3>
             <p class="work-intro">${intro}</p>
             <p class="work-why">${context}</p>
-            <ul class="work-meta">
-              <li><strong>Type:</strong> ${topicType}</li>
-              <li><strong>Date:</strong> ${date}</li>
-              <li>
-                <a href="${htmlEscape(digestHref)}">Digest card</a> ·
-                <a href="${sourceHref}" target="_blank" rel="noopener noreferrer">${sourceLabel}</a>
-              </li>
-            </ul>
+            <p class="work-meta"><strong>Date:</strong> ${date}</p>
           </article>`;
 };
 
