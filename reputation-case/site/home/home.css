@@ -743,6 +743,88 @@
   color: #1d2431;
 }
 
+.home-page .home-social-row {
+  margin-top: 0.78rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.52rem;
+}
+
+.home-page .home-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  min-height: 2.18rem;
+  padding: 0.42rem 0.66rem;
+  border: 1px solid #d7d0c5;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1d2431;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 730;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  transition:
+    border-color 0.16s ease,
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+.home-page .home-social-icon {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: currentColor;
+  flex: 0 0 auto;
+}
+
+.home-page .home-social-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(21, 25, 32, 0.08);
+}
+
+.home-page .home-social-link:focus-visible {
+  outline: 2px solid #7f8da5;
+  outline-offset: 2px;
+}
+
+.home-page .social-linkedin {
+  color: #154a8a;
+  border-color: #c7d6ec;
+  background: #f7faff;
+}
+
+.home-page .social-x {
+  color: #1e2531;
+  border-color: #d5d9e0;
+  background: #fbfcff;
+}
+
+.home-page .social-instagram {
+  color: #93326d;
+  border-color: #e9c9de;
+  background: #fff8fc;
+}
+
+.home-page .social-facebook {
+  color: #1f4e91;
+  border-color: #c8d9ef;
+  background: #f7faff;
+}
+
+.home-page .social-telegram {
+  color: #0d6fa8;
+  border-color: #c8deed;
+  background: #f6fbff;
+}
+
+.home-page .social-readme {
+  color: #38475d;
+  border-color: #d4dce8;
+  background: #f8faff;
+}
+
 .home-page .contact-meta {
   margin-top: 0.72rem;
   font-size: 0.84rem;
