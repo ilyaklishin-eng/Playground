@@ -948,6 +948,10 @@ const hashText = (value = "") => {
 };
 
 const previewSummary = (item = {}) => {
+  if ((item?.id || "") === "en-108") {
+    return normalizeText(item?.summary || item?.digest || "");
+  }
+
   const raw = normalizeText(item?.digest || item?.summary || "");
   if (!raw) return "";
 
