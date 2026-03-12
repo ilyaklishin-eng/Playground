@@ -1621,6 +1621,44 @@ const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "r
 const HOME_PINNED_IDS = {
   EN: ["en-009", "en-119", "en-120", "en-107", "en-002", "en-108"],
 };
+const HOME_FIXED_TITLE_EMOJI = {
+  "en-009": "🧭",
+  "en-119": "📰",
+  "en-120": "📱",
+  "en-107": "🕸️",
+  "en-002": "🪧",
+  "en-108": "🛰️",
+};
+const HOME_EMOJI_POOL = [
+  "🧭",
+  "📰",
+  "📱",
+  "🕸️",
+  "🪧",
+  "🛰️",
+  "⚖️",
+  "🎥",
+  "🗞️",
+  "🔍",
+  "🧠",
+  "🛡️",
+  "🌍",
+  "🧱",
+  "🕊️",
+  "📡",
+  "🎙️",
+  "📚",
+  "🧪",
+  "🧵",
+  "🧩",
+  "🔦",
+  "🏛️",
+  "📣",
+  "🗳️",
+  "🧬",
+  "🧷",
+  "🧨",
+];
 
 const sortEntriesForHome = (a, b) => {
   const statusDelta = homeStatusRank(a?.item?.status) - homeStatusRank(b?.item?.status);
@@ -1690,16 +1728,71 @@ const pickHomeFallbackEntries = (entries, limit) => {
   return selected;
 };
 
+const homeEmojiCandidates = (item) => {
+  const text = [
+    String(item?.title || ""),
+    String(item?.source || ""),
+    String(item?.topic || ""),
+    String(item?.summary || ""),
+    String(item?.digest || ""),
+  ]
+    .join(" ")
+    .toLowerCase();
+  if (/\b(bot|troll|disinformation|interference|cyber|twitter|social media|platform)\b/.test(text)) {
+    return ["🛰️", "🕸️", "📱", "🧠", "🔍"];
+  }
+  if (/\b(protest|election|activism|civil society|mobilization)\b/.test(text)) {
+    return ["🪧", "🗳️", "📣", "🧱", "🌍"];
+  }
+  if (/\b(media|journalis|press|newsroom|editorial|author)\b/.test(text)) {
+    return ["📰", "🗞️", "🎙️", "📡", "📚"];
+  }
+  if (/\b(human rights|harassment|intimidation|pressure|freedom)\b/.test(text)) {
+    return ["⚖️", "🛡️", "🔦", "🏛️"];
+  }
+  if (/\b(video|ted|interview|podcast|talk)\b/.test(text)) {
+    return ["🎥", "🎙️", "📡", "📚"];
+  }
+  if (/\b(war|soldier|ukraine|donbas|security)\b/.test(text)) {
+    return ["🕊️", "🌍", "🧱", "🛡️"];
+  }
+  return ["🧩", "🧪", "🧭", "📘"];
+};
+
+const buildHomeEmojiMap = (entries) => {
+  const byId = new Map();
+  const used = new Set();
+  for (const entry of entries || []) {
+    const item = entry?.item || {};
+    const id = String(item?.id || "");
+    if (!id) continue;
+    const fixed = HOME_FIXED_TITLE_EMOJI[id];
+    if (fixed && !used.has(fixed)) {
+      byId.set(id, fixed);
+      used.add(fixed);
+      continue;
+    }
+    const candidates = [...homeEmojiCandidates(item), ...HOME_EMOJI_POOL];
+    const picked = candidates.find((emoji) => !used.has(emoji));
+    if (!picked) continue;
+    byId.set(id, picked);
+    used.add(picked);
+  }
+  return byId;
+};
+
 const buildHomeFallbackCards = (entries) => {
   const top = pickHomeFallbackEntries(entries, HOME_FALLBACK_LIMIT);
   if (top.length === 0) {
     return `        <div class="empty">No published cards are available in the public feed yet.</div>`;
   }
+  const emojiById = buildHomeEmojiMap(top);
   return top
     .map((entry) => {
       const item = entry.item || {};
       const lang = htmlEscape(String(item.language || "-"));
-      const title = htmlEscape(resolveDisplayTitle(item));
+      const emoji = emojiById.get(String(item?.id || ""));
+      const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${resolveDisplayTitle(item)}`);
       const meta = htmlEscape(composeCardMeta(item));
       const digest = htmlEscape(previewSummary(item));
       const sourceHref = htmlEscape(normalizeSourceUrl(item?.url || canonicalUrl(`posts/${entry.postPath}`)));
