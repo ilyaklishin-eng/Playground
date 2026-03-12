@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-03-06T00:00:00.000Z",
   "counts": {
-    "total": 48,
-    "posts": 24,
-    "selected": 24
+    "total": 46,
+    "posts": 23,
+    "selected": 23
   },
   "items": [
     {
@@ -374,31 +374,6 @@
         "belarus",
         "coverage",
         "framing"
-      ]
-    },
-    {
-      "id": "en-020",
-      "type": "post",
-      "language": "EN",
-      "status": "ready",
-      "title": "LA Times coverage referencing TV Rain soldier investigations",
-      "summary": "The article outlines external validation in clear terms and places it in editorial context.",
-      "context": "The summary gives a clear reference point for later comparisons.",
-      "topic": "external validation",
-      "source": "Los Angeles Times",
-      "date": "2015-09-14",
-      "material_type": "Digest card",
-      "url": "https://www.klishin.work/posts/en-020-la-times-coverage-referencing-tv-rain-soldier-investigations.html",
-      "source_url": "https://www.latimes.com/world/europe/la-fg-russia-soldier-20150914-story.html",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Los Angeles Times",
-        "external validation",
-        "eastern-europe-context",
-        "media-analysis",
-        "times",
-        "coverage",
-        "referencing"
       ]
     },
     {
@@ -944,22 +919,6 @@
       "id": "selected-public-texts-22",
       "type": "selected",
       "language": "EN",
-      "title": "LA Times coverage referencing TV Rain soldier investigations",
-      "summary": "The article outlines external validation in clear terms and places it in editorial context.",
-      "context": "The summary gives a clear reference point for later comparisons.",
-      "topic": "Profiles and external records",
-      "source": "Selected Work",
-      "date": "2015-09-14",
-      "material_type": "External Validation",
-      "section": "Profiles and external records",
-      "section_intro": "Third-party publications and institutional references used as external context.",
-      "url": "https://www.klishin.work/posts/en-020-la-times-coverage-referencing-tv-rain-soldier-investigations.html",
-      "source_url": "https://www.klishin.work/posts/en-020-la-times-coverage-referencing-tv-rain-soldier-investigations.html"
-    },
-    {
-      "id": "selected-public-texts-23",
-      "type": "selected",
-      "language": "EN",
       "title": "English press archive on intimidation claims tied to activism",
       "summary": "How intimidation and harassment patterns around critics were documented in international rights reporting. This card summarizes \"English press archive on intimidation claims tied to activism\" published by News24 on 2015-04-29.",
       "context": "The summary gives a clear reference point for later comparisons.",
@@ -973,7 +932,7 @@
       "source_url": "https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html"
     },
     {
-      "id": "selected-public-texts-24",
+      "id": "selected-public-texts-23",
       "type": "selected",
       "language": "EN",
       "title": "HRW report on harassment of critics includes Klishin case context",
