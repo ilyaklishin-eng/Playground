@@ -11,7 +11,7 @@ const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
 const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
 const SHOWCASE_PINNED_IDS = {
-  EN: ["en-009", "en-002", "en-108"],
+  EN: ["en-009", "en-120", "en-107", "en-119", "en-002", "en-108"],
 };
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
@@ -577,7 +577,7 @@ function createCardNode(item, variant) {
     renderFeaturedDigest(digestNode, item);
   } else {
     digestNode.textContent = humanSummaryPreview(item, {
-      maxSentences: 2,
+      maxSentences: 3,
     });
   }
 

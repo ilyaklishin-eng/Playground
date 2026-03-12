@@ -901,7 +901,7 @@ const hasMachineFragments = (sentence = "") =>
   MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(String(sentence || "").trim()));
 
 const TEMPLATE_SENTENCE_PATTERNS = [
-  /^(this|ce texte|este texto|dieser beitrag|in diesem|la fiche|la carte|der eintrag)\b/i,
+  /^(ce texte|este texto|dieser beitrag|in diesem|la fiche|la carte|der eintrag)\b/i,
   /\bexamines a concrete case related to ilia klishin\b/i,
   /\bexamine un cas concret lie a ilia klishin\b/i,
   /\bexamina un caso concreto vinculado con ilia klishin\b/i,
@@ -963,20 +963,13 @@ const previewSummary = (item = {}) => {
   if (source.length === 0) return fallbackSummary(item);
 
   const selected = [];
-  let total = 0;
   for (const sentence of source) {
-    const lengthWithGap = sentence.length + (selected.length > 0 ? 1 : 0);
-    if (selected.length >= 2 && total + lengthWithGap > 360) break;
     if (selected.length >= 3) break;
     selected.push(sentence);
-    total += lengthWithGap;
   }
 
   let preview = selected.join(" ").trim();
   if (!preview) preview = source[0] || "";
-  if (preview.length > 380) {
-    preview = preview.slice(0, 380).replace(/\s+\S*$/, "").trim();
-  }
   if (!/[.!?]$/.test(preview)) preview += ".";
   return preview.replace(/^[a-z]/, (char) => char.toUpperCase());
 };
@@ -1626,7 +1619,7 @@ const buildRelatedLinks = (entries) =>
 
 const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
 const HOME_PINNED_IDS = {
-  EN: ["en-009", "en-002", "en-108"],
+  EN: ["en-009", "en-120", "en-107", "en-119", "en-002", "en-108"],
 };
 
 const sortEntriesForHome = (a, b) => {

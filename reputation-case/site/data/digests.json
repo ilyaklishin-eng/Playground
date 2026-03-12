@@ -1505,39 +1505,36 @@
       "status": "ready",
       "date": "2012-03-01",
       "source": "Human Rights Watch",
-      "topic": "human rights documentation",
+      "topic": "human rights report",
       "title": "HRW report on harassment of critics includes Klishin case context",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
-      "quote": "\"HRW report on harassment of critics includes Klishin case context\" - Human Rights Watch",
+      "digest": "This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers. A prime example of this repressive mechanic is the documented episode involving Ilya Klishin, the creator of the \"For Fair Elections\" network: operatives from the anti-extremism Center \"E\" interrogated his parents in Tambov, threatening them with vague extremism charges. The text vividly illustrates how authorities, spooked by grassroots mobilization, began deploying psychological blackmail—cynically redirecting their strikes from metropolitan activists to their vulnerable relatives in the provinces.",
+      "quote": "\"Harassment of critics\" — Human Rights Watch",
       "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
       "copies": {
         "FR": "fr-012",
         "DE": "de-012",
         "ES": "es-027"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers. A prime example of this repressive mechanic is the documented episode involving Ilya Klishin, the creator of the \"For Fair Elections\" network: operatives from the anti-extremism Center \"E\" interrogated his parents in Tambov, threatening them with vague extremism charges. The text vividly illustrates how authorities, spooked by grassroots mobilization, began deploying psychological blackmail—cynically redirecting their strikes from metropolitan activists to their vulnerable relatives in the provinces.",
       "key_ideas": [
         "Human Rights Watch 2012 03 01 frames report through named actors and decisions",
         "The text links harassment to trust shifts and interpretation",
         "Period context explains causes effects and stakes around critics"
       ],
       "quotes": [
-        "\"HRW report on harassment of critics includes Klishin case context\" - Human Rights Watch",
-        "\"how intimidation and harassment patterns around critics were documented in international rights\" - Human Rights Watch"
+        "\"harassment of critics\" — Human Rights Watch",
+        "\"interrogated his parents\" — Human Rights Watch"
       ],
-      "value_context": "As a dated source from Human Rights Watch this card helps verify chronology actors and causal framing around human rights documentation useful for comparing claims across multilingual materials and public records.",
+      "value_context": "Reference card for a Human Rights Watch report documenting pressure tactics against protest organizers and their families during the post-2011 crackdown.",
       "semantic_tags": [
         "Ilia Klishin",
         "Human Rights Watch",
-        "human rights documentation",
-        "language-en",
-        "human-rights-context",
-        "source-verification",
-        "reference-0",
-        "year-2012",
-        "report",
-        "harassment",
-        "critics"
+        "Russia",
+        "protest crackdown",
+        "Center E",
+        "family intimidation",
+        "civil rights",
+        "2012"
       ],
       "slug": "en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context"
     },
@@ -17637,12 +17634,12 @@
     {
       "id": "en-107",
       "language": "EN",
-      "status": "draft",
+      "status": "ready",
       "date": "2015-01-30",
       "source": "Global Voices",
       "topic": "digital propaganda",
-      "title": "How Putin Secretly Conquered Russia's Social Media Over the Past 3 Years",
-      "digest": "An investigation into the gradual takeover of Russian social media through troll networks, agency ecosystems, and coordinated pressure on platforms and online communities.",
+      "title": "How Putin quietly took over Russian social media",
+      "digest": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
       "quote": "\"secretly conquered Russia's social media\" — Global Voices",
       "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
       "copies": {
@@ -17650,7 +17647,7 @@
         "DE": "de-107",
         "ES": "es-107"
       },
-      "summary": "An investigation into the gradual takeover of Russian social media through troll networks, agency ecosystems, and coordinated pressure on platforms and online communities.",
+      "summary": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
       "key_ideas": [
         "The article connects digital propaganda to a concrete historical and political context.",
         "Its core argument is developed without reductive propaganda framing.",
@@ -19325,6 +19322,74 @@
         "source-based summary"
       ],
       "slug": "es-118-foma-misconception-about-the-church"
+    },
+    {
+      "id": "en-119",
+      "language": "EN",
+      "status": "ready",
+      "date": "2015-04-21",
+      "source": "The Atlantic",
+      "topic": "media system analysis",
+      "title": "Atlantic feature cites Klishin on Putin’s media machine",
+      "digest": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
+      "quote": "\"Putin's most powerful weapon\" — The Atlantic",
+      "url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
+      "summary": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
+      "key_ideas": [
+        "The feature maps propaganda infrastructure through newsroom control and legal pressure.",
+        "It cites Klishin to explain asymmetry facing independent Russian media.",
+        "The article is included as external analysis, not an authored text."
+      ],
+      "quotes": [
+        "\"most powerful weapon\" — The Atlantic",
+        "\"independent media\" — The Atlantic"
+      ],
+      "value_context": "External feature card showing how Klishin's analysis was used by a major English outlet to explain structural media pressure in Russia.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Atlantic",
+        "Russian media system",
+        "media pressure",
+        "propaganda",
+        "independent media",
+        "year-2015",
+        "external feature"
+      ],
+      "slug": "en-119-atlantic-feature-cites-klishin-on-putins-media-machine"
+    },
+    {
+      "id": "en-120",
+      "language": "EN",
+      "status": "ready",
+      "date": "2021-03-10",
+      "source": "Bloomberg",
+      "topic": "platform crackdown",
+      "title": "Bloomberg quotes Klishin on Russia’s Twitter crackdown",
+      "digest": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
+      "quote": "\"slow down Twitter\" — Bloomberg",
+      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "summary": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
+      "key_ideas": [
+        "The report frames Twitter throttling as a calibrated pressure instrument.",
+        "Klishin is cited as an external analyst, not as the author.",
+        "The piece tracks escalation without a full platform shutdown."
+      ],
+      "quotes": [
+        "\"takes aim at Twitter\" — Bloomberg",
+        "\"stopping short of a full block\" — Bloomberg"
+      ],
+      "value_context": "External feature card documenting how Bloomberg used Klishin commentary while reporting Russia’s platform pressure strategy.",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Bloomberg",
+        "Twitter",
+        "Russia",
+        "platform regulation",
+        "media pressure",
+        "digital policy",
+        "2021"
+      ],
+      "slug": "en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown"
     }
   ],
   "card_format": "v1"
