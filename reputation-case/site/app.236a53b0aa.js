@@ -376,7 +376,9 @@ async function init() {
   const payload = await response.json();
   state.items = payload.items;
   state.publishedItems = state.items.filter((item) => isPublished(item) && !isReference(item));
-  updatedAt.textContent = payload.updated_at || "-";
+  if (updatedAt) {
+    updatedAt.textContent = payload.updated_at || "-";
+  }
   renderLanguageSwitch();
   bindEvents();
   bindCardInteractions(showcase);
