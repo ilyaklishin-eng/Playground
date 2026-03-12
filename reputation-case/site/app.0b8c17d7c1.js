@@ -158,54 +158,6 @@ function normalizeText(value) {
   return String(value || "").replace(/\s+/g, " ").trim();
 }
 
-function escapeHtml(value) {
-  return String(value || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function featuredDigestParagraphs(item) {
-  const raw = String(item?.summary || item?.digest || "").trim();
-  if (!raw) return [];
-
-  const paragraphs = raw
-    .split(/\n\s*\n/)
-    .map((paragraph) => normalizeText(paragraph))
-    .filter(Boolean);
-
-  if ((item?.id || "") === "en-009") {
-    const emphasis = "accurately predicted the weaponization of social media";
-    for (let i = 0; i < paragraphs.length; i += 1) {
-      if (paragraphs[i].includes(emphasis)) {
-        paragraphs[i] = paragraphs[i].replace(emphasis, `__EMPH__${emphasis}__EMPH__`);
-        break;
-      }
-    }
-  }
-
-  return paragraphs;
-}
-
-function renderFeaturedDigest(digestNode, item) {
-  const paragraphs = featuredDigestParagraphs(item);
-  if (paragraphs.length === 0) {
-    digestNode.textContent = "";
-    return;
-  }
-
-  const html = paragraphs
-    .map((paragraph) => {
-      const escaped = escapeHtml(paragraph).replace(/__EMPH__(.*?)__EMPH__/g, "<strong>$1</strong>");
-      return `<p>${escaped}</p>`;
-    })
-    .join("");
-
-  digestNode.innerHTML = html;
-}
-
 function stripLeadScaffolding(text) {
   return normalizeText(text)
     .replace(
@@ -582,18 +534,17 @@ function createCardNode(item, variant) {
   titleNode.appendChild(titleLink);
 
   node.querySelector(".card-meta").textContent = composeCardMeta(item);
-  const digestNode = node.querySelector(".card-digest");
-  if (variant === "featured") {
-    renderFeaturedDigest(digestNode, item);
-  } else {
-    digestNode.textContent = humanSummaryPreview(item, {
-      maxSentences: 2,
-      maxLength: 205,
-    });
-  }
+  const featuredFullDigest = normalizeText(item?.summary || item?.digest || "");
+  node.querySelector(".card-digest").textContent =
+    variant === "featured" && featuredFullDigest
+      ? featuredFullDigest
+      : humanSummaryPreview(item, {
+          maxSentences: 2,
+          maxLength: 205,
+        });
 
   const quoteNode = node.querySelector(".card-quote");
-  const quoteText = variant === "featured" && item?.id !== "en-009" ? pickCardQuote(item) : "";
+  const quoteText = variant === "featured" ? pickCardQuote(item) : "";
   if (quoteText) {
     quoteNode.textContent = quoteText;
     quoteNode.hidden = false;
