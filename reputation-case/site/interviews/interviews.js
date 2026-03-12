@@ -34,6 +34,14 @@ const state = {
   format: "all"
 };
 
+const INTERVIEW_EMOJI_POOL = [
+  "🎙️", "🎧", "🎥", "📺", "📻", "📚", "📖", "🗞️", "📰", "🗣️",
+  "💬", "🌍", "🌐", "🧭", "🧠", "🔎", "📡", "🎞️", "🧩", "📝",
+  "📌", "🧾", "🎚️", "🎛️", "🎤", "📣", "🛰️", "⏳", "⌛", "🔬",
+  "⚖️", "🛡️", "🏛️", "💡", "🔭", "📊", "📈", "📉", "🧵", "🪶",
+  "🧪", "🧬", "🗂️", "📁", "🪄", "✨", "⭐", "🌊", "🌤️", "🌙"
+];
+
 const sectionNodes = new Map();
 const template = document.getElementById("interviewCardTemplate");
 
@@ -133,7 +141,72 @@ function filterItems(items, section) {
   });
 }
 
+function pickUniqueEmoji(candidates, used, seed = 0) {
+  for (const emoji of candidates) {
+    if (emoji && !used.has(emoji)) return emoji;
+  }
+
+  for (const emoji of INTERVIEW_EMOJI_POOL) {
+    if (!used.has(emoji)) return emoji;
+  }
+
+  const len = INTERVIEW_EMOJI_POOL.length || 1;
+  for (let i = 0; i < len * len; i += 1) {
+    const first = INTERVIEW_EMOJI_POOL[(seed + i) % len];
+    const second = INTERVIEW_EMOJI_POOL[(seed * 5 + i * 3) % len];
+    const pair = `${first}${second}`;
+    if (!used.has(pair)) return pair;
+  }
+
+  return "✨";
+}
+
+function emojiCandidates(item) {
+  const format = String(item?.formatLabel || "").toLowerCase();
+  const section = String(item?.section || "").toLowerCase();
+  const language = String(item?.languageLabel || "").toLowerCase();
+  const blob = [item?.title, item?.description, item?.formatLabel].map((v) => String(v || "").toLowerCase()).join(" ");
+
+  if (/\bpodcast\b/.test(format) || /\bpodcast\b/.test(blob)) {
+    return ["🎙️", "🎧", "📻", "💬"];
+  }
+  if (/\bvideo\b/.test(format) || /\byoutube|broadcast|talk\b/.test(blob)) {
+    return ["🎥", "📺", "🎞️", "📡"];
+  }
+  if (/\btext\b/.test(format) || /\binterview|feature|essay\b/.test(blob)) {
+    return ["📰", "🗞️", "📝", "📖"];
+  }
+  if (/\bnabokov|book|reading|literature\b/.test(blob)) {
+    return ["📚", "📖", "🧠", "🔎"];
+  }
+  if (section === "features" || /\benglish\b/.test(language)) {
+    return ["🌍", "🌐", "🧭", "🗞️"];
+  }
+  if (section === "archive") {
+    return ["🧾", "⌛", "⏳", "🔎"];
+  }
+
+  return ["💬", "🧠", "🧭", "📰"];
+}
+
+function buildEmojiMap(items) {
+  const map = new Map();
+  const used = new Set();
+
+  items.forEach((item, index) => {
+    const key = String(item?.id || item?.url || `row-${index}`);
+    const emoji = pickUniqueEmoji(emojiCandidates(item), used, index);
+    map.set(key, emoji);
+    used.add(emoji);
+  });
+
+  return map;
+}
+
 function render() {
+  const visibleItems = preparedItems.filter((item) => matchesFormat(item));
+  const emojiById = buildEmojiMap(visibleItems);
+
   for (const section of SECTION_ORDER) {
     const container = sectionNodes.get(section);
     if (!container) continue;
@@ -151,13 +224,13 @@ function render() {
 
     const fragment = document.createDocumentFragment();
     for (const item of items) {
-      fragment.appendChild(renderCard(item));
+      fragment.appendChild(renderCard(item, emojiById));
     }
     container.appendChild(fragment);
   }
 }
 
-function renderCard(item) {
+function renderCard(item, emojiById) {
   const node = template.content.firstElementChild.cloneNode(true);
 
   const dateNode = node.querySelector(".chip-date");
@@ -171,7 +244,8 @@ function renderCard(item) {
 
   const titleLink = node.querySelector(".interview-title-link");
   titleLink.href = item.url;
-  titleLink.textContent = item.title;
+  const emoji = emojiById?.get(String(item?.id || item?.url || ""));
+  titleLink.textContent = emoji ? `${emoji} ${item.title}` : item.title;
   titleLink.setAttribute("itemprop", "name");
 
   const descriptionNode = node.querySelector(".interview-description");
