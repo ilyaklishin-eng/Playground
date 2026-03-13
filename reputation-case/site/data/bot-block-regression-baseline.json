@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "description": "Expected baseline for bot-facing 403/429 statuses. Keep this at zero unless a deliberate exception is documented.",
+  "max_total_403_429": 0,
+  "allowed": []
+}

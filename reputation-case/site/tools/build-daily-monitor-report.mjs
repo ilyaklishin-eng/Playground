@@ -7,6 +7,7 @@ const SITE_DIR = path.join(ROOT, "reputation-case", "site");
 const QA_REPORT_PATH = path.join(SITE_DIR, "qa-generated-assets-report.json");
 const SEO_AUDIT_REPORT_PATH = path.join(SITE_DIR, "seo-audit-report.json");
 const ENDPOINT_REPORT_PATH = path.join(SITE_DIR, "seo-endpoint-check-report.json");
+const BOT_BLOCK_REPORT_PATH = path.join(SITE_DIR, "bot-block-regression-report.json");
 
 const DEFAULT_MD_OUTPUT = path.join(SITE_DIR, "daily-monitor-report.md");
 const DEFAULT_JSON_OUTPUT = path.join(SITE_DIR, "daily-monitor-report.json");
@@ -85,7 +86,7 @@ const buildEndpointSlices = (endpointReport) => {
   };
 };
 
-const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, generatedAt }) => {
+const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, botBlockReport, slices, generatedAt }) => {
   const qaErrors = Number(qaReport?.totals?.errors || 0);
   const qaWarnings = Number(qaReport?.totals?.warnings || 0);
   const qaIndexable = qaReport?.totals?.indexable_items;
@@ -99,6 +100,8 @@ const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, gener
   const endpointTotal = Number(endpointReport?.totals?.checks || 0);
   const endpointFailed = Number(endpointReport?.totals?.failed || 0);
   const endpointPassed = Number(endpointReport?.totals?.passed || 0);
+  const bot403429 = Number(endpointReport?.totals?.bot_403_429 || 0);
+  const botBlockStatus = botBlockReport ? (String(botBlockReport?.status || "") === "passed" ? "PASS" : "FAIL") : "MISSING REPORT";
 
   const lines = [];
   lines.push("# Daily Indexability and Bot-Access Report");
@@ -109,6 +112,7 @@ const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, gener
   lines.push(`- QA generated assets: ${qaReport ? (qaErrors === 0 ? "PASS" : "FAIL") : "MISSING REPORT"}`);
   lines.push(`- SEO audit: ${seoAuditReport ? (seoIssueCount === 0 ? "PASS" : "FAIL") : "MISSING REPORT"}`);
   lines.push(`- Endpoint bot-access check: ${endpointReport ? (endpointFailed === 0 ? "PASS" : "FAIL") : "MISSING REPORT"}`);
+  lines.push(`- Bot 403/429 regression gate: ${botBlockStatus}`);
   lines.push("");
   lines.push("## Indexability Snapshot");
   lines.push(`- Indexable items: ${fmt(qaIndexable)}`);
@@ -126,6 +130,16 @@ const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, gener
   lines.push(`- Total endpoint checks: ${fmt(endpointTotal)}`);
   lines.push(`- Passed: ${fmt(endpointPassed)}`);
   lines.push(`- Failed: ${fmt(endpointFailed)}`);
+  lines.push(`- Bot 403/429 hits: ${fmt(bot403429)}`);
+  lines.push("");
+  lines.push("### Bot 403/429 regression");
+  if (!botBlockReport) {
+    lines.push("- report missing");
+  } else {
+    lines.push(`- Status: ${fmt(botBlockReport.status)}`);
+    lines.push(`- Unexpected 403/429 hits: ${fmt(botBlockReport?.totals?.unexpected_403_429, "0")}`);
+    lines.push(`- Max allowed: ${fmt(botBlockReport?.totals?.max_allowed_403_429, "0")}`);
+  }
   lines.push("");
   lines.push("### Failed checks by user-agent");
   if (slices.failuresByUa.length === 0) {
@@ -161,10 +175,21 @@ const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, gener
     lines.push("");
   }
 
+  if (Array.isArray(botBlockReport?.sample) && botBlockReport.sample.length > 0) {
+    lines.push("## Bot 403/429 Sample");
+    for (const failure of botBlockReport.sample.slice(0, 12)) {
+      lines.push(
+        `- ${failure.path} | ${failure.user_agent} | ${Array.isArray(failure.statuses) ? failure.statuses.join(",") : "n/a"}`
+      );
+    }
+    lines.push("");
+  }
+
   lines.push("## Source Reports");
   lines.push(`- ${path.relative(ROOT, QA_REPORT_PATH)}`);
   lines.push(`- ${path.relative(ROOT, SEO_AUDIT_REPORT_PATH)}`);
   lines.push(`- ${path.relative(ROOT, ENDPOINT_REPORT_PATH)}`);
+  lines.push(`- ${path.relative(ROOT, BOT_BLOCK_REPORT_PATH)}`);
   lines.push("");
 
   return lines.join("\n");
@@ -173,10 +198,11 @@ const buildMarkdown = ({ qaReport, seoAuditReport, endpointReport, slices, gener
 const main = async () => {
   const opts = parseArgs(process.argv.slice(2));
 
-  const [qaReport, seoAuditReport, endpointReport] = await Promise.all([
+  const [qaReport, seoAuditReport, endpointReport, botBlockReport] = await Promise.all([
     readJsonSafe(QA_REPORT_PATH),
     readJsonSafe(SEO_AUDIT_REPORT_PATH),
     readJsonSafe(ENDPOINT_REPORT_PATH),
+    readJsonSafe(BOT_BLOCK_REPORT_PATH),
   ]);
 
   const generatedAt = new Date().toISOString();
@@ -193,15 +219,18 @@ const main = async () => {
       seo_issue_entries: countArrayValues(seoAuditReport?.issues || {}),
       endpoint_failed: Number(endpointReport?.totals?.failed || 0),
       endpoint_total: Number(endpointReport?.totals?.checks || 0),
+      bot_403_429: Number(endpointReport?.totals?.bot_403_429 || 0),
+      bot_block_regression_status: botBlockReport?.status || "missing",
     },
     endpoint_failures: {
       by_user_agent: slices.failuresByUa.map(([user_agent, count]) => ({ user_agent, count })),
       by_path: slices.failuresByPath.map(([pathName, count]) => ({ path: pathName, count })),
       sample: slices.sample,
     },
+    bot_403_429_regression: botBlockReport || null,
   };
 
-  const markdown = buildMarkdown({ qaReport, seoAuditReport, endpointReport, slices, generatedAt });
+  const markdown = buildMarkdown({ qaReport, seoAuditReport, endpointReport, botBlockReport, slices, generatedAt });
 
   await fs.mkdir(path.dirname(opts.mdOut), { recursive: true });
   await fs.mkdir(path.dirname(opts.jsonOut), { recursive: true });

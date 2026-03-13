@@ -45,6 +45,18 @@ const USER_AGENTS_BASE = [
     value: "Mozilla/5.0 (compatible; klishin-work-monitor/1.0; +https://www.klishin.work/)",
   },
   {
+    id: "googlebot",
+    value: "Googlebot/2.1 (+http://www.google.com/bot.html)",
+  },
+  {
+    id: "bingbot",
+    value: "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+  },
+  {
+    id: "yandexbot",
+    value: "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)",
+  },
+  {
     id: "chatgpt_user",
     value: "ChatGPT-User/1.0 (+https://openai.com/bot)",
   },
@@ -64,11 +76,21 @@ const USER_AGENTS_BASE = [
     id: "gptbot",
     value: "GPTBot/1.0 (+https://openai.com/gptbot)",
   },
+  {
+    id: "claude_bot",
+    value: "ClaudeBot/1.0 (+https://www.anthropic.com/)",
+  },
+  {
+    id: "anthropic_ai",
+    value: "anthropic-ai/1.0 (+https://www.anthropic.com/)",
+  },
 ];
 const USER_AGENTS = USER_AGENTS_BASE;
+const BOT_USER_AGENT_IDS = USER_AGENTS.filter((ua) => ua.id !== "browser").map((ua) => ua.id);
 
 const ALLOWED_STATUS = new Set([200, 301, 302, 303, 307, 308]);
 const BLOCKED_STATUS = new Set([401, 403, 406, 409, 410, 423, 429, 451, 500, 502, 503, 504, 520, 521, 522, 523, 524]);
+const BLOCKED_ALERT_STATUS = new Set([403, 429]);
 const CHALLENGE_PATTERNS = [/cf-chl/i, /challenge-platform/i, /just a moment/i, /captcha/i, /attention required/i];
 
 const parseArgs = (argv) => {
@@ -204,12 +226,72 @@ const runChecks = async (domain) => {
   return checks;
 };
 
+const buildBlockedSummary = (checks) => {
+  const blockedChecks = [];
+  const byUa = new Map();
+  const byPath = new Map();
+  const byStatus = new Map();
+
+  for (const check of checks) {
+    const statuses = Array.isArray(check?.hops) ? check.hops.map((hop) => Number(hop?.status || 0)) : [];
+    const matchedStatuses = [...new Set(statuses.filter((status) => BLOCKED_ALERT_STATUS.has(status)))];
+    if (matchedStatuses.length === 0) continue;
+
+    const userAgent = String(check?.user_agent || "");
+    const pathName = String(check?.path || "");
+    const isBot = BOT_USER_AGENT_IDS.includes(userAgent);
+    const entry = {
+      path: pathName,
+      scheme: check?.scheme || "unknown",
+      user_agent: userAgent,
+      final_status: Number(check?.final_status || 0),
+      statuses: matchedStatuses,
+      hops: Array.isArray(check?.hops) ? check.hops : [],
+      ok: Boolean(check?.ok),
+      bot: isBot,
+    };
+    blockedChecks.push(entry);
+
+    if (isBot) {
+      byUa.set(userAgent, (byUa.get(userAgent) || 0) + 1);
+      byPath.set(pathName, (byPath.get(pathName) || 0) + 1);
+      for (const status of matchedStatuses) {
+        byStatus.set(String(status), (byStatus.get(String(status)) || 0) + 1);
+      }
+    }
+  }
+
+  const toSortedEntries = (map) =>
+    [...map.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([key, count]) => ({ key, count }));
+
+  const botBlockedChecks = blockedChecks.filter((entry) => entry.bot);
+
+  return {
+    all: {
+      total: blockedChecks.length,
+      entries: blockedChecks,
+      sample: blockedChecks.slice(0, 50),
+    },
+    bots: {
+      total: botBlockedChecks.length,
+      by_user_agent: toSortedEntries(byUa),
+      by_path: toSortedEntries(byPath),
+      by_status: toSortedEntries(byStatus),
+      entries: botBlockedChecks,
+      sample: botBlockedChecks.slice(0, 50),
+    },
+  };
+};
+
 const main = async () => {
   const opts = parseArgs(process.argv.slice(2));
   const domain = normalizeDomain(opts.domain);
   const checks = await runChecks(domain);
 
   const failed = checks.filter((x) => !x.ok);
+  const blockedSummary = buildBlockedSummary(checks);
   const report = {
     generated_at: new Date().toISOString(),
     domain,
@@ -219,7 +301,10 @@ const main = async () => {
       checks: checks.length,
       passed: checks.length - failed.length,
       failed: failed.length,
+      bot_403_429: blockedSummary.bots.total,
+      any_403_429: blockedSummary.all.total,
     },
+    blocked_403_429: blockedSummary,
     checks,
   };
 

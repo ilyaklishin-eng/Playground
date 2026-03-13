@@ -55,6 +55,11 @@ jobs:
           GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
         run: node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://www.klishin.work" --report
 
+      - name: Bot 403/429 regression gate
+        id: bot_block_regression
+        continue-on-error: true
+        run: node reputation-case/site/tools/check-bot-block-regression.mjs
+
       - name: Build consolidated daily monitoring report
         if: always()
         run: |
@@ -82,6 +87,7 @@ jobs:
             reputation-case/site/qa-generated-assets-report.json
             reputation-case/site/seo-audit-report.json
             reputation-case/site/seo-endpoint-check-report.json
+            reputation-case/site/bot-block-regression-report.json
             reputation-case/site/daily-monitor-report.md
             reputation-case/site/daily-monitor-report.json
 
@@ -92,12 +98,14 @@ jobs:
           echo "qa=${{ steps.qa.outcome }}"
           echo "seo_audit=${{ steps.seo_audit.outcome }}"
           echo "endpoints=${{ steps.endpoints.outcome }}"
+          echo "bot_block_regression=${{ steps.bot_block_regression.outcome }}"
 
           FAIL=0
           [ "${{ steps.build.outcome }}" = "success" ] || FAIL=1
           [ "${{ steps.qa.outcome }}" = "success" ] || FAIL=1
           [ "${{ steps.seo_audit.outcome }}" = "success" ] || FAIL=1
           [ "${{ steps.endpoints.outcome }}" = "success" ] || FAIL=1
+          [ "${{ steps.bot_block_regression.outcome }}" = "success" ] || FAIL=1
 
           if [ "$FAIL" -ne 0 ]; then
             echo "One or more indexability/bot-access checks failed."
