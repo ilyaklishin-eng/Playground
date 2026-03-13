@@ -184,11 +184,6 @@ const SELECTED_SECTION_CONFIG = [
     intro: "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
   },
   {
-    id: "volna",
-    title: "Volna / Diaspora Media",
-    intro: "Work on editorial products and audience needs in post-2022 exile environments.",
-  },
-  {
     id: "literature",
     title: "Literature / Essays / Cultural Commentary",
     intro: "Texts on culture, representation, and symbolic politics in public discourse.",
@@ -587,7 +582,7 @@ const classifySelectedSection = (item = {}) => {
   const blob = `${title} ${topic} ${source}`;
 
   if (/\b(volna|diaspora|emigrant|exile|refugee|migration)\b/.test(blob)) {
-    return "volna";
+    return "media-strategy";
   }
   if (/\b(cultural|culture|literature|essay|cinema|representation|stephen king|film)\b/.test(blob)) {
     return "literature";
