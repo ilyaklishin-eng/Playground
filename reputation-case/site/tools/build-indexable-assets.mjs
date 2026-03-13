@@ -2224,6 +2224,8 @@ const replaceFirstJsonLdScript = (html = "", payload = {}) => {
 
 const applyStaticEntityLayer = async (entries = []) => {
   const buildIso = latestBuildIso(entries);
+  const digestsGitLastmod =
+    (await gitLastmodForAbsolutePath(path.join(siteDir, "data", "digests.json"), buildIso)) || buildIso;
   for (const relativePath of STATIC_ENTITY_SECTIONS) {
     const fullPath = path.join(siteDir, relativePath);
     let html;
@@ -2247,7 +2249,7 @@ const applyStaticEntityLayer = async (entries = []) => {
     if (canonical !== homeUrl) {
       breadcrumbItems.push({ name: sectionLabelForLang(sectionKey, htmlLang), url: canonical });
     }
-    const modifiedIso = await gitLastmodForAbsolutePath(fullPath, buildIso);
+    const modifiedIso = digestsGitLastmod;
 
     const existingGraph = parseFirstJsonLdGraph(html);
     const preservedNodes = retainedStaticNodes(existingGraph);

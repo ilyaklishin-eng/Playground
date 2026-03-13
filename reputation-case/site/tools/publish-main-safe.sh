@@ -106,26 +106,25 @@ if [[ "$NO_BUILD" -eq 0 ]]; then
     node reputation-case/site/tools/build-indexable-assets.mjs
     node reputation-case/site/tools/qa-generated-assets.mjs
 
-    if has_changes; then
-      echo "==> Committing generated asset sync (pass ${PASS})"
-      git add -A
-      if [[ "$PASS" -eq 1 ]]; then
-        git commit -m "chore(site): sync generated public assets with build pipeline"
-      else
-        git commit -m "chore(site): converge generated assets for git-lastmod alignment (pass ${PASS})"
-      fi
-      PASS=$((PASS + 1))
-      continue
+    if ! has_changes; then
+      echo "==> Generated assets converged on pass ${PASS}"
+      break
     fi
 
-    echo "==> Generated assets converged on pass ${PASS}"
-    break
-  done
+    if [[ "$PASS" -eq "$MAX_PASSES" ]]; then
+      echo "Generated assets still changing at pass ${PASS}; refusing to push non-converged output." >&2
+      exit 1
+    fi
 
-  if has_changes; then
-    echo "Generated assets still changing after ${MAX_PASSES} passes." >&2
-    exit 1
-  fi
+    echo "==> Committing generated asset sync (pass ${PASS})"
+    git add -A
+    if [[ "$PASS" -eq 1 ]]; then
+      git commit -m "chore(site): sync generated public assets with build pipeline"
+    else
+      git commit -m "chore(site): converge generated assets for git-lastmod alignment (pass ${PASS})"
+    fi
+    PASS=$((PASS + 1))
+  done
 fi
 
 if [[ "$DRY_RUN" -eq 1 ]]; then
