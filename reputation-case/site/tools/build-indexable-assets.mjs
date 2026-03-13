@@ -65,6 +65,12 @@ const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
 const PERSON_ALT_NAMES = ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"];
 const PERSON_SAME_AS = [
+  "https://www.linkedin.com/in/ilia-klishin-20282a1b/",
+  "https://x.com/Vorewig",
+  "https://www.instagram.com/vorewig",
+  "https://www.facebook.com/ilya.klishin",
+  "https://t.me/vorewig",
+  "https://t.me/bookswithklishin",
   "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
   "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
   "https://www.ted.com/tedx/events/3947",
@@ -81,10 +87,39 @@ const WEBSITE_HAS_PART = [
   `${baseUrl}/bio/#webpage`,
   `${baseUrl}/cases/#webpage`,
   `${baseUrl}/contact/#webpage`,
+  `${baseUrl}/interviews/#collectionpage`,
   `${baseUrl}/selected/#webpage`,
   `${baseUrl}/search/#webpage`,
   `${baseUrl}/insights/#webpage`,
   `${baseUrl}/archive/#webpage`,
+  `${baseUrl}/posts/index.html#webpage`,
+];
+const STATIC_ENTITY_SECTIONS = [
+  "index.html",
+  "fr/index.html",
+  "de/index.html",
+  "es/index.html",
+  "bio/index.html",
+  "bio/fr/index.html",
+  "bio/de/index.html",
+  "bio/es/index.html",
+  "cases/index.html",
+  "cases/fr/index.html",
+  "cases/de/index.html",
+  "cases/es/index.html",
+  "selected/index.html",
+  "interviews/index.html",
+  "interviews/fr/index.html",
+  "interviews/de/index.html",
+  "interviews/es/index.html",
+  "archive/index.html",
+  "insights/index.html",
+  "insights/fr/index.html",
+  "insights/de/index.html",
+  "insights/es/index.html",
+  "contact/index.html",
+  "about/index.html",
+  "search/index.html",
 ];
 const INDEXABLE_STATIC_SECTIONS = [
   "fr/index.html",
@@ -2014,6 +2049,242 @@ const applyStaticSocialPreviewPolicies = async () => {
   }
 };
 
+const FIRST_JSONLD_SCRIPT_RE = /<script type=["']application\/ld\+json["']>\s*([\s\S]*?)\s*<\/script>/i;
+
+const STATIC_ENTITY_RETENTION_TYPES = new Set(["FAQPage", "ItemList", "QAPage", "ClaimReview"]);
+
+const STATIC_SECTION_LABELS = {
+  en: {
+    home: "Home",
+    bio: "Bio",
+    cases: "Case notes",
+    selected: "Selected Work",
+    interviews: "Interviews",
+    contact: "Contact",
+    archive: "Archive",
+    insights: "Research archive",
+    search: "Search",
+    about: "About",
+    posts: "Posts",
+    page: "Page",
+  },
+  fr: {
+    home: "Accueil",
+    bio: "Bio",
+    cases: "Notes de cas",
+    selected: "Travaux selectionnes",
+    interviews: "Entretiens",
+    contact: "Contact",
+    archive: "Archive",
+    insights: "Archive de recherche",
+    search: "Recherche",
+    about: "A propos",
+    posts: "Articles",
+    page: "Page",
+  },
+  de: {
+    home: "Startseite",
+    bio: "Bio",
+    cases: "Falldokumentation",
+    selected: "Ausgewaehlte Arbeiten",
+    interviews: "Interviews",
+    contact: "Kontakt",
+    archive: "Archiv",
+    insights: "Recherchearchiv",
+    search: "Suche",
+    about: "Ueber",
+    posts: "Beitraege",
+    page: "Seite",
+  },
+  es: {
+    home: "Inicio",
+    bio: "Bio",
+    cases: "Notas de casos",
+    selected: "Trabajo seleccionado",
+    interviews: "Entrevistas",
+    contact: "Contacto",
+    archive: "Archivo",
+    insights: "Archivo de investigacion",
+    search: "Busqueda",
+    about: "Acerca de",
+    posts: "Publicaciones",
+    page: "Pagina",
+  },
+};
+
+const extractHtmlLang = (html = "") => {
+  const match = String(html || "").match(/<html[^>]*\blang=["']([^"']+)["']/i);
+  const lang = String(match?.[1] || "en").trim().slice(0, 2).toLowerCase();
+  return ["en", "fr", "de", "es"].includes(lang) ? lang : "en";
+};
+
+const extractCanonicalHref = (html = "", fallbackRelativePath = "index.html") => {
+  const source = String(html || "");
+  const match = source.match(
+    /<link\s+[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*\/?>|<link\s+[^>]*href=["']([^"']+)["'][^>]*rel=["']canonical["'][^>]*\/?>/i
+  );
+  const href = String(match?.[1] || match?.[2] || "").trim();
+  return href || canonicalUrl(fallbackRelativePath);
+};
+
+const extractHeadTitle = (html = "") => {
+  const match = String(html || "").match(/<title>([\s\S]*?)<\/title>/i);
+  return htmlToText(match?.[1] || "").trim();
+};
+
+const extractMetaDescription = (html = "") => {
+  const match = String(html || "").match(
+    /<meta\s+[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*\/?>|<meta\s+[^>]*content=["']([^"']*)["'][^>]*name=["']description["'][^>]*\/?>/i
+  );
+  return decodeHtmlEntities(String(match?.[1] || match?.[2] || "")).trim();
+};
+
+const parseFirstJsonLdGraph = (html = "") => {
+  const match = String(html || "").match(FIRST_JSONLD_SCRIPT_RE);
+  if (!match) return [];
+  try {
+    const parsed = JSON.parse(match[1]);
+    if (Array.isArray(parsed?.["@graph"])) return parsed["@graph"];
+    if (parsed && typeof parsed === "object") return [parsed];
+    return [];
+  } catch {
+    return [];
+  }
+};
+
+const inferStaticSectionKey = (relativePath = "") => {
+  const clean = String(relativePath || "").replace(/^\/+/, "");
+  if (!clean) return "home";
+  if (clean === "index.html" || /^(fr|de|es)\/index\.html$/i.test(clean)) return "home";
+  const first = clean.split("/")[0].toLowerCase();
+  if (
+    ["bio", "cases", "selected", "interviews", "contact", "archive", "insights", "search", "about", "posts"].includes(
+      first
+    )
+  ) {
+    return first;
+  }
+  return "page";
+};
+
+const inferStaticPageType = (relativePath = "") => {
+  const clean = String(relativePath || "").replace(/^\/+/, "").toLowerCase();
+  if (clean.startsWith("contact/")) return "ContactPage";
+  if (clean.startsWith("bio/") || clean.startsWith("cases/")) return "ProfilePage";
+  if (
+    clean.startsWith("selected/") ||
+    clean.startsWith("interviews/") ||
+    clean.startsWith("archive/") ||
+    clean.startsWith("insights/") ||
+    clean.startsWith("posts/")
+  ) {
+    return "CollectionPage";
+  }
+  return "WebPage";
+};
+
+const inferPageNodeId = (canonical = "", relativePath = "", pageType = "WebPage") => {
+  const clean = String(relativePath || "").replace(/^\/+/, "").toLowerCase();
+  if (clean.startsWith("interviews/")) return `${canonical}#collectionpage`;
+  if (pageType === "CollectionPage" && clean.startsWith("posts/")) return `${canonical}#webpage`;
+  return `${canonical}#webpage`;
+};
+
+const languageHomeUrl = (htmlLang = "en") =>
+  htmlLang === "en" ? canonicalUrl("index.html") : canonicalUrl(`${htmlLang}/index.html`);
+
+const sectionLabelForLang = (sectionKey = "page", htmlLang = "en") => {
+  const pack = STATIC_SECTION_LABELS[htmlLang] || STATIC_SECTION_LABELS.en;
+  return pack[sectionKey] || pack.page;
+};
+
+const retainedStaticNodes = (nodes = []) => {
+  const retained = [];
+  const seen = new Set();
+  for (const node of Array.isArray(nodes) ? nodes : []) {
+    if (!node || typeof node !== "object") continue;
+    const type = String(node["@type"] || "").trim();
+    if (!STATIC_ENTITY_RETENTION_TYPES.has(type)) continue;
+    const key = String(node["@id"] || `${type}:${JSON.stringify(node)}`);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    retained.push(node);
+  }
+  return retained;
+};
+
+const replaceFirstJsonLdScript = (html = "", payload = {}) => {
+  const script = `<script type="application/ld+json">\n${JSON.stringify(payload, null, 2)}\n    </script>`;
+  if (FIRST_JSONLD_SCRIPT_RE.test(html)) {
+    return html.replace(FIRST_JSONLD_SCRIPT_RE, script);
+  }
+  return html.replace(/<\/head>/i, `    ${script}\n  </head>`);
+};
+
+const applyStaticEntityLayer = async (entries = []) => {
+  const buildIso = latestBuildIso(entries);
+  for (const relativePath of STATIC_ENTITY_SECTIONS) {
+    const fullPath = path.join(siteDir, relativePath);
+    let html;
+    try {
+      html = await fs.readFile(fullPath, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+
+    const htmlLang = extractHtmlLang(html);
+    const canonical = extractCanonicalHref(html, relativePath);
+    const title = extractHeadTitle(html) || sectionLabelForLang(inferStaticSectionKey(relativePath), htmlLang);
+    const description = extractMetaDescription(html);
+    const sectionKey = inferStaticSectionKey(relativePath);
+    const pageType = inferStaticPageType(relativePath);
+    const pageId = inferPageNodeId(canonical, relativePath, pageType);
+    const breadcrumbId = `${canonical}#breadcrumb`;
+    const homeUrl = languageHomeUrl(htmlLang);
+    const breadcrumbItems = [{ name: sectionLabelForLang("home", htmlLang), url: homeUrl }];
+    if (canonical !== homeUrl) {
+      breadcrumbItems.push({ name: sectionLabelForLang(sectionKey, htmlLang), url: canonical });
+    }
+    const modifiedIso = await gitLastmodForAbsolutePath(fullPath, buildIso);
+
+    const existingGraph = parseFirstJsonLdGraph(html);
+    const preservedNodes = retainedStaticNodes(existingGraph);
+    const firstItemListId = preservedNodes.find((node) => node?.["@type"] === "ItemList" && node?.["@id"])?.["@id"];
+
+    const { person, organization, website } = buildCoreEntities();
+    const breadcrumb = buildBreadcrumbList(breadcrumbId, breadcrumbItems);
+    const pageNode = {
+      "@type": pageType,
+      "@id": pageId,
+      url: canonical,
+      name: title,
+      description: description || undefined,
+      inLanguage: htmlLang,
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": PERSON_ID },
+      author: { "@id": PERSON_ID },
+      publisher: { "@id": ORGANIZATION_ID },
+      breadcrumb: { "@id": breadcrumbId },
+      dateModified: modifiedIso || undefined,
+    };
+
+    if (pageType === "ProfilePage") {
+      pageNode.mainEntity = { "@id": PERSON_ID };
+    } else if (pageType === "CollectionPage" && firstItemListId) {
+      pageNode.mainEntity = { "@id": firstItemListId };
+    }
+
+    const payload = {
+      "@context": "https://schema.org",
+      "@graph": [person, organization, website, breadcrumb, pageNode, ...preservedNodes],
+    };
+
+    const nextHtml = replaceFirstJsonLdScript(html, payload);
+    await fs.writeFile(fullPath, nextHtml, "utf8");
+  }
+};
+
 const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToStatus = new Map()) => {
   const itemId = String(item?.id || "").trim();
   const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
@@ -2057,6 +2328,35 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     { name: "Posts", url: canonicalUrl("posts/index.html") },
     { name: displayTitle, url: canonical },
   ]);
+  const sourceName = normalizeText(item.source || "");
+  const sourceOrigin = sourceLink
+    ? (() => {
+        try {
+          return new URL(sourceLink).origin;
+        } catch {
+          return undefined;
+        }
+      })()
+    : undefined;
+  const sourceNodeId = sourceLink ? `${canonical}#source` : undefined;
+  const sourceOrganization =
+    sourceNodeId && sourceName
+      ? {
+          "@type": "Organization",
+          "@id": sourceNodeId,
+          name: sourceName,
+          url: sourceOrigin || sourceLink,
+        }
+      : undefined;
+  const basedOn =
+    sourceLink
+      ? {
+          "@type": "CreativeWork",
+          url: sourceLink,
+          name: sourceName || "Original source",
+          publisher: sourceOrganization ? { "@id": sourceNodeId } : undefined,
+        }
+      : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -2064,6 +2364,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
       organization,
       website,
       breadcrumb,
+      ...(sourceOrganization ? [sourceOrganization] : []),
       {
         "@type": "WebPage",
         "@id": pageId,
@@ -2081,24 +2382,15 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         inLanguage: htmlLang,
         datePublished: publishedIso,
         dateModified: modifiedIso,
-        author: {
-          "@type": "Person",
-          "@id": PERSON_ID,
-          name: PERSON_NAME,
-          url: canonicalUrl("index.html"),
-        },
-        publisher: {
-          "@type": "Organization",
-          "@id": ORGANIZATION_ID,
-          name: DIGEST_NAME,
-          url: canonicalUrl("index.html"),
-        },
+        author: { "@id": PERSON_ID },
+        publisher: { "@id": ORGANIZATION_ID },
         isPartOf: { "@id": WEBSITE_ID },
         mainEntityOfPage: { "@id": pageId },
         about: { "@id": PERSON_ID },
         url: canonical,
         citation: sourceLink || undefined,
-        isBasedOn: sourceLink || undefined,
+        isBasedOn: basedOn,
+        mentions: sourceOrganization ? { "@id": sourceNodeId } : undefined,
         keywords: publicSemanticTags.length > 0 ? publicSemanticTags.join(", ") : undefined,
         isAccessibleForFree: true,
       },
@@ -2698,6 +2990,7 @@ const main = async () => {
   await updateHomeHtmlFirstCards(indexableEntries);
   await applyStaticRobotsPolicies();
   await applyStaticSocialPreviewPolicies();
+  await applyStaticEntityLayer(entries);
   const fingerprintedAssets = await fingerprintStaticAssets();
 
   console.log(

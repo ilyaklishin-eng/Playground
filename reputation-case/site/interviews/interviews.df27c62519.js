@@ -272,27 +272,48 @@ function normalizeIsoDate(raw) {
 
 function injectStructuredData() {
   const visibleItems = preparedItems;
+  const canonical =
+    document.querySelector('link[rel="canonical"]')?.getAttribute("href") || "https://www.klishin.work/interviews/";
+  const itemListId = `${canonical}#itemlist`;
+  const websiteId = "https://www.klishin.work/#website";
+  const personId = "https://www.klishin.work/#person";
   const listElements = visibleItems.map((item, index) => ({
     "@type": "ListItem",
     position: index + 1,
     item: {
       "@type": "CreativeWork",
+      "@id": `${canonical}#interview-${index + 1}`,
       name: item.title,
-      inLanguage: uiLang,
+      inLanguage: String(item.language || uiLang).slice(0, 2).toLowerCase(),
       datePublished: normalizeIsoDate(item.date) || undefined,
       url: item.url,
-      description: item.description
+      description: item.description,
+      author: { "@id": personId },
+      isBasedOn: item.url
     }
   }));
 
   const script = document.createElement("script");
   script.type = "application/ld+json";
-  script.textContent = JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: ACTIVE_COPY.listName,
-    itemListElement: listElements
-  });
+  script.textContent = JSON.stringify(
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ItemList",
+          "@id": itemListId,
+          name: ACTIVE_COPY.listName,
+          itemListOrder: "https://schema.org/ItemListOrderDescending",
+          numberOfItems: listElements.length,
+          itemListElement: listElements,
+          isPartOf: { "@id": websiteId },
+          about: { "@id": personId }
+        }
+      ]
+    },
+    null,
+    2
+  );
 
   document.head.appendChild(script);
 }
