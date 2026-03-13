@@ -5447,40 +5447,6 @@
       "slug": "de-143-privater-autoritarismus-wie-facebook-und-google-die-demokratie-bedrohen"
     },
     {
-      "id": "de-144",
-      "language": "DE",
-      "status": "ready",
-      "date": "2023-03-31",
-      "source": "Detector Media",
-      "topic": "media industry conflict",
-      "title": "Konflikt bei Current Time um eine moegliche Ernennung von Ilia Klishin",
-      "digest": "Der Detector-Media-Beitrag dokumentiert einen internen Konflikt um eine moegliche Fuehrungsposition bei Current Time. Laut Text wurden aeltere Aussagen im Streit erneut verbreitet und als zentrales Argument gegen die Ernennung eingesetzt.",
-      "quote": "\"Konflikt bei Current Time\" - Detector Media",
-      "url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
-      "summary": "Der Detector-Media-Beitrag dokumentiert einen internen Konflikt um eine moegliche Fuehrungsposition bei Current Time. Laut Text wurden aeltere Aussagen im Streit erneut verbreitet und als zentrales Argument gegen die Ernennung eingesetzt.",
-      "key_ideas": [
-        "Der Bericht erfasst einen oeffentlich gefuehrten Redaktionskonflikt aus 2023.",
-        "Archivierte Aussagen wurden im Ernennungsstreit erneut instrumentalisiert.",
-        "Die Karte sichert eine externe Quelle zur Konfliktberichterstattung."
-      ],
-      "quotes": [
-        "\"moegliche Ernennung\" - Detector Media",
-        "\"Konflikt\" - Detector Media"
-      ],
-      "value_context": "Referenzeintrag zur Current-Time-Kontroverse von 2023 und zur oeffentlichen Rahmung des Vorgangs.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Detector Media",
-        "media industry conflict",
-        "2023",
-        "external reference",
-        "language-de"
-      ],
-      "slug": "de-144-konflikt-bei-current-time-um-eine-moegliche-ernennung-von-ilia-klishin",
-      "relation": "reference",
-      "source_en_id": "en-144"
-    },
-    {
       "id": "de-145",
       "language": "DE",
       "status": "ready",
@@ -11809,44 +11775,6 @@
       "slug": "en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy"
     },
     {
-      "id": "en-144",
-      "language": "EN",
-      "status": "ready",
-      "date": "2023-03-31",
-      "source": "Detector Media",
-      "topic": "media industry conflict",
-      "title": "Conflict in Current Time TV over possible appointment of Ilya Klishin",
-      "digest": "This Detector Media report documents an internal conflict around a proposed managerial appointment at Current Time. The article says archived statements were recirculated during the dispute and became a central argument against the candidacy in a tense newsroom environment.",
-      "quote": "\"Conflict in Current Time TV\" - Detector Media",
-      "url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
-      "summary": "This Detector Media report documents an internal conflict around a proposed managerial appointment at Current Time. The article says archived statements were recirculated during the dispute and became a central argument against the candidacy in a tense newsroom environment.",
-      "key_ideas": [
-        "The report records a 2023 newsroom governance dispute in public view.",
-        "Archived statements were recirculated as evidence in appointment opposition.",
-        "The card is a source record of media framing around conflict."
-      ],
-      "quotes": [
-        "\"possible appointment\" - Detector Media",
-        "\"Conflict in Current Time TV\" - Detector Media"
-      ],
-      "value_context": "Reference entry for the 2023 Current Time controversy and how the dispute was publicly framed in a Ukrainian media outlet.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Detector Media",
-        "media industry conflict",
-        "2023",
-        "external reference",
-        "language-en"
-      ],
-      "slug": "en-144-conflict-in-current-time-tv-over-possible-appointment-of-ilya-klishin",
-      "relation": "reference",
-      "copies": {
-        "FR": "fr-144",
-        "DE": "de-144",
-        "ES": "es-144"
-      }
-    },
-    {
       "id": "en-145",
       "language": "EN",
       "status": "ready",
@@ -17594,40 +17522,6 @@
       "slug": "es-143-autoritarismo-privado-como-facebook-y-google-amenazan-la-democracia"
     },
     {
-      "id": "es-144",
-      "language": "ES",
-      "status": "ready",
-      "date": "2023-03-31",
-      "source": "Detector Media",
-      "topic": "media industry conflict",
-      "title": "Conflicto en Current Time por un posible nombramiento de Ilia Klishin",
-      "digest": "Este texto de Detector Media documenta un conflicto interno sobre un posible nombramiento directivo en Current Time. El articulo sostiene que declaraciones antiguas volvieron a circular durante la disputa y se usaron como argumento central contra la candidatura.",
-      "quote": "\"Conflicto en Current Time\" - Detector Media",
-      "url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
-      "summary": "Este texto de Detector Media documenta un conflicto interno sobre un posible nombramiento directivo en Current Time. El articulo sostiene que declaraciones antiguas volvieron a circular durante la disputa y se usaron como argumento central contra la candidatura.",
-      "key_ideas": [
-        "El reporte recoge una disputa publica de gobernanza editorial en 2023.",
-        "Se reutilizaron citas de archivo como argumento contra la candidatura.",
-        "La tarjeta conserva una fuente externa sobre el encuadre del conflicto."
-      ],
-      "quotes": [
-        "\"posible nombramiento\" - Detector Media",
-        "\"conflicto\" - Detector Media"
-      ],
-      "value_context": "Entrada de referencia sobre la controversia de Current Time en 2023 y su representacion en un medio ucraniano.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Detector Media",
-        "media industry conflict",
-        "2023",
-        "external reference",
-        "language-es"
-      ],
-      "slug": "es-144-conflicto-en-current-time-por-un-posible-nombramiento-de-ilia-klishin",
-      "relation": "reference",
-      "source_en_id": "en-144"
-    },
-    {
       "id": "es-145",
       "language": "ES",
       "status": "ready",
@@ -23345,40 +23239,6 @@
         "year-2016"
       ],
       "slug": "fr-143-autoritarisme-prive-comment-facebook-et-google-menacent-la-democratie"
-    },
-    {
-      "id": "fr-144",
-      "language": "FR",
-      "status": "ready",
-      "date": "2023-03-31",
-      "source": "Detector Media",
-      "topic": "media industry conflict",
-      "title": "Conflit a Current Time autour d une possible nomination d Ilia Klishin",
-      "digest": "Ce papier de Detector Media documente un conflit interne autour d une nomination manageriale possible a Current Time. L article indique que d anciens propos ont ete remis en circulation pendant la crise et utilises comme argument central contre la candidature.",
-      "quote": "\"Conflit a Current Time\" - Detector Media",
-      "url": "https://detector.media/infospace/article/209625/2023-03-31-conflict-in-current-time-tv-over-possible-appointment-of-propagandist-ilya-klishin/",
-      "summary": "Ce papier de Detector Media documente un conflit interne autour d une nomination manageriale possible a Current Time. L article indique que d anciens propos ont ete remis en circulation pendant la crise et utilises comme argument central contre la candidature.",
-      "key_ideas": [
-        "Le texte enregistre un conflit de gouvernance redactionnelle en 2023.",
-        "Des citations d archives ont ete reutilisees contre la candidature.",
-        "La carte preserve une source externe sur le cadrage public du conflit."
-      ],
-      "quotes": [
-        "\"possible nomination\" - Detector Media",
-        "\"conflit\" - Detector Media"
-      ],
-      "value_context": "Entree de reference sur la controverse Current Time en 2023 et sa mise en recit dans un media ukrainien.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "Detector Media",
-        "media industry conflict",
-        "2023",
-        "external reference",
-        "language-fr"
-      ],
-      "slug": "fr-144-conflit-a-current-time-autour-d-une-possible-nomination-d-ilia-klishin",
-      "relation": "reference",
-      "source_en_id": "en-144"
     },
     {
       "id": "fr-145",
