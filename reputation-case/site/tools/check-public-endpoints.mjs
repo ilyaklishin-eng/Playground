@@ -39,15 +39,6 @@ const IMPORTANT_PATHS = [
   "/sitemap-es.xml",
 ];
 
-const normalizePolicy = (value = "") => {
-  const normalized = String(value || "").trim().toLowerCase();
-  if (normalized === "deny" || normalized === "disallow" || normalized === "off") return "deny";
-  if (normalized === "custom" || normalized === "paths") return "custom";
-  return "allow";
-};
-
-const GPTBOT_POLICY = normalizePolicy(process.env.GPTBOT_POLICY || "allow");
-
 const USER_AGENTS_BASE = [
   {
     id: "browser",
@@ -69,16 +60,12 @@ const USER_AGENTS_BASE = [
     id: "perplexity_user",
     value: "Perplexity-User/1.0 (+https://www.perplexity.com/perplexity-user)",
   },
+  {
+    id: "gptbot",
+    value: "GPTBot/1.0 (+https://openai.com/gptbot)",
+  },
 ];
-const USER_AGENTS = GPTBOT_POLICY === "deny"
-  ? USER_AGENTS_BASE
-  : [
-      ...USER_AGENTS_BASE,
-      {
-        id: "gptbot",
-        value: "GPTBot/1.0 (+https://openai.com/gptbot)",
-      },
-    ];
+const USER_AGENTS = USER_AGENTS_BASE;
 
 const ALLOWED_STATUS = new Set([200, 301, 302, 303, 307, 308]);
 const BLOCKED_STATUS = new Set([401, 403, 406, 409, 410, 423, 429, 451, 500, 502, 503, 504, 520, 521, 522, 523, 524]);

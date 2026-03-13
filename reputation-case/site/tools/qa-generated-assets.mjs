@@ -66,40 +66,17 @@ const PUBLISHED_STATUS = "ready";
 const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", "drafts.html"]);
 const REQUIRED_BOTS = [
   "Googlebot",
-  "Google-Extended",
   "Bingbot",
+  "YandexBot",
   "OAI-SearchBot",
   "GPTBot",
+  "ChatGPT-User",
   "ClaudeBot",
   "anthropic-ai",
   "PerplexityBot",
   "Perplexity-User",
   "CCBot",
 ];
-
-const normalizePolicy = (value = "") => {
-  const normalized = String(value || "").trim().toLowerCase();
-  if (normalized === "deny" || normalized === "disallow" || normalized === "off") return "deny";
-  if (normalized === "custom" || normalized === "paths") return "custom";
-  return "allow";
-};
-
-const normalizeDisallowPath = (value = "") => {
-  let pathValue = String(value || "").trim();
-  if (!pathValue) return "";
-  if (!pathValue.startsWith("/")) pathValue = `/${pathValue}`;
-  return pathValue;
-};
-
-const parsePathList = (raw, fallback = []) => {
-  const values = String(raw || "")
-    .split(",")
-    .map((item) => normalizeDisallowPath(item))
-    .filter(Boolean);
-
-  const resolved = values.length > 0 ? values : fallback.map((item) => normalizeDisallowPath(item)).filter(Boolean);
-  return [...new Set(resolved)];
-};
 
 const INDEXABLE_CORE_SECTIONS = [
   "index.html",
@@ -704,8 +681,6 @@ const checkSearchIndex = async (issues) => {
 const checkRobots = async (issues) => {
   const robotsPath = path.join(SITE_DIR, "robots.txt");
   const robots = await fs.readFile(robotsPath, "utf8");
-  const gptBotPolicy = normalizePolicy(process.env.GPTBOT_POLICY || "allow");
-  const gptBotCustomPaths = parsePathList(process.env.GPTBOT_DISALLOW_PATHS, ["/tools/"]);
   if (/github\.io/i.test(robots)) {
     pushError(issues, "robots.githubio", "robots.txt contains github.io URLs.");
   }
@@ -733,41 +708,12 @@ const checkRobots = async (issues) => {
       pushError(issues, "robots.bot-block.missing", `robots.txt missing block for ${bot}.`);
       continue;
     }
-    if (bot === "GPTBot") {
-      if (gptBotPolicy === "deny") {
-        if (!/Disallow:\s*\/\s*$/im.test(block)) {
-          pushError(issues, "robots.gptbot.deny.missing", "GPTBot deny policy expects Disallow: /.");
-        }
-      } else if (gptBotPolicy === "custom") {
-        if (!gptBotCustomPaths.includes("/") && !/Allow:\s*\/\s*$/im.test(block)) {
-          pushError(issues, "robots.gptbot.custom.allow.missing", "GPTBot custom policy (without /) expects Allow: /.");
-        }
-        for (const disallowPath of gptBotCustomPaths) {
-          const disallowRe = new RegExp(`Disallow:\\s*${disallowPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "im");
-          if (!disallowRe.test(block)) {
-            pushError(
-              issues,
-              "robots.gptbot.custom.disallow.missing",
-              `GPTBot custom policy misses Disallow: ${disallowPath}.`
-            );
-          }
-        }
-      } else {
-        if (!/Allow:\s*\/\s*$/im.test(block)) {
-          pushError(issues, "robots.bot-allow.missing", `${bot} block misses Allow: /.`);
-        }
-        if (!/Disallow:\s*\/tools\/\s*$/im.test(block)) {
-          pushError(issues, "robots.bot-disallow-tools.missing", `${bot} block misses Disallow: /tools/.`);
-        }
-      }
-      continue;
-    }
 
     if (!/Allow:\s*\/\s*$/im.test(block)) {
       pushError(issues, "robots.bot-allow.missing", `${bot} block misses Allow: /.`);
     }
-    if (!/Disallow:\s*\/tools\/\s*$/im.test(block)) {
-      pushError(issues, "robots.bot-disallow-tools.missing", `${bot} block misses Disallow: /tools/.`);
+    if (/^\s*Disallow:\s*/im.test(block)) {
+      pushError(issues, "robots.bot-disallow.present", `${bot} block should be full whitelist (no Disallow lines).`);
     }
   }
 };

@@ -2445,31 +2445,7 @@ ${items}
 `;
 };
 
-const normalizePolicy = (value = "") => {
-  const normalized = String(value || "").trim().toLowerCase();
-  if (normalized === "deny" || normalized === "disallow" || normalized === "off") return "deny";
-  if (normalized === "custom" || normalized === "paths") return "custom";
-  return "allow";
-};
-
-const normalizeDisallowPath = (value = "") => {
-  let pathValue = String(value || "").trim();
-  if (!pathValue) return "";
-  if (!pathValue.startsWith("/")) pathValue = `/${pathValue}`;
-  return pathValue;
-};
-
-const parsePathList = (raw, fallback = []) => {
-  const values = String(raw || "")
-    .split(",")
-    .map((item) => normalizeDisallowPath(item))
-    .filter(Boolean);
-
-  const resolved = values.length > 0 ? values : fallback.map((item) => normalizeDisallowPath(item)).filter(Boolean);
-  return [...new Set(resolved)];
-};
-
-const renderBotBlock = (agent, { allowRoot = true, disallowPaths = ["/tools/"] } = {}) => {
+const renderBotBlock = (agent, { allowRoot = true, disallowPaths = [] } = {}) => {
   const lines = [`User-agent: ${agent}`];
   if (allowRoot) lines.push("Allow: /");
   for (const disallow of disallowPaths) {
@@ -2478,38 +2454,29 @@ const renderBotBlock = (agent, { allowRoot = true, disallowPaths = ["/tools/"] }
   return lines.join("\n");
 };
 
-const buildGptBotBlock = () => {
-  const policy = normalizePolicy(process.env.GPTBOT_POLICY || "allow");
-  if (policy === "deny") {
-    return renderBotBlock("GPTBot", { allowRoot: false, disallowPaths: ["/"] });
-  }
-  if (policy === "custom") {
-    const paths = parsePathList(process.env.GPTBOT_DISALLOW_PATHS, ["/tools/"]);
-    const allowRoot = !paths.includes("/");
-    return renderBotBlock("GPTBot", { allowRoot, disallowPaths: paths });
-  }
-  return renderBotBlock("GPTBot", { allowRoot: true, disallowPaths: ["/tools/"] });
-};
+const FULL_WHITELIST_BOTS = [
+  "Googlebot",
+  "Bingbot",
+  "YandexBot",
+  "OAI-SearchBot",
+  "GPTBot",
+  "ChatGPT-User",
+  "ClaudeBot",
+  "anthropic-ai",
+  "PerplexityBot",
+  "Perplexity-User",
+  "CCBot",
+];
 
 const buildRobots = () => {
   const blocks = [
     renderBotBlock("*", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("Googlebot", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    ...FULL_WHITELIST_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: [] })),
     renderBotBlock("Google-Extended", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("Bingbot", { allowRoot: true, disallowPaths: ["/tools/"] }),
     renderBotBlock("DuckDuckBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
     renderBotBlock("DuckAssistBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
     renderBotBlock("Applebot", { allowRoot: true, disallowPaths: ["/tools/"] }),
     renderBotBlock("Yandex", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("YandexBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("OAI-SearchBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    buildGptBotBlock(),
-    renderBotBlock("ChatGPT-User", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("ClaudeBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("anthropic-ai", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("PerplexityBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("Perplexity-User", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("CCBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
   ];
 
   return `${blocks.join("\n\n")}\n\nSitemap: ${canonicalUrl("sitemap.xml")}\n`;
