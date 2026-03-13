@@ -140,15 +140,14 @@ jobs:
           fi
           DOMAIN="https://${{ env.PAGES_DOMAIN }}"
 
-          cat > urls.txt <<EOF
-$DOMAIN/
-$DOMAIN/sitemap.xml
-$DOMAIN/sitemap-core.xml
-$DOMAIN/sitemap-en.xml
-$DOMAIN/sitemap-fr.xml
-$DOMAIN/sitemap-de.xml
-$DOMAIN/sitemap-es.xml
-EOF
+          printf '%s\n' \
+            "$DOMAIN/" \
+            "$DOMAIN/sitemap.xml" \
+            "$DOMAIN/sitemap-core.xml" \
+            "$DOMAIN/sitemap-en.xml" \
+            "$DOMAIN/sitemap-fr.xml" \
+            "$DOMAIN/sitemap-de.xml" \
+            "$DOMAIN/sitemap-es.xml" > urls.txt
 
           if [ "${{ github.event_name }}" = "push" ]; then
             BEFORE='${{ github.event.before }}'
