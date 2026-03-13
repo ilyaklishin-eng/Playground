@@ -1571,7 +1571,8 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
     throw new Error(`Unable to locate Selected Work cluster block in ${selectedPagePath}`);
   }
 
-  let next = html.replace(blockRe, `${sectionsHtml}\n\n`);
+  let next = html.replace(blockRe, `${sectionsHtml}\n`);
+  next = next.replace(/\n{3,}(?=\s*<section class="selected-contact")/m, "\n\n");
   next = next.replace(
     /("description":\s*")Manually curated route through key materials by Ilia Klishin\.(")/,
     '$1Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin.$2'

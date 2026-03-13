@@ -99,14 +99,32 @@ if ! git merge-base --is-ancestor origin/main HEAD; then
 fi
 
 if [[ "$NO_BUILD" -eq 0 ]]; then
-  echo "==> Rebuilding generated assets"
-  node reputation-case/site/tools/build-indexable-assets.mjs
-  node reputation-case/site/tools/qa-generated-assets.mjs
+  MAX_PASSES=3
+  PASS=1
+  while [[ "$PASS" -le "$MAX_PASSES" ]]; do
+    echo "==> Rebuilding generated assets (pass ${PASS}/${MAX_PASSES})"
+    node reputation-case/site/tools/build-indexable-assets.mjs
+    node reputation-case/site/tools/qa-generated-assets.mjs
+
+    if has_changes; then
+      echo "==> Committing generated asset sync (pass ${PASS})"
+      git add -A
+      if [[ "$PASS" -eq 1 ]]; then
+        git commit -m "chore(site): sync generated public assets with build pipeline"
+      else
+        git commit -m "chore(site): converge generated assets for git-lastmod alignment (pass ${PASS})"
+      fi
+      PASS=$((PASS + 1))
+      continue
+    fi
+
+    echo "==> Generated assets converged on pass ${PASS}"
+    break
+  done
 
   if has_changes; then
-    echo "==> Committing generated asset sync"
-    git add -A
-    git commit -m "chore(site): sync generated public assets with build pipeline"
+    echo "Generated assets still changing after ${MAX_PASSES} passes." >&2
+    exit 1
   fi
 fi
 
