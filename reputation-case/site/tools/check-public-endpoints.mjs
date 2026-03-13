@@ -26,6 +26,17 @@ const IMPORTANT_PATHS = [
   "/selected/",
   "/search/",
   "/insights/",
+  "/posts/",
+  "/posts/index.html",
+  "/posts/all.html",
+  "/robots.txt",
+  "/rss.xml",
+  "/sitemap.xml",
+  "/sitemap-core.xml",
+  "/sitemap-en.xml",
+  "/sitemap-fr.xml",
+  "/sitemap-de.xml",
+  "/sitemap-es.xml",
 ];
 
 const normalizePolicy = (value = "") => {

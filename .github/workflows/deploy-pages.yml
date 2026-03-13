@@ -48,6 +48,11 @@ jobs:
           GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
         run: node reputation-case/site/tools/qa-generated-assets.mjs
 
+      - name: SEO/AI endpoint gate (200/301 + crawler access + robots/sitemaps)
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+        run: node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://${{ env.PAGES_DOMAIN }}" --report
+
       - name: Ensure generated assets are committed
         run: |
           set -euo pipefail

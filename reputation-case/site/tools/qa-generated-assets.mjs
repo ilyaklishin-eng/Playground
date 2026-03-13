@@ -116,6 +116,22 @@ const INDEXABLE_CORE_SECTIONS = [
   "cases/de/index.html",
   "cases/es/index.html",
 ];
+const NO_DRAFT_LEAK_TARGETS = [
+  ...INDEXABLE_CORE_SECTIONS,
+  "selected/index.html",
+  "interviews/index.html",
+  "interviews/fr/index.html",
+  "interviews/de/index.html",
+  "interviews/es/index.html",
+  "sitemap.xml",
+  "sitemap-core.xml",
+  "sitemap-en.xml",
+  "sitemap-fr.xml",
+  "sitemap-de.xml",
+  "sitemap-es.xml",
+  "rss.xml",
+  "data/search-index.json",
+];
 const STATIC_ROBOTS_POLICY = new Map([
   ["index.html", "index"],
   ["fr/index.html", "index"],
@@ -975,6 +991,58 @@ const checkHomeHtmlFirst = async (minimumCards, issues) => {
   }
 };
 
+const checkNoDraftLeakage = async (items, indexableItems, issues) => {
+  const draftItems = items.filter((item) => String(item?.status || "").trim().toLowerCase() !== PUBLISHED_STATUS);
+  if (draftItems.length === 0) return;
+
+  const draftPostPaths = new Set(draftItems.map((item) => `/posts/${expectedPostFilename(item)}`));
+  const indexablePostPaths = new Set(indexableItems.map((item) => `/posts/${expectedPostFilename(item)}`));
+
+  const homeHtml = await fs.readFile(HOME_INDEX, "utf8");
+  const start = homeHtml.indexOf(HOME_FALLBACK_START);
+  const end = homeHtml.indexOf(HOME_FALLBACK_END);
+  if (start >= 0 && end > start) {
+    const fragment = homeHtml.slice(start + HOME_FALLBACK_START.length, end);
+    const postHrefs = [...fragment.matchAll(/href=["'](\/posts\/[^"']+\.html)["']/gi)].map((m) => String(m[1] || "").trim());
+    const leakedInHome = postHrefs.filter((href) => href && !indexablePostPaths.has(href));
+    if (leakedInHome.length > 0) {
+      pushError(
+        issues,
+        "draft.leak.home-fallback",
+        "Home HTML-first card block includes non-indexable post links.",
+        leakedInHome.slice(0, 20)
+      );
+    }
+  }
+
+  for (const relative of NO_DRAFT_LEAK_TARGETS) {
+    const absPath = path.join(SITE_DIR, relative);
+    let content = "";
+    try {
+      content = await fs.readFile(absPath, "utf8");
+    } catch {
+      pushError(issues, "draft.leak.target.missing", `Draft-leak check target is missing: ${relative}`);
+      continue;
+    }
+
+    const hits = [];
+    for (const draftPath of draftPostPaths) {
+      if (content.includes(draftPath)) {
+        hits.push(draftPath);
+      }
+    }
+
+    if (hits.length > 0) {
+      pushError(
+        issues,
+        "draft.leak.detected",
+        `Detected draft post links in public/indexable artifact: ${relative}`,
+        hits.slice(0, 20)
+      );
+    }
+  }
+};
+
 const checkAssetFingerprinting = async (issues) => {
   const htmlFiles = await listHtmlFiles(SITE_DIR);
 
@@ -1075,6 +1143,7 @@ const main = async () => {
   await checkRobots(issues);
   await checkHtmlSeoSemantics(items, issues);
   await checkHomeHtmlFirst(minimumHomeCards, issues);
+  await checkNoDraftLeakage(items, indexableItems, issues);
   await checkAssetFingerprinting(issues);
 
   const errors = issues.filter((x) => x.severity === "error");
@@ -1089,6 +1158,7 @@ const main = async () => {
       robots: true,
       html_seo: true,
       home_html_first: true,
+      draft_leakage: true,
       asset_fingerprints: true,
       social_preview: true,
     },
