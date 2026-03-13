@@ -130,10 +130,6 @@ jobs:
           INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -euo pipefail
-          if [ "${{ github.event_name }}" != "push" ]; then
-            echo "Not a push event; skipping IndexNow submission."
-            exit 0
-          fi
           if [ -z "${INDEXNOW_KEY:-}" ]; then
             echo "INDEXNOW_KEY is empty; skipping IndexNow submission."
             exit 0
@@ -143,31 +139,45 @@ jobs:
             exit 0
           fi
           DOMAIN="https://${{ env.PAGES_DOMAIN }}"
-          BEFORE='${{ github.event.before }}'
-          AFTER='${{ github.sha }}'
-          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            BEFORE="$(git rev-list --max-parents=0 "$AFTER")"
+
+          cat > urls.txt <<EOF
+$DOMAIN/
+$DOMAIN/sitemap.xml
+$DOMAIN/sitemap-core.xml
+$DOMAIN/sitemap-en.xml
+$DOMAIN/sitemap-fr.xml
+$DOMAIN/sitemap-de.xml
+$DOMAIN/sitemap-es.xml
+EOF
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BEFORE='${{ github.event.before }}'
+            AFTER='${{ github.sha }}'
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              BEFORE="$(git rev-list --max-parents=0 "$AFTER")"
+            fi
+
+            git diff --name-only "$BEFORE" "$AFTER" \
+              | awk '/^reputation-case\/site\/.*\.(html|xml)$/ {print}' \
+              | while read -r file; do
+                  rel="${file#reputation-case/site/}"
+                  if [ "$rel" = "index.html" ]; then
+                    echo "$DOMAIN/"
+                  elif [ "$rel" = "posts/index.html" ]; then
+                    echo "$DOMAIN/posts/"
+                  elif [ "$rel" = "about/index.html" ]; then
+                    echo "$DOMAIN/about/"
+                  elif [ "$rel" = "insights/index.html" ]; then
+                    echo "$DOMAIN/insights/"
+                  elif [ "$rel" = "archive/index.html" ]; then
+                    echo "$DOMAIN/archive/"
+                  else
+                    echo "$DOMAIN/$rel"
+                  fi
+                done >> urls.txt
           fi
 
-          git diff --name-only "$BEFORE" "$AFTER" \
-            | awk '/^reputation-case\/site\/.*\.(html|xml)$/ {print}' \
-            | while read -r file; do
-                rel="${file#reputation-case/site/}"
-                if [ "$rel" = "index.html" ]; then
-                  echo "$DOMAIN/"
-                elif [ "$rel" = "posts/index.html" ]; then
-                  echo "$DOMAIN/posts/"
-                elif [ "$rel" = "about/index.html" ]; then
-                  echo "$DOMAIN/about/"
-                elif [ "$rel" = "insights/index.html" ]; then
-                  echo "$DOMAIN/insights/"
-                elif [ "$rel" = "archive/index.html" ]; then
-                  echo "$DOMAIN/archive/"
-                else
-                  echo "$DOMAIN/$rel"
-                fi
-              done \
-            | sort -u > urls.txt
+          sort -u urls.txt -o urls.txt
 
           if [ ! -s urls.txt ]; then
             printf '%s\n' "$DOMAIN/" > urls.txt
@@ -185,3 +195,50 @@ jobs:
           curl -fsS 'https://api.indexnow.org/indexnow' \
             -H 'Content-Type: application/json; charset=utf-8' \
             --data @indexnow.json
+
+  ping-sitemaps:
+    needs: [deploy, verify-live-crawler-access]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping sitemap endpoints (Bing + Yandex)
+        run: |
+          set -euo pipefail
+          if printf '%s' '${{ env.PAGES_DOMAIN }}' | grep -E -q '<MY_DOMAIN>|\\.example$'; then
+            echo 'PAGES_DOMAIN is placeholder domain; skipping sitemap ping.'
+            exit 0
+          fi
+
+          DOMAIN="https://${{ env.PAGES_DOMAIN }}"
+          SITEMAPS=(
+            "$DOMAIN/sitemap.xml"
+            "$DOMAIN/sitemap-core.xml"
+            "$DOMAIN/sitemap-en.xml"
+            "$DOMAIN/sitemap-fr.xml"
+            "$DOMAIN/sitemap-de.xml"
+            "$DOMAIN/sitemap-es.xml"
+          )
+          ENDPOINTS=(
+            "https://www.bing.com/ping"
+            "https://yandex.com/ping"
+            "https://yandex.ru/ping"
+          )
+
+          success_count=0
+          for endpoint in "${ENDPOINTS[@]}"; do
+            for sitemap in "${SITEMAPS[@]}"; do
+              code="$(curl -sS -o /tmp/sitemap-ping-response.txt -w '%{http_code}' --get "$endpoint" --data-urlencode "sitemap=$sitemap" || true)"
+              if [ -z "$code" ]; then
+                code="000"
+              fi
+              echo "Ping $endpoint sitemap=$sitemap -> HTTP $code"
+              if [ "$code" -ge 200 ] && [ "$code" -lt 400 ]; then
+                success_count=$((success_count + 1))
+              fi
+            done
+          done
+
+          if [ "$success_count" -eq 0 ]; then
+            echo "::warning::No sitemap ping returned 2xx/3xx. IndexNow submission still ran separately."
+          else
+            echo "Sitemap ping success responses: $success_count"
+          fi
