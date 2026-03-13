@@ -50,6 +50,12 @@ jobs:
           GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
         run: node reputation-case/site/tools/qa-generated-assets.mjs
 
+      - name: SEO audit report (canonical/hreflang/index policy)
+        run: node reputation-case/site/tools/seo-audit.mjs > /dev/null
+
+      - name: CI gate: canonical + hreflang integrity
+        run: node reputation-case/site/tools/ci-canonical-hreflang-gate.mjs
+
       - name: SEO/AI endpoint gate (200/301 + crawler access + robots/sitemaps)
         env:
           GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
