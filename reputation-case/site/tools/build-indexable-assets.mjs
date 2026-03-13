@@ -1,6 +1,10 @@
 import fs from "node:fs/promises";
 import crypto from "node:crypto";
 import path from "node:path";
+import { execFile as execFileCallback } from "node:child_process";
+import { promisify } from "node:util";
+
+const execFile = promisify(execFileCallback);
 
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const dataPath = path.join(siteDir, "data", "digests.json");
@@ -10,6 +14,7 @@ const postsDir = path.join(siteDir, "posts");
 const homeIndexPath = path.join(siteDir, "index.html");
 const baseUrl = "https://www.klishin.work";
 const FINGERPRINT_HEX_LENGTH = 10;
+const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
 const OG_IMAGE_WIDTH = "1200";
 const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
@@ -276,6 +281,70 @@ const normalizeSourceUrl = (value = "") => {
 
 const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
 
+const gitMetaState = {
+  repoRoot: null,
+  disabled: false,
+  cache: new Map(),
+};
+
+const latestIso = (values = [], fallback = EPOCH_ISO) => {
+  let best = null;
+  for (const value of values) {
+    const iso = toIsoTimestamp(value);
+    if (!iso) continue;
+    if (!best || iso > best) best = iso;
+  }
+  return best || fallback;
+};
+
+const resolveGitRepoRoot = async () => {
+  if (gitMetaState.disabled) return null;
+  if (gitMetaState.repoRoot) return gitMetaState.repoRoot;
+  try {
+    const { stdout } = await execFile("git", ["rev-parse", "--show-toplevel"], { cwd: process.cwd() });
+    const repoRoot = String(stdout || "").trim();
+    if (!repoRoot) {
+      gitMetaState.disabled = true;
+      return null;
+    }
+    gitMetaState.repoRoot = repoRoot;
+    return repoRoot;
+  } catch {
+    gitMetaState.disabled = true;
+    return null;
+  }
+};
+
+const gitLastmodByRepoRelativePath = async (repoRelativePath = "") => {
+  const cleanRelative = toPosixPath(repoRelativePath).replace(/^\/+/, "");
+  if (!cleanRelative) return null;
+  if (gitMetaState.disabled) return null;
+  if (gitMetaState.cache.has(cleanRelative)) return gitMetaState.cache.get(cleanRelative);
+
+  const repoRoot = await resolveGitRepoRoot();
+  if (!repoRoot) return null;
+
+  try {
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", cleanRelative], { cwd: repoRoot });
+    const raw = String(stdout || "").trim();
+    const iso = toIsoTimestamp(raw);
+    const value = iso || null;
+    gitMetaState.cache.set(cleanRelative, value);
+    return value;
+  } catch {
+    gitMetaState.cache.set(cleanRelative, null);
+    return null;
+  }
+};
+
+const gitLastmodForAbsolutePath = async (absolutePath, fallback = null) => {
+  const repoRoot = await resolveGitRepoRoot();
+  if (!repoRoot) return fallback;
+  const rel = toPosixPath(path.relative(repoRoot, absolutePath));
+  if (!rel || rel.startsWith("..")) return fallback;
+  return (await gitLastmodByRepoRelativePath(rel)) || fallback;
+};
+
 const escapeRegExpSafe = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const listHtmlFiles = async (dir) => {
@@ -413,7 +482,7 @@ const latestBuildIso = (entries) => {
     if (!iso) continue;
     if (!latest || iso > latest) latest = iso;
   }
-  return latest || "1970-01-01T00:00:00.000Z";
+  return latest || EPOCH_ISO;
 };
 
 const truncateChars = (text = "", max = 220) => {
@@ -2342,25 +2411,28 @@ ${urls
 `;
 };
 
-const buildSitemapIndex = (sitemaps, buildIso) => `<?xml version="1.0" encoding="UTF-8"?>
+const buildSitemapIndex = (sitemaps, childLastmods = new Map(), fallbackIso = EPOCH_ISO) => `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${sitemaps
   .map(
     (name) =>
-      `  <sitemap><loc>${xmlEscape(canonicalUrl(name))}</loc><lastmod>${buildIso}</lastmod></sitemap>`
+      `  <sitemap><loc>${xmlEscape(canonicalUrl(name))}</loc><lastmod>${latestIso([childLastmods.get(name)], fallbackIso)}</lastmod></sitemap>`
   )
   .join("\n")}
 </sitemapindex>
 `;
 
-const buildSitemaps = (entries, idToPostPath, idToCluster, idToStatus = new Map()) => {
+const buildSitemaps = async (entries, idToPostPath, idToCluster, idToStatus = new Map()) => {
   const buildIso = latestBuildIso(entries);
-  const staticUrls = INDEXABLE_STATIC_SECTIONS.map((section) => ({
-    url: canonicalUrl(section),
-    lastmod: buildIso,
-  }));
+  const staticUrls = await Promise.all(
+    INDEXABLE_STATIC_SECTIONS.map(async (section) => ({
+      url: canonicalUrl(section),
+      lastmod: await gitLastmodForAbsolutePath(path.join(siteDir, section), buildIso),
+    }))
+  );
+  const homeLastmod = await gitLastmodForAbsolutePath(path.join(siteDir, "index.html"), buildIso);
   const coreUrls = [
-    { url: canonicalUrl("index.html"), lastmod: buildIso },
+    { url: canonicalUrl("index.html"), lastmod: homeLastmod },
     ...staticUrls,
   ];
 
@@ -2370,10 +2442,11 @@ const buildSitemaps = (entries, idToPostPath, idToCluster, idToStatus = new Map(
       content: buildUrlSet(coreUrls, false),
     },
   ];
+  const childLastmods = new Map([["sitemap-core.xml", latestIso(coreUrls.map((item) => item.lastmod), buildIso)]]);
 
   for (const lang of LANGS) {
     const langEntries = entries.filter((entry) => normalizeLang(entry?.item?.language) === lang);
-    const urls = langEntries.map((entry) => {
+    const urls = await Promise.all(langEntries.map(async (entry) => {
       const canonical = canonicalUrl(`posts/${entry.postPath}`);
       const { alternates, xDefaultHref } = getAlternatesForItem(
         entry.item,
@@ -2386,22 +2459,25 @@ const buildSitemaps = (entries, idToPostPath, idToCluster, idToStatus = new Map(
       if (xDefaultHref) {
         hreflangs.push({ hreflang: X_DEFAULT, href: xDefaultHref });
       }
+      const postGitLastmod = await gitLastmodForAbsolutePath(path.join(postsDir, entry.postPath));
       return {
         url: canonical,
-        lastmod: toIsoTimestamp(entry.item?.date) || buildIso,
+        lastmod: postGitLastmod || toIsoTimestamp(entry.item?.lastmod || entry.item?.date) || buildIso,
         alternates: hreflangs,
       };
-    });
+    }));
+    const sitemapName = `sitemap-${lang.toLowerCase()}.xml`;
     files.push({
-      name: `sitemap-${lang.toLowerCase()}.xml`,
+      name: sitemapName,
       content: buildUrlSet(urls, true),
     });
+    childLastmods.set(sitemapName, latestIso(urls.map((item) => item.lastmod), buildIso));
   }
 
   const indexFileNames = files.map((file) => file.name);
   files.push({
     name: "sitemap.xml",
-    content: buildSitemapIndex(indexFileNames, buildIso),
+    content: buildSitemapIndex(indexFileNames, childLastmods, buildIso),
   });
 
   return files;
@@ -2531,7 +2607,7 @@ const main = async () => {
     await fs.unlink(path.join(postsDir, file));
   }
 
-  const sitemapFiles = buildSitemaps(indexableEntries, idToPostPath, idToCluster, idToIndexStatus);
+  const sitemapFiles = await buildSitemaps(indexableEntries, idToPostPath, idToCluster, idToIndexStatus);
 
   await fs.writeFile(
     path.join(postsDir, "index.html"),

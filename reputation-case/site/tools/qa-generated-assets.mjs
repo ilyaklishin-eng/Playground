@@ -1,5 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { execFile as execFileCallback } from "node:child_process";
+import { promisify } from "node:util";
+
+const execFile = promisify(execFileCallback);
 
 const SITE_DIR = path.resolve(process.cwd(), "reputation-case", "site");
 const POSTS_DIR = path.join(SITE_DIR, "posts");
@@ -63,6 +67,7 @@ const FINGERPRINTED_ASSET_SOURCES = [
 ];
 const LANGS = ["en", "fr", "de", "es"];
 const PUBLISHED_STATUS = "ready";
+const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
 const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", "drafts.html"]);
 const REQUIRED_BOTS = [
   "Googlebot",
@@ -224,6 +229,22 @@ const parseArgs = (argv) => {
   return opts;
 };
 
+const toIsoTimestamp = (value = "") => {
+  const ts = Date.parse(String(value || ""));
+  if (Number.isNaN(ts)) return null;
+  return new Date(ts).toISOString();
+};
+
+const latestIso = (values = [], fallback = EPOCH_ISO) => {
+  let best = null;
+  for (const value of values) {
+    const iso = toIsoTimestamp(value);
+    if (!iso) continue;
+    if (!best || iso > best) best = iso;
+  }
+  return best || fallback;
+};
+
 const slugify = (text = "") =>
   String(text)
     .toLowerCase()
@@ -304,6 +325,22 @@ const canonicalUrl = (relativePath = "") => {
 
 const extractLocs = (xml = "") => [...xml.matchAll(/<loc>([^<]+)<\/loc>/gim)].map((m) => String(m[1] || "").trim());
 
+const extractSitemapEntries = (xml = "") =>
+  [...xml.matchAll(/<sitemap>\s*<loc>([^<]+)<\/loc>[\s\S]*?<lastmod>([^<]+)<\/lastmod>[\s\S]*?<\/sitemap>/gim)].map(
+    (m) => ({
+      loc: String(m[1] || "").trim(),
+      lastmod: String(m[2] || "").trim(),
+    })
+  );
+
+const extractUrlEntries = (xml = "") =>
+  [...xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>[\s\S]*?<lastmod>([^<]+)<\/lastmod>[\s\S]*?<\/url>/gim)].map(
+    (m) => ({
+      loc: String(m[1] || "").trim(),
+      lastmod: String(m[2] || "").trim(),
+    })
+  );
+
 const extractAll = (text = "", re) => [...text.matchAll(re)].map((m) => String(m[1] || "").trim());
 
 const extractCanonical = (html = "") => {
@@ -328,6 +365,66 @@ const extractMetaContent = (html = "", attrName = "", attrValue = "") => {
 const escapeRegExp = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
+
+const gitState = {
+  repoRoot: null,
+  disabled: false,
+  cache: new Map(),
+};
+
+const resolveGitRepoRoot = async () => {
+  if (gitState.disabled) return null;
+  if (gitState.repoRoot) return gitState.repoRoot;
+  try {
+    const { stdout } = await execFile("git", ["rev-parse", "--show-toplevel"], { cwd: process.cwd() });
+    const root = String(stdout || "").trim();
+    if (!root) {
+      gitState.disabled = true;
+      return null;
+    }
+    gitState.repoRoot = root;
+    return root;
+  } catch {
+    gitState.disabled = true;
+    return null;
+  }
+};
+
+const gitLastmodByRepoPath = async (repoRelativePath = "") => {
+  const key = toPosixPath(repoRelativePath).replace(/^\/+/, "");
+  if (!key) return null;
+  if (gitState.disabled) return null;
+  if (gitState.cache.has(key)) return gitState.cache.get(key);
+
+  const repoRoot = await resolveGitRepoRoot();
+  if (!repoRoot) return null;
+
+  try {
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", key], { cwd: repoRoot });
+    const iso = toIsoTimestamp(String(stdout || "").trim());
+    const value = iso || null;
+    gitState.cache.set(key, value);
+    return value;
+  } catch {
+    gitState.cache.set(key, null);
+    return null;
+  }
+};
+
+const canonicalLocToRepoPath = (loc = "") => {
+  try {
+    const parsed = new URL(loc);
+    if (parsed.protocol !== "https:" || parsed.host !== HOST) return null;
+    if (parsed.search || parsed.hash) return null;
+    let pathname = parsed.pathname;
+    if (!pathname || pathname === "/") return "reputation-case/site/index.html";
+    if (pathname.endsWith("/")) pathname = `${pathname}index.html`;
+    const rel = pathname.replace(/^\/+/, "");
+    return rel ? `reputation-case/site/${rel}` : "reputation-case/site/index.html";
+  } catch {
+    return null;
+  }
+};
 
 const listHtmlFiles = async (dir) => {
   const out = [];
@@ -457,43 +554,7 @@ const checkPosts = async (items, issues) => {
 
 const checkSitemaps = async (indexableItems, issues) => {
   const requiredChildren = ["sitemap-core.xml", ...LANGS.map((l) => `sitemap-${l}.xml`)];
-  const indexPath = path.join(SITE_DIR, "sitemap.xml");
-  const indexXml = await fs.readFile(indexPath, "utf8");
-
-  if (!/<sitemapindex\b/i.test(indexXml)) {
-    pushError(issues, "sitemap.index.format", "sitemap.xml is not a sitemapindex document.");
-    return;
-  }
-  const sitemapEntryCount = (indexXml.match(/<sitemap>/g) || []).length;
-  const sitemapLastmodCount = (indexXml.match(/<lastmod>/g) || []).length;
-  if (sitemapEntryCount !== sitemapLastmodCount) {
-    pushError(
-      issues,
-      "sitemap.index.lastmod.mismatch",
-      `sitemap.xml has ${sitemapEntryCount} sitemap entries but ${sitemapLastmodCount} lastmod tags.`
-    );
-  }
-  if (/github\.io/i.test(indexXml)) {
-    pushError(issues, "sitemap.index.githubio", "sitemap.xml contains github.io URLs.");
-  }
-
-  const indexLocs = extractLocs(indexXml);
-  const expectedLocs = requiredChildren.map((name) => canonicalUrl(name));
-
-  for (const loc of expectedLocs) {
-    if (!indexLocs.includes(loc)) {
-      pushError(issues, "sitemap.index.missing-child", `Missing child sitemap in sitemap.xml: ${loc}`);
-    }
-  }
-  for (const loc of indexLocs) {
-    if (!expectedLocs.includes(loc)) {
-      pushWarn(issues, "sitemap.index.unknown-child", `Unexpected child sitemap in sitemap.xml: ${loc}`);
-    }
-    if (!isCanonicalUrl(loc)) {
-      pushError(issues, "sitemap.index.non-canonical", "Child sitemap loc is non-canonical.", { loc });
-    }
-  }
-
+  const childLatestLastmod = new Map();
   const coreExpected = INDEXABLE_CORE_SECTIONS.map((section) => canonicalUrl(section));
   const corePath = path.join(SITE_DIR, "sitemap-core.xml");
   const coreXml = await fs.readFile(corePath, "utf8");
@@ -512,17 +573,50 @@ const checkSitemaps = async (indexableItems, issues) => {
   if (/github\.io/i.test(coreXml)) {
     pushError(issues, "sitemap.core.githubio", "sitemap-core.xml contains github.io URLs.");
   }
-  const coreLocs = extractLocs(coreXml);
+  const coreEntries = extractUrlEntries(coreXml);
+  const coreLocs = coreEntries.map((entry) => entry.loc);
   for (const loc of coreExpected) {
     if (!coreLocs.includes(loc)) {
       pushError(issues, "sitemap.core.missing-url", `Core sitemap missing URL: ${loc}`);
     }
   }
-  for (const loc of coreLocs) {
+  for (const entry of coreEntries) {
+    const loc = entry.loc;
     if (!isCanonicalUrl(loc)) {
       pushError(issues, "sitemap.core.non-canonical", "Core sitemap has non-canonical URL.", { loc });
+      continue;
+    }
+    const normalizedLastmod = toIsoTimestamp(entry.lastmod);
+    if (!normalizedLastmod) {
+      pushError(issues, "sitemap.core.lastmod.invalid", "Core sitemap has invalid lastmod value.", {
+        loc,
+        lastmod: entry.lastmod,
+      });
+      continue;
+    }
+    if (normalizedLastmod === EPOCH_ISO) {
+      pushError(issues, "sitemap.core.lastmod.epoch", "Core sitemap uses epoch fallback lastmod.", {
+        loc,
+      });
+    }
+    const repoPath = canonicalLocToRepoPath(loc);
+    const gitLastmod = repoPath ? await gitLastmodByRepoPath(repoPath) : null;
+    if (!gitLastmod) {
+      pushWarn(issues, "sitemap.core.lastmod.git-missing", "Cannot resolve git lastmod for core URL.", {
+        loc,
+        repoPath,
+      });
+      continue;
+    }
+    if (normalizedLastmod !== gitLastmod) {
+      pushError(issues, "sitemap.core.lastmod.git-mismatch", "Core sitemap lastmod is not git-derived.", {
+        loc,
+        expected: gitLastmod,
+        actual: normalizedLastmod,
+      });
     }
   }
+  childLatestLastmod.set("sitemap-core.xml", latestIso(coreEntries.map((entry) => entry.lastmod), EPOCH_ISO));
 
   for (const lang of LANGS) {
     const name = `sitemap-${lang}.xml`;
@@ -545,10 +639,16 @@ const checkSitemaps = async (indexableItems, issues) => {
       pushError(issues, "sitemap.lang.githubio", `${name} contains github.io URLs.`);
     }
 
-    const locs = extractLocs(xml);
+    const entries = extractUrlEntries(xml);
+    const locs = entries.map((entry) => entry.loc);
     const expectedLangCount = indexableItems.filter(
       (item) => String(item?.language || "").trim().toLowerCase() === lang
     ).length;
+    const expectedLangFiles = new Set(
+      indexableItems
+        .filter((item) => String(item?.language || "").trim().toLowerCase() === lang)
+        .map((item) => expectedPostFilename(item))
+    );
     if (locs.length !== expectedLangCount) {
       pushError(
         issues,
@@ -556,10 +656,22 @@ const checkSitemaps = async (indexableItems, issues) => {
         `${name} has ${locs.length} URLs, expected ${expectedLangCount} indexable URLs.`
       );
     }
-    for (const loc of locs) {
+    for (const entry of entries) {
+      const loc = entry.loc;
       if (!isCanonicalUrl(loc)) {
         pushError(issues, "sitemap.lang.non-canonical", `${name} has non-canonical URL.`, { loc });
         continue;
+      }
+      const normalizedLastmod = toIsoTimestamp(entry.lastmod);
+      if (!normalizedLastmod) {
+        pushError(issues, "sitemap.lang.lastmod.invalid", `${name} has invalid lastmod value.`, {
+          loc,
+          lastmod: entry.lastmod,
+        });
+        continue;
+      }
+      if (normalizedLastmod === EPOCH_ISO) {
+        pushError(issues, "sitemap.lang.lastmod.epoch", `${name} uses epoch fallback lastmod.`, { loc });
       }
       const parsed = new URL(loc);
       if (!parsed.pathname.startsWith("/posts/")) {
@@ -570,6 +682,100 @@ const checkSitemaps = async (indexableItems, issues) => {
       if (!fileName.startsWith(`${lang}-`)) {
         pushError(issues, "sitemap.lang.prefix", `${name} contains wrong language post URL.`, { loc });
       }
+      if (!expectedLangFiles.has(fileName)) {
+        pushError(
+          issues,
+          "sitemap.lang.non-indexable-url",
+          `${name} includes non-indexable post URL (thin/draft/reference leak).`,
+          { loc, fileName }
+        );
+      }
+      const repoPath = canonicalLocToRepoPath(loc);
+      const gitLastmod = repoPath ? await gitLastmodByRepoPath(repoPath) : null;
+      if (!gitLastmod) {
+        pushWarn(issues, "sitemap.lang.lastmod.git-missing", `${name} URL has no git lastmod match.`, {
+          loc,
+          repoPath,
+        });
+        continue;
+      }
+      if (normalizedLastmod !== gitLastmod) {
+        pushError(issues, "sitemap.lang.lastmod.git-mismatch", `${name} lastmod is not git-derived.`, {
+          loc,
+          expected: gitLastmod,
+          actual: normalizedLastmod,
+        });
+      }
+    }
+    childLatestLastmod.set(name, latestIso(entries.map((entry) => entry.lastmod), EPOCH_ISO));
+  }
+
+  const indexPath = path.join(SITE_DIR, "sitemap.xml");
+  const indexXml = await fs.readFile(indexPath, "utf8");
+  if (!/<sitemapindex\b/i.test(indexXml)) {
+    pushError(issues, "sitemap.index.format", "sitemap.xml is not a sitemapindex document.");
+    return;
+  }
+  const sitemapEntryCount = (indexXml.match(/<sitemap>/g) || []).length;
+  const sitemapLastmodCount = (indexXml.match(/<lastmod>/g) || []).length;
+  if (sitemapEntryCount !== sitemapLastmodCount) {
+    pushError(
+      issues,
+      "sitemap.index.lastmod.mismatch",
+      `sitemap.xml has ${sitemapEntryCount} sitemap entries but ${sitemapLastmodCount} lastmod tags.`
+    );
+  }
+  if (/github\.io/i.test(indexXml)) {
+    pushError(issues, "sitemap.index.githubio", "sitemap.xml contains github.io URLs.");
+  }
+
+  const indexEntries = extractSitemapEntries(indexXml);
+  const indexLocs = indexEntries.map((entry) => entry.loc);
+  const indexEntryByLoc = new Map(
+    indexEntries.map((entry) => [entry.loc, { ...entry, normalizedLastmod: toIsoTimestamp(entry.lastmod) }])
+  );
+  const expectedLocs = requiredChildren.map((name) => canonicalUrl(name));
+
+  for (const loc of expectedLocs) {
+    if (!indexLocs.includes(loc)) {
+      pushError(issues, "sitemap.index.missing-child", `Missing child sitemap in sitemap.xml: ${loc}`);
+    }
+  }
+  for (const entry of indexEntries) {
+    const loc = entry.loc;
+    const normalizedLastmod = toIsoTimestamp(entry.lastmod);
+    if (!expectedLocs.includes(loc)) {
+      pushWarn(issues, "sitemap.index.unknown-child", `Unexpected child sitemap in sitemap.xml: ${loc}`);
+    }
+    if (!isCanonicalUrl(loc)) {
+      pushError(issues, "sitemap.index.non-canonical", "Child sitemap loc is non-canonical.", { loc });
+      continue;
+    }
+    if (!normalizedLastmod) {
+      pushError(issues, "sitemap.index.lastmod.invalid", "Child sitemap entry has invalid lastmod.", {
+        loc,
+        lastmod: entry.lastmod,
+      });
+      continue;
+    }
+    if (normalizedLastmod === EPOCH_ISO) {
+      pushError(issues, "sitemap.index.lastmod.epoch", "sitemap.xml uses epoch fallback lastmod.", { loc });
+    }
+  }
+
+  for (const childName of requiredChildren) {
+    const loc = canonicalUrl(childName);
+    const indexEntry = indexEntryByLoc.get(loc);
+    if (!indexEntry || !indexEntry.normalizedLastmod) continue;
+    const expectedLastmod = childLatestLastmod.get(childName);
+    if (!expectedLastmod) continue;
+    if (indexEntry.normalizedLastmod !== expectedLastmod) {
+      pushError(
+        issues,
+        "sitemap.index.lastmod.child-mismatch",
+        `sitemap.xml child lastmod does not match child sitemap content max lastmod.`,
+        { child: childName, expected: expectedLastmod, actual: indexEntry.normalizedLastmod }
+      );
     }
   }
 };
