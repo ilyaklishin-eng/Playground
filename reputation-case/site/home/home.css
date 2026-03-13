@@ -291,6 +291,37 @@
   outline-offset: 2px;
 }
 
+.home-page .hero-reference-line {
+  display: inline;
+}
+
+.home-page .hero-reference-more {
+  margin-top: 0.18rem;
+}
+
+.home-page .hero-reference-more > summary {
+  margin: 0;
+  padding: 0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #7d8492;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.16em;
+  text-decoration-color: rgba(125, 132, 146, 0.45);
+}
+
+.home-page .hero-reference-more > summary:hover {
+  color: #656d7d;
+  text-decoration-color: rgba(101, 109, 125, 0.6);
+}
+
+.home-page .hero-reference-more[open] > .hero-reference-line {
+  display: block;
+  margin-top: 0.22rem;
+}
+
 .hero-cta-row {
   margin-top: 1.08rem;
   display: flex;
