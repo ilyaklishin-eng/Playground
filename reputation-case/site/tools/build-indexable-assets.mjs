@@ -1166,6 +1166,43 @@ const previewContext = (item = {}) => {
   return normalizeContextLead(context, item);
 };
 
+const sanitizeSelectedIntro = (text = "", item = {}) => {
+  let value = normalizeText(text);
+  if (!value) return "";
+
+  const markerPatterns = [
+    /\bThis card summarizes\b/i,
+    /\bEntry added to include\b/i,
+    /\bThis card is included as\b/i,
+    /\bIt is included as\b/i,
+  ];
+
+  value = value
+    .replace(/\bEntry added to include[^.]*\.\s*/gi, "")
+    .replace(/\bThis card is included as[^.]*\.\s*/gi, "")
+    .replace(/\bThis card summarizes\b[^.]*\.\s*/gi, "")
+    .replace(/\bIt is included as[^.]*\.\s*/gi, "")
+    .replace(/\bReference card\b[^.]*\.\s*/gi, "")
+    .replace(/\bThe card is included as\b[^.]*\.\s*/gi, "")
+    .trim();
+
+  for (const re of markerPatterns) {
+    const hit = value.match(re);
+    if (!hit || typeof hit.index !== "number") continue;
+    value = value.slice(0, hit.index).trim();
+  }
+
+  if (markerPatterns.some((re) => re.test(value))) {
+    value = "";
+  }
+
+  if (!value || value.length < 24) {
+    value = normalizeText(fallbackSummary(item));
+  }
+
+  return value;
+};
+
 const pickCardQuote = (item = {}) => {
   const candidates =
     Array.isArray(item?.quotes) && item.quotes.length > 0
@@ -1434,8 +1471,8 @@ const normalizeSearchUrl = (href = "") => {
 const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
   const item = entry?.item || {};
   const displayTitle = htmlEscape(resolveDisplayTitle(item));
-  const intro = htmlEscape(previewSummary(item));
-  const context = htmlEscape(previewContext(item));
+  const intro = htmlEscape(sanitizeSelectedIntro(previewSummary(item), item));
+  const source = htmlEscape(normalizeText(item?.source || "-"));
   const date = htmlEscape(normalizeText(item?.date || "-"));
   const digestHref = canonicalUrl(`posts/${idToPostPath.get(item?.id) || entry?.postPath || ""}`);
   const sourceHrefRaw = normalizeSourceUrl(item?.url || "");
@@ -1445,7 +1482,7 @@ const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
   return `          <article class="work-card">
             <h3><a class="work-title-link" href="${htmlEscape(sourceHref)}"${linkAttrs}>${displayTitle}</a></h3>
             <p class="work-intro">${intro}</p>
-            <p class="work-why">${context}</p>
+            <p class="work-meta"><strong>Publication:</strong> ${source}</p>
             <p class="work-meta"><strong>Date:</strong> ${date}</p>
           </article>`;
 };
