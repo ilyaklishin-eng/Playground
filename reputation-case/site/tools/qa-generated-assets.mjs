@@ -12,6 +12,7 @@ const SEARCH_INDEX_PATH = path.join(SITE_DIR, "data", "search-index.json");
 const REPORT_PATH = path.join(SITE_DIR, "qa-generated-assets-report.json");
 const DOMAIN = "https://www.klishin.work";
 const HOST = "www.klishin.work";
+const PERSON_ID = `${DOMAIN}/#person`;
 const HOME_INDEX = path.join(SITE_DIR, "index.html");
 const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
 const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
@@ -505,7 +506,33 @@ const hasSchemaType = (node, expectedType) => {
 
 const hasExplicitPersonAuthor = (author) => {
   const list = Array.isArray(author) ? author : [author];
-  return list.some((entry) => entry && typeof entry === "object" && hasSchemaType(entry, "Person"));
+  return list.some((entry) => {
+    if (!entry || typeof entry !== "object") return false;
+    if (hasSchemaType(entry, "Person")) return true;
+    return String(entry["@id"] || "").trim() === PERSON_ID;
+  });
+};
+
+const extractSourceUrl = (value) => {
+  if (!value) return "";
+  if (Array.isArray(value)) {
+    for (const entry of value) {
+      const nested = extractSourceUrl(entry);
+      if (nested) return nested;
+    }
+    return "";
+  }
+  if (typeof value === "string") {
+    const clean = String(value || "").trim();
+    return /^https?:\/\//i.test(clean) ? clean : "";
+  }
+  if (typeof value === "object") {
+    const directUrl = String(value.url || "").trim();
+    if (/^https?:\/\//i.test(directUrl)) return directUrl;
+    const refId = String(value["@id"] || "").trim();
+    if (/^https?:\/\//i.test(refId)) return refId;
+  }
+  return "";
 };
 
 const isCanonicalUrl = (raw = "") => {
@@ -1095,9 +1122,8 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     if (!article.datePublished || !article.dateModified) {
       pushError(issues, "post.jsonld.date.missing", `Post page Article JSON-LD is missing datePublished/dateModified: ${rel}`);
     }
-    const sourceField = article.isBasedOn || article.citation;
-    const source = Array.isArray(sourceField) ? sourceField.find((x) => String(x || "").trim()) : sourceField;
-    if (!source || !/^https?:\/\//i.test(String(source).trim())) {
+    const source = extractSourceUrl(article.isBasedOn) || extractSourceUrl(article.citation);
+    if (!source) {
       pushError(issues, "post.jsonld.source.missing", `Post page Article JSON-LD is missing explicit source URL: ${rel}`);
     }
 
