@@ -1,9 +1,13 @@
-name: Monitor Crawler Access
+name: Daily Indexability and Bot Access Monitor
 
 on:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "17 4 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: daily-indexability-monitor
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -11,16 +15,91 @@ permissions:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Verify important pages for browser + OpenAI + Perplexity user-agents
+      - name: Build static SEO assets snapshot
+        id: build
+        continue-on-error: true
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
+        run: node reputation-case/site/tools/build-indexable-assets.mjs
+
+      - name: QA indexability gate report (local snapshot)
+        id: qa
+        continue-on-error: true
+        env:
+          GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
+          GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
+        run: node reputation-case/site/tools/qa-generated-assets.mjs --report
+
+      - name: SEO audit report (canonical/hreflang/noindex/sitemaps)
+        id: seo_audit
+        continue-on-error: true
+        run: node reputation-case/site/tools/seo-audit.mjs > /dev/null
+
+      - name: Production bot-access endpoint report (200/301 + challenge detection)
+        id: endpoints
+        continue-on-error: true
         env:
           GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
         run: node reputation-case/site/tools/check-public-endpoints.mjs --domain "https://www.klishin.work" --report
+
+      - name: Build consolidated daily monitoring report
+        if: always()
+        run: |
+          node reputation-case/site/tools/build-daily-monitor-report.mjs \
+            --md-out reputation-case/site/daily-monitor-report.md \
+            --json-out reputation-case/site/daily-monitor-report.json
+
+      - name: Append daily report to job summary
+        if: always()
+        run: |
+          if [ -f reputation-case/site/daily-monitor-report.md ]; then
+            cat reputation-case/site/daily-monitor-report.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Daily monitor report markdown is missing." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload monitoring artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: indexability-bot-monitor-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            reputation-case/site/qa-generated-assets-report.json
+            reputation-case/site/seo-audit-report.json
+            reputation-case/site/seo-endpoint-check-report.json
+            reputation-case/site/daily-monitor-report.md
+            reputation-case/site/daily-monitor-report.json
+
+      - name: Fail run if any monitor gate failed
+        if: always()
+        run: |
+          echo "build=${{ steps.build.outcome }}"
+          echo "qa=${{ steps.qa.outcome }}"
+          echo "seo_audit=${{ steps.seo_audit.outcome }}"
+          echo "endpoints=${{ steps.endpoints.outcome }}"
+
+          FAIL=0
+          [ "${{ steps.build.outcome }}" = "success" ] || FAIL=1
+          [ "${{ steps.qa.outcome }}" = "success" ] || FAIL=1
+          [ "${{ steps.seo_audit.outcome }}" = "success" ] || FAIL=1
+          [ "${{ steps.endpoints.outcome }}" = "success" ] || FAIL=1
+
+          if [ "$FAIL" -ne 0 ]; then
+            echo "One or more indexability/bot-access checks failed."
+            exit 1
+          fi
