@@ -1,13 +1,14 @@
-import interviews from "/data/interviews-data.js";
-import { localizeInterviewItem } from "/interviews/interviews-localize.js";
-
 const grid = document.getElementById("selectedAllGrid");
 const countNode = document.getElementById("selectedAllCount");
 const filterButtons = Array.from(document.querySelectorAll(".selected-all-filters .filter-btn[data-format]"));
+const roleButtons = Array.from(document.querySelectorAll(".selected-all-role-filters .filter-btn[data-role-filter]"));
+const PUBLIC_DIGESTS_PATH = "/data/public-digests.json";
+const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
 
 const state = {
   items: [],
   format: "all",
+  role: "authored",
 };
 
 const EMOJI_POOL = [...new Set([
@@ -30,10 +31,22 @@ const EMOJI_POOL = [...new Set([
 
 const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
 const pageLang = uiLang === "fr" ? "FR" : uiLang === "de" ? "DE" : uiLang === "es" ? "ES" : "EN";
+const ROLE_LABELS = {
+  en: { authored: "Authored", quoted: "Expert Comment", reference: "Reference" },
+  fr: { authored: "Signe", quoted: "Commentaire", reference: "Reference" },
+  de: { authored: "Verfasst", quoted: "Kommentar", reference: "Referenz" },
+  es: { authored: "Firmado", quoted: "Comentario", reference: "Referencia" },
+};
+const ROLE_VIEW_LABELS = {
+  en: { authored: "Authored", quoted: "Quoted", reference: "References" },
+  fr: { authored: "Signes", quoted: "Citations", reference: "References" },
+  de: { authored: "Verfasst", quoted: "Zitiert", reference: "Referenzen" },
+  es: { authored: "Firmado", quoted: "Citado", reference: "Referencias" },
+};
 
 init().catch((error) => {
   console.error("Failed to build selected materials feed", error);
-  if (countNode) countNode.textContent = "Failed to load materials.";
+  if (countNode && !grid?.children?.length) countNode.textContent = "Failed to load materials.";
 });
 
 function normalize(value) {
@@ -61,10 +74,26 @@ function summaryTwoSentences(raw) {
   const text = normalize(stripTags(raw));
   if (!text) return "";
   const parts = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
-  const picked = parts.slice(0, 2).map((part) => normalize(part));
+  const picked = parts
+    .map((part) => normalize(part))
+    .filter(Boolean)
+    .filter(
+      (part) =>
+        !/\b(entry added to include|clear reference point for later comparisons|useful reference card|this (?:card|entry|piece) is included as|it is included as|keep this as|source record|external analytical reference|institutional context source)\b/i.test(
+          part
+        )
+    )
+    .slice(0, 2);
   const merged = normalize(picked.join(" "));
   if (!merged) return "";
   return /[.!?]$/.test(merged) ? merged : `${merged}.`;
+}
+
+function fallbackSummary(item = {}) {
+  const topic = normalize(item.topic || "the topic");
+  const source = normalize(item.source || "the source");
+  const year = /^\d{4}/.test(String(item.date || "")) ? String(item.date).slice(0, 4) : "";
+  return `This piece from ${source}${year ? ` (${year})` : ""} examines ${topic}.`;
 }
 
 function detectFormat(item) {
@@ -91,6 +120,24 @@ function formatLabel(kind) {
   if (kind === "video") return "Video";
   if (kind === "podcasts") return "Podcast";
   return "Text";
+}
+
+function normalizeRole(value) {
+  const raw = normalize(value).toLowerCase();
+  if (raw === "authored" || raw === "author") return "authored";
+  if (raw === "quoted" || raw === "expert_quote") return "quoted";
+  if (raw === "reference" || raw === "mention") return "reference";
+  return "reference";
+}
+
+function roleLabel(role) {
+  const copy = ROLE_LABELS[uiLang] || ROLE_LABELS.en;
+  return copy[normalizeRole(role)] || copy.reference;
+}
+
+function roleViewLabel(role) {
+  const copy = ROLE_VIEW_LABELS[uiLang] || ROLE_VIEW_LABELS.en;
+  return copy[normalizeRole(role)] || copy.reference;
 }
 
 function hasLeadingEmoji(text) {
@@ -167,10 +214,18 @@ function isAbsoluteUrl(value) {
 function createCard(item, emojiMap) {
   const node = document.createElement("article");
   node.className = "selected-all-card";
+  node.dataset.role = normalizeRole(item.role);
 
   const meta = document.createElement("p");
   meta.className = "selected-all-meta";
   meta.textContent = `${item.date || "-"} · ${formatLabel(item.format)} · ${item.source || "Source"}`;
+
+  const badgeWrap = document.createElement("p");
+  badgeWrap.className = "selected-all-role";
+  const badge = document.createElement("span");
+  badge.className = `role-badge role-badge-${normalizeRole(item.role).replace("_", "-")}`;
+  badge.textContent = roleLabel(item.role);
+  badgeWrap.appendChild(badge);
 
   const title = document.createElement("h3");
   const titleLink = document.createElement("a");
@@ -187,7 +242,7 @@ function createCard(item, emojiMap) {
 
   const summary = document.createElement("p");
   summary.className = "selected-all-summary";
-  summary.textContent = item.summary || "No summary available.";
+  summary.textContent = summaryTwoSentences(item.summary || "") || fallbackSummary(item);
 
   const cta = document.createElement("p");
   cta.className = "selected-all-cta";
@@ -200,7 +255,17 @@ function createCard(item, emojiMap) {
   ctaLink.textContent = "Open material ->";
   cta.appendChild(ctaLink);
 
-  node.append(meta, title, summary, cta);
+  if (item.sourceUrl && item.sourceUrl !== item.url) {
+    const separator = document.createTextNode(" · ");
+    const sourceLink = document.createElement("a");
+    sourceLink.href = item.sourceUrl;
+    sourceLink.target = "_blank";
+    sourceLink.rel = "noopener noreferrer";
+    sourceLink.textContent = "Original source";
+    cta.append(separator, sourceLink);
+  }
+
+  node.append(meta, badgeWrap, title, summary, cta);
   return node;
 }
 
@@ -227,18 +292,20 @@ function dedupeByUrl(items) {
 function render() {
   if (!grid) return;
   const all = state.items;
-  const visible = state.format === "all" ? all : all.filter((item) => item.format === state.format);
+  const roleScoped = all.filter((item) => normalizeRole(item.role) === state.role);
+  const visible = state.format === "all" ? roleScoped : roleScoped.filter((item) => item.format === state.format);
   const emojiMap = buildEmojiMap(visible);
   grid.innerHTML = "";
 
   if (countNode) {
-    countNode.textContent = `${visible.length} shown / ${all.length} total`;
+    const formatSuffix = state.format === "all" ? "" : ` · ${formatLabel(state.format)}`;
+    countNode.textContent = `${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix}`;
   }
 
   if (!visible.length) {
     const empty = document.createElement("div");
     empty.className = "selected-all-empty";
-    empty.textContent = "No materials match the current filter.";
+    empty.textContent = "No materials match the current filters.";
     grid.appendChild(empty);
     return;
   }
@@ -281,6 +348,20 @@ function decorateClusterCards() {
 }
 
 function bindFilters() {
+  roleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = normalizeRole(button.dataset.roleFilter || "authored");
+      if (next === state.role) return;
+      state.role = next;
+      roleButtons.forEach((node) => {
+        const active = normalizeRole(node.dataset.roleFilter) === next;
+        node.classList.toggle("active", active);
+        node.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      render();
+    });
+  });
+
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const next = String(button.dataset.format || "all");
@@ -297,38 +378,51 @@ function bindFilters() {
 }
 
 async function loadDigestCards() {
-  const response = await fetch("/data/digests.json", { cache: "no-store" });
+  const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
   if (!response.ok) throw new Error(`Failed to load digests: ${response.status}`);
   const payload = await response.json();
   const items = Array.isArray(payload?.items) ? payload.items : [];
 
   return items
-    .filter((item) => String(item?.status || "").toLowerCase() === "ready")
+    .filter((item) => String(item?.status || "").toLowerCase() === "published")
+    .filter((item) => String(item?.surface || "").toLowerCase() === "public")
     .filter((item) => String(item?.language || "").toUpperCase() === pageLang)
-    .map((item) => ({
-      id: normalize(item.id),
-      date: normalize(item.date),
-      source: normalize(item.source),
-      title: normalize(item.title),
-      summary: summaryTwoSentences(item.summary || item.digest),
-      url: normalize(item.url),
-      sourceUrl: normalize(item.url),
-      format: detectFormat(item),
-    }))
+    .map((item) => {
+      const sourceUrl = normalize(item.source_url || item.url);
+      return {
+        id: normalize(item.id),
+        date: normalize(item.date),
+        source: normalize(item.source),
+        role: normalize(item.role || "authored"),
+        title: normalize(item.title),
+        summary: summaryTwoSentences(item.summary || item.digest),
+        url: normalize(item.post_url || sourceUrl),
+        sourceUrl,
+        format: detectFormat(item),
+      };
+    })
     .filter((item) => item.title && item.url);
 }
 
-function loadInterviewCards() {
-  return interviews
-    .map((item) => localizeInterviewItem(item, uiLang))
+async function loadInterviewCards() {
+  const response = await fetch(PUBLIC_INTERVIEWS_PATH, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to load interviews: ${response.status}`);
+  const payload = await response.json();
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+
+  return items
+    .filter((item) => String(item?.status || "").toLowerCase() === "published")
+    .filter((item) => String(item?.surface || "").toLowerCase() === "public")
+    .filter((item) => String(item?.locale || "").toLowerCase() === uiLang)
     .map((item) => ({
       id: `interview-${normalize(item.url)}`,
       date: normalize(item.date),
-      source: normalize(item.section === "features" ? "Feature" : "Interview"),
+      source: normalize(item.outlet || (item.section === "features" ? "Feature" : "Interview")),
+      role: normalize(item.role || "quoted"),
       title: normalize(item.title),
       summary: summaryTwoSentences(item.description),
       url: normalize(item.url),
-      sourceUrl: normalize(item.url),
+      sourceUrl: normalize(item.source_url || item.url),
       format: detectFormat(item),
     }))
     .filter((item) => item.title && item.url);
@@ -337,7 +431,7 @@ function loadInterviewCards() {
 async function init() {
   decorateClusterCards();
   const digestCards = await loadDigestCards();
-  const interviewCards = loadInterviewCards();
+  const interviewCards = await loadInterviewCards();
   const combined = dedupeByUrl([...digestCards, ...interviewCards])
     .slice()
     .sort((a, b) => {

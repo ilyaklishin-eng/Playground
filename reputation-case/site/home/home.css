@@ -520,9 +520,9 @@
 .home-page .cards-intro {
   display: flex;
   justify-content: space-between;
-  align-items: end;
+  align-items: center;
   gap: 1rem;
-  padding-bottom: 0.84rem;
+  padding-bottom: 0.56rem;
   border-bottom: 1px solid var(--home-line);
 }
 
@@ -733,8 +733,8 @@
 }
 
 .home-page .card-link {
-  margin-top: auto;
-  padding-top: 0.62rem;
+  margin-top: 0;
+  padding-top: 0;
   display: inline-flex;
   color: #2a3444;
   font-size: 0.82rem;
@@ -743,6 +743,26 @@
 }
 
 .home-page .card-link:hover {
+  text-decoration: underline;
+}
+
+.home-page .card-links {
+  margin-top: auto;
+  padding-top: 0.62rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.home-page .card-link-secondary {
+  color: #6a7384;
+  font-size: 0.78rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.home-page .card-link-secondary:hover {
   text-decoration: underline;
 }
 
@@ -806,23 +826,21 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.52rem;
+  align-items: center;
 }
 
 .home-page .home-social-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.42rem;
-  min-height: 2.18rem;
-  padding: 0.42rem 0.66rem;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  padding: 0;
   border: 1px solid #d7d0c5;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #ffffff;
   color: #1d2431;
   text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 730;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
   transition:
     border-color 0.16s ease,
     transform 0.16s ease,
@@ -831,8 +849,8 @@
 }
 
 .home-page .home-social-icon {
-  width: 0.95rem;
-  height: 0.95rem;
+  width: 1rem;
+  height: 1rem;
   fill: currentColor;
   flex: 0 0 auto;
 }
@@ -875,12 +893,6 @@
   color: #0d6fa8;
   border-color: #c8deed;
   background: #f6fbff;
-}
-
-.home-page .social-readme {
-  color: #38475d;
-  border-color: #d4dce8;
-  background: #f8faff;
 }
 
 .home-page .contact-meta {

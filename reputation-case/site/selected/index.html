@@ -9,27 +9,21 @@
       content="Human-curated route through key journalism, media strategy analysis, propaganda studies, diaspora-media projects, and interviews by Ilia Klishin."
     />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <link rel="canonical" href="https://www.klishin.work/selected/" />
-    <link rel="alternate" hreflang="en" href="https://www.klishin.work/selected/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/selected/" />
+    
+    
+    
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Selected Work | Ilia Klishin Journalism and Analysis" />
-    <meta
-      property="og:description"
-      content="Curated selection of key journalism, analysis, and public texts by Ilia Klishin."
-    />
+    <meta property="og:description" content="Human-curated route through key journalism, media strategy analysis, propaganda studies, diaspora-media projects, and interviews by Ilia Klishin." />
     <meta property="og:url" content="https://www.klishin.work/selected/" />
     <meta property="og:site_name" content="Ilia Klishin" />
-    <meta property="og:image" content="https://www.klishin.work/og/selected-work.jpg" />
+    <meta property="og:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Selected Work | Ilia Klishin Journalism and Analysis" />
-    <meta
-      name="twitter:description"
-      content="Curated selection of key journalism, analysis, and public texts by Ilia Klishin."
-    />
-    <meta name="twitter:image" content="https://www.klishin.work/og/selected-work.jpg" />
+    <meta name="twitter:description" content="Human-curated route through key journalism, media strategy analysis, propaganda studies, diaspora-media projects, and interviews by Ilia Klishin." />
+    <meta name="twitter:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
     <meta name="twitter:creator" content="@vorewig" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,7 +31,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.9b1fd03355.css" />
+    <link rel="stylesheet" href="/styles.55636b8428.css" />
     <style>
       .primary-nav a[aria-current="page"] {
         border-color: var(--line-strong);
@@ -68,58 +62,6 @@
         max-width: 72ch;
       }
 
-      .selected-trust {
-        margin-top: 0.9rem;
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        background: var(--paper);
-        box-shadow: var(--shadow-soft);
-        padding: 0.95rem 1rem;
-      }
-
-      .selected-trust h2 {
-        margin: 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.28rem;
-        letter-spacing: -0.01em;
-      }
-
-      .selected-trust p {
-        margin: 0.35rem 0 0;
-        color: var(--muted);
-      }
-
-      .selected-trust-list {
-        list-style: none;
-        margin: 0.68rem 0 0;
-        padding: 0;
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.56rem;
-      }
-
-      .selected-trust-list li {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: #f8fbff;
-        padding: 0.5rem 0.62rem;
-        font-size: 0.86rem;
-        color: #2b3e5f;
-      }
-
-      .selected-trust-list strong {
-        color: var(--ink);
-      }
-
-      .selected-trust-list a {
-        color: var(--accent-ink);
-        text-decoration: none;
-      }
-
-      .selected-trust-list a:hover {
-        text-decoration: underline;
-      }
-
       .selected-all {
         margin-top: 1rem;
         border-top: 1px solid var(--line);
@@ -141,10 +83,15 @@
       .selected-all-controls {
         margin-top: 0.68rem;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 0.5rem;
         flex-wrap: wrap;
+      }
+
+      .selected-all-filter-stack {
+        display: grid;
+        gap: 0.42rem;
       }
 
       .selected-all-filters {
@@ -216,6 +163,49 @@
         letter-spacing: 0.06em;
       }
 
+      .selected-all-role,
+      .work-role {
+        margin: 0.5rem 0 0;
+      }
+
+      .role-badge,
+      .work-role-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        border-radius: 999px;
+        padding: 0.18rem 0.58rem;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .role-badge-author,
+      .role-badge-authored,
+      .work-role-badge-author,
+      .work-role-badge-authored {
+        background: #fff2cc;
+        color: #7a4a00;
+      }
+
+      .role-badge-expert-quote,
+      .role-badge-quoted,
+      .role-badge-expert,
+      .work-role-badge-expert-quote,
+      .work-role-badge-quoted,
+      .work-role-badge-expert {
+        background: #e6f0ff;
+        color: #1d4f91;
+      }
+
+      .role-badge-mention,
+      .role-badge-reference,
+      .work-role-badge-mention,
+      .work-role-badge-reference {
+        background: #edf2ef;
+        color: #355043;
+      }
+
       .selected-all-summary {
         margin: 0.46rem 0 0;
         color: var(--muted);
@@ -278,7 +268,7 @@
       }
 
       .work-card h3 {
-        margin: 0;
+        margin: 0.42rem 0 0;
         font-family: "Newsreader", Georgia, serif;
         font-size: 1.2rem;
         line-height: 1.25;
@@ -417,10 +407,6 @@
       }
 
       @media (max-width: 920px) {
-        .selected-trust-list {
-          grid-template-columns: 1fr;
-        }
-
         .selected-all-grid {
           grid-template-columns: 1fr;
         }
@@ -433,8 +419,7 @@
           grid-template-columns: 1fr;
         }
       }
-    </style>
-    <script type="application/ld+json">
+    </style><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -454,15 +439,12 @@
         "https://www.instagram.com/vorewig",
         "https://www.facebook.com/ilya.klishin",
         "https://t.me/vorewig",
-        "https://t.me/bookswithklishin",
         "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-        "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
         "https://www.ted.com/tedx/events/3947",
         "https://www.themoscowtimes.com/author/ilya-klishin",
         "https://www.vedomosti.ru/authors/ilya-klishin",
-        "https://polutona.ru/?show=1104154256",
+        "https://theins.ru/en/opinion/ilya-klishin",
         "https://snob.ru/profile/28206/about/",
-        "https://snob.ru/profile/28206/blog/",
         "https://rtvi.com/editors-archive/ilya-klishin/",
         "https://kf.agency/articles/biography"
       ]
@@ -474,11 +456,7 @@
       "url": "https://www.klishin.work/",
       "founder": {
         "@id": "https://www.klishin.work/#person"
-      },
-      "sameAs": [
-        "https://www.klishin.work/",
-        "https://www.klishin.work/archive/"
-      ]
+      }
     },
     {
       "@type": "WebSite",
@@ -502,31 +480,31 @@
           "@id": "https://www.klishin.work/#webpage"
         },
         {
-          "@id": "https://www.klishin.work/bio/#webpage"
+          "@id": "https://www.klishin.work/bio/#profilepage"
         },
         {
-          "@id": "https://www.klishin.work/cases/#webpage"
+          "@id": "https://www.klishin.work/cases/#profilepage"
         },
         {
-          "@id": "https://www.klishin.work/contact/#webpage"
+          "@id": "https://www.klishin.work/contact/#contactpage"
         },
         {
           "@id": "https://www.klishin.work/interviews/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/selected/#webpage"
+          "@id": "https://www.klishin.work/selected/#collectionpage"
         },
         {
           "@id": "https://www.klishin.work/search/#webpage"
         },
         {
-          "@id": "https://www.klishin.work/insights/#webpage"
+          "@id": "https://www.klishin.work/insights/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/archive/#webpage"
+          "@id": "https://www.klishin.work/archive/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/posts/index.html#webpage"
+          "@id": "https://www.klishin.work/posts/#collectionpage"
         }
       ],
       "potentialAction": {
@@ -555,7 +533,7 @@
     },
     {
       "@type": "CollectionPage",
-      "@id": "https://www.klishin.work/selected/#webpage",
+      "@id": "https://www.klishin.work/selected/#collectionpage",
       "url": "https://www.klishin.work/selected/",
       "name": "Selected Work | Ilia Klishin Journalism and Analysis",
       "description": "Human-curated route through key journalism, media strategy analysis, propaganda studies, diaspora-media projects, and interviews by Ilia Klishin.",
@@ -585,339 +563,544 @@
       "@id": "https://www.klishin.work/selected/#itemlist",
       "name": "Selected Work clusters",
       "itemListOrder": "https://schema.org/ItemListOrderAscending",
-      "numberOfItems": 52
+      "numberOfItems": 53
     }
   ]
 }
     </script>
-      <meta property="og:image" content="https://www.klishin.work/og/selected-work.jpg" />
+      <meta property="og:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/jpeg" />
-      <meta name="twitter:image" content="https://www.klishin.work/og/selected-work.jpg" />
-      <meta property="og:image:secure_url" content="https://www.klishin.work/og/selected-work.jpg" />
-      <meta name="twitter:image:src" content="https://www.klishin.work/og/selected-work.jpg" />
-      <link rel="image_src" href="https://www.klishin.work/og/selected-work.jpg" />
+      <meta name="twitter:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
+      <meta property="og:image:secure_url" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
+      <meta name="twitter:image:src" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
+      <link rel="image_src" href="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <link rel="canonical" href="https://www.klishin.work/selected/" />
   </head>
   <body>
     <div class="bg-ornament" aria-hidden="true"></div>
-    <header class="topbar">
+    <header class="topbar" id="siteTopbar">
       <a class="brand" href="/" aria-label="Go to home">Ilia Klishin</a>
       <nav class="primary-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/bio/">Bio</a>
         <a href="/selected/" aria-current="page">Selected Work</a>
         <a href="/interviews/">Interviews</a>
-<a href="/search/">Search</a>
         <a href="/contact/">Contact</a>
       </nav>
-      <div class="site-lang-switch" aria-label="Site language">
-        <a class="active" href="/selected/">EN</a>
-        <a href="/fr/">FR</a>
-        <a href="/de/">DE</a>
-        <a href="/es/">ES</a>
-      </div>
+      <nav class="site-lang-switch" aria-label="Site language">
+        <a class="active" href="/selected/" aria-current="page">EN</a>
+      </nav>
     </header>
-
-    <main class="page selected-page">
+<main class="page selected-page">
       <section class="selected-hero">
         <h1>Selected Work</h1>
         <p>Browse the full published corpus by section and by format in one place.</p>
       </section>
 
-      <section class="selected-trust" aria-label="At a glance">
-        <h2>At a glance</h2>
-        <p>External references aligned with the home page.</p>
-        <ul class="selected-trust-list">
-          <li>
-            <strong>Identity and international press references.</strong>
-            References:
-            <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87" target="_blank" rel="noopener noreferrer">Wiki (Ru)</a>,
-            <a href="https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/" target="_blank" rel="noopener noreferrer">The Atlantic</a>,
-            <a href="https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list" target="_blank" rel="noopener noreferrer">The Guardian</a>,
-            <a href="https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown" target="_blank" rel="noopener noreferrer">Bloomberg</a>.
-          </li>
-          <li>
-            <strong>Institutional reporting and rights-monitoring context.</strong>
-            References:
-            <a href="https://www.hrw.org/news/2012/03/01/russia-harassment-critics" target="_blank" rel="noopener noreferrer">Human Rights Watch</a>,
-            <a href="https://freedomhouse.org/country/russia/freedom-net/2016" target="_blank" rel="noopener noreferrer">Freedom House</a>,
-            <a href="https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons" target="_blank" rel="noopener noreferrer">Wilson Center</a>.
-          </li>
-          <li>
-            <strong>Research and analytical citation layer.</strong>
-            References:
-            <a href="https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet" target="_blank" rel="noopener noreferrer">Carnegie Endowment</a>,
-            <a href="https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/" target="_blank" rel="noopener noreferrer">Global Voices</a>,
-            <a href="https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/" target="_blank" rel="noopener noreferrer">LSE EUROPP</a>,
-            <a href="https://www.rand.org/pubs/research_reports/RR295.html" target="_blank" rel="noopener noreferrer">RAND</a>,
-            <a href="https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/" target="_blank" rel="noopener noreferrer">JSIS Washington</a>.
-          </li>
-          <li>
-            <strong>Author archives and publication records.</strong>
-            References:
-            <a href="https://theins.ru/en/opinion/ilya-klishin/252347" target="_blank" rel="noopener noreferrer">The Insider</a>,
-            <a href="https://www.themoscowtimes.com/author/ilya-klishin" target="_blank" rel="noopener noreferrer">The Moscow Times</a>,
-            <a href="https://www.vedomosti.ru/authors/ilya-klishin" target="_blank" rel="noopener noreferrer">Vedomosti</a>,
-            <a href="https://www.delfi.lt/" target="_blank" rel="noopener noreferrer">Delfi</a>.
-          </li>
-          <li>
-            <strong>Current work profiles.</strong>
-            References:
-            <a href="https://kf.agency/" target="_blank" rel="noopener noreferrer">KF Agency</a>,
-            <a href="https://linktr.ee/volnamedia" target="_blank" rel="noopener noreferrer">Volna Media</a>,
-            <a href="https://rtvi.com/editors-archive/ilya-klishin/" target="_blank" rel="noopener noreferrer">RTVI archive</a>.
-          </li>
-          <li>
-            <strong>Public speaking and profile references.</strong>
-            References:
-            <a href="https://www.ted.com/tedx/events/3947" target="_blank" rel="noopener noreferrer">TEDx</a>,
-            <a href="/bio/">Bio</a>.
-          </li>
-        </ul>
-      </section>
-
       <section class="selected-all" aria-labelledby="all-materials-title">
-        <h2 id="all-materials-title">All materials</h2>
-        <p>Complete reader-facing index with format filters: text, video, and podcasts.</p>
+        <h2 id="all-materials-title">Browse by role</h2>
+        <p>Authored work comes first. Press quotes and institutional references stay available, but outside the main authored stream.</p>
         <div class="selected-all-controls">
-          <div class="selected-all-filters" role="group" aria-label="Format filter">
-            <button class="filter-btn active" type="button" data-format="all" aria-pressed="true">All</button>
-            <button class="filter-btn" type="button" data-format="text" aria-pressed="false">Text</button>
-            <button class="filter-btn" type="button" data-format="video" aria-pressed="false">Video</button>
-            <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">Podcasts</button>
+          <div class="selected-all-filter-stack">
+            <div class="selected-all-filters selected-all-role-filters" role="group" aria-label="Role filter">
+              <button class="filter-btn active" type="button" data-role-filter="authored" aria-pressed="true">Authored</button>
+              <button class="filter-btn" type="button" data-role-filter="quoted" aria-pressed="false">Quoted</button>
+              <button class="filter-btn" type="button" data-role-filter="reference" aria-pressed="false">References</button>
+            </div>
+            <div class="selected-all-filters" role="group" aria-label="Format filter">
+              <button class="filter-btn active" type="button" data-format="all" aria-pressed="true">All</button>
+              <button class="filter-btn" type="button" data-format="text" aria-pressed="false">Text</button>
+              <button class="filter-btn" type="button" data-format="video" aria-pressed="false">Video</button>
+              <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">Podcasts</button>
+            </div>
           </div>
-          <p class="selected-all-count" id="selectedAllCount">Loading materials...</p>
+          <p class="selected-all-count" id="selectedAllCount">38 shown · Authored</p>
         </div>
-        <div class="selected-all-grid" id="selectedAllGrid"></div>
+        <div class="selected-all-grid" id="selectedAllGrid">
+          <!-- SELECTED_ALL_GRID_START -->
+<article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2022-02-14 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">🗞️ Putin-Macron talks and the Russia expertise gap</a></h3>
+            <p class="selected-all-summary">In this Feb 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-12-10 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">🧭 Mass protests: lessons from a decade</a></h3>
+            <p class="selected-all-summary">This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-08-24 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">📌 Commentary on pressure against independent media institutions</a></h3>
+            <p class="selected-all-summary">The Moscow Times publishes a piece on media freedom.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-07-12 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">🧾 The Magic Mirror of Russian Public Opinion</a></h3>
+            <p class="selected-all-summary">How public-opinion narratives are shaped by institutions, incentives, and media distribution logic.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-06-07 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">📰 The Dilemma of the Great Terror: How to Report Roman Protasevich&#39;s Confession?</a></h3>
+            <p class="selected-all-summary">The Moscow Times publishes a piece on media ethics.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-05-17 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">📚 Let&#39;s Wait Until After the Elections</a></h3>
+            <p class="selected-all-summary">How election-timing rhetoric can postpone decisions and normalize strategic waiting.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-03-19 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">📖 Luiza Rozova and the Helpless Intellectual</a></h3>
+            <p class="selected-all-summary">The piece examines elite discourse in 2021.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-02-12 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">🔎 Four Ways the Kremlin Could Block Western Social Networks in Russia</a></h3>
+            <p class="selected-all-summary">Which technical and political mechanisms can be used to restrict social-network access.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2021-01-14 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html">🧠 The Capitol Storming Gives Russians an Escape From Their Reality</a></h3>
+            <p class="selected-all-summary">This The Moscow Times (2021) publication focuses on comparative media framing.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-12-18 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">📡 Warning! An Army of Russian Trolls Has Invaded TikTok</a></h3>
+            <p class="selected-all-summary">How platform dynamics and troll methods move from domestic messaging into wider information spaces.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-11-20 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">🛰️ Why Russians Dislike &quot;Good Russians&quot; in American Films No Less than &quot;Bad Russians&quot;</a></h3>
+            <p class="selected-all-summary">The article outlines cultural representation in clear terms.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-11-09 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">🧪 Great Russian Literature Versus One Tweet by Stephen King</a></h3>
+            <p class="selected-all-summary">How cultural symbols and representation frames affect trust, identity, and audience reaction.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-09-28 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html">🧩 Anonymous Telegram Channels Are Shaping Russia&#39;s Daily Life</a></h3>
+            <p class="selected-all-summary">The piece examines platform influence in 2020.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-08-14 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html">🛡️ Why Do Russians Resent Western Media Over The</a></h3>
+            <p class="selected-all-summary">Why protest outcomes that look like defeat can still produce long-term civic learning.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-04-16 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">⚖️ Coronavirus Spoils Putin&#39;s &#39;Forever-in-Power&#39; Public Vote</a></h3>
+            <p class="selected-all-summary">The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2020-01-17 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html">🏛️ Why Medvedev&#39;s resignation and Putin&#39;s amendments changed nothing</a></h3>
+            <p class="selected-all-summary">This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2020/01/17/10-2-a68947" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-11-11 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html">🌐 Who owns Russian? And who owns English?</a></h3>
+            <p class="selected-all-summary">The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/11/11/9-a68123" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-10-30 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html">✍️ Why shoot Navalny if you can bankrupt him</a></h3>
+            <p class="selected-all-summary">This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-10-30 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">📝 How Putin Is Bankrupting the Russian Opposition</a></h3>
+            <p class="selected-all-summary">This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-10-16 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html">📊 How the death penalty debate linked to a ban on negative Ukraine coverage</a></h3>
+            <p class="selected-all-summary">Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/10/16/8-2-a67761" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-09-26 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html">📈 Russias New Heroes Are Those Who Simply Say Things as They Are</a></h3>
+            <p class="selected-all-summary">Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2019-04-05 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">📉 Why Russian Journalists Find Refuge in Propaganda Outlets</a></h3>
+            <p class="selected-all-summary">The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2018-12-06 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html">🗂️ The music of the media desert</a></h3>
+            <p class="selected-all-summary">This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html">Open material -></a> · <a href="https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2018-05-24 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html">📁 Moscow: clean city, cleansed city</a></h3>
+            <p class="selected-all-summary">The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html">Open material -></a> · <a href="https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2016-09-09 · Text · Carnegie Endowment</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html">🧵 Private Authoritarianism: How Facebook and Google Threaten Democracy</a></h3>
+            <p class="selected-all-summary">This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html">Open material -></a> · <a href="https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2016-02-05 · Text · Carnegie Endowment</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html">🪶 Web of Control: The Future of the Russian Internet</a></h3>
+            <p class="selected-all-summary">This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html">Open material -></a> · <a href="https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2015-10-22 · Text · Carnegie Endowment</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html">🕯️ Do Revolutions Grow Out of Social Media?</a></h3>
+            <p class="selected-all-summary">This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html">Open material -></a> · <a href="https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2015-07-21 · Text · Carnegie.ru</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html">⏳ Bot Army: Why the Kremlin Fails at Soft Power</a></h3>
+            <p class="selected-all-summary">This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html">Open material -></a> · <a href="https://carnegie.ru/commentary/60728" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2015-05-25 · Text · Carnegie Endowment</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html">🔬 What Sparked Moldova&#39;s Second Maidan?</a></h3>
+            <p class="selected-all-summary">This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html">Open material -></a> · <a href="https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2015-01-30 · Text · Global Voices</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">🌍 How Putin quietly took over Russian social media</a></h3>
+            <p class="selected-all-summary">This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">Open material -></a> · <a href="https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-05-21 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-009-lajki-na-zapad.html">🧬 Likes Go West</a></h3>
+            <p class="selected-all-summary">In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-009-lajki-na-zapad.html">Open material -></a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-05-21 · Text · The Moscow Times</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">🧱 Early warning analysis on Russian troll expansion</a></h3>
+            <p class="selected-all-summary">This The Moscow Times (2014) publication focuses on disinformation analysis.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">Open material -></a> · <a href="https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-05-07 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html">⚙️ Maximum Retweet: The war we overlooked</a></h3>
+            <p class="selected-all-summary">Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html">Open material -></a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-04-23 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html">🔭 Maximum Retweet: Threats created by the Ministry of Truth</a></h3>
+            <p class="selected-all-summary">This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html">Open material -></a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-04-09 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html">🧰 Maximum Retweet: They purged the wrong people</a></h3>
+            <p class="selected-all-summary">Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html">Open material -></a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2014-03-12 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html">💡 Maximum Retweet: The web we got trapped in</a></h3>
+            <p class="selected-all-summary">This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html">Open material -></a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2013-02-13 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">🔦 The internet will not do it automatically</a></h3>
+            <p class="selected-all-summary">This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">Open material -></a> · <a href="https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">2012-08-24 · Text · Vedomosti</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html">🌊 Zero multiplied by a million</a></h3>
+            <p class="selected-all-summary">One of Klishin&#39;s early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.</p>
+            <p class="selected-all-cta"><a href="https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html">Open material -></a> · <a href="https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+<!-- SELECTED_ALL_GRID_END -->
+        </div>
       </section>
 
       <section class="cluster" id="journalism">
         <h2>Journalism</h2>
         <p class="cluster-intro">Public-interest reporting and commentary tied to concrete events and timelines.</p>
         <div class="cluster-grid">
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375" target="_blank" rel="noopener noreferrer">Putin-Macron talks and the Russia expertise gap</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Putin-Macron talks and the Russia expertise gap</a></h3>
             <p class="work-intro">In this Feb 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2022-02-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781" target="_blank" rel="noopener noreferrer">Mass protests: lessons from a decade</a></h3>
-            <p class="work-intro">This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability. Framing the defeat as a Hegelian catalyst, it argues the subsequent crackdown inadvertently served as a &quot;civil society university,&quot; transforming a naive public into a deeply politicized society primed for an unpredictable historical synthesis.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Mass protests: lessons from a decade</a></h3>
+            <p class="work-intro">This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-12-10</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu" target="_blank" rel="noopener noreferrer">Dekoder on Sputnik V approval and Russian vaccine messaging</a></h3>
-            <p class="work-intro">This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.</p>
-            <p class="work-meta"><strong>Publication:</strong> Dekoder</p>
-            <p class="work-meta"><strong>Date:</strong> 2021-04-01</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown" target="_blank" rel="noopener noreferrer">Bloomberg quotes Klishin on Russia’s Twitter crackdown</a></h3>
-            <p class="work-intro">This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.</p>
-            <p class="work-meta"><strong>Publication:</strong> Bloomberg</p>
-            <p class="work-meta"><strong>Date:</strong> 2021-03-10</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155" target="_blank" rel="noopener noreferrer">Why Do Russians Resent Western Media Over The</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html">Why Do Russians Resent Western Media Over The</a></h3>
             <p class="work-intro">Why protest outcomes that look like defeat can still produce long-term civic learning.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-08-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014" target="_blank" rel="noopener noreferrer">Coronavirus Spoils Putin&#39;s &#39;Forever-in-Power&#39; Public Vote</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">Coronavirus Spoils Putin&#39;s &#39;Forever-in-Power&#39; Public Vote</a></h3>
             <p class="work-intro">The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-04-16</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/01/17/10-2-a68947" target="_blank" rel="noopener noreferrer">Why Medvedev&#39;s resignation and Putin&#39;s amendments changed nothing</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html">Why Medvedev&#39;s resignation and Putin&#39;s amendments changed nothing</a></h3>
             <p class="work-intro">This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-01-17</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/01/17/10-2-a68947" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/11/11/9-a68123" target="_blank" rel="noopener noreferrer">Who owns Russian? And who owns English?</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html">Who owns Russian? And who owns English?</a></h3>
             <p class="work-intro">The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-11-11</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/11/11/9-a68123" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972" target="_blank" rel="noopener noreferrer">Why shoot Navalny if you can bankrupt him</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html">Why shoot Navalny if you can bankrupt him</a></h3>
             <p class="work-intro">This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-10-30</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971" target="_blank" rel="noopener noreferrer">How Putin Is Bankrupting the Russian Opposition</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">How Putin Is Bankrupting the Russian Opposition</a></h3>
             <p class="work-intro">This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-10-30</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/10/16/8-2-a67761" target="_blank" rel="noopener noreferrer">How the death penalty debate linked to a ban on negative Ukraine coverage</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html">How the death penalty debate linked to a ban on negative Ukraine coverage</a></h3>
             <p class="work-intro">Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-10-16</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/10/16/8-2-a67761" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400" target="_blank" rel="noopener noreferrer">Russias New Heroes Are Those Who Simply Say Things as They Are</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html">Russias New Heroes Are Those Who Simply Say Things as They Are</a></h3>
             <p class="work-intro">Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-09-26</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini" target="_blank" rel="noopener noreferrer">The music of the media desert</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html">The music of the media desert</a></h3>
             <p class="work-intro">This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2018-12-06</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya" target="_blank" rel="noopener noreferrer">Moscow: clean city, cleansed city</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html">Moscow: clean city, cleansed city</a></h3>
             <p class="work-intro">The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2018-05-24</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://freedomhouse.org/country/russia/freedom-net/2016" target="_blank" rel="noopener noreferrer">Freedom on the Net 2016 records pressure linked to Klishin and peers</a></h3>
-            <p class="work-intro">Freedom House&#39;s 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators. The report is included as an institutional record in the wider timeline of digital intimidation and online-control practices.</p>
-            <p class="work-meta"><strong>Publication:</strong> Freedom House</p>
-            <p class="work-meta"><strong>Date:</strong> 2016-11-14</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii" target="_blank" rel="noopener noreferrer">Private Authoritarianism: How Facebook and Google Threaten Democracy</a></h3>
-            <p class="work-intro">This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls. The text is included as an early framing of platform power as a governance problem rather than only a technical or market issue.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html">Private Authoritarianism: How Facebook and Google Threaten Democracy</a></h3>
+            <p class="work-intro">This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls.</p>
             <p class="work-meta"><strong>Publication:</strong> Carnegie Endowment</p>
             <p class="work-meta"><strong>Date:</strong> 2016-09-09</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html">Open on-site note</a> · <a href="https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet" target="_blank" rel="noopener noreferrer">Web of Control: The Future of the Russian Internet</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html">Web of Control: The Future of the Russian Internet</a></h3>
             <p class="work-intro">This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.</p>
             <p class="work-meta"><strong>Publication:</strong> Carnegie Endowment</p>
             <p class="work-meta"><strong>Date:</strong> 2016-02-05</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html">Open on-site note</a> · <a href="https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/" target="_blank" rel="noopener noreferrer">JSIS profile: digital patriotism and nationalist agenda in Russian media</a></h3>
-            <p class="work-intro">This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy.</p>
-            <p class="work-meta"><strong>Publication:</strong> JSIS Washington</p>
-            <p class="work-meta"><strong>Date:</strong> 2016-01-01</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii" target="_blank" rel="noopener noreferrer">Do Revolutions Grow Out of Social Media?</a></h3>
-            <p class="work-intro">This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures. Using post-Soviet examples, the text separates communication effects from causal claims about regime change and warns against technological determinism in media analysis.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html">Do Revolutions Grow Out of Social Media?</a></h3>
+            <p class="work-intro">This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures.</p>
             <p class="work-meta"><strong>Publication:</strong> Carnegie Endowment</p>
             <p class="work-meta"><strong>Date:</strong> 2015-10-22</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html">Open on-site note</a> · <a href="https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan" target="_blank" rel="noopener noreferrer">What Sparked Moldova&#39;s Second Maidan?</a></h3>
-            <p class="work-intro">This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs. The text tracks the gap between reform promises and lived outcomes, showing how repeated cycles of disappointment can reactivate street politics even when formal institutions remain unchanged.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html">What Sparked Moldova&#39;s Second Maidan?</a></h3>
+            <p class="work-intro">This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs.</p>
             <p class="work-meta"><strong>Publication:</strong> Carnegie Endowment</p>
             <p class="work-meta"><strong>Date:</strong> 2015-05-25</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html">Open on-site note</a> · <a href="https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons" target="_blank" rel="noopener noreferrer">Wilson Center: How the media became one of Putin&#39;s most powerful weapons</a></h3>
-            <p class="work-intro">This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control. The piece is included as an institutional context source and cites arguments connected to Klishin&#39;s assessments of propaganda infrastructure.</p>
-            <p class="work-meta"><strong>Publication:</strong> The Wilson Center</p>
-            <p class="work-meta"><strong>Date:</strong> 2015-04-27</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/" target="_blank" rel="noopener noreferrer">Atlantic feature cites Klishin on Putin’s media machine</a></h3>
-            <p class="work-intro">This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.</p>
-            <p class="work-meta"><strong>Publication:</strong> The Atlantic</p>
-            <p class="work-meta"><strong>Date:</strong> 2015-04-21</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/" target="_blank" rel="noopener noreferrer">TV Rain launched &quot;Our Soldiers&quot; civilian investigation</a></h3>
-            <p class="work-intro">This August 2014 TV Rain project page introduces &quot;Our Soldiers,&quot; a public-facing investigation into reports of Russian servicemen killed, missing, or captured near the Ukrainian border during a period of official denials. The framing is explicit: the goal is not rhetorical escalation but factual clarification of identities, numbers, and circumstances. The page states that if authorities withhold information, independent verification must be built from open submissions, witness reports, and case-level documentation.</p>
-            <p class="work-meta"><strong>Publication:</strong> TV Rain</p>
-            <p class="work-meta"><strong>Date:</strong> 2014-08-27</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War" target="_blank" rel="noopener noreferrer">Wikipedia war-coverage overview references Klishin claims</a></h3>
-            <p class="work-intro">This encyclopedia overview of media coverage around the Russo-Ukrainian war includes references to claims associated with Klishin about manipulation channels and audience targeting.</p>
-            <p class="work-meta"><strong>Publication:</strong> Wikipedia</p>
-            <p class="work-meta"><strong>Date:</strong> 2014-08-01</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad" target="_blank" rel="noopener noreferrer">Likes Go West</a></h3>
-            <p class="work-intro">In a remarkably prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from &quot;Anonymous International,&quot; and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences. Klishin dismantled the emerging operational mindset of these state-sponsored networks.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-009-lajki-na-zapad.html">Likes Go West</a></h3>
+            <p class="work-intro">In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2014-05-21</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-009-lajki-na-zapad.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy" target="_blank" rel="noopener noreferrer">Maximum Retweet: Threats created by the Ministry of Truth</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html">Maximum Retweet: Threats created by the Ministry of Truth</a></h3>
             <p class="work-intro">This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2014-04-23</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili" target="_blank" rel="noopener noreferrer">Maximum Retweet: They purged the wrong people</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html">Maximum Retweet: They purged the wrong people</a></h3>
             <p class="work-intro">Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2014-04-09</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis" target="_blank" rel="noopener noreferrer">Maximum Retweet: The web we got trapped in</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html">Maximum Retweet: The web we got trapped in</a></h3>
             <p class="work-intro">This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2014-03-12</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy" target="_blank" rel="noopener noreferrer">The internet will not do it automatically</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">The internet will not do it automatically</a></h3>
             <p class="work-intro">This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2013-02-13</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.rand.org/pubs/research_reports/RR295.html" target="_blank" rel="noopener noreferrer">RAND report RR295 on social media and political mobilization</a></h3>
-            <p class="work-intro">RAND&#39;s RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.</p>
-            <p class="work-meta"><strong>Publication:</strong> RAND Corporation</p>
-            <p class="work-meta"><strong>Date:</strong> 2013-01-01</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/" target="_blank" rel="noopener noreferrer">LSE analysis on protest mobilization references feb26.org coordination</a></h3>
-            <p class="work-intro">This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement.</p>
-            <p class="work-meta"><strong>Publication:</strong> LSE EUROPP</p>
-            <p class="work-meta"><strong>Date:</strong> 2012-03-14</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://nymag.com/news/features/russian-revolutionaries-2012-1/" target="_blank" rel="noopener noreferrer">Russia&#39;s New Decembrists</a></h3>
-            <p class="work-intro">This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations.</p>
-            <p class="work-meta"><strong>Publication:</strong> New York Magazine</p>
-            <p class="work-meta"><strong>Date:</strong> 2012-01-20</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
@@ -926,53 +1109,67 @@
         <h2>Media Strategy / Analysis</h2>
         <p class="cluster-intro">Work on institutions, platform pressure, and editorial decision environments.</p>
         <div class="cluster-grid">
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879" target="_blank" rel="noopener noreferrer">Commentary on pressure against independent media institutions</a></h3>
-            <p class="work-intro">A short summary of media freedom, with a direct link to the original publication.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Commentary on pressure against independent media institutions</a></h3>
+            <p class="work-intro">The Moscow Times publishes a piece on media freedom.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-08-24</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492" target="_blank" rel="noopener noreferrer">The Magic Mirror of Russian Public Opinion</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">The Magic Mirror of Russian Public Opinion</a></h3>
             <p class="work-intro">How public-opinion narratives are shaped by institutions, incentives, and media distribution logic.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-07-12</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125" target="_blank" rel="noopener noreferrer">The Dilemma of the Great Terror: How to Report Roman Protasevich&#39;s Confession?</a></h3>
-            <p class="work-intro">A short summary of media ethics, with a direct link to the original publication.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">The Dilemma of the Great Terror: How to Report Roman Protasevich&#39;s Confession?</a></h3>
+            <p class="work-intro">The Moscow Times publishes a piece on media ethics.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-06-07</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915" target="_blank" rel="noopener noreferrer">Let&#39;s Wait Until After the Elections</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">Let&#39;s Wait Until After the Elections</a></h3>
             <p class="work-intro">How election-timing rhetoric can postpone decisions and normalize strategic waiting.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-05-17</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301" target="_blank" rel="noopener noreferrer">Luiza Rozova and the Helpless Intellectual</a></h3>
-            <p class="work-intro">The piece focuses on elite discourse and explains why the issue mattered in public debate in 2021.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">Luiza Rozova and the Helpless Intellectual</a></h3>
+            <p class="work-intro">The piece examines elite discourse in 2021.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-03-19</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920" target="_blank" rel="noopener noreferrer">Four Ways the Kremlin Could Block Western Social Networks in Russia</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Four Ways the Kremlin Could Block Western Social Networks in Russia</a></h3>
             <p class="work-intro">Which technical and political mechanisms can be used to restrict social-network access.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-02-12</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598" target="_blank" rel="noopener noreferrer">The Capitol Storming Gives Russians an Escape From Their Reality</a></h3>
-            <p class="work-intro">This The Moscow Times (2021) publication examines comparative media framing and summarizes the main argument.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html">The Capitol Storming Gives Russians an Escape From Their Reality</a></h3>
+            <p class="work-intro">This The Moscow Times (2021) publication focuses on comparative media framing.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2021-01-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
@@ -981,67 +1178,76 @@
         <h2>Propaganda / Information Systems</h2>
         <p class="cluster-intro">Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.</p>
         <div class="cluster-grid">
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410" target="_blank" rel="noopener noreferrer">Warning! An Army of Russian Trolls Has Invaded TikTok</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Warning! An Army of Russian Trolls Has Invaded TikTok</a></h3>
             <p class="work-intro">How platform dynamics and troll methods move from domestic messaging into wider information spaces.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-12-18</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588" target="_blank" rel="noopener noreferrer">Anonymous Telegram Channels Are Shaping Russia&#39;s Daily Life</a></h3>
-            <p class="work-intro">The piece focuses on platform influence and explains why the issue mattered in public debate in 2020.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html">Anonymous Telegram Channels Are Shaping Russia&#39;s Daily Life</a></h3>
+            <p class="work-intro">The piece examines platform influence in 2020.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-09-28</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108" target="_blank" rel="noopener noreferrer">Why Russian Journalists Find Refuge in Propaganda Outlets</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Why Russian Journalists Find Refuge in Propaganda Outlets</a></h3>
             <p class="work-intro">The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2019-04-05</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/" target="_blank" rel="noopener noreferrer">From Kremlin Web Brigades to Russian Troll Factories</a></h3>
-            <p class="work-intro">The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion.</p>
-            <p class="work-meta"><strong>Publication:</strong> VSquare</p>
-            <p class="work-meta"><strong>Date:</strong> 2017-12-28</p>
-          </article>
-
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://carnegie.ru/commentary/60728" target="_blank" rel="noopener noreferrer">Bot Army: Why the Kremlin Fails at Soft Power</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html">Bot Army: Why the Kremlin Fails at Soft Power</a></h3>
             <p class="work-intro">This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.</p>
             <p class="work-meta"><strong>Publication:</strong> Carnegie.ru</p>
             <p class="work-meta"><strong>Date:</strong> 2015-07-21</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html">Open on-site note</a> · <a href="https://carnegie.ru/commentary/60728" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/" target="_blank" rel="noopener noreferrer">How Putin quietly took over Russian social media</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">How Putin quietly took over Russian social media</a></h3>
             <p class="work-intro">This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.</p>
             <p class="work-meta"><strong>Publication:</strong> Global Voices</p>
             <p class="work-meta"><strong>Date:</strong> 2015-01-30</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">Open on-site note</a> · <a href="https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651" target="_blank" rel="noopener noreferrer">Early warning analysis on Russian troll expansion</a></h3>
-            <p class="work-intro">This The Moscow Times (2014) publication examines disinformation analysis and summarizes the main argument.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">Early warning analysis on Russian troll expansion</a></h3>
+            <p class="work-intro">This The Moscow Times (2014) publication focuses on disinformation analysis.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2014-05-21</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili" target="_blank" rel="noopener noreferrer">Maximum Retweet: The war we overlooked</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html">Maximum Retweet: The war we overlooked</a></h3>
             <p class="work-intro">Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2014-05-07</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million" target="_blank" rel="noopener noreferrer">Zero multiplied by a million</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html">Zero multiplied by a million</a></h3>
             <p class="work-intro">One of Klishin&#39;s early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.</p>
             <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
             <p class="work-meta"><strong>Date:</strong> 2012-08-24</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
@@ -1050,38 +1256,169 @@
         <h2>Literature / Essays / Cultural Commentary</h2>
         <p class="cluster-intro">Texts on culture, representation, and symbolic politics in public discourse.</p>
         <div class="cluster-grid">
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097" target="_blank" rel="noopener noreferrer">Why Russians Dislike Good Russians in American Films No Less Than Bad Russians</a></h3>
-            <p class="work-intro">The article outlines cultural representation in clear terms and places it in editorial context.</p>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">Why Russians Dislike &quot;Good Russians&quot; in American Films No Less than &quot;Bad Russians&quot;</a></h3>
+            <p class="work-intro">The article outlines cultural representation in clear terms.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-11-20</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993" target="_blank" rel="noopener noreferrer">Great Russian Literature Versus One Tweet by Stephen King</a></h3>
+          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">Great Russian Literature Versus One Tweet by Stephen King</a></h3>
             <p class="work-intro">How cultural symbols and representation frames affect trust, identity, and audience reaction.</p>
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-11-09</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
 
-<section class="cluster" id="public-texts">
-        <h2>Profiles and external records</h2>
-        <p class="cluster-intro">Third-party publications and institutional references used as external context.</p>
+<section class="cluster cluster-role" id="expert-comments">
+        <h2>Expert comments</h2>
+        <p class="cluster-intro">Outside reporting and features that use Klishin as an analyst, quoted source, or commentator.</p>
         <div class="cluster-grid">
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429" target="_blank" rel="noopener noreferrer">English press archive on intimidation claims tied to activism</a></h3>
+          <article class="work-card" data-role="quoted" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-quoted">Expert Comment</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html">Bloomberg quotes Klishin on Russia’s Twitter crackdown</a></h3>
+            <p class="work-intro">This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.</p>
+            <p class="work-meta"><strong>Publication:</strong> Bloomberg</p>
+            <p class="work-meta"><strong>Date:</strong> 2021-03-10</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html">Open on-site note</a> · <a href="https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="quoted" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-quoted">Expert Comment</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html">Atlantic feature cites Klishin on Putin’s media machine</a></h3>
+            <p class="work-intro">This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.</p>
+            <p class="work-meta"><strong>Publication:</strong> The Atlantic</p>
+            <p class="work-meta"><strong>Date:</strong> 2015-04-21</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html">Open on-site note</a> · <a href="https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+        </div>
+      </section>
+
+<section class="cluster cluster-role" id="references">
+        <h2>References</h2>
+        <p class="cluster-intro">Institutional records, profiles, and third-party references kept separate from authored work.</p>
+        <div class="cluster-grid">
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html">Dekoder on Sputnik V approval and Russian vaccine messaging</a></h3>
+            <p class="work-intro">This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.</p>
+            <p class="work-meta"><strong>Publication:</strong> Dekoder</p>
+            <p class="work-meta"><strong>Date:</strong> 2021-04-01</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html">Open on-site note</a> · <a href="https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html">From Kremlin Web Brigades to Russian Troll Factories</a></h3>
+            <p class="work-intro">The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion.</p>
+            <p class="work-meta"><strong>Publication:</strong> VSquare</p>
+            <p class="work-meta"><strong>Date:</strong> 2017-12-28</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html">Open on-site note</a> · <a href="https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html">Freedom on the Net 2016 records pressure linked to Klishin and peers</a></h3>
+            <p class="work-intro">Freedom House&#39;s 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators.</p>
+            <p class="work-meta"><strong>Publication:</strong> Freedom House</p>
+            <p class="work-meta"><strong>Date:</strong> 2016-11-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html">Open on-site note</a> · <a href="https://freedomhouse.org/country/russia/freedom-net/2016" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html">JSIS profile: digital patriotism and nationalist agenda in Russian media</a></h3>
+            <p class="work-intro">This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy.</p>
+            <p class="work-meta"><strong>Publication:</strong> JSIS Washington</p>
+            <p class="work-meta"><strong>Date:</strong> 2016-01-01</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html">Open on-site note</a> · <a href="https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html">English press archive on intimidation claims tied to activism</a></h3>
             <p class="work-intro">How intimidation and harassment patterns around critics were documented in international rights reporting.</p>
             <p class="work-meta"><strong>Publication:</strong> News24</p>
             <p class="work-meta"><strong>Date:</strong> 2015-04-29</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html">Open on-site note</a> · <a href="https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
 
-          <article class="work-card">
-            <h3><a class="work-title-link" href="https://www.hrw.org/news/2012/03/01/russia-harassment-critics" target="_blank" rel="noopener noreferrer">HRW report on harassment of critics includes Klishin case context</a></h3>
-            <p class="work-intro">This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers. A prime example of this repressive mechanic is the documented episode involving Ilya Klishin, the creator of the &quot;For Fair Elections&quot; network: operatives from the anti-extremism Center &quot;E&quot; interrogated his parents in Tambov, threatening them with vague extremism charges. The text vividly illustrates how authorities, spooked by grassroots mobilization, began deploying psychological blackmail—cynically redirecting their strikes from metropolitan activists to their vulnerable relatives in the provinces.</p>
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html">Wilson Center: How the media became one of Putin&#39;s most powerful weapons</a></h3>
+            <p class="work-intro">This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control.</p>
+            <p class="work-meta"><strong>Publication:</strong> The Wilson Center</p>
+            <p class="work-meta"><strong>Date:</strong> 2015-04-27</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html">Open on-site note</a> · <a href="https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html">Screening rape: India&#39;s debate</a></h3>
+            <p class="work-intro">A The Listening Post episode featuring the segment “Kremlin&#39;s troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.</p>
+            <p class="work-meta"><strong>Publication:</strong> Al Jazeera English</p>
+            <p class="work-meta"><strong>Date:</strong> 2015-03-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html">Open on-site note</a> · <a href="https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html">TV Rain launched &quot;Our Soldiers&quot; civilian investigation</a></h3>
+            <p class="work-intro">This August 2014 TV Rain project page introduces &quot;Our Soldiers,&quot; a public-facing investigation into reports of Russian servicemen killed, missing, or captured near the Ukrainian border during a period of official denials.</p>
+            <p class="work-meta"><strong>Publication:</strong> TV Rain</p>
+            <p class="work-meta"><strong>Date:</strong> 2014-08-27</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html">Open on-site note</a> · <a href="https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html">Wikipedia war-coverage overview references Klishin claims</a></h3>
+            <p class="work-intro">This encyclopedia overview of media coverage around the Russo-Ukrainian war includes references to claims associated with Klishin about manipulation channels and audience targeting.</p>
+            <p class="work-meta"><strong>Publication:</strong> Wikipedia</p>
+            <p class="work-meta"><strong>Date:</strong> 2014-08-01</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html">Open on-site note</a> · <a href="https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html">RAND report RR295 on social media and political mobilization</a></h3>
+            <p class="work-intro">RAND&#39;s RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.</p>
+            <p class="work-meta"><strong>Publication:</strong> RAND Corporation</p>
+            <p class="work-meta"><strong>Date:</strong> 2013-01-01</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html">Open on-site note</a> · <a href="https://www.rand.org/pubs/research_reports/RR295.html" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html">LSE analysis on protest mobilization references feb26.org coordination</a></h3>
+            <p class="work-intro">This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement.</p>
+            <p class="work-meta"><strong>Publication:</strong> LSE EUROPP</p>
+            <p class="work-meta"><strong>Date:</strong> 2012-03-14</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html">Open on-site note</a> · <a href="https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html">HRW report on harassment of critics includes Klishin case context</a></h3>
+            <p class="work-intro">This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers.</p>
             <p class="work-meta"><strong>Publication:</strong> Human Rights Watch</p>
             <p class="work-meta"><strong>Date:</strong> 2012-03-01</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html">Open on-site note</a> · <a href="https://www.hrw.org/news/2012/03/01/russia-harassment-critics" target="_blank" rel="noopener noreferrer">Original source</a></p>
+          </article>
+
+          <article class="work-card" data-role="reference" data-status="published" data-surface="public">
+            <p class="work-role"><span class="work-role-badge work-role-badge-reference">Reference</span></p>
+            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html">Russia&#39;s New Decembrists</a></h3>
+            <p class="work-intro">This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations.</p>
+            <p class="work-meta"><strong>Publication:</strong> New York Magazine</p>
+            <p class="work-meta"><strong>Date:</strong> 2012-01-20</p>
+            <p class="work-meta"><a href="https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html">Open on-site note</a> · <a href="https://nymag.com/news/features/russian-revolutionaries-2012-1/" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
@@ -1118,14 +1455,15 @@
         </div>
       </section>
 
-      <footer class="selected-secondary" aria-label="Secondary routes">
-        <a href="/insights/">Research/insights layer</a> ·
-        <a href="/posts/">Full static digest</a> ·
-        <a href="/archive/">Archive endpoints</a> ·
-        <a href="/source-registry-v1.tsv">Source registry (TSV)</a>
-      </footer>
-    </main>
-    <script type="module" src="/selected/selected-all-materials.js"></script>
-    <script defer src="/contact/contact.05264157d5.js"></script>
+      </main><footer class="footer">
+      <nav class="secondary-nav" aria-label="Secondary">
+        <a href="/">Home</a>
+        <a href="/bio/">Bio</a>
+        <a href="/selected/">Selected Work</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </footer>
+<script type="module" src="/selected/selected-all-materials.js"></script>
+    <script defer src="/contact/contact.fe9c0b22c7.js"></script>
   </body>
 </html>

@@ -130,13 +130,27 @@ Recommended settings in Cloudflare (`klishin.work` zone):
     - `https://openai.com/gptbot.json`
   - Recommended Cloudflare expression:
     - `(http.user_agent contains "GPTBot" and ip.src in $openai_gptbot_ips)`
+- For Anthropic / Claude crawlers, use UA + source IP list:
+  - Source IP page:
+    - `https://docs.anthropic.com/en/api/ip-addresses`
+  - Recommended Cloudflare expression:
+    - `(http.user_agent contains "ClaudeBot" and ip.src in $anthropic_ai_ips) or (http.user_agent contains "anthropic-ai" and ip.src in $anthropic_ai_ips)`
 
 3. Bot Fight Mode / Super Bot Fight Mode:
-- keep on only if verified bots are exempted;
-- otherwise disable strict challenge mode for the zone.
+- use **Super Bot Fight Mode** if you need rule-level exemptions;
+- **Bot Fight Mode** should be off for this use case because Cloudflare does not let custom rules skip it.
 
 4. Rate limiting:
 - never apply global challenge to `robots.txt`, `sitemap*.xml`, `rss.xml`.
+
+Generated Cloudflare bypass config:
+- `reputation-case/site/data/cloudflare-bypass-rules.json`
+- `reputation-case/site/data/cloudflare-bypass-rules.md`
+
+These files contain:
+- strict AI crawler bypass expressions (`UA + IP list`)
+- verified search-engine bypass expression
+- exact Cloudflare list names expected by the repo workflows
 
 ### Automatic Perplexity allowlist sync
 
@@ -203,6 +217,41 @@ Optional Cloudflare sync (if secrets are set):
 - Optional:
   - `CF_OPENAI_CHATGPT_USER_LIST_ID`
   - `CF_OPENAI_CHATGPT_USER_LIST_NAME`
+
+### Automatic Anthropic allowlist sync
+
+Included workflow:
+- `.github/workflows/sync-anthropic-allowlist.yml` (daily + manual run)
+
+Generated artifacts:
+- `reputation-case/site/data/anthropic-ip-allowlist.json`
+- `reputation-case/site/data/anthropic-cidrs.txt`
+
+Optional Cloudflare sync (if secrets are set):
+- `CF_API_TOKEN` (Account Rules Lists write permission)
+- `CF_ACCOUNT_ID`
+- Optional:
+  - `CF_ANTHROPIC_LIST_ID`
+  - `CF_ANTHROPIC_LIST_NAME`
+
+### Unified daily crawler allowlist sync
+
+Primary workflow:
+- `.github/workflows/sync-crawler-allowlists.yml`
+
+What it does:
+- refreshes OpenAI SearchBot, GPTBot, and ChatGPT-User IP ranges
+- refreshes PerplexityBot and Perplexity-User IP ranges
+- refreshes Anthropic / Claude IP ranges
+- rebuilds `cloudflare-bypass-rules.json` and `cloudflare-bypass-rules.md`
+- commits all changed artifacts in one commit
+
+Provider-specific workflows remain available for manual runs only:
+- `.github/workflows/sync-openai-searchbot-allowlist.yml`
+- `.github/workflows/sync-openai-gptbot-allowlist.yml`
+- `.github/workflows/sync-openai-chatgpt-user-allowlist.yml`
+- `.github/workflows/sync-perplexity-allowlist.yml`
+- `.github/workflows/sync-anthropic-allowlist.yml`
 
 ### GPTBot policy in robots.txt (allow / deny / custom paths)
 

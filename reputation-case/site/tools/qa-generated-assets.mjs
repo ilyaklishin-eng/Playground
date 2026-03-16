@@ -2,30 +2,50 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
+import {
+  currentBuildEnv,
+  INDEXABLE_STATIC_SECTIONS,
+  PAGE_CLASS,
+  STATIC_PAGE_CLASSES,
+  classifyPostPage,
+  isIndexablePost,
+  isProductionBuild,
+  isPublishedStatus,
+  robotsMetaForPageClass,
+  shouldCompileItem,
+  staticPageClass,
+} from "./page-index-policy.mjs";
 
 const execFile = promisify(execFileCallback);
 
 const SITE_DIR = path.resolve(process.cwd(), "reputation-case", "site");
 const POSTS_DIR = path.join(SITE_DIR, "posts");
 const DATA_PATH = path.join(SITE_DIR, "data", "digests.json");
-const SEARCH_INDEX_PATH = path.join(SITE_DIR, "data", "search-index.json");
+const SEARCH_INDEX_MANIFEST_PATH = path.join(SITE_DIR, "data", "search-index.json");
+const SEARCH_INDEX_LOCALES = ["en", "fr", "de", "es"];
+const SEARCH_INDEX_LOCALE_PATHS = new Map(
+  SEARCH_INDEX_LOCALES.map((locale) => [locale, path.join(SITE_DIR, "data", `search-index-${locale}.json`)])
+);
 const REPORT_PATH = path.join(SITE_DIR, "qa-generated-assets-report.json");
 const DOMAIN = "https://www.klishin.work";
 const HOST = "www.klishin.work";
 const PERSON_ID = `${DOMAIN}/#person`;
 const HOME_INDEX = path.join(SITE_DIR, "index.html");
-const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
-const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
+const HOME_WORK_SECTION_START = "<!-- HOME_WORK_SECTION_START -->";
+const HOME_WORK_SECTION_END = "<!-- HOME_WORK_SECTION_END -->";
+const HOME_INTERVIEWS_SECTION_START = "<!-- HOME_INTERVIEWS_SECTION_START -->";
+const HOME_INTERVIEWS_SECTION_END = "<!-- HOME_INTERVIEWS_SECTION_END -->";
 const FINGERPRINT_HEX_LENGTH = 10;
 const OG_IMAGE_WIDTH = "1200";
 const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
+const FIXED_IMAGE_PUBLIC_DIR = "/assets/images";
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: `${DOMAIN}/og/site-default.jpg`,
-  bio: `${DOMAIN}/og/bio.jpg`,
-  selected: `${DOMAIN}/og/selected-work.jpg`,
-  posts: `${DOMAIN}/og/posts-fallback.jpg`,
-  cases: `${DOMAIN}/og/cases-fallback.jpg`,
+  default: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-site-default.jpg`,
+  bio: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-bio.jpg`,
+  selected: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-selected-work.jpg`,
+  posts: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-posts-fallback.jpg`,
+  cases: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-cases-fallback.jpg`,
 };
 const STATIC_SOCIAL_IMAGE_POLICY = new Map([
   ["index.html", "default"],
@@ -63,13 +83,22 @@ const FINGERPRINTED_ASSET_SOURCES = [
   "search/search.js",
   "interviews/interviews.js",
   "interviews/interviews-preview.js",
-  "bio/ilia-klishin-portrait.jpeg",
-  "bio/portrait-placeholder.svg",
+];
+const FIXED_VERSIONED_IMAGE_OUTPUTS = [
+  "assets/images/portrait.jpeg",
+  "assets/images/portrait-placeholder.svg",
+  "assets/images/og-site-default.jpg",
+  "assets/images/og-bio.jpg",
+  "assets/images/og-selected-work.jpg",
+  "assets/images/og-posts-fallback.jpg",
+  "assets/images/og-cases-fallback.jpg",
 ];
 const LANGS = ["en", "fr", "de", "es"];
-const PUBLISHED_STATUS = "ready";
 const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
-const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", "drafts.html"]);
+const BUILD_ENV = currentBuildEnv();
+const PRODUCTION_BUILD = isProductionBuild();
+const INCLUDE_DRAFT_OUTPUTS = !PRODUCTION_BUILD;
+const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", ...(INCLUDE_DRAFT_OUTPUTS ? ["drafts.html"] : [])]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Bingbot",
@@ -83,21 +112,12 @@ const REQUIRED_BOTS = [
   "Perplexity-User",
   "CCBot",
 ];
+const CLEAN_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
+const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
 
 const INDEXABLE_CORE_SECTIONS = [
   "index.html",
-  "fr/index.html",
-  "de/index.html",
-  "es/index.html",
-  "selected/index.html",
-  "bio/index.html",
-  "bio/fr/index.html",
-  "bio/de/index.html",
-  "bio/es/index.html",
-  "cases/index.html",
-  "cases/fr/index.html",
-  "cases/de/index.html",
-  "cases/es/index.html",
+  ...INDEXABLE_STATIC_SECTIONS.filter((section) => !section.startsWith("interviews/")),
 ];
 const NO_DRAFT_LEAK_TARGETS = [
   ...INDEXABLE_CORE_SECTIONS,
@@ -114,33 +134,11 @@ const NO_DRAFT_LEAK_TARGETS = [
   "sitemap-es.xml",
   "rss.xml",
   "data/search-index.json",
+  "data/search-index-en.json",
+  "data/search-index-fr.json",
+  "data/search-index-de.json",
+  "data/search-index-es.json",
 ];
-const STATIC_ROBOTS_POLICY = new Map([
-  ["index.html", "index"],
-  ["fr/index.html", "index"],
-  ["de/index.html", "index"],
-  ["es/index.html", "index"],
-  ["bio/index.html", "index"],
-  ["bio/fr/index.html", "index"],
-  ["bio/de/index.html", "index"],
-  ["bio/es/index.html", "index"],
-  ["cases/index.html", "index"],
-  ["cases/fr/index.html", "index"],
-  ["cases/de/index.html", "index"],
-  ["cases/es/index.html", "index"],
-  ["selected/index.html", "index"],
-  ["search/index.html", "noindex"],
-  ["about/index.html", "noindex"],
-  ["contact/index.html", "noindex"],
-  ["archive/index.html", "noindex"],
-  ["insights/index.html", "noindex"],
-  ["insights/fr/index.html", "noindex"],
-  ["insights/de/index.html", "noindex"],
-  ["insights/es/index.html", "noindex"],
-  ["posts/index.html", "noindex"],
-  ["posts/all.html", "noindex"],
-  ["posts/drafts.html", "noindex"],
-]);
 const MACHINE_FRAGMENT_PATTERNS = [
   /\bmapped as\b/i,
   /\bmachine[- ]?readable\b/i,
@@ -166,10 +164,10 @@ const MACHINE_FRAGMENT_PATTERNS = [
   /\bchronologie akteure\b/i,
   /\bkausalbezuge\b/i,
 ];
-const REFERENCE_TOPIC_RE =
-  /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/i;
-const REFERENCE_TITLE_RE =
-  /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/i;
+const SEARCH_DATASET_BLOCKLIST_RE =
+  /(?:^https?:\/\/www\.klishin\.work)?(?:\/archive\/?|\/about\/?|\/insights\/?|\/posts(?:\/?(?:index\.html|all\.html|drafts\.html)?)?|\/source-registry-v1\.tsv|\/data\/.*|\/rss\.xml|\/sitemap(?:-[a-z]+)?\.xml)(?:[?#].*)?$/i;
+const SEARCH_DRAFT_MARKER_RE =
+  /\b(draft|draft archive|working draft|source registry|digest dataset|rss feed|sitemap|machine-facing|utility endpoint)\b/i;
 
 const MULTILINGUAL_CLUSTERS = [
   {
@@ -211,6 +209,16 @@ const MULTILINGUAL_CLUSTERS = [
       es: "insights/es/index.html",
     },
     xDefault: "insights/index.html",
+  },
+  {
+    name: "interviews",
+    pages: {
+      en: "interviews/index.html",
+      fr: "interviews/fr/index.html",
+      de: "interviews/de/index.html",
+      es: "interviews/es/index.html",
+    },
+    xDefault: "interviews/index.html",
   },
 ];
 
@@ -257,56 +265,6 @@ const slugify = (text = "") =>
     .slice(0, 72) || "item";
 
 const normalizeText = (value = "") => String(value || "").replace(/\s+/g, " ").trim();
-
-const countWords = (text = "") =>
-  normalizeText(text)
-    .split(/\s+/)
-    .filter(Boolean).length;
-
-const hasMachineText = (text = "") => {
-  const value = normalizeText(text);
-  if (!value) return false;
-  return MACHINE_FRAGMENT_PATTERNS.some((pattern) => pattern.test(value));
-};
-
-const quoteCount = (item = {}) => {
-  const quotes = Array.isArray(item?.quotes) ? item.quotes : [item?.quote].filter(Boolean);
-  return quotes.map((x) => normalizeText(x)).filter(Boolean).length;
-};
-
-const isReferenceCard = (item = {}) => {
-  const explicit = normalizeText(item?.content_class || "").toLowerCase();
-  if (explicit === "reference") return true;
-  if (explicit === "writing") return false;
-  const topic = normalizeText(item?.topic || "");
-  const title = normalizeText(item?.title || "");
-  return REFERENCE_TOPIC_RE.test(topic) || REFERENCE_TITLE_RE.test(title);
-};
-
-const isShowcaseCandidate = (item = {}) => {
-  const title = normalizeText(item?.title || "");
-  const source = normalizeText(item?.source || "").toLowerCase();
-  const topic = normalizeText(item?.topic || "").toLowerCase();
-  if (!title) return false;
-  if (isReferenceCard(item)) return false;
-  if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
-  if (source === "methodology") return false;
-  if (topic.includes("editorial standard")) return false;
-  return true;
-};
-
-const isQaReviewedPost = (item = {}) => {
-  const summary = normalizeText(item?.digest || item?.summary || "");
-  const words = countWords(summary);
-  if (!summary) return false;
-  if (words < 18 || words > 220) return false;
-  return true;
-};
-
-const isIndexablePost = (item = {}) =>
-  String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS &&
-  isShowcaseCandidate(item) &&
-  isQaReviewedPost(item);
 
 const expectedPostFilename = (item = {}) => {
   const explicitSlug = String(item?.slug || "").trim().replace(/\.html$/i, "");
@@ -366,6 +324,18 @@ const extractMetaContent = (html = "", attrName = "", attrValue = "") => {
 const escapeRegExp = (value = "") => String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
+const stripUrlQueryAndHash = (value = "") => String(value || "").split("#")[0].split("?")[0].trim();
+const hasVersionQuery = (value = "") => {
+  const raw = String(value || "").trim();
+  if (!raw.includes("?")) return false;
+  try {
+    const url = raw.startsWith("http") ? new URL(raw) : new URL(raw, DOMAIN);
+    return url.searchParams.has("v");
+  } catch {
+    return /[?&]v=/.test(raw);
+  }
+};
+const isAllowedVersionedImageRef = (value = "") => stripUrlQueryAndHash(value).includes(FIXED_IMAGE_PUBLIC_DIR);
 
 const gitState = {
   repoRoot: null,
@@ -558,7 +528,8 @@ const pushWarn = (bucket, check, message, details = null) => {
 
 const checkPosts = async (items, issues) => {
   const expected = new Set();
-  for (const item of items) {
+  const compiledItems = items.filter((item) => shouldCompileItem(item, { production: PRODUCTION_BUILD }));
+  for (const item of compiledItems) {
     expected.add(expectedPostFilename(item));
   }
 
@@ -836,78 +807,187 @@ const checkRss = async (entryCount, issues) => {
 };
 
 const checkSearchIndex = async (issues) => {
-  let raw;
+  let manifestRaw;
   try {
-    raw = await fs.readFile(SEARCH_INDEX_PATH, "utf8");
-  } catch (error) {
+    manifestRaw = await fs.readFile(SEARCH_INDEX_MANIFEST_PATH, "utf8");
+  } catch {
     pushError(issues, "search-index.file.missing", "Missing data/search-index.json.");
     return;
   }
 
-  let payload;
+  let manifest;
   try {
-    payload = JSON.parse(raw);
+    manifest = JSON.parse(manifestRaw);
   } catch {
     pushError(issues, "search-index.json.invalid", "data/search-index.json is not valid JSON.");
     return;
   }
 
-  const items = Array.isArray(payload?.items) ? payload.items : null;
-  if (!items) {
-    pushError(issues, "search-index.items.missing", "data/search-index.json is missing items array.");
-    return;
-  }
-
-  if (!payload?.generated_at || Number.isNaN(Date.parse(String(payload.generated_at)))) {
+  if (!manifest?.generated_at || Number.isNaN(Date.parse(String(manifest.generated_at)))) {
     pushError(issues, "search-index.generated-at.invalid", "data/search-index.json has invalid generated_at.");
   }
 
-  const seenIds = new Set();
-  let selectedCount = 0;
-  for (const item of items) {
-    const id = normalizeText(item?.id);
-    if (!id) {
-      pushError(issues, "search-index.item.id.missing", "Search index item is missing id.");
+  if (!manifest?.locales || typeof manifest.locales !== "object") {
+    pushError(issues, "search-index.locales.missing", "data/search-index.json is missing locale datasets manifest.");
+    return;
+  }
+
+  let aggregateSelectedCount = 0;
+  let aggregateInterviewCount = 0;
+
+  for (const locale of SEARCH_INDEX_LOCALES) {
+    const meta = manifest.locales?.[locale];
+    const expectedPath = `/data/search-index-${locale}.json`;
+    if (!meta || normalizeText(meta.path) !== expectedPath) {
+      pushError(issues, "search-index.locale.path.invalid", "Search index manifest has invalid locale dataset path.", {
+        locale,
+        path: meta?.path,
+      });
+    }
+
+    const localePath = SEARCH_INDEX_LOCALE_PATHS.get(locale);
+    let localeRaw;
+    try {
+      localeRaw = await fs.readFile(localePath, "utf8");
+    } catch {
+      pushError(issues, "search-index.locale.file.missing", "Missing locale search dataset.", { locale });
       continue;
     }
-    if (seenIds.has(id)) {
-      pushError(issues, "search-index.item.id.duplicate", "Duplicate search index id detected.", { id });
+
+    let payload;
+    try {
+      payload = JSON.parse(localeRaw);
+    } catch {
+      pushError(issues, "search-index.locale.json.invalid", "Locale search dataset is not valid JSON.", { locale });
       continue;
     }
-    seenIds.add(id);
 
-    const type = normalizeText(item?.type).toLowerCase();
-    const url = normalizeText(item?.url);
-    const isExternalHttp = /^https?:\/\//i.test(url) && !url.includes(HOST);
+    const items = Array.isArray(payload?.items) ? payload.items : null;
+    if (!items) {
+      pushError(issues, "search-index.items.missing", "Locale search dataset is missing items array.", { locale });
+      continue;
+    }
 
-    if (type === "post") {
-      if (!url || !isCanonicalUrl(url)) {
-        pushError(issues, "search-index.item.url.invalid", "Post search index item must use canonical URL.", { id, url });
+    if (normalizeText(payload?.locale).toLowerCase() !== locale) {
+      pushError(issues, "search-index.locale.value.invalid", "Locale dataset declares the wrong locale.", {
+        locale,
+        datasetLocale: payload?.locale,
+      });
+    }
+
+    if (!payload?.generated_at || Number.isNaN(Date.parse(String(payload.generated_at)))) {
+      pushError(issues, "search-index.locale.generated-at.invalid", "Locale search dataset has invalid generated_at.", {
+        locale,
+      });
+    }
+
+    if (Number(meta?.count || 0) !== items.length) {
+      pushError(issues, "search-index.locale.count.mismatch", "Search index manifest count does not match locale dataset.", {
+        locale,
+        manifestCount: Number(meta?.count || 0),
+        itemCount: items.length,
+      });
+    }
+
+    const seenIds = new Set();
+    for (const item of items) {
+      const id = normalizeText(item?.id);
+      if (!id) {
+        pushError(issues, "search-index.item.id.missing", "Search index item is missing id.", { locale });
+        continue;
       }
+      if (seenIds.has(id)) {
+        pushError(issues, "search-index.item.id.duplicate", "Duplicate search index id detected.", { locale, id });
+        continue;
+      }
+      seenIds.add(id);
+
+      const type = normalizeText(item?.type).toLowerCase();
+      const url = normalizeText(item?.url);
+      const sourceUrl = normalizeText(item?.source_url);
+      const isExternalHttp = /^https?:\/\//i.test(url) && !url.includes(HOST);
+      const itemLocale = normalizeText(item?.locale || item?.language).toLowerCase().slice(0, 2);
       const status = normalizeText(item?.status).toLowerCase();
-      if (status !== "ready") {
-        pushError(issues, "search-index.item.post.status.invalid", "Search index includes non-ready post.", {
+      const surface = normalizeText(item?.surface).toLowerCase();
+      const textBlob = [item?.title, item?.summary, item?.context, item?.source, item?.topic, item?.material_type]
+        .map((value) => normalizeText(value))
+        .filter(Boolean)
+        .join(" ");
+
+      if (itemLocale !== locale) {
+        pushError(issues, "search-index.item.locale.invalid", "Search index item is placed in the wrong locale dataset.", {
+          locale,
+          id,
+          itemLocale,
+        });
+      }
+      if (status !== "published") {
+        pushError(issues, "search-index.item.status.invalid", "Search index includes non-published item.", {
+          locale,
           id,
           status,
         });
       }
-    } else if (type === "selected") {
-      if (!url || (!isCanonicalUrl(url) && !isExternalHttp)) {
-        pushError(
-          issues,
-          "search-index.item.url.invalid",
-          "Selected search index item must use canonical or absolute external URL.",
-          { id, url }
-        );
+      if (surface !== "public") {
+        pushError(issues, "search-index.item.surface.invalid", "Search index includes non-public item.", {
+          locale,
+          id,
+          surface,
+        });
       }
-      selectedCount += 1;
-    } else {
-      pushError(issues, "search-index.item.type.invalid", "Search index item has unknown type.", { id, type });
+      if (SEARCH_DRAFT_MARKER_RE.test(textBlob)) {
+        pushError(issues, "search-index.item.draft-marker.invalid", "Search index item contains draft or utility marker text.", {
+          locale,
+          id,
+        });
+      }
+      if (SEARCH_DATASET_BLOCKLIST_RE.test(url) || (sourceUrl && SEARCH_DATASET_BLOCKLIST_RE.test(sourceUrl))) {
+        pushError(issues, "search-index.item.utility-url.invalid", "Search index item points to archive or raw utility endpoint.", {
+          locale,
+          id,
+          url,
+          sourceUrl,
+        });
+      }
+
+      if (type === "post") {
+        if (!url || !isCanonicalUrl(url)) {
+          pushError(issues, "search-index.item.url.invalid", "Post search index item must use canonical URL.", {
+            locale,
+            id,
+            url,
+          });
+        }
+      } else if (type === "selected") {
+        if (!url || (!isCanonicalUrl(url) && !isExternalHttp)) {
+          pushError(
+            issues,
+            "search-index.item.url.invalid",
+            "Selected search index item must use canonical or absolute external URL.",
+            { locale, id, url }
+          );
+        }
+        aggregateSelectedCount += 1;
+      } else if (type === "interview") {
+        if (!url || (!isExternalHttp && !isCanonicalUrl(url))) {
+          pushError(issues, "search-index.item.url.invalid", "Interview search index item must use canonical or external URL.", {
+            locale,
+            id,
+            url,
+          });
+        }
+        aggregateInterviewCount += 1;
+      } else {
+        pushError(issues, "search-index.item.type.invalid", "Search index item has unknown type.", { locale, id, type });
+      }
     }
   }
 
-  if (selectedCount === 0) {
+  if (aggregateSelectedCount === 0) {
     pushError(issues, "search-index.selected.missing", "Search index has no selected-work entries.");
+  }
+  if (aggregateInterviewCount === 0) {
+    pushError(issues, "search-index.interviews.missing", "Search index has no public interview entries.");
   }
 };
 
@@ -930,11 +1010,15 @@ const checkRobots = async (issues) => {
   if (/User-agent:\s*\*[\s\S]*?Disallow:\s*\/\s*$/im.test(robots)) {
     pushError(issues, "robots.blocks-all", "robots.txt wildcard block disallows the entire site.");
   }
-  if (!new RegExp(`Sitemap:\\s*${DOMAIN.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\/sitemap\\.xml`, "i").test(robots)) {
-    pushError(issues, "robots.sitemap-line", "robots.txt missing canonical sitemap line.");
+
+  for (const sitemapFile of ROBOTS_SITEMAP_FILES) {
+    const escaped = `${DOMAIN}/${sitemapFile}`.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (!new RegExp(`Sitemap:\\s*${escaped}`, "i").test(robots)) {
+      pushError(issues, "robots.sitemap-line.missing", `robots.txt missing sitemap line for ${sitemapFile}.`);
+    }
   }
 
-  for (const bot of REQUIRED_BOTS) {
+  for (const bot of [...REQUIRED_BOTS, ...CLEAN_ALLOW_BOTS]) {
     const blockRe = new RegExp(`User-agent:\\s*${bot.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b[\\s\\S]*?(?:\\n\\n|$)`, "i");
     const block = robots.match(blockRe)?.[0] || "";
     if (!block) {
@@ -952,7 +1036,7 @@ const checkRobots = async (issues) => {
 };
 
 const checkHtmlSeoSemantics = async (items, issues) => {
-  const htmlPaths = [...new Set([...STATIC_ROBOTS_POLICY.keys()].map((section) => path.join(SITE_DIR, section)))];
+  const htmlPaths = [...new Set([...STATIC_PAGE_CLASSES.keys()].map((section) => path.join(SITE_DIR, section)))];
   const itemByFile = new Map(items.map((item) => [expectedPostFilename(item), item]));
 
   const postFiles = (await fs.readdir(POSTS_DIR)).filter((x) => x.toLowerCase().endsWith(".html"));
@@ -962,7 +1046,15 @@ const checkHtmlSeoSemantics = async (items, issues) => {
 
   for (const htmlPath of htmlPaths) {
     const rel = path.relative(SITE_DIR, htmlPath).replaceAll(path.sep, "/");
-    const html = await fs.readFile(htmlPath, "utf8");
+    let html;
+    try {
+      html = await fs.readFile(htmlPath, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT" && rel === "posts/drafts.html" && !INCLUDE_DRAFT_OUTPUTS) {
+        continue;
+      }
+      throw error;
+    }
 
     if (/github\.io/i.test(html)) {
       pushError(issues, "html.githubio.reference", `HTML file references github.io: ${rel}`);
@@ -980,14 +1072,19 @@ const checkHtmlSeoSemantics = async (items, issues) => {
       pushError(issues, "html.robots.missing", `Missing robots meta in ${rel}.`);
     }
 
-    const staticPolicy = STATIC_ROBOTS_POLICY.get(rel);
-    if (staticPolicy) {
-      const expectsIndex = staticPolicy === "index";
-      if (expectsIndex && !robots.includes("index,follow")) {
-        pushError(issues, "html.robots.static.index", `Expected index,follow robots policy in ${rel}.`, { robots });
-      }
-      if (!expectsIndex && !robots.includes("noindex,follow")) {
-        pushError(issues, "html.robots.static.noindex", `Expected noindex,follow robots policy in ${rel}.`, { robots });
+    const staticClass = staticPageClass(rel);
+    if (!rel.startsWith("posts/") && !staticClass) {
+      pushError(issues, "html.page-class.static.missing", `Static HTML page is missing page-class policy: ${rel}`);
+    }
+    if (staticClass) {
+      const expectedRobots = robotsMetaForPageClass(staticClass);
+      if (robots !== expectedRobots) {
+        pushError(
+          issues,
+          "html.robots.static.class-mismatch",
+          `Static page robots policy does not match page class in ${rel}.`,
+          { pageClass: staticClass, expected: expectedRobots, actual: robots }
+        );
       }
     }
 
@@ -1009,9 +1106,13 @@ const checkHtmlSeoSemantics = async (items, issues) => {
 
       if (!ogImage) {
         pushError(issues, "html.social.og-image.missing", `Missing og:image in ${rel}.`);
-      } else if (ogImage !== expectedSocialImage) {
+      } else if (stripUrlQueryAndHash(ogImage) !== expectedSocialImage) {
         pushError(issues, "html.social.og-image.mismatch", `Unexpected og:image in ${rel}.`, {
           expected: expectedSocialImage,
+          actual: ogImage,
+        });
+      } else if (!hasVersionQuery(ogImage)) {
+        pushError(issues, "html.social.og-image.version.missing", `Missing cache-busting version on og:image in ${rel}.`, {
           actual: ogImage,
         });
       }
@@ -1028,11 +1129,18 @@ const checkHtmlSeoSemantics = async (items, issues) => {
       }
       if (!twitterImage) {
         pushError(issues, "html.social.twitter-image.missing", `Missing twitter:image in ${rel}.`);
-      } else if (twitterImage !== expectedSocialImage) {
+      } else if (stripUrlQueryAndHash(twitterImage) !== expectedSocialImage) {
         pushError(issues, "html.social.twitter-image.mismatch", `Unexpected twitter:image in ${rel}.`, {
           expected: expectedSocialImage,
           actual: twitterImage,
         });
+      } else if (!hasVersionQuery(twitterImage)) {
+        pushError(
+          issues,
+          "html.social.twitter-image.version.missing",
+          `Missing cache-busting version on twitter:image in ${rel}.`,
+          { actual: twitterImage }
+        );
       }
     }
   }
@@ -1096,16 +1204,14 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     }
 
     const postRobots = extractRobotsMeta(html);
-    const shouldIndex = isIndexablePost(item);
-    if (shouldIndex && !postRobots.includes("index,follow")) {
-      pushError(issues, "post.robots.index.mismatch", `Indexable post is not index,follow: ${rel}`, { robots: postRobots });
-    }
-    if (!shouldIndex && !postRobots.includes("noindex,follow")) {
+    const postPageClass = classifyPostPage(item);
+    const expectedPostRobots = robotsMetaForPageClass(postPageClass);
+    if (postRobots !== expectedPostRobots) {
       pushError(
         issues,
-        "post.robots.noindex.mismatch",
-        `Non-indexable post is not noindex,follow: ${rel}`,
-        { robots: postRobots }
+        "post.robots.class-mismatch",
+        `Post robots policy does not match page class: ${rel}`,
+        { pageClass: postPageClass, expected: expectedPostRobots, actual: postRobots }
       );
     }
 
@@ -1138,30 +1244,46 @@ const checkHtmlSeoSemantics = async (items, issues) => {
 
 const checkHomeHtmlFirst = async (minimumCards, issues) => {
   const html = await fs.readFile(HOME_INDEX, "utf8");
-  if (!html.includes(HOME_FALLBACK_START) || !html.includes(HOME_FALLBACK_END)) {
-    pushError(issues, "home.html-first.markers", "Home page is missing HTML-first fallback markers.");
+  if (
+    !html.includes(HOME_WORK_SECTION_START) ||
+    !html.includes(HOME_WORK_SECTION_END) ||
+    !html.includes(HOME_INTERVIEWS_SECTION_START) ||
+    !html.includes(HOME_INTERVIEWS_SECTION_END)
+  ) {
+    pushError(issues, "home.html-first.markers", "Home page is missing SSR section markers.");
     return;
   }
 
-  const start = html.indexOf(HOME_FALLBACK_START);
-  const end = html.indexOf(HOME_FALLBACK_END);
+  const start = html.indexOf(HOME_WORK_SECTION_START);
+  const end = html.indexOf(HOME_WORK_SECTION_END);
   if (end <= start) {
-    pushError(issues, "home.html-first.range", "Home page fallback marker range is invalid.");
+    pushError(issues, "home.html-first.range", "Home page SSR section marker range is invalid.");
     return;
   }
 
-  const between = html.slice(start + HOME_FALLBACK_START.length, end);
-  const cardCount = (between.match(/<article class="card"/g) || []).length;
+  const between = html.slice(start + HOME_WORK_SECTION_START.length, end);
+  const cardCount = (between.match(/<article class="card\b/g) || []).length;
   if (cardCount < minimumCards) {
     pushError(
       issues,
       "home.html-first.too-few-cards",
-      `Home page HTML-first fallback has too few cards: ${cardCount} (expected >= ${minimumCards}).`
+      `Home page SSR selected-writing block has too few cards: ${cardCount} (expected >= ${minimumCards}).`
     );
   }
 
   if (!/href="(?:https?:\/\/|\/posts\/)/i.test(between)) {
-    pushError(issues, "home.html-first.links", "Home page fallback cards do not include visible links.");
+    pushError(issues, "home.html-first.links", "Home page SSR cards do not include visible links.");
+  }
+
+  const interviewsStart = html.indexOf(HOME_INTERVIEWS_SECTION_START);
+  const interviewsEnd = html.indexOf(HOME_INTERVIEWS_SECTION_END);
+  if (interviewsEnd <= interviewsStart) {
+    pushError(issues, "home.interviews.range", "Home page interviews preview marker range is invalid.");
+  } else {
+    const interviewsBlock = html.slice(interviewsStart + HOME_INTERVIEWS_SECTION_START.length, interviewsEnd);
+    if (!/<article class="interview-preview-card"/i.test(interviewsBlock)) {
+      pushError(issues, "home.interviews.empty", "Home page interviews preview is missing SSR cards.");
+    }
   }
 
   if (!/<noscript>[\s\S]*\/posts\//i.test(html)) {
@@ -1170,17 +1292,17 @@ const checkHomeHtmlFirst = async (minimumCards, issues) => {
 };
 
 const checkNoDraftLeakage = async (items, indexableItems, issues) => {
-  const draftItems = items.filter((item) => String(item?.status || "").trim().toLowerCase() !== PUBLISHED_STATUS);
+  const draftItems = items.filter((item) => !isPublishedStatus(item?.status));
   if (draftItems.length === 0) return;
 
   const draftPostPaths = new Set(draftItems.map((item) => `/posts/${expectedPostFilename(item)}`));
   const indexablePostPaths = new Set(indexableItems.map((item) => `/posts/${expectedPostFilename(item)}`));
 
   const homeHtml = await fs.readFile(HOME_INDEX, "utf8");
-  const start = homeHtml.indexOf(HOME_FALLBACK_START);
-  const end = homeHtml.indexOf(HOME_FALLBACK_END);
+  const start = homeHtml.indexOf(HOME_WORK_SECTION_START);
+  const end = homeHtml.indexOf(HOME_WORK_SECTION_END);
   if (start >= 0 && end > start) {
-    const fragment = homeHtml.slice(start + HOME_FALLBACK_START.length, end);
+    const fragment = homeHtml.slice(start + HOME_WORK_SECTION_START.length, end);
     const postHrefs = [...fragment.matchAll(/href=["'](\/posts\/[^"']+\.html)["']/gi)].map((m) => String(m[1] || "").trim());
     const leakedInHome = postHrefs.filter((href) => href && !indexablePostPaths.has(href));
     if (leakedInHome.length > 0) {
@@ -1290,15 +1412,33 @@ const checkAssetFingerprinting = async (issues) => {
     }
   }
 
+  for (const fixedAsset of FIXED_VERSIONED_IMAGE_OUTPUTS) {
+    const fixedAbsolute = path.join(SITE_DIR, fixedAsset);
+    let stat;
+    try {
+      stat = await fs.stat(fixedAbsolute);
+    } catch {
+      pushError(issues, "assets.fixed-image.missing", `Missing fixed image asset: ${fixedAsset}`);
+      continue;
+    }
+    if (!stat.isFile()) {
+      pushError(issues, "assets.fixed-image.invalid", `Fixed image asset is not a file: ${fixedAsset}`);
+    }
+  }
+
   for (const htmlPath of htmlFiles) {
     const rel = toPosixPath(path.relative(SITE_DIR, htmlPath));
     const html = await fs.readFile(htmlPath, "utf8");
-    if (
-      /(?:href|src)=["'](?:\/|\.\/|\.\.\/)[^"']+\.(?:css|js|png|jpe?g|webp|svg|woff2?)(?:\?[^"']*\bv=[^"']*)["']/i.test(
-        html
-      )
-    ) {
-      pushError(issues, "assets.query-version.present", `Found legacy ?v= asset query in ${rel}.`);
+    const versionedRefs = [
+      ...html.matchAll(
+        /(?:href|src)=["']((?:\/|\.\/|\.\.\/|https:\/\/www\.klishin\.work\/)[^"']+\?[^"']*\bv=[^"']*)["']/gi
+      ),
+      ...html.matchAll(/content=["'](https:\/\/www\.klishin\.work\/[^"']+\?[^"']*\bv=[^"']*)["']/gi),
+    ].map((match) => String(match[1] || "").trim());
+    for (const ref of versionedRefs) {
+      if (!isAllowedVersionedImageRef(ref)) {
+        pushError(issues, "assets.query-version.present", `Found unsupported ?v= asset query in ${rel}.`, { ref });
+      }
     }
   }
 };
@@ -1310,7 +1450,7 @@ const main = async () => {
   const raw = await fs.readFile(DATA_PATH, "utf8");
   const payload = JSON.parse(raw);
   const items = Array.isArray(payload.items) ? payload.items : [];
-  const publishedItems = items.filter((item) => String(item?.status || "").trim().toLowerCase() === PUBLISHED_STATUS);
+  const publishedItems = items.filter((item) => isPublishedStatus(item?.status));
   const indexableItems = items.filter((item) => isIndexablePost(item));
   const minimumHomeCards = Math.min(8, Math.max(1, indexableItems.length));
 

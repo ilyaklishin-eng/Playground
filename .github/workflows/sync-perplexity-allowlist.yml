@@ -1,8 +1,6 @@
 name: Sync Perplexity Allowlist
 
 on:
-  schedule:
-    - cron: "23 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -30,6 +28,16 @@ jobs:
           CF_PERPLEXITYUSER_LIST_NAME: ${{ secrets.CF_PERPLEXITYUSER_LIST_NAME }}
         run: node reputation-case/site/tools/sync-perplexity-allowlist.mjs --write-files
 
+      - name: Rebuild Cloudflare bypass config
+        env:
+          CF_OPENAI_SEARCHBOT_LIST_NAME: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_NAME }}
+          CF_OPENAI_CHATGPT_USER_LIST_NAME: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_NAME }}
+          CF_OPENAI_GPTBOT_LIST_NAME: ${{ secrets.CF_OPENAI_GPTBOT_LIST_NAME }}
+          CF_PERPLEXITYBOT_LIST_NAME: ${{ secrets.CF_PERPLEXITYBOT_LIST_NAME }}
+          CF_PERPLEXITYUSER_LIST_NAME: ${{ secrets.CF_PERPLEXITYUSER_LIST_NAME }}
+          CF_ANTHROPIC_LIST_NAME: ${{ secrets.CF_ANTHROPIC_LIST_NAME }}
+        run: node reputation-case/site/tools/build-cloudflare-bypass-rules.mjs
+
       - name: Commit updated allowlist files
         run: |
           set -euo pipefail
@@ -37,7 +45,9 @@ jobs:
             reputation-case/site/data/perplexity-ip-allowlist.json \
             reputation-case/site/data/perplexitybot-cidrs.txt \
             reputation-case/site/data/perplexity-user-cidrs.txt \
-            reputation-case/site/data/perplexity-cidrs-combined.txt; then
+            reputation-case/site/data/perplexity-cidrs-combined.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md; then
             echo "No allowlist changes."
             exit 0
           fi
@@ -48,6 +58,8 @@ jobs:
             reputation-case/site/data/perplexity-ip-allowlist.json \
             reputation-case/site/data/perplexitybot-cidrs.txt \
             reputation-case/site/data/perplexity-user-cidrs.txt \
-            reputation-case/site/data/perplexity-cidrs-combined.txt
+            reputation-case/site/data/perplexity-cidrs-combined.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md
           git commit -m "chore: refresh Perplexity IP allowlist"
           git push

@@ -3,27 +3,127 @@ import crypto from "node:crypto";
 import path from "node:path";
 import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
+import interviewsData from "../data/interviews-data.js";
+import { localizeInterviewItem } from "../interviews/interviews-localize.js";
+import {
+  CONTENT_ROLE,
+  CONTENT_STATUS,
+  CONTENT_SURFACE,
+  INDEXABLE_STATIC_SECTIONS,
+  PAGE_CLASS,
+  STATIC_PAGE_CLASSES,
+  classifyPostPage,
+  currentBuildEnv,
+  isPublicRenderableItem,
+  isIndexablePost,
+  isDraftLikeItem,
+  isProductionBuild,
+  isPublishedStatus,
+  isRenderableOnLocale,
+  normalizeContentItem,
+  normalizeLocale,
+  isReferenceCard,
+  isShowcaseCandidate,
+  robotsMetaForPageClass,
+  shouldCompileItem,
+} from "./page-index-policy.mjs";
+import { replaceTrustBlock } from "./render-trust-block.mjs";
+import {
+  ARCHIVE_LAYOUT_CSS,
+  LAYOUT_FAMILY,
+  renderArchiveFooter,
+  renderArchiveHeader,
+  renderReaderFooter,
+  renderReaderHeader,
+  resolveStaticLayout,
+} from "./site-layout-config.mjs";
 
 const execFile = promisify(execFileCallback);
 
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const dataPath = path.join(siteDir, "data", "digests.json");
-const searchIndexPath = path.join(siteDir, "data", "search-index.json");
+const publicDigestsPath = path.join(siteDir, "data", "public-digests.json");
+const publicInterviewsPath = path.join(siteDir, "data", "public-interviews.json");
+const searchIndexManifestPath = path.join(siteDir, "data", "search-index.json");
+const searchIndexLocalePath = (locale = "en") => path.join(siteDir, "data", `search-index-${locale}.json`);
 const selectedPagePath = path.join(siteDir, "selected", "index.html");
+const interviewsDir = path.join(siteDir, "interviews");
 const postsDir = path.join(siteDir, "posts");
 const homeIndexPath = path.join(siteDir, "index.html");
+const homeFrIndexPath = path.join(siteDir, "fr", "index.html");
+const homeDeIndexPath = path.join(siteDir, "de", "index.html");
+const homeEsIndexPath = path.join(siteDir, "es", "index.html");
+const bioIndexPath = path.join(siteDir, "bio", "index.html");
+const contactIndexPath = path.join(siteDir, "contact", "index.html");
+const sourceUrlHealthPath = path.join(siteDir, "data", "source-url-health.json");
 const baseUrl = "https://www.klishin.work";
 const FINGERPRINT_HEX_LENGTH = 10;
 const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
 const OG_IMAGE_WIDTH = "1200";
 const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
+const FIXED_IMAGE_PUBLIC_DIR = "/assets/images";
+const FIXED_IMAGE_ASSETS = [
+  {
+    key: "portrait",
+    source: "bio/ilia-klishin-portrait.jpeg",
+    target: "assets/images/portrait.jpeg",
+    aliases: ["/bio/ilia-klishin-portrait.jpeg", "./ilia-klishin-portrait.jpeg", "../ilia-klishin-portrait.jpeg"],
+  },
+  {
+    key: "portraitPlaceholder",
+    source: "bio/portrait-placeholder.svg",
+    target: "assets/images/portrait-placeholder.svg",
+    aliases: ["/bio/portrait-placeholder.svg", "./portrait-placeholder.svg", "../portrait-placeholder.svg"],
+  },
+  {
+    key: "ogDefault",
+    source: "og/site-default.jpg",
+    target: "assets/images/og-site-default.jpg",
+    aliases: ["/og/site-default.jpg"],
+  },
+  {
+    key: "ogBio",
+    source: "og/bio.jpg",
+    target: "assets/images/og-bio.jpg",
+    aliases: ["/og/bio.jpg"],
+  },
+  {
+    key: "ogSelected",
+    source: "og/selected-work.jpg",
+    target: "assets/images/og-selected-work.jpg",
+    aliases: ["/og/selected-work.jpg"],
+  },
+  {
+    key: "ogPosts",
+    source: "og/posts-fallback.jpg",
+    target: "assets/images/og-posts-fallback.jpg",
+    aliases: ["/og/posts-fallback.jpg"],
+  },
+  {
+    key: "ogCases",
+    source: "og/cases-fallback.jpg",
+    target: "assets/images/og-cases-fallback.jpg",
+    aliases: ["/og/cases-fallback.jpg"],
+  },
+];
+const FIXED_IMAGE_PATHS = Object.freeze({
+  portrait: `${FIXED_IMAGE_PUBLIC_DIR}/portrait.jpeg`,
+  portraitPlaceholder: `${FIXED_IMAGE_PUBLIC_DIR}/portrait-placeholder.svg`,
+  ogDefault: `${FIXED_IMAGE_PUBLIC_DIR}/og-site-default.jpg`,
+  ogBio: `${FIXED_IMAGE_PUBLIC_DIR}/og-bio.jpg`,
+  ogSelected: `${FIXED_IMAGE_PUBLIC_DIR}/og-selected-work.jpg`,
+  ogPosts: `${FIXED_IMAGE_PUBLIC_DIR}/og-posts-fallback.jpg`,
+  ogCases: `${FIXED_IMAGE_PUBLIC_DIR}/og-cases-fallback.jpg`,
+});
+let FIXED_IMAGE_VERSION = "1";
+const fixedImageAbsoluteUrl = (publicPath = "") => `${baseUrl}${String(publicPath || "").trim()}`;
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: `${baseUrl}/og/site-default.jpg`,
-  bio: `${baseUrl}/og/bio.jpg`,
-  selected: `${baseUrl}/og/selected-work.jpg`,
-  posts: `${baseUrl}/og/posts-fallback.jpg`,
-  cases: `${baseUrl}/og/cases-fallback.jpg`,
+  default: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogDefault),
+  bio: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogBio),
+  selected: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogSelected),
+  posts: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogPosts),
+  cases: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogCases),
 };
 const FINGERPRINTABLE_ASSETS = [
   { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
@@ -41,28 +141,39 @@ const FINGERPRINTABLE_ASSETS = [
     source: "interviews/interviews-preview.js",
     aliases: ["/interviews/interviews-preview.js", "./interviews-preview.js", "../interviews-preview.js"],
   },
-  {
-    source: "bio/ilia-klishin-portrait.jpeg",
-    aliases: ["/bio/ilia-klishin-portrait.jpeg", "./ilia-klishin-portrait.jpeg", "../ilia-klishin-portrait.jpeg"],
-  },
-  {
-    source: "bio/portrait-placeholder.svg",
-    aliases: ["/bio/portrait-placeholder.svg", "./portrait-placeholder.svg", "../portrait-placeholder.svg"],
-  },
 ];
-const HOME_FALLBACK_START = "<!-- HTML_FIRST_CARDS_START -->";
-const HOME_FALLBACK_END = "<!-- HTML_FIRST_CARDS_END -->";
 const HOME_FALLBACK_LIMIT = 8;
 const HOME_FALLBACK_MAX_PER_SOURCE = 1;
+const HOME_WORK_SECTION_START = "<!-- HOME_WORK_SECTION_START -->";
+const HOME_WORK_SECTION_END = "<!-- HOME_WORK_SECTION_END -->";
+const HOME_INTERVIEWS_SECTION_START = "<!-- HOME_INTERVIEWS_SECTION_START -->";
+const HOME_INTERVIEWS_SECTION_END = "<!-- HOME_INTERVIEWS_SECTION_END -->";
+const SELECTED_ALL_GRID_START = "<!-- SELECTED_ALL_GRID_START -->";
+const SELECTED_ALL_GRID_END = "<!-- SELECTED_ALL_GRID_END -->";
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
-const DEFAULT_SOCIAL_IMAGE = `${baseUrl}/bio/ilia-klishin-portrait.jpeg`;
+const DEFAULT_SOCIAL_IMAGE = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
 const SOCIAL_IMAGE_WIDTH = "636";
 const SOCIAL_IMAGE_HEIGHT = "888";
+const DEFAULT_TWITTER_CARD = "summary_large_image";
+const DEFAULT_TWITTER_CREATOR = "@vorewig";
 const PERSON_ID = `${baseUrl}/#person`;
+const BUILD_ENV = currentBuildEnv();
+const PRODUCTION_BUILD = isProductionBuild();
+const INCLUDE_DRAFT_OUTPUTS = !PRODUCTION_BUILD;
 const WEBSITE_ID = `${baseUrl}/#website`;
 const ORGANIZATION_ID = `${baseUrl}/#organization`;
+const pageFragmentForType = (pageType = "WebPage") =>
+  (
+    {
+      WebPage: "webpage",
+      ContactPage: "contactpage",
+      ProfilePage: "profilepage",
+      CollectionPage: "collectionpage",
+    }[String(pageType || "").trim()] || "webpage"
+  );
+const buildPageNodeId = (canonical = "", pageType = "WebPage") => `${canonical}#${pageFragmentForType(pageType)}`;
 const PERSON_ALT_NAMES = ["Ilya Klishin", "Ilia S. Klishin", "Илья Клишин"];
 const PERSON_SAME_AS = [
   "https://www.linkedin.com/in/ilia-klishin-20282a1b/",
@@ -70,29 +181,26 @@ const PERSON_SAME_AS = [
   "https://www.instagram.com/vorewig",
   "https://www.facebook.com/ilya.klishin",
   "https://t.me/vorewig",
-  "https://t.me/bookswithklishin",
   "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-  "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
   "https://www.ted.com/tedx/events/3947",
   "https://www.themoscowtimes.com/author/ilya-klishin",
   "https://www.vedomosti.ru/authors/ilya-klishin",
-  "https://polutona.ru/?show=1104154256",
+  "https://theins.ru/en/opinion/ilya-klishin",
   "https://snob.ru/profile/28206/about/",
-  "https://snob.ru/profile/28206/blog/",
   "https://rtvi.com/editors-archive/ilya-klishin/",
   "https://kf.agency/articles/biography",
 ];
 const WEBSITE_HAS_PART = [
-  `${baseUrl}/#webpage`,
-  `${baseUrl}/bio/#webpage`,
-  `${baseUrl}/cases/#webpage`,
-  `${baseUrl}/contact/#webpage`,
-  `${baseUrl}/interviews/#collectionpage`,
-  `${baseUrl}/selected/#webpage`,
-  `${baseUrl}/search/#webpage`,
-  `${baseUrl}/insights/#webpage`,
-  `${baseUrl}/archive/#webpage`,
-  `${baseUrl}/posts/index.html#webpage`,
+  buildPageNodeId(`${baseUrl}/`, "WebPage"),
+  buildPageNodeId(`${baseUrl}/bio/`, "ProfilePage"),
+  buildPageNodeId(`${baseUrl}/cases/`, "ProfilePage"),
+  buildPageNodeId(`${baseUrl}/contact/`, "ContactPage"),
+  buildPageNodeId(`${baseUrl}/interviews/`, "CollectionPage"),
+  buildPageNodeId(`${baseUrl}/selected/`, "CollectionPage"),
+  buildPageNodeId(`${baseUrl}/search/`, "WebPage"),
+  buildPageNodeId(`${baseUrl}/insights/`, "CollectionPage"),
+  buildPageNodeId(`${baseUrl}/archive/`, "CollectionPage"),
+  buildPageNodeId(`${baseUrl}/posts/`, "CollectionPage"),
 ];
 const STATIC_ENTITY_SECTIONS = [
   "index.html",
@@ -121,54 +229,6 @@ const STATIC_ENTITY_SECTIONS = [
   "about/index.html",
   "search/index.html",
 ];
-const INDEXABLE_STATIC_SECTIONS = [
-  "fr/index.html",
-  "de/index.html",
-  "es/index.html",
-  "interviews/index.html",
-  "interviews/fr/index.html",
-  "interviews/de/index.html",
-  "interviews/es/index.html",
-  "selected/index.html",
-  "bio/index.html",
-  "bio/fr/index.html",
-  "bio/de/index.html",
-  "bio/es/index.html",
-  "cases/index.html",
-  "cases/fr/index.html",
-  "cases/de/index.html",
-  "cases/es/index.html",
-];
-const STATIC_ROBOTS_POLICY = new Map([
-  ["index.html", "index"],
-  ["fr/index.html", "index"],
-  ["de/index.html", "index"],
-  ["es/index.html", "index"],
-  ["bio/index.html", "index"],
-  ["bio/fr/index.html", "index"],
-  ["bio/de/index.html", "index"],
-  ["bio/es/index.html", "index"],
-  ["cases/index.html", "index"],
-  ["cases/fr/index.html", "index"],
-  ["cases/de/index.html", "index"],
-  ["cases/es/index.html", "index"],
-  ["selected/index.html", "index"],
-  ["interviews/index.html", "index"],
-  ["interviews/fr/index.html", "index"],
-  ["interviews/de/index.html", "index"],
-  ["interviews/es/index.html", "index"],
-  ["search/index.html", "noindex"],
-  ["about/index.html", "noindex"],
-  ["contact/index.html", "noindex"],
-  ["archive/index.html", "noindex"],
-  ["insights/index.html", "noindex"],
-  ["insights/fr/index.html", "noindex"],
-  ["insights/de/index.html", "noindex"],
-  ["insights/es/index.html", "noindex"],
-  ["posts/index.html", "noindex"],
-  ["posts/all.html", "noindex"],
-  ["posts/drafts.html", "noindex"],
-]);
 const STATIC_SOCIAL_IMAGE_POLICY = new Map([
   ["index.html", "default"],
   ["fr/index.html", "default"],
@@ -202,6 +262,58 @@ const LANGS = ["EN", "FR", "DE", "ES"];
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const HREFLANG_ORDER = ["en", "fr", "de", "es"];
 const X_DEFAULT = "x-default";
+const STATIC_HREFLANG_CLUSTERS = [
+  {
+    name: "home",
+    pages: {
+      en: "index.html",
+      fr: "fr/index.html",
+      de: "de/index.html",
+      es: "es/index.html",
+    },
+    xDefault: "index.html",
+  },
+  {
+    name: "bio",
+    pages: {
+      en: "bio/index.html",
+      fr: "bio/fr/index.html",
+      de: "bio/de/index.html",
+      es: "bio/es/index.html",
+    },
+    xDefault: "bio/index.html",
+  },
+  {
+    name: "cases",
+    pages: {
+      en: "cases/index.html",
+      fr: "cases/fr/index.html",
+      de: "cases/de/index.html",
+      es: "cases/es/index.html",
+    },
+    xDefault: "cases/index.html",
+  },
+  {
+    name: "insights",
+    pages: {
+      en: "insights/index.html",
+      fr: "insights/fr/index.html",
+      de: "insights/de/index.html",
+      es: "insights/es/index.html",
+    },
+    xDefault: "insights/index.html",
+  },
+  {
+    name: "interviews",
+    pages: {
+      en: "interviews/index.html",
+      fr: "interviews/fr/index.html",
+      de: "interviews/de/index.html",
+      es: "interviews/es/index.html",
+    },
+    xDefault: "interviews/index.html",
+  },
+];
 const SELECTED_SECTION_CONFIG = [
   {
     id: "journalism",
@@ -229,7 +341,164 @@ const SELECTED_SECTION_CONFIG = [
     intro: "Third-party publications and institutional references used as external context.",
   },
 ];
-const isPublishedStatus = (value = "") => String(value || "").trim().toLowerCase() === "ready";
+const SELECTED_ROLE_SECTION_CONFIG = {
+  quoted: {
+    id: "expert-comments",
+    title: "Expert comments",
+    intro: "Outside reporting and features that use Klishin as an analyst, quoted source, or commentator.",
+  },
+  reference: {
+    id: "references",
+    title: "References",
+    intro: "Institutional records, profiles, and third-party references kept separate from authored work.",
+  },
+};
+const INTERVIEWS_PAGE_CONFIG = {
+  en: {
+    path: path.join(interviewsDir, "index.html"),
+    lang: "en",
+    eyebrow: "Interviews",
+    title: "Interviews and public conversations",
+    intro:
+      "Interviews, conversations, podcasts, and long-form features involving Ilia Klishin on media, migration, literature, politics, digital environments, and cultural context.",
+    filtersAria: "Interview filters",
+    filterGroupAria: "Format filter",
+    filters: {
+      all: "All",
+      text: "Text",
+      video: "Video",
+      podcasts: "Podcasts",
+    },
+    sections: {
+      interviews: {
+        id: "interviews-main-title",
+        title: "Interviews and conversations",
+        intro: "Text and video conversations, podcasts, and broadcast appearances.",
+      },
+      features: {
+        id: "interviews-features-title",
+        title: "English-language and feature materials",
+        intro: "English-language features and public references with direct participation.",
+      },
+      archive: {
+        id: "interviews-archive-title",
+        title: "Archive",
+        intro: "Early records and archival appearances where exact dating may require additional checks.",
+      },
+    },
+    cta: "Open material ->",
+  },
+  fr: {
+    path: path.join(interviewsDir, "fr", "index.html"),
+    lang: "fr",
+    eyebrow: "Entretiens",
+    title: "Entretiens et conversations publiques",
+    intro:
+      "Entretiens, conversations, podcasts et longs formats avec Ilia Klishin sur les medias, l emigration, la litterature, la politique, l environnement numerique et le contexte culturel.",
+    filtersAria: "Filtres",
+    filterGroupAria: "Format",
+    filters: {
+      all: "Tous",
+      text: "Texte",
+      video: "Video",
+      podcasts: "Podcasts",
+    },
+    sections: {
+      interviews: {
+        id: "interviews-main-title",
+        title: "Entretiens et conversations",
+        intro: "Entretiens texte et video, podcasts et interventions publiques.",
+      },
+      features: {
+        id: "interviews-features-title",
+        title: "Materiaux en anglais et formats feature",
+        intro: "Longs formats et references publiques avec participation directe.",
+      },
+      archive: {
+        id: "interviews-archive-title",
+        title: "Archive",
+        intro: "Archives et apparitions anciennes dont la datation exacte peut encore demander verification.",
+      },
+    },
+    cta: "Ouvrir le contenu ->",
+  },
+  de: {
+    path: path.join(interviewsDir, "de", "index.html"),
+    lang: "de",
+    eyebrow: "Interviews",
+    title: "Interviews und offentliche Gespraeche",
+    intro:
+      "Interviews, Gespraeche, Podcasts und lange Features mit Ilia Klishin zu Medien, Emigration, Literatur, Politik, digitalem Umfeld und kulturellem Kontext.",
+    filtersAria: "Filter",
+    filterGroupAria: "Formatfilter",
+    filters: {
+      all: "Alle",
+      text: "Text",
+      video: "Video",
+      podcasts: "Podcasts",
+    },
+    sections: {
+      interviews: {
+        id: "interviews-main-title",
+        title: "Interviews und Gespraeche",
+        intro: "Text- und Videointerviews, Podcasts und offentliche Auftritte.",
+      },
+      features: {
+        id: "interviews-features-title",
+        title: "Englischsprachige und Feature-Materialien",
+        intro: "Lange Features und offentliche Referenzen mit direkter Beteiligung.",
+      },
+      archive: {
+        id: "interviews-archive-title",
+        title: "Archiv",
+        intro: "Fruehe Auftritte und Archivmaterialien, deren genaue Datierung teils noch bestaetigt werden muss.",
+      },
+    },
+    cta: "Material offnen ->",
+  },
+  es: {
+    path: path.join(interviewsDir, "es", "index.html"),
+    lang: "es",
+    eyebrow: "Entrevistas",
+    title: "Entrevistas y conversaciones publicas",
+    intro:
+      "Entrevistas, conversaciones, podcasts y materiales largos con Ilia Klishin sobre medios, emigracion, literatura, politica, entorno digital y contexto cultural.",
+    filtersAria: "Filtros",
+    filterGroupAria: "Filtro por formato",
+    filters: {
+      all: "Todos",
+      text: "Texto",
+      video: "Video",
+      podcasts: "Podcasts",
+    },
+    sections: {
+      interviews: {
+        id: "interviews-main-title",
+        title: "Entrevistas y conversaciones",
+        intro: "Entrevistas en texto y video, podcasts e intervenciones publicas.",
+      },
+      features: {
+        id: "interviews-features-title",
+        title: "Materiales en ingles y features",
+        intro: "Features largos y referencias publicas con participacion directa.",
+      },
+      archive: {
+        id: "interviews-archive-title",
+        title: "Archivo",
+        intro: "Registros tempranos y apariciones de archivo cuya fecha exacta aun puede requerir verificacion.",
+      },
+    },
+    cta: "Abrir material ->",
+  },
+};
+const INTERVIEW_SECTION_ORDER = ["interviews", "features", "archive"];
+const INTERVIEW_EMOJI_POOL = [
+  "🎙️", "🎧", "🎥", "📺", "📻", "📚", "📖", "🗞️", "📰", "🗣️",
+  "💬", "🌍", "🌐", "🧭", "🧠", "🔎", "📡", "🎞️", "🧩", "📝",
+  "📌", "🧾", "🎚️", "🎛️", "🎤", "📣", "🛰️", "⏳", "⌛", "🔬",
+  "⚖️", "🛡️", "🏛️", "💡", "🔭", "📊", "📈", "📉", "🧵", "🪶",
+  "🧪", "🧬", "🗂️", "📁", "🪄", "✨", "⭐", "🌊", "🌤️", "🌙",
+];
 const toHtmlLang = (value = "") => {
   const lang = String(value || "").toUpperCase();
   if (lang === "EN") return "en";
@@ -246,6 +515,137 @@ const htmlEscape = (value = "") =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+
+const normalizeInterviewIsoDate = (raw = "") => {
+  const value = String(raw || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  if (/^\d{4}-\d{2}$/.test(value)) return `${value}-01`;
+  const year = value.match(/\d{4}/)?.[0] || "";
+  return year ? `${year}-01-01` : "";
+};
+
+const formatInterviewDisplayDate = (raw = "", locale = "en") => {
+  const value = String(raw || "").trim();
+  const normalizedLocale = ["en", "fr", "de", "es"].includes(locale) ? locale : "en";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const date = new Date(`${value}T00:00:00Z`);
+    if (!Number.isNaN(date.getTime())) {
+      return new Intl.DateTimeFormat(normalizedLocale, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(date);
+    }
+  }
+  if (/^\d{4}-\d{2}$/.test(value)) {
+    const date = new Date(`${value}-01T00:00:00Z`);
+    if (!Number.isNaN(date.getTime())) {
+      return new Intl.DateTimeFormat(normalizedLocale, {
+        month: "long",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(date);
+    }
+  }
+  if (/^\d{4}$/.test(value)) return value;
+  const range = value.match(/^(\d{4})-(\d{4})$/);
+  if (range) return `${range[1]}/${range[2]}`;
+  return value;
+};
+
+const parseInterviewTimestamp = (raw = "") => {
+  const value = String(raw || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return Date.parse(`${value}T00:00:00Z`) || 0;
+  }
+  if (/^\d{4}-\d{2}$/.test(value)) {
+    return Date.parse(`${value}-01T00:00:00Z`) || 0;
+  }
+  if (/^\d{4}$/.test(value)) {
+    return Date.parse(`${value}-01-01T00:00:00Z`) || 0;
+  }
+  const range = value.match(/^(\d{4})-(\d{4})$/);
+  if (range) {
+    return Date.parse(`${range[2]}-01-01T00:00:00Z`) || 0;
+  }
+  const looseYear = value.match(/(\d{4})/);
+  if (looseYear) {
+    return Date.parse(`${looseYear[1]}-01-01T00:00:00Z`) || 0;
+  }
+  return 0;
+};
+
+const inferInterviewOutlet = (url = "") => {
+  const value = String(url || "").trim().toLowerCase();
+  if (!value) return "External source";
+  if (value.includes("youtube.com")) return "YouTube";
+  if (value.includes("podcasts.apple.com")) return "Apple Podcasts";
+  if (value.includes("semnasem.org")) return "7x7";
+  if (value.includes("rss.com/podcasts/radiotochka")) return "Radio Tochka";
+  if (value.includes("holod.media")) return "Holod";
+  if (value.includes("thefix.media")) return "The Fix";
+  if (value.includes("rferl.org")) return "RFE/RL";
+  if (value.includes("radiobaltica.eu")) return "Radio Baltica";
+  if (value.includes("ambivert.club")) return "Ambivert Club";
+  if (value.includes("cossa.ru")) return "Cossa";
+  if (value.includes("theguardian.com")) return "The Guardian";
+  if (value.includes("vb.kg")) return "VB.KG";
+  return value.replace(/^https?:\/\//, "").replace(/^www\./, "").split("/")[0];
+};
+
+const normalizeInterviewFormatTokens = (value = "") => {
+  const raw = String(value || "").toLowerCase();
+  const tokens = [];
+  if (/(text|feature|текст)/.test(raw)) tokens.push("text");
+  if (/(video|видео)/.test(raw)) tokens.push("video");
+  if (/(podcast|подкаст)/.test(raw)) tokens.push("podcasts");
+  return [...new Set(tokens)];
+};
+
+const interviewEmojiCandidates = (item = {}) => {
+  const format = String(item?.formatLabel || "").toLowerCase();
+  const section = String(item?.section || "").toLowerCase();
+  const language = String(item?.languageLabel || "").toLowerCase();
+  const blob = [item?.title, item?.description, item?.formatLabel].map((v) => String(v || "").toLowerCase()).join(" ");
+
+  if (/\bpodcast\b/.test(format) || /\bpodcast\b/.test(blob)) {
+    return ["🎙️", "🎧", "📻", "💬"];
+  }
+  if (/\bvideo\b/.test(format) || /\byoutube|broadcast|talk\b/.test(blob)) {
+    return ["🎥", "📺", "🎞️", "📡"];
+  }
+  if (/\btext\b/.test(format) || /\binterview|feature|essay\b/.test(blob)) {
+    return ["📰", "🗞️", "📝", "📖"];
+  }
+  if (/\bnabokov|book|reading|literature\b/.test(blob)) {
+    return ["📚", "📖", "🧠", "🔎"];
+  }
+  if (section === "features" || /\benglish\b/.test(language)) {
+    return ["🌍", "🌐", "🧭", "🗞️"];
+  }
+  if (section === "archive") {
+    return ["🧾", "⌛", "⏳", "🔎"];
+  }
+  return ["💬", "🧠", "🧭", "📰"];
+};
+
+const pickUniqueInterviewEmoji = (candidates, used, seed = 0) => {
+  for (const emoji of candidates) {
+    if (emoji && !used.has(emoji)) return emoji;
+  }
+  for (const emoji of INTERVIEW_EMOJI_POOL) {
+    if (!used.has(emoji)) return emoji;
+  }
+  const len = INTERVIEW_EMOJI_POOL.length || 1;
+  for (let i = 0; i < len * len; i += 1) {
+    const first = INTERVIEW_EMOJI_POOL[(seed + i) % len];
+    const second = INTERVIEW_EMOJI_POOL[(seed * 5 + i * 3) % len];
+    const pair = `${first}${second}`;
+    if (!used.has(pair)) return pair;
+  }
+  return "✨";
+};
 
 const xmlEscape = (value = "") =>
   String(value)
@@ -281,6 +681,119 @@ const canonicalUrl = (relativePath = "") => {
   return `${baseUrl}/${clean}`;
 };
 
+const stripUrlQueryAndHash = (value = "") => String(value || "").split("#")[0].split("?")[0].trim();
+
+const isFixedImageUrl = (value = "") => {
+  const normalized = stripUrlQueryAndHash(value);
+  return (
+    normalized.startsWith(fixedImageAbsoluteUrl(FIXED_IMAGE_PUBLIC_DIR)) ||
+    normalized.startsWith(FIXED_IMAGE_PUBLIC_DIR)
+  );
+};
+
+const withFixedImageVersion = (value = "") => {
+  const raw = String(value || "").trim();
+  if (!raw || !isFixedImageUrl(raw)) return raw;
+  const [withoutHash, hash = ""] = raw.split("#");
+  const [basePart, queryPart = ""] = withoutHash.split("?");
+  const params = new URLSearchParams(queryPart);
+  params.set("v", FIXED_IMAGE_VERSION);
+  const next = `${basePart}?${params.toString()}`;
+  return hash ? `${next}#${hash}` : next;
+};
+
+const extractTitleTag = (html = "") => {
+  const match = String(html || "").match(/<title>([\s\S]*?)<\/title>/i);
+  return htmlToText(match?.[1] || "").trim();
+};
+
+const extractMetaTagContent = (html = "", attrName = "", attrValue = "") => {
+  const escapedAttr = escapeRegExpSafe(String(attrValue || ""));
+  const match = String(html || "").match(
+    new RegExp(
+      `<meta\\s+[^>]*${attrName}=["']${escapedAttr}["'][^>]*content=["']([^"']*)["'][^>]*\\/?>|<meta\\s+[^>]*content=["']([^"']*)["'][^>]*${attrName}=["']${escapedAttr}["'][^>]*\\/?>`,
+      "i"
+    )
+  );
+  return htmlToText(match?.[1] || match?.[2] || "").trim();
+};
+
+const extractLinkHref = (html = "", relValue = "") => {
+  const escapedRel = escapeRegExpSafe(String(relValue || ""));
+  const match = String(html || "").match(
+    new RegExp(
+      `<link\\s+[^>]*rel=["']${escapedRel}["'][^>]*href=["']([^"']*)["'][^>]*\\/?>|<link\\s+[^>]*href=["']([^"']*)["'][^>]*rel=["']${escapedRel}["'][^>]*\\/?>`,
+      "i"
+    )
+  );
+  return htmlToText(match?.[1] || match?.[2] || "").trim();
+};
+
+const socialImageDimensionsForUrl = (imageUrl = "") => {
+  const normalized = stripUrlQueryAndHash(imageUrl);
+  if (normalized === DEFAULT_SOCIAL_IMAGE) {
+    return { width: SOCIAL_IMAGE_WIDTH, height: SOCIAL_IMAGE_HEIGHT };
+  }
+  return { width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT };
+};
+
+const buildSocialMetaSpec = ({
+  title = "",
+  socialTitle = "",
+  description = "",
+  canonical = "",
+  type = "website",
+  imageUrl = "",
+  twitterCard = DEFAULT_TWITTER_CARD,
+  twitterCreator = DEFAULT_TWITTER_CREATOR,
+  siteName = SITE_NAME,
+} = {}) => {
+  const normalizedTitle = String(title || "").trim();
+  const normalizedDescription = String(description || "").trim();
+  const normalizedCanonical = String(canonical || "").trim();
+  const normalizedType = String(type || "").trim() || "website";
+  const normalizedImageUrl = withFixedImageVersion(String(imageUrl || "").trim() || DEFAULT_SOCIAL_IMAGE);
+  const normalizedSocialTitle = String(socialTitle || "").trim() || normalizedTitle;
+  const { width, height } = socialImageDimensionsForUrl(normalizedImageUrl);
+
+  return {
+    title: normalizedTitle,
+    socialTitle: normalizedSocialTitle,
+    description: normalizedDescription,
+    canonical: normalizedCanonical,
+    type: normalizedType,
+    imageUrl: normalizedImageUrl,
+    imageWidth: width,
+    imageHeight: height,
+    twitterCard: String(twitterCard || "").trim() || DEFAULT_TWITTER_CARD,
+    twitterCreator: String(twitterCreator || "").trim() || DEFAULT_TWITTER_CREATOR,
+    siteName: String(siteName || "").trim() || SITE_NAME,
+  };
+};
+
+const renderSocialMetaTags = (meta = {}) => {
+  const spec = buildSocialMetaSpec(meta);
+  return [
+    `<meta property="og:type" content="${htmlEscape(spec.type)}" />`,
+    `<meta property="og:title" content="${htmlEscape(spec.socialTitle)}" />`,
+    `<meta property="og:description" content="${htmlEscape(spec.description)}" />`,
+    `<meta property="og:url" content="${htmlEscape(spec.canonical)}" />`,
+    `<meta property="og:site_name" content="${htmlEscape(spec.siteName)}" />`,
+    `<meta property="og:image" content="${htmlEscape(spec.imageUrl)}" />`,
+    `<meta property="og:image:width" content="${htmlEscape(spec.imageWidth)}" />`,
+    `<meta property="og:image:height" content="${htmlEscape(spec.imageHeight)}" />`,
+    `<meta property="og:image:type" content="${OG_IMAGE_TYPE}" />`,
+    `<meta property="og:image:secure_url" content="${htmlEscape(spec.imageUrl)}" />`,
+    `<meta name="twitter:card" content="${htmlEscape(spec.twitterCard)}" />`,
+    `<meta name="twitter:title" content="${htmlEscape(spec.socialTitle)}" />`,
+    `<meta name="twitter:description" content="${htmlEscape(spec.description)}" />`,
+    `<meta name="twitter:image" content="${htmlEscape(spec.imageUrl)}" />`,
+    `<meta name="twitter:image:src" content="${htmlEscape(spec.imageUrl)}" />`,
+    `<meta name="twitter:creator" content="${htmlEscape(spec.twitterCreator)}" />`,
+    `<link rel="image_src" href="${htmlEscape(spec.imageUrl)}" />`,
+  ].join("\n    ");
+};
+
 const decodeHtmlEntities = (value = "") =>
   String(value || "")
     .replaceAll("&nbsp;", " ")
@@ -308,6 +821,43 @@ const normalizeSourceUrl = (value = "") => {
     return raw;
   }
 };
+
+const loadSourceUrlHealth = async () => {
+  try {
+    const raw = await fs.readFile(sourceUrlHealthPath, "utf8");
+    const payload = JSON.parse(raw);
+    const brokenUrls = new Set(
+      (Array.isArray(payload?.broken_urls) ? payload.broken_urls : [])
+        .map((value) => normalizeSourceUrl(value))
+        .filter(Boolean)
+    );
+    return {
+      brokenUrls,
+      report: payload,
+    };
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return { brokenUrls: new Set(), report: null };
+    }
+    throw error;
+  }
+};
+
+const sourceEntitySeed = (sourceName = "", sourceUrl = "") => {
+  const normalizedUrl = normalizeSourceUrl(sourceUrl);
+  if (normalizedUrl) {
+    try {
+      const parsed = new URL(normalizedUrl);
+      return parsed.hostname.replace(/^www\./i, "");
+    } catch {
+      return normalizedUrl;
+    }
+  }
+  return normalizeText(sourceName || "source");
+};
+
+const buildSourceEntityId = (sourceName = "", sourceUrl = "") =>
+  `${baseUrl}/#source-${slugify(sourceEntitySeed(sourceName, sourceUrl))}`;
 
 const toPosixPath = (value = "") => String(value || "").replaceAll(path.sep, "/").replace(/^\.\/+/, "");
 
@@ -391,6 +941,84 @@ const listHtmlFiles = async (dir) => {
     }
   }
   return out;
+};
+
+const computeFixedImageVersion = async () => {
+  const hash = crypto.createHash("sha256");
+  for (const asset of FIXED_IMAGE_ASSETS) {
+    const raw = await fs.readFile(path.join(siteDir, asset.source));
+    hash.update(asset.key);
+    hash.update(raw);
+  }
+  return hash.digest("hex").slice(0, FINGERPRINT_HEX_LENGTH) || "1";
+};
+
+const materializeFixedImageAssets = async () => {
+  for (const asset of FIXED_IMAGE_ASSETS) {
+    const sourceAbsolute = path.join(siteDir, asset.source);
+    const targetAbsolute = path.join(siteDir, asset.target);
+    const raw = await fs.readFile(sourceAbsolute);
+    await fs.mkdir(path.dirname(targetAbsolute), { recursive: true });
+    await fs.writeFile(targetAbsolute, raw);
+  }
+};
+
+const cleanupDeprecatedFingerprintedKeyImages = async () => {
+  const staleConfigs = [
+    { dir: path.join(siteDir, "bio"), base: "ilia-klishin-portrait", ext: ".jpeg" },
+    { dir: path.join(siteDir, "bio"), base: "portrait-placeholder", ext: ".svg" },
+  ];
+  for (const config of staleConfigs) {
+    let siblings = [];
+    try {
+      siblings = await fs.readdir(config.dir);
+    } catch {
+      continue;
+    }
+    const stalePattern = new RegExp(
+      `^${escapeRegExpSafe(config.base)}\\.[a-f0-9]{${FINGERPRINT_HEX_LENGTH}}${escapeRegExpSafe(config.ext)}$`
+    );
+    for (const sibling of siblings) {
+      if (!stalePattern.test(sibling)) continue;
+      await fs.unlink(path.join(config.dir, sibling));
+    }
+  }
+};
+
+const rewriteFixedImageLinksInHtml = async () => {
+  const htmlFiles = await listHtmlFiles(siteDir);
+  for (const htmlPath of htmlFiles) {
+    let html = await fs.readFile(htmlPath, "utf8");
+    const original = html;
+
+    for (const asset of FIXED_IMAGE_ASSETS) {
+      const targetPublic = `/${asset.target}`;
+      const versionedTarget = withFixedImageVersion(targetPublic);
+      const absoluteTarget = withFixedImageVersion(fixedImageAbsoluteUrl(targetPublic));
+      const ext = path.posix.extname(asset.source);
+      const baseName = path.posix.basename(asset.source, ext);
+      const sourceDir = path.posix.dirname(asset.source);
+      const hashPattern = `[a-f0-9]{${FINGERPRINT_HEX_LENGTH}}`;
+
+      const patterns = [
+        ...asset.aliases.map((alias) => new RegExp(`${escapeRegExpSafe(alias)}(?:\\?[^"'\\s)]+)?`, "g")),
+        new RegExp(`/${escapeRegExpSafe(sourceDir)}/${escapeRegExpSafe(baseName)}\\.${hashPattern}${escapeRegExpSafe(ext)}(?:\\?[^"'\\s)]+)?`, "g"),
+        new RegExp(
+          `${escapeRegExpSafe(baseUrl)}/${escapeRegExpSafe(sourceDir)}/${escapeRegExpSafe(baseName)}\\.${hashPattern}${escapeRegExpSafe(ext)}(?:\\?[^"'\\s)]+)?`,
+          "g"
+        ),
+        new RegExp(`${escapeRegExpSafe(baseUrl)}${escapeRegExpSafe(targetPublic)}(?:\\?[^"'\\s)]+)?`, "g"),
+      ];
+
+      for (const pattern of patterns) {
+        html = html.replace(pattern, (match) => (match.startsWith(baseUrl) ? absoluteTarget : versionedTarget));
+      }
+    }
+
+    if (html !== original) {
+      await fs.writeFile(htmlPath, html, "utf8");
+    }
+  }
 };
 
 const fingerprintSingleAsset = async (sourceRelativePath = "") => {
@@ -642,6 +1270,14 @@ const classifySelectedSection = (item = {}) => {
   return "journalism";
 };
 
+const selectedSectionLabelById = (sectionId = "") =>
+  SELECTED_SECTION_CONFIG.find((section) => section.id === sectionId)?.title || "Selected Work";
+
+const extractYear = (value = "") => {
+  const match = String(value || "").trim().match(/^(\d{4})/);
+  return match ? match[1] : "";
+};
+
 const PLACEHOLDER_TITLE_RE = [
   /^(vedomosti|the moscow times ru|ru\.themoscowtimes|snob|tv rain)$/i,
   /^(signed column in|chronique signee dans|signierter beitrag in|texto firmado en)\b/i,
@@ -799,11 +1435,6 @@ const GENERIC_SOURCE_TITLE_RE =
   /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)\s*\(\d{4}-\d{2}-\d{2}\)(?:\s*-\s*.+)?$/i;
 const SOURCE_ONLY_TITLE_RE =
   /^(?:The Moscow Times(?:\s+(?:RU|EN))?|Vedomosti|Snob|Republic|OpenSpace\/Colta|MEL\.?fm|News24|Wikinews|Lenta|The Village|AdIndex|Ambivert|7x7|RTVI|TV Rain|Freedom House|TEDx\s*\/\s*TED\.com|YouTube\s*\/\s*TED)$/i;
-const REFERENCE_TOPIC_RE =
-  /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/i;
-const REFERENCE_TITLE_RE =
-  /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/i;
-
 const buildPostMetaTitle = (item = {}, displayTitle = "") => {
   const source = normalizeText(item?.source || "Publication");
   const topic = normalizeText(item?.topic || "");
@@ -893,19 +1524,6 @@ const composeCardMeta = (item = {}) => {
   return `${source} • ${date}`;
 };
 
-const isReferenceCard = (item = {}) => {
-  const explicit = normalizeText(item?.content_class || "").toLowerCase();
-  if (explicit === "reference") return true;
-  if (explicit === "writing") return false;
-
-  const topic = normalizeText(item?.topic || "");
-  const title = normalizeText(item?.title || "");
-  if (!title && !topic) return false;
-  if (REFERENCE_TOPIC_RE.test(topic)) return true;
-  if (REFERENCE_TITLE_RE.test(title)) return true;
-  return false;
-};
-
 const sourceActionLabel = (item = {}) => {
   const title = normalizeText(item?.title || "").toLowerCase();
   const source = normalizeText(item?.source || "").toLowerCase();
@@ -921,18 +1539,6 @@ const sourceActionLabel = (item = {}) => {
   return "Read piece";
 };
 
-const isShowcaseCandidate = (item = {}) => {
-  const title = normalizeText(item?.title || "");
-  const source = normalizeText(item?.source || "").toLowerCase();
-  const topic = normalizeText(item?.topic || "").toLowerCase();
-  if (!title) return false;
-  if (isReferenceCard(item)) return false;
-  if (/\(\d{4}-\d{2}-\d{2}\)\s*$/i.test(title)) return false;
-  if (source === "methodology") return false;
-  if (topic.includes("editorial standard")) return false;
-  return true;
-};
-
 const sanitizeSemanticTags = (tags = []) =>
   normalizedArray(tags).filter((tag) => {
     const value = normalizeText(tag).toLowerCase();
@@ -940,11 +1546,6 @@ const sanitizeSemanticTags = (tags = []) =>
     if (TECHNICAL_TAG_PATTERNS.some((pattern) => pattern.test(value))) return false;
     return true;
   });
-
-const countWords = (text = "") =>
-  normalizeText(text)
-    .split(/\s+/)
-    .filter(Boolean).length;
 
 const hasMachineText = (text = "") => {
   const value = normalizeText(text);
@@ -956,17 +1557,6 @@ const quoteCount = (item = {}) => {
   const list = Array.isArray(item?.quotes) ? item.quotes : [item?.quote].filter(Boolean);
   return list.map((x) => normalizeText(x)).filter(Boolean).length;
 };
-
-const isQaReviewedPost = (item = {}) => {
-  const summary = normalizeText(item?.digest || item?.summary || "");
-  const words = countWords(summary);
-  if (!summary) return false;
-  if (words < 18 || words > 220) return false;
-  return true;
-};
-
-const isIndexablePost = (item = {}) =>
-  isPublishedStatus(item?.status) && isShowcaseCandidate(item) && isQaReviewedPost(item);
 
 const stripLeadScaffolding = (text = "") =>
   normalizeText(text)
@@ -1018,8 +1608,104 @@ const TEMPLATE_SENTENCE_PATTERNS = [
   /\bthe piece examines .+ through events, actors, and editorial framing\b/i,
 ];
 
+const SUMMARY_BOILERPLATE_PATTERNS = [
+  /\bentry added to include\b/i,
+  /\bthe summary gives a clear reference point for later comparisons\b/i,
+  /\buseful reference card\b/i,
+  /\bthis (?:card|entry|piece) is included as\b/i,
+  /\bit is included as\b/i,
+  /\bkeep this as\b/i,
+  /\bsource record\b/i,
+  /\bexternal analytical reference\b/i,
+  /\bexternal profile context source\b/i,
+  /\binstitutional context source\b/i,
+  /\binstitutional record in the wider timeline\b/i,
+  /\bconservee? comme source\b/i,
+  /\best incluse? comme\b/i,
+  /\bdiese? (?:karte|eintrag) .*referenz\b/i,
+  /\bals (?:referenz|nachweis|quelle)\b/i,
+  /\bfor later comparisons\b/i,
+  /\bopen on-site note\b/i,
+  /\bdirect link to the original publication\b/i,
+  /\bdirectly to the primary source\b/i,
+];
+
 const isTemplateSentence = (sentence = "") =>
   TEMPLATE_SENTENCE_PATTERNS.some((pattern) => pattern.test(normalizeText(sentence)));
+
+const isSummaryBoilerplate = (sentence = "") =>
+  SUMMARY_BOILERPLATE_PATTERNS.some((pattern) => pattern.test(normalizeText(sentence)));
+
+const normalizeSummarySentence = (sentence = "") =>
+  normalizeText(sentence)
+    .replace(/\bPublished:\s*\d{4}-\d{2}-\d{2}\.?\s*$/i, "")
+    .replace(/\bPublie le\s+\d{4}-\d{2}-\d{2}\.?\s*$/i, "")
+    .replace(/\bVeröffentlicht:\s*\d{4}-\d{2}-\d{2}\.?\s*$/i, "")
+    .replace(/\bPublicado:\s*\d{4}-\d{2}-\d{2}\.?\s*$/i, "")
+    .trim();
+
+const collectCleanSummarySentences = (item = {}, rawText = "", options = {}) => {
+  const maxSentences = Number.isFinite(options.maxSentences) ? options.maxSentences : 2;
+  const cleaned = stripLeadScaffolding(normalizeText(rawText || "")) || normalizeText(rawText || "");
+  const unique = new Set();
+  const sentences = [];
+
+  for (const sentence of splitSentences(cleaned)) {
+    const value = normalizeSummarySentence(sentence);
+    if (!value) continue;
+    if (value.length < 24) continue;
+    if (hasMachineFragments(value)) continue;
+    if (isTemplateSentence(value)) continue;
+    if (isSummaryBoilerplate(value)) continue;
+    const key = value.toLowerCase();
+    if (unique.has(key)) continue;
+    unique.add(key);
+    sentences.push(value);
+    if (sentences.length >= Math.max(1, maxSentences)) break;
+  }
+
+  return sentences;
+};
+
+const finalizeSummaryText = (sentences = [], fallback = "") => {
+  const preview = normalizeText(sentences.join(" ")) || normalizeText(fallback);
+  if (!preview) return "";
+  if (preview.length <= 320) {
+    return /[.!?]$/.test(preview) ? preview : `${preview}.`;
+  }
+
+  const boundedSentences = splitSentences(preview);
+  if (boundedSentences.length > 1) {
+    let joined = "";
+    for (const sentence of boundedSentences) {
+      const next = normalizeText(`${joined} ${sentence}`.trim());
+      if (next.length > 320) break;
+      joined = next;
+    }
+    if (joined) return /[.!?]$/.test(joined) ? joined : `${joined}.`;
+  }
+
+  const clauses = preview.split(/(?<=[,;:])\s+/).map((part) => normalizeText(part)).filter(Boolean);
+  if (clauses.length > 1) {
+    let joined = "";
+    for (const clause of clauses) {
+      const next = normalizeText(`${joined} ${clause}`.trim());
+      if (next.length > 320) break;
+      joined = next;
+    }
+    if (joined && joined.length >= 80) {
+      const clean = joined.replace(/[,:;]\s*$/, "").trim();
+      return /[.!?]$/.test(clean) ? clean : `${clean}.`;
+    }
+  }
+
+  const fallbackValue = normalizeText(fallback);
+  if (fallbackValue && fallbackValue.length <= 320) {
+    return /[.!?]$/.test(fallbackValue) ? fallbackValue : `${fallbackValue}.`;
+  }
+
+  return /[.!?]$/.test(preview) ? preview : `${preview}.`;
+};
 
 const extractMetaSentence = (item = {}) => {
   const pools = [item?.summary, item?.digest, item?.value_context];
@@ -1027,10 +1713,11 @@ const extractMetaSentence = (item = {}) => {
     const cleaned = stripLeadScaffolding(normalizeText(pool || ""));
     if (!cleaned) continue;
     for (const sentence of splitSentences(cleaned)) {
-      const value = normalizeText(sentence);
+      const value = normalizeSummarySentence(sentence);
       if (!value || value.length < 40) continue;
       if (hasMachineFragments(value)) continue;
       if (isTemplateSentence(value)) continue;
+      if (isSummaryBoilerplate(value)) continue;
       return value;
     }
   }
@@ -1047,30 +1734,10 @@ const hashText = (value = "") => {
 };
 
 const previewSummary = (item = {}) => {
-  if ((item?.id || "") === "en-108") {
-    return normalizeText(item?.summary || item?.digest || "");
-  }
-
   const raw = normalizeText(item?.digest || item?.summary || "");
   if (!raw) return "";
-
-  const cleaned = stripLeadScaffolding(raw) || raw;
-  const candidates = splitSentences(cleaned).filter(
-    (sentence) => !hasMachineFragments(sentence) && !isTemplateSentence(sentence)
-  );
-  const source = candidates.length > 0 ? candidates : [];
-  if (source.length === 0) return fallbackSummary(item);
-
-  const selected = [];
-  for (const sentence of source) {
-    if (selected.length >= 3) break;
-    selected.push(sentence);
-  }
-
-  let preview = selected.join(" ").trim();
-  if (!preview) preview = source[0] || "";
-  if (!/[.!?]$/.test(preview)) preview += ".";
-  return preview.replace(/^[a-z]/, (char) => char.toUpperCase());
+  const sentences = collectCleanSummarySentences(item, raw, { maxSentences: 2 });
+  return finalizeSummaryText(sentences, fallbackSummary(item)).replace(/^[a-z]/, (char) => char.toUpperCase());
 };
 
 const fallbackSummary = (item = {}) => {
@@ -1082,31 +1749,31 @@ const fallbackSummary = (item = {}) => {
   let result = "";
   if (lang === "FR") {
     result = pickSeededVariant(seed, [
-      `Le texte porte sur ${topic} et explique pourquoi ce sujet compte dans le debat public${year ? ` en ${year}` : ""}.`,
-      `Cette publication${year ? ` de ${year}` : ""} examine ${topic} et met en avant les arguments principaux.`,
-      `Synthese concise de ${topic}, avec un lien direct vers la publication originale sur ${source}.`,
-      `L'article revient sur ${topic} et situe le sujet dans son contexte editorial${year ? ` (${year})` : ""}.`,
+      `Le texte porte sur ${topic}${year ? ` en ${year}` : ""}.`,
+      `Cette publication${year ? ` de ${year}` : ""} examine ${topic}.`,
+      `${source} publie ici un texte consacre a ${topic}.`,
+      `L'article revient sur ${topic}.`,
     ]);
   } else if (lang === "DE") {
     result = pickSeededVariant(seed, [
-      `Der Beitrag behandelt ${topic} und zeigt, warum das Thema im oeffentlichen Diskurs relevant ist${year ? ` (${year})` : ""}.`,
-      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} ein und fasst die Kernargumente zusammen.`,
-      `Kurze Zusammenfassung zu ${topic} mit direktem Link zur Originalquelle bei ${source}.`,
-      `Der Text stellt ${topic} knapp dar und verortet den Fall im redaktionellen Kontext.`,
+      `Der Beitrag behandelt ${topic}${year ? ` (${year})` : ""}.`,
+      `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} ein.`,
+      `${source} veroeffentlicht hier einen Text zu ${topic}.`,
+      `Der Text stellt ${topic} knapp dar.`,
     ]);
   } else if (lang === "ES") {
     result = pickSeededVariant(seed, [
-      `El texto aborda ${topic} y explica por que el tema importa en el debate publico${year ? ` de ${year}` : ""}.`,
-      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic} y resume los argumentos centrales.`,
-      `Resumen breve de ${topic} con enlace directo a la fuente original en ${source}.`,
-      `La pieza presenta ${topic} con contexto y una lectura clara para el lector general.`,
+      `El texto aborda ${topic}${year ? ` en ${year}` : ""}.`,
+      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic}.`,
+      `${source} publica aqui un texto sobre ${topic}.`,
+      `La pieza presenta ${topic} de forma directa.`,
     ]);
   } else {
     result = pickSeededVariant(seed, [
-      `The piece focuses on ${topic} and explains why the issue mattered in public debate${year ? ` in ${year}` : ""}.`,
-      `This ${source}${year ? ` (${year})` : ""} publication examines ${topic} and summarizes the main argument.`,
-      `A short summary of ${topic}, with a direct link to the original publication.`,
-      `The article outlines ${topic} in clear terms and places it in editorial context.`,
+      `The piece examines ${topic}${year ? ` in ${year}` : ""}.`,
+      `This ${source}${year ? ` (${year})` : ""} publication focuses on ${topic}.`,
+      `${source} publishes a piece on ${topic}.`,
+      `The article outlines ${topic} in clear terms.`,
     ]);
   }
 
@@ -1150,8 +1817,8 @@ const fallbackContext = (item = {}) => {
   const variants = [
     `This piece places ${topic} in a concrete editorial moment${stamp}.`,
     `It connects ${topic} with the original text published by ${source}.`,
-    `The summary gives a clear reference point for later comparisons.`,
-    `It explains ${topic} and links directly to the primary source.`,
+    `It offers a concise entry point into the debate around ${topic}.`,
+    `It explains ${topic} and links to the original source.`,
   ];
   return variants[key % variants.length];
 };
@@ -1197,7 +1864,7 @@ const previewContext = (item = {}) => {
 };
 
 const sanitizeSelectedIntro = (text = "", item = {}) => {
-  let value = normalizeText(text);
+  let value = finalizeSummaryText(collectCleanSummarySentences(item, text, { maxSentences: 2 }), "");
   if (!value) return "";
 
   const markerPatterns = [
@@ -1294,35 +1961,75 @@ const sortHreflangAlternates = (items) =>
       return (aPos === -1 ? 99 : aPos) - (bPos === -1 ? 99 : bPos);
     });
 
-const buildLanguageClusters = (items) => {
+const buildContentTranslationMaps = (items = []) => {
   const idToCluster = new Map();
+  const idToContentId = new Map();
+  const contentIdToCluster = new Map();
+  const claimedIds = new Set();
+
+  const assignCluster = (contentId, rawCluster = {}) => {
+    const normalizedCluster = {};
+    for (const [rawLang, rawId] of Object.entries(rawCluster || {})) {
+      const lang = normalizeLang(rawLang);
+      const id = String(rawId || "").trim();
+      if (!id) continue;
+      if (!normalizedCluster[lang]) normalizedCluster[lang] = id;
+    }
+
+    const clusterIds = Object.values(normalizedCluster).filter(Boolean);
+    if (clusterIds.length === 0) return;
+
+    const stableContentId = String(contentId || "").trim() || `content:${clusterIds.slice().sort()[0]}`;
+    contentIdToCluster.set(stableContentId, normalizedCluster);
+    for (const id of clusterIds) {
+      idToCluster.set(id, normalizedCluster);
+      idToContentId.set(id, stableContentId);
+      claimedIds.add(id);
+    }
+  };
 
   for (const item of items) {
-    if (normalizeLang(item?.language) !== "EN") continue;
-    const enId = String(item?.id || "").trim();
-    if (!enId) continue;
+    const itemId = String(item?.id || "").trim();
+    if (!itemId || claimedIds.has(itemId)) continue;
 
-    const cluster = { EN: enId };
+    const cluster = { [normalizeLang(item?.language)]: itemId };
     for (const [rawLang, rawId] of Object.entries(item?.copies || {})) {
       const lang = normalizeLang(rawLang);
       const id = String(rawId || "").trim();
       if (!id) continue;
       cluster[lang] = id;
     }
-
-    for (const id of Object.values(cluster)) {
-      idToCluster.set(id, cluster);
+    if (Object.keys(cluster).length > 1 || Object.keys(item?.copies || {}).length > 0) {
+      const preferredClusterId = String(cluster.EN || itemId || "").trim();
+      assignCluster(`content:${preferredClusterId}`, cluster);
     }
+  }
+
+  const registryGroups = new Map();
+  for (const item of items) {
+    const id = String(item?.id || "").trim();
+    const registryId = String(item?.registry_id ?? "").trim();
+    if (!id || !registryId || claimedIds.has(id)) continue;
+    if (!registryGroups.has(registryId)) registryGroups.set(registryId, {});
+    const group = registryGroups.get(registryId);
+    const lang = normalizeLang(item?.language);
+    if (!group[lang]) group[lang] = id;
+  }
+
+  for (const [registryId, cluster] of registryGroups.entries()) {
+    assignCluster(`registry:${registryId}`, cluster);
   }
 
   for (const item of items) {
     const id = String(item?.id || "").trim();
-    if (!id || idToCluster.has(id)) continue;
-    idToCluster.set(id, { [normalizeLang(item?.language)]: id });
+    if (!id || claimedIds.has(id)) continue;
+    assignCluster(`content:${id}`, { [normalizeLang(item?.language)]: id });
   }
 
-  return idToCluster;
+  return { idToCluster, idToContentId, contentIdToCluster };
 };
+
+const buildLanguageClusters = (items) => buildContentTranslationMaps(items).idToCluster;
 
 const languagePriorityRank = (lang = "") => {
   const normalized = normalizeLang(lang);
@@ -1395,8 +2102,8 @@ const getAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new 
 
   for (const [clusterLang, clusterId] of Object.entries(cluster)) {
     if (onlyPublished) {
-      const status = String(idToStatus.get(clusterId) || "").toLowerCase();
-      if (!isPublishedStatus(status)) continue;
+      const pageClass = String(idToStatus.get(clusterId) || "").toLowerCase();
+      if (pageClass !== PAGE_CLASS.INDEXABLE) continue;
     }
     const postPath = idToPostPath.get(clusterId);
     if (!postPath) continue;
@@ -1432,6 +2139,19 @@ const getAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new 
   return { alternates, xDefaultHref };
 };
 
+const buildCardAlternatesForItem = (item, idToPostPath, idToCluster, idToStatus = new Map(), onlyPublished = false) => {
+  const { alternates, xDefaultHref } = getAlternatesForItem(item, idToPostPath, idToCluster, idToStatus, onlyPublished);
+  const locales = alternates.map((alt) => String(alt.hreflang || "").trim().toLowerCase()).filter(Boolean);
+  return {
+    alternates: alternates.map((alt) => ({
+      locale: String(alt.hreflang || "").trim().toLowerCase(),
+      href: alt.href,
+    })),
+    available_locales: [...new Set(locales)],
+    x_default: xDefaultHref || "",
+  };
+};
+
 const buildHeadHreflangLinks = (alternates, xDefaultHref) => {
   const out = [];
   for (const alt of alternates) {
@@ -1458,7 +2178,6 @@ const buildCoreEntities = () => {
     name: DIGEST_NAME,
     url: canonicalUrl("index.html"),
     founder: { "@id": PERSON_ID },
-    sameAs: [canonicalUrl("index.html"), canonicalUrl("archive/index.html")],
   };
   const website = {
     "@type": "WebSite",
@@ -1498,47 +2217,73 @@ const normalizeSearchUrl = (href = "") => {
   return canonicalUrl(raw);
 };
 
+const normalizeCardRole = (value = "") => {
+  const raw = String(value || "").trim().toLowerCase();
+  if (raw === CONTENT_ROLE.AUTHORED || raw === "author") return CONTENT_ROLE.AUTHORED;
+  if (raw === CONTENT_ROLE.QUOTED || raw === "expert_quote") return CONTENT_ROLE.QUOTED;
+  if (raw === CONTENT_ROLE.REFERENCE || raw === "mention") return CONTENT_ROLE.REFERENCE;
+  return CONTENT_ROLE.REFERENCE;
+};
+
+const buildRoleBadgeSpec = (value = "") => {
+  const role = normalizeCardRole(value);
+  if (role === CONTENT_ROLE.AUTHORED) {
+    return { role, label: "Authored", cssClass: "work-role-badge-authored" };
+  }
+  if (role === CONTENT_ROLE.QUOTED) {
+    return { role, label: "Expert Comment", cssClass: "work-role-badge-quoted" };
+  }
+  return { role, label: "Reference", cssClass: "work-role-badge-reference" };
+};
+
 const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
   const item = entry?.item || {};
   const displayTitle = htmlEscape(resolveDisplayTitle(item));
   const intro = htmlEscape(sanitizeSelectedIntro(previewSummary(item), item));
   const source = htmlEscape(normalizeText(item?.source || "-"));
   const date = htmlEscape(normalizeText(item?.date || "-"));
+  const badge = buildRoleBadgeSpec(item?.role);
   const digestHref = canonicalUrl(`posts/${idToPostPath.get(item?.id) || entry?.postPath || ""}`);
   const sourceHrefRaw = normalizeSourceUrl(item?.url || "");
-  const sourceHref = sourceHrefRaw || digestHref;
-  const linkAttrs = sourceHrefRaw ? ` target="_blank" rel="noopener noreferrer"` : "";
+  const sourceLink =
+    sourceHrefRaw && sourceHrefRaw !== digestHref
+      ? `<a href="${htmlEscape(sourceHrefRaw)}" target="_blank" rel="noopener noreferrer">Original source</a>`
+      : "";
 
-  return `          <article class="work-card">
-            <h3><a class="work-title-link" href="${htmlEscape(sourceHref)}"${linkAttrs}>${displayTitle}</a></h3>
+  return `          <article class="work-card" data-role="${badge.role}" data-status="${htmlEscape(String(item?.status || CONTENT_STATUS.PUBLISHED))}" data-surface="${htmlEscape(String(item?.surface || CONTENT_SURFACE.PUBLIC))}">
+            <p class="work-role"><span class="work-role-badge ${badge.cssClass}">${badge.label}</span></p>
+            <h3><a class="work-title-link" href="${htmlEscape(digestHref)}">${displayTitle}</a></h3>
             <p class="work-intro">${intro}</p>
             <p class="work-meta"><strong>Publication:</strong> ${source}</p>
             <p class="work-meta"><strong>Date:</strong> ${date}</p>
+            <p class="work-meta"><a href="${htmlEscape(digestHref)}">Open on-site note</a>${sourceLink ? ` · ${sourceLink}` : ""}</p>
           </article>`;
 };
 
 const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
   const scoped = entries
-    .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
-    .filter((entry) => isPublishedStatus(entry?.item?.status))
+    .filter((entry) => entry?.item?.locale === "en")
+    .filter((entry) => isPublicRenderableItem(entry?.item))
     .filter((entry) => isShowcaseCandidate(entry?.item))
     .filter((entry) => !isInterviewLike(entry?.item))
     .slice()
     .sort(sortEntriesByDateDesc);
 
+  const authoredEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED);
+  const quotedEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.QUOTED);
+  const referenceEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.REFERENCE);
+
   const grouped = new Map(SELECTED_SECTION_CONFIG.map((section) => [section.id, []]));
-  for (const entry of scoped) {
+  for (const entry of authoredEntries) {
     const sectionId = classifySelectedSection(entry?.item);
     if (!grouped.has(sectionId)) grouped.set(sectionId, []);
     grouped.get(sectionId).push(entry);
   }
 
-  const sections = SELECTED_SECTION_CONFIG.map((section) => {
+  const authoredSections = SELECTED_SECTION_CONFIG.map((section) => {
     const cards = grouped.get(section.id) || [];
-    const cardsHtml =
-      cards.length > 0
-        ? cards.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n")
-        : `          <p class="cluster-intro">No published articles in this section yet.</p>`;
+    if (cards.length === 0) return "";
+    const cardsHtml = cards.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n");
 
     return `<section class="cluster" id="${section.id}">
         <h2>${section.title}</h2>
@@ -1547,11 +2292,121 @@ const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
 ${cardsHtml}
         </div>
       </section>`;
-  });
+  }).filter(Boolean);
+
+  const buildRoleSectionHtml = (roleKey, entriesForRole = []) => {
+    if (!entriesForRole.length) return "";
+    const config = SELECTED_ROLE_SECTION_CONFIG[roleKey];
+    if (!config) return "";
+    const cardsHtml = entriesForRole.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n");
+
+    return `<section class="cluster cluster-role" id="${config.id}">
+        <h2>${config.title}</h2>
+        <p class="cluster-intro">${config.intro}</p>
+        <div class="cluster-grid">
+${cardsHtml}
+        </div>
+      </section>`;
+  };
+
+  const sections = [
+    ...authoredSections,
+    buildRoleSectionHtml(CONTENT_ROLE.QUOTED, quotedEntries),
+    buildRoleSectionHtml(CONTENT_ROLE.REFERENCE, referenceEntries),
+  ].filter(Boolean);
 
   return {
     html: sections.join("\n\n"),
-    itemCount: scoped.length,
+    itemCount: authoredEntries.length + quotedEntries.length + referenceEntries.length,
+  };
+};
+
+const selectedAllEmojiCandidates = (item = {}) => {
+  const source = String(item?.source || "").toLowerCase();
+  const title = String(item?.title || "").toLowerCase();
+  const summary = String(item?.summary || "").toLowerCase();
+  const blob = `${source} ${title} ${summary}`;
+
+  if (source.includes("bloomberg")) return ["📈", "🧮", "📊", "🌐"];
+  if (source.includes("the atlantic")) return ["🌊", "🧠", "📚", "🗞️"];
+  if (source.includes("guardian")) return ["🛡️", "📰", "🔎", "⚖️"];
+  if (source.includes("carnegie")) return ["🏛️", "🧠", "🧭", "📖"];
+  if (source.includes("global voices")) return ["🌍", "🌐", "🗣️", "📰"];
+  if (source.includes("human rights watch")) return ["⚖️", "🛡️", "🔍", "🧾"];
+  if (source.includes("vedomosti")) return ["📊", "📰", "🧩", "🧠"];
+  if (source.includes("the moscow times")) return ["🗞️", "🧭", "📌", "🧾"];
+  if (source.includes("the insider")) return ["🔬", "🧠", "📝", "📰"];
+  if (/\bprotest|activis|civil\b/.test(blob)) return ["✊", "🗳️", "📣", "🧭"];
+  if (/\bmedia|journal|editor|press\b/.test(blob)) return ["📰", "🗞️", "🧠", "🧾"];
+  if (/\bpropaganda|disinformation|troll|bot\b/.test(blob)) return ["🧲", "🧠", "🔎", "🛰️"];
+  return ["🧭", "📖", "🔎", "📰"];
+};
+
+const buildSelectedAllEmojiMap = (items = []) => {
+  const byId = new Map();
+  const used = new Set();
+
+  for (const [index, item] of items.entries()) {
+    const key = String(item?.id || item?.url || item?.title || `selected-${index}`);
+    const candidates = [...selectedAllEmojiCandidates(item), ...SELECTED_ALL_EMOJI_POOL];
+    const picked = candidates.find((emoji) => emoji && !used.has(emoji));
+    if (!picked) continue;
+    byId.set(key, picked);
+    used.add(picked);
+  }
+
+  return byId;
+};
+
+const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
+  const items = entries
+    .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
+    .filter((entry) => isPublicRenderableItem(entry?.item))
+    .filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED)
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => !isInterviewLike(entry?.item))
+    .slice()
+    .sort(sortEntriesByDateDesc)
+    .map((entry) => {
+      const item = entry?.item || {};
+      const id = String(item?.id || "").trim() || entry.postPath.replace(/\.html$/i, "");
+      const url = canonicalUrl(`posts/${idToPostPath.get(id) || entry.postPath}`);
+      const sourceUrl = normalizeSourceUrl(item?.url || "");
+      return {
+        id,
+        date: normalizeText(item?.date || ""),
+        source: normalizeText(item?.source || ""),
+        role: CONTENT_ROLE.AUTHORED,
+        title: resolveDisplayTitle(item),
+        summary: sanitizeSelectedIntro(previewSummary(item), item),
+        url,
+        sourceUrl,
+      };
+    });
+
+  const emojiById = buildSelectedAllEmojiMap(items);
+  const cardsHtml = items
+    .map((item) => {
+      const key = String(item?.id || item?.url || item?.title || "");
+      const emoji = emojiById.get(key);
+      const sourceLink =
+        item.sourceUrl && item.sourceUrl !== item.url
+          ? ` · <a href="${htmlEscape(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">Original source</a>`
+          : "";
+
+      return `          <article class="selected-all-card" data-role="authored">
+            <p class="selected-all-meta">${htmlEscape(`${item.date || "-"} · Text · ${item.source || "Source"}`)}</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+            <h3><a href="${htmlEscape(item.url)}">${htmlEscape(`${emoji ? `${emoji} ` : ""}${item.title || "Untitled"}`)}</a></h3>
+            <p class="selected-all-summary">${htmlEscape(item.summary || "No summary available.")}</p>
+            <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open material -></a>${sourceLink}</p>
+          </article>`;
+    })
+    .join("\n");
+
+  return {
+    countText: `${items.length} shown · Authored`,
+    gridHtml: cardsHtml,
   };
 };
 
@@ -1566,7 +2421,7 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
 
   const { html: sectionsHtml, itemCount } = buildSelectedSectionsHtml(entries, idToPostPath);
   const blockRe =
-    /<section class="cluster" id="journalism">[\s\S]*?(?=\s*<section class="selected-contact")/m;
+    /<section class="cluster" id="[^"]+">[\s\S]*?(?=\s*<section class="selected-contact")/m;
   if (!blockRe.test(html)) {
     throw new Error(`Unable to locate Selected Work cluster block in ${selectedPagePath}`);
   }
@@ -1590,9 +2445,195 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
     /<p>\s*Browse all published article cards by section\. Interview materials are kept in the separate Interviews page\.\s*<\/p>/,
     `<p>Browse the full published corpus by section and by format in one place.</p>`
   );
+  const selectedAllState = buildSelectedAllDefaultState(entries, idToPostPath);
+  next = next.replace(
+    /<p class="selected-all-count" id="selectedAllCount">[\s\S]*?<\/p>/m,
+    `<p class="selected-all-count" id="selectedAllCount">${htmlEscape(selectedAllState.countText)}</p>`
+  );
+  next = replaceMarkedBlock(next, SELECTED_ALL_GRID_START, SELECTED_ALL_GRID_END, selectedAllState.gridHtml);
 
   if (next !== html) {
     await fs.writeFile(selectedPagePath, next, "utf8");
+  }
+};
+
+const buildInterviewStructuredData = (canonical, locale, items = []) => {
+  const itemListId = `${canonical}#itemlist`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ItemList",
+        "@id": itemListId,
+        name: `Interviews and materials with Ilia Klishin (${locale.toUpperCase()})`,
+        itemListOrder: "https://schema.org/ItemListOrderDescending",
+        numberOfItems: items.length,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Article",
+            "@id": `${canonical}#interview-${index + 1}`,
+            headline: item.title,
+            inLanguage: locale,
+            datePublished: item.isoDate || undefined,
+            url: item.url,
+            description: item.description,
+            author: { "@id": PERSON_ID },
+            publisher: {
+              "@type": "Organization",
+              name: item.outlet,
+            },
+            isBasedOn: item.url,
+          },
+        })),
+      },
+    ],
+  };
+};
+
+const buildInterviewCardHtml = (item, locale, ctaLabel) => {
+  const dataFormatTags = item.formatTokens.join(" ");
+  return `          <article class="interview-card" data-section="${htmlEscape(item.section)}" data-format-tags="${htmlEscape(dataFormatTags)}" data-status="${htmlEscape(String(item?.status || CONTENT_STATUS.PUBLISHED))}" data-surface="${htmlEscape(String(item?.surface || CONTENT_SURFACE.PUBLIC))}" lang="${htmlEscape(locale)}" itemscope itemtype="http://schema.org/Article">
+            <meta itemprop="inLanguage" content="${htmlEscape(locale)}" />
+            <p class="interview-meta">
+              <span class="chip chip-source"><span itemprop="publisher">${htmlEscape(item.outlet)}</span></span>
+              <time class="chip chip-date" itemprop="datePublished" datetime="${htmlEscape(item.isoDate)}">${htmlEscape(item.displayDate)}</time>
+              <span class="chip chip-lang">${htmlEscape(item.languageLabel)}</span>
+              <span class="chip chip-format">${htmlEscape(item.formatLabel)}</span>
+            </p>
+            <h3 class="interview-title" itemprop="headline">
+              <a class="interview-title-link" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer" itemprop="url">${htmlEscape(item.emoji)} ${htmlEscape(item.title)}</a>
+            </h3>
+            <p class="interview-description" itemprop="description">${htmlEscape(item.description)}</p>
+            <p class="interview-url-wrap">
+              <a class="interview-url" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.url)}</a>
+            </p>
+            <p class="interview-open-wrap">
+              <a class="interview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(ctaLabel)}</a>
+            </p>
+          </article>`;
+};
+
+const buildInterviewsMainHtml = (locale, items = []) => {
+  const config = INTERVIEWS_PAGE_CONFIG[locale] || INTERVIEWS_PAGE_CONFIG.en;
+  const sectionsHtml = INTERVIEW_SECTION_ORDER
+    .map((sectionKey) => {
+      const sectionItems = items.filter((item) => item.section === sectionKey);
+      if (!sectionItems.length) return "";
+      const sectionConfig = config.sections[sectionKey];
+      const cardsHtml = sectionItems.map((item) => buildInterviewCardHtml(item, locale, config.cta)).join("\n");
+      return `      <section class="interviews-section" id="interviews-section-${sectionKey}" aria-labelledby="${htmlEscape(sectionConfig.id)}">
+        <div class="section-head">
+          <h2 id="${htmlEscape(sectionConfig.id)}">${htmlEscape(sectionConfig.title)}</h2>
+          <p>${htmlEscape(sectionConfig.intro)}</p>
+        </div>
+        <div class="interviews-grid" data-section="${htmlEscape(sectionKey)}">
+${cardsHtml}
+        </div>
+      </section>`;
+    })
+    .filter(Boolean)
+    .join("\n\n");
+
+  const structuredData = buildInterviewStructuredData(
+    canonicalUrl(locale === "en" ? "interviews/index.html" : `interviews/${locale}/index.html`),
+    locale,
+    items
+  );
+  const structuredDataJson = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+
+  return `    <main class="page interviews-page">
+      <section class="interviews-hero">
+        <p class="eyebrow">${htmlEscape(config.eyebrow)}</p>
+        <h1>${htmlEscape(config.title)}</h1>
+        <p>${htmlEscape(config.intro)}</p>
+      </section>
+
+      <section class="interviews-filters" aria-label="${htmlEscape(config.filtersAria)}">
+        <div class="filter-group" role="group" aria-label="${htmlEscape(config.filterGroupAria)}">
+          <button class="filter-btn active" type="button" data-format="all" aria-pressed="true">${htmlEscape(config.filters.all)}</button>
+          <button class="filter-btn" type="button" data-format="text" aria-pressed="false">${htmlEscape(config.filters.text)}</button>
+          <button class="filter-btn" type="button" data-format="video" aria-pressed="false">${htmlEscape(config.filters.video)}</button>
+          <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">${htmlEscape(config.filters.podcasts)}</button>
+        </div>
+      </section>
+
+${sectionsHtml}
+      <script type="application/ld+json">${structuredDataJson}</script>
+    </main>`;
+};
+
+const buildPreparedInterviewItems = (locale = "en", brokenSourceUrls = new Set()) => {
+  const localizedLocale = ["en", "fr", "de", "es"].includes(locale) ? locale : "en";
+  const prepared = interviewsData
+    .filter((item) => {
+      const sourceUrl = normalizeSourceUrl(item?.url || "");
+      if (!sourceUrl) return true;
+      return !brokenSourceUrls.has(sourceUrl);
+    })
+    .map((item) => {
+      const localized = localizeInterviewItem(item, localizedLocale);
+      const normalized = normalizeContentItem(
+        {
+          ...item,
+          status: item?.status || CONTENT_STATUS.PUBLISHED,
+          role: item?.role || CONTENT_ROLE.QUOTED,
+          surface: item?.surface || (String(item?.section || "").trim().toLowerCase() === "archive" ? CONTENT_SURFACE.ARCHIVE : CONTENT_SURFACE.PUBLIC),
+        },
+        { locale: localizedLocale }
+      );
+      return {
+        ...localized,
+        status: normalized.status,
+        surface: normalized.surface,
+        role: normalized.role,
+        locale: normalized.locale,
+        language: localizedLocale.toUpperCase(),
+        outlet: inferInterviewOutlet(item?.url || ""),
+        isoDate: normalizeInterviewIsoDate(item?.date || ""),
+        displayDate: formatInterviewDisplayDate(item?.date || "", localizedLocale),
+        formatTokens: normalizeInterviewFormatTokens(item?.format || ""),
+        ts: parseInterviewTimestamp(item?.date || ""),
+      };
+    })
+    .sort((a, b) => {
+      if (b.ts !== a.ts) return b.ts - a.ts;
+      return String(a.title || "").localeCompare(String(b.title || ""), localizedLocale);
+    });
+
+  const used = new Set();
+  prepared.forEach((item, index) => {
+    const emoji = pickUniqueInterviewEmoji(interviewEmojiCandidates(item), used, index);
+    used.add(emoji);
+    item.emoji = emoji;
+  });
+
+  return prepared;
+};
+
+const updateInterviewPages = async (sourceUrlHealth = { brokenUrls: new Set() }) => {
+  for (const [locale, config] of Object.entries(INTERVIEWS_PAGE_CONFIG)) {
+    let html;
+    try {
+      html = await fs.readFile(config.path, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+
+    const preparedItems = buildPreparedInterviewItems(locale, sourceUrlHealth.brokenUrls || new Set()).filter((item) =>
+      isPublicRenderableItem(item)
+    );
+    const nextMain = buildInterviewsMainHtml(locale, preparedItems);
+    let next = html.replace(/<main class="page interviews-page">[\s\S]*?<\/main>/m, nextMain);
+    next = next.replace(/\s*<template id="interviewCardTemplate">[\s\S]*?<\/template>\s*/m, "\n\n");
+
+    if (next !== html) {
+      await fs.writeFile(config.path, next, "utf8");
+    }
   }
 };
 
@@ -1614,12 +2655,16 @@ const extractSelectedCards = async () => {
     const sectionTitle = htmlToText(sectionHtml.match(/<h2>([\s\S]*?)<\/h2>/i)?.[1] || sectionId);
     const sectionIntro = htmlToText(sectionHtml.match(/<p class="cluster-intro">([\s\S]*?)<\/p>/i)?.[1] || "");
 
-    const cardMatches = [...sectionHtml.matchAll(/<article class="work-card">([\s\S]*?)<\/article>/gim)];
+    const cardMatches = [...sectionHtml.matchAll(/<article class="work-card"([^>]*)>([\s\S]*?)<\/article>/gim)];
     for (const cardMatch of cardMatches) {
-      const cardHtml = String(cardMatch[1] || "");
+      const cardAttrs = String(cardMatch[1] || "");
+      const cardHtml = String(cardMatch[2] || "");
       const title = htmlToText(cardHtml.match(/<h3>([\s\S]*?)<\/h3>/i)?.[1] || "");
       if (!title) continue;
 
+      const role = normalizeCardRole(cardAttrs.match(/\bdata-role="([^"]+)"/i)?.[1] || "");
+      const status = String(cardAttrs.match(/\bdata-status="([^"]+)"/i)?.[1] || CONTENT_STATUS.PUBLISHED).trim().toLowerCase();
+      const surface = String(cardAttrs.match(/\bdata-surface="([^"]+)"/i)?.[1] || CONTENT_SURFACE.PUBLIC).trim().toLowerCase();
       const intro = htmlToText(cardHtml.match(/<p class="work-intro">([\s\S]*?)<\/p>/i)?.[1] || "");
       const whyRaw = htmlToText(cardHtml.match(/<p class="work-why">([\s\S]*?)<\/p>/i)?.[1] || "");
       const why = whyRaw.replace(/^Why this matters:\s*/i, "").trim();
@@ -1637,6 +2682,10 @@ const extractSelectedCards = async () => {
         id: `selected-${sectionId}-${cards.length + 1}`,
         type: "selected",
         language: "EN",
+        locale: "en",
+        status,
+        surface,
+        role,
         title,
         summary: intro,
         context: why,
@@ -1655,44 +2704,174 @@ const extractSelectedCards = async () => {
   return cards;
 };
 
-const buildSearchIndex = (entries, selectedCards, idToCluster = new Map()) => {
+const buildSearchPostCardsForLocale = (
+  locale,
+  entries,
+  idToCluster = new Map(),
+  idToContentId = new Map(),
+  idToPostPath = new Map(),
+  idToStatus = new Map()
+) => {
   const publishedGroups = groupEntriesForListing(
-    entries.filter((entry) => isPublishedStatus(entry?.item?.status)).filter((entry) => isShowcaseCandidate(entry?.item)),
+    entries
+      .filter((entry) => isRenderableOnLocale(entry?.item, locale))
+      .filter((entry) => isShowcaseCandidate(entry?.item)),
     idToCluster
   );
-  const publishedCards = publishedGroups.map((group) => {
+
+  return publishedGroups.map((group) => {
     const entry = group.representative;
     const item = entry?.item || {};
+    const translationMeta = buildCardAlternatesForItem(item, idToPostPath, idToCluster, idToStatus, false);
     return {
       id: String(item.id || "").trim() || entry.postPath.replace(/\.html$/i, ""),
+      content_id: idToContentId.get(String(item.id || "").trim()) || `content:${String(item.id || "").trim()}`,
       type: "post",
       language: normalizeLang(item.language),
-      status: "ready",
+      locale: item.locale || toHtmlLang(item.language),
+      status: item.status || CONTENT_STATUS.PUBLISHED,
+      surface: item.surface || CONTENT_SURFACE.PUBLIC,
+      role: item.role || CONTENT_ROLE.AUTHORED,
+      alternates: translationMeta.alternates,
+      available_locales: translationMeta.available_locales,
+      x_default: translationMeta.x_default,
       title: resolveDisplayTitle(item),
       summary: previewSummary(item),
       context: previewContext(item),
       topic: normalizeText(item.topic || ""),
       source: normalizeText(item.source || ""),
       date: normalizeText(item.date || ""),
+      display_date: normalizeText(item.date || ""),
       material_type: "Digest card",
       url: canonicalUrl(`posts/${entry.postPath}`),
       source_url: normalizeSourceUrl(item.url),
       semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
     };
   });
+};
 
-  const selected = Array.isArray(selectedCards) ? selectedCards : [];
-  const items = [...publishedCards, ...selected];
-  const generatedAt = latestBuildIso(entries);
+const buildSearchSelectedCardsForLocale = (locale, selectedCards = []) =>
+  (Array.isArray(selectedCards) ? selectedCards : []).filter((item) => isRenderableOnLocale(item, locale));
+
+const buildSearchInterviewCardsForLocale = (locale, sourceUrlHealth = { brokenUrls: new Set() }) => {
+  const localizedConfig = INTERVIEWS_PAGE_CONFIG[locale] || INTERVIEWS_PAGE_CONFIG.en;
+  return buildPreparedInterviewItems(locale, sourceUrlHealth.brokenUrls || new Set())
+    .filter((item) => isPublicRenderableItem(item))
+    .map((item, index) => ({
+      id: `interview-${locale}-${index + 1}`,
+      content_id: `interview:${crypto
+        .createHash("sha1")
+        .update(normalizeText(item.url || item.title || `${locale}-${index + 1}`))
+        .digest("hex")
+        .slice(0, 16)}`,
+      type: "interview",
+      language: normalizeLang(item.language),
+      locale: item.locale || locale,
+      status: item.status || CONTENT_STATUS.PUBLISHED,
+      surface: item.surface || CONTENT_SURFACE.PUBLIC,
+      role: item.role || CONTENT_ROLE.QUOTED,
+      title: item.title,
+      summary: item.description,
+      context: "",
+      topic: normalizeText(localizedConfig?.sections?.[item.section]?.title || item.sectionLabel || item.section || ""),
+      source: normalizeText(item.outlet || ""),
+      date: normalizeText(item.isoDate || ""),
+      display_date: normalizeText(item.displayDate || item.isoDate || ""),
+      material_type: normalizeText(item.formatLabel || item.format || "Interview"),
+      url: normalizeSearchUrl(item.url),
+      source_url: normalizeSourceUrl(item.url),
+      semantic_tags: sanitizeSemanticTags([...normalizedArray(item.formatTokens), normalizeText(item.section || "")]),
+    }));
+};
+
+const sortSearchIndexItems = (items = []) =>
+  items.slice().sort((a, b) => {
+    const dateDelta = Date.parse(String(b?.date || "")) - Date.parse(String(a?.date || ""));
+    if (!Number.isNaN(dateDelta) && dateDelta !== 0) return dateDelta;
+    return normalizeText(a?.id).localeCompare(normalizeText(b?.id));
+  });
+
+const buildSearchIndexForLocale = (
+  locale,
+  entries,
+  selectedCards,
+  sourceUrlHealth,
+  idToCluster = new Map(),
+  idToContentId = new Map(),
+  idToPostPath = new Map(),
+  idToStatus = new Map()
+) => {
+  const posts = buildSearchPostCardsForLocale(locale, entries, idToCluster, idToContentId, idToPostPath, idToStatus);
+  const selected = buildSearchSelectedCardsForLocale(locale, selectedCards);
+  const interviews = buildSearchInterviewCardsForLocale(locale, sourceUrlHealth);
+  const items = sortSearchIndexItems([...posts, ...selected, ...interviews]);
+  const generatedAt = latestIso(
+    items.map((item) => item.date || item.display_date || "").filter(Boolean),
+    latestBuildIso(entries)
+  );
+
+  return {
+    locale,
+    generated_at: generatedAt,
+    counts: {
+      total: items.length,
+      posts: posts.length,
+      selected: selected.length,
+      interviews: interviews.length,
+    },
+    items,
+  };
+};
+
+const buildSearchIndexes = (
+  entries,
+  selectedCards,
+  sourceUrlHealth,
+  idToCluster = new Map(),
+  idToContentId = new Map(),
+  idToPostPath = new Map(),
+  idToStatus = new Map()
+) => {
+  const itemsByLocale = Object.fromEntries(
+    HREFLANG_ORDER.map((locale) => [
+      locale,
+      buildSearchIndexForLocale(
+        locale,
+        entries,
+        selectedCards,
+        sourceUrlHealth,
+        idToCluster,
+        idToContentId,
+        idToPostPath,
+        idToStatus
+      ),
+    ])
+  );
+  const locales = Object.fromEntries(
+    HREFLANG_ORDER.map((locale) => [
+      locale,
+      {
+        path: `/data/search-index-${locale}.json`,
+        count: itemsByLocale[locale]?.counts?.total || 0,
+        generated_at: itemsByLocale[locale]?.generated_at || latestBuildIso(entries),
+      },
+    ])
+  );
+  const counts = Object.fromEntries(HREFLANG_ORDER.map((locale) => [locale, Number(locales[locale]?.count || 0)]));
+  const total = Object.values(counts).reduce((sum, value) => sum + Number(value || 0), 0);
+  const generatedAt = latestIso(
+    HREFLANG_ORDER.map((locale) => locales[locale]?.generated_at).filter(Boolean),
+    latestBuildIso(entries)
+  );
 
   return {
     generated_at: generatedAt,
     counts: {
-      total: items.length,
-      posts: publishedCards.length,
-      selected: selected.length,
+      total,
+      locales: counts,
     },
-    items,
+    locales,
+    itemsByLocale,
   };
 };
 
@@ -1708,11 +2887,61 @@ const pickUniqueEntries = (entries, max, used) => {
   return out;
 };
 
+const buildPublicDigestsDataset = (
+  entries = [],
+  idToCluster = new Map(),
+  idToContentId = new Map(),
+  idToPostPath = new Map(),
+  idToStatus = new Map()
+) => ({
+  generated_at: latestBuildIso(entries),
+  counts: {
+    total: entries.length,
+  },
+  items: entries
+    .slice()
+    .sort(sortEntriesByDateDesc)
+    .map((entry) => {
+      const item = entry?.item || {};
+      const translationMeta = buildCardAlternatesForItem(item, idToPostPath, idToCluster, idToStatus, false);
+      return {
+        ...item,
+        content_id: idToContentId.get(String(item.id || "").trim()) || `content:${String(item.id || "").trim()}`,
+        language: normalizeLang(item.language),
+        locale: item.locale || toHtmlLang(item.language),
+        status: item.status || CONTENT_STATUS.PUBLISHED,
+        surface: item.surface || CONTENT_SURFACE.PUBLIC,
+        role: item.role || CONTENT_ROLE.AUTHORED,
+        alternates: translationMeta.alternates,
+        available_locales: translationMeta.available_locales,
+        x_default: translationMeta.x_default,
+        post_path: entry.postPath,
+        post_url: canonicalUrl(`posts/${entry.postPath}`),
+        source_url: normalizeSourceUrl(item.url || ""),
+      };
+    }),
+});
+
+const buildPublicInterviewsDataset = (sourceUrlHealth = { brokenUrls: new Set() }) => {
+  const items = HREFLANG_ORDER.flatMap((locale) =>
+    buildPreparedInterviewItems(locale, sourceUrlHealth.brokenUrls || new Set()).filter((item) => isPublicRenderableItem(item))
+  );
+  return {
+    generated_at: latestIso(items.map((item) => item.isoDate).filter(Boolean), new Date().toISOString()),
+    counts: {
+      total: items.length,
+    },
+    items,
+  };
+};
+
 const buildRelatedPostGroups = (item, entries) => {
   const itemId = String(item?.id || "").trim();
   const itemLang = normalizeLang(item?.language);
   const itemTopic = lower(item?.topic);
   const itemSource = lower(item?.source);
+  const itemYear = extractYear(item?.date);
+  const itemSectionId = classifySelectedSection(item);
 
   const candidates = entries.filter(
     (entry) => String(entry?.item?.id || "").trim() !== itemId && isShowcaseCandidate(entry?.item)
@@ -1731,20 +2960,86 @@ const buildRelatedPostGroups = (item, entries) => {
     .filter((entry) => lower(entry?.item?.source) === itemSource)
     .sort(sortEntriesByDateDesc);
 
+  const sameSectionLang = sameLang.filter((entry) => classifySelectedSection(entry?.item) === itemSectionId);
+  const sameSectionAny = candidates
+    .filter((entry) => classifySelectedSection(entry?.item) === itemSectionId)
+    .sort(sortEntriesByDateDesc);
+
+  const sameYearLang =
+    itemYear.length === 4
+      ? sameLang.filter((entry) => extractYear(entry?.item?.date) === itemYear)
+      : [];
+  const sameYearAny =
+    itemYear.length === 4
+      ? candidates.filter((entry) => extractYear(entry?.item?.date) === itemYear).sort(sortEntriesByDateDesc)
+      : [];
+
+  const latestAcrossArchive = candidates.slice().sort(sortEntriesByDateDesc);
+
   const used = new Set();
   const relatedByTopic = [
-    ...pickUniqueEntries(sameTopicLang, 3, used),
-    ...pickUniqueEntries(sameTopicAny, 3, used),
-  ].slice(0, 3);
+    ...pickUniqueEntries(sameTopicLang, 4, used),
+    ...pickUniqueEntries(sameTopicAny, 4, used),
+  ].slice(0, 4);
 
   const relatedBySource = [
-    ...pickUniqueEntries(sameSourceLang, 3, used),
-    ...pickUniqueEntries(sameSourceAny, 3, used),
-  ].slice(0, 3);
+    ...pickUniqueEntries(sameSourceLang, 4, used),
+    ...pickUniqueEntries(sameSourceAny, 4, used),
+  ].slice(0, 4);
 
-  const latestSameLanguage = pickUniqueEntries(sameLang, 3, used);
+  const relatedBySection = [
+    ...pickUniqueEntries(sameSectionLang, 4, used),
+    ...pickUniqueEntries(sameSectionAny, 4, used),
+  ].slice(0, 4);
 
-  return { relatedByTopic, relatedBySource, latestSameLanguage };
+  const relatedByYear = [
+    ...pickUniqueEntries(sameYearLang, 4, used),
+    ...pickUniqueEntries(sameYearAny, 4, used),
+  ].slice(0, 4);
+
+  const languageTimeline = entries
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => normalizeLang(entry?.item?.language) === itemLang)
+    .sort(sortEntriesByDateDesc);
+  const languageTimelineIndex = languageTimeline.findIndex(
+    (entry) => String(entry?.item?.id || "").trim() === itemId
+  );
+  const newerInLanguage = languageTimelineIndex > 0 ? languageTimeline[languageTimelineIndex - 1] : null;
+  const olderInLanguage =
+    languageTimelineIndex > -1 && languageTimelineIndex < languageTimeline.length - 1
+      ? languageTimeline[languageTimelineIndex + 1]
+      : null;
+
+  const sourceTimeline = itemSource
+    ? entries
+        .filter((entry) => isShowcaseCandidate(entry?.item))
+        .filter((entry) => lower(entry?.item?.source) === itemSource)
+        .sort(sortEntriesByDateDesc)
+    : [];
+  const sourceTimelineIndex = sourceTimeline.findIndex(
+    (entry) => String(entry?.item?.id || "").trim() === itemId
+  );
+  const newerFromSource = sourceTimelineIndex > 0 ? sourceTimeline[sourceTimelineIndex - 1] : null;
+  const olderFromSource =
+    sourceTimelineIndex > -1 && sourceTimelineIndex < sourceTimeline.length - 1
+      ? sourceTimeline[sourceTimelineIndex + 1]
+      : null;
+
+  const latestSameLanguage = pickUniqueEntries(sameLang, 4, used);
+  const latestAcrossSite = pickUniqueEntries(latestAcrossArchive, 4, used);
+
+  return {
+    relatedByTopic,
+    relatedBySource,
+    relatedBySection,
+    relatedByYear,
+    newerInLanguage,
+    olderInLanguage,
+    newerFromSource,
+    olderFromSource,
+    latestSameLanguage,
+    latestAcrossSite,
+  };
 };
 
 const buildRelatedLinks = (entries) =>
@@ -1756,22 +3051,99 @@ const buildRelatedLinks = (entries) =>
     return `<li><a href="${href}">${title}</a> — ${source} • ${date}</li>`;
   });
 
-const homeStatusRank = (value = "") => (String(value || "").toLowerCase() === "ready" ? 0 : 1);
+const buildDirectionalRelatedLink = (label, entry) => {
+  if (!entry) return "";
+  const href = canonicalUrl(`posts/${entry.postPath}`);
+  const title = htmlEscape(resolveDisplayTitle(entry?.item || {}));
+  const source = htmlEscape(String(entry?.item?.source || "-"));
+  const date = htmlEscape(String(entry?.item?.date || "-"));
+  return `<li>${htmlEscape(label)}: <a href="${href}">${title}</a> — ${source} • ${date}</li>`;
+};
+
+const homeStatusRank = (value = "") => (isPublishedStatus(value) ? 0 : 1);
 const HOME_PINNED_IDS = {
-  EN: ["en-009", "en-119", "en-120", "en-141", "en-107", "en-108", "en-150", "en-148"],
+  EN: ["en-009", "en-141", "en-107", "en-108", "en-143", "en-002", "en-001", "en-134"],
 };
 const HOME_EXCLUDED_IDS = {
   EN: new Set(["en-017"]),
 };
+const HOME_FALLBACK_COPY = {
+  en: {
+    empty: "No published cards are available in the public feed yet.",
+    openNote: "Open on-site note",
+    readOriginal: "Read original",
+  },
+  fr: {
+    empty: "Aucune fiche publiee n est disponible dans ce flux pour le moment.",
+    openNote: "Ouvrir la fiche du site",
+    readOriginal: "Lire la source",
+  },
+  de: {
+    empty: "Derzeit sind in diesem Feed keine veroffentlichten Karten verfugbar.",
+    openNote: "Interne Seite offnen",
+    readOriginal: "Original lesen",
+  },
+  es: {
+    empty: "Todavia no hay fichas publicadas disponibles en este flujo.",
+    openNote: "Abrir ficha del sitio",
+    readOriginal: "Leer original",
+  },
+};
+const HOME_SECTION_COPY = {
+  en: {
+    workTitle: "Selected writing",
+    workLink: "View full selected work",
+    moreWork: "Further reading",
+    interviewsAria: "Interviews",
+    interviewsTitle: "Interviews and conversations",
+    interviewsIntro: "Recent interviews, podcasts, and long-form discussions.",
+    interviewsLink: "View all interviews",
+    interviewsHref: "/interviews/",
+    interviewOpen: "Open material ->",
+  },
+  fr: {
+    workTitle: "Textes selectionnes",
+    workLink: "Voir tous les travaux selectionnes",
+    moreWork: "Lectures supplementaires",
+    interviewsAria: "Entretiens",
+    interviewsTitle: "Entretiens et conversations",
+    interviewsIntro: "Entretiens recents, podcasts et discussions de fond.",
+    interviewsLink: "Voir tous les entretiens",
+    interviewsHref: "/interviews/fr/",
+    interviewOpen: "Ouvrir le contenu ->",
+  },
+  de: {
+    workTitle: "Ausgewaehlte Texte",
+    workLink: "Alle ausgewaehlten Arbeiten ansehen",
+    moreWork: "Weitere Lektuere",
+    interviewsAria: "Interviews",
+    interviewsTitle: "Interviews und Gespraeche",
+    interviewsIntro: "Aktuelle Interviews, Podcasts und laengere Gespraeche.",
+    interviewsLink: "Alle Interviews ansehen",
+    interviewsHref: "/interviews/de/",
+    interviewOpen: "Material offnen ->",
+  },
+  es: {
+    workTitle: "Textos seleccionados",
+    workLink: "Ver todo el trabajo seleccionado",
+    moreWork: "Lecturas adicionales",
+    interviewsAria: "Entrevistas",
+    interviewsTitle: "Entrevistas y conversaciones",
+    interviewsIntro: "Entrevistas recientes, podcasts y conversaciones de largo formato.",
+    interviewsLink: "Ver todas las entrevistas",
+    interviewsHref: "/interviews/es/",
+    interviewOpen: "Abrir material ->",
+  },
+};
 const HOME_FIXED_TITLE_EMOJI = {
   "en-009": "🧭",
-  "en-119": "📰",
-  "en-120": "📱",
   "en-141": "🧠",
   "en-107": "🕸️",
   "en-108": "🛰️",
-  "en-150": "🏛️",
-  "en-148": "🛡️",
+  "en-143": "🏛️",
+  "en-002": "🪧",
+  "en-001": "📰",
+  "en-134": "🧪",
 };
 const HOME_EMOJI_POOL = [
   "🧭",
@@ -1803,6 +3175,69 @@ const HOME_EMOJI_POOL = [
   "🧷",
   "🧨",
 ];
+const SELECTED_ALL_EMOJI_POOL = [
+  "📰",
+  "🗞️",
+  "📚",
+  "📖",
+  "🔎",
+  "🧠",
+  "🧭",
+  "📡",
+  "🛰️",
+  "🧪",
+  "🧩",
+  "🛡️",
+  "⚖️",
+  "🏛️",
+  "🌐",
+  "✍️",
+  "📝",
+  "📌",
+  "🧾",
+  "📊",
+  "📈",
+  "📉",
+  "🗂️",
+  "📁",
+  "🧵",
+  "🪶",
+  "🕯️",
+  "⏳",
+  "🔬",
+  "🧬",
+  "🧱",
+  "⚙️",
+  "🔭",
+  "🧰",
+  "💡",
+  "🔦",
+  "🌊",
+  "🧊",
+  "⛰️",
+  "🏔️",
+  "🏙️",
+  "🌃",
+  "🌆",
+  "🕰️",
+  "⏱️",
+  "🧮",
+  "🗳️",
+  "🔐",
+  "🔓",
+  "🔒",
+  "🧷",
+  "📐",
+  "📏",
+  "🗺️",
+  "📻",
+  "🪄",
+  "🪐",
+  "🌙",
+  "⭐",
+  "✨",
+  "🪙",
+];
 
 const sortEntriesForHome = (a, b) => {
   const statusDelta = homeStatusRank(a?.item?.status) - homeStatusRank(b?.item?.status);
@@ -1810,27 +3245,29 @@ const sortEntriesForHome = (a, b) => {
   return sortEntriesByDateDesc(a, b);
 };
 
-const pickHomeFallbackEntries = (entries, limit) => {
+const pickHomeFallbackEntries = (entries, locale = "en", limit, brokenSourceUrls = new Set()) => {
+  const targetLocale = normalizeLocale(locale, "en");
+  const targetLang = normalizeLang(targetLocale);
   const published = entries
     .slice()
     .sort(sortEntriesForHome)
-    .filter((entry) => isPublishedStatus(entry?.item?.status))
-    .filter((entry) => isShowcaseCandidate(entry?.item));
+    .filter((entry) => isRenderableOnLocale(entry?.item, targetLocale))
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED)
+    .filter((entry) => {
+      const sourceUrl = normalizeSourceUrl(entry?.item?.url || "");
+      if (!sourceUrl) return true;
+      return !brokenSourceUrls.has(sourceUrl);
+    });
   if (!published.length) return [];
 
-  const byLang = new Map();
-  for (const entry of published) {
-    const lang = normalizeLang(entry?.item?.language);
-    if (!byLang.has(lang)) byLang.set(lang, []);
-    byLang.get(lang).push(entry);
-  }
-
-  const preferredLang = byLang.has("EN")
-    ? "EN"
-    : [...byLang.keys()].sort((a, b) => a.localeCompare(b))[0];
-  const excludedForLang = HOME_EXCLUDED_IDS[preferredLang] || new Set();
-  const preferred = (byLang.get(preferredLang) || []).filter((entry) => !excludedForLang.has(String(entry?.item?.id || "")));
-  const pinnedIds = HOME_PINNED_IDS[preferredLang] || [];
+  const nativeEntries = published.filter((entry) => normalizeLang(entry?.item?.language) === targetLang);
+  const fallbackEntries = published.filter((entry) => normalizeLang(entry?.item?.language) !== targetLang);
+  const excludedForLang = HOME_EXCLUDED_IDS[targetLang] || new Set();
+  const preferred = [...nativeEntries, ...fallbackEntries].filter(
+    (entry) => !excludedForLang.has(String(entry?.item?.id || ""))
+  );
+  const pinnedIds = HOME_PINNED_IDS[targetLang] || [];
   if (pinnedIds.length > 0) {
     const rank = new Map(pinnedIds.map((id, index) => [id, index]));
     preferred.sort((a, b) => {
@@ -1926,50 +3363,222 @@ const buildHomeEmojiMap = (entries) => {
   return byId;
 };
 
-const buildHomeFallbackCards = (entries) => {
-  const top = pickHomeFallbackEntries(entries, HOME_FALLBACK_LIMIT);
-  if (top.length === 0) {
-    return `        <div class="empty">No published cards are available in the public feed yet.</div>`;
+const buildFeaturedDigestParagraphs = (item = {}) => {
+  const raw = String(item?.summary || item?.digest || "").trim();
+  if (!raw) return [];
+
+  const paragraphs = raw
+    .split(/\n\s*\n/)
+    .map((paragraph) =>
+      finalizeSummaryText(collectCleanSummarySentences(item, paragraph, { maxSentences: 4 }), "")
+    )
+    .filter(Boolean);
+
+  if ((item?.id || "") === "en-009") {
+    const emphasis = "accurately predicted the weaponization of social media";
+    for (let index = 0; index < paragraphs.length; index += 1) {
+      if (!paragraphs[index].includes(emphasis)) continue;
+      paragraphs[index] = paragraphs[index].replace(emphasis, `__EMPH__${emphasis}__EMPH__`);
+      break;
+    }
   }
-  const emojiById = buildHomeEmojiMap(top);
-  return top
-    .map((entry) => {
-      const item = entry.item || {};
-      const lang = htmlEscape(String(item.language || "-"));
-      const emoji = emojiById.get(String(item?.id || ""));
-      const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${resolveDisplayTitle(item)}`);
-      const meta = htmlEscape(composeCardMeta(item));
-      const digest = htmlEscape(previewSummary(item));
-      const sourceHref = htmlEscape(normalizeSourceUrl(item?.url || canonicalUrl(`posts/${entry.postPath}`)));
-      const actionLabel = htmlEscape(sourceActionLabel(item));
-      return `        <article class="card">
+
+  return paragraphs;
+};
+
+const buildFeaturedDigestHtml = (item = {}) => {
+  const paragraphs = buildFeaturedDigestParagraphs(item);
+  if (!paragraphs.length) {
+    return `<p>${htmlEscape(previewSummary(item))}</p>`;
+  }
+
+  return paragraphs
+    .map((paragraph) => {
+      const escaped = htmlEscape(paragraph).replace(/__EMPH__(.*?)__EMPH__/g, "<strong>$1</strong>");
+      return `<p>${escaped}</p>`;
+    })
+    .join("");
+};
+
+const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en") => {
+  const item = entry?.item || {};
+  const copy = HOME_FALLBACK_COPY[normalizeLocale(locale, "en")] || HOME_FALLBACK_COPY.en;
+  const lang = htmlEscape(normalizeLang(item?.language));
+  const emoji = emojiById.get(String(item?.id || ""));
+  const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${cleanDisplayTitle(item?.title || "")}`);
+  const meta = htmlEscape(composeCardMeta(item));
+  const cardUrl = canonicalUrl(`posts/${entry.postPath}`);
+  const digestHtml =
+    variant === "featured"
+      ? buildFeaturedDigestHtml(item)
+      : `<p>${htmlEscape(previewSummary(item))}</p>`;
+  const quote = variant === "featured" && item?.id !== "en-009" ? normalizeText(pickCardQuote(item)) : "";
+
+  return `        <article class="card card-${variant} card-clickable" data-url="${htmlEscape(cardUrl)}" role="link" tabindex="0" aria-label="${htmlEscape(`${cleanDisplayTitle(item?.title || "")} — ${composeCardMeta(item)}`)}">
           <div class="card-head">
             <span class="lang-tag">${lang}</span>
           </div>
-          <h3 class="card-title">${title}</h3>
+          <h3 class="card-title"><a class="card-title-link" href="${htmlEscape(cardUrl)}">${title}</a></h3>
           <p class="card-meta">${meta}</p>
-          <p class="card-digest">${digest}</p>
-          <a class="card-link" href="${sourceHref}" target="_blank" rel="noreferrer">${actionLabel}</a>
+          <div class="card-digest">${digestHtml}</div>
+          <blockquote class="card-quote"${quote ? "" : " hidden"}>${quote ? htmlEscape(quote) : ""}</blockquote>
+          <a class="card-link" href="${htmlEscape(cardUrl)}">${htmlEscape(copy.openNote)}</a>
         </article>`;
-    })
-    .join("\n");
 };
 
-const updateHomeHtmlFirstCards = async (entries) => {
-  const html = await fs.readFile(homeIndexPath, "utf8");
-  if (!html.includes(HOME_FALLBACK_START) || !html.includes(HOME_FALLBACK_END)) {
-    throw new Error(`Missing fallback markers in ${homeIndexPath}.`);
+const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { brokenUrls: new Set() }) => {
+  const copy = HOME_SECTION_COPY[normalizeLocale(locale, "en")] || HOME_SECTION_COPY.en;
+  const top = pickHomeFallbackEntries(entries, locale, HOME_FALLBACK_LIMIT, sourceUrlHealth?.brokenUrls || new Set());
+  if (top.length === 0) return "";
+
+  const featured = top.slice(0, 1);
+  const supporting = top.slice(1, 3);
+  const additional = top.slice(3);
+  const emojiById = buildHomeEmojiMap(top);
+
+  const featuredHtml = featured[0] ? buildHomeRenderedCardHtml(featured[0], "featured", emojiById, locale) : "";
+  const supportingHtml = supporting.length
+    ? `        <div class="supporting-stack">\n${supporting
+        .map((entry) => buildHomeRenderedCardHtml(entry, "supporting", emojiById, locale))
+        .join("\n")}\n        </div>`
+    : "";
+  const gridHtml = additional.length
+    ? `        <div class="more-work-head" id="moreWorkHead">
+          <h3>${htmlEscape(copy.moreWork)}</h3>
+        </div>
+        <section class="digest-grid" id="digestGrid" aria-live="polite">
+${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", emojiById, locale)).join("\n")}
+        </section>`
+    : "";
+
+  return `      <section class="work-section" id="curated-feed" aria-labelledby="work-title">
+        <div class="cards-intro">
+          <div>
+            <h2 id="work-title">${htmlEscape(copy.workTitle)}</h2>
+          </div>
+          <a class="cards-intro-link" href="/selected/">${htmlEscape(copy.workLink)}</a>
+        </div>
+
+        <section class="digest-showcase" id="digestShowcase" aria-live="polite">
+${[featuredHtml, supportingHtml].filter(Boolean).join("\n")}
+        </section>
+${gridHtml}
+      </section>`;
+};
+
+const buildHomeInterviewPreviewCardHtml = (item, locale = "en") => {
+  const copy = HOME_SECTION_COPY[normalizeLocale(locale, "en")] || HOME_SECTION_COPY.en;
+  return `          <article class="interview-preview-card">
+            <p class="interview-preview-meta">${htmlEscape(`${item.displayDate} · ${item.languageLabel} · ${item.formatLabel}`)}</p>
+            <h3 class="interview-preview-title">
+              <a href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.emoji)} ${htmlEscape(item.title)}</a>
+            </h3>
+            <p class="interview-preview-description">${htmlEscape(item.description)}</p>
+            <a class="interview-preview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(copy.interviewOpen)}</a>
+          </article>`;
+};
+
+const buildHomeInterviewsPreviewSectionHtml = (locale = "en", sourceUrlHealth = { brokenUrls: new Set() }) => {
+  const copy = HOME_SECTION_COPY[normalizeLocale(locale, "en")] || HOME_SECTION_COPY.en;
+  const items = buildPreparedInterviewItems(locale, sourceUrlHealth?.brokenUrls || new Set())
+    .filter((item) => isPublicRenderableItem(item))
+    .filter((item) => item.section === "interviews" || item.section === "features")
+    .slice(0, 6);
+
+  if (!items.length) return "";
+
+  return `      <section class="interviews-preview" aria-label="${htmlEscape(copy.interviewsAria)}">
+        <div class="interviews-preview-head">
+          <h2>${htmlEscape(copy.interviewsTitle)}</h2>
+          <p>${htmlEscape(copy.interviewsIntro)}</p>
+        </div>
+        <div class="interviews-preview-grid" id="interviewsPreviewGrid">
+${items.map((item) => buildHomeInterviewPreviewCardHtml(item, locale)).join("\n")}
+        </div>
+        <div class="interviews-preview-actions">
+          <a class="cta-btn cta-primary" href="${htmlEscape(copy.interviewsHref)}">${htmlEscape(copy.interviewsLink)}</a>
+        </div>
+      </section>`;
+};
+
+const replaceMarkedBlock = (html, startMarker, endMarker, innerHtml = "") => {
+  const re = new RegExp(`${escapeRegExp(startMarker)}[\\s\\S]*?${escapeRegExp(endMarker)}`, "m");
+  if (!re.test(html)) {
+    throw new Error(`Missing marked block ${startMarker} ... ${endMarker}`);
   }
-  const replacement = `${HOME_FALLBACK_START}
-${buildHomeFallbackCards(entries)}
-        ${HOME_FALLBACK_END}`;
-  const re = new RegExp(`${escapeRegExp(HOME_FALLBACK_START)}[\\s\\S]*?${escapeRegExp(HOME_FALLBACK_END)}`, "m");
-  const next = html.replace(re, replacement);
-  await fs.writeFile(homeIndexPath, next, "utf8");
+  const body = String(innerHtml || "").trim();
+  return html.replace(re, `${startMarker}\n${body ? `${body}\n` : ""}${endMarker}`);
 };
 
-const applyStaticRobotsPolicies = async () => {
-  for (const [relativePath, policy] of STATIC_ROBOTS_POLICY.entries()) {
+const updateHomeHtmlFirstCards = async (entries, sourceUrlHealth) => {
+  const homePages = [
+    { path: homeIndexPath, locale: "en" },
+    { path: homeFrIndexPath, locale: "fr" },
+    { path: homeDeIndexPath, locale: "de" },
+    { path: homeEsIndexPath, locale: "es" },
+  ];
+
+  for (const page of homePages) {
+    const html = await fs.readFile(page.path, "utf8");
+    let next = replaceMarkedBlock(
+      html,
+      HOME_WORK_SECTION_START,
+      HOME_WORK_SECTION_END,
+      buildHomeWorkSectionHtml(entries, page.locale, sourceUrlHealth)
+    );
+    next = replaceMarkedBlock(
+      next,
+      HOME_INTERVIEWS_SECTION_START,
+      HOME_INTERVIEWS_SECTION_END,
+      buildHomeInterviewsPreviewSectionHtml(page.locale, sourceUrlHealth)
+    );
+    await fs.writeFile(page.path, next, "utf8");
+  }
+};
+
+const stripCanonicalLinks = (html = "") =>
+  String(html || "").replace(
+    /<link\s+[^>]*rel=["']canonical["'][^>]*href=["'][^"']*["'][^>]*\/?>|<link\s+[^>]*href=["'][^"']*["'][^>]*rel=["']canonical["'][^>]*\/?>/gi,
+    ""
+  );
+
+const stripAlternateHreflangLinks = (html = "") =>
+  String(html || "").replace(
+    /<link\s+[^>]*rel=["']alternate["'][^>]*hreflang=["'][^"']+["'][^>]*href=["'][^"']*["'][^>]*\/?>|<link\s+[^>]*href=["'][^"']*["'][^>]*hreflang=["'][^"']+["'][^>]*rel=["']alternate["'][^>]*\/?>/gi,
+    ""
+  );
+
+const appendHeadMarkup = (html = "", lines = []) => {
+  const normalized = lines.map((line) => String(line || "").trim()).filter(Boolean);
+  if (normalized.length === 0) return html;
+  return String(html || "").replace(/<\/head>/i, `    ${normalized.join("\n    ")}\n  </head>`);
+};
+
+const staticHreflangConfigForPath = (relativePath = "") => {
+  const normalizedPath = String(relativePath || "").trim().replace(/^\/+/, "");
+  for (const cluster of STATIC_HREFLANG_CLUSTERS) {
+    if (Object.values(cluster.pages).includes(normalizedPath)) return cluster;
+  }
+  return null;
+};
+
+const buildStaticHeadHreflangLinks = (relativePath = "") => {
+  const cluster = staticHreflangConfigForPath(relativePath);
+  if (!cluster) return [];
+  const lines = [];
+  for (const hreflang of HREFLANG_ORDER) {
+    const targetPath = cluster.pages?.[hreflang];
+    if (!targetPath) continue;
+    lines.push(`<link rel="alternate" hreflang="${hreflang}" href="${canonicalUrl(targetPath)}" />`);
+  }
+  if (cluster.xDefault) {
+    lines.push(`<link rel="alternate" hreflang="${X_DEFAULT}" href="${canonicalUrl(cluster.xDefault)}" />`);
+  }
+  return lines;
+};
+
+const applyStaticHeadSeoPolicies = async () => {
+  for (const [relativePath, pageClass] of STATIC_PAGE_CLASSES.entries()) {
     const fullPath = path.join(siteDir, relativePath);
     let html;
     try {
@@ -1978,16 +3587,14 @@ const applyStaticRobotsPolicies = async () => {
       if (error?.code === "ENOENT") continue;
       throw error;
     }
-    const robotsValue =
-      policy === "index" ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large";
-    if (/<meta\s+name=["']robots["']/i.test(html)) {
-      html = html.replace(
-        /<meta\s+name=["']robots["']\s+content=["'][^"']*["']\s*\/?>/i,
-        `<meta name="robots" content="${robotsValue}" />`
-      );
-    } else {
-      html = html.replace(/<head>/i, `<head>\n    <meta name="robots" content="${robotsValue}" />`);
-    }
+    html = stripCanonicalLinks(html);
+    html = stripAlternateHreflangLinks(html);
+    html = appendHeadMarkup(html, [
+      `<link rel="canonical" href="${htmlEscape(canonicalUrl(relativePath))}" />`,
+      ...buildStaticHeadHreflangLinks(relativePath),
+    ]);
+    const robotsValue = robotsMetaForPageClass(pageClass);
+    html = upsertMetaTag(html, "name", "robots", robotsValue);
     await fs.writeFile(fullPath, html, "utf8");
   }
 };
@@ -2024,6 +3631,249 @@ const upsertLinkRel = (html = "", relValue = "", href = "") => {
   return html.replace(/<\/head>/i, `    ${tag}\n  </head>`);
 };
 
+const STATIC_SWITCH_LANGS = ["en", "fr", "de", "es"];
+const SITE_LANG_SWITCH_RE = /<(nav|div)\b([^>]*)\bclass=["']site-lang-switch["']([^>]*)>([\s\S]*?)<\/\1>/i;
+const RAW_UI_HREF_PATTERNS = [
+  /^\/rss\.xml$/i,
+  /^\/sitemap(?:-[a-z]+)?\.xml$/i,
+  /^\/source-registry-v1\.tsv$/i,
+  /^\/data\/.+\.(?:json|tsv)$/i,
+];
+const BIO_CASE_LINK_BY_LOCALE = {
+  en: '<li><a href="/cases/">Case notes and clarifications</a></li>',
+  fr: '<li><a href="/cases/fr/">Notes de cas et clarifications</a></li>',
+  de: '<li><a href="/cases/de/">Falldokumentation und Klarstellungen</a></li>',
+  es: '<li><a href="/cases/es/">Notas de casos y aclaraciones</a></li>',
+};
+const STATIC_TRUST_BLOCKS = [
+  { path: homeIndexPath, marker: "home", variant: "full", locale: "en" },
+  { path: homeFrIndexPath, marker: "home", variant: "full", locale: "fr" },
+  { path: homeDeIndexPath, marker: "home", variant: "full", locale: "de" },
+  { path: homeEsIndexPath, marker: "home", variant: "full", locale: "es" },
+  { path: bioIndexPath, marker: "bio", variant: "minimal", locale: "en" },
+  { path: contactIndexPath, marker: "contact", variant: "minimal", locale: "en" },
+];
+
+const extractAlternateHrefMap = (html = "") => {
+  const out = new Map();
+  const matches = String(html || "").matchAll(
+    /<link\s+[^>]*rel=["']alternate["'][^>]*hreflang=["']([^"']+)["'][^>]*href=["']([^"']+)["'][^>]*\/?>|<link\s+[^>]*href=["']([^"']+)["'][^>]*hreflang=["']([^"']+)["'][^>]*rel=["']alternate["'][^>]*\/?>/gi
+  );
+  for (const match of matches) {
+    const hreflang = String(match[1] || match[4] || "")
+      .trim()
+      .toLowerCase();
+    const href = String(match[2] || match[3] || "").trim();
+    if (!hreflang || !href) continue;
+    out.set(hreflang, href);
+  }
+  return out;
+};
+
+const toSiteRelativeHref = (href = "") => {
+  const raw = String(href || "").trim();
+  if (!raw) return "";
+  try {
+    const url = new URL(raw, baseUrl);
+    if (url.origin !== baseUrl) return raw;
+    return `${url.pathname}${url.search}${url.hash}` || "/";
+  } catch {
+    return raw;
+  }
+};
+
+const buildSiteLanguageSwitchHtml = (html = "", fallbackRelativePath = "index.html") => {
+  const match = String(html || "").match(SITE_LANG_SWITCH_RE);
+  if (!match) return html;
+
+  const tagName = String(match[1] || "div").toLowerCase();
+  const rawAttrs = `${String(match[2] || "")} class="site-lang-switch"${String(match[3] || "")}`;
+  const ariaLabel = rawAttrs.match(/\baria-label=["']([^"']+)["']/i)?.[1] || "Site language";
+  const attrsWithoutAria = rawAttrs.replace(/\s*\baria-label=["'][^"']+["']/i, "").replace(/\s+/g, " ").trim();
+
+  const alternates = extractAlternateHrefMap(html);
+  const htmlLang = extractHtmlLang(html);
+  const currentHref = extractCanonicalHref(html, fallbackRelativePath);
+  if (!alternates.has(htmlLang)) alternates.set(htmlLang, currentHref);
+
+  const links = STATIC_SWITCH_LANGS.filter((lang) => alternates.has(lang)).map((lang) => {
+    const href = toSiteRelativeHref(alternates.get(lang));
+    const isActive = lang === htmlLang;
+    return `<a${isActive ? ` class="active"` : ""} href="${htmlEscape(href)}"${isActive ? ` aria-current="page"` : ""}>${lang.toUpperCase()}</a>`;
+  });
+
+  if (links.length === 0) return html;
+
+  const replacement = `<${tagName}${attrsWithoutAria ? ` ${attrsWithoutAria}` : ""} aria-label="${htmlEscape(
+    ariaLabel
+  )}">\n        ${links.join("\n        ")}\n      </${tagName}>`;
+
+  return html.replace(SITE_LANG_SWITCH_RE, replacement);
+};
+
+const applyStaticLanguageSwitchPolicies = async () => {
+  for (const relativePath of STATIC_ENTITY_SECTIONS) {
+    const fullPath = path.join(siteDir, relativePath);
+    let html;
+    try {
+      html = await fs.readFile(fullPath, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+    const nextHtml = buildSiteLanguageSwitchHtml(html, relativePath);
+    if (nextHtml !== html) {
+      await fs.writeFile(fullPath, nextHtml, "utf8");
+    }
+  }
+};
+
+const READER_HEADER_RE = /<header\b[^>]*class=["'][^"']*topbar[^"']*["'][^>]*>[\s\S]*?<\/header>\s*/i;
+const ARCHIVE_HEADER_RE = /<header\b[^>]*class=["'][^"']*archive-header[^"']*["'][^>]*>[\s\S]*?<\/header>\s*/i;
+const PRIMARY_NAV_RE = /<nav\b(?![^>]*class=["'][^"']*site-lang-switch[^"']*["'])[^>]*aria-label=["']Primary(?: navigation)?["'][^>]*>[\s\S]*?<\/nav>\s*/i;
+const FOOTER_RE =
+  /<footer\b[^>]*class=["'][^"']*(?:footer|secondary-nav|selected-secondary|archive-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>\s*/i;
+const FOOTER_UTILITY_RE = /<details\b[^>]*class=["'][^"']*footer-utility[^"']*["'][^>]*>[\s\S]*?<\/details>\s*/gi;
+const ARCHIVE_LAYOUT_STYLE_RE = /<style id=["']archive-layout-styles["'][^>]*>[\s\S]*?<\/style>\s*/i;
+
+const appendBodyClass = (html = "", className = "") =>
+  String(html || "").replace(/<body\b([^>]*)>/i, (match, attrs) => {
+    const classMatch = String(attrs || "").match(/\bclass=["']([^"']*)["']/i);
+    if (!classMatch) return `<body${attrs || ""} class="${className}">`;
+    const existing = new Set(
+      String(classMatch[1] || "")
+        .split(/\s+/)
+        .map((token) => token.trim())
+        .filter(Boolean)
+    );
+    existing.add(className);
+    return match.replace(classMatch[0], `class="${Array.from(existing).join(" ")}"`);
+  });
+
+const insertAfterBodyLead = (html = "", markup = "") => {
+  const ornamentRe = /(<body\b[^>]*>\s*(?:<div\b[^>]*class=["'][^"']*bg-ornament[^"']*["'][^>]*><\/div>\s*)?)/i;
+  if (ornamentRe.test(html)) {
+    return html.replace(ornamentRe, `$1${markup}\n`);
+  }
+  return html.replace(/<body\b[^>]*>/i, (match) => `${match}\n${markup}\n`);
+};
+
+const appendFooterBeforeBodyClose = (html = "", markup = "") => {
+  const source = String(html || "");
+  const bodyOpenMatch = source.match(/<body\b[^>]*>/i);
+  const bodyCloseIndex = source.toLowerCase().lastIndexOf("</body>");
+  if (!bodyOpenMatch || bodyCloseIndex === -1) return source;
+  const bodyOpenEnd = (bodyOpenMatch.index || 0) + bodyOpenMatch[0].length;
+  const beforeBodyContent = source.slice(0, bodyOpenEnd);
+  const bodyInner = source.slice(bodyOpenEnd, bodyCloseIndex);
+  const afterClose = source.slice(bodyCloseIndex);
+  const trailingScriptsMatch = bodyInner.match(/((?:\s*<script\b[\s\S]*?<\/script>\s*)+)$/i);
+  if (trailingScriptsMatch) {
+    const scripts = trailingScriptsMatch[1];
+    const bodyContentWithoutScripts = bodyInner.slice(0, bodyInner.length - scripts.length);
+    return `${beforeBodyContent}${bodyContentWithoutScripts}${markup}\n${scripts}${afterClose}`;
+  }
+  return `${beforeBodyContent}${bodyInner}${markup}\n  ${afterClose}`;
+};
+
+const ensureArchiveLayoutStyles = (html = "") => {
+  if (ARCHIVE_LAYOUT_STYLE_RE.test(html)) return html;
+  return html.replace(/<\/head>/i, `    <style id="archive-layout-styles">\n${ARCHIVE_LAYOUT_CSS}\n    </style>\n  </head>`);
+};
+
+const injectLayoutChrome = (html = "", relativePath = "") => {
+  const layout = resolveStaticLayout(relativePath);
+  if (!layout) return html;
+
+  const htmlLang = extractHtmlLang(html);
+  let next = String(html || "");
+  next = next.replace(FOOTER_UTILITY_RE, "");
+
+  if (layout.family === LAYOUT_FAMILY.READER) {
+    next = next.replace(READER_HEADER_RE, "");
+    next = next.replace(FOOTER_RE, "");
+    next = insertAfterBodyLead(next, renderReaderHeader({ locale: htmlLang, currentKey: layout.currentKey }));
+    next = appendFooterBeforeBodyClose(next, renderReaderFooter({ locale: htmlLang }));
+    return next;
+  }
+
+  next = appendBodyClass(next, "archive-layout");
+  next = ensureArchiveLayoutStyles(next);
+  next = next.replace(ARCHIVE_HEADER_RE, "");
+  next = next.replace(READER_HEADER_RE, "");
+  next = next.replace(PRIMARY_NAV_RE, "");
+  next = next.replace(FOOTER_RE, "");
+  next = insertAfterBodyLead(next, renderArchiveHeader({ locale: htmlLang, currentKey: layout.currentKey }));
+  next = appendFooterBeforeBodyClose(next, renderArchiveFooter({ locale: htmlLang }));
+  return next;
+};
+
+const ensureBioCaseLink = (html = "", locale = "en") => {
+  const caseLink = BIO_CASE_LINK_BY_LOCALE[locale] || BIO_CASE_LINK_BY_LOCALE.en;
+  if (String(html).includes(caseLink)) return html;
+  const start = String(html).indexOf("<h3>Additional references</h3>");
+  if (start !== -1) {
+    const ulOpen = String(html).indexOf("<ul>", start);
+    const ulClose = String(html).indexOf("</ul>", ulOpen);
+    if (ulOpen !== -1 && ulClose !== -1) {
+      return `${String(html).slice(0, ulClose)}          ${caseLink}\n        ${String(html).slice(ulClose)}`;
+    }
+  }
+  const refsStart = String(html).indexOf('<section class="refs-card">');
+  if (refsStart === -1) return html;
+  const ulOpen = String(html).indexOf("<ul>", refsStart);
+  const ulClose = String(html).indexOf("</ul>", ulOpen);
+  if (ulOpen === -1 || ulClose === -1) return html;
+  return `${String(html).slice(0, ulClose)}          ${caseLink}\n        ${String(html).slice(ulClose)}`;
+};
+
+const listHtmlFilesRecursively = async (dir) => {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const out = [];
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...(await listHtmlFilesRecursively(fullPath)));
+      continue;
+    }
+    if (entry.isFile() && entry.name.toLowerCase().endsWith(".html")) {
+      out.push(fullPath);
+    }
+  }
+  return out;
+};
+
+const applyNavigationUiPolicies = async () => {
+  const htmlFiles = await listHtmlFilesRecursively(siteDir);
+  for (const fullPath of htmlFiles) {
+    let html = await fs.readFile(fullPath, "utf8");
+    const relativePath = path.relative(siteDir, fullPath).replace(/\\/g, "/");
+    html = injectLayoutChrome(html, relativePath);
+    if (relativePath === "bio/index.html") html = ensureBioCaseLink(html, "en");
+    if (relativePath === "bio/fr/index.html") html = ensureBioCaseLink(html, "fr");
+    if (relativePath === "bio/de/index.html") html = ensureBioCaseLink(html, "de");
+    if (relativePath === "bio/es/index.html") html = ensureBioCaseLink(html, "es");
+    await fs.writeFile(fullPath, html, "utf8");
+  }
+};
+
+const applyStaticTrustBlockPolicies = async () => {
+  for (const block of STATIC_TRUST_BLOCKS) {
+    let html;
+    try {
+      html = await fs.readFile(block.path, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") continue;
+      throw error;
+    }
+    const next = replaceTrustBlock(html, block.marker, {
+      variant: block.variant,
+      locale: block.locale,
+    });
+    await fs.writeFile(block.path, next, "utf8");
+  }
+};
+
 const applyStaticSocialPreviewPolicies = async () => {
   for (const [relativePath, imageType] of STATIC_SOCIAL_IMAGE_POLICY.entries()) {
     const fullPath = path.join(siteDir, relativePath);
@@ -2035,16 +3885,39 @@ const applyStaticSocialPreviewPolicies = async () => {
       throw error;
     }
 
-    const imageUrl = SOCIAL_OG_IMAGE_BY_TYPE[imageType] || SOCIAL_OG_IMAGE_BY_TYPE.default;
-    html = upsertMetaTag(html, "property", "og:image", imageUrl);
-    html = upsertMetaTag(html, "property", "og:image:width", OG_IMAGE_WIDTH);
-    html = upsertMetaTag(html, "property", "og:image:height", OG_IMAGE_HEIGHT);
+    const title = extractTitleTag(html);
+    const description = extractMetaTagContent(html, "name", "description");
+    const canonical = extractLinkHref(html, "canonical") || canonicalUrl(relativePath);
+    const type = extractMetaTagContent(html, "property", "og:type") || "website";
+    const existingImage = extractMetaTagContent(html, "property", "og:image");
+    const preferredImage = SOCIAL_OG_IMAGE_BY_TYPE[imageType] || SOCIAL_OG_IMAGE_BY_TYPE.default || DEFAULT_SOCIAL_IMAGE;
+    const imageUrl = preferredImage || existingImage || DEFAULT_SOCIAL_IMAGE;
+    const socialMeta = buildSocialMetaSpec({
+      title,
+      socialTitle: title,
+      description,
+      canonical,
+      type,
+      imageUrl,
+    });
+
+    html = upsertMetaTag(html, "property", "og:type", socialMeta.type);
+    html = upsertMetaTag(html, "property", "og:title", socialMeta.socialTitle);
+    html = upsertMetaTag(html, "property", "og:description", socialMeta.description);
+    html = upsertMetaTag(html, "property", "og:url", socialMeta.canonical);
+    html = upsertMetaTag(html, "property", "og:site_name", socialMeta.siteName);
+    html = upsertMetaTag(html, "property", "og:image", socialMeta.imageUrl);
+    html = upsertMetaTag(html, "property", "og:image:width", socialMeta.imageWidth);
+    html = upsertMetaTag(html, "property", "og:image:height", socialMeta.imageHeight);
     html = upsertMetaTag(html, "property", "og:image:type", OG_IMAGE_TYPE);
-    html = upsertMetaTag(html, "property", "og:image:secure_url", imageUrl);
-    html = upsertMetaTag(html, "name", "twitter:card", "summary_large_image");
-    html = upsertMetaTag(html, "name", "twitter:image", imageUrl);
-    html = upsertMetaTag(html, "name", "twitter:image:src", imageUrl);
-    html = upsertLinkRel(html, "image_src", imageUrl);
+    html = upsertMetaTag(html, "property", "og:image:secure_url", socialMeta.imageUrl);
+    html = upsertMetaTag(html, "name", "twitter:card", socialMeta.twitterCard);
+    html = upsertMetaTag(html, "name", "twitter:title", socialMeta.socialTitle);
+    html = upsertMetaTag(html, "name", "twitter:description", socialMeta.description);
+    html = upsertMetaTag(html, "name", "twitter:image", socialMeta.imageUrl);
+    html = upsertMetaTag(html, "name", "twitter:image:src", socialMeta.imageUrl);
+    html = upsertMetaTag(html, "name", "twitter:creator", socialMeta.twitterCreator);
+    html = upsertLinkRel(html, "image_src", socialMeta.imageUrl);
 
     await fs.writeFile(fullPath, html, "utf8");
   }
@@ -2185,10 +4058,7 @@ const inferStaticPageType = (relativePath = "") => {
 };
 
 const inferPageNodeId = (canonical = "", relativePath = "", pageType = "WebPage") => {
-  const clean = String(relativePath || "").replace(/^\/+/, "").toLowerCase();
-  if (clean.startsWith("interviews/")) return `${canonical}#collectionpage`;
-  if (pageType === "CollectionPage" && clean.startsWith("posts/")) return `${canonical}#webpage`;
-  return `${canonical}#webpage`;
+  return buildPageNodeId(canonical, pageType);
 };
 
 const languageHomeUrl = (htmlLang = "en") =>
@@ -2290,8 +4160,7 @@ const applyStaticEntityLayer = async (entries = []) => {
 
 const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToStatus = new Map()) => {
   const itemId = String(item?.id || "").trim();
-  const decision = String(idToStatus.get(itemId) || item?.status || "").toLowerCase();
-  const itemIsPublished = isPublishedStatus(decision);
+  const pageClass = String(idToStatus.get(itemId) || classifyPostPage(item)).toLowerCase();
   const displayTitle = resolveDisplayTitle(item);
   const metaTitle = buildPostMetaTitle(item, displayTitle);
   const title = `${metaTitle} | ${SITE_NAME}`;
@@ -2300,7 +4169,18 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const semanticTags = normalizedArray(item.semantic_tags);
   const publicSemanticTags = sanitizeSemanticTags(semanticTags);
   const canonical = canonicalUrl(postPath);
-  const postSocialImage = SOCIAL_OG_IMAGE_BY_TYPE.posts;
+  const postSocialImage =
+    normalizeSourceUrl(item?.social_image || item?.og_image || item?.image || item?.card_image || "") ||
+    SOCIAL_OG_IMAGE_BY_TYPE.posts ||
+    DEFAULT_SOCIAL_IMAGE;
+  const postSocialMeta = buildSocialMetaSpec({
+    title,
+    socialTitle: metaTitle,
+    description,
+    canonical,
+    type: "article",
+    imageUrl: postSocialImage,
+  });
   const sourceLink = normalizeSourceUrl(item.url);
   const sourceCtaLabel = sourceActionLabel(item);
   const htmlLang = toHtmlLang(item.language);
@@ -2309,19 +4189,44 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     idToPostPath,
     idToCluster,
     idToStatus,
-    itemIsPublished
+    false
   );
   const hreflangHeadLinks = buildHeadHreflangLinks(alternates, xDefaultHref);
   const languageLinks = alternates.map(
     (alt) =>
       `<li><a href="${htmlEscape(alt.href)}">${htmlEscape(String(alt.hreflang).toUpperCase())}</a></li>`
   );
-  const { relatedByTopic, relatedBySource, latestSameLanguage } = buildRelatedPostGroups(item, entries);
+  const {
+    relatedByTopic,
+    relatedBySource,
+    relatedBySection,
+    relatedByYear,
+    newerInLanguage,
+    olderInLanguage,
+    newerFromSource,
+    olderFromSource,
+    latestSameLanguage,
+    latestAcrossSite,
+  } = buildRelatedPostGroups(item, entries);
   const topicLinks = buildRelatedLinks(relatedByTopic);
   const sourceLinks = buildRelatedLinks(relatedBySource);
+  const sectionLinks = buildRelatedLinks(relatedBySection);
+  const yearLinks = buildRelatedLinks(relatedByYear);
+  const languageTimelineLinks = [
+    buildDirectionalRelatedLink("Newer", newerInLanguage),
+    buildDirectionalRelatedLink("Older", olderInLanguage),
+  ].filter(Boolean);
+  const sourceTimelineLinks = [
+    buildDirectionalRelatedLink("Newer", newerFromSource),
+    buildDirectionalRelatedLink("Older", olderFromSource),
+  ].filter(Boolean);
   const latestLanguageLinks = buildRelatedLinks(latestSameLanguage);
+  const latestSiteLinks = buildRelatedLinks(latestAcrossSite);
+  const selectedSectionId = classifySelectedSection(item);
+  const selectedSectionLabel = selectedSectionLabelById(selectedSectionId);
+  const localizedHomeHref = htmlLang === "en" ? "/" : `/${htmlLang}/`;
   const { person, organization, website } = buildCoreEntities();
-  const pageId = `${canonical}#webpage`;
+  const pageId = buildPageNodeId(canonical, "WebPage");
   const articleId = `${canonical}#article`;
   const breadcrumbId = `${canonical}#breadcrumb`;
   const publishedIso = toIsoTimestamp(item.date) || item.date || undefined;
@@ -2341,7 +4246,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         }
       })()
     : undefined;
-  const sourceNodeId = sourceLink ? `${canonical}#source` : undefined;
+  const sourceNodeId = sourceLink || sourceName ? buildSourceEntityId(sourceName, sourceLink) : undefined;
   const sourceOrganization =
     sourceNodeId && sourceName
       ? {
@@ -2349,6 +4254,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           "@id": sourceNodeId,
           name: sourceName,
           url: sourceOrigin || sourceLink,
+          sameAs: sourceOrigin ? [sourceOrigin] : undefined,
         }
       : undefined;
   const basedOn =
@@ -2409,39 +4315,16 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <meta name="description" content="${htmlEscape(description)}" />
     <link rel="canonical" href="${canonical}" />
     ${hreflangHeadLinks}
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="${htmlEscape(metaTitle)}" />
-    <meta property="og:description" content="${htmlEscape(description)}" />
-    <meta property="og:url" content="${canonical}" />
-    <meta property="og:image" content="${postSocialImage}" />
-    <meta property="og:image:width" content="${OG_IMAGE_WIDTH}" />
-    <meta property="og:image:height" content="${OG_IMAGE_HEIGHT}" />
-    <meta property="og:image:type" content="${OG_IMAGE_TYPE}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${htmlEscape(displayTitle)}" />
-    <meta name="twitter:description" content="${htmlEscape(description)}" />
-    <meta name="twitter:image" content="${postSocialImage}" />
-    <meta name="robots" content="${itemIsPublished ? "index,follow,max-image-preview:large" : "noindex,follow,max-image-preview:large"}" />
+    ${renderSocialMetaTags(postSocialMeta)}
+    <meta name="robots" content="${robotsMetaForPageClass(pageClass)}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
       * { box-sizing: border-box; }
       body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; line-height: 1.56; overflow-x: clip; }
-      .site-header, main, .secondary-nav { width: min(860px, calc(100% - 2rem)); margin: 0 auto; }
-      .site-header { padding: 20px 0 0; }
       main { padding: 14px 0 42px; }
+      main { width: min(860px, calc(100% - 2rem)); margin: 0 auto; }
       a { color: #0b4f7b; overflow-wrap: anywhere; }
       .meta { color: #555; font-size: 0.95rem; }
-      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
-      .topnav a, .secondary-nav a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 0.45rem 0.78rem;
-        border: 1px solid #d3cec4;
-        border-radius: 999px;
-        text-decoration: none;
-        background: #fff;
-      }
       section { margin-top: 18px; }
       h2 { margin: 0 0 8px; font-size: 1.08rem; }
       h3 { margin: 14px 0 8px; font-size: 0.96rem; }
@@ -2453,26 +4336,16 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
       .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
       .tags li { margin: 0; border: 1px solid #d3cec4; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; }
       .post-header h1 { margin: 0; }
-      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+${ARCHIVE_LAYOUT_CSS}
       @media (max-width: 520px) {
-        .site-header, main, .secondary-nav { width: min(860px, calc(100% - 1.3rem)); }
-        .site-header { padding-top: 12px; }
+        main { width: min(860px, calc(100% - 1.3rem)); }
         .post-header h1 { font-size: 1.9rem; line-height: 1.1; }
-        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
         ul { padding-left: 18px; }
       }
     </style>
   </head>
-  <body>
-    <header class="site-header">
-      <nav class="topnav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/selected/">Selected Work</a>
-        <a href="/search/">Search</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-    </header>
+  <body class="archive-layout">
+    ${renderArchiveHeader({ locale: htmlLang, currentKey: "posts" })}
     <main>
       <article>
         <header class="post-header">
@@ -2485,27 +4358,32 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         <section>
           <h2>Continue on site</h2>
           <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="${localizedHomeHref}">Home</a></li>
             <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
             <li><a href="/selected/">Selected Work</a></li>
+            <li><a href="/selected/#${selectedSectionId}">Selected section: ${htmlEscape(selectedSectionLabel)}</a></li>
+            <li><a href="/interviews/">Interviews</a></li>
+            <li><a href="/posts/">Published posts index</a></li>
+            <li><a href="/posts/all.html">${INCLUDE_DRAFT_OUTPUTS ? "Full archive (including drafts)" : "Full archive"}</a></li>
             <li><a href="/insights/">Research archive</a></li>
             <li><a href="/archive/">Archive</a></li>
+            <li><a href="/search/">Search</a></li>
+            <li><a href="/contact/">Contact</a></li>
           </ul>
           ${languageLinks.length > 0 ? `<h3>Available languages</h3><ul>${languageLinks.join("")}</ul>` : ""}
           ${topicLinks.length > 0 ? `<h3>Related topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
+          ${sectionLinks.length > 0 ? `<h3>Related section</h3><ul>${sectionLinks.join("")}</ul>` : ""}
           ${sourceLinks.length > 0 ? `<h3>From this source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
+          ${yearLinks.length > 0 ? `<h3>Same period</h3><ul>${yearLinks.join("")}</ul>` : ""}
+          ${languageTimelineLinks.length > 0 ? `<h3>Timeline in this language</h3><ul>${languageTimelineLinks.join("")}</ul>` : ""}
+          ${sourceTimelineLinks.length > 0 ? `<h3>Timeline from this source</h3><ul>${sourceTimelineLinks.join("")}</ul>` : ""}
           ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
+          ${latestSiteLinks.length > 0 ? `<h3>More from this archive</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
         </section>
         <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>
       </article>
     </main>
-    <footer class="secondary-nav" aria-label="Secondary">
-      <a href="/archive/">Archive</a>
-      <a href="/posts/">Posts</a>
-      <a href="/search/">Search</a>
-      <a href="/rss.xml">RSS</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </footer>
+    ${renderArchiveFooter({ locale: htmlLang })}
   </body>
 </html>
 `;
@@ -2530,6 +4408,15 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
   );
   const visibleGroups = writingGroups;
   const postsCanonical = canonicalUrl(canonicalPath);
+  const postsSocialImage = SOCIAL_OG_IMAGE_BY_TYPE.default || DEFAULT_SOCIAL_IMAGE;
+  const postsSocialMeta = buildSocialMetaSpec({
+    title: pageTitle,
+    socialTitle: pageTitle,
+    description: pageDescription,
+    canonical: postsCanonical,
+    type: "website",
+    imageUrl: postsSocialImage,
+  });
   const { person, organization, website } = buildCoreEntities();
   const itemListId = `${postsCanonical}#itemlist`;
   const breadcrumbId = `${postsCanonical}#breadcrumb`;
@@ -2556,7 +4443,7 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
       breadcrumb,
       {
         "@type": "CollectionPage",
-        "@id": `${postsCanonical}#webpage`,
+        "@id": buildPageNodeId(postsCanonical, "CollectionPage"),
         url: postsCanonical,
         name: pageTitle,
         description: pageDescription,
@@ -2611,62 +4498,28 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
     <link rel="canonical" href="${postsCanonical}" />
     <link rel="alternate" hreflang="en" href="${postsCanonical}" />
     <link rel="alternate" hreflang="${X_DEFAULT}" href="${postsCanonical}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="${htmlEscape(pageTitle)}" />
-    <meta property="og:description" content="${htmlEscape(pageDescription)}" />
-    <meta property="og:url" content="${postsCanonical}" />
-    <meta property="og:image" content="${DEFAULT_SOCIAL_IMAGE}" />
-    <meta property="og:image:width" content="${SOCIAL_IMAGE_WIDTH}" />
-    <meta property="og:image:height" content="${SOCIAL_IMAGE_HEIGHT}" />
-    <meta property="og:site_name" content="${SITE_NAME}" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${htmlEscape(pageTitle)}" />
-    <meta name="twitter:description" content="${htmlEscape(pageDescription)}" />
-    <meta name="twitter:image" content="${DEFAULT_SOCIAL_IMAGE}" />
-    <meta name="twitter:creator" content="@vorewig" />
-    <meta name="robots" content="${indexable ? "index,follow" : "noindex,follow"}" />
+    ${renderSocialMetaTags(postsSocialMeta)}
+    <meta name="robots" content="${indexable ? robotsMetaForPageClass(PAGE_CLASS.INDEXABLE) : robotsMetaForPageClass(PAGE_CLASS.SERVICE)}" />
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
       * { box-sizing: border-box; }
       body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; overflow-x: clip; line-height: 1.56; }
-      .site-header, main, .secondary-nav { width: min(880px, calc(100% - 2rem)); margin: 0 auto; }
-      .site-header { padding: 20px 0 0; }
       main { padding: 14px 0 42px; }
+      main { width: min(880px, calc(100% - 2rem)); margin: 0 auto; }
       li { margin: 8px 0; }
       a { color: #0b4f7b; overflow-wrap: anywhere; }
-      .topnav { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; }
-      .topnav a, .secondary-nav a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 0.45rem 0.78rem;
-        border: 1px solid #d3cec4;
-        border-radius: 999px;
-        text-decoration: none;
-        background: #fff;
-      }
       section { margin-top: 16px; }
       h2 { margin: 0 0 8px; font-size: 1.08rem; }
       p, li, h1, h2, h3 { overflow-wrap: anywhere; }
       .lead { margin: 8px 0 0; color: #555; }
-      .secondary-nav { margin: 0 auto 24px; padding: 12px 0 0; border-top: 1px solid #d3cec4; font-size: 0.88rem; color: #555; display: flex; flex-wrap: wrap; gap: 8px; }
+${ARCHIVE_LAYOUT_CSS}
       @media (max-width: 520px) {
-        .site-header, main, .secondary-nav { width: min(880px, calc(100% - 1.3rem)); }
-        .site-header { padding-top: 12px; }
-        .topnav a, .secondary-nav a { padding: 0.44rem 0.7rem; font-size: 0.84rem; }
+        main { width: min(880px, calc(100% - 1.3rem)); }
       }
     </style>
   </head>
-  <body>
-    <header class="site-header">
-      <nav class="topnav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/bio/">Bio</a>
-        <a href="/selected/">Selected Work</a>
-        <a href="/search/">Search</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-    </header>
+  <body class="archive-layout">
+    ${renderArchiveHeader({ locale: "en", currentKey: "posts" })}
     <main>
       <section>
         <h1>${htmlEscape(pageTitle)}</h1>
@@ -2678,10 +4531,8 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
           <li><a href="/">Home</a></li>
           <li><a href="/selected/">Selected Work</a></li>
           <li><a href="/insights/">Research archive</a></li>
-          <li><a href="/posts/all.html">Full archive (including drafts)</a></li>
+          <li><a href="/posts/all.html">${INCLUDE_DRAFT_OUTPUTS ? "Full archive (including drafts)" : "Full archive"}</a></li>
           <li><a href="/bio/">Biography (EN, FR, DE, ES)</a></li>
-          <li><a href="/rss.xml">RSS feed</a></li>
-          <li><a href="/sitemap.xml">Sitemap index</a></li>
         </ul>
       </section>
       <section>
@@ -2699,13 +4550,7 @@ ${renderGroupList(referenceGroups)}
       </section>`
         : ""}
     </main>
-    <footer class="secondary-nav" aria-label="Secondary">
-      <a href="/archive/">Archive</a>
-      <a href="/posts/">Posts</a>
-      <a href="/search/">Search</a>
-      <a href="/rss.xml">RSS</a>
-      <a href="/sitemap.xml">Sitemap</a>
-    </footer>
+    ${renderArchiveFooter({ locale: "en" })}
   </body>
 </html>
 `;
@@ -2871,26 +4716,29 @@ const FULL_WHITELIST_BOTS = [
   "CCBot",
 ];
 
+const EXTRA_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
+const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
+
 const buildRobots = () => {
   const blocks = [
     renderBotBlock("*", { allowRoot: true, disallowPaths: ["/tools/"] }),
     ...FULL_WHITELIST_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: [] })),
-    renderBotBlock("Google-Extended", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("DuckDuckBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("DuckAssistBot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("Applebot", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    renderBotBlock("Yandex", { allowRoot: true, disallowPaths: ["/tools/"] }),
+    ...EXTRA_ALLOW_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: [] })),
   ];
 
-  return `${blocks.join("\n\n")}\n\nSitemap: ${canonicalUrl("sitemap.xml")}\n`;
+  const sitemapLines = ROBOTS_SITEMAP_FILES.map((name) => `Sitemap: ${canonicalUrl(name)}`).join("\n");
+  return `${blocks.join("\n\n")}\n\n${sitemapLines}\n`;
 };
 
 const main = async () => {
+  const sourceUrlHealth = await loadSourceUrlHealth();
   const raw = await fs.readFile(dataPath, "utf8");
   const payload = JSON.parse(raw);
-  const items = Array.isArray(payload.items) ? payload.items : [];
+  const items = Array.isArray(payload.items) ? payload.items.map((item) => normalizeContentItem(item)) : [];
 
   await fs.mkdir(postsDir, { recursive: true });
+  FIXED_IMAGE_VERSION = await computeFixedImageVersion();
+  await materializeFixedImageAssets();
 
   const entries = items.map((item) => {
     const explicitSlug = String(item.slug || "").trim().replace(/\.html$/i, "");
@@ -2898,19 +4746,41 @@ const main = async () => {
     const postPath = `${slug}.html`;
     return { item, postPath };
   });
-  const publishedEntries = entries.filter((entry) => isPublishedStatus(entry?.item?.status));
-  const indexableEntries = entries.filter((entry) => isIndexablePost(entry?.item));
-  const draftEntries = entries.filter((entry) => !isPublishedStatus(entry?.item?.status));
-  const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
-  await updateSelectedWorkPage(entries, idToPostPath);
+  const compiledEntries = entries.filter((entry) => shouldCompileItem(entry?.item, { production: PRODUCTION_BUILD }));
+  const publicEntries = compiledEntries.filter((entry) => isPublicRenderableItem(entry?.item));
+  const publishedEntries = compiledEntries.filter((entry) => isPublishedStatus(entry?.item?.status));
+  const indexableEntries = compiledEntries.filter((entry) => isIndexablePost(entry?.item));
+  const draftEntries = entries.filter((entry) => isDraftLikeItem(entry?.item));
+  const excludedDraftEntries = PRODUCTION_BUILD
+    ? entries.filter((entry) => !shouldCompileItem(entry?.item, { production: true }))
+    : [];
+  const idToPostPath = new Map(compiledEntries.map((entry) => [entry.item.id, entry.postPath]));
+  await updateInterviewPages(sourceUrlHealth);
+  await updateSelectedWorkPage(publicEntries, idToPostPath);
   const selectedCards = await extractSelectedCards();
-  const idToCluster = buildLanguageClusters(items);
-  const searchIndex = buildSearchIndex(entries, selectedCards, idToCluster);
+  const { idToCluster, idToContentId } = buildContentTranslationMaps(items);
+  const publicInterviews = buildPublicInterviewsDataset(sourceUrlHealth);
   const idToIndexStatus = new Map(
-    entries.map((entry) => [String(entry?.item?.id || "").trim(), isIndexablePost(entry?.item) ? "ready" : "draft"])
+    compiledEntries.map((entry) => [String(entry?.item?.id || "").trim(), classifyPostPage(entry?.item)])
+  );
+  const searchIndexes = buildSearchIndexes(
+    publicEntries,
+    selectedCards,
+    sourceUrlHealth,
+    idToCluster,
+    idToContentId,
+    idToPostPath,
+    idToIndexStatus
+  );
+  const publicDigests = buildPublicDigestsDataset(
+    publicEntries,
+    idToCluster,
+    idToContentId,
+    idToPostPath,
+    idToIndexStatus
   );
 
-  for (const entry of entries) {
+  for (const entry of compiledEntries) {
     const html = buildPostHtml(
       entry.item,
       `posts/${entry.postPath}`,
@@ -2923,10 +4793,12 @@ const main = async () => {
   }
 
   // Remove stale generated HTML pages left from old slugs/names.
-  const desiredHtmlFiles = new Set(entries.map((entry) => entry.postPath));
+  const desiredHtmlFiles = new Set(compiledEntries.map((entry) => entry.postPath));
   desiredHtmlFiles.add("index.html");
   desiredHtmlFiles.add("all.html");
-  desiredHtmlFiles.add("drafts.html");
+  if (INCLUDE_DRAFT_OUTPUTS) {
+    desiredHtmlFiles.add("drafts.html");
+  }
   const existingPosts = await fs.readdir(postsDir);
   for (const file of existingPosts) {
     if (!file.toLowerCase().endsWith(".html")) continue;
@@ -2949,16 +4821,18 @@ const main = async () => {
   );
   await fs.writeFile(
     path.join(postsDir, "all.html"),
-    buildPostsIndexHtml(entries, idToCluster, {
+    buildPostsIndexHtml(compiledEntries, idToCluster, {
       canonicalPath: "posts/all.html",
       pageTitle: "Full archive",
-      pageDescription: "Complete archive, including working drafts.",
+      pageDescription: INCLUDE_DRAFT_OUTPUTS
+        ? "Complete archive, including working drafts."
+        : "Complete archive of published pieces.",
       listHeading: "Writing",
       indexable: false,
     }),
     "utf8"
   );
-  if (draftEntries.length > 0) {
+  if (INCLUDE_DRAFT_OUTPUTS && draftEntries.length > 0) {
     await fs.writeFile(
       path.join(postsDir, "drafts.html"),
       buildPostsIndexHtml(draftEntries, idToCluster, {
@@ -2980,9 +4854,30 @@ const main = async () => {
   for (const file of sitemapFiles) {
     await fs.writeFile(path.join(siteDir, file.name), file.content, "utf8");
   }
-  await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(indexableEntries), "utf8");
+  await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(publicEntries), "utf8");
   await fs.writeFile(path.join(siteDir, "robots.txt"), buildRobots(), "utf8");
-  await fs.writeFile(searchIndexPath, JSON.stringify(searchIndex, null, 2) + "\n", "utf8");
+  await fs.writeFile(publicDigestsPath, JSON.stringify(publicDigests, null, 2) + "\n", "utf8");
+  await fs.writeFile(publicInterviewsPath, JSON.stringify(publicInterviews, null, 2) + "\n", "utf8");
+  await fs.writeFile(
+    searchIndexManifestPath,
+    JSON.stringify(
+      {
+        generated_at: searchIndexes.generated_at,
+        counts: searchIndexes.counts,
+        locales: searchIndexes.locales,
+      },
+      null,
+      2
+    ) + "\n",
+    "utf8"
+  );
+  for (const locale of HREFLANG_ORDER) {
+    await fs.writeFile(
+      searchIndexLocalePath(locale),
+      JSON.stringify(searchIndexes.itemsByLocale[locale] || buildSearchIndexForLocale(locale, [], [], sourceUrlHealth), null, 2) + "\n",
+      "utf8"
+    );
+  }
   const notesSource = path.resolve(process.cwd(), "reputation-case", "digest-multilingual-notes-v1.md");
   const notesTarget = path.join(siteDir, "digest-multilingual-notes-v1.md");
   try {
@@ -2990,14 +4885,19 @@ const main = async () => {
   } catch (error) {
     if (error?.code !== "ENOENT") throw error;
   }
-  await updateHomeHtmlFirstCards(indexableEntries);
-  await applyStaticRobotsPolicies();
+  await updateHomeHtmlFirstCards(publicEntries, sourceUrlHealth);
+  await applyStaticHeadSeoPolicies();
   await applyStaticSocialPreviewPolicies();
-  await applyStaticEntityLayer(entries);
+  await applyStaticEntityLayer(compiledEntries);
+  await applyStaticTrustBlockPolicies();
   const fingerprintedAssets = await fingerprintStaticAssets();
+  await rewriteFixedImageLinksInHtml();
+  await cleanupDeprecatedFingerprintedKeyImages();
+  await applyNavigationUiPolicies();
+  await applyStaticLanguageSwitchPolicies();
 
   console.log(
-    `Generated ${entries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${searchIndex.counts.total} docs), home HTML-first cards, fingerprinted assets (${fingerprintedAssets.length})`
+    `Generated ${compiledEntries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft signals${PRODUCTION_BUILD ? `, excluded-from-production=${excludedDraftEntries.length}` : ""}), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${HREFLANG_ORDER.map((locale) => `${locale}:${searchIndexes.counts.locales[locale] || 0}`).join(", ")}), home HTML-first cards, fingerprinted assets (${fingerprintedAssets.length}), source-url-broken=${sourceUrlHealth.brokenUrls.size}, build-env=${BUILD_ENV}`
   );
 };
 

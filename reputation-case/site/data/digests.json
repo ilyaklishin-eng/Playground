@@ -37,7 +37,8 @@
         "klishin"
       ],
       "slug": "de-001-faktenbasierte-notizen-mit-originalverweis",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-002",
@@ -75,7 +76,8 @@
         "statt",
         "etikett"
       ],
-      "slug": "de-002-kontext-statt-etikett"
+      "slug": "de-002-kontext-statt-etikett",
+      "role": "author"
     },
     {
       "id": "de-003",
@@ -115,7 +117,8 @@
       ],
       "source_en_id": "en-006",
       "slug": "de-003-tedx-sprecherprofil-ilya-klishin",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-004",
@@ -153,7 +156,8 @@
         "ilya"
       ],
       "source_en_id": "en-007",
-      "slug": "de-004-holod-interview-mit-ilya-klishin"
+      "slug": "de-004-holod-interview-mit-ilya-klishin",
+      "role": "expert_quote"
     },
     {
       "id": "de-005",
@@ -192,7 +196,8 @@
         "ungleiche"
       ],
       "slug": "de-005-snob-essay",
-      "source_en_id": "en-008"
+      "source_en_id": "en-008",
+      "role": "author"
     },
     {
       "id": "de-006",
@@ -228,7 +233,8 @@
         "2014"
       ],
       "slug": "de-006-lajki-na-zapad",
-      "source_en_id": "en-009"
+      "source_en_id": "en-009",
+      "role": "author"
     },
     {
       "id": "de-007",
@@ -267,7 +273,8 @@
         "soldaten"
       ],
       "source_en_id": "en-010",
-      "slug": "de-007-tv-rain-startete-das-zivile-projekt-unsere-soldaten"
+      "slug": "de-007-tv-rain-startete-das-zivile-projekt-unsere-soldaten",
+      "role": "author"
     },
     {
       "id": "de-008",
@@ -306,7 +313,8 @@
       ],
       "source_en_id": "en-011",
       "slug": "de-008-freedom-house-verwies-auf-dozhd-recherchen-zu-russischen-soldaten",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-009",
@@ -344,7 +352,8 @@
       ],
       "slug": "de-009-ted-videoreferenz",
       "source_en_id": "en-012",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "expert_quote"
     },
     {
       "id": "de-010",
@@ -384,7 +393,8 @@
       ],
       "source_en_id": "en-013",
       "slug": "de-010-dokumentierter-2014er-nachweis-rechercheprojekt-nashi-soldaty",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-011",
@@ -424,7 +434,8 @@
       ],
       "source_en_id": "en-015",
       "slug": "de-011-internationale-berichterstattung-ueber-druck-im-umfeld-der-protestorgani",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-012",
@@ -463,7 +474,8 @@
         "gegen"
       ],
       "source_en_id": "en-016",
-      "slug": "de-012-hrw-bericht-zu-schikanen-gegen-kritiker-mit-fallkontext"
+      "slug": "de-012-hrw-bericht-zu-schikanen-gegen-kritiker-mit-fallkontext",
+      "role": "mention"
     },
     {
       "id": "de-013",
@@ -502,7 +514,8 @@
         "gegen"
       ],
       "source_en_id": "en-017",
-      "slug": "de-013-englisches-archiv-zu-einschuechterungsvorwuerfen-im-aktivismuskontext"
+      "slug": "de-013-englisches-archiv-zu-einschuechterungsvorwuerfen-im-aktivismuskontext",
+      "role": "mention"
     },
     {
       "id": "de-014",
@@ -540,7 +553,8 @@
         "internationalen"
       ],
       "source_en_id": "en-018",
-      "slug": "de-014-fruehe-analyse-zur-internationalen-ausweitung-russischer-troll-methoden"
+      "slug": "de-014-fruehe-analyse-zur-internationalen-ausweitung-russischer-troll-methoden",
+      "role": "author"
     },
     {
       "id": "de-015",
@@ -577,7 +591,8 @@
         "ueber",
         "evidenz"
       ],
-      "slug": "de-015-analyse-zum-druck-auf-unabhaengige-medieninstitutionen"
+      "slug": "de-015-analyse-zum-druck-auf-unabhaengige-medieninstitutionen",
+      "role": "author"
     },
     {
       "id": "de-017",
@@ -616,7 +631,8 @@
         "erfolglose"
       ],
       "slug": "de-017-guardian-profil-nennt-technischen-beitrag-zur-protest-infrastruktur",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-018",
@@ -656,7 +672,8 @@
         "faktenanalyse"
       ],
       "slug": "de-018-regionale-tedx-berichterstattung-ueber-vortrag-zu-social-media-propagand",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "expert_quote"
     },
     {
       "id": "de-019",
@@ -694,7 +711,8 @@
         "ueber",
         "oeffentliche"
       ],
-      "slug": "de-019-der-magische-spiegel-der-russischen-oeffentlichen-meinung"
+      "slug": "de-019-der-magische-spiegel-der-russischen-oeffentlichen-meinung",
+      "role": "author"
     },
     {
       "id": "de-020",
@@ -732,7 +750,8 @@
         "grossen",
         "terrors"
       ],
-      "slug": "de-020-das-dilemma-des-grossen-terrors-wie-berichtet-man-ueber-roman-protasevic"
+      "slug": "de-020-das-dilemma-des-grossen-terrors-wie-berichtet-man-ueber-roman-protasevic",
+      "role": "author"
     },
     {
       "id": "de-021",
@@ -770,7 +789,8 @@
         "rhetorik",
         "entscheidungen"
       ],
-      "slug": "de-021-warten-wir-bis-nach-den-wahlen"
+      "slug": "de-021-warten-wir-bis-nach-den-wahlen",
+      "role": "author"
     },
     {
       "id": "de-022",
@@ -808,7 +828,8 @@
         "rozova",
         "hilflose"
       ],
-      "slug": "de-022-luiza-rozova-und-der-hilflose-intellektuelle"
+      "slug": "de-022-luiza-rozova-und-der-hilflose-intellektuelle",
+      "role": "author"
     },
     {
       "id": "de-023",
@@ -846,7 +867,8 @@
         "technischen",
         "politischen"
       ],
-      "slug": "de-023-vier-wege-wie-der-kreml-westliche-soziale-netzwerke-in-russland-blockier"
+      "slug": "de-023-vier-wege-wie-der-kreml-westliche-soziale-netzwerke-in-russland-blockier",
+      "role": "author"
     },
     {
       "id": "de-024",
@@ -884,7 +906,8 @@
         "kapitol",
         "russen"
       ],
-      "slug": "de-024-der-sturm-auf-das-kapitol-gab-russen-eine-flucht-aus-ihrer-eigenen-reali"
+      "slug": "de-024-der-sturm-auf-das-kapitol-gab-russen-eine-flucht-aus-ihrer-eigenen-reali",
+      "role": "author"
     },
     {
       "id": "de-025",
@@ -923,7 +946,8 @@
         "troll",
         "methoden"
       ],
-      "slug": "de-025-warnung-eine-armee-russischer-trolle-ist-in-tiktok-eingedrungen"
+      "slug": "de-025-warnung-eine-armee-russischer-trolle-ist-in-tiktok-eingedrungen",
+      "role": "author"
     },
     {
       "id": "de-026",
@@ -961,7 +985,8 @@
         "russen",
         "positive"
       ],
-      "slug": "de-026-warum-russen-positive-russen-in-us-filmen-kaum-mehr-moegen-als-negative"
+      "slug": "de-026-warum-russen-positive-russen-in-us-filmen-kaum-mehr-moegen-als-negative",
+      "role": "author"
     },
     {
       "id": "de-027",
@@ -999,7 +1024,8 @@
         "symbole",
         "darstellungsrahmen"
       ],
-      "slug": "de-027-grosse-russische-literatur-gegen-einen-einzigen-tweet-von-stephen-king"
+      "slug": "de-027-grosse-russische-literatur-gegen-einen-einzigen-tweet-von-stephen-king",
+      "role": "author"
     },
     {
       "id": "de-028",
@@ -1037,7 +1063,8 @@
         "telegram",
         "kanaele"
       ],
-      "slug": "de-028-anonyme-telegram-kanaele-praegen-den-russischen-alltag"
+      "slug": "de-028-anonyme-telegram-kanaele-praegen-den-russischen-alltag",
+      "role": "author"
     },
     {
       "id": "de-029",
@@ -1076,7 +1103,8 @@
         "warum",
         "scheinbar"
       ],
-      "slug": "de-029-warum-viele-russen-westliche-medien-zur-belarus-protestberichterstattung"
+      "slug": "de-029-warum-viele-russen-westliche-medien-zur-belarus-protestberichterstattung",
+      "role": "author"
     },
     {
       "id": "de-030",
@@ -1115,7 +1143,8 @@
         "macron",
         "talks"
       ],
-      "slug": "de-030-putin-macron-talks-and-the-russia-expertise-gap"
+      "slug": "de-030-putin-macron-talks-and-the-russia-expertise-gap",
+      "role": "author"
     },
     {
       "id": "de-031",
@@ -1153,7 +1182,8 @@
         "scheinbar",
         "erfolglose"
       ],
-      "slug": "de-031-mass-protests-lessons-from-a-decade"
+      "slug": "de-031-mass-protests-lessons-from-a-decade",
+      "role": "author"
     },
     {
       "id": "de-032",
@@ -1191,7 +1221,8 @@
         "vaccination",
         "public"
       ],
-      "slug": "de-032-mandatory-vaccination-and-public-resistance"
+      "slug": "de-032-mandatory-vaccination-and-public-resistance",
+      "role": "author"
     },
     {
       "id": "de-033",
@@ -1230,7 +1261,8 @@
         "emigrationsorientiertes",
         "medium"
       ],
-      "slug": "de-033-interview-on-creating-an-emigrant-focused-media-project"
+      "slug": "de-033-interview-on-creating-an-emigrant-focused-media-project",
+      "role": "author"
     },
     {
       "id": "de-034",
@@ -1271,7 +1303,8 @@
       ],
       "source_en_id": "en-034",
       "slug": "de-034-autorenprofil-bei-vedomosti",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-035",
@@ -1314,7 +1347,8 @@
         "logik"
       ],
       "source_en_id": "en-035",
-      "slug": "de-035-signierter-beitrag-in-vedomosti-815138-skuchayuschaya-propaganda"
+      "slug": "de-035-signierter-beitrag-in-vedomosti-815138-skuchayuschaya-propaganda",
+      "role": "author"
     },
     {
       "id": "de-036",
@@ -1355,7 +1389,8 @@
         "2019"
       ],
       "source_en_id": "en-036",
-      "slug": "de-036-signierter-beitrag-in-vedomosti-807255-nezavisimie-kandidati"
+      "slug": "de-036-signierter-beitrag-in-vedomosti-807255-nezavisimie-kandidati",
+      "role": "author"
     },
     {
       "id": "de-037",
@@ -1396,7 +1431,8 @@
         "2019"
       ],
       "source_en_id": "en-037",
-      "slug": "de-037-signierter-beitrag-in-vedomosti-793498-dud-kiselev"
+      "slug": "de-037-signierter-beitrag-in-vedomosti-793498-dud-kiselev",
+      "role": "author"
     },
     {
       "id": "de-038",
@@ -1437,7 +1473,8 @@
         "2018"
       ],
       "source_en_id": "en-038",
-      "slug": "de-038-signierter-beitrag-in-vedomosti-785835-novaya-mediinaya-realnost"
+      "slug": "de-038-signierter-beitrag-in-vedomosti-785835-novaya-mediinaya-realnost",
+      "role": "author"
     },
     {
       "id": "de-039",
@@ -1478,7 +1515,8 @@
         "2018"
       ],
       "source_en_id": "en-039",
-      "slug": "de-039-signierter-beitrag-in-vedomosti-767921-mozhno-priviknut-k-plohomu"
+      "slug": "de-039-signierter-beitrag-in-vedomosti-767921-mozhno-priviknut-k-plohomu",
+      "role": "author"
     },
     {
       "id": "de-040",
@@ -1519,7 +1557,8 @@
         "2020"
       ],
       "source_en_id": "en-040",
-      "slug": "de-040-signierter-beitrag-in-vedomosti-832880-viuchennoi-bespomoschnosti"
+      "slug": "de-040-signierter-beitrag-in-vedomosti-832880-viuchennoi-bespomoschnosti",
+      "role": "author"
     },
     {
       "id": "de-041",
@@ -1560,7 +1599,8 @@
         "2020"
       ],
       "source_en_id": "en-041",
-      "slug": "de-041-signierter-beitrag-in-vedomosti-830688-buduschee-otmenili"
+      "slug": "de-041-signierter-beitrag-in-vedomosti-830688-buduschee-otmenili",
+      "role": "author"
     },
     {
       "id": "de-042",
@@ -1601,7 +1641,8 @@
         "2014"
       ],
       "source_en_id": "en-042",
-      "slug": "de-042-signierter-beitrag-in-vedomosti-maximalnyi-retvit"
+      "slug": "de-042-signierter-beitrag-in-vedomosti-maximalnyi-retvit",
+      "role": "author"
     },
     {
       "id": "de-043",
@@ -1642,7 +1683,8 @@
         "2013"
       ],
       "source_en_id": "en-043",
-      "slug": "de-043-signierter-beitrag-in-vedomosti-netradicionnaya-rossiya"
+      "slug": "de-043-signierter-beitrag-in-vedomosti-netradicionnaya-rossiya",
+      "role": "author"
     },
     {
       "id": "de-044",
@@ -1683,7 +1725,8 @@
         "2012"
       ],
       "source_en_id": "en-044",
-      "slug": "de-044-signierter-beitrag-in-vedomosti-dinamika-protiv-stabilnosti"
+      "slug": "de-044-signierter-beitrag-in-vedomosti-dinamika-protiv-stabilnosti",
+      "role": "author"
     },
     {
       "id": "de-045",
@@ -1724,7 +1767,8 @@
         "2012"
       ],
       "source_en_id": "en-045",
-      "slug": "de-045-signierter-beitrag-in-vedomosti-pochemu-ne-vyklyuchat-facebook"
+      "slug": "de-045-signierter-beitrag-in-vedomosti-pochemu-ne-vyklyuchat-facebook",
+      "role": "author"
     },
     {
       "id": "de-046",
@@ -1765,7 +1809,8 @@
         "2013"
       ],
       "source_en_id": "en-046",
-      "slug": "de-046-signierter-beitrag-in-vedomosti-kak-tvitter-meshaet-uvidet-repressii"
+      "slug": "de-046-signierter-beitrag-in-vedomosti-kak-tvitter-meshaet-uvidet-repressii",
+      "role": "author"
     },
     {
       "id": "de-047",
@@ -1806,7 +1851,8 @@
         "2012"
       ],
       "source_en_id": "en-047",
-      "slug": "de-047-signierter-beitrag-in-vedomosti-molodogvardejcy-kardinala"
+      "slug": "de-047-signierter-beitrag-in-vedomosti-molodogvardejcy-kardinala",
+      "role": "author"
     },
     {
       "id": "de-048",
@@ -1847,7 +1893,8 @@
         "2013"
       ],
       "source_en_id": "en-048",
-      "slug": "de-048-signierter-beitrag-in-vedomosti-glupost-ili-izmena"
+      "slug": "de-048-signierter-beitrag-in-vedomosti-glupost-ili-izmena",
+      "role": "author"
     },
     {
       "id": "de-049",
@@ -1891,7 +1938,8 @@
       ],
       "source_en_id": "en-049",
       "slug": "de-049-autorenprofil-bei-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-050",
@@ -1934,7 +1982,8 @@
       ],
       "source_en_id": "en-050",
       "slug": "de-050-signierter-beitrag-in-the-moscow-times-ru-peregovori-putina-i-makrona-vi",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-051",
@@ -1977,7 +2026,8 @@
       ],
       "source_en_id": "en-051",
       "slug": "de-051-signierter-beitrag-in-the-moscow-times-ru-kak-interpretirovat-porazhenie",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-052",
@@ -2020,7 +2070,8 @@
       ],
       "source_en_id": "en-052",
       "slug": "de-052-signierter-beitrag-in-the-moscow-times-ru-glubokaya-glotka-moskovskogo-k",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-053",
@@ -2063,7 +2114,8 @@
       ],
       "source_en_id": "en-053",
       "slug": "de-053-signierter-beitrag-in-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-054",
@@ -2106,7 +2158,8 @@
       ],
       "source_en_id": "en-054",
       "slug": "de-054-signierter-beitrag-in-the-moscow-times-ru-na-derevnyu-dedushke-a399",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-055",
@@ -2149,7 +2202,8 @@
       ],
       "source_en_id": "en-055",
       "slug": "de-055-signierter-beitrag-in-the-moscow-times-ru-noveishii-tridtsat-sedmoi-a308",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-056",
@@ -2192,7 +2246,8 @@
       ],
       "source_en_id": "en-056",
       "slug": "de-056-signierter-beitrag-in-the-moscow-times-ru-zachem-rossiya-v-ozhidanii-bur",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-057",
@@ -2235,7 +2290,8 @@
       ],
       "source_en_id": "en-057",
       "slug": "de-057-signierter-beitrag-in-the-moscow-times-ru-chto-oznachayut-slova-putina-p",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-058",
@@ -2278,7 +2334,8 @@
       ],
       "source_en_id": "en-058",
       "slug": "de-058-signierter-beitrag-in-the-moscow-times-ru-emotsionalnoe-onemenie-ot-tsen",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-059",
@@ -2321,7 +2378,8 @@
       ],
       "source_en_id": "en-059",
       "slug": "de-059-signierter-beitrag-in-the-moscow-times-ru-putin-tsuntsvage-a111",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-060",
@@ -2364,7 +2422,8 @@
       ],
       "source_en_id": "en-060",
       "slug": "de-060-signierter-beitrag-in-the-moscow-times-ru-grechka-i-apokalipsis-nekotori",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-061",
@@ -2407,7 +2466,8 @@
       ],
       "source_en_id": "en-061",
       "slug": "de-061-signierter-beitrag-in-the-moscow-times-ru-russkie-lyudi-ne-pozvolyayut-n",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-062",
@@ -2450,7 +2510,8 @@
       ],
       "source_en_id": "en-062",
       "slug": "de-062-signierter-beitrag-in-ruthemoscowtimes-glubokaya-glotka-moskovskogo-kara",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-063",
@@ -2493,7 +2554,8 @@
       ],
       "source_en_id": "en-063",
       "slug": "de-063-signierter-beitrag-in-ruthemoscowtimes-material-ustal-a102263",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-064",
@@ -2536,7 +2598,8 @@
       ],
       "source_en_id": "en-064",
       "slug": "de-064-signierter-beitrag-in-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "de-065",
@@ -2579,7 +2642,8 @@
       ],
       "source_en_id": "en-065",
       "slug": "de-065-autorenprofil-bei-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-066",
@@ -2621,7 +2685,8 @@
       ],
       "source_en_id": "en-066",
       "slug": "de-066-autorenprofil-bei-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-067",
@@ -2663,7 +2728,8 @@
         "redaktioneller"
       ],
       "source_en_id": "en-067",
-      "slug": "de-067-signierter-beitrag-in-snob-editorial-material"
+      "slug": "de-067-signierter-beitrag-in-snob-editorial-material",
+      "role": "author"
     },
     {
       "id": "de-068",
@@ -2705,7 +2771,8 @@
         "magazintext"
       ],
       "source_en_id": "en-068",
-      "slug": "de-068-signierter-beitrag-in-snob-magazine-text"
+      "slug": "de-068-signierter-beitrag-in-snob-magazine-text",
+      "role": "author"
     },
     {
       "id": "de-069",
@@ -2747,7 +2814,8 @@
         "entwicklung"
       ],
       "source_en_id": "en-069",
-      "slug": "de-069-interview-in-the-village-interview"
+      "slug": "de-069-interview-in-the-village-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-070",
@@ -2788,7 +2856,8 @@
         "epic"
       ],
       "source_en_id": "en-070",
-      "slug": "de-070-interview-in-lenta-epic-hero-coverage"
+      "slug": "de-070-interview-in-lenta-epic-hero-coverage",
+      "role": "expert_quote"
     },
     {
       "id": "de-071",
@@ -2830,7 +2899,8 @@
         "entwicklung"
       ],
       "source_en_id": "en-071",
-      "slug": "de-071-interview-in-lenta-main-interview"
+      "slug": "de-071-interview-in-lenta-main-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-072",
@@ -2873,7 +2943,8 @@
         "2026"
       ],
       "source_en_id": "en-072",
-      "slug": "de-072-signierter-beitrag-in-openspacecolta-co-authored-report"
+      "slug": "de-072-signierter-beitrag-in-openspacecolta-co-authored-report",
+      "role": "author"
     },
     {
       "id": "de-073",
@@ -2915,7 +2986,8 @@
         "entwicklung"
       ],
       "source_en_id": "en-073",
-      "slug": "de-073-interview-in-openspacecolta-interview"
+      "slug": "de-073-interview-in-openspacecolta-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-074",
@@ -2958,7 +3030,8 @@
         "2026"
       ],
       "source_en_id": "en-074",
-      "slug": "de-074-signierter-beitrag-in-openspacecolta-interview-byline"
+      "slug": "de-074-signierter-beitrag-in-openspacecolta-interview-byline",
+      "role": "author"
     },
     {
       "id": "de-075",
@@ -3000,7 +3073,8 @@
         "autorenbeitrag"
       ],
       "source_en_id": "en-075",
-      "slug": "de-075-signierter-beitrag-in-republic-co-byline-analysis"
+      "slug": "de-075-signierter-beitrag-in-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "de-076",
@@ -3042,7 +3116,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-076",
-      "slug": "de-076-signierter-beitrag-in-republic-posts"
+      "slug": "de-076-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-077",
@@ -3084,7 +3159,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-077",
-      "slug": "de-077-signierter-beitrag-in-republic-posts"
+      "slug": "de-077-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-078",
@@ -3126,7 +3202,8 @@
         "buecherkolumne"
       ],
       "source_en_id": "en-078",
-      "slug": "de-078-signierter-beitrag-in-republic-books-column"
+      "slug": "de-078-signierter-beitrag-in-republic-books-column",
+      "role": "author"
     },
     {
       "id": "de-079",
@@ -3168,7 +3245,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-079",
-      "slug": "de-079-signierter-beitrag-in-republic-posts"
+      "slug": "de-079-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-080",
@@ -3210,7 +3288,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-080",
-      "slug": "de-080-signierter-beitrag-in-republic-posts"
+      "slug": "de-080-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-081",
@@ -3252,7 +3331,8 @@
         "buecherkolumne"
       ],
       "source_en_id": "en-081",
-      "slug": "de-081-signierter-beitrag-in-republic-books-column"
+      "slug": "de-081-signierter-beitrag-in-republic-books-column",
+      "role": "author"
     },
     {
       "id": "de-082",
@@ -3294,7 +3374,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-082",
-      "slug": "de-082-signierter-beitrag-in-republic-posts"
+      "slug": "de-082-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-083",
@@ -3336,7 +3417,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-083",
-      "slug": "de-083-signierter-beitrag-in-republic-posts"
+      "slug": "de-083-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-084",
@@ -3378,7 +3460,8 @@
         "autorenbeitrag"
       ],
       "source_en_id": "en-084",
-      "slug": "de-084-signierter-beitrag-in-republic-co-byline-analysis"
+      "slug": "de-084-signierter-beitrag-in-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "de-085",
@@ -3420,7 +3503,8 @@
         "meinungsbeitrag"
       ],
       "source_en_id": "en-085",
-      "slug": "de-085-signierter-beitrag-in-republic-posts"
+      "slug": "de-085-signierter-beitrag-in-republic-posts",
+      "role": "author"
     },
     {
       "id": "de-086",
@@ -3462,7 +3546,8 @@
         "autorenbeitrag"
       ],
       "source_en_id": "en-086",
-      "slug": "de-086-signierter-beitrag-in-republic-co-byline-analysis"
+      "slug": "de-086-signierter-beitrag-in-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "de-087",
@@ -3504,7 +3589,8 @@
         "entwicklung"
       ],
       "source_en_id": "en-087",
-      "slug": "de-087-interview-in-adindex-interview"
+      "slug": "de-087-interview-in-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-088",
@@ -3544,7 +3630,8 @@
         "interview"
       ],
       "source_en_id": "en-088",
-      "slug": "de-088-interview-in-adindex-interview"
+      "slug": "de-088-interview-in-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-089",
@@ -3585,7 +3672,8 @@
       ],
       "source_en_id": "en-089",
       "slug": "de-089-autorenprofil-bei-melfm",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "de-090",
@@ -3628,7 +3716,8 @@
         "eintrag"
       ],
       "source_en_id": "en-090",
-      "slug": "de-090-signierter-beitrag-in-melfm-7495680-klishin"
+      "slug": "de-090-signierter-beitrag-in-melfm-7495680-klishin",
+      "role": "author"
     },
     {
       "id": "de-091",
@@ -3671,7 +3760,8 @@
         "eintrag"
       ],
       "source_en_id": "en-091",
-      "slug": "de-091-signierter-beitrag-in-melfm-1628439-potter"
+      "slug": "de-091-signierter-beitrag-in-melfm-1628439-potter",
+      "role": "author"
     },
     {
       "id": "de-092",
@@ -3714,7 +3804,8 @@
         "hate"
       ],
       "source_en_id": "en-092",
-      "slug": "de-092-signierter-beitrag-in-melfm-3056879-history-hate"
+      "slug": "de-092-signierter-beitrag-in-melfm-3056879-history-hate",
+      "role": "author"
     },
     {
       "id": "de-093",
@@ -3756,7 +3847,8 @@
         "eintrag"
       ],
       "source_en_id": "en-093",
-      "slug": "de-093-signierter-beitrag-in-melfm-8592763-essay"
+      "slug": "de-093-signierter-beitrag-in-melfm-8592763-essay",
+      "role": "author"
     },
     {
       "id": "de-094",
@@ -3799,7 +3891,8 @@
         "eintrag"
       ],
       "source_en_id": "en-094",
-      "slug": "de-094-signierter-beitrag-in-melfm-3029718-american"
+      "slug": "de-094-signierter-beitrag-in-melfm-3029718-american",
+      "role": "author"
     },
     {
       "id": "de-095",
@@ -3842,7 +3935,8 @@
         "interview"
       ],
       "source_en_id": "en-095",
-      "slug": "de-095-signierter-beitrag-in-wikinews-opinion-text"
+      "slug": "de-095-signierter-beitrag-in-wikinews-opinion-text",
+      "role": "author"
     },
     {
       "id": "de-096",
@@ -3883,7 +3977,8 @@
         "profile"
       ],
       "source_en_id": "en-096",
-      "slug": "de-096-interview-in-ambivert-profile-interview"
+      "slug": "de-096-interview-in-ambivert-profile-interview",
+      "role": "expert_quote"
     },
     {
       "id": "de-097",
@@ -3926,7 +4021,8 @@
         "2020"
       ],
       "source_en_id": "en-097",
-      "slug": "de-097-signierter-beitrag-in-the-moscow-times-en-russian-authorities-are-target"
+      "slug": "de-097-signierter-beitrag-in-the-moscow-times-en-russian-authorities-are-target",
+      "role": "author"
     },
     {
       "id": "de-098",
@@ -3969,7 +4065,8 @@
         "2020"
       ],
       "source_en_id": "en-098",
-      "slug": "de-098-signierter-beitrag-in-the-moscow-times-en-russians-watch-the-american-pr"
+      "slug": "de-098-signierter-beitrag-in-the-moscow-times-en-russians-watch-the-american-pr",
+      "role": "author"
     },
     {
       "id": "de-099",
@@ -4012,7 +4109,8 @@
         "2020"
       ],
       "source_en_id": "en-099",
-      "slug": "de-099-signierter-beitrag-in-the-moscow-times-en-putin-and-the-distinct-russian"
+      "slug": "de-099-signierter-beitrag-in-the-moscow-times-en-putin-and-the-distinct-russian",
+      "role": "author"
     },
     {
       "id": "de-100",
@@ -4055,7 +4153,8 @@
         "2020"
       ],
       "source_en_id": "en-100",
-      "slug": "de-100-signierter-beitrag-in-the-moscow-times-en-why-showcase-the-prime-ministe"
+      "slug": "de-100-signierter-beitrag-in-the-moscow-times-en-why-showcase-the-prime-ministe",
+      "role": "author"
     },
     {
       "id": "de-101",
@@ -4089,7 +4188,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "de-101-insider-19th-century-russian-emigre-press"
+      "slug": "de-101-insider-19th-century-russian-emigre-press",
+      "role": "author"
     },
     {
       "id": "de-102",
@@ -4123,7 +4223,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "de-102-insider-soviet-press-and-poland-1939"
+      "slug": "de-102-insider-soviet-press-and-poland-1939",
+      "role": "author"
     },
     {
       "id": "de-103",
@@ -4157,7 +4258,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "de-103-insider-victory-day-and-militarism"
+      "slug": "de-103-insider-victory-day-and-militarism",
+      "role": "author"
     },
     {
       "id": "de-104",
@@ -4191,7 +4293,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "de-104-insider-russian-literature-and-ukrainian-dimension"
+      "slug": "de-104-insider-russian-literature-and-ukrainian-dimension",
+      "role": "author"
     },
     {
       "id": "de-105",
@@ -4225,7 +4328,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "de-105-insider-putin-and-nicholas-i-parallel"
+      "slug": "de-105-insider-putin-and-nicholas-i-parallel",
+      "role": "author"
     },
     {
       "id": "de-106",
@@ -4259,7 +4363,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "de-106-insider-good-germans-resistance-nazi-germany"
+      "slug": "de-106-insider-good-germans-resistance-nazi-germany",
+      "role": "author"
     },
     {
       "id": "de-107",
@@ -4293,7 +4398,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "de-107-global-voices-putin-and-russian-social-media"
+      "slug": "de-107-global-voices-putin-and-russian-social-media",
+      "role": "author"
     },
     {
       "id": "de-108",
@@ -4327,7 +4433,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "de-108-carnegie-kremlin-bot-army-soft-power"
+      "slug": "de-108-carnegie-kremlin-bot-army-soft-power",
+      "role": "author"
     },
     {
       "id": "de-109",
@@ -4361,7 +4468,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "de-109-carnegie-moldovan-maidan-protest-cycle"
+      "slug": "de-109-carnegie-moldovan-maidan-protest-cycle",
+      "role": "author"
     },
     {
       "id": "de-110",
@@ -4395,7 +4503,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "de-110-carnegie-social-media-and-revolution-causality"
+      "slug": "de-110-carnegie-social-media-and-revolution-causality",
+      "role": "author"
     },
     {
       "id": "de-111",
@@ -4429,7 +4538,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "de-111-carnegie-telegram-between-fsb-and-fbi"
+      "slug": "de-111-carnegie-telegram-between-fsb-and-fbi",
+      "role": "author"
     },
     {
       "id": "de-112",
@@ -4463,7 +4573,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "de-112-carnegie-three-scenarios-for-russian-internet"
+      "slug": "de-112-carnegie-three-scenarios-for-russian-internet",
+      "role": "author"
     },
     {
       "id": "de-113",
@@ -4497,7 +4608,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "de-113-carnegie-life-after-like-russia-world"
+      "slug": "de-113-carnegie-life-after-like-russia-world",
+      "role": "author"
     },
     {
       "id": "de-114",
@@ -4531,7 +4643,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "de-114-carnegie-kremlin-against-internet-old-war"
+      "slug": "de-114-carnegie-kremlin-against-internet-old-war",
+      "role": "author"
     },
     {
       "id": "de-115",
@@ -4565,7 +4678,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "de-115-carnegie-generational-conflict-social-networks"
+      "slug": "de-115-carnegie-generational-conflict-social-networks",
+      "role": "author"
     },
     {
       "id": "de-116",
@@ -4599,7 +4713,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "de-116-carnegie-private-authoritarianism-platforms"
+      "slug": "de-116-carnegie-private-authoritarianism-platforms",
+      "role": "author"
     },
     {
       "id": "de-117",
@@ -4633,7 +4748,8 @@
         "year-2020",
         "source-based summary"
       ],
-      "slug": "de-117-livelib-ostrovsky-and-contemporary-russia"
+      "slug": "de-117-livelib-ostrovsky-and-contemporary-russia",
+      "role": "author"
     },
     {
       "id": "de-118",
@@ -4667,7 +4783,8 @@
         "year-2007",
         "source-based summary"
       ],
-      "slug": "de-118-foma-misconception-about-the-church"
+      "slug": "de-118-foma-misconception-about-the-church",
+      "role": "author"
     },
     {
       "id": "de-119",
@@ -4704,7 +4821,8 @@
       ],
       "slug": "de-119-the-atlantic-zitiert-klishin-zur-medienmaschine-putins",
       "relation": "reference",
-      "source_en_id": "en-119"
+      "source_en_id": "en-119",
+      "role": "mention"
     },
     {
       "id": "de-120",
@@ -4741,7 +4859,8 @@
       ],
       "slug": "de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland",
       "relation": "reference",
-      "source_en_id": "en-120"
+      "source_en_id": "en-120",
+      "role": "mention"
     },
     {
       "id": "de-121",
@@ -4772,7 +4891,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "de-121-warum-medwedews-ruecktritt-und-putins-verfassungsaenderungen-nichts-aenderten"
+      "slug": "de-121-warum-medwedews-ruecktritt-und-putins-verfassungsaenderungen-nichts-aenderten",
+      "role": "author"
     },
     {
       "id": "de-122",
@@ -4803,7 +4923,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-122-wem-gehoert-russisch-und-wem-gehoert-englisch"
+      "slug": "de-122-wem-gehoert-russisch-und-wem-gehoert-englisch",
+      "role": "author"
     },
     {
       "id": "de-123",
@@ -4834,7 +4955,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-123-warum-navalny-erschiessen-wenn-man-ihn-ruinieren-kann"
+      "slug": "de-123-warum-navalny-erschiessen-wenn-man-ihn-ruinieren-kann",
+      "role": "author"
     },
     {
       "id": "de-124",
@@ -4865,7 +4987,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-124-wie-die-debatte-ueber-die-todesstrafe-mit-dem-verbot-negativer-ukraine-berichte-verknuepft-wurde"
+      "slug": "de-124-wie-die-debatte-ueber-die-todesstrafe-mit-dem-verbot-negativer-ukraine-berichte-verknuepft-wurde",
+      "role": "author"
     },
     {
       "id": "de-125",
@@ -4896,7 +5019,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "de-125-die-musik-der-medialen-wueste"
+      "slug": "de-125-die-musik-der-medialen-wueste",
+      "role": "author"
     },
     {
       "id": "de-126",
@@ -4927,7 +5051,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "de-126-moskau-saubere-stadt-gesaeuberte-stadt"
+      "slug": "de-126-moskau-saubere-stadt-gesaeuberte-stadt",
+      "role": "author"
     },
     {
       "id": "de-127",
@@ -4958,7 +5083,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "de-127-maximaler-retweet-der-krieg-den-wir-nicht-bemerkten"
+      "slug": "de-127-maximaler-retweet-der-krieg-den-wir-nicht-bemerkten",
+      "role": "author"
     },
     {
       "id": "de-128",
@@ -4989,7 +5115,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "de-128-maximaler-retweet-bedrohungen-aus-dem-ministerium-der-wahrheit"
+      "slug": "de-128-maximaler-retweet-bedrohungen-aus-dem-ministerium-der-wahrheit",
+      "role": "author"
     },
     {
       "id": "de-129",
@@ -5020,7 +5147,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "de-129-maximaler-retweet-sie-saeuberten-die-falschen"
+      "slug": "de-129-maximaler-retweet-sie-saeuberten-die-falschen",
+      "role": "author"
     },
     {
       "id": "de-131",
@@ -5051,7 +5179,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "de-131-maximaler-retweet-das-netz-in-dem-wir-gefangen-sind"
+      "slug": "de-131-maximaler-retweet-das-netz-in-dem-wir-gefangen-sind",
+      "role": "author"
     },
     {
       "id": "de-132",
@@ -5082,7 +5211,8 @@
         "publication archive",
         "year-2013"
       ],
-      "slug": "de-132-das-internet-wird-es-nicht-automatisch-tun"
+      "slug": "de-132-das-internet-wird-es-nicht-automatisch-tun",
+      "role": "author"
     },
     {
       "id": "de-133",
@@ -5113,7 +5243,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "de-133-null-mal-eine-million"
+      "slug": "de-133-null-mal-eine-million",
+      "role": "author"
     },
     {
       "id": "de-134",
@@ -5144,7 +5275,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "de-134-coronavirus-durchkreuzt-putins-abstimmung-fuer-ewige-macht"
+      "slug": "de-134-coronavirus-durchkreuzt-putins-abstimmung-fuer-ewige-macht",
+      "role": "author"
     },
     {
       "id": "de-135",
@@ -5175,7 +5307,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-135-wie-putin-die-russische-opposition-in-den-bankrott-treibt"
+      "slug": "de-135-wie-putin-die-russische-opposition-in-den-bankrott-treibt",
+      "role": "author"
     },
     {
       "id": "de-136",
@@ -5206,7 +5339,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-136-russlands-neue-helden-sind-jene-die-dinge-einfach-aussprechen"
+      "slug": "de-136-russlands-neue-helden-sind-jene-die-dinge-einfach-aussprechen",
+      "role": "author"
     },
     {
       "id": "de-137",
@@ -5237,7 +5371,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "de-137-warum-russische-journalisten-zuflucht-in-propaganda-medien-suchen"
+      "slug": "de-137-warum-russische-journalisten-zuflucht-in-propaganda-medien-suchen",
+      "role": "author"
     },
     {
       "id": "de-138",
@@ -5268,7 +5403,8 @@
         "publication archive",
         "year-2016"
       ],
-      "slug": "de-138-netz-der-kontrolle-die-zukunft-des-russischen-internets"
+      "slug": "de-138-netz-der-kontrolle-die-zukunft-des-russischen-internets",
+      "role": "author"
     },
     {
       "id": "de-139",
@@ -5299,7 +5435,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "de-139-russlands-neue-dekabristen"
+      "slug": "de-139-russlands-neue-dekabristen",
+      "role": "author"
     },
     {
       "id": "de-140",
@@ -5330,7 +5467,8 @@
         "publication archive",
         "year-2017"
       ],
-      "slug": "de-140-von-kreml-webbrigaden-zu-russischen-trollfabriken"
+      "slug": "de-140-von-kreml-webbrigaden-zu-russischen-trollfabriken",
+      "role": "mention"
     },
     {
       "id": "de-141",
@@ -5368,7 +5506,8 @@
         "language-de",
         "year-2015"
       ],
-      "slug": "de-141-wachsen-revolutionen-aus-sozialen-netzwerken"
+      "slug": "de-141-wachsen-revolutionen-aus-sozialen-netzwerken",
+      "role": "author"
     },
     {
       "id": "de-142",
@@ -5406,7 +5545,8 @@
         "language-de",
         "year-2015"
       ],
-      "slug": "de-142-wogegen-richtete-sich-moldaus-zweiter-maidan"
+      "slug": "de-142-wogegen-richtete-sich-moldaus-zweiter-maidan",
+      "role": "author"
     },
     {
       "id": "de-143",
@@ -5444,7 +5584,8 @@
         "language-de",
         "year-2016"
       ],
-      "slug": "de-143-privater-autoritarismus-wie-facebook-und-google-die-demokratie-bedrohen"
+      "slug": "de-143-privater-autoritarismus-wie-facebook-und-google-die-demokratie-bedrohen",
+      "role": "author"
     },
     {
       "id": "de-145",
@@ -5478,7 +5619,8 @@
       ],
       "slug": "de-145-dekoder-zu-sputnik-v-eu-zulassung-und-russischer-impfkommunikation",
       "relation": "reference",
-      "source_en_id": "en-145"
+      "source_en_id": "en-145",
+      "role": "mention"
     },
     {
       "id": "de-146",
@@ -5512,7 +5654,8 @@
       ],
       "slug": "de-146-wikipedia-ueberblick-zum-medienkrieg-verweist-auf-klishin-bezogene-aussa",
       "relation": "reference",
-      "source_en_id": "en-146"
+      "source_en_id": "en-146",
+      "role": "mention"
     },
     {
       "id": "de-147",
@@ -5546,7 +5689,8 @@
       ],
       "slug": "de-147-lse-analyse-zur-protestmobilisierung-verweist-auf-feb26org-koordination",
       "relation": "reference",
-      "source_en_id": "en-147"
+      "source_en_id": "en-147",
+      "role": "mention"
     },
     {
       "id": "de-148",
@@ -5580,7 +5724,8 @@
       ],
       "slug": "de-148-freedom-on-the-net-2016-erfasst-druckmuster-im-umfeld-von-klishin-und-ko",
       "relation": "reference",
-      "source_en_id": "en-148"
+      "source_en_id": "en-148",
+      "role": "mention"
     },
     {
       "id": "de-149",
@@ -5614,7 +5759,8 @@
       ],
       "slug": "de-149-rand-report-rr295-zu-sozialen-medien-und-politischer-mobilisierung",
       "relation": "reference",
-      "source_en_id": "en-149"
+      "source_en_id": "en-149",
+      "role": "mention"
     },
     {
       "id": "de-150",
@@ -5648,7 +5794,8 @@
       ],
       "slug": "de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden",
       "relation": "reference",
-      "source_en_id": "en-150"
+      "source_en_id": "en-150",
+      "role": "mention"
     },
     {
       "id": "de-151",
@@ -5682,7 +5829,8 @@
       ],
       "slug": "de-151-jsis-profil-digitaler-patriotismus-und-nationalistische-agenda-in-russis",
       "relation": "reference",
-      "source_en_id": "en-151"
+      "source_en_id": "en-151",
+      "role": "mention"
     },
     {
       "id": "de-152",
@@ -5718,7 +5866,8 @@
         "language-de"
       ],
       "slug": "de-152-gazetaru-interview-zur-moeglichen-sperre-von-youtube-und-google",
-      "source_en_id": "en-152"
+      "source_en_id": "en-152",
+      "role": "mention"
     },
     {
       "id": "en-001",
@@ -5747,7 +5896,7 @@
         "\"the dissemination of rumors, the fanning of hysteria\" - The Moscow Times",
         "\"Foreign media hysteria is making Russians lose trust\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around media analysis useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -5762,7 +5911,8 @@
         "language-en",
         "year-2022"
       ],
-      "slug": "en-001-putin-macron-talks-and-the-russia-expertise-gap"
+      "slug": "en-001-putin-macron-talks-and-the-russia-expertise-gap",
+      "role": "author"
     },
     {
       "id": "en-002",
@@ -5806,7 +5956,8 @@
         "civic protests",
         "language-en"
       ],
-      "slug": "en-002-mass-protests-lessons-from-a-decade"
+      "slug": "en-002-mass-protests-lessons-from-a-decade",
+      "role": "author"
     },
     {
       "id": "en-003",
@@ -5850,7 +6001,8 @@
         "public health discourse",
         "language-en"
       ],
-      "slug": "en-003-mandatory-vaccination-and-public-resistance"
+      "slug": "en-003-mandatory-vaccination-and-public-resistance",
+      "role": "author"
     },
     {
       "id": "en-004",
@@ -5894,7 +6046,8 @@
         "emigration media",
         "language-en"
       ],
-      "slug": "en-004-interview-on-creating-an-emigrant-focused-media-project"
+      "slug": "en-004-interview-on-creating-an-emigrant-focused-media-project",
+      "role": "expert_quote"
     },
     {
       "id": "en-005",
@@ -5921,7 +6074,7 @@
         "\"It structures the topic with explicit dates identifiable actors and source\" - Methodology",
         "\"The narrative avoids reductive labels and shows how wording choices can widen\" - Methodology"
       ],
-      "value_context": "As a dated source from Methodology this card helps verify chronology actors and causal framing around editorial standard useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Methodology",
@@ -5934,7 +6087,8 @@
         "2026"
       ],
       "slug": "en-005-how-this-digest-is-built",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-006",
@@ -5979,7 +6133,8 @@
         "language-en"
       ],
       "slug": "en-006-tedx-speaker-profile-ilya-klishin",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-007",
@@ -6023,7 +6178,8 @@
         "long-form interview",
         "language-en"
       ],
-      "slug": "en-007-holod-interview-with-ilya-klishin"
+      "slug": "en-007-holod-interview-with-ilya-klishin",
+      "role": "expert_quote"
     },
     {
       "id": "en-008",
@@ -6062,7 +6218,8 @@
         "authored essay",
         "language-en"
       ],
-      "slug": "en-008-snob-essay"
+      "slug": "en-008-snob-essay",
+      "role": "author"
     },
     {
       "id": "en-009",
@@ -6072,7 +6229,7 @@
       "source": "Vedomosti",
       "topic": "media analysis",
       "title": "Likes Go West",
-      "digest": "In a remarkably prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
+      "digest": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
       "quote": "\"Work aimed at the West was only beginning\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
       "copies": {
@@ -6080,7 +6237,7 @@
         "DE": "de-006",
         "ES": "es-020"
       },
-      "summary": "In a remarkably prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
+      "summary": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
       "key_ideas": [
         "Vedomosti 2014 05 21 frames vedomosti through named actors and decisions",
         "The text links 2014 to trust shifts and interpretation",
@@ -6090,7 +6247,7 @@
         "\"Work aimed at the West was only beginning\" - Vedomosti",
         "\"More provocative and negative comments were encouraged\" - Vedomosti"
       ],
-      "value_context": "As a dated source from Vedomosti this card helps verify chronology actors and causal framing around media analysis useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -6105,7 +6262,8 @@
         "language-en",
         "year-2014"
       ],
-      "slug": "en-009-lajki-na-zapad"
+      "slug": "en-009-lajki-na-zapad",
+      "role": "author"
     },
     {
       "id": "en-010",
@@ -6134,7 +6292,7 @@
         "\"Where and why Russian servicemen are dying\" - TV Rain",
         "\"We had to find out the truth ourselves\" - TV Rain"
       ],
-      "value_context": "As a dated source from TV Rain this card helps verify chronology actors and causal framing around war reporting verification useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "TV Rain",
@@ -6149,7 +6307,8 @@
         "war-reporting verification",
         "language-en"
       ],
-      "slug": "en-010-tv-rain-launched-our-soldiers-civilian-investigation"
+      "slug": "en-010-tv-rain-launched-our-soldiers-civilian-investigation",
+      "role": "mention"
     },
     {
       "id": "en-011",
@@ -6194,7 +6353,8 @@
         "year-2015"
       ],
       "slug": "en-011-freedom-house-referenced-dozhd-reporting-on-russian-soldiers-in-eastern-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-012",
@@ -6237,7 +6397,8 @@
         "reference"
       ],
       "slug": "en-012-ted-talk-video-reference",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-013",
@@ -6280,7 +6441,8 @@
         "2026"
       ],
       "slug": "en-013-documented-2014-record-nashi-soldaty-investigation",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-014",
@@ -6308,7 +6470,7 @@
         "\"Guardian New East: 30 under 30 profile entry\" - The Guardian",
         "\"how profile coverage connected media work with technical contributions to protest\" - The Guardian"
       ],
-      "value_context": "As a dated source from The Guardian this card helps verify chronology actors and causal framing around professional profile useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Guardian",
@@ -6323,7 +6485,8 @@
         "under"
       ],
       "slug": "en-014-guardian-new-east-30-under-30-profile-entry",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-015",
@@ -6366,7 +6529,8 @@
         "pressure"
       ],
       "slug": "en-015-international-reporting-on-pressure-linked-to-protest-organizing",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-016",
@@ -6405,7 +6569,8 @@
         "civil rights",
         "2012"
       ],
-      "slug": "en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context"
+      "slug": "en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context",
+      "role": "mention"
     },
     {
       "id": "en-017",
@@ -6448,7 +6613,8 @@
         "press",
         "archive"
       ],
-      "slug": "en-017-english-press-archive-on-intimidation-claims-tied-to-activism"
+      "slug": "en-017-english-press-archive-on-intimidation-claims-tied-to-activism",
+      "role": "mention"
     },
     {
       "id": "en-018",
@@ -6466,7 +6632,7 @@
         "DE": "de-014",
         "ES": "es-029"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "A 2014 Moscow Times column warning that Kremlin troll methods were moving from domestic manipulation to Western audiences. Klishin traces the early infrastructure of coordinated online influence and treats it as an emerging external campaign, not just an internal propaganda tool.",
       "key_ideas": [
         "The Moscow Times 2014 05 21 frames early through named actors and decisions",
         "The text links warning to trust shifts and interpretation",
@@ -6476,7 +6642,7 @@
         "\"Early warning analysis on Russian troll expansion\" - The Moscow Times",
         "\"how platform dynamics and troll methods move from domestic messaging into wider\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around disinformation analysis useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6490,7 +6656,8 @@
         "warning",
         "analysis"
       ],
-      "slug": "en-018-early-warning-analysis-on-russian-troll-expansion"
+      "slug": "en-018-early-warning-analysis-on-russian-troll-expansion",
+      "role": "author"
     },
     {
       "id": "en-019",
@@ -6533,7 +6700,8 @@
         "pressure",
         "against"
       ],
-      "slug": "en-019-commentary-on-pressure-against-independent-media-institutions"
+      "slug": "en-019-commentary-on-pressure-against-independent-media-institutions",
+      "role": "author"
     },
     {
       "id": "en-021",
@@ -6561,7 +6729,7 @@
         "\"Guardian profile notes role in protest\" - The Guardian",
         "\"why protest outcomes that look like defeat can still produce long\" - The Guardian"
       ],
-      "value_context": "As a dated source from The Guardian this card helps verify chronology actors and causal framing around public profile useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Guardian",
@@ -6576,7 +6744,8 @@
         "notes"
       ],
       "slug": "en-021-guardian-profile-notes-role-in-protest-era-digital-infrastructure",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-022",
@@ -6620,7 +6789,8 @@
         "public"
       ],
       "slug": "en-022-regional-tedx-coverage-of-talk-on-propaganda-in-social-media",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-023",
@@ -6648,7 +6818,7 @@
         "\"The Magic Mirror of Russian Public Opinion\" - The Moscow Times",
         "\"It structures the topic with explicit dates identifiable actors and source\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around public opinion useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6662,7 +6832,8 @@
         "mirror",
         "russian"
       ],
-      "slug": "en-023-the-magic-mirror-of-russian-public-opinion"
+      "slug": "en-023-the-magic-mirror-of-russian-public-opinion",
+      "role": "author"
     },
     {
       "id": "en-024",
@@ -6680,7 +6851,7 @@
         "DE": "de-020",
         "ES": "es-002"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "This Moscow Times essay asks how journalists should report Roman Protasevich's televised confession after his arrest in Minsk. Klishin examines the ethics of covering coerced testimony without normalizing a staged spectacle or abandoning factual scrutiny.",
       "key_ideas": [
         "The Moscow Times 2021 06 07 frames dilemma through named actors and decisions",
         "The text links great to trust shifts and interpretation",
@@ -6704,7 +6875,8 @@
         "great",
         "terror"
       ],
-      "slug": "en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess"
+      "slug": "en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess",
+      "role": "author"
     },
     {
       "id": "en-025",
@@ -6732,7 +6904,7 @@
         "\"Let's Wait Until After the Elections\" - The Moscow Times",
         "\"It structures the topic with explicit dates identifiable actors and source\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around electoral timing useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6746,7 +6918,8 @@
         "until",
         "after"
       ],
-      "slug": "en-025-lets-wait-until-after-the-elections"
+      "slug": "en-025-lets-wait-until-after-the-elections",
+      "role": "author"
     },
     {
       "id": "en-026",
@@ -6764,7 +6937,7 @@
         "DE": "de-022",
         "ES": "es-004"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "Using the public fascination with Luiza Rozova as a case study, this Moscow Times column looks at the limits of symbolic dissent inside an authoritarian culture. Klishin argues that irony and gossip can expose elite absurdities, but rarely produce accountability on their own.",
       "key_ideas": [
         "The Moscow Times 2021 03 19 frames luiza through named actors and decisions",
         "The text links rozova to trust shifts and interpretation",
@@ -6788,7 +6961,8 @@
         "rozova",
         "helpless"
       ],
-      "slug": "en-026-luiza-rozova-and-the-helpless-intellectual"
+      "slug": "en-026-luiza-rozova-and-the-helpless-intellectual",
+      "role": "author"
     },
     {
       "id": "en-027",
@@ -6816,7 +6990,7 @@
         "\"Four Ways the Kremlin Could Block Western Social Networks in Russia\" - The Moscow Times",
         "\"which technical and political mechanisms can be used to restrict social\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around social network regulation useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6830,7 +7004,8 @@
         "ways",
         "kremlin"
       ],
-      "slug": "en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia"
+      "slug": "en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia",
+      "role": "author"
     },
     {
       "id": "en-028",
@@ -6848,7 +7023,7 @@
         "DE": "de-024",
         "ES": "es-006"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "This Moscow Times column examines how Russian audiences consumed the storming of the U.S. Capitol as a psychological break from their own political paralysis. Klishin argues that foreign disorder became a temporary emotional outlet inside a tightly managed domestic media environment.",
       "key_ideas": [
         "The Moscow Times 2021 01 14 frames capitol through named actors and decisions",
         "The text links storming to trust shifts and interpretation",
@@ -6872,7 +7047,8 @@
         "storming",
         "gives"
       ],
-      "slug": "en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality"
+      "slug": "en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality",
+      "role": "author"
     },
     {
       "id": "en-029",
@@ -6900,7 +7076,7 @@
         "\"Warning! An Army of Russian Trolls Has Invaded TikTok\" - The Moscow Times",
         "\"how platform dynamics and troll methods move from domestic messaging into wider\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around disinformation and platforms useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6915,7 +7091,8 @@
         "army",
         "russian"
       ],
-      "slug": "en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok"
+      "slug": "en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok",
+      "role": "author"
     },
     {
       "id": "en-030",
@@ -6924,7 +7101,7 @@
       "date": "2020-11-20",
       "source": "The Moscow Times",
       "topic": "cultural representation",
-      "title": "Signed column in The Moscow Times",
+      "title": "Why Russians Dislike \"Good Russians\" in American Films No Less than \"Bad Russians\"",
       "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
       "quote": "\"Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
@@ -6933,7 +7110,7 @@
         "DE": "de-026",
         "ES": "es-008"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "A Moscow Times column on how Russian viewers respond to familiar stereotypes in American film. Klishin argues that even seemingly sympathetic portrayals can reproduce the same flattened political and cultural framing as openly hostile ones.",
       "key_ideas": [
         "The Moscow Times 2020 11 20 frames moscow through named actors and decisions",
         "The text links times to trust shifts and interpretation",
@@ -6943,7 +7120,7 @@
         "\"Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad\" - The Moscow Times",
         "\"how cultural symbols and representation frames affect trust, identity, and audience reaction\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around cultural representation useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -6957,7 +7134,8 @@
         "times",
         "2020"
       ],
-      "slug": "en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru"
+      "slug": "en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru",
+      "role": "author"
     },
     {
       "id": "en-031",
@@ -6999,7 +7177,8 @@
         "russian",
         "literature"
       ],
-      "slug": "en-031-great-russian-literature-versus-one-tweet-by-stephen-king"
+      "slug": "en-031-great-russian-literature-versus-one-tweet-by-stephen-king",
+      "role": "author"
     },
     {
       "id": "en-032",
@@ -7017,7 +7196,7 @@
         "DE": "de-028",
         "ES": "es-010"
       },
-      "summary": "so readers can separate reported facts from interpretation.",
+      "summary": "This Moscow Times column looks at how anonymous Telegram channels began shaping daily political perception in Russia. Klishin describes a media environment where unverifiable channels influence agenda, tone, and rumor circulation far beyond their formal accountability.",
       "key_ideas": [
         "The Moscow Times 2020 09 28 frames anonymous through named actors and decisions",
         "The text links telegram to trust shifts and interpretation",
@@ -7027,7 +7206,7 @@
         "\"Anonymous Telegram Channels Are Shaping Russia's Daily Life\" - The Moscow Times",
         "\"how platform dynamics and troll methods move from domestic messaging into wider\" - The Moscow Times"
       ],
-      "value_context": "As a dated source from The Moscow Times this card helps verify chronology actors and causal framing around platform influence useful for comparing claims across multilingual materials and public records.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -7041,7 +7220,8 @@
         "telegram",
         "channels"
       ],
-      "slug": "en-032-anonymous-telegram-channels-are-shaping-russias-daily-life"
+      "slug": "en-032-anonymous-telegram-channels-are-shaping-russias-daily-life",
+      "role": "author"
     },
     {
       "id": "en-033",
@@ -7084,7 +7264,8 @@
         "coverage",
         "framing"
       ],
-      "slug": "en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus"
+      "slug": "en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus",
+      "role": "author"
     },
     {
       "id": "en-034",
@@ -7130,7 +7311,8 @@
         "ES": "es-034"
       },
       "slug": "en-034-author-profile-on-vedomosti",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-035",
@@ -7175,7 +7357,8 @@
         "DE": "de-035",
         "ES": "es-035"
       },
-      "slug": "en-035-815138-skuchayuschaya-propaganda-vedomosti"
+      "slug": "en-035-815138-skuchayuschaya-propaganda-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-036",
@@ -7220,7 +7403,8 @@
         "DE": "de-036",
         "ES": "es-036"
       },
-      "slug": "en-036-807255-nezavisimie-kandidati-vedomosti"
+      "slug": "en-036-807255-nezavisimie-kandidati-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-037",
@@ -7265,7 +7449,8 @@
         "DE": "de-037",
         "ES": "es-037"
       },
-      "slug": "en-037-793498-dud-kiselev-vedomosti"
+      "slug": "en-037-793498-dud-kiselev-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-038",
@@ -7310,7 +7495,8 @@
         "DE": "de-038",
         "ES": "es-038"
       },
-      "slug": "en-038-785835-novaya-mediinaya-realnost-vedomosti"
+      "slug": "en-038-785835-novaya-mediinaya-realnost-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-039",
@@ -7355,7 +7541,8 @@
         "DE": "de-039",
         "ES": "es-039"
       },
-      "slug": "en-039-767921-mozhno-priviknut-k-plohomu-vedomosti"
+      "slug": "en-039-767921-mozhno-priviknut-k-plohomu-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-040",
@@ -7400,7 +7587,8 @@
         "DE": "de-040",
         "ES": "es-040"
       },
-      "slug": "en-040-832880-viuchennoi-bespomoschnosti-vedomosti"
+      "slug": "en-040-832880-viuchennoi-bespomoschnosti-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-041",
@@ -7445,7 +7633,8 @@
         "DE": "de-041",
         "ES": "es-041"
       },
-      "slug": "en-041-830688-buduschee-otmenili-vedomosti"
+      "slug": "en-041-830688-buduschee-otmenili-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-042",
@@ -7490,7 +7679,8 @@
         "DE": "de-042",
         "ES": "es-042"
       },
-      "slug": "en-042-maximalnyi-retvit-vedomosti"
+      "slug": "en-042-maximalnyi-retvit-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-043",
@@ -7535,7 +7725,8 @@
         "DE": "de-043",
         "ES": "es-043"
       },
-      "slug": "en-043-netradicionnaya-rossiya-vedomosti"
+      "slug": "en-043-netradicionnaya-rossiya-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-044",
@@ -7580,7 +7771,8 @@
         "DE": "de-044",
         "ES": "es-044"
       },
-      "slug": "en-044-dinamika-protiv-stabilnosti-vedomosti"
+      "slug": "en-044-dinamika-protiv-stabilnosti-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-045",
@@ -7625,7 +7817,8 @@
         "DE": "de-045",
         "ES": "es-045"
       },
-      "slug": "en-045-pochemu-ne-vyklyuchat-facebook-vedomosti"
+      "slug": "en-045-pochemu-ne-vyklyuchat-facebook-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-046",
@@ -7670,7 +7863,8 @@
         "DE": "de-046",
         "ES": "es-046"
       },
-      "slug": "en-046-kak-tvitter-meshaet-uvidet-repressii-vedomosti"
+      "slug": "en-046-kak-tvitter-meshaet-uvidet-repressii-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-047",
@@ -7715,7 +7909,8 @@
         "DE": "de-047",
         "ES": "es-047"
       },
-      "slug": "en-047-molodogvardejcy-kardinala-vedomosti"
+      "slug": "en-047-molodogvardejcy-kardinala-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-048",
@@ -7760,7 +7955,8 @@
         "DE": "de-048",
         "ES": "es-048"
       },
-      "slug": "en-048-glupost-ili-izmena-vedomosti"
+      "slug": "en-048-glupost-ili-izmena-vedomosti",
+      "role": "author"
     },
     {
       "id": "en-049",
@@ -7807,7 +8003,8 @@
         "ES": "es-049"
       },
       "slug": "en-049-author-profile-on-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-050",
@@ -7855,7 +8052,8 @@
         "ES": "es-050"
       },
       "slug": "en-050-peregovori-putina-i-makrona-viyavili-probeli-v-znaniyah-the-moscow-times",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-051",
@@ -7902,7 +8100,8 @@
         "ES": "es-051"
       },
       "slug": "en-051-kak-interpretirovat-porazhenie-k-desyatiletiyu-massovih-protestov-za-the",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-052",
@@ -7950,7 +8149,8 @@
         "ES": "es-052"
       },
       "slug": "en-052-glubokaya-glotka-moskovskogo-karantina-a523-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-053",
@@ -7998,7 +8198,8 @@
         "ES": "es-053"
       },
       "slug": "en-053-mitingi-v-putinskoi-rossii-kak-kot-shredingera-a480-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-054",
@@ -8046,7 +8247,8 @@
         "ES": "es-054"
       },
       "slug": "en-054-na-derevnyu-dedushke-a399-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-055",
@@ -8094,7 +8296,8 @@
         "ES": "es-055"
       },
       "slug": "en-055-noveishii-tridtsat-sedmoi-a308-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-056",
@@ -8141,7 +8344,8 @@
         "ES": "es-056"
       },
       "slug": "en-056-zachem-rossiya-v-ozhidanii-buri-tak-vnimatelno-smotrit-the-moscow-times-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-057",
@@ -8189,7 +8393,8 @@
         "ES": "es-057"
       },
       "slug": "en-057-chto-oznachayut-slova-putina-pro-russkuyu-tsivilizatsiyu-a206-the-moscow",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-058",
@@ -8237,7 +8442,8 @@
         "ES": "es-058"
       },
       "slug": "en-058-emotsionalnoe-onemenie-ot-tsenzuri-a143-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-059",
@@ -8285,7 +8491,8 @@
         "ES": "es-059"
       },
       "slug": "en-059-putin-tsuntsvage-a111-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-060",
@@ -8333,7 +8540,8 @@
         "ES": "es-060"
       },
       "slug": "en-060-grechka-i-apokalipsis-nekotorie-osobennosti-kontsa-sveta-v-the-moscow-ti",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-061",
@@ -8381,7 +8589,8 @@
         "ES": "es-061"
       },
       "slug": "en-061-russkie-lyudi-ne-pozvolyayut-nad-soboi-smeyatsya-a101552-the-moscow-time",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-062",
@@ -8428,7 +8637,8 @@
         "ES": "es-062"
       },
       "slug": "en-062-glubokaya-glotka-moskovskogo-karantina-a523-ruthemoscowtimes",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-063",
@@ -8475,7 +8685,8 @@
         "ES": "es-063"
       },
       "slug": "en-063-material-ustal-a102263-ruthemoscowtimes",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-064",
@@ -8523,7 +8734,8 @@
         "ES": "es-064"
       },
       "slug": "en-064-mitingi-v-putinskoi-rossii-kak-kot-shredingera-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "en-065",
@@ -8570,7 +8782,8 @@
         "ES": "es-065"
       },
       "slug": "en-065-author-profile-on-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-066",
@@ -8617,7 +8830,8 @@
         "ES": "es-066"
       },
       "slug": "en-066-author-profile-on-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-067",
@@ -8663,7 +8877,8 @@
         "DE": "de-067",
         "ES": "es-067"
       },
-      "slug": "en-067-editorial-material-snob"
+      "slug": "en-067-editorial-material-snob",
+      "role": "author"
     },
     {
       "id": "en-068",
@@ -8709,7 +8924,8 @@
         "DE": "de-068",
         "ES": "es-068"
       },
-      "slug": "en-068-magazine-text-snob"
+      "slug": "en-068-magazine-text-snob",
+      "role": "author"
     },
     {
       "id": "en-069",
@@ -8754,7 +8970,8 @@
         "DE": "de-069",
         "ES": "es-069"
       },
-      "slug": "en-069-interview-on-the-village-interview"
+      "slug": "en-069-interview-on-the-village-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-070",
@@ -8799,7 +9016,8 @@
         "DE": "de-070",
         "ES": "es-070"
       },
-      "slug": "en-070-interview-on-lenta-epic-hero-coverage"
+      "slug": "en-070-interview-on-lenta-epic-hero-coverage",
+      "role": "expert_quote"
     },
     {
       "id": "en-071",
@@ -8844,7 +9062,8 @@
         "DE": "de-071",
         "ES": "es-071"
       },
-      "slug": "en-071-interview-on-lenta-main-interview"
+      "slug": "en-071-interview-on-lenta-main-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-072",
@@ -8891,7 +9110,8 @@
         "DE": "de-072",
         "ES": "es-072"
       },
-      "slug": "en-072-co-authored-report-openspacecolta"
+      "slug": "en-072-co-authored-report-openspacecolta",
+      "role": "author"
     },
     {
       "id": "en-073",
@@ -8937,7 +9157,8 @@
         "DE": "de-073",
         "ES": "es-073"
       },
-      "slug": "en-073-interview-on-openspacecolta-interview"
+      "slug": "en-073-interview-on-openspacecolta-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-074",
@@ -8983,7 +9204,8 @@
         "DE": "de-074",
         "ES": "es-074"
       },
-      "slug": "en-074-interview-byline-openspacecolta"
+      "slug": "en-074-interview-byline-openspacecolta",
+      "role": "author"
     },
     {
       "id": "en-075",
@@ -9029,7 +9251,8 @@
         "DE": "de-075",
         "ES": "es-075"
       },
-      "slug": "en-075-co-byline-analysis-republic"
+      "slug": "en-075-co-byline-analysis-republic",
+      "role": "author"
     },
     {
       "id": "en-076",
@@ -9075,7 +9298,8 @@
         "DE": "de-076",
         "ES": "es-076"
       },
-      "slug": "en-076-posts-republic"
+      "slug": "en-076-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-077",
@@ -9121,7 +9345,8 @@
         "DE": "de-077",
         "ES": "es-077"
       },
-      "slug": "en-077-posts-republic"
+      "slug": "en-077-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-078",
@@ -9167,7 +9392,8 @@
         "DE": "de-078",
         "ES": "es-078"
       },
-      "slug": "en-078-books-column-republic"
+      "slug": "en-078-books-column-republic",
+      "role": "author"
     },
     {
       "id": "en-079",
@@ -9213,7 +9439,8 @@
         "DE": "de-079",
         "ES": "es-079"
       },
-      "slug": "en-079-posts-republic"
+      "slug": "en-079-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-080",
@@ -9259,7 +9486,8 @@
         "DE": "de-080",
         "ES": "es-080"
       },
-      "slug": "en-080-posts-republic"
+      "slug": "en-080-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-081",
@@ -9305,7 +9533,8 @@
         "DE": "de-081",
         "ES": "es-081"
       },
-      "slug": "en-081-books-column-republic"
+      "slug": "en-081-books-column-republic",
+      "role": "author"
     },
     {
       "id": "en-082",
@@ -9351,7 +9580,8 @@
         "DE": "de-082",
         "ES": "es-082"
       },
-      "slug": "en-082-posts-republic"
+      "slug": "en-082-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-083",
@@ -9397,7 +9627,8 @@
         "DE": "de-083",
         "ES": "es-083"
       },
-      "slug": "en-083-posts-republic"
+      "slug": "en-083-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-084",
@@ -9443,7 +9674,8 @@
         "DE": "de-084",
         "ES": "es-084"
       },
-      "slug": "en-084-co-byline-analysis-republic"
+      "slug": "en-084-co-byline-analysis-republic",
+      "role": "author"
     },
     {
       "id": "en-085",
@@ -9489,7 +9721,8 @@
         "DE": "de-085",
         "ES": "es-085"
       },
-      "slug": "en-085-posts-republic"
+      "slug": "en-085-posts-republic",
+      "role": "author"
     },
     {
       "id": "en-086",
@@ -9535,7 +9768,8 @@
         "DE": "de-086",
         "ES": "es-086"
       },
-      "slug": "en-086-co-byline-analysis-republic"
+      "slug": "en-086-co-byline-analysis-republic",
+      "role": "author"
     },
     {
       "id": "en-087",
@@ -9580,7 +9814,8 @@
         "DE": "de-087",
         "ES": "es-087"
       },
-      "slug": "en-087-interview-on-adindex-interview"
+      "slug": "en-087-interview-on-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-088",
@@ -9625,7 +9860,8 @@
         "DE": "de-088",
         "ES": "es-088"
       },
-      "slug": "en-088-interview-on-adindex-interview"
+      "slug": "en-088-interview-on-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-089",
@@ -9673,7 +9909,8 @@
         "ES": "es-089"
       },
       "slug": "en-089-author-profile-on-melfm",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "en-090",
@@ -9719,7 +9956,8 @@
         "DE": "de-090",
         "ES": "es-090"
       },
-      "slug": "en-090-7495680-klishin-melfm"
+      "slug": "en-090-7495680-klishin-melfm",
+      "role": "author"
     },
     {
       "id": "en-091",
@@ -9766,7 +10004,8 @@
         "DE": "de-091",
         "ES": "es-091"
       },
-      "slug": "en-091-1628439-potter-melfm"
+      "slug": "en-091-1628439-potter-melfm",
+      "role": "author"
     },
     {
       "id": "en-092",
@@ -9812,7 +10051,8 @@
         "DE": "de-092",
         "ES": "es-092"
       },
-      "slug": "en-092-3056879-history-hate-melfm"
+      "slug": "en-092-3056879-history-hate-melfm",
+      "role": "author"
     },
     {
       "id": "en-093",
@@ -9859,7 +10099,8 @@
         "DE": "de-093",
         "ES": "es-093"
       },
-      "slug": "en-093-8592763-essay-melfm"
+      "slug": "en-093-8592763-essay-melfm",
+      "role": "author"
     },
     {
       "id": "en-094",
@@ -9905,7 +10146,8 @@
         "DE": "de-094",
         "ES": "es-094"
       },
-      "slug": "en-094-3029718-american-melfm"
+      "slug": "en-094-3029718-american-melfm",
+      "role": "author"
     },
     {
       "id": "en-095",
@@ -9950,7 +10192,8 @@
         "DE": "de-095",
         "ES": "es-095"
       },
-      "slug": "en-095-opinion-text-wikinews"
+      "slug": "en-095-opinion-text-wikinews",
+      "role": "author"
     },
     {
       "id": "en-096",
@@ -9995,7 +10238,8 @@
         "DE": "de-096",
         "ES": "es-096"
       },
-      "slug": "en-096-interview-on-ambivert-profile-interview"
+      "slug": "en-096-interview-on-ambivert-profile-interview",
+      "role": "expert_quote"
     },
     {
       "id": "en-097",
@@ -10042,7 +10286,8 @@
         "DE": "de-097",
         "ES": "es-097"
       },
-      "slug": "en-097-russian-authorities-are-targeting-journalists-historians-and-activists-t"
+      "slug": "en-097-russian-authorities-are-targeting-journalists-historians-and-activists-t",
+      "role": "author"
     },
     {
       "id": "en-098",
@@ -10088,7 +10333,8 @@
         "DE": "de-098",
         "ES": "es-098"
       },
-      "slug": "en-098-russians-watch-the-american-protests-as-clouds-gather-the-moscow-times-e"
+      "slug": "en-098-russians-watch-the-american-protests-as-clouds-gather-the-moscow-times-e",
+      "role": "author"
     },
     {
       "id": "en-099",
@@ -10135,7 +10381,8 @@
         "DE": "de-099",
         "ES": "es-099"
       },
-      "slug": "en-099-putin-and-the-distinct-russian-civilization-a70370-the-moscow-times-en"
+      "slug": "en-099-putin-and-the-distinct-russian-civilization-a70370-the-moscow-times-en",
+      "role": "author"
     },
     {
       "id": "en-100",
@@ -10182,7 +10429,8 @@
         "DE": "de-100",
         "ES": "es-100"
       },
-      "slug": "en-100-why-showcase-the-prime-ministers-illness-on-tv-the-moscow-times-en"
+      "slug": "en-100-why-showcase-the-prime-ministers-illness-on-tv-the-moscow-times-en",
+      "role": "author"
     },
     {
       "id": "en-101",
@@ -10221,7 +10469,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "en-101-insider-19th-century-russian-emigre-press"
+      "slug": "en-101-insider-19th-century-russian-emigre-press",
+      "role": "author"
     },
     {
       "id": "en-102",
@@ -10260,7 +10509,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "en-102-insider-soviet-press-and-poland-1939"
+      "slug": "en-102-insider-soviet-press-and-poland-1939",
+      "role": "author"
     },
     {
       "id": "en-103",
@@ -10299,7 +10549,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "en-103-insider-victory-day-and-militarism"
+      "slug": "en-103-insider-victory-day-and-militarism",
+      "role": "author"
     },
     {
       "id": "en-104",
@@ -10338,7 +10589,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "en-104-insider-russian-literature-and-ukrainian-dimension"
+      "slug": "en-104-insider-russian-literature-and-ukrainian-dimension",
+      "role": "author"
     },
     {
       "id": "en-105",
@@ -10377,7 +10629,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "en-105-insider-putin-and-nicholas-i-parallel"
+      "slug": "en-105-insider-putin-and-nicholas-i-parallel",
+      "role": "author"
     },
     {
       "id": "en-106",
@@ -10416,7 +10669,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "en-106-insider-good-germans-resistance-nazi-germany"
+      "slug": "en-106-insider-good-germans-resistance-nazi-germany",
+      "role": "author"
     },
     {
       "id": "en-107",
@@ -10455,7 +10709,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "en-107-global-voices-putin-and-russian-social-media"
+      "slug": "en-107-global-voices-putin-and-russian-social-media",
+      "role": "author"
     },
     {
       "id": "en-108",
@@ -10494,7 +10749,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "en-108-carnegie-kremlin-bot-army-soft-power"
+      "slug": "en-108-carnegie-kremlin-bot-army-soft-power",
+      "role": "author"
     },
     {
       "id": "en-109",
@@ -10533,7 +10789,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "en-109-carnegie-moldovan-maidan-protest-cycle"
+      "slug": "en-109-carnegie-moldovan-maidan-protest-cycle",
+      "role": "author"
     },
     {
       "id": "en-110",
@@ -10572,7 +10829,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "en-110-carnegie-social-media-and-revolution-causality"
+      "slug": "en-110-carnegie-social-media-and-revolution-causality",
+      "role": "author"
     },
     {
       "id": "en-111",
@@ -10611,7 +10869,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "en-111-carnegie-telegram-between-fsb-and-fbi"
+      "slug": "en-111-carnegie-telegram-between-fsb-and-fbi",
+      "role": "author"
     },
     {
       "id": "en-112",
@@ -10650,7 +10909,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "en-112-carnegie-three-scenarios-for-russian-internet"
+      "slug": "en-112-carnegie-three-scenarios-for-russian-internet",
+      "role": "author"
     },
     {
       "id": "en-113",
@@ -10689,7 +10949,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "en-113-carnegie-life-after-like-russia-world"
+      "slug": "en-113-carnegie-life-after-like-russia-world",
+      "role": "author"
     },
     {
       "id": "en-114",
@@ -10728,7 +10989,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "en-114-carnegie-kremlin-against-internet-old-war"
+      "slug": "en-114-carnegie-kremlin-against-internet-old-war",
+      "role": "author"
     },
     {
       "id": "en-115",
@@ -10767,7 +11029,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "en-115-carnegie-generational-conflict-social-networks"
+      "slug": "en-115-carnegie-generational-conflict-social-networks",
+      "role": "author"
     },
     {
       "id": "en-116",
@@ -10806,7 +11069,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "en-116-carnegie-private-authoritarianism-platforms"
+      "slug": "en-116-carnegie-private-authoritarianism-platforms",
+      "role": "author"
     },
     {
       "id": "en-117",
@@ -10845,7 +11109,8 @@
         "year-2020",
         "source-based summary"
       ],
-      "slug": "en-117-livelib-ostrovsky-and-contemporary-russia"
+      "slug": "en-117-livelib-ostrovsky-and-contemporary-russia",
+      "role": "author"
     },
     {
       "id": "en-118",
@@ -10884,7 +11149,8 @@
         "year-2007",
         "source-based summary"
       ],
-      "slug": "en-118-foma-misconception-about-the-church"
+      "slug": "en-118-foma-misconception-about-the-church",
+      "role": "author"
     },
     {
       "id": "en-119",
@@ -10923,7 +11189,8 @@
         "FR": "fr-119",
         "DE": "de-119",
         "ES": "es-119"
-      }
+      },
+      "role": "expert_quote"
     },
     {
       "id": "en-120",
@@ -10962,7 +11229,8 @@
         "FR": "fr-120",
         "DE": "de-120",
         "ES": "es-120"
-      }
+      },
+      "role": "expert_quote"
     },
     {
       "id": "en-121",
@@ -10984,7 +11252,7 @@
       "quotes": [
         "\"Why Medvedev's resignation and Putin's amendments changed nothing\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -10998,7 +11266,8 @@
         "FR": "fr-121",
         "DE": "de-121",
         "ES": "es-121"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-122",
@@ -11020,7 +11289,7 @@
       "quotes": [
         "\"Who owns Russian? And who owns English?\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11034,7 +11303,8 @@
         "FR": "fr-122",
         "DE": "de-122",
         "ES": "es-122"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-123",
@@ -11056,7 +11326,7 @@
       "quotes": [
         "\"Why shoot Navalny if you can bankrupt him\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11070,7 +11340,8 @@
         "FR": "fr-123",
         "DE": "de-123",
         "ES": "es-123"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-124",
@@ -11092,7 +11363,7 @@
       "quotes": [
         "\"How the death penalty debate linked to a ban on negative Ukraine coverage\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11106,7 +11377,8 @@
         "FR": "fr-124",
         "DE": "de-124",
         "ES": "es-124"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-125",
@@ -11128,7 +11400,7 @@
       "quotes": [
         "\"The music of the media desert\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11142,7 +11414,8 @@
         "FR": "fr-125",
         "DE": "de-125",
         "ES": "es-125"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-126",
@@ -11164,7 +11437,7 @@
       "quotes": [
         "\"Moscow: clean city, cleansed city\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11178,7 +11451,8 @@
         "FR": "fr-126",
         "DE": "de-126",
         "ES": "es-126"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-127",
@@ -11200,7 +11474,7 @@
       "quotes": [
         "\"Maximum Retweet: The war we failed to notice\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11214,7 +11488,8 @@
         "FR": "fr-127",
         "DE": "de-127",
         "ES": "es-127"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-128",
@@ -11236,7 +11511,7 @@
       "quotes": [
         "\"Maximum Retweet: Threats created by the Ministry of Truth\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11250,7 +11525,8 @@
         "FR": "fr-128",
         "DE": "de-128",
         "ES": "es-128"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-129",
@@ -11272,7 +11548,7 @@
       "quotes": [
         "\"Maximum Retweet: They purged the wrong people\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11286,7 +11562,8 @@
         "FR": "fr-129",
         "DE": "de-129",
         "ES": "es-129"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-131",
@@ -11308,7 +11585,7 @@
       "quotes": [
         "\"Maximum Retweet: The web we got trapped in\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11322,7 +11599,8 @@
         "FR": "fr-131",
         "DE": "de-131",
         "ES": "es-131"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-132",
@@ -11344,7 +11622,7 @@
       "quotes": [
         "\"The internet will not do it automatically\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11358,7 +11636,8 @@
         "FR": "fr-132",
         "DE": "de-132",
         "ES": "es-132"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-133",
@@ -11380,7 +11659,7 @@
       "quotes": [
         "\"Zero multiplied by a million\" - Vedomosti"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Vedomosti",
@@ -11394,7 +11673,8 @@
         "FR": "fr-133",
         "DE": "de-133",
         "ES": "es-133"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-134",
@@ -11416,7 +11696,7 @@
       "quotes": [
         "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11430,7 +11710,8 @@
         "FR": "fr-134",
         "DE": "de-134",
         "ES": "es-134"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-135",
@@ -11452,7 +11733,7 @@
       "quotes": [
         "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11466,7 +11747,8 @@
         "FR": "fr-135",
         "DE": "de-135",
         "ES": "es-135"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-136",
@@ -11488,7 +11770,7 @@
       "quotes": [
         "\"Russias New Heroes Are Those Who Simply Say Things as They Are\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11502,7 +11784,8 @@
         "FR": "fr-136",
         "DE": "de-136",
         "ES": "es-136"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-137",
@@ -11524,7 +11807,7 @@
       "quotes": [
         "\"Why Russian Journalists Find Refuge in Propaganda Outlets\" - The Moscow Times"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "The Moscow Times",
@@ -11538,7 +11821,8 @@
         "FR": "fr-137",
         "DE": "de-137",
         "ES": "es-137"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-138",
@@ -11560,7 +11844,7 @@
       "quotes": [
         "\"Web of Control: The Future of the Russian Internet\" - Carnegie Endowment"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "Carnegie Endowment",
@@ -11574,7 +11858,8 @@
         "FR": "fr-138",
         "DE": "de-138",
         "ES": "es-138"
-      }
+      },
+      "role": "author"
     },
     {
       "id": "en-139",
@@ -11596,7 +11881,7 @@
       "quotes": [
         "\"Russia's New Decembrists\" - New York Magazine"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "New York Magazine",
@@ -11610,7 +11895,8 @@
         "FR": "fr-139",
         "DE": "de-139",
         "ES": "es-139"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-140",
@@ -11632,7 +11918,7 @@
       "quotes": [
         "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare"
       ],
-      "value_context": "Entry added to include this publication in the English corpus with a verified source link.",
+      "value_context": "",
       "semantic_tags": [
         "Ilia Klishin",
         "VSquare",
@@ -11646,7 +11932,8 @@
         "FR": "fr-140",
         "DE": "de-140",
         "ES": "es-140"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-141",
@@ -11688,7 +11975,8 @@
         "language-en",
         "year-2015"
       ],
-      "slug": "en-141-do-revolutions-grow-out-of-social-media"
+      "slug": "en-141-do-revolutions-grow-out-of-social-media",
+      "role": "author"
     },
     {
       "id": "en-142",
@@ -11730,7 +12018,8 @@
         "language-en",
         "year-2015"
       ],
-      "slug": "en-142-what-sparked-moldovas-second-maidan"
+      "slug": "en-142-what-sparked-moldovas-second-maidan",
+      "role": "author"
     },
     {
       "id": "en-143",
@@ -11772,7 +12061,8 @@
         "language-en",
         "year-2016"
       ],
-      "slug": "en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy"
+      "slug": "en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy",
+      "role": "author"
     },
     {
       "id": "en-145",
@@ -11810,7 +12100,8 @@
         "FR": "fr-145",
         "DE": "de-145",
         "ES": "es-145"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-146",
@@ -11848,7 +12139,8 @@
         "FR": "fr-146",
         "DE": "de-146",
         "ES": "es-146"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-147",
@@ -11886,7 +12178,8 @@
         "FR": "fr-147",
         "DE": "de-147",
         "ES": "es-147"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-148",
@@ -11924,7 +12217,8 @@
         "FR": "fr-148",
         "DE": "de-148",
         "ES": "es-148"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-149",
@@ -11962,7 +12256,8 @@
         "FR": "fr-149",
         "DE": "de-149",
         "ES": "es-149"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-150",
@@ -12000,7 +12295,8 @@
         "FR": "fr-150",
         "DE": "de-150",
         "ES": "es-150"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-151",
@@ -12038,7 +12334,8 @@
         "FR": "fr-151",
         "DE": "de-151",
         "ES": "es-151"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "en-152",
@@ -12078,7 +12375,8 @@
         "FR": "fr-152",
         "DE": "de-152",
         "ES": "es-152"
-      }
+      },
+      "role": "mention"
     },
     {
       "id": "es-001",
@@ -12116,7 +12414,8 @@
         "narrativas",
         "opinion"
       ],
-      "slug": "es-001-el-espejo-magico-de-la-opinion-publica-rusa"
+      "slug": "es-001-el-espejo-magico-de-la-opinion-publica-rusa",
+      "role": "author"
     },
     {
       "id": "es-002",
@@ -12154,7 +12453,8 @@
         "gran",
         "terror"
       ],
-      "slug": "es-002-el-dilema-del-gran-terror-como-informar-sobre-la-confesion-de-roman-prot"
+      "slug": "es-002-el-dilema-del-gran-terror-como-informar-sobre-la-confesion-de-roman-prot",
+      "role": "author"
     },
     {
       "id": "es-003",
@@ -12192,7 +12492,8 @@
         "retorica",
         "calendario"
       ],
-      "slug": "es-003-esperemos-hasta-despues-de-las-elecciones"
+      "slug": "es-003-esperemos-hasta-despues-de-las-elecciones",
+      "role": "author"
     },
     {
       "id": "es-004",
@@ -12230,7 +12531,8 @@
         "rozova",
         "intelectual"
       ],
-      "slug": "es-004-luiza-rozova-y-el-intelectual-impotente"
+      "slug": "es-004-luiza-rozova-y-el-intelectual-impotente",
+      "role": "author"
     },
     {
       "id": "es-005",
@@ -12268,7 +12570,8 @@
         "verificable",
         "oratoria"
       ],
-      "slug": "es-005-cuatro-formas-en-que-el-kremlin-podria-bloquear-redes-sociales-occidenta"
+      "slug": "es-005-cuatro-formas-en-que-el-kremlin-podria-bloquear-redes-sociales-occidenta",
+      "role": "author"
     },
     {
       "id": "es-006",
@@ -12306,7 +12609,8 @@
         "capitolio",
         "rusos"
       ],
-      "slug": "es-006-el-asalto-al-capitolio-dio-a-los-rusos-una-via-de-escape-de-su-realidad"
+      "slug": "es-006-el-asalto-al-capitolio-dio-a-los-rusos-una-via-de-escape-de-su-realidad",
+      "role": "author"
     },
     {
       "id": "es-007",
@@ -12345,7 +12649,8 @@
         "ejercito",
         "trolls"
       ],
-      "slug": "es-007-alerta-un-ejercito-de-trolls-rusos-ha-invadido-tiktok"
+      "slug": "es-007-alerta-un-ejercito-de-trolls-rusos-ha-invadido-tiktok",
+      "role": "author"
     },
     {
       "id": "es-008",
@@ -12383,7 +12688,8 @@
         "rechazan",
         "positivos"
       ],
-      "slug": "es-008-por-que-los-rusos-rechazan-a-los-rusos-positivos-en-el-cine-estadouniden"
+      "slug": "es-008-por-que-los-rusos-rechazan-a-los-rusos-positivos-en-el-cine-estadouniden",
+      "role": "author"
     },
     {
       "id": "es-009",
@@ -12421,7 +12727,8 @@
         "simbolos",
         "culturales"
       ],
-      "slug": "es-009-la-gran-literatura-rusa-frente-a-un-solo-tuit-de-stephen-king"
+      "slug": "es-009-la-gran-literatura-rusa-frente-a-un-solo-tuit-de-stephen-king",
+      "role": "author"
     },
     {
       "id": "es-010",
@@ -12459,7 +12766,8 @@
         "anonimos",
         "telegram"
       ],
-      "slug": "es-010-canales-anonimos-de-telegram-estan-moldeando-la-vida-cotidiana-en-rusia"
+      "slug": "es-010-canales-anonimos-de-telegram-estan-moldeando-la-vida-cotidiana-en-rusia",
+      "role": "author"
     },
     {
       "id": "es-011",
@@ -12498,7 +12806,8 @@
         "rusos",
         "rechazan"
       ],
-      "slug": "es-011-por-que-muchos-rusos-rechazan-a-los-medios-occidentales-sobre-las-protes"
+      "slug": "es-011-por-que-muchos-rusos-rechazan-a-los-medios-occidentales-sobre-las-protes",
+      "role": "author"
     },
     {
       "id": "es-012",
@@ -12537,7 +12846,8 @@
         "putin",
         "macron"
       ],
-      "slug": "es-012-putin-macron-talks-and-the-russia-expertise-gap"
+      "slug": "es-012-putin-macron-talks-and-the-russia-expertise-gap",
+      "role": "author"
     },
     {
       "id": "es-013",
@@ -12575,7 +12885,8 @@
         "masivas",
         "lecciones"
       ],
-      "slug": "es-013-mass-protests-lessons-from-a-decade"
+      "slug": "es-013-mass-protests-lessons-from-a-decade",
+      "role": "author"
     },
     {
       "id": "es-014",
@@ -12613,7 +12924,8 @@
         "obligatoria",
         "resistencia"
       ],
-      "slug": "es-014-mandatory-vaccination-and-public-resistance"
+      "slug": "es-014-mandatory-vaccination-and-public-resistance",
+      "role": "author"
     },
     {
       "id": "es-015",
@@ -12652,7 +12964,8 @@
         "construir",
         "medio"
       ],
-      "slug": "es-015-interview-on-creating-an-emigrant-focused-media-project"
+      "slug": "es-015-interview-on-creating-an-emigrant-focused-media-project",
+      "role": "author"
     },
     {
       "id": "es-016",
@@ -12691,7 +13004,8 @@
         "fuentes"
       ],
       "slug": "es-016-how-this-digest-is-built",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-017",
@@ -12730,7 +13044,8 @@
         "tedx"
       ],
       "slug": "es-017-tedx-speaker-profile-ilya-klishin",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-018",
@@ -12767,7 +13082,8 @@
         "entrevista",
         "ilya"
       ],
-      "slug": "es-018-holod-interview-with-ilya-klishin"
+      "slug": "es-018-holod-interview-with-ilya-klishin",
+      "role": "author"
     },
     {
       "id": "es-019",
@@ -12805,7 +13121,8 @@
         "articos",
         "trayectorias"
       ],
-      "slug": "es-019-ensayo-en-snob"
+      "slug": "es-019-ensayo-en-snob",
+      "role": "author"
     },
     {
       "id": "es-020",
@@ -12842,7 +13159,8 @@
         "year-2014",
         "2014"
       ],
-      "slug": "es-020-lajki-na-zapad"
+      "slug": "es-020-lajki-na-zapad",
+      "role": "author"
     },
     {
       "id": "es-021",
@@ -12880,7 +13198,8 @@
         "lanzo",
         "investigacion"
       ],
-      "slug": "es-021-tv-rain-launched-our-soldiers-civilian-investigation"
+      "slug": "es-021-tv-rain-launched-our-soldiers-civilian-investigation",
+      "role": "author"
     },
     {
       "id": "es-022",
@@ -12918,7 +13237,8 @@
         "house",
         "cito"
       ],
-      "slug": "es-022-freedom-house-referenced-dozhd-reporting-on-russian-soldiers-in-eastern-"
+      "slug": "es-022-freedom-house-referenced-dozhd-reporting-on-russian-soldiers-in-eastern-",
+      "role": "mention"
     },
     {
       "id": "es-023",
@@ -12957,7 +13277,8 @@
         "fuentes"
       ],
       "slug": "es-023-referencia-video-ted",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "expert_quote"
     },
     {
       "id": "es-024",
@@ -12996,7 +13317,8 @@
         "factual",
         "rain"
       ],
-      "slug": "es-024-documented-2014-record-nashi-soldaty-investigation"
+      "slug": "es-024-documented-2014-record-nashi-soldaty-investigation",
+      "role": "author"
     },
     {
       "id": "es-025",
@@ -13035,7 +13357,8 @@
         "perfil"
       ],
       "slug": "es-025-guardian-new-east-30-under-30-profile-entry",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "es-026",
@@ -13074,7 +13397,8 @@
         "sobre"
       ],
       "slug": "es-026-international-reporting-on-pressure-linked-to-protest-organizing",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "es-027",
@@ -13112,7 +13436,8 @@
         "patrones",
         "intimidacion"
       ],
-      "slug": "es-027-hrw-report-on-harassment-of-critics-includes-klishin-case-context"
+      "slug": "es-027-hrw-report-on-harassment-of-critics-includes-klishin-case-context",
+      "role": "mention"
     },
     {
       "id": "es-028",
@@ -13151,7 +13476,8 @@
         "archivo",
         "prensa"
       ],
-      "slug": "es-028-english-press-archive-on-intimidation-claims-tied-to-activism"
+      "slug": "es-028-english-press-archive-on-intimidation-claims-tied-to-activism",
+      "role": "mention"
     },
     {
       "id": "es-029",
@@ -13189,7 +13515,8 @@
         "temprano",
         "sobre"
       ],
-      "slug": "es-029-early-warning-analysis-on-russian-troll-expansion"
+      "slug": "es-029-early-warning-analysis-on-russian-troll-expansion",
+      "role": "author"
     },
     {
       "id": "es-030",
@@ -13228,7 +13555,8 @@
         "sobre",
         "presion"
       ],
-      "slug": "es-030-commentary-on-pressure-against-independent-media-institutions"
+      "slug": "es-030-commentary-on-pressure-against-independent-media-institutions",
+      "role": "author"
     },
     {
       "id": "es-032",
@@ -13266,7 +13594,8 @@
         "guardian",
         "destaca"
       ],
-      "slug": "es-032-guardian-profile-notes-role-in-protest-era-digital-infrastructure"
+      "slug": "es-032-guardian-profile-notes-role-in-protest-era-digital-infrastructure",
+      "role": "mention"
     },
     {
       "id": "es-033",
@@ -13306,7 +13635,8 @@
         "factual"
       ],
       "slug": "es-033-regional-tedx-coverage-of-talk-on-propaganda-in-social-media",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "expert_quote"
     },
     {
       "id": "es-034",
@@ -13348,7 +13678,8 @@
         "autor"
       ],
       "source_en_id": "en-034",
-      "slug": "es-034-perfil-de-autor-en-vedomosti"
+      "slug": "es-034-perfil-de-autor-en-vedomosti",
+      "role": "mention"
     },
     {
       "id": "es-035",
@@ -13389,7 +13720,8 @@
         "2019"
       ],
       "source_en_id": "en-035",
-      "slug": "es-035-texto-firmado-en-vedomosti-815138-skuchayuschaya-propaganda"
+      "slug": "es-035-texto-firmado-en-vedomosti-815138-skuchayuschaya-propaganda",
+      "role": "author"
     },
     {
       "id": "es-036",
@@ -13430,7 +13762,8 @@
         "2019"
       ],
       "source_en_id": "en-036",
-      "slug": "es-036-texto-firmado-en-vedomosti-807255-nezavisimie-kandidati"
+      "slug": "es-036-texto-firmado-en-vedomosti-807255-nezavisimie-kandidati",
+      "role": "author"
     },
     {
       "id": "es-037",
@@ -13471,7 +13804,8 @@
         "2019"
       ],
       "source_en_id": "en-037",
-      "slug": "es-037-texto-firmado-en-vedomosti-793498-dud-kiselev"
+      "slug": "es-037-texto-firmado-en-vedomosti-793498-dud-kiselev",
+      "role": "author"
     },
     {
       "id": "es-038",
@@ -13512,7 +13846,8 @@
         "2018"
       ],
       "source_en_id": "en-038",
-      "slug": "es-038-texto-firmado-en-vedomosti-785835-novaya-mediinaya-realnost"
+      "slug": "es-038-texto-firmado-en-vedomosti-785835-novaya-mediinaya-realnost",
+      "role": "author"
     },
     {
       "id": "es-039",
@@ -13553,7 +13888,8 @@
         "2018"
       ],
       "source_en_id": "en-039",
-      "slug": "es-039-texto-firmado-en-vedomosti-767921-mozhno-priviknut-k-plohomu"
+      "slug": "es-039-texto-firmado-en-vedomosti-767921-mozhno-priviknut-k-plohomu",
+      "role": "author"
     },
     {
       "id": "es-040",
@@ -13594,7 +13930,8 @@
         "2020"
       ],
       "source_en_id": "en-040",
-      "slug": "es-040-texto-firmado-en-vedomosti-832880-viuchennoi-bespomoschnosti"
+      "slug": "es-040-texto-firmado-en-vedomosti-832880-viuchennoi-bespomoschnosti",
+      "role": "author"
     },
     {
       "id": "es-041",
@@ -13635,7 +13972,8 @@
         "2020"
       ],
       "source_en_id": "en-041",
-      "slug": "es-041-texto-firmado-en-vedomosti-830688-buduschee-otmenili"
+      "slug": "es-041-texto-firmado-en-vedomosti-830688-buduschee-otmenili",
+      "role": "author"
     },
     {
       "id": "es-042",
@@ -13676,7 +14014,8 @@
         "2014"
       ],
       "source_en_id": "en-042",
-      "slug": "es-042-texto-firmado-en-vedomosti-maximalnyi-retvit"
+      "slug": "es-042-texto-firmado-en-vedomosti-maximalnyi-retvit",
+      "role": "author"
     },
     {
       "id": "es-043",
@@ -13717,7 +14056,8 @@
         "2013"
       ],
       "source_en_id": "en-043",
-      "slug": "es-043-texto-firmado-en-vedomosti-netradicionnaya-rossiya"
+      "slug": "es-043-texto-firmado-en-vedomosti-netradicionnaya-rossiya",
+      "role": "author"
     },
     {
       "id": "es-044",
@@ -13758,7 +14098,8 @@
         "2012"
       ],
       "source_en_id": "en-044",
-      "slug": "es-044-texto-firmado-en-vedomosti-dinamika-protiv-stabilnosti"
+      "slug": "es-044-texto-firmado-en-vedomosti-dinamika-protiv-stabilnosti",
+      "role": "author"
     },
     {
       "id": "es-045",
@@ -13799,7 +14140,8 @@
         "2012"
       ],
       "source_en_id": "en-045",
-      "slug": "es-045-texto-firmado-en-vedomosti-pochemu-ne-vyklyuchat-facebook"
+      "slug": "es-045-texto-firmado-en-vedomosti-pochemu-ne-vyklyuchat-facebook",
+      "role": "author"
     },
     {
       "id": "es-046",
@@ -13840,7 +14182,8 @@
         "2013"
       ],
       "source_en_id": "en-046",
-      "slug": "es-046-texto-firmado-en-vedomosti-kak-tvitter-meshaet-uvidet-repressii"
+      "slug": "es-046-texto-firmado-en-vedomosti-kak-tvitter-meshaet-uvidet-repressii",
+      "role": "author"
     },
     {
       "id": "es-047",
@@ -13881,7 +14224,8 @@
         "2012"
       ],
       "source_en_id": "en-047",
-      "slug": "es-047-texto-firmado-en-vedomosti-molodogvardejcy-kardinala"
+      "slug": "es-047-texto-firmado-en-vedomosti-molodogvardejcy-kardinala",
+      "role": "author"
     },
     {
       "id": "es-048",
@@ -13922,7 +14266,8 @@
         "2013"
       ],
       "source_en_id": "en-048",
-      "slug": "es-048-texto-firmado-en-vedomosti-glupost-ili-izmena"
+      "slug": "es-048-texto-firmado-en-vedomosti-glupost-ili-izmena",
+      "role": "author"
     },
     {
       "id": "es-049",
@@ -13966,7 +14311,8 @@
       ],
       "source_en_id": "en-049",
       "slug": "es-049-perfil-de-autor-en-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "es-050",
@@ -14009,7 +14355,8 @@
       ],
       "source_en_id": "en-050",
       "slug": "es-050-texto-firmado-en-the-moscow-times-ru-peregovori-putina-i-makrona-viyavil",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-051",
@@ -14052,7 +14399,8 @@
       ],
       "source_en_id": "en-051",
       "slug": "es-051-texto-firmado-en-the-moscow-times-ru-kak-interpretirovat-porazhenie-k-de",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-052",
@@ -14095,7 +14443,8 @@
       ],
       "source_en_id": "en-052",
       "slug": "es-052-texto-firmado-en-the-moscow-times-ru-glubokaya-glotka-moskovskogo-karant",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-053",
@@ -14138,7 +14487,8 @@
       ],
       "source_en_id": "en-053",
       "slug": "es-053-texto-firmado-en-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak-kot-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-054",
@@ -14181,7 +14531,8 @@
       ],
       "source_en_id": "en-054",
       "slug": "es-054-texto-firmado-en-the-moscow-times-ru-na-derevnyu-dedushke-a399",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-055",
@@ -14224,7 +14575,8 @@
       ],
       "source_en_id": "en-055",
       "slug": "es-055-texto-firmado-en-the-moscow-times-ru-noveishii-tridtsat-sedmoi-a308",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-056",
@@ -14267,7 +14619,8 @@
       ],
       "source_en_id": "en-056",
       "slug": "es-056-texto-firmado-en-the-moscow-times-ru-zachem-rossiya-v-ozhidanii-buri-tak",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-057",
@@ -14310,7 +14663,8 @@
       ],
       "source_en_id": "en-057",
       "slug": "es-057-texto-firmado-en-the-moscow-times-ru-chto-oznachayut-slova-putina-pro-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-058",
@@ -14353,7 +14707,8 @@
       ],
       "source_en_id": "en-058",
       "slug": "es-058-texto-firmado-en-the-moscow-times-ru-emotsionalnoe-onemenie-ot-tsenzuri-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-059",
@@ -14396,7 +14751,8 @@
       ],
       "source_en_id": "en-059",
       "slug": "es-059-texto-firmado-en-the-moscow-times-ru-putin-tsuntsvage-a111",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-060",
@@ -14439,7 +14795,8 @@
       ],
       "source_en_id": "en-060",
       "slug": "es-060-texto-firmado-en-the-moscow-times-ru-grechka-i-apokalipsis-nekotorie-oso",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-061",
@@ -14482,7 +14839,8 @@
       ],
       "source_en_id": "en-061",
       "slug": "es-061-texto-firmado-en-the-moscow-times-ru-russkie-lyudi-ne-pozvolyayut-nad-so",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-062",
@@ -14525,7 +14883,8 @@
       ],
       "source_en_id": "en-062",
       "slug": "es-062-texto-firmado-en-ruthemoscowtimes-glubokaya-glotka-moskovskogo-karantina",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-063",
@@ -14568,7 +14927,8 @@
       ],
       "source_en_id": "en-063",
       "slug": "es-063-texto-firmado-en-ruthemoscowtimes-material-ustal-a102263",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-064",
@@ -14611,7 +14971,8 @@
       ],
       "source_en_id": "en-064",
       "slug": "es-064-texto-firmado-en-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak-kot-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "es-065",
@@ -14653,7 +15014,8 @@
         "autor"
       ],
       "source_en_id": "en-065",
-      "slug": "es-065-perfil-de-autor-en-snob"
+      "slug": "es-065-perfil-de-autor-en-snob",
+      "role": "mention"
     },
     {
       "id": "es-066",
@@ -14695,7 +15057,8 @@
         "autor"
       ],
       "source_en_id": "en-066",
-      "slug": "es-066-perfil-de-autor-en-snob"
+      "slug": "es-066-perfil-de-autor-en-snob",
+      "role": "mention"
     },
     {
       "id": "es-067",
@@ -14737,7 +15100,8 @@
         "texto"
       ],
       "source_en_id": "en-067",
-      "slug": "es-067-texto-firmado-en-snob-editorial-material"
+      "slug": "es-067-texto-firmado-en-snob-editorial-material",
+      "role": "author"
     },
     {
       "id": "es-068",
@@ -14779,7 +15143,8 @@
         "texto"
       ],
       "source_en_id": "en-068",
-      "slug": "es-068-texto-firmado-en-snob-magazine-text"
+      "slug": "es-068-texto-firmado-en-snob-magazine-text",
+      "role": "author"
     },
     {
       "id": "es-069",
@@ -14821,7 +15186,8 @@
         "extensa"
       ],
       "source_en_id": "en-069",
-      "slug": "es-069-entrevista-en-the-village-interview"
+      "slug": "es-069-entrevista-en-the-village-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-070",
@@ -14862,7 +15228,8 @@
         "epic"
       ],
       "source_en_id": "en-070",
-      "slug": "es-070-entrevista-en-lenta-epic-hero-coverage"
+      "slug": "es-070-entrevista-en-lenta-epic-hero-coverage",
+      "role": "expert_quote"
     },
     {
       "id": "es-071",
@@ -14904,7 +15271,8 @@
         "extensa"
       ],
       "source_en_id": "en-071",
-      "slug": "es-071-entrevista-en-lenta-main-interview"
+      "slug": "es-071-entrevista-en-lenta-main-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-072",
@@ -14947,7 +15315,8 @@
         "2026"
       ],
       "source_en_id": "en-072",
-      "slug": "es-072-texto-firmado-en-openspacecolta-co-authored-report"
+      "slug": "es-072-texto-firmado-en-openspacecolta-co-authored-report",
+      "role": "author"
     },
     {
       "id": "es-073",
@@ -14989,7 +15358,8 @@
         "extensa"
       ],
       "source_en_id": "en-073",
-      "slug": "es-073-entrevista-en-openspacecolta-interview"
+      "slug": "es-073-entrevista-en-openspacecolta-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-074",
@@ -15032,7 +15402,8 @@
         "2026"
       ],
       "source_en_id": "en-074",
-      "slug": "es-074-texto-firmado-en-openspacecolta-interview-byline"
+      "slug": "es-074-texto-firmado-en-openspacecolta-interview-byline",
+      "role": "author"
     },
     {
       "id": "es-075",
@@ -15074,7 +15445,8 @@
         "texto"
       ],
       "source_en_id": "en-075",
-      "slug": "es-075-texto-firmado-en-republic-co-byline-analysis"
+      "slug": "es-075-texto-firmado-en-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "es-076",
@@ -15116,7 +15488,8 @@
         "columna"
       ],
       "source_en_id": "en-076",
-      "slug": "es-076-texto-firmado-en-republic-posts"
+      "slug": "es-076-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-077",
@@ -15158,7 +15531,8 @@
         "columna"
       ],
       "source_en_id": "en-077",
-      "slug": "es-077-texto-firmado-en-republic-posts"
+      "slug": "es-077-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-078",
@@ -15200,7 +15574,8 @@
         "columna"
       ],
       "source_en_id": "en-078",
-      "slug": "es-078-texto-firmado-en-republic-books-column"
+      "slug": "es-078-texto-firmado-en-republic-books-column",
+      "role": "author"
     },
     {
       "id": "es-079",
@@ -15242,7 +15617,8 @@
         "columna"
       ],
       "source_en_id": "en-079",
-      "slug": "es-079-texto-firmado-en-republic-posts"
+      "slug": "es-079-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-080",
@@ -15284,7 +15660,8 @@
         "columna"
       ],
       "source_en_id": "en-080",
-      "slug": "es-080-texto-firmado-en-republic-posts"
+      "slug": "es-080-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-081",
@@ -15326,7 +15703,8 @@
         "columna"
       ],
       "source_en_id": "en-081",
-      "slug": "es-081-texto-firmado-en-republic-books-column"
+      "slug": "es-081-texto-firmado-en-republic-books-column",
+      "role": "author"
     },
     {
       "id": "es-082",
@@ -15368,7 +15746,8 @@
         "columna"
       ],
       "source_en_id": "en-082",
-      "slug": "es-082-texto-firmado-en-republic-posts"
+      "slug": "es-082-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-083",
@@ -15410,7 +15789,8 @@
         "columna"
       ],
       "source_en_id": "en-083",
-      "slug": "es-083-texto-firmado-en-republic-posts"
+      "slug": "es-083-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-084",
@@ -15452,7 +15832,8 @@
         "texto"
       ],
       "source_en_id": "en-084",
-      "slug": "es-084-texto-firmado-en-republic-co-byline-analysis"
+      "slug": "es-084-texto-firmado-en-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "es-085",
@@ -15494,7 +15875,8 @@
         "columna"
       ],
       "source_en_id": "en-085",
-      "slug": "es-085-texto-firmado-en-republic-posts"
+      "slug": "es-085-texto-firmado-en-republic-posts",
+      "role": "author"
     },
     {
       "id": "es-086",
@@ -15536,7 +15918,8 @@
         "texto"
       ],
       "source_en_id": "en-086",
-      "slug": "es-086-texto-firmado-en-republic-co-byline-analysis"
+      "slug": "es-086-texto-firmado-en-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "es-087",
@@ -15578,7 +15961,8 @@
         "extensa"
       ],
       "source_en_id": "en-087",
-      "slug": "es-087-entrevista-en-adindex-interview"
+      "slug": "es-087-entrevista-en-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-088",
@@ -15619,7 +16003,8 @@
         "interview"
       ],
       "source_en_id": "en-088",
-      "slug": "es-088-entrevista-en-adindex-interview"
+      "slug": "es-088-entrevista-en-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-089",
@@ -15661,7 +16046,8 @@
         "autor"
       ],
       "source_en_id": "en-089",
-      "slug": "es-089-perfil-de-autor-en-melfm"
+      "slug": "es-089-perfil-de-autor-en-melfm",
+      "role": "mention"
     },
     {
       "id": "es-090",
@@ -15704,7 +16090,8 @@
         "registro"
       ],
       "source_en_id": "en-090",
-      "slug": "es-090-texto-firmado-en-melfm-7495680-klishin"
+      "slug": "es-090-texto-firmado-en-melfm-7495680-klishin",
+      "role": "author"
     },
     {
       "id": "es-091",
@@ -15747,7 +16134,8 @@
         "registro"
       ],
       "source_en_id": "en-091",
-      "slug": "es-091-texto-firmado-en-melfm-1628439-potter"
+      "slug": "es-091-texto-firmado-en-melfm-1628439-potter",
+      "role": "author"
     },
     {
       "id": "es-092",
@@ -15790,7 +16178,8 @@
         "hate"
       ],
       "source_en_id": "en-092",
-      "slug": "es-092-texto-firmado-en-melfm-3056879-history-hate"
+      "slug": "es-092-texto-firmado-en-melfm-3056879-history-hate",
+      "role": "author"
     },
     {
       "id": "es-093",
@@ -15833,7 +16222,8 @@
         "registro"
       ],
       "source_en_id": "en-093",
-      "slug": "es-093-texto-firmado-en-melfm-8592763-essay"
+      "slug": "es-093-texto-firmado-en-melfm-8592763-essay",
+      "role": "author"
     },
     {
       "id": "es-094",
@@ -15876,7 +16266,8 @@
         "registro"
       ],
       "source_en_id": "en-094",
-      "slug": "es-094-texto-firmado-en-melfm-3029718-american"
+      "slug": "es-094-texto-firmado-en-melfm-3029718-american",
+      "role": "author"
     },
     {
       "id": "es-095",
@@ -15917,7 +16308,8 @@
         "2026"
       ],
       "source_en_id": "en-095",
-      "slug": "es-095-texto-firmado-en-wikinews-opinion-text"
+      "slug": "es-095-texto-firmado-en-wikinews-opinion-text",
+      "role": "author"
     },
     {
       "id": "es-096",
@@ -15958,7 +16350,8 @@
         "profile"
       ],
       "source_en_id": "en-096",
-      "slug": "es-096-entrevista-en-ambivert-profile-interview"
+      "slug": "es-096-entrevista-en-ambivert-profile-interview",
+      "role": "expert_quote"
     },
     {
       "id": "es-097",
@@ -16001,7 +16394,8 @@
         "2020"
       ],
       "source_en_id": "en-097",
-      "slug": "es-097-texto-firmado-en-the-moscow-times-en-russian-authorities-are-targeting-j"
+      "slug": "es-097-texto-firmado-en-the-moscow-times-en-russian-authorities-are-targeting-j",
+      "role": "author"
     },
     {
       "id": "es-098",
@@ -16044,7 +16438,8 @@
         "2020"
       ],
       "source_en_id": "en-098",
-      "slug": "es-098-texto-firmado-en-the-moscow-times-en-russians-watch-the-american-protest"
+      "slug": "es-098-texto-firmado-en-the-moscow-times-en-russians-watch-the-american-protest",
+      "role": "author"
     },
     {
       "id": "es-099",
@@ -16087,7 +16482,8 @@
         "2020"
       ],
       "source_en_id": "en-099",
-      "slug": "es-099-texto-firmado-en-the-moscow-times-en-putin-and-the-distinct-russian-civi"
+      "slug": "es-099-texto-firmado-en-the-moscow-times-en-putin-and-the-distinct-russian-civi",
+      "role": "author"
     },
     {
       "id": "es-100",
@@ -16130,7 +16526,8 @@
         "2020"
       ],
       "source_en_id": "en-100",
-      "slug": "es-100-texto-firmado-en-the-moscow-times-en-why-showcase-the-prime-ministers-il"
+      "slug": "es-100-texto-firmado-en-the-moscow-times-en-why-showcase-the-prime-ministers-il",
+      "role": "author"
     },
     {
       "id": "es-101",
@@ -16164,7 +16561,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "es-101-insider-19th-century-russian-emigre-press"
+      "slug": "es-101-insider-19th-century-russian-emigre-press",
+      "role": "author"
     },
     {
       "id": "es-102",
@@ -16198,7 +16596,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "es-102-insider-soviet-press-and-poland-1939"
+      "slug": "es-102-insider-soviet-press-and-poland-1939",
+      "role": "author"
     },
     {
       "id": "es-103",
@@ -16232,7 +16631,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "es-103-insider-victory-day-and-militarism"
+      "slug": "es-103-insider-victory-day-and-militarism",
+      "role": "author"
     },
     {
       "id": "es-104",
@@ -16266,7 +16666,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "es-104-insider-russian-literature-and-ukrainian-dimension"
+      "slug": "es-104-insider-russian-literature-and-ukrainian-dimension",
+      "role": "author"
     },
     {
       "id": "es-105",
@@ -16300,7 +16701,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "es-105-insider-putin-and-nicholas-i-parallel"
+      "slug": "es-105-insider-putin-and-nicholas-i-parallel",
+      "role": "author"
     },
     {
       "id": "es-106",
@@ -16334,7 +16736,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "es-106-insider-good-germans-resistance-nazi-germany"
+      "slug": "es-106-insider-good-germans-resistance-nazi-germany",
+      "role": "author"
     },
     {
       "id": "es-107",
@@ -16368,7 +16771,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "es-107-global-voices-putin-and-russian-social-media"
+      "slug": "es-107-global-voices-putin-and-russian-social-media",
+      "role": "author"
     },
     {
       "id": "es-108",
@@ -16402,7 +16806,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "es-108-carnegie-kremlin-bot-army-soft-power"
+      "slug": "es-108-carnegie-kremlin-bot-army-soft-power",
+      "role": "author"
     },
     {
       "id": "es-109",
@@ -16436,7 +16841,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "es-109-carnegie-moldovan-maidan-protest-cycle"
+      "slug": "es-109-carnegie-moldovan-maidan-protest-cycle",
+      "role": "author"
     },
     {
       "id": "es-110",
@@ -16470,7 +16876,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "es-110-carnegie-social-media-and-revolution-causality"
+      "slug": "es-110-carnegie-social-media-and-revolution-causality",
+      "role": "author"
     },
     {
       "id": "es-111",
@@ -16504,7 +16911,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "es-111-carnegie-telegram-between-fsb-and-fbi"
+      "slug": "es-111-carnegie-telegram-between-fsb-and-fbi",
+      "role": "author"
     },
     {
       "id": "es-112",
@@ -16538,7 +16946,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "es-112-carnegie-three-scenarios-for-russian-internet"
+      "slug": "es-112-carnegie-three-scenarios-for-russian-internet",
+      "role": "author"
     },
     {
       "id": "es-113",
@@ -16572,7 +16981,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "es-113-carnegie-life-after-like-russia-world"
+      "slug": "es-113-carnegie-life-after-like-russia-world",
+      "role": "author"
     },
     {
       "id": "es-114",
@@ -16606,7 +17016,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "es-114-carnegie-kremlin-against-internet-old-war"
+      "slug": "es-114-carnegie-kremlin-against-internet-old-war",
+      "role": "author"
     },
     {
       "id": "es-115",
@@ -16640,7 +17051,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "es-115-carnegie-generational-conflict-social-networks"
+      "slug": "es-115-carnegie-generational-conflict-social-networks",
+      "role": "author"
     },
     {
       "id": "es-116",
@@ -16674,7 +17086,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "es-116-carnegie-private-authoritarianism-platforms"
+      "slug": "es-116-carnegie-private-authoritarianism-platforms",
+      "role": "author"
     },
     {
       "id": "es-117",
@@ -16708,7 +17121,8 @@
         "year-2020",
         "source-based summary"
       ],
-      "slug": "es-117-livelib-ostrovsky-and-contemporary-russia"
+      "slug": "es-117-livelib-ostrovsky-and-contemporary-russia",
+      "role": "author"
     },
     {
       "id": "es-118",
@@ -16742,7 +17156,8 @@
         "year-2007",
         "source-based summary"
       ],
-      "slug": "es-118-foma-misconception-about-the-church"
+      "slug": "es-118-foma-misconception-about-the-church",
+      "role": "author"
     },
     {
       "id": "es-119",
@@ -16779,7 +17194,8 @@
       ],
       "slug": "es-119-the-atlantic-cita-a-klishin-sobre-la-maquinaria-mediatica-de-putin",
       "relation": "reference",
-      "source_en_id": "en-119"
+      "source_en_id": "en-119",
+      "role": "mention"
     },
     {
       "id": "es-120",
@@ -16816,7 +17232,8 @@
       ],
       "slug": "es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia",
       "relation": "reference",
-      "source_en_id": "en-120"
+      "source_en_id": "en-120",
+      "role": "mention"
     },
     {
       "id": "es-121",
@@ -16847,7 +17264,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "es-121-por-que-la-renuncia-de-medvedev-y-las-enmiendas-de-putin-no-cambiaron-nada"
+      "slug": "es-121-por-que-la-renuncia-de-medvedev-y-las-enmiendas-de-putin-no-cambiaron-nada",
+      "role": "author"
     },
     {
       "id": "es-122",
@@ -16878,7 +17296,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-122-a-quien-pertenece-el-ruso-y-a-quien-pertenece-el-ingles"
+      "slug": "es-122-a-quien-pertenece-el-ruso-y-a-quien-pertenece-el-ingles",
+      "role": "author"
     },
     {
       "id": "es-123",
@@ -16909,7 +17328,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-123-por-que-fusilar-a-navalny-si-se-le-puede-arruinar"
+      "slug": "es-123-por-que-fusilar-a-navalny-si-se-le-puede-arruinar",
+      "role": "author"
     },
     {
       "id": "es-124",
@@ -16940,7 +17360,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-124-como-el-debate-sobre-la-pena-de-muerte-se-vinculo-con-la-prohibicion-de-cobertura-negativa-sobre-ucrania"
+      "slug": "es-124-como-el-debate-sobre-la-pena-de-muerte-se-vinculo-con-la-prohibicion-de-cobertura-negativa-sobre-ucrania",
+      "role": "author"
     },
     {
       "id": "es-125",
@@ -16971,7 +17392,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "es-125-la-musica-del-desierto-mediatico"
+      "slug": "es-125-la-musica-del-desierto-mediatico",
+      "role": "author"
     },
     {
       "id": "es-126",
@@ -17002,7 +17424,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "es-126-moscu-ciudad-limpia-ciudad-depurada"
+      "slug": "es-126-moscu-ciudad-limpia-ciudad-depurada",
+      "role": "author"
     },
     {
       "id": "es-127",
@@ -17033,7 +17456,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "es-127-retuit-maximo-la-guerra-que-no-vimos"
+      "slug": "es-127-retuit-maximo-la-guerra-que-no-vimos",
+      "role": "author"
     },
     {
       "id": "es-128",
@@ -17064,7 +17488,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "es-128-retuit-maximo-amenazas-creadas-por-el-ministerio-de-la-verdad"
+      "slug": "es-128-retuit-maximo-amenazas-creadas-por-el-ministerio-de-la-verdad",
+      "role": "author"
     },
     {
       "id": "es-129",
@@ -17095,7 +17520,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "es-129-retuit-maximo-limpiaron-a-las-personas-equivocadas"
+      "slug": "es-129-retuit-maximo-limpiaron-a-las-personas-equivocadas",
+      "role": "author"
     },
     {
       "id": "es-131",
@@ -17126,7 +17552,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "es-131-retuit-maximo-la-red-en-la-que-quedamos-atrapados"
+      "slug": "es-131-retuit-maximo-la-red-en-la-que-quedamos-atrapados",
+      "role": "author"
     },
     {
       "id": "es-132",
@@ -17157,7 +17584,8 @@
         "publication archive",
         "year-2013"
       ],
-      "slug": "es-132-internet-no-lo-hara-automaticamente"
+      "slug": "es-132-internet-no-lo-hara-automaticamente",
+      "role": "author"
     },
     {
       "id": "es-133",
@@ -17188,7 +17616,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "es-133-cero-multiplicado-por-un-millon"
+      "slug": "es-133-cero-multiplicado-por-un-millon",
+      "role": "author"
     },
     {
       "id": "es-134",
@@ -17219,7 +17648,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "es-134-el-coronavirus-arruina-la-votacion-publica-de-putin-para-perpetuarse-en-el-poder"
+      "slug": "es-134-el-coronavirus-arruina-la-votacion-publica-de-putin-para-perpetuarse-en-el-poder",
+      "role": "author"
     },
     {
       "id": "es-135",
@@ -17250,7 +17680,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-135-como-putin-lleva-a-la-quiebra-a-la-oposicion-rusa"
+      "slug": "es-135-como-putin-lleva-a-la-quiebra-a-la-oposicion-rusa",
+      "role": "author"
     },
     {
       "id": "es-136",
@@ -17281,7 +17712,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-136-los-nuevos-heroes-de-rusia-son-quienes-simplemente-dicen-las-cosas-como-son"
+      "slug": "es-136-los-nuevos-heroes-de-rusia-son-quienes-simplemente-dicen-las-cosas-como-son",
+      "role": "author"
     },
     {
       "id": "es-137",
@@ -17312,7 +17744,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "es-137-por-que-periodistas-rusos-encuentran-refugio-en-medios-de-propaganda"
+      "slug": "es-137-por-que-periodistas-rusos-encuentran-refugio-en-medios-de-propaganda",
+      "role": "author"
     },
     {
       "id": "es-138",
@@ -17343,7 +17776,8 @@
         "publication archive",
         "year-2016"
       ],
-      "slug": "es-138-red-de-control-el-futuro-de-internet-en-rusia"
+      "slug": "es-138-red-de-control-el-futuro-de-internet-en-rusia",
+      "role": "author"
     },
     {
       "id": "es-139",
@@ -17374,7 +17808,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "es-139-los-nuevos-decembristas-rusos"
+      "slug": "es-139-los-nuevos-decembristas-rusos",
+      "role": "author"
     },
     {
       "id": "es-140",
@@ -17405,7 +17840,8 @@
         "publication archive",
         "year-2017"
       ],
-      "slug": "es-140-de-las-brigadas-web-del-kremlin-a-las-fabricas-rusas-de-trolls"
+      "slug": "es-140-de-las-brigadas-web-del-kremlin-a-las-fabricas-rusas-de-trolls",
+      "role": "mention"
     },
     {
       "id": "es-141",
@@ -17443,7 +17879,8 @@
         "language-es",
         "year-2015"
       ],
-      "slug": "es-141-nacen-las-revoluciones-en-las-redes-sociales"
+      "slug": "es-141-nacen-las-revoluciones-en-las-redes-sociales",
+      "role": "author"
     },
     {
       "id": "es-142",
@@ -17481,7 +17918,8 @@
         "language-es",
         "year-2015"
       ],
-      "slug": "es-142-contra-que-se-levantaba-el-segundo-maidan-moldavo"
+      "slug": "es-142-contra-que-se-levantaba-el-segundo-maidan-moldavo",
+      "role": "author"
     },
     {
       "id": "es-143",
@@ -17519,7 +17957,8 @@
         "language-es",
         "year-2016"
       ],
-      "slug": "es-143-autoritarismo-privado-como-facebook-y-google-amenazan-la-democracia"
+      "slug": "es-143-autoritarismo-privado-como-facebook-y-google-amenazan-la-democracia",
+      "role": "author"
     },
     {
       "id": "es-145",
@@ -17553,7 +17992,8 @@
       ],
       "slug": "es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion",
       "relation": "reference",
-      "source_en_id": "en-145"
+      "source_en_id": "en-145",
+      "role": "mention"
     },
     {
       "id": "es-146",
@@ -17587,7 +18027,8 @@
       ],
       "slug": "es-146-el-resumen-de-wikipedia-sobre-cobertura-de-guerra-cita-afirmaciones-vinc",
       "relation": "reference",
-      "source_en_id": "en-146"
+      "source_en_id": "en-146",
+      "role": "mention"
     },
     {
       "id": "es-147",
@@ -17621,7 +18062,8 @@
       ],
       "slug": "es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb",
       "relation": "reference",
-      "source_en_id": "en-147"
+      "source_en_id": "en-147",
+      "role": "mention"
     },
     {
       "id": "es-148",
@@ -17655,7 +18097,8 @@
       ],
       "slug": "es-148-freedom-on-the-net-2016-registra-presion-digital-vinculada-a-klishin-y-s",
       "relation": "reference",
-      "source_en_id": "en-148"
+      "source_en_id": "en-148",
+      "role": "mention"
     },
     {
       "id": "es-149",
@@ -17689,7 +18132,8 @@
       ],
       "slug": "es-149-informe-rand-rr295-sobre-redes-sociales-y-movilizacion-politica",
       "relation": "reference",
-      "source_en_id": "en-149"
+      "source_en_id": "en-149",
+      "role": "mention"
     },
     {
       "id": "es-150",
@@ -17723,7 +18167,8 @@
       ],
       "slug": "es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder",
       "relation": "reference",
-      "source_en_id": "en-150"
+      "source_en_id": "en-150",
+      "role": "mention"
     },
     {
       "id": "es-151",
@@ -17757,7 +18202,8 @@
       ],
       "slug": "es-151-perfil-jsis-patriotismo-digital-y-agenda-nacionalista-en-medios-rusos",
       "relation": "reference",
-      "source_en_id": "en-151"
+      "source_en_id": "en-151",
+      "role": "mention"
     },
     {
       "id": "es-152",
@@ -17793,7 +18239,8 @@
         "language-es"
       ],
       "slug": "es-152-entrevista-en-gazetaru-sobre-posible-bloqueo-de-youtube-y-google",
-      "source_en_id": "en-152"
+      "source_en_id": "en-152",
+      "role": "mention"
     },
     {
       "id": "fr-001",
@@ -17833,7 +18280,8 @@
         "profil"
       ],
       "slug": "fr-001-profil-d-auteur-ilya-klishin-sur-the-moscow-times",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-002",
@@ -17871,7 +18319,8 @@
         "cadrage",
         "sources"
       ],
-      "slug": "fr-002-contexte-precision-proportion"
+      "slug": "fr-002-contexte-precision-proportion",
+      "role": "author"
     },
     {
       "id": "fr-003",
@@ -17911,7 +18360,8 @@
       ],
       "source_en_id": "en-006",
       "slug": "fr-003-profil-de-conferencier-tedx-ilya-klishin",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-004",
@@ -17948,7 +18398,8 @@
         "ilya"
       ],
       "source_en_id": "en-007",
-      "slug": "fr-004-entretien-holod-avec-ilya-klishin"
+      "slug": "fr-004-entretien-holod-avec-ilya-klishin",
+      "role": "author"
     },
     {
       "id": "fr-005",
@@ -17986,7 +18437,8 @@
         "trajectoires"
       ],
       "slug": "fr-005-essai-snob",
-      "source_en_id": "en-008"
+      "source_en_id": "en-008",
+      "role": "author"
     },
     {
       "id": "fr-006",
@@ -18023,7 +18475,8 @@
         "2014"
       ],
       "slug": "fr-006-lajki-na-zapad",
-      "source_en_id": "en-009"
+      "source_en_id": "en-009",
+      "role": "author"
     },
     {
       "id": "fr-007",
@@ -18062,7 +18515,8 @@
         "enquete"
       ],
       "source_en_id": "en-013",
-      "slug": "fr-007-tv-rain-a-lance-lenquete-civique-nos-soldats"
+      "slug": "fr-007-tv-rain-a-lance-lenquete-civique-nos-soldats",
+      "role": "author"
     },
     {
       "id": "fr-008",
@@ -18101,7 +18555,8 @@
       ],
       "source_en_id": "en-011",
       "slug": "fr-008-freedom-house-cite-les-enquetes-de-dozhd-sur-les-soldats-russes",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-009",
@@ -18139,7 +18594,8 @@
       ],
       "slug": "fr-009-reference-video-ted",
       "source_en_id": "en-012",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-010",
@@ -18179,7 +18635,8 @@
       ],
       "source_en_id": "en-010",
       "slug": "fr-010-trace-documentee-de-2014-lenquete-nashi-soldaty",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-011",
@@ -18218,7 +18675,8 @@
       ],
       "source_en_id": "en-015",
       "slug": "fr-011-couverture-internationale-des-pressions-liees-a-l-organisation-des-manif",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-012",
@@ -18256,7 +18714,8 @@
         "critiques"
       ],
       "source_en_id": "en-016",
-      "slug": "fr-012-le-rapport-hrw-sur-le-harcelement-des-critiques-inclut-ce-contexte"
+      "slug": "fr-012-le-rapport-hrw-sur-le-harcelement-des-critiques-inclut-ce-contexte",
+      "role": "mention"
     },
     {
       "id": "fr-013",
@@ -18295,7 +18754,8 @@
         "anglais"
       ],
       "source_en_id": "en-017",
-      "slug": "fr-013-archive-en-anglais-sur-des-allegations-d-intimidation-liees-a-l-activism"
+      "slug": "fr-013-archive-en-anglais-sur-des-allegations-d-intimidation-liees-a-l-activism",
+      "role": "mention"
     },
     {
       "id": "fr-014",
@@ -18333,7 +18793,8 @@
         "expansion"
       ],
       "source_en_id": "en-018",
-      "slug": "fr-014-analyse-precoce-sur-l-expansion-internationale-des-fermes-de-trolls"
+      "slug": "fr-014-analyse-precoce-sur-l-expansion-internationale-des-fermes-de-trolls",
+      "role": "author"
     },
     {
       "id": "fr-015",
@@ -18372,7 +18833,8 @@
         "pressions",
         "contre"
       ],
-      "slug": "fr-015-analyse-des-pressions-contre-les-medias-independants"
+      "slug": "fr-015-analyse-des-pressions-contre-les-medias-independants",
+      "role": "author"
     },
     {
       "id": "fr-017",
@@ -18411,7 +18873,8 @@
         "souligne"
       ],
       "slug": "fr-017-le-profil-guardian-souligne-un-role-technique-dans-la-mobilisation-civiq",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-018",
@@ -18451,7 +18914,8 @@
         "centrale"
       ],
       "slug": "fr-018-couverture-regionale-d-une-intervention-tedx-sur-la-propagande-numerique",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-019",
@@ -18489,7 +18953,8 @@
         "recits",
         "opinion"
       ],
-      "slug": "fr-019-le-miroir-de-l-opinion-publique-russe"
+      "slug": "fr-019-le-miroir-de-l-opinion-publique-russe",
+      "role": "author"
     },
     {
       "id": "fr-020",
@@ -18527,7 +18992,8 @@
         "grande",
         "terreur"
       ],
-      "slug": "fr-020-le-dilemme-de-la-grande-terreur-comment-couvrir-les-aveux-de-roman-prota"
+      "slug": "fr-020-le-dilemme-de-la-grande-terreur-comment-couvrir-les-aveux-de-roman-prota",
+      "role": "author"
     },
     {
       "id": "fr-021",
@@ -18565,7 +19031,8 @@
         "rhetorique",
         "calendrier"
       ],
-      "slug": "fr-021-attendons-apres-les-elections"
+      "slug": "fr-021-attendons-apres-les-elections",
+      "role": "author"
     },
     {
       "id": "fr-022",
@@ -18603,7 +19070,8 @@
         "rozova",
         "intellectuel"
       ],
-      "slug": "fr-022-luiza-rozova-et-l-intellectuel-impuissant"
+      "slug": "fr-022-luiza-rozova-et-l-intellectuel-impuissant",
+      "role": "author"
     },
     {
       "id": "fr-023",
@@ -18641,7 +19109,8 @@
         "mecanismes",
         "techniques"
       ],
-      "slug": "fr-023-quatre-manieres-pour-le-kremlin-de-bloquer-les-reseaux-sociaux-occidenta"
+      "slug": "fr-023-quatre-manieres-pour-le-kremlin-de-bloquer-les-reseaux-sociaux-occidenta",
+      "role": "author"
     },
     {
       "id": "fr-024",
@@ -18679,7 +19148,8 @@
         "capitole",
         "offre"
       ],
-      "slug": "fr-024-l-assaut-du-capitole-offre-aux-russes-une-echappatoire-a-leur-realite"
+      "slug": "fr-024-l-assaut-du-capitole-offre-aux-russes-une-echappatoire-a-leur-realite",
+      "role": "author"
     },
     {
       "id": "fr-025",
@@ -18718,7 +19188,8 @@
         "dynamiques",
         "plateforme"
       ],
-      "slug": "fr-025-alerte-une-armee-de-trolls-russes-a-envahi-tiktok"
+      "slug": "fr-025-alerte-une-armee-de-trolls-russes-a-envahi-tiktok",
+      "role": "author"
     },
     {
       "id": "fr-026",
@@ -18756,7 +19227,8 @@
         "russes",
         "aiment"
       ],
-      "slug": "fr-026-pourquoi-les-russes-n-aiment-pas-les-russes-positifs-au-cinema-americain"
+      "slug": "fr-026-pourquoi-les-russes-n-aiment-pas-les-russes-positifs-au-cinema-americain",
+      "role": "author"
     },
     {
       "id": "fr-027",
@@ -18794,7 +19266,8 @@
         "symboles",
         "culturels"
       ],
-      "slug": "fr-027-la-grande-litterature-russe-face-a-un-tweet-de-stephen-king"
+      "slug": "fr-027-la-grande-litterature-russe-face-a-un-tweet-de-stephen-king",
+      "role": "author"
     },
     {
       "id": "fr-028",
@@ -18832,7 +19305,8 @@
         "telegram",
         "anonymes"
       ],
-      "slug": "fr-028-les-canaux-telegram-anonymes-faconnent-la-realite-quotidienne-en-russie"
+      "slug": "fr-028-les-canaux-telegram-anonymes-faconnent-la-realite-quotidienne-en-russie",
+      "role": "author"
     },
     {
       "id": "fr-029",
@@ -18871,7 +19345,8 @@
         "pourquoi",
         "russes"
       ],
-      "slug": "fr-029-pourquoi-des-russes-rejettent-les-medias-occidentaux-sur-les-protestatio"
+      "slug": "fr-029-pourquoi-des-russes-rejettent-les-medias-occidentaux-sur-les-protestatio",
+      "role": "author"
     },
     {
       "id": "fr-030",
@@ -18911,7 +19386,8 @@
         "macron",
         "talks"
       ],
-      "slug": "fr-030-putin-macron-talks-and-the-russia-expertise-gap"
+      "slug": "fr-030-putin-macron-talks-and-the-russia-expertise-gap",
+      "role": "author"
     },
     {
       "id": "fr-031",
@@ -18949,7 +19425,8 @@
         "protests",
         "lessons"
       ],
-      "slug": "fr-031-mass-protests-lessons-from-a-decade"
+      "slug": "fr-031-mass-protests-lessons-from-a-decade",
+      "role": "author"
     },
     {
       "id": "fr-032",
@@ -18987,7 +19464,8 @@
         "vaccination",
         "public"
       ],
-      "slug": "fr-032-mandatory-vaccination-and-public-resistance"
+      "slug": "fr-032-mandatory-vaccination-and-public-resistance",
+      "role": "author"
     },
     {
       "id": "fr-033",
@@ -19026,7 +19504,8 @@
         "comment",
         "construire"
       ],
-      "slug": "fr-033-interview-on-creating-an-emigrant-focused-media-project"
+      "slug": "fr-033-interview-on-creating-an-emigrant-focused-media-project",
+      "role": "author"
     },
     {
       "id": "fr-034",
@@ -19069,7 +19548,8 @@
       ],
       "source_en_id": "en-034",
       "slug": "fr-034-profil-d-auteur-sur-vedomosti",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-035",
@@ -19110,7 +19590,8 @@
         "2019"
       ],
       "source_en_id": "en-035",
-      "slug": "fr-035-texte-signe-dans-vedomosti-815138-skuchayuschaya-propaganda"
+      "slug": "fr-035-texte-signe-dans-vedomosti-815138-skuchayuschaya-propaganda",
+      "role": "author"
     },
     {
       "id": "fr-036",
@@ -19151,7 +19632,8 @@
         "2019"
       ],
       "source_en_id": "en-036",
-      "slug": "fr-036-texte-signe-dans-vedomosti-807255-nezavisimie-kandidati"
+      "slug": "fr-036-texte-signe-dans-vedomosti-807255-nezavisimie-kandidati",
+      "role": "author"
     },
     {
       "id": "fr-037",
@@ -19192,7 +19674,8 @@
         "2019"
       ],
       "source_en_id": "en-037",
-      "slug": "fr-037-texte-signe-dans-vedomosti-793498-dud-kiselev"
+      "slug": "fr-037-texte-signe-dans-vedomosti-793498-dud-kiselev",
+      "role": "author"
     },
     {
       "id": "fr-038",
@@ -19233,7 +19716,8 @@
         "2018"
       ],
       "source_en_id": "en-038",
-      "slug": "fr-038-texte-signe-dans-vedomosti-785835-novaya-mediinaya-realnost"
+      "slug": "fr-038-texte-signe-dans-vedomosti-785835-novaya-mediinaya-realnost",
+      "role": "author"
     },
     {
       "id": "fr-039",
@@ -19274,7 +19758,8 @@
         "2018"
       ],
       "source_en_id": "en-039",
-      "slug": "fr-039-texte-signe-dans-vedomosti-767921-mozhno-priviknut-k-plohomu"
+      "slug": "fr-039-texte-signe-dans-vedomosti-767921-mozhno-priviknut-k-plohomu",
+      "role": "author"
     },
     {
       "id": "fr-040",
@@ -19315,7 +19800,8 @@
         "2020"
       ],
       "source_en_id": "en-040",
-      "slug": "fr-040-texte-signe-dans-vedomosti-832880-viuchennoi-bespomoschnosti"
+      "slug": "fr-040-texte-signe-dans-vedomosti-832880-viuchennoi-bespomoschnosti",
+      "role": "author"
     },
     {
       "id": "fr-041",
@@ -19358,7 +19844,8 @@
         "politique"
       ],
       "source_en_id": "en-041",
-      "slug": "fr-041-texte-signe-dans-vedomosti-830688-buduschee-otmenili"
+      "slug": "fr-041-texte-signe-dans-vedomosti-830688-buduschee-otmenili",
+      "role": "author"
     },
     {
       "id": "fr-042",
@@ -19399,7 +19886,8 @@
         "2014"
       ],
       "source_en_id": "en-042",
-      "slug": "fr-042-texte-signe-dans-vedomosti-maximalnyi-retvit"
+      "slug": "fr-042-texte-signe-dans-vedomosti-maximalnyi-retvit",
+      "role": "author"
     },
     {
       "id": "fr-043",
@@ -19440,7 +19928,8 @@
         "2013"
       ],
       "source_en_id": "en-043",
-      "slug": "fr-043-texte-signe-dans-vedomosti-netradicionnaya-rossiya"
+      "slug": "fr-043-texte-signe-dans-vedomosti-netradicionnaya-rossiya",
+      "role": "author"
     },
     {
       "id": "fr-044",
@@ -19481,7 +19970,8 @@
         "2012"
       ],
       "source_en_id": "en-044",
-      "slug": "fr-044-texte-signe-dans-vedomosti-dinamika-protiv-stabilnosti"
+      "slug": "fr-044-texte-signe-dans-vedomosti-dinamika-protiv-stabilnosti",
+      "role": "author"
     },
     {
       "id": "fr-045",
@@ -19522,7 +20012,8 @@
         "2012"
       ],
       "source_en_id": "en-045",
-      "slug": "fr-045-texte-signe-dans-vedomosti-pochemu-ne-vyklyuchat-facebook"
+      "slug": "fr-045-texte-signe-dans-vedomosti-pochemu-ne-vyklyuchat-facebook",
+      "role": "author"
     },
     {
       "id": "fr-046",
@@ -19563,7 +20054,8 @@
         "2013"
       ],
       "source_en_id": "en-046",
-      "slug": "fr-046-texte-signe-dans-vedomosti-kak-tvitter-meshaet-uvidet-repressii"
+      "slug": "fr-046-texte-signe-dans-vedomosti-kak-tvitter-meshaet-uvidet-repressii",
+      "role": "author"
     },
     {
       "id": "fr-047",
@@ -19604,7 +20096,8 @@
         "2012"
       ],
       "source_en_id": "en-047",
-      "slug": "fr-047-texte-signe-dans-vedomosti-molodogvardejcy-kardinala"
+      "slug": "fr-047-texte-signe-dans-vedomosti-molodogvardejcy-kardinala",
+      "role": "author"
     },
     {
       "id": "fr-048",
@@ -19645,7 +20138,8 @@
         "2013"
       ],
       "source_en_id": "en-048",
-      "slug": "fr-048-texte-signe-dans-vedomosti-glupost-ili-izmena"
+      "slug": "fr-048-texte-signe-dans-vedomosti-glupost-ili-izmena",
+      "role": "author"
     },
     {
       "id": "fr-049",
@@ -19689,7 +20183,8 @@
       ],
       "source_en_id": "en-049",
       "slug": "fr-049-profil-d-auteur-sur-the-moscow-times-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-050",
@@ -19732,7 +20227,8 @@
       ],
       "source_en_id": "en-050",
       "slug": "fr-050-texte-signe-dans-the-moscow-times-ru-peregovori-putina-i-makrona-viyavil",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-051",
@@ -19775,7 +20271,8 @@
       ],
       "source_en_id": "en-051",
       "slug": "fr-051-texte-signe-dans-the-moscow-times-ru-kak-interpretirovat-porazhenie-k-de",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-052",
@@ -19818,7 +20315,8 @@
       ],
       "source_en_id": "en-052",
       "slug": "fr-052-texte-signe-dans-the-moscow-times-ru-glubokaya-glotka-moskovskogo-karant",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-053",
@@ -19861,7 +20359,8 @@
       ],
       "source_en_id": "en-053",
       "slug": "fr-053-texte-signe-dans-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak-kot-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-054",
@@ -19904,7 +20403,8 @@
       ],
       "source_en_id": "en-054",
       "slug": "fr-054-texte-signe-dans-the-moscow-times-ru-na-derevnyu-dedushke-a399",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-055",
@@ -19947,7 +20447,8 @@
       ],
       "source_en_id": "en-055",
       "slug": "fr-055-texte-signe-dans-the-moscow-times-ru-noveishii-tridtsat-sedmoi-a308",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-056",
@@ -19990,7 +20491,8 @@
       ],
       "source_en_id": "en-056",
       "slug": "fr-056-texte-signe-dans-the-moscow-times-ru-zachem-rossiya-v-ozhidanii-buri-tak",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-057",
@@ -20033,7 +20535,8 @@
       ],
       "source_en_id": "en-057",
       "slug": "fr-057-texte-signe-dans-the-moscow-times-ru-chto-oznachayut-slova-putina-pro-ru",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-058",
@@ -20076,7 +20579,8 @@
       ],
       "source_en_id": "en-058",
       "slug": "fr-058-texte-signe-dans-the-moscow-times-ru-emotsionalnoe-onemenie-ot-tsenzuri-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-059",
@@ -20119,7 +20623,8 @@
       ],
       "source_en_id": "en-059",
       "slug": "fr-059-texte-signe-dans-the-moscow-times-ru-putin-tsuntsvage-a111",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-060",
@@ -20162,7 +20667,8 @@
       ],
       "source_en_id": "en-060",
       "slug": "fr-060-texte-signe-dans-the-moscow-times-ru-grechka-i-apokalipsis-nekotorie-oso",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-061",
@@ -20205,7 +20711,8 @@
       ],
       "source_en_id": "en-061",
       "slug": "fr-061-texte-signe-dans-the-moscow-times-ru-russkie-lyudi-ne-pozvolyayut-nad-so",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-062",
@@ -20248,7 +20755,8 @@
       ],
       "source_en_id": "en-062",
       "slug": "fr-062-texte-signe-dans-ruthemoscowtimes-glubokaya-glotka-moskovskogo-karantina",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-063",
@@ -20291,7 +20799,8 @@
       ],
       "source_en_id": "en-063",
       "slug": "fr-063-texte-signe-dans-ruthemoscowtimes-material-ustal-a102263",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-064",
@@ -20334,7 +20843,8 @@
       ],
       "source_en_id": "en-064",
       "slug": "fr-064-texte-signe-dans-the-moscow-times-ru-mitingi-v-putinskoi-rossii-kak-kot-",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "author"
     },
     {
       "id": "fr-065",
@@ -20377,7 +20887,8 @@
       ],
       "source_en_id": "en-065",
       "slug": "fr-065-profil-d-auteur-sur-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-066",
@@ -20420,7 +20931,8 @@
       ],
       "source_en_id": "en-066",
       "slug": "fr-066-profil-d-auteur-sur-snob",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-067",
@@ -20462,7 +20974,8 @@
         "texte"
       ],
       "source_en_id": "en-067",
-      "slug": "fr-067-texte-signe-dans-snob-editorial-material"
+      "slug": "fr-067-texte-signe-dans-snob-editorial-material",
+      "role": "author"
     },
     {
       "id": "fr-068",
@@ -20504,7 +21017,8 @@
         "texte"
       ],
       "source_en_id": "en-068",
-      "slug": "fr-068-texte-signe-dans-snob-magazine-text"
+      "slug": "fr-068-texte-signe-dans-snob-magazine-text",
+      "role": "author"
     },
     {
       "id": "fr-069",
@@ -20545,7 +21059,8 @@
         "interview"
       ],
       "source_en_id": "en-069",
-      "slug": "fr-069-entretien-dans-the-village-interview"
+      "slug": "fr-069-entretien-dans-the-village-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-070",
@@ -20585,7 +21100,8 @@
         "epic"
       ],
       "source_en_id": "en-070",
-      "slug": "fr-070-entretien-dans-lenta-epic-hero-coverage"
+      "slug": "fr-070-entretien-dans-lenta-epic-hero-coverage",
+      "role": "expert_quote"
     },
     {
       "id": "fr-071",
@@ -20626,7 +21142,8 @@
         "long"
       ],
       "source_en_id": "en-071",
-      "slug": "fr-071-entretien-dans-lenta-main-interview"
+      "slug": "fr-071-entretien-dans-lenta-main-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-072",
@@ -20669,7 +21186,8 @@
         "2026"
       ],
       "source_en_id": "en-072",
-      "slug": "fr-072-texte-signe-dans-openspacecolta-co-authored-report"
+      "slug": "fr-072-texte-signe-dans-openspacecolta-co-authored-report",
+      "role": "author"
     },
     {
       "id": "fr-073",
@@ -20710,7 +21228,8 @@
         "long"
       ],
       "source_en_id": "en-073",
-      "slug": "fr-073-entretien-dans-openspacecolta-interview"
+      "slug": "fr-073-entretien-dans-openspacecolta-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-074",
@@ -20753,7 +21272,8 @@
         "2026"
       ],
       "source_en_id": "en-074",
-      "slug": "fr-074-texte-signe-dans-openspacecolta-interview-byline"
+      "slug": "fr-074-texte-signe-dans-openspacecolta-interview-byline",
+      "role": "author"
     },
     {
       "id": "fr-075",
@@ -20795,7 +21315,8 @@
         "texte"
       ],
       "source_en_id": "en-075",
-      "slug": "fr-075-texte-signe-dans-republic-co-byline-analysis"
+      "slug": "fr-075-texte-signe-dans-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "fr-076",
@@ -20837,7 +21358,8 @@
         "tribune"
       ],
       "source_en_id": "en-076",
-      "slug": "fr-076-texte-signe-dans-republic-posts"
+      "slug": "fr-076-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-077",
@@ -20879,7 +21401,8 @@
         "tribune"
       ],
       "source_en_id": "en-077",
-      "slug": "fr-077-texte-signe-dans-republic-posts"
+      "slug": "fr-077-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-078",
@@ -20921,7 +21444,8 @@
         "chronique"
       ],
       "source_en_id": "en-078",
-      "slug": "fr-078-texte-signe-dans-republic-books-column"
+      "slug": "fr-078-texte-signe-dans-republic-books-column",
+      "role": "author"
     },
     {
       "id": "fr-079",
@@ -20963,7 +21487,8 @@
         "tribune"
       ],
       "source_en_id": "en-079",
-      "slug": "fr-079-texte-signe-dans-republic-posts"
+      "slug": "fr-079-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-080",
@@ -21005,7 +21530,8 @@
         "tribune"
       ],
       "source_en_id": "en-080",
-      "slug": "fr-080-texte-signe-dans-republic-posts"
+      "slug": "fr-080-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-081",
@@ -21047,7 +21573,8 @@
         "chronique"
       ],
       "source_en_id": "en-081",
-      "slug": "fr-081-texte-signe-dans-republic-books-column"
+      "slug": "fr-081-texte-signe-dans-republic-books-column",
+      "role": "author"
     },
     {
       "id": "fr-082",
@@ -21089,7 +21616,8 @@
         "tribune"
       ],
       "source_en_id": "en-082",
-      "slug": "fr-082-texte-signe-dans-republic-posts"
+      "slug": "fr-082-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-083",
@@ -21131,7 +21659,8 @@
         "tribune"
       ],
       "source_en_id": "en-083",
-      "slug": "fr-083-texte-signe-dans-republic-posts"
+      "slug": "fr-083-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-084",
@@ -21173,7 +21702,8 @@
         "texte"
       ],
       "source_en_id": "en-084",
-      "slug": "fr-084-texte-signe-dans-republic-co-byline-analysis"
+      "slug": "fr-084-texte-signe-dans-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "fr-085",
@@ -21215,7 +21745,8 @@
         "tribune"
       ],
       "source_en_id": "en-085",
-      "slug": "fr-085-texte-signe-dans-republic-posts"
+      "slug": "fr-085-texte-signe-dans-republic-posts",
+      "role": "author"
     },
     {
       "id": "fr-086",
@@ -21257,7 +21788,8 @@
         "texte"
       ],
       "source_en_id": "en-086",
-      "slug": "fr-086-texte-signe-dans-republic-co-byline-analysis"
+      "slug": "fr-086-texte-signe-dans-republic-co-byline-analysis",
+      "role": "author"
     },
     {
       "id": "fr-087",
@@ -21298,7 +21830,8 @@
         "long"
       ],
       "source_en_id": "en-087",
-      "slug": "fr-087-entretien-dans-adindex-interview"
+      "slug": "fr-087-entretien-dans-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-088",
@@ -21338,7 +21871,8 @@
         "interview"
       ],
       "source_en_id": "en-088",
-      "slug": "fr-088-entretien-dans-adindex-interview"
+      "slug": "fr-088-entretien-dans-adindex-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-089",
@@ -21381,7 +21915,8 @@
       ],
       "source_en_id": "en-089",
       "slug": "fr-089-profil-d-auteur-sur-melfm",
-      "content_class": "reference"
+      "content_class": "reference",
+      "role": "mention"
     },
     {
       "id": "fr-090",
@@ -21424,7 +21959,8 @@
         "notice"
       ],
       "source_en_id": "en-090",
-      "slug": "fr-090-texte-signe-dans-melfm-7495680-klishin"
+      "slug": "fr-090-texte-signe-dans-melfm-7495680-klishin",
+      "role": "author"
     },
     {
       "id": "fr-091",
@@ -21467,7 +22003,8 @@
         "notice"
       ],
       "source_en_id": "en-091",
-      "slug": "fr-091-texte-signe-dans-melfm-1628439-potter"
+      "slug": "fr-091-texte-signe-dans-melfm-1628439-potter",
+      "role": "author"
     },
     {
       "id": "fr-092",
@@ -21510,7 +22047,8 @@
         "hate"
       ],
       "source_en_id": "en-092",
-      "slug": "fr-092-texte-signe-dans-melfm-3056879-history-hate"
+      "slug": "fr-092-texte-signe-dans-melfm-3056879-history-hate",
+      "role": "author"
     },
     {
       "id": "fr-093",
@@ -21553,7 +22091,8 @@
         "notice"
       ],
       "source_en_id": "en-093",
-      "slug": "fr-093-texte-signe-dans-melfm-8592763-essay"
+      "slug": "fr-093-texte-signe-dans-melfm-8592763-essay",
+      "role": "author"
     },
     {
       "id": "fr-094",
@@ -21596,7 +22135,8 @@
         "notice"
       ],
       "source_en_id": "en-094",
-      "slug": "fr-094-texte-signe-dans-melfm-3029718-american"
+      "slug": "fr-094-texte-signe-dans-melfm-3029718-american",
+      "role": "author"
     },
     {
       "id": "fr-095",
@@ -21637,7 +22177,8 @@
         "2026"
       ],
       "source_en_id": "en-095",
-      "slug": "fr-095-texte-signe-dans-wikinews-opinion-text"
+      "slug": "fr-095-texte-signe-dans-wikinews-opinion-text",
+      "role": "author"
     },
     {
       "id": "fr-096",
@@ -21677,7 +22218,8 @@
         "profile"
       ],
       "source_en_id": "en-096",
-      "slug": "fr-096-entretien-dans-ambivert-profile-interview"
+      "slug": "fr-096-entretien-dans-ambivert-profile-interview",
+      "role": "expert_quote"
     },
     {
       "id": "fr-097",
@@ -21720,7 +22262,8 @@
         "2020"
       ],
       "source_en_id": "en-097",
-      "slug": "fr-097-texte-signe-dans-the-moscow-times-en-russian-authorities-are-targeting-j"
+      "slug": "fr-097-texte-signe-dans-the-moscow-times-en-russian-authorities-are-targeting-j",
+      "role": "author"
     },
     {
       "id": "fr-098",
@@ -21763,7 +22306,8 @@
         "2020"
       ],
       "source_en_id": "en-098",
-      "slug": "fr-098-texte-signe-dans-the-moscow-times-en-russians-watch-the-american-protest"
+      "slug": "fr-098-texte-signe-dans-the-moscow-times-en-russians-watch-the-american-protest",
+      "role": "author"
     },
     {
       "id": "fr-099",
@@ -21806,7 +22350,8 @@
         "2020"
       ],
       "source_en_id": "en-099",
-      "slug": "fr-099-texte-signe-dans-the-moscow-times-en-putin-and-the-distinct-russian-civi"
+      "slug": "fr-099-texte-signe-dans-the-moscow-times-en-putin-and-the-distinct-russian-civi",
+      "role": "author"
     },
     {
       "id": "fr-100",
@@ -21849,7 +22394,8 @@
         "2020"
       ],
       "source_en_id": "en-100",
-      "slug": "fr-100-texte-signe-dans-the-moscow-times-en-why-showcase-the-prime-ministers-il"
+      "slug": "fr-100-texte-signe-dans-the-moscow-times-en-why-showcase-the-prime-ministers-il",
+      "role": "author"
     },
     {
       "id": "fr-101",
@@ -21883,7 +22429,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "fr-101-insider-19th-century-russian-emigre-press"
+      "slug": "fr-101-insider-19th-century-russian-emigre-press",
+      "role": "author"
     },
     {
       "id": "fr-102",
@@ -21917,7 +22464,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "fr-102-insider-soviet-press-and-poland-1939"
+      "slug": "fr-102-insider-soviet-press-and-poland-1939",
+      "role": "author"
     },
     {
       "id": "fr-103",
@@ -21951,7 +22499,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "fr-103-insider-victory-day-and-militarism"
+      "slug": "fr-103-insider-victory-day-and-militarism",
+      "role": "author"
     },
     {
       "id": "fr-104",
@@ -21985,7 +22534,8 @@
         "year-2022",
         "source-based summary"
       ],
-      "slug": "fr-104-insider-russian-literature-and-ukrainian-dimension"
+      "slug": "fr-104-insider-russian-literature-and-ukrainian-dimension",
+      "role": "author"
     },
     {
       "id": "fr-105",
@@ -22019,7 +22569,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "fr-105-insider-putin-and-nicholas-i-parallel"
+      "slug": "fr-105-insider-putin-and-nicholas-i-parallel",
+      "role": "author"
     },
     {
       "id": "fr-106",
@@ -22053,7 +22604,8 @@
         "year-2023",
         "source-based summary"
       ],
-      "slug": "fr-106-insider-good-germans-resistance-nazi-germany"
+      "slug": "fr-106-insider-good-germans-resistance-nazi-germany",
+      "role": "author"
     },
     {
       "id": "fr-107",
@@ -22087,7 +22639,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "fr-107-global-voices-putin-and-russian-social-media"
+      "slug": "fr-107-global-voices-putin-and-russian-social-media",
+      "role": "author"
     },
     {
       "id": "fr-108",
@@ -22121,7 +22674,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "fr-108-carnegie-kremlin-bot-army-soft-power"
+      "slug": "fr-108-carnegie-kremlin-bot-army-soft-power",
+      "role": "author"
     },
     {
       "id": "fr-109",
@@ -22155,7 +22709,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "fr-109-carnegie-moldovan-maidan-protest-cycle"
+      "slug": "fr-109-carnegie-moldovan-maidan-protest-cycle",
+      "role": "author"
     },
     {
       "id": "fr-110",
@@ -22189,7 +22744,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "fr-110-carnegie-social-media-and-revolution-causality"
+      "slug": "fr-110-carnegie-social-media-and-revolution-causality",
+      "role": "author"
     },
     {
       "id": "fr-111",
@@ -22223,7 +22779,8 @@
         "year-2015",
         "source-based summary"
       ],
-      "slug": "fr-111-carnegie-telegram-between-fsb-and-fbi"
+      "slug": "fr-111-carnegie-telegram-between-fsb-and-fbi",
+      "role": "author"
     },
     {
       "id": "fr-112",
@@ -22257,7 +22814,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "fr-112-carnegie-three-scenarios-for-russian-internet"
+      "slug": "fr-112-carnegie-three-scenarios-for-russian-internet",
+      "role": "author"
     },
     {
       "id": "fr-113",
@@ -22291,7 +22849,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "fr-113-carnegie-life-after-like-russia-world"
+      "slug": "fr-113-carnegie-life-after-like-russia-world",
+      "role": "author"
     },
     {
       "id": "fr-114",
@@ -22325,7 +22884,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "fr-114-carnegie-kremlin-against-internet-old-war"
+      "slug": "fr-114-carnegie-kremlin-against-internet-old-war",
+      "role": "author"
     },
     {
       "id": "fr-115",
@@ -22359,7 +22919,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "fr-115-carnegie-generational-conflict-social-networks"
+      "slug": "fr-115-carnegie-generational-conflict-social-networks",
+      "role": "author"
     },
     {
       "id": "fr-116",
@@ -22393,7 +22954,8 @@
         "year-2016",
         "source-based summary"
       ],
-      "slug": "fr-116-carnegie-private-authoritarianism-platforms"
+      "slug": "fr-116-carnegie-private-authoritarianism-platforms",
+      "role": "author"
     },
     {
       "id": "fr-117",
@@ -22427,7 +22989,8 @@
         "year-2020",
         "source-based summary"
       ],
-      "slug": "fr-117-livelib-ostrovsky-and-contemporary-russia"
+      "slug": "fr-117-livelib-ostrovsky-and-contemporary-russia",
+      "role": "author"
     },
     {
       "id": "fr-118",
@@ -22461,7 +23024,8 @@
         "year-2007",
         "source-based summary"
       ],
-      "slug": "fr-118-foma-misconception-about-the-church"
+      "slug": "fr-118-foma-misconception-about-the-church",
+      "role": "author"
     },
     {
       "id": "fr-119",
@@ -22498,7 +23062,8 @@
       ],
       "slug": "fr-119-the-atlantic-cite-klishin-sur-la-machine-mediatique-de-poutine",
       "relation": "reference",
-      "source_en_id": "en-119"
+      "source_en_id": "en-119",
+      "role": "mention"
     },
     {
       "id": "fr-120",
@@ -22535,7 +23100,8 @@
       ],
       "slug": "fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie",
       "relation": "reference",
-      "source_en_id": "en-120"
+      "source_en_id": "en-120",
+      "role": "mention"
     },
     {
       "id": "fr-121",
@@ -22566,7 +23132,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "fr-121-pourquoi-la-demission-de-medvedev-et-les-amendements-de-poutine-n-ont-rien-change"
+      "slug": "fr-121-pourquoi-la-demission-de-medvedev-et-les-amendements-de-poutine-n-ont-rien-change",
+      "role": "author"
     },
     {
       "id": "fr-122",
@@ -22597,7 +23164,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-122-a-qui-appartient-le-russe-et-a-qui-appartient-l-anglais"
+      "slug": "fr-122-a-qui-appartient-le-russe-et-a-qui-appartient-l-anglais",
+      "role": "author"
     },
     {
       "id": "fr-123",
@@ -22628,7 +23196,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-123-pourquoi-fusiller-navalny-si-on-peut-le-ruiner"
+      "slug": "fr-123-pourquoi-fusiller-navalny-si-on-peut-le-ruiner",
+      "role": "author"
     },
     {
       "id": "fr-124",
@@ -22659,7 +23228,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-124-comment-le-debat-sur-la-peine-de-mort-a-ete-lie-a-l-interdiction-du-negatif-sur-l-ukraine"
+      "slug": "fr-124-comment-le-debat-sur-la-peine-de-mort-a-ete-lie-a-l-interdiction-du-negatif-sur-l-ukraine",
+      "role": "author"
     },
     {
       "id": "fr-125",
@@ -22690,7 +23260,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "fr-125-la-musique-du-desert-mediatique"
+      "slug": "fr-125-la-musique-du-desert-mediatique",
+      "role": "author"
     },
     {
       "id": "fr-126",
@@ -22721,7 +23292,8 @@
         "publication archive",
         "year-2018"
       ],
-      "slug": "fr-126-moscou-ville-propre-ville-purgee"
+      "slug": "fr-126-moscou-ville-propre-ville-purgee",
+      "role": "author"
     },
     {
       "id": "fr-127",
@@ -22752,7 +23324,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "fr-127-retweet-maximal-la-guerre-que-nous-n-avons-pas-vue"
+      "slug": "fr-127-retweet-maximal-la-guerre-que-nous-n-avons-pas-vue",
+      "role": "author"
     },
     {
       "id": "fr-128",
@@ -22783,7 +23356,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "fr-128-retweet-maximal-les-menaces-creees-par-le-ministere-de-la-verite"
+      "slug": "fr-128-retweet-maximal-les-menaces-creees-par-le-ministere-de-la-verite",
+      "role": "author"
     },
     {
       "id": "fr-129",
@@ -22814,7 +23388,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "fr-129-retweet-maximal-ils-ont-purge-les-mauvaises-personnes"
+      "slug": "fr-129-retweet-maximal-ils-ont-purge-les-mauvaises-personnes",
+      "role": "author"
     },
     {
       "id": "fr-131",
@@ -22845,7 +23420,8 @@
         "publication archive",
         "year-2014"
       ],
-      "slug": "fr-131-retweet-maximal-la-toile-ou-nous-nous-sommes-retrouves-pieges"
+      "slug": "fr-131-retweet-maximal-la-toile-ou-nous-nous-sommes-retrouves-pieges",
+      "role": "author"
     },
     {
       "id": "fr-132",
@@ -22876,7 +23452,8 @@
         "publication archive",
         "year-2013"
       ],
-      "slug": "fr-132-internet-ne-le-fera-pas-automatiquement"
+      "slug": "fr-132-internet-ne-le-fera-pas-automatiquement",
+      "role": "author"
     },
     {
       "id": "fr-133",
@@ -22907,7 +23484,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "fr-133-zero-multiplie-par-un-million"
+      "slug": "fr-133-zero-multiplie-par-un-million",
+      "role": "author"
     },
     {
       "id": "fr-134",
@@ -22938,7 +23516,8 @@
         "publication archive",
         "year-2020"
       ],
-      "slug": "fr-134-le-coronavirus-deraille-le-vote-public-de-poutine-pour-rester-au-pouvoir"
+      "slug": "fr-134-le-coronavirus-deraille-le-vote-public-de-poutine-pour-rester-au-pouvoir",
+      "role": "author"
     },
     {
       "id": "fr-135",
@@ -22969,7 +23548,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-135-comment-poutine-ruine-l-opposition-russe"
+      "slug": "fr-135-comment-poutine-ruine-l-opposition-russe",
+      "role": "author"
     },
     {
       "id": "fr-136",
@@ -23000,7 +23580,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-136-les-nouveaux-heros-de-la-russie-sont-ceux-qui-disent-simplement-les-choses"
+      "slug": "fr-136-les-nouveaux-heros-de-la-russie-sont-ceux-qui-disent-simplement-les-choses",
+      "role": "author"
     },
     {
       "id": "fr-137",
@@ -23031,7 +23612,8 @@
         "publication archive",
         "year-2019"
       ],
-      "slug": "fr-137-pourquoi-des-journalistes-russes-trouvent-refuge-dans-des-medias-de-propagande"
+      "slug": "fr-137-pourquoi-des-journalistes-russes-trouvent-refuge-dans-des-medias-de-propagande",
+      "role": "author"
     },
     {
       "id": "fr-138",
@@ -23062,7 +23644,8 @@
         "publication archive",
         "year-2016"
       ],
-      "slug": "fr-138-toile-de-controle-l-avenir-de-l-internet-russe"
+      "slug": "fr-138-toile-de-controle-l-avenir-de-l-internet-russe",
+      "role": "author"
     },
     {
       "id": "fr-139",
@@ -23093,7 +23676,8 @@
         "publication archive",
         "year-2012"
       ],
-      "slug": "fr-139-les-nouveaux-decembristes-russes"
+      "slug": "fr-139-les-nouveaux-decembristes-russes",
+      "role": "expert_quote"
     },
     {
       "id": "fr-140",
@@ -23124,7 +23708,8 @@
         "publication archive",
         "year-2017"
       ],
-      "slug": "fr-140-des-brigades-web-du-kremlin-aux-usines-a-trolls-russes"
+      "slug": "fr-140-des-brigades-web-du-kremlin-aux-usines-a-trolls-russes",
+      "role": "mention"
     },
     {
       "id": "fr-141",
@@ -23162,7 +23747,8 @@
         "language-fr",
         "year-2015"
       ],
-      "slug": "fr-141-les-revolutions-naissent-elles-des-reseaux-sociaux"
+      "slug": "fr-141-les-revolutions-naissent-elles-des-reseaux-sociaux",
+      "role": "author"
     },
     {
       "id": "fr-142",
@@ -23200,7 +23786,8 @@
         "language-fr",
         "year-2015"
       ],
-      "slug": "fr-142-contre-quoi-se-dressait-le-deuxieme-maidan-moldave"
+      "slug": "fr-142-contre-quoi-se-dressait-le-deuxieme-maidan-moldave",
+      "role": "author"
     },
     {
       "id": "fr-143",
@@ -23238,7 +23825,8 @@
         "language-fr",
         "year-2016"
       ],
-      "slug": "fr-143-autoritarisme-prive-comment-facebook-et-google-menacent-la-democratie"
+      "slug": "fr-143-autoritarisme-prive-comment-facebook-et-google-menacent-la-democratie",
+      "role": "author"
     },
     {
       "id": "fr-145",
@@ -23272,7 +23860,8 @@
       ],
       "slug": "fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe",
       "relation": "reference",
-      "source_en_id": "en-145"
+      "source_en_id": "en-145",
+      "role": "mention"
     },
     {
       "id": "fr-146",
@@ -23306,7 +23895,8 @@
       ],
       "slug": "fr-146-l-article-wikipedia-sur-la-guerre-mediatique-cite-des-assertions-liees-a",
       "relation": "reference",
-      "source_en_id": "en-146"
+      "source_en_id": "en-146",
+      "role": "mention"
     },
     {
       "id": "fr-147",
@@ -23340,7 +23930,8 @@
       ],
       "slug": "fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f",
       "relation": "reference",
-      "source_en_id": "en-147"
+      "source_en_id": "en-147",
+      "role": "mention"
     },
     {
       "id": "fr-148",
@@ -23374,7 +23965,8 @@
       ],
       "slug": "fr-148-freedom-on-the-net-2016-documente-des-pressions-liees-a-klishin-et-ses-p",
       "relation": "reference",
-      "source_en_id": "en-148"
+      "source_en_id": "en-148",
+      "role": "mention"
     },
     {
       "id": "fr-149",
@@ -23408,7 +24000,8 @@
       ],
       "slug": "fr-149-rapport-rand-rr295-sur-les-reseaux-sociaux-et-la-mobilisation-politique",
       "relation": "reference",
-      "source_en_id": "en-149"
+      "source_en_id": "en-149",
+      "role": "mention"
     },
     {
       "id": "fr-150",
@@ -23442,7 +24035,8 @@
       ],
       "slug": "fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo",
       "relation": "reference",
-      "source_en_id": "en-150"
+      "source_en_id": "en-150",
+      "role": "mention"
     },
     {
       "id": "fr-151",
@@ -23476,7 +24070,8 @@
       ],
       "slug": "fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias",
       "relation": "reference",
-      "source_en_id": "en-151"
+      "source_en_id": "en-151",
+      "role": "mention"
     },
     {
       "id": "fr-152",
@@ -23512,7 +24107,164 @@
         "language-fr"
       ],
       "slug": "fr-152-entretien-gazetaru-sur-un-possible-blocage-de-youtube-et-google",
-      "source_en_id": "en-152"
+      "source_en_id": "en-152",
+      "role": "mention"
+    },
+    {
+      "id": "en-153",
+      "language": "EN",
+      "status": "ready",
+      "date": "2015-03-14",
+      "source": "Al Jazeera English",
+      "url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "title": "Screening rape: India's debate",
+      "quote": "\"Kremlin's troll army\" - The Listening Post",
+      "relation": "reference",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ],
+      "role": "mention",
+      "topic": "media appearance",
+      "digest": "A The Listening Post episode featuring the segment “Kremlin's troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.",
+      "summary": "A The Listening Post episode featuring the segment “Kremlin's troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.",
+      "key_ideas": [
+        "The segment examines paid online manipulation and pro-Kremlin information tactics.",
+        "Klishin appears as editor-in-chief of Dozhd TV alongside other media analysts.",
+        "The broadcast records how troll operations entered international television reporting in 2015."
+      ],
+      "quotes": [
+        "\"Kremlin's troll army\" - The Listening Post",
+        "\"online manipulation\" - Al Jazeera English"
+      ],
+      "value_context": "",
+      "material_type": "TV / media appearance",
+      "slug": "en-153-screening-rape-indias-debate",
+      "copies": {
+        "FR": "fr-153",
+        "DE": "de-153",
+        "ES": "es-153"
+      }
+    },
+    {
+      "id": "fr-153",
+      "language": "FR",
+      "status": "ready",
+      "date": "2015-03-14",
+      "source": "Al Jazeera English",
+      "url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "title": "Screening rape: India's debate",
+      "quote": "\"Kremlin's troll army\" - The Listening Post",
+      "relation": "reference",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ],
+      "role": "mention",
+      "topic": "apparition mediatique",
+      "digest": "Episode de The Listening Post comprenant le segment « Kremlin's troll army », avec Ilya Klishin sur la manipulation en ligne et les tactiques d'influence pro-Kremlin dans l'espace mediatique russe.",
+      "summary": "Episode de The Listening Post comprenant le segment « Kremlin's troll army », avec Ilya Klishin sur la manipulation en ligne et les tactiques d'influence pro-Kremlin dans l'espace mediatique russe.",
+      "key_ideas": [
+        "Le segment examine la manipulation en ligne payee et les tactiques d'influence pro-Kremlin.",
+        "Klishin y apparait comme redacteur en chef de Dozhd TV aux cotes d'autres analystes des medias.",
+        "L'emission montre comment le sujet des troll operations est entre dans le journalisme televise international en 2015."
+      ],
+      "quotes": [
+        "\"Kremlin's troll army\" - The Listening Post",
+        "\"manipulation en ligne\" - Al Jazeera English"
+      ],
+      "value_context": "",
+      "material_type": "TV / media appearance",
+      "slug": "fr-153-screening-rape-indias-debate",
+      "source_en_id": "en-153"
+    },
+    {
+      "id": "de-153",
+      "language": "DE",
+      "status": "ready",
+      "date": "2015-03-14",
+      "source": "Al Jazeera English",
+      "url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "title": "Screening rape: India's debate",
+      "quote": "\"Kremlin's troll army\" - The Listening Post",
+      "relation": "reference",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ],
+      "role": "mention",
+      "topic": "medienauftritt",
+      "digest": "Eine Folge von The Listening Post mit dem Segment \"Kremlin's troll army\", in dem Ilya Klishin ueber Online-Manipulation und pro-kremlnahe Informationstaktiken im russischen Medienraum spricht.",
+      "summary": "Eine Folge von The Listening Post mit dem Segment \"Kremlin's troll army\", in dem Ilya Klishin ueber Online-Manipulation und pro-kremlnahe Informationstaktiken im russischen Medienraum spricht.",
+      "key_ideas": [
+        "Das Segment untersucht bezahlte Online-Manipulation und pro-kremlnahe Informationstaktiken.",
+        "Klishin tritt als Chefredakteur von Dozhd TV neben weiteren Medienanalysten auf.",
+        "Die Sendung dokumentiert, wie Troll-Operationen 2015 in internationale TV-Berichterstattung eingingen."
+      ],
+      "quotes": [
+        "\"Kremlin's troll army\" - The Listening Post",
+        "\"Online-Manipulation\" - Al Jazeera English"
+      ],
+      "value_context": "",
+      "material_type": "TV / media appearance",
+      "slug": "de-153-screening-rape-indias-debate",
+      "source_en_id": "en-153"
+    },
+    {
+      "id": "es-153",
+      "language": "ES",
+      "status": "ready",
+      "date": "2015-03-14",
+      "source": "Al Jazeera English",
+      "url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "title": "Screening rape: India's debate",
+      "quote": "\"Kremlin's troll army\" - The Listening Post",
+      "relation": "reference",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ],
+      "role": "mention",
+      "topic": "aparicion en medios",
+      "digest": "Un episodio de The Listening Post con el segmento \"Kremlin's troll army\", en el que Ilya Klishin habla sobre manipulacion en linea y tacticas informativas pro-Kremlin en el espacio mediatico ruso.",
+      "summary": "Un episodio de The Listening Post con el segmento \"Kremlin's troll army\", en el que Ilya Klishin habla sobre manipulacion en linea y tacticas informativas pro-Kremlin en el espacio mediatico ruso.",
+      "key_ideas": [
+        "El segmento examina la manipulacion en linea pagada y las tacticas informativas pro-Kremlin.",
+        "Klishin aparece como redactor jefe de Dozhd TV junto a otros analistas de medios.",
+        "El programa muestra como las operaciones de trolls entraron en la cobertura televisiva internacional en 2015."
+      ],
+      "quotes": [
+        "\"Kremlin's troll army\" - The Listening Post",
+        "\"manipulacion en linea\" - Al Jazeera English"
+      ],
+      "value_context": "",
+      "material_type": "TV / media appearance",
+      "slug": "es-153-screening-rape-indias-debate",
+      "source_en_id": "en-153"
     }
   ],
   "card_format": "v1"

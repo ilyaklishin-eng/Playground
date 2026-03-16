@@ -1,0 +1,1452 @@
+{
+  "generated_at": "2026-03-14T16:58:42.492Z",
+  "policy": {
+    "timeout_ms": 12000,
+    "concurrency": 8,
+    "broken_status_codes": [
+      404,
+      410,
+      451
+    ],
+    "note": "Only definite terminal responses are treated as broken. 403/429/5xx remain inconclusive."
+  },
+  "totals": {
+    "checked_urls": 76,
+    "healthy_urls": 69,
+    "broken_urls": 4,
+    "inconclusive_urls": 3
+  },
+  "broken_urls": [
+    "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+    "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+    "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+    "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/"
+  ],
+  "broken_digest_ids": [
+    "de-145",
+    "de-147",
+    "de-150",
+    "en-022",
+    "en-145",
+    "en-147",
+    "en-150",
+    "es-145",
+    "es-147",
+    "es-150",
+    "fr-145",
+    "fr-147",
+    "fr-150"
+  ],
+  "broken_interview_urls": [],
+  "results": [
+    {
+      "ok": true,
+      "url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-119",
+          "title": "The Atlantic zitiert Klishin zur Medienmaschine Putins",
+          "source": "The Atlantic"
+        },
+        {
+          "kind": "digest",
+          "id": "en-119",
+          "title": "Atlantic feature cites Klishin on Putin’s media machine",
+          "source": "The Atlantic"
+        },
+        {
+          "kind": "digest",
+          "id": "es-119",
+          "title": "The Atlantic cita a Klishin sobre la maquinaria mediatica de Putin",
+          "source": "The Atlantic"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-119",
+          "title": "The Atlantic cite Klishin sur la machine mediatique de Poutine",
+          "source": "The Atlantic"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "checked_via": "GET",
+      "status_code": 403,
+      "final_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "classification": "inconclusive",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-120",
+          "title": "Bloomberg zitiert Klishin zur Twitter-Drosselung in Russland",
+          "source": "Bloomberg"
+        },
+        {
+          "kind": "digest",
+          "id": "en-120",
+          "title": "Bloomberg quotes Klishin on Russia’s Twitter crackdown",
+          "source": "Bloomberg"
+        },
+        {
+          "kind": "digest",
+          "id": "es-120",
+          "title": "Bloomberg cita a Klishin sobre la desaceleracion de Twitter en Rusia",
+          "source": "Bloomberg"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-120",
+          "title": "Bloomberg cite Klishin sur le ralentissement de Twitter en Russie",
+          "source": "Bloomberg"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "checked_via": "GET",
+      "status_code": 404,
+      "final_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "classification": "broken",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-145",
+          "title": "Dekoder zu Sputnik V, EU-Zulassung und russischer Impfkommunikation",
+          "source": "Dekoder"
+        },
+        {
+          "kind": "digest",
+          "id": "en-145",
+          "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
+          "source": "Dekoder"
+        },
+        {
+          "kind": "digest",
+          "id": "es-145",
+          "title": "Dekoder sobre Sputnik V, la UE y la narrativa rusa de vacunacion",
+          "source": "Dekoder"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-145",
+          "title": "Dekoder sur Sputnik V, l UE et la communication vaccinale russe",
+          "source": "Dekoder"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-146",
+          "title": "Wikipedia-Ueberblick zum Medienkrieg verweist auf Klishin-bezogene Aussagen",
+          "source": "Wikipedia"
+        },
+        {
+          "kind": "digest",
+          "id": "en-146",
+          "title": "Wikipedia war-coverage overview references Klishin claims",
+          "source": "Wikipedia"
+        },
+        {
+          "kind": "digest",
+          "id": "es-146",
+          "title": "El resumen de Wikipedia sobre cobertura de guerra cita afirmaciones vinculadas a Klishin",
+          "source": "Wikipedia"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-146",
+          "title": "L article Wikipedia sur la guerre mediatique cite des assertions liees a Klishin",
+          "source": "Wikipedia"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "checked_via": "GET",
+      "status_code": 404,
+      "final_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "classification": "broken",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-147",
+          "title": "LSE-Analyse zur Protestmobilisierung verweist auf feb26.org-Koordination",
+          "source": "LSE EUROPP"
+        },
+        {
+          "kind": "digest",
+          "id": "en-147",
+          "title": "LSE analysis on protest mobilization references feb26.org coordination",
+          "source": "LSE EUROPP"
+        },
+        {
+          "kind": "digest",
+          "id": "es-147",
+          "title": "Analisis de LSE sobre movilizacion de protestas cita coordinacion de feb26.org",
+          "source": "LSE EUROPP"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-147",
+          "title": "Une analyse LSE sur la mobilisation protestataire cite la coordination feb26.org",
+          "source": "LSE EUROPP"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-148",
+          "title": "Freedom on the Net 2016 erfasst Druckmuster im Umfeld von Klishin und Kollegen",
+          "source": "Freedom House"
+        },
+        {
+          "kind": "digest",
+          "id": "en-148",
+          "title": "Freedom on the Net 2016 records pressure linked to Klishin and peers",
+          "source": "Freedom House"
+        },
+        {
+          "kind": "digest",
+          "id": "es-148",
+          "title": "Freedom on the Net 2016 registra presion digital vinculada a Klishin y su entorno",
+          "source": "Freedom House"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-148",
+          "title": "Freedom on the Net 2016 documente des pressions liees a Klishin et ses pairs",
+          "source": "Freedom House"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "checked_via": "GET",
+      "status_code": 206,
+      "final_url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-149",
+          "title": "RAND-Report RR295 zu sozialen Medien und politischer Mobilisierung",
+          "source": "RAND Corporation"
+        },
+        {
+          "kind": "digest",
+          "id": "en-149",
+          "title": "RAND report RR295 on social media and political mobilization",
+          "source": "RAND Corporation"
+        },
+        {
+          "kind": "digest",
+          "id": "es-149",
+          "title": "Informe RAND RR295 sobre redes sociales y movilizacion politica",
+          "source": "RAND Corporation"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-149",
+          "title": "Rapport RAND RR295 sur les reseaux sociaux et la mobilisation politique",
+          "source": "RAND Corporation"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "checked_via": "GET",
+      "status_code": 404,
+      "final_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "classification": "broken",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-150",
+          "title": "Wilson Center: Wie Medien zu einer zentralen Waffe der Macht wurden",
+          "source": "The Wilson Center"
+        },
+        {
+          "kind": "digest",
+          "id": "en-150",
+          "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
+          "source": "The Wilson Center"
+        },
+        {
+          "kind": "digest",
+          "id": "es-150",
+          "title": "Wilson Center: como los medios se volvieron un arma central del poder",
+          "source": "The Wilson Center"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-150",
+          "title": "Wilson Center : comment les medias sont devenus une arme centrale du pouvoir",
+          "source": "The Wilson Center"
+        }
+      ]
+    },
+    {
+      "ok": false,
+      "url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "checked_via": "GET",
+      "status_code": 0,
+      "final_url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "classification": "inconclusive",
+      "error": "fetch failed",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-151",
+          "title": "JSIS-Profil: digitaler Patriotismus und nationalistische Agenda in russischen Medien",
+          "source": "JSIS Washington"
+        },
+        {
+          "kind": "digest",
+          "id": "en-151",
+          "title": "JSIS profile: digital patriotism and nationalist agenda in Russian media",
+          "source": "JSIS Washington"
+        },
+        {
+          "kind": "digest",
+          "id": "es-151",
+          "title": "Perfil JSIS: patriotismo digital y agenda nacionalista en medios rusos",
+          "source": "JSIS Washington"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-151",
+          "title": "Profil JSIS : patriotisme numerique et agenda nationaliste dans les medias russes",
+          "source": "JSIS Washington"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.gazeta.ru/auth/sso.shtml?origin=/tech/news/2016/01/16/n_8127887.shtml",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "de-152",
+          "title": "Gazeta.ru-Interview zur moeglichen Sperre von YouTube und Google",
+          "source": "Gazeta.ru"
+        },
+        {
+          "kind": "digest",
+          "id": "en-152",
+          "title": "Gazeta.ru interview on possible blocking of YouTube and Google",
+          "source": "Gazeta.ru"
+        },
+        {
+          "kind": "digest",
+          "id": "es-152",
+          "title": "Entrevista en Gazeta.ru sobre posible bloqueo de YouTube y Google",
+          "source": "Gazeta.ru"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-152",
+          "title": "Entretien Gazeta.ru sur un possible blocage de YouTube et Google",
+          "source": "Gazeta.ru"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-001",
+          "title": "Putin-Macron talks and the Russia expertise gap",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-002",
+          "title": "Mass protests: lessons from a decade",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.klishin.work/digest-multilingual-notes-v1.md",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.klishin.work/digest-multilingual-notes-v1.md",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-005",
+          "title": "How This Archive Is Built",
+          "source": "Methodology"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.ted.com/tedx/events/3947",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.ted.com/tedx/events/3947",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-006",
+          "title": "TEDx Chisinau Speaker Profile",
+          "source": "TEDx / TED.com"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-009",
+          "title": "Likes Go West",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-010",
+          "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
+          "source": "TV Rain"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://freedomhouse.org/country/russia/nations-transit/2015",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://freedomhouse.org/country/russia/nations-transit/2015",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-011",
+          "title": "Freedom House referenced TV Rain reporting on Russian soldiers in eastern Ukraine",
+          "source": "Freedom House"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://tvrain.tv/articles/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://tvrain.tv/news/chto_sluchilos_s_desantnikami_vse_materialy_dozhdja-374606/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-013",
+          "title": "TV Rain: 'Our Soldiers' Investigation",
+          "source": "TV Rain"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-014",
+          "title": "The Guardian New East: 30 Under 30",
+          "source": "The Guardian"
+        },
+        {
+          "kind": "digest",
+          "id": "en-021",
+          "title": "Guardian profile notes role in protest-era digital infrastructure",
+          "source": "The Guardian"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-015",
+          "title": "The Guardian on Pressure Around Protest Organizing",
+          "source": "The Guardian"
+        },
+        {
+          "kind": "interview",
+          "section": "features",
+          "title": "Russian police accused of scare tactics against protesters’ parents",
+          "date": "2012-02-02"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-016",
+          "title": "HRW report on harassment of critics includes Klishin case context",
+          "source": "Human Rights Watch"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "checked_via": "GET",
+      "status_code": 200,
+      "final_url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-017",
+          "title": "English press archive on intimidation claims tied to activism",
+          "source": "News24"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-018",
+          "title": "Early warning analysis on Russian troll expansion",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-019",
+          "title": "Commentary on pressure against independent media institutions",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "checked_via": "GET",
+      "status_code": 404,
+      "final_url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
+      "classification": "broken",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-022",
+          "title": "Diez on the TEDx Chisinau Talk",
+          "source": "Diez / TEDx Chisinau coverage"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-023",
+          "title": "The Magic Mirror of Russian Public Opinion",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-024",
+          "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-025",
+          "title": "Let's Wait Until After the Elections",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-026",
+          "title": "Luiza Rozova and the Helpless Intellectual",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-027",
+          "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-028",
+          "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-029",
+          "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-030",
+          "title": "Why Russians Dislike \"Good Russians\" in American Films No Less than \"Bad Russians\"",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-031",
+          "title": "Great Russian Literature Versus One Tweet by Stephen King",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-032",
+          "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-033",
+          "title": "Belarus Coverage Framing: The Moscow Times (2020-08-14) - Why Do Russians Resent Western Media Over The",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-107",
+          "title": "How Putin quietly took over Russian social media",
+          "source": "Global Voices"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://carnegie.ru/commentary/60728",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://carnegie.ru/commentary/60728",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-108",
+          "title": "Bot Army: Why the Kremlin Fails at Soft Power",
+          "source": "Carnegie.ru"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-121",
+          "title": "Why Medvedev's resignation and Putin's amendments changed nothing",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-122",
+          "title": "Who owns Russian? And who owns English?",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-123",
+          "title": "Why shoot Navalny if you can bankrupt him",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-124",
+          "title": "How the death penalty debate linked to a ban on negative Ukraine coverage",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-125",
+          "title": "The music of the media desert",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-126",
+          "title": "Moscow: clean city, cleansed city",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-127",
+          "title": "Maximum Retweet: The war we overlooked",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-128",
+          "title": "Maximum Retweet: Threats created by the Ministry of Truth",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-129",
+          "title": "Maximum Retweet: They purged the wrong people",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-131",
+          "title": "Maximum Retweet: The web we got trapped in",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-132",
+          "title": "The internet will not do it automatically",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-133",
+          "title": "Zero multiplied by a million",
+          "source": "Vedomosti"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-134",
+          "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-135",
+          "title": "How Putin Is Bankrupting the Russian Opposition",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-136",
+          "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-137",
+          "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
+          "source": "The Moscow Times"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-138",
+          "title": "Web of Control: The Future of the Russian Internet",
+          "source": "Carnegie Endowment"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-139",
+          "title": "Russia's New Decembrists",
+          "source": "New York Magazine"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-140",
+          "title": "From Kremlin Web Brigades to Russian Troll Factories",
+          "source": "VSquare"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-141",
+          "title": "Do Revolutions Grow Out of Social Media?",
+          "source": "Carnegie Endowment"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-142",
+          "title": "What Sparked Moldova's Second Maidan?",
+          "source": "Carnegie Endowment"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-143",
+          "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
+          "source": "Carnegie Endowment"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "«Кому верить?» с Ильей Клишиным. Разоблачение фейков о Литве и путеводитель по эмиграции",
+          "date": "2025-09-23"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "«Машенька» Набокова: эмиграция, кринж и прошмандовцы",
+          "date": "2025-09-08"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "«Для меня это, прежде всего, внутренняя радость от общения»",
+          "date": "2024-10-01"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Новая эмигрантская Волна. Журналист Илья Клишин о Литве, интеграции и любимых книгах",
+          "date": "2024-04-23"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://holod.media/2023/07/13/klishin-interview/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://holod.media/2023/07/13/klishin-interview/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "«Уважение к стране пребывания — это не самоцензура»",
+          "date": "2023-07-13"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "features",
+          "title": "Russian media of the new diaspora – a look at three projects",
+          "date": "2022-08-22"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Есть ли жизнь после медиа",
+          "date": "2020-11-12"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://ambivert.club/ilya-klishin/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://ambivert.club/ilya-klishin/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "От медиаменеджера на «Дожде» до своего консалтингового агентства: история Ильи Клишина",
+          "date": "2020"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "features",
+          "title": "Turning A Newspaper Into ‘Toilet Paper’: Business Daily Caught Up In Putin’s War On Journalism",
+          "date": "2020-05-02"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "features",
+          "title": "A Whole New Ecosystem: Independent Journalism Learns To Survive In Putin’s Russia",
+          "date": "2020-03-15"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "checked_via": "GET",
+      "status_code": 403,
+      "final_url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "classification": "inconclusive",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Илья Клишин и Роман Федосеев: как два журналиста создали медиа-бизнес, не требующий вложений",
+          "date": "2019-10-31"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.cossa.ru/211/171260/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.cossa.ru/211/171260/",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Придумали «Инфошум» и крутят вертикальные видео: интервью с RTVI",
+          "date": "2017-08-09"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Илья Клишин: Российских националистов нужно пустить в парламент",
+          "date": "2012-04-23"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "interviews",
+          "title": "Илья Клишин: Если выключат интернет, народ выйдет на улицу веселиться",
+          "date": "2012-01-10"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.youtube.com/watch?v=SiuliDFSnQ4",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.youtube.com/watch?v=SiuliDFSnQ4",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "archive",
+          "title": "Блогер Илья Клишин: Прохоров успеет выдвинуться…",
+          "date": "2011-2012"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.youtube.com/watch?v=gED48XwTseM",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.youtube.com/watch?v=gED48XwTseM",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "interview",
+          "section": "archive",
+          "title": "Илья Клишин по скайпу",
+          "date": "2012-03"
+        }
+      ]
+    }
+  ]
+}

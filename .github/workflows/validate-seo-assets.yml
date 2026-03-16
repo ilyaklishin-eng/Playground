@@ -26,14 +26,22 @@ jobs:
       - name: QA public content gate (block regressions)
         run: node reputation-case/site/tools/qa-public-content.mjs --output /tmp/qa-public-content-report.json
 
+      - name: QA card language gate (no cross-language leakage)
+        run: node reputation-case/site/tools/qa-card-language.mjs --output /tmp/qa-card-language-report.json
+
+      - name: Source URL health audit
+        run: node reputation-case/site/tools/check-source-urls.mjs
+
       - name: Build static digest assets
         env:
+          BUILD_ENV: production
           GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
           GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
         run: node reputation-case/site/tools/build-indexable-assets.mjs
 
-      - name: QA generated SEO assets
+      - name: QA generated SEO assets (canonical/hreflang/index policy)
         env:
+          BUILD_ENV: production
           GPTBOT_POLICY: ${{ vars.GPTBOT_POLICY }}
           GPTBOT_DISALLOW_PATHS: ${{ vars.GPTBOT_DISALLOW_PATHS }}
         run: node reputation-case/site/tools/qa-generated-assets.mjs
@@ -63,4 +71,8 @@ jobs:
             reputation-case/site/sitemap-es.xml \
             reputation-case/site/rss.xml \
             reputation-case/site/robots.txt \
-            reputation-case/site/data/search-index.json
+            reputation-case/site/data/search-index.json \
+            reputation-case/site/data/search-index-en.json \
+            reputation-case/site/data/search-index-fr.json \
+            reputation-case/site/data/search-index-de.json \
+            reputation-case/site/data/search-index-es.json

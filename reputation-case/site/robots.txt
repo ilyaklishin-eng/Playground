@@ -37,22 +37,22 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /tools/
 
 User-agent: DuckDuckBot
 Allow: /
-Disallow: /tools/
 
 User-agent: DuckAssistBot
 Allow: /
-Disallow: /tools/
 
 User-agent: Applebot
 Allow: /
-Disallow: /tools/
 
 User-agent: Yandex
 Allow: /
-Disallow: /tools/
 
 Sitemap: https://www.klishin.work/sitemap.xml
+Sitemap: https://www.klishin.work/sitemap-core.xml
+Sitemap: https://www.klishin.work/sitemap-en.xml
+Sitemap: https://www.klishin.work/sitemap-fr.xml
+Sitemap: https://www.klishin.work/sitemap-de.xml
+Sitemap: https://www.klishin.work/sitemap-es.xml

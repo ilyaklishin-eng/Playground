@@ -41,7 +41,37 @@ const BAD_SUMMARY_PATTERNS = [
   /\bentities:\b/i,
   /\bCausal chain:\b/i,
   /\bThis card is valuable\b/i,
+  /\bThe narrative avoids reductive labels\b/i,
+  /\bso readers can separate reported facts from interpretation\b/i,
+  /\bThis card summarizes\b/i,
+  /\bAs a dated source from\b/i,
+  /\bEntry added to include this publication\b/i,
+  /\bverified source link\b/i,
+  /\bwiden or narrow trust gaps\b/i,
+  /\bframed through identifiable actors\b/i,
+  /\bnamed actors and decisions\b/i,
+  /\bPeriod context explains causes effects and stakes\b/i,
 ];
+const BAD_META_NOISE_PATTERNS = [
+  /\bThe narrative avoids reductive labels\b/i,
+  /\bso readers can separate reported facts from interpretation\b/i,
+  /\bThis card summarizes\b/i,
+  /\bAs a dated source from\b/i,
+  /\bEntry added to include this publication\b/i,
+  /\bverified source link\b/i,
+  /\bsource-linked\b/i,
+  /\bmachine-readable\b/i,
+  /\bmapped as\b/i,
+  /\bwiden or narrow trust gaps\b/i,
+  /\bframed through identifiable actors\b/i,
+  /\bnamed actors and decisions\b/i,
+  /\bPeriod context explains causes effects and stakes\b/i,
+  /\bpublic records\b/i,
+  /\bmultilingual materials\b/i,
+  /\bcausal framing\b/i,
+  /\bchronology actors\b/i,
+];
+const TRUNCATED_SUMMARY_RE = /(?:\.\.\.|…|[:;,–-])\s*$/;
 const PLACEHOLDER_TITLES = new Set(["vedomosti", "the moscow times ru", "ru.themoscowtimes", "snob", "tv rain"]);
 const AUTHOR_PROFILE_RE = /\b(author page|author profile|profil d auteur|autorenprofil)\b/i;
 
@@ -113,6 +143,50 @@ const main = async () => {
             pattern: String(pattern),
           })
         );
+      }
+    }
+
+    if (summary && TRUNCATED_SUMMARY_RE.test(summary)) {
+      issues.push(
+        issue("error", "summary.truncated", id, "Summary looks truncated or cut off mid-thought.", {
+          summary,
+        })
+      );
+    }
+
+    const valueContext = trim(item?.value_context);
+    const keyIdeas = Array.isArray(item?.key_ideas) ? item.key_ideas.map((entry) => trim(entry)).filter(Boolean) : [];
+
+    for (const pattern of BAD_META_NOISE_PATTERNS) {
+      if (pattern.test(valueContext)) {
+        issues.push(
+          issue("error", "value-context.meta-noise", id, "Value/context contains service boilerplate or meta-noise.", {
+            value_context: valueContext,
+            pattern: String(pattern),
+          })
+        );
+      }
+
+      for (const idea of keyIdeas) {
+        if (pattern.test(idea)) {
+          issues.push(
+            issue("warn", "key-ideas.meta-noise", id, "Key ideas contain template/meta language that should be rewritten.", {
+              key_idea: idea,
+              pattern: String(pattern),
+            })
+          );
+        }
+      }
+
+      for (const quote of quotes) {
+        if (pattern.test(quote)) {
+          issues.push(
+            issue("warn", "quotes.meta-noise", id, "Quote field contains synthetic/meta language instead of a real quote.", {
+              quote,
+              pattern: String(pattern),
+            })
+          );
+        }
       }
     }
 

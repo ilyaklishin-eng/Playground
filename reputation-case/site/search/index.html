@@ -6,30 +6,27 @@
     <title>Search | Ilia Klishin</title>
     <meta
       name="description"
-      content="Search published pieces and selected pages."
+      content="Search published writing, interviews, and selected pages."
     />
     <meta name="robots" content="noindex,follow,max-image-preview:large" />
-    <link rel="canonical" href="https://www.klishin.work/search/" />
-    <link rel="alternate" hreflang="en" href="https://www.klishin.work/search/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.klishin.work/search/" />
+    
+    
+    
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Search | Ilia Klishin" />
-    <meta
-      property="og:description"
-      content="Search across published cards and selected work."
-    />
+    <meta property="og:description" content="Search published writing, interviews, and selected pages." />
     <meta property="og:url" content="https://www.klishin.work/search/" />
     <meta property="og:site_name" content="Ilia Klishin" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Search | Ilia Klishin" />
-    <meta name="twitter:description" content="Search published pieces and selected pages." />
+    <meta name="twitter:description" content="Search published writing, interviews, and selected pages." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.9b1fd03355.css" />
+    <link rel="stylesheet" href="/styles.55636b8428.css" />
     <style>
       .primary-nav a[aria-current="page"] {
         border-color: var(--line-strong);
@@ -76,6 +73,10 @@
         gap: 0.35rem;
       }
 
+      .search-input-shell {
+        position: relative;
+      }
+
       .search-query label {
         font-size: 0.85rem;
         font-weight: 700;
@@ -86,10 +87,68 @@
         border: 1px solid var(--line);
         border-radius: 12px;
         min-height: 44px;
-        padding: 0.62rem 0.72rem;
+        padding: 0.62rem 2.9rem 0.62rem 0.72rem;
         font: inherit;
         background: #fff;
         color: var(--ink);
+        transition:
+          border-color 0.18s ease,
+          background-color 0.18s ease,
+          color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      .search-query input:disabled {
+        cursor: wait;
+      }
+
+      .search-controls[data-search-state="loading"] .search-query input {
+        background: color-mix(in srgb, var(--paper) 88%, white 12%);
+        color: var(--muted);
+      }
+
+      .search-controls[data-search-state="error"] .search-query input {
+        border-color: color-mix(in srgb, var(--accent-ink) 28%, var(--line) 72%);
+        background: color-mix(in srgb, #fff4f0 78%, white 22%);
+      }
+
+      .search-query-addon {
+        position: absolute;
+        top: 50%;
+        right: 0.82rem;
+        transform: translateY(-50%);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+      }
+
+      .search-spinner {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 999px;
+        border: 2px solid color-mix(in srgb, var(--line-strong) 24%, transparent 76%);
+        border-top-color: var(--accent-ink);
+        animation: searchSpin 0.82s linear infinite;
+      }
+
+      .search-status-icon {
+        width: 1.35rem;
+        height: 1.35rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, #fff4f0 84%, white 16%);
+        color: color-mix(in srgb, #8b3a2f 88%, var(--ink) 12%);
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .search-controls[data-search-state="loading"] .search-spinner {
+        display: inline-flex;
+      }
+
+      .search-controls[data-search-state="error"] .search-status-icon {
+        display: inline-flex;
       }
 
       .search-row {
@@ -116,6 +175,11 @@
         cursor: pointer;
       }
 
+      .lang-chip:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
       .lang-chip.active {
         border-color: var(--accent);
         background: var(--accent-soft);
@@ -126,6 +190,20 @@
         margin: 0;
         color: var(--muted);
         font-size: 0.85rem;
+        display: none;
+      }
+
+      .search-controls[data-search-state="error"] .search-hint {
+        display: block;
+        color: color-mix(in srgb, #7c3b31 86%, var(--ink) 14%);
+      }
+
+      .search-controls[data-search-state="error"] .search-row {
+        display: none;
+      }
+
+      .search-controls[data-search-state="error"] {
+        gap: 0.55rem;
       }
 
       .search-summary {
@@ -229,6 +307,50 @@
         color: var(--muted);
       }
 
+      .search-fallback {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+        padding: 0.95rem 1rem;
+      }
+
+      .search-fallback h2 {
+        margin: 0;
+        font-size: 1.08rem;
+      }
+
+      .search-fallback p {
+        margin: 0.45rem 0 0;
+        color: var(--muted);
+      }
+
+      .search-fallback-links {
+        margin: 0.72rem 0 0;
+        padding-left: 1.1rem;
+        display: grid;
+        gap: 0.3rem;
+      }
+
+      .search-fallback-links a {
+        color: var(--accent-ink);
+        text-decoration: none;
+      }
+
+      .search-fallback-links a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes searchSpin {
+        from {
+          transform: translateY(-50%) rotate(0deg);
+        }
+
+        to {
+          transform: translateY(-50%) rotate(360deg);
+        }
+      }
+
       @media (max-width: 920px) {
         .search-controls {
           padding: 0.82rem;
@@ -255,8 +377,7 @@
           font-size: 1.12rem;
         }
       }
-    </style>
-    <script type="application/ld+json">
+    </style><script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -276,15 +397,12 @@
         "https://www.instagram.com/vorewig",
         "https://www.facebook.com/ilya.klishin",
         "https://t.me/vorewig",
-        "https://t.me/bookswithklishin",
         "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-        "https://www.theguardian.com/world/2015/jun/08/30-under-30-moscows-young-power-list",
         "https://www.ted.com/tedx/events/3947",
         "https://www.themoscowtimes.com/author/ilya-klishin",
         "https://www.vedomosti.ru/authors/ilya-klishin",
-        "https://polutona.ru/?show=1104154256",
+        "https://theins.ru/en/opinion/ilya-klishin",
         "https://snob.ru/profile/28206/about/",
-        "https://snob.ru/profile/28206/blog/",
         "https://rtvi.com/editors-archive/ilya-klishin/",
         "https://kf.agency/articles/biography"
       ]
@@ -296,11 +414,7 @@
       "url": "https://www.klishin.work/",
       "founder": {
         "@id": "https://www.klishin.work/#person"
-      },
-      "sameAs": [
-        "https://www.klishin.work/",
-        "https://www.klishin.work/archive/"
-      ]
+      }
     },
     {
       "@type": "WebSite",
@@ -324,31 +438,31 @@
           "@id": "https://www.klishin.work/#webpage"
         },
         {
-          "@id": "https://www.klishin.work/bio/#webpage"
+          "@id": "https://www.klishin.work/bio/#profilepage"
         },
         {
-          "@id": "https://www.klishin.work/cases/#webpage"
+          "@id": "https://www.klishin.work/cases/#profilepage"
         },
         {
-          "@id": "https://www.klishin.work/contact/#webpage"
+          "@id": "https://www.klishin.work/contact/#contactpage"
         },
         {
           "@id": "https://www.klishin.work/interviews/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/selected/#webpage"
+          "@id": "https://www.klishin.work/selected/#collectionpage"
         },
         {
           "@id": "https://www.klishin.work/search/#webpage"
         },
         {
-          "@id": "https://www.klishin.work/insights/#webpage"
+          "@id": "https://www.klishin.work/insights/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/archive/#webpage"
+          "@id": "https://www.klishin.work/archive/#collectionpage"
         },
         {
-          "@id": "https://www.klishin.work/posts/index.html#webpage"
+          "@id": "https://www.klishin.work/posts/#collectionpage"
         }
       ],
       "potentialAction": {
@@ -380,7 +494,7 @@
       "@id": "https://www.klishin.work/search/#webpage",
       "url": "https://www.klishin.work/search/",
       "name": "Search | Ilia Klishin",
-      "description": "Search published pieces and selected pages.",
+      "description": "Search published writing, interviews, and selected pages.",
       "inLanguage": "en",
       "isPartOf": {
         "@id": "https://www.klishin.work/#website"
@@ -402,48 +516,69 @@
   ]
 }
     </script>
-      <meta property="og:image" content="https://www.klishin.work/og/site-default.jpg" />
+      <meta property="og:image" content="https://www.klishin.work/assets/images/og-site-default.jpg?v=ef01ec3676" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/jpeg" />
-      <meta name="twitter:image" content="https://www.klishin.work/og/site-default.jpg" />
-      <meta property="og:image:secure_url" content="https://www.klishin.work/og/site-default.jpg" />
-      <meta name="twitter:image:src" content="https://www.klishin.work/og/site-default.jpg" />
-      <link rel="image_src" href="https://www.klishin.work/og/site-default.jpg" />
+      <meta name="twitter:image" content="https://www.klishin.work/assets/images/og-site-default.jpg?v=ef01ec3676" />
+      <meta property="og:image:secure_url" content="https://www.klishin.work/assets/images/og-site-default.jpg?v=ef01ec3676" />
+      <meta name="twitter:image:src" content="https://www.klishin.work/assets/images/og-site-default.jpg?v=ef01ec3676" />
+      <link rel="image_src" href="https://www.klishin.work/assets/images/og-site-default.jpg?v=ef01ec3676" />
+      <meta name="twitter:creator" content="@vorewig" />
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <link rel="canonical" href="https://www.klishin.work/search/" />
   </head>
   <body>
     <div class="bg-ornament" aria-hidden="true"></div>
-    <header class="topbar">
+    <header class="topbar" id="siteTopbar">
       <a class="brand" href="/" aria-label="Go to home">Ilia Klishin</a>
       <nav class="primary-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/bio/">Bio</a>
         <a href="/selected/">Selected Work</a>
         <a href="/interviews/">Interviews</a>
-<a href="/search/" aria-current="page">Search</a>
         <a href="/contact/">Contact</a>
       </nav>
-      <div class="site-lang-switch" aria-label="Site language">
-        <a class="active" href="/search/">EN</a>
-        <a href="/fr/">FR</a>
-        <a href="/de/">DE</a>
-        <a href="/es/">ES</a>
-      </div>
+      <nav class="site-lang-switch" aria-label="Site language">
+        <a class="active" href="/search/" aria-current="page">EN</a>
+      </nav>
     </header>
-
-    <main class="page search-page">
+<main class="page search-page">
       <section class="search-hero">
         <p class="eyebrow">Search</p>
         <h1>Search the archive</h1>
         <p>
-          Search published pieces and selected pages.
+          Search published writing, interviews, and selected pages.
         </p>
       </section>
 
-      <section class="search-controls" aria-label="Search controls">
+      <section class="search-controls" id="searchControls" aria-label="Search controls" data-search-state="init" aria-busy="false">
         <div class="search-query">
           <label for="siteSearchInput">Query</label>
-          <input id="siteSearchInput" type="search" placeholder="Title, source, topic, keyword" autocomplete="off" />
+          <div class="search-input-shell">
+            <input id="siteSearchInput" type="search" placeholder="Title, source, topic, keyword" autocomplete="off" disabled aria-disabled="true" />
+            <span class="search-query-addon search-spinner" aria-hidden="true"></span>
+            <span class="search-query-addon search-status-icon" aria-hidden="true">!</span>
+          </div>
         </div>
 
         <div class="search-row" id="languageFilter" role="group" aria-label="Language filter">
@@ -454,25 +589,30 @@
           <button class="lang-chip" data-lang="ES" type="button" aria-pressed="false">ES</button>
         </div>
 
-        <p class="search-hint" id="searchHint">Loading…</p>
+        <p class="search-hint" id="searchHint" aria-live="polite"></p>
       </section>
 
       <p class="search-summary" id="searchSummary" aria-live="polite"></p>
-      <section class="search-results" id="searchResults" aria-live="polite"></section>
-    </main>
-
-    <footer class="footer">
-      <p>Search across published cards and selected work.</p>
+      <section class="search-results" id="searchResults" aria-live="polite">
+        <article class="search-fallback" id="searchBrowseFallback">
+          <h2>Browse published sections</h2>
+          <p>Search becomes interactive when JavaScript is available. Until then, use these public indexes.</p>
+          <ul class="search-fallback-links">
+            <li><a href="/selected/">Selected Work</a></li>
+            <li><a href="/interviews/">Interviews</a></li>
+            <li><a href="/posts/">Posts</a></li>
+            <li><a href="/bio/">Bio</a></li>
+          </ul>
+        </article>
+      </section>
+    </main><footer class="footer">
       <nav class="secondary-nav" aria-label="Secondary">
-        <a href="/archive/">Archive</a>
-        <a href="/posts/">Posts</a>
-        <a href="/search/">Search</a>
-        <a href="/rss.xml">RSS</a>
-        <a href="/sitemap.xml">Sitemap</a>
-        <a href="/source-registry-v1.tsv">Data / Registry</a>
+        <a href="/">Home</a>
+        <a href="/bio/">Bio</a>
+        <a href="/selected/">Selected Work</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </footer>
-
-    <script type="module" src="/search/search.74f123fdb2.js"></script>
+<script type="module" src="/search/search.bbbb3d6e76.js"></script>
   </body>
 </html>

@@ -1,0 +1,3361 @@
+{
+  "locale": "en",
+  "generated_at": "2025-09-23T00:00:00.000Z",
+  "counts": {
+    "total": 107,
+    "posts": 54,
+    "selected": 38,
+    "interviews": 15
+  },
+  "items": [
+    {
+      "id": "interview-en-1",
+      "content_id": "interview:7e3a357c3c838049",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Who to Trust? With Ilia Klishin: Debunking Myths About Lithuania and a Guide to Emigration",
+      "summary": "A conversation about myths around Lithuania, migrant adaptation, and the information environment.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "YouTube",
+      "date": "2025-09-23",
+      "display_date": "September 23, 2025",
+      "material_type": "Video / archive",
+      "url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "source_url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "semantic_tags": [
+        "video",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-en-2",
+      "content_id": "interview:30a09883795f05d9",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Nabokov's Mashenka: Emigration, Awkwardness, and Cultural Language",
+      "summary": "An episode of the Tvoya Zakladka podcast about Nabokov, emigration, and cultural optics.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Apple Podcasts",
+      "date": "2025-09-08",
+      "display_date": "September 8, 2025",
+      "material_type": "Podcast",
+      "url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "source_url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-en-3",
+      "content_id": "interview:62beaf81b94ef146",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "For Me, Above All, It Is the Inner Joy of Conversation",
+      "summary": "An interview for 7x7 about a Vilnius book club, reading practice, and community building.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "7x7",
+      "date": "2024-10-01",
+      "display_date": "October 1, 2024",
+      "material_type": "Text",
+      "url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "source_url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-en-4",
+      "content_id": "interview:74b1cddf102f666a",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "A New Emigrant Volna: Ilia Klishin on Lithuania, Integration, and Favorite Books",
+      "summary": "A conversation about relocation, the Volna project, integration in Lithuania, and reading habits.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Radio Tochka",
+      "date": "2024-04-23",
+      "display_date": "April 23, 2024",
+      "material_type": "Podcast / video",
+      "url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "source_url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "semantic_tags": [
+        "video",
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-en-5",
+      "content_id": "interview:27351bf05137ea98",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Respect for the Host Country Is Not Self-Censorship",
+      "summary": "An interview on building emigrant media and speaking to new audiences without arrogance or noise.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Holod",
+      "date": "2023-07-13",
+      "display_date": "July 13, 2023",
+      "material_type": "Text",
+      "url": "https://holod.media/2023/07/13/klishin-interview/",
+      "source_url": "https://holod.media/2023/07/13/klishin-interview/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-en-6",
+      "content_id": "interview:fc96a0e772c41728",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Russian Media of the New Diaspora: A Look at Three Projects",
+      "summary": "An English feature in The Fix on new Russian-language diaspora media, including Volna.",
+      "context": "",
+      "topic": "English-language and feature materials",
+      "source": "The Fix",
+      "date": "2022-08-22",
+      "display_date": "August 22, 2022",
+      "material_type": "Feature",
+      "url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "source_url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "en-001",
+      "content_id": "content:en-001",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html",
+      "title": "Putin-Macron talks and the Russia expertise gap",
+      "summary": "In this Feb 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.",
+      "context": "It connects media analysis with the original text published by The Moscow Times.",
+      "topic": "media analysis",
+      "source": "The Moscow Times",
+      "date": "2022-02-14",
+      "display_date": "2022-02-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html",
+      "source_url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "Russia",
+        "Ukraine crisis",
+        "media analysis",
+        "editorial standards",
+        "public trust",
+        "war framing",
+        "misinformation",
+        "2022"
+      ]
+    },
+    {
+      "id": "selected-journalism-1",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Putin-Macron talks and the Russia expertise gap",
+      "summary": "In this Feb 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2022-02-14",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html",
+      "source_url": "https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html"
+    },
+    {
+      "id": "en-002",
+      "content_id": "content:en-002",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html",
+      "title": "Mass protests: lessons from a decade",
+      "summary": "This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability.",
+      "context": "It offers a concise entry point into the debate around civic protests.",
+      "topic": "civic protests",
+      "source": "The Moscow Times",
+      "date": "2021-12-10",
+      "display_date": "2021-12-10",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html",
+      "source_url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "mass protests",
+        "Bolotnaya",
+        "Russian opposition",
+        "repression",
+        "political analysis",
+        "movement strategy",
+        "public mobilization",
+        "2021",
+        "civic protests"
+      ]
+    },
+    {
+      "id": "selected-journalism-2",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Mass protests: lessons from a decade",
+      "summary": "This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2021-12-10",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html",
+      "source_url": "https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html"
+    },
+    {
+      "id": "en-019",
+      "content_id": "content:en-019",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html",
+      "title": "Commentary on pressure against independent media institutions",
+      "summary": "This card summarizes \"Commentary on pressure against independent media institutions\" published by The Moscow Times on 2021-08-24.",
+      "context": "This piece places media freedom in a concrete editorial moment in 2021.",
+      "topic": "media freedom",
+      "source": "The Moscow Times",
+      "date": "2021-08-24",
+      "display_date": "2021-08-24",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html",
+      "source_url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media freedom",
+        "media-analysis",
+        "commentary",
+        "pressure",
+        "against"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-22",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Commentary on pressure against independent media institutions",
+      "summary": "The Moscow Times publishes a piece on media freedom.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-08-24",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html",
+      "source_url": "https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html"
+    },
+    {
+      "id": "en-023",
+      "content_id": "content:en-023",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html",
+      "title": "The Magic Mirror of Russian Public Opinion",
+      "summary": "How public-opinion narratives are shaped by institutions, incentives, and media distribution logic. This card summarizes \"The Magic Mirror of Russian Public Opinion\" published by The Moscow Times on 2021-07-12.",
+      "context": "It connects public opinion with the original text published by The Moscow Times.",
+      "topic": "public opinion",
+      "source": "The Moscow Times",
+      "date": "2021-07-12",
+      "display_date": "2021-07-12",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html",
+      "source_url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public opinion",
+        "magic",
+        "mirror",
+        "russian"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-23",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "The Magic Mirror of Russian Public Opinion",
+      "summary": "How public-opinion narratives are shaped by institutions, incentives, and media distribution logic.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-07-12",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html",
+      "source_url": "https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html"
+    },
+    {
+      "id": "en-024",
+      "content_id": "content:en-024",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html",
+      "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
+      "summary": "The Moscow Times publishes a piece on media ethics.",
+      "context": "It offers a concise entry point into the debate around media ethics.",
+      "topic": "media ethics",
+      "source": "The Moscow Times",
+      "date": "2021-06-07",
+      "display_date": "2021-06-07",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html",
+      "source_url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media ethics",
+        "media-analysis",
+        "dilemma",
+        "great",
+        "terror"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-24",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
+      "summary": "The Moscow Times publishes a piece on media ethics.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-06-07",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html",
+      "source_url": "https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html"
+    },
+    {
+      "id": "en-025",
+      "content_id": "content:en-025",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html",
+      "title": "Let's Wait Until After the Elections",
+      "summary": "How election-timing rhetoric can postpone decisions and normalize strategic waiting. This card summarizes \"Let's Wait Until After the Elections\" published by The Moscow Times on 2021-05-17.",
+      "context": "It explains electoral timing and links to the original source.",
+      "topic": "electoral timing",
+      "source": "The Moscow Times",
+      "date": "2021-05-17",
+      "display_date": "2021-05-17",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html",
+      "source_url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "electoral timing",
+        "civic-politics",
+        "wait",
+        "until",
+        "after"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-25",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Let's Wait Until After the Elections",
+      "summary": "How election-timing rhetoric can postpone decisions and normalize strategic waiting.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-05-17",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html",
+      "source_url": "https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html"
+    },
+    {
+      "id": "en-145",
+      "content_id": "content:en-145",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-145-dekoder-zu-sputnik-v-eu-zulassung-und-russischer-impfkommunikation.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
+      "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
+      "summary": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
+      "context": "Reference card on how German-language coverage used Klishin commentary in the Sputnik V and trust debate.",
+      "topic": "public health communication",
+      "source": "Dekoder",
+      "date": "2021-04-01",
+      "display_date": "2021-04-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Dekoder",
+        "public health communication",
+        "2021",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-026",
+      "content_id": "content:en-026",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html",
+      "title": "Luiza Rozova and the Helpless Intellectual",
+      "summary": "The piece examines elite discourse in 2021.",
+      "context": "This piece places elite discourse in a concrete editorial moment in 2021.",
+      "topic": "elite discourse",
+      "source": "The Moscow Times",
+      "date": "2021-03-19",
+      "display_date": "2021-03-19",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html",
+      "source_url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "elite discourse",
+        "luiza",
+        "rozova",
+        "helpless"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-26",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Luiza Rozova and the Helpless Intellectual",
+      "summary": "The piece examines elite discourse in 2021.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-03-19",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html",
+      "source_url": "https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html"
+    },
+    {
+      "id": "en-120",
+      "content_id": "content:en-120",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
+      "title": "Bloomberg quotes Klishin on Russia’s Twitter crackdown",
+      "summary": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
+      "context": "External feature card documenting how Bloomberg used Klishin commentary while reporting Russia’s platform pressure strategy.",
+      "topic": "platform crackdown",
+      "source": "Bloomberg",
+      "date": "2021-03-10",
+      "display_date": "2021-03-10",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
+      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Bloomberg",
+        "Twitter",
+        "Russia",
+        "platform regulation",
+        "media pressure",
+        "digital policy",
+        "2021"
+      ]
+    },
+    {
+      "id": "en-027",
+      "content_id": "content:en-027",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html",
+      "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
+      "summary": "Which technical and political mechanisms can be used to restrict social-network access. This card summarizes \"Four Ways the Kremlin Could Block Western Social Networks in Russia\" published by The Moscow Times on 2021-02-12.",
+      "context": "It connects social network regulation with the original text published by The Moscow Times.",
+      "topic": "social network regulation",
+      "source": "The Moscow Times",
+      "date": "2021-02-12",
+      "display_date": "2021-02-12",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html",
+      "source_url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "social network regulation",
+        "platform-dynamics",
+        "four",
+        "ways",
+        "kremlin"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-27",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
+      "summary": "Which technical and political mechanisms can be used to restrict social-network access.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-02-12",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html",
+      "source_url": "https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html"
+    },
+    {
+      "id": "en-028",
+      "content_id": "content:en-028",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html",
+      "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
+      "summary": "This The Moscow Times (2021) publication focuses on comparative media framing.",
+      "context": "It offers a concise entry point into the debate around comparative media framing.",
+      "topic": "comparative media framing",
+      "source": "The Moscow Times",
+      "date": "2021-01-14",
+      "display_date": "2021-01-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html",
+      "source_url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "comparative media framing",
+        "media-analysis",
+        "capitol",
+        "storming",
+        "gives"
+      ]
+    },
+    {
+      "id": "selected-media-strategy-28",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
+      "summary": "This The Moscow Times (2021) publication focuses on comparative media framing.",
+      "context": "",
+      "topic": "Media Strategy / Analysis",
+      "source": "Selected Work",
+      "date": "2021-01-14",
+      "material_type": "Curated card",
+      "section": "Media Strategy / Analysis",
+      "section_intro": "Work on institutions, platform pressure, and editorial decision environments.",
+      "url": "https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html",
+      "source_url": "https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html"
+    },
+    {
+      "id": "en-029",
+      "content_id": "content:en-029",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html",
+      "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
+      "summary": "How platform dynamics and troll methods move from domestic messaging into wider information spaces. This card summarizes \"Warning!",
+      "context": "It explains disinformation and platforms and links to the original source.",
+      "topic": "disinformation and platforms",
+      "source": "The Moscow Times",
+      "date": "2020-12-18",
+      "display_date": "2020-12-18",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html",
+      "source_url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "disinformation and platforms",
+        "eastern-europe-context",
+        "platform-dynamics",
+        "information-integrity",
+        "warning",
+        "army",
+        "russian"
+      ]
+    },
+    {
+      "id": "selected-propaganda-29",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
+      "summary": "How platform dynamics and troll methods move from domestic messaging into wider information spaces.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2020-12-18",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html",
+      "source_url": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html"
+    },
+    {
+      "id": "en-030",
+      "content_id": "content:en-030",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html",
+      "title": "Why Russians Dislike \"Good Russians\" in American Films No Less than \"Bad Russians\"",
+      "summary": "The article outlines cultural representation in clear terms.",
+      "context": "It connects cultural representation with the original text published by The Moscow Times.",
+      "topic": "cultural representation",
+      "source": "The Moscow Times",
+      "date": "2020-11-20",
+      "display_date": "2020-11-20",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html",
+      "source_url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "cultural representation",
+        "cultural-context",
+        "moscow",
+        "times",
+        "2020"
+      ]
+    },
+    {
+      "id": "selected-literature-37",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Why Russians Dislike \"Good Russians\" in American Films No Less than \"Bad Russians\"",
+      "summary": "The article outlines cultural representation in clear terms.",
+      "context": "",
+      "topic": "Literature / Essays / Cultural Commentary",
+      "source": "Selected Work",
+      "date": "2020-11-20",
+      "material_type": "Curated card",
+      "section": "Literature / Essays / Cultural Commentary",
+      "section_intro": "Texts on culture, representation, and symbolic politics in public discourse.",
+      "url": "https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html",
+      "source_url": "https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html"
+    },
+    {
+      "id": "interview-en-7",
+      "content_id": "interview:f1b475884dc2194a",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Is There Life After Media",
+      "summary": "A discussion on careers after major newsrooms, new work formats, and professional transition.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "YouTube",
+      "date": "2020-11-12",
+      "display_date": "November 12, 2020",
+      "material_type": "Podcast / broadcast",
+      "url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "source_url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "en-031",
+      "content_id": "content:en-031",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html",
+      "title": "Great Russian Literature Versus One Tweet by Stephen King",
+      "summary": "How cultural symbols and representation frames affect trust, identity, and audience reaction. This card summarizes \"Great Russian Literature Versus One Tweet by Stephen King\" published by The Moscow Times on 2020-11-09.",
+      "context": "It offers a concise entry point into the debate around cultural signaling.",
+      "topic": "cultural signaling",
+      "source": "The Moscow Times",
+      "date": "2020-11-09",
+      "display_date": "2020-11-09",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html",
+      "source_url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "cultural signaling",
+        "cultural-context",
+        "great",
+        "russian",
+        "literature"
+      ]
+    },
+    {
+      "id": "selected-literature-38",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Great Russian Literature Versus One Tweet by Stephen King",
+      "summary": "How cultural symbols and representation frames affect trust, identity, and audience reaction.",
+      "context": "",
+      "topic": "Literature / Essays / Cultural Commentary",
+      "source": "Selected Work",
+      "date": "2020-11-09",
+      "material_type": "Curated card",
+      "section": "Literature / Essays / Cultural Commentary",
+      "section_intro": "Texts on culture, representation, and symbolic politics in public discourse.",
+      "url": "https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html",
+      "source_url": "https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html"
+    },
+    {
+      "id": "en-032",
+      "content_id": "content:en-032",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html",
+      "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
+      "summary": "The piece examines platform influence in 2020.",
+      "context": "It explains platform influence and links to the original source.",
+      "topic": "platform influence",
+      "source": "The Moscow Times",
+      "date": "2020-09-28",
+      "display_date": "2020-09-28",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html",
+      "source_url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "platform influence",
+        "platform-dynamics",
+        "anonymous",
+        "telegram",
+        "channels"
+      ]
+    },
+    {
+      "id": "selected-propaganda-30",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
+      "summary": "The piece examines platform influence in 2020.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2020-09-28",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html",
+      "source_url": "https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html"
+    },
+    {
+      "id": "en-033",
+      "content_id": "content:en-033",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html",
+      "title": "Why Do Russians Resent Western Media Over The",
+      "summary": "Why protest outcomes that look like defeat can still produce long-term civic learning. This card summarizes \"Belarus Coverage Framing: The Moscow Times (2020-08-14) - Why Do Russians Resent Western Media Over The\" published by The Moscow Times on 2020-08-14.",
+      "context": "This piece places belarus coverage framing in a concrete editorial moment in 2020.",
+      "topic": "belarus coverage framing",
+      "source": "The Moscow Times",
+      "date": "2020-08-14",
+      "display_date": "2020-08-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html",
+      "source_url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "belarus coverage framing",
+        "eastern-europe-context",
+        "civic-politics",
+        "media-analysis",
+        "belarus",
+        "coverage",
+        "framing"
+      ]
+    },
+    {
+      "id": "selected-journalism-3",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Why Do Russians Resent Western Media Over The",
+      "summary": "Why protest outcomes that look like defeat can still produce long-term civic learning.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2020-08-14",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html",
+      "source_url": "https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html"
+    },
+    {
+      "id": "interview-en-8",
+      "content_id": "interview:74dc7f2812ed2739",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Turning a Newspaper Into Toilet Paper: Business Daily Caught Up in Putin's War on Journalism",
+      "summary": "An English RFE/RL feature with my commentary on pressure against independent journalism.",
+      "context": "",
+      "topic": "English-language and feature materials",
+      "source": "RFE/RL",
+      "date": "2020-05-02",
+      "display_date": "May 2, 2020",
+      "material_type": "Feature",
+      "url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "source_url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "en-134",
+      "content_id": "content:en-134",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html",
+      "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
+      "summary": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "context": "It offers a concise entry point into the debate around constitutional vote.",
+      "topic": "constitutional vote",
+      "source": "The Moscow Times",
+      "date": "2020-04-16",
+      "display_date": "2020-04-16",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html",
+      "source_url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional vote",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-4",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
+      "summary": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2020-04-16",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html",
+      "source_url": "https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html"
+    },
+    {
+      "id": "interview-en-9",
+      "content_id": "interview:c3b8764aa87e8643",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "A Whole New Ecosystem: Independent Journalism Learns to Survive in Putin's Russia",
+      "summary": "A long English feature on how independent journalism adapted under pressure in Russia.",
+      "context": "",
+      "topic": "English-language and feature materials",
+      "source": "RFE/RL",
+      "date": "2020-03-15",
+      "display_date": "March 15, 2020",
+      "material_type": "Feature",
+      "url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "source_url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "en-121",
+      "content_id": "content:en-121",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html",
+      "title": "Why Medvedev's resignation and Putin's amendments changed nothing",
+      "summary": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
+      "context": "This piece places constitutional politics in a concrete editorial moment in 2020.",
+      "topic": "constitutional politics",
+      "source": "The Moscow Times",
+      "date": "2020-01-17",
+      "display_date": "2020-01-17",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html",
+      "source_url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "constitutional politics",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-5",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Why Medvedev's resignation and Putin's amendments changed nothing",
+      "summary": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2020-01-17",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html",
+      "source_url": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html"
+    },
+    {
+      "id": "interview-en-10",
+      "content_id": "interview:b36bf2aaadeb17ed",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "From TV Rain Media Manager to Consulting Agency Founder: Ilia Klishin's Story",
+      "summary": "A long interview about professional trajectory, media, consulting, literature, and personal choices.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Ambivert Club",
+      "date": "2020-01-01",
+      "display_date": "2020",
+      "material_type": "Text",
+      "url": "https://ambivert.club/ilya-klishin/",
+      "source_url": "https://ambivert.club/ilya-klishin/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "en-122",
+      "content_id": "content:en-122",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html",
+      "title": "Who owns Russian? And who owns English?",
+      "summary": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "context": "It connects language politics with the original text published by The Moscow Times.",
+      "topic": "language politics",
+      "source": "The Moscow Times",
+      "date": "2019-11-11",
+      "display_date": "2019-11-11",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html",
+      "source_url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "language politics",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-6",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Who owns Russian? And who owns English?",
+      "summary": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2019-11-11",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html",
+      "source_url": "https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html"
+    },
+    {
+      "id": "interview-en-11",
+      "content_id": "interview:c0e73d1418fe1e8c",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin and Roman Fedoseev: How Two Journalists Built a Media Business Without Investment",
+      "summary": "A conversation about launching a consulting business after newsroom careers.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Radio Baltica",
+      "date": "2019-10-31",
+      "display_date": "October 31, 2019",
+      "material_type": "Podcast",
+      "url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "source_url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "en-123",
+      "content_id": "content:en-123",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html",
+      "title": "Why shoot Navalny if you can bankrupt him",
+      "summary": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
+      "context": "It offers a concise entry point into the debate around economic repression.",
+      "topic": "economic repression",
+      "source": "The Moscow Times",
+      "date": "2019-10-30",
+      "display_date": "2019-10-30",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html",
+      "source_url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "en-135",
+      "content_id": "content:en-135",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html",
+      "title": "How Putin Is Bankrupting the Russian Opposition",
+      "summary": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "context": "It explains economic repression and links to the original source.",
+      "topic": "economic repression",
+      "source": "The Moscow Times",
+      "date": "2019-10-30",
+      "display_date": "2019-10-30",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html",
+      "source_url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "economic repression",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-7",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Why shoot Navalny if you can bankrupt him",
+      "summary": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2019-10-30",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html",
+      "source_url": "https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html"
+    },
+    {
+      "id": "selected-journalism-8",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "How Putin Is Bankrupting the Russian Opposition",
+      "summary": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2019-10-30",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html",
+      "source_url": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html"
+    },
+    {
+      "id": "en-124",
+      "content_id": "content:en-124",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html",
+      "title": "How the death penalty debate linked to a ban on negative Ukraine coverage",
+      "summary": "Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.",
+      "context": "It explains media framing and links to the original source.",
+      "topic": "media framing",
+      "source": "The Moscow Times",
+      "date": "2019-10-16",
+      "display_date": "2019-10-16",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html",
+      "source_url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media framing",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-9",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "How the death penalty debate linked to a ban on negative Ukraine coverage",
+      "summary": "Klishin connects two media agendas to show how distraction campaigns are built. The text argues that emotionally loaded topics can be amplified to redirect public attention and normalize selective information boundaries around politically sensitive narratives.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2019-10-16",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html",
+      "source_url": "https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html"
+    },
+    {
+      "id": "en-136",
+      "content_id": "content:en-136",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html",
+      "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
+      "summary": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "context": "This piece places public discourse in a concrete editorial moment in 2019.",
+      "topic": "public discourse",
+      "source": "The Moscow Times",
+      "date": "2019-09-26",
+      "display_date": "2019-09-26",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html",
+      "source_url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "public discourse",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-10",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
+      "summary": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2019-09-26",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html",
+      "source_url": "https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html"
+    },
+    {
+      "id": "en-137",
+      "content_id": "content:en-137",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html",
+      "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
+      "summary": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "context": "It connects media labor market with the original text published by The Moscow Times.",
+      "topic": "media labor market",
+      "source": "The Moscow Times",
+      "date": "2019-04-05",
+      "display_date": "2019-04-05",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html",
+      "source_url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "media labor market",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-propaganda-31",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
+      "summary": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2019-04-05",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html",
+      "source_url": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html"
+    },
+    {
+      "id": "en-125",
+      "content_id": "content:en-125",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html",
+      "title": "The music of the media desert",
+      "summary": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "context": "This piece places media ecosystem in a concrete editorial moment in 2018.",
+      "topic": "media ecosystem",
+      "source": "Vedomosti",
+      "date": "2018-12-06",
+      "display_date": "2018-12-06",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html",
+      "source_url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media ecosystem",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-11",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "The music of the media desert",
+      "summary": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2018-12-06",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html",
+      "source_url": "https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html"
+    },
+    {
+      "id": "en-126",
+      "content_id": "content:en-126",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html",
+      "title": "Moscow: clean city, cleansed city",
+      "summary": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "context": "It connects urban politics with the original text published by Vedomosti.",
+      "topic": "urban politics",
+      "source": "Vedomosti",
+      "date": "2018-05-24",
+      "display_date": "2018-05-24",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html",
+      "source_url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "urban politics",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-12",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Moscow: clean city, cleansed city",
+      "summary": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2018-05-24",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html",
+      "source_url": "https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html"
+    },
+    {
+      "id": "en-140",
+      "content_id": "content:en-140",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html",
+      "title": "From Kremlin Web Brigades to Russian Troll Factories",
+      "summary": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion.",
+      "context": "It connects disinformation infrastructure with the original text published by VSquare.",
+      "topic": "disinformation infrastructure",
+      "source": "VSquare",
+      "date": "2017-12-28",
+      "display_date": "2017-12-28",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html",
+      "source_url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "VSquare",
+        "disinformation infrastructure",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "interview-en-12",
+      "content_id": "interview:74bfa0d9230acb92",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Infoshum and Vertical Video: Interview with RTVI",
+      "summary": "A discussion of RTVI's digital strategy, format choices, video direction, and editorial development.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "Cossa",
+      "date": "2017-08-09",
+      "display_date": "August 9, 2017",
+      "material_type": "Text",
+      "url": "https://www.cossa.ru/211/171260/",
+      "source_url": "https://www.cossa.ru/211/171260/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "en-148",
+      "content_id": "content:en-148",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-148-freedom-on-the-net-2016-documente-des-pressions-liees-a-klishin-et-ses-p.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-148-freedom-on-the-net-2016-erfasst-druckmuster-im-umfeld-von-klishin-und-ko.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-148-freedom-on-the-net-2016-registra-presion-digital-vinculada-a-klishin-y-s.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html",
+      "title": "Freedom on the Net 2016 records pressure linked to Klishin and peers",
+      "summary": "Freedom House's 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators.",
+      "context": "Institutional source supporting chronology and context for digital intimidation patterns around independent media and activists.",
+      "topic": "internet freedom report",
+      "source": "Freedom House",
+      "date": "2016-11-14",
+      "display_date": "2016-11-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html",
+      "source_url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Freedom House",
+        "internet freedom report",
+        "2016",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-143",
+      "content_id": "content:en-143",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html",
+      "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
+      "summary": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls.",
+      "context": "Strengthens the archive with an early argument about platform governance, accountability, and democratic risk beyond state media frameworks.",
+      "topic": "platform governance",
+      "source": "Carnegie Endowment",
+      "date": "2016-09-09",
+      "display_date": "2016-09-09",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html",
+      "source_url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Facebook",
+        "Google",
+        "platform governance",
+        "algorithmic moderation",
+        "democracy",
+        "media power",
+        "2016"
+      ]
+    },
+    {
+      "id": "selected-journalism-13",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
+      "summary": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2016-09-09",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html",
+      "source_url": "https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html"
+    },
+    {
+      "id": "en-138",
+      "content_id": "content:en-138",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html",
+      "title": "Web of Control: The Future of the Russian Internet",
+      "summary": "This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.",
+      "context": "It offers a concise entry point into the debate around internet governance.",
+      "topic": "internet governance",
+      "source": "Carnegie Endowment",
+      "date": "2016-02-05",
+      "display_date": "2016-02-05",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html",
+      "source_url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "internet governance",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-14",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Web of Control: The Future of the Russian Internet",
+      "summary": "This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2016-02-05",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html",
+      "source_url": "https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html"
+    },
+    {
+      "id": "en-152",
+      "content_id": "content:en-152",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-152-entretien-gazetaru-sur-un-possible-blocage-de-youtube-et-google.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-152-gazetaru-interview-zur-moeglichen-sperre-von-youtube-und-google.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-152-entrevista-en-gazetaru-sobre-posible-bloqueo-de-youtube-y-google.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html",
+      "title": "Gazeta.ru interview on possible blocking of YouTube and Google",
+      "summary": "Ru interview records an expert comment on technical and political scenarios of blocking major platforms in Russia. Klishin is cited on the likely consequences of restricting YouTube or Google and the broader logic of digital control.",
+      "context": "Reference entry for early media discussion of platform blocking risks in Russia.",
+      "topic": "platform blocking commentary",
+      "source": "Gazeta.ru",
+      "date": "2016-01-16",
+      "display_date": "2016-01-16",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html",
+      "source_url": "https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Gazeta.ru",
+        "platform regulation",
+        "YouTube",
+        "Google",
+        "Russia",
+        "2016"
+      ]
+    },
+    {
+      "id": "en-151",
+      "content_id": "content:en-151",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-151-jsis-profil-digitaler-patriotismus-und-nationalistische-agenda-in-russis.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-151-perfil-jsis-patriotismo-digital-y-agenda-nacionalista-en-medios-rusos.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
+      "title": "JSIS profile: digital patriotism and nationalist agenda in Russian media",
+      "summary": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy.",
+      "context": "Reference entry linking academic policy analysis of Russian media controls to Klishin-related analytical context.",
+      "topic": "media profile and censorship",
+      "source": "JSIS Washington",
+      "date": "2016-01-01",
+      "display_date": "2016-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
+      "source_url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "JSIS Washington",
+        "media profile and censorship",
+        "2016",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-141",
+      "content_id": "content:en-141",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html",
+      "title": "Do Revolutions Grow Out of Social Media?",
+      "summary": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures.",
+      "context": "Useful for separating media amplification from political causality in debates about digital protest dynamics across post-Soviet contexts.",
+      "topic": "digital mobilization analysis",
+      "source": "Carnegie Endowment",
+      "date": "2015-10-22",
+      "display_date": "2015-10-22",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html",
+      "source_url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "social media",
+        "protest movements",
+        "political mobilization",
+        "post-Soviet space",
+        "media effects",
+        "digital politics",
+        "2015"
+      ]
+    },
+    {
+      "id": "selected-journalism-15",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Do Revolutions Grow Out of Social Media?",
+      "summary": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2015-10-22",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html",
+      "source_url": "https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html"
+    },
+    {
+      "id": "en-108",
+      "content_id": "content:en-108",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html",
+      "title": "Bot Army: Why the Kremlin Fails at Soft Power",
+      "summary": "This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.",
+      "context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.",
+      "topic": "digital propaganda",
+      "source": "Carnegie.ru",
+      "date": "2015-07-21",
+      "display_date": "2015-07-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html",
+      "source_url": "https://carnegie.ru/commentary/60728",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie.ru",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "source-based summary"
+      ]
+    },
+    {
+      "id": "selected-propaganda-32",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Bot Army: Why the Kremlin Fails at Soft Power",
+      "summary": "This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2015-07-21",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html",
+      "source_url": "https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html"
+    },
+    {
+      "id": "en-142",
+      "content_id": "content:en-142",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html",
+      "title": "What Sparked Moldova's Second Maidan?",
+      "summary": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs.",
+      "context": "Adds a comparative regional case on protest recurrence, useful for interpreting delayed political effects after apparent electoral wins.",
+      "topic": "regional protest analysis",
+      "source": "Carnegie Endowment",
+      "date": "2015-05-25",
+      "display_date": "2015-05-25",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html",
+      "source_url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Endowment",
+        "Moldova",
+        "protests",
+        "post-Soviet politics",
+        "political cycles",
+        "electoral reform",
+        "regional analysis",
+        "2015"
+      ]
+    },
+    {
+      "id": "selected-journalism-16",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "What Sparked Moldova's Second Maidan?",
+      "summary": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2015-05-25",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html",
+      "source_url": "https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html"
+    },
+    {
+      "id": "en-017",
+      "content_id": "content:en-017",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html",
+      "title": "English press archive on intimidation claims tied to activism",
+      "summary": "How intimidation and harassment patterns around critics were documented in international rights reporting. This card summarizes \"English press archive on intimidation claims tied to activism\" published by News24 on 2015-04-29.",
+      "context": "It offers a concise entry point into the debate around international press record.",
+      "topic": "international press record",
+      "source": "News24",
+      "date": "2015-04-29",
+      "display_date": "2015-04-29",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html",
+      "source_url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "News24",
+        "international press record",
+        "civic-politics",
+        "media-analysis",
+        "human-rights-context",
+        "english",
+        "press",
+        "archive"
+      ]
+    },
+    {
+      "id": "en-150",
+      "content_id": "content:en-150",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
+      "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
+      "summary": "This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control.",
+      "context": "Institutional context card for understanding international policy framing of Russian media weaponization.",
+      "topic": "media systems report",
+      "source": "The Wilson Center",
+      "date": "2015-04-27",
+      "display_date": "2015-04-27",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
+      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Wilson Center",
+        "media systems report",
+        "2015",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-119",
+      "content_id": "content:en-119",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-119-the-atlantic-cite-klishin-sur-la-machine-mediatique-de-poutine.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-119-the-atlantic-zitiert-klishin-zur-medienmaschine-putins.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-119-the-atlantic-cita-a-klishin-sobre-la-maquinaria-mediatica-de-putin.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html",
+      "title": "Atlantic feature cites Klishin on Putin’s media machine",
+      "summary": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
+      "context": "External feature card showing how Klishin's analysis was used by a major English outlet to explain structural media pressure in Russia.",
+      "topic": "media system analysis",
+      "source": "The Atlantic",
+      "date": "2015-04-21",
+      "display_date": "2015-04-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html",
+      "source_url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Atlantic",
+        "Russian media system",
+        "media pressure",
+        "propaganda",
+        "independent media",
+        "external feature"
+      ]
+    },
+    {
+      "id": "en-153",
+      "content_id": "content:en-153",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-153-screening-rape-indias-debate.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html",
+      "title": "Screening rape: India's debate",
+      "summary": "A The Listening Post episode featuring the segment “Kremlin's troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.",
+      "context": "It explains media appearance and links to the original source.",
+      "topic": "media appearance",
+      "source": "Al Jazeera English",
+      "date": "2015-03-14",
+      "display_date": "2015-03-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html",
+      "source_url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ]
+    },
+    {
+      "id": "en-107",
+      "content_id": "content:en-107",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html",
+      "title": "How Putin quietly took over Russian social media",
+      "summary": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
+      "context": "Useful reference card that situates Klishin's work through a dated and verifiable Global Voices source.",
+      "topic": "digital propaganda",
+      "source": "Global Voices",
+      "date": "2015-01-30",
+      "display_date": "2015-01-30",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html",
+      "source_url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Global Voices",
+        "digital propaganda",
+        "Russia",
+        "media analysis",
+        "public discourse",
+        "source-based summary"
+      ]
+    },
+    {
+      "id": "selected-propaganda-33",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "How Putin quietly took over Russian social media",
+      "summary": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2015-01-30",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html",
+      "source_url": "https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html"
+    },
+    {
+      "id": "en-010",
+      "content_id": "content:en-010",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html",
+      "title": "TV Rain launched \"Our Soldiers\" civilian investigation",
+      "summary": "This August 2014 TV Rain project page introduces \"Our Soldiers,\" a public-facing investigation into reports of Russian servicemen killed, missing, or captured near the Ukrainian border during a period of official denials.",
+      "context": "It explains war-reporting verification and links to the original source.",
+      "topic": "war-reporting verification",
+      "source": "TV Rain",
+      "date": "2014-08-27",
+      "display_date": "2014-08-27",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html",
+      "source_url": "https://tvrain.tv/blog/blog_mihaila_zygarja/nashi_soldaty_vyjasnjaem_sudbu_rossijskih_voennyh_okazavshihsja_na_granitse_s_ukrainoj-435/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "TV Rain",
+        "Dozhd",
+        "Donbas",
+        "war reporting",
+        "open-source verification",
+        "Russian soldiers",
+        "Ukraine",
+        "investigative journalism",
+        "2014",
+        "war-reporting verification"
+      ]
+    },
+    {
+      "id": "en-146",
+      "content_id": "content:en-146",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-146-l-article-wikipedia-sur-la-guerre-mediatique-cite-des-assertions-liees-a.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-146-wikipedia-ueberblick-zum-medienkrieg-verweist-auf-klishin-bezogene-aussa.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-146-el-resumen-de-wikipedia-sobre-cobertura-de-guerra-cita-afirmaciones-vinc.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html",
+      "title": "Wikipedia war-coverage overview references Klishin claims",
+      "summary": "This encyclopedia overview of media coverage around the Russo-Ukrainian war includes references to claims associated with Klishin about manipulation channels and audience targeting.",
+      "context": "Useful as a public index layer showing how Klishin-linked assertions circulate in tertiary reference ecosystems.",
+      "topic": "war information coverage",
+      "source": "Wikipedia",
+      "date": "2014-08-01",
+      "display_date": "2014-08-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html",
+      "source_url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Wikipedia",
+        "war information coverage",
+        "2014",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-009",
+      "content_id": "content:en-009",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html",
+      "title": "Likes Go West",
+      "summary": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies.",
+      "context": "It connects media analysis with the original text published by Vedomosti.",
+      "topic": "media analysis",
+      "source": "Vedomosti",
+      "date": "2014-05-21",
+      "display_date": "2014-05-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation",
+        "troll operations",
+        "information warfare",
+        "social media",
+        "Russia",
+        "media analysis",
+        "influence campaigns",
+        "2014"
+      ]
+    },
+    {
+      "id": "en-018",
+      "content_id": "content:en-018",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html",
+      "title": "Early warning analysis on Russian troll expansion",
+      "summary": "This The Moscow Times (2014) publication focuses on disinformation analysis.",
+      "context": "It explains disinformation analysis and links to the original source.",
+      "topic": "disinformation analysis",
+      "source": "The Moscow Times",
+      "date": "2014-05-21",
+      "display_date": "2014-05-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html",
+      "source_url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Moscow Times",
+        "disinformation analysis",
+        "eastern-europe-context",
+        "information-integrity",
+        "early",
+        "warning",
+        "analysis"
+      ]
+    },
+    {
+      "id": "selected-journalism-17",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Likes Go West",
+      "summary": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2014-05-21",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html",
+      "source_url": "https://www.klishin.work/posts/en-009-lajki-na-zapad.html"
+    },
+    {
+      "id": "selected-propaganda-34",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Early warning analysis on Russian troll expansion",
+      "summary": "This The Moscow Times (2014) publication focuses on disinformation analysis.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2014-05-21",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html",
+      "source_url": "https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html"
+    },
+    {
+      "id": "en-127",
+      "content_id": "content:en-127",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html",
+      "title": "Maximum Retweet: The war we overlooked",
+      "summary": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
+      "context": "It offers a concise entry point into the debate around disinformation analysis.",
+      "topic": "disinformation analysis",
+      "source": "Vedomosti",
+      "date": "2014-05-07",
+      "display_date": "2014-05-07",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation analysis",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-propaganda-35",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Maximum Retweet: The war we overlooked",
+      "summary": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2014-05-07",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html",
+      "source_url": "https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html"
+    },
+    {
+      "id": "en-128",
+      "content_id": "content:en-128",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html",
+      "title": "Maximum Retweet: Threats created by the Ministry of Truth",
+      "summary": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "context": "It explains information control and links to the original source.",
+      "topic": "information control",
+      "source": "Vedomosti",
+      "date": "2014-04-23",
+      "display_date": "2014-04-23",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "information control",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-18",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Maximum Retweet: Threats created by the Ministry of Truth",
+      "summary": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2014-04-23",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html",
+      "source_url": "https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html"
+    },
+    {
+      "id": "en-129",
+      "content_id": "content:en-129",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html",
+      "title": "Maximum Retweet: They purged the wrong people",
+      "summary": "Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.",
+      "context": "This piece places media policy in a concrete editorial moment in 2014.",
+      "topic": "media policy",
+      "source": "Vedomosti",
+      "date": "2014-04-09",
+      "display_date": "2014-04-09",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "media policy",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-19",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Maximum Retweet: They purged the wrong people",
+      "summary": "Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2014-04-09",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html",
+      "source_url": "https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html"
+    },
+    {
+      "id": "en-131",
+      "content_id": "content:en-131",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html",
+      "title": "Maximum Retweet: The web we got trapped in",
+      "summary": "This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.",
+      "context": "It explains internet censorship and links to the original source.",
+      "topic": "internet censorship",
+      "source": "Vedomosti",
+      "date": "2014-03-12",
+      "display_date": "2014-03-12",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html",
+      "source_url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "internet censorship",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-20",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Maximum Retweet: The web we got trapped in",
+      "summary": "This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2014-03-12",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html",
+      "source_url": "https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html"
+    },
+    {
+      "id": "en-132",
+      "content_id": "content:en-132",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html",
+      "title": "The internet will not do it automatically",
+      "summary": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "context": "This piece places protest infrastructure in a concrete editorial moment in 2013.",
+      "topic": "protest infrastructure",
+      "source": "Vedomosti",
+      "date": "2013-02-13",
+      "display_date": "2013-02-13",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html",
+      "source_url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "protest infrastructure",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-journalism-21",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "The internet will not do it automatically",
+      "summary": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "context": "",
+      "topic": "Journalism",
+      "source": "Selected Work",
+      "date": "2013-02-13",
+      "material_type": "Curated card",
+      "section": "Journalism",
+      "section_intro": "Public-interest reporting and commentary tied to concrete events and timelines.",
+      "url": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html",
+      "source_url": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html"
+    },
+    {
+      "id": "en-149",
+      "content_id": "content:en-149",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-149-rapport-rand-rr295-sur-les-reseaux-sociaux-et-la-mobilisation-politique.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-149-rand-report-rr295-zu-sozialen-medien-und-politischer-mobilisierung.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-149-informe-rand-rr295-sobre-redes-sociales-y-movilizacion-politica.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html",
+      "title": "RAND report RR295 on social media and political mobilization",
+      "summary": "RAND's RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.",
+      "context": "Methodological reference entry for research context on social media and political mobilization frameworks.",
+      "topic": "social media mobilization research",
+      "source": "RAND Corporation",
+      "date": "2013-01-01",
+      "display_date": "2013-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html",
+      "source_url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "RAND Corporation",
+        "social media mobilization research",
+        "2013",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-133",
+      "content_id": "content:en-133",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html",
+      "title": "Zero multiplied by a million",
+      "summary": "One of Klishin's early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.",
+      "context": "It connects disinformation mechanics with the original text published by Vedomosti.",
+      "topic": "disinformation mechanics",
+      "source": "Vedomosti",
+      "date": "2012-08-24",
+      "display_date": "2012-08-24",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html",
+      "source_url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Vedomosti",
+        "disinformation mechanics",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "selected-propaganda-36",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Zero multiplied by a million",
+      "summary": "One of Klishin's early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.",
+      "context": "",
+      "topic": "Propaganda / Information Systems",
+      "source": "Selected Work",
+      "date": "2012-08-24",
+      "material_type": "Curated card",
+      "section": "Propaganda / Information Systems",
+      "section_intro": "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+      "url": "https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html",
+      "source_url": "https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html"
+    },
+    {
+      "id": "interview-en-13",
+      "content_id": "interview:2571bc90c1109d8a",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin: Russian Nationalists Should Be Allowed Into Parliament",
+      "summary": "A political interview from the early 2010s protest cycle.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "VB.KG",
+      "date": "2012-04-23",
+      "display_date": "April 23, 2012",
+      "material_type": "Text",
+      "url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "source_url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "en-147",
+      "content_id": "content:en-147",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-147-lse-analyse-zur-protestmobilisierung-verweist-auf-feb26org-koordination.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
+      "title": "LSE analysis on protest mobilization references feb26.org coordination",
+      "summary": "This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement.",
+      "context": "Institutional reference for research use, showing academic treatment of digital coordination tied to protest events.",
+      "topic": "digital protest infrastructure",
+      "source": "LSE EUROPP",
+      "date": "2012-03-14",
+      "display_date": "2012-03-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
+      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LSE EUROPP",
+        "digital protest infrastructure",
+        "2012",
+        "external reference"
+      ]
+    },
+    {
+      "id": "en-016",
+      "content_id": "content:en-016",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html",
+      "title": "HRW report on harassment of critics includes Klishin case context",
+      "summary": "This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers.",
+      "context": "Reference card for a Human Rights Watch report documenting pressure tactics against protest organizers and their families during the post-2011 crackdown.",
+      "topic": "human rights report",
+      "source": "Human Rights Watch",
+      "date": "2012-03-01",
+      "display_date": "2012-03-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html",
+      "source_url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Human Rights Watch",
+        "Russia",
+        "protest crackdown",
+        "Center E",
+        "family intimidation",
+        "civil rights",
+        "2012"
+      ]
+    },
+    {
+      "id": "interview-en-14",
+      "content_id": "interview:7b7b4a1fa96a7896",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Russian Police Accused of Scare Tactics Against Protesters' Parents",
+      "summary": "An English Guardian report with my comments on protest mobilization and pressure on activists.",
+      "context": "",
+      "topic": "English-language and feature materials",
+      "source": "The Guardian",
+      "date": "2012-02-02",
+      "display_date": "February 2, 2012",
+      "material_type": "Feature",
+      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "source_url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "en-139",
+      "content_id": "content:en-139",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html",
+      "title": "Russia's New Decembrists",
+      "summary": "This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations.",
+      "context": "It explains protest profile and links to the original source.",
+      "topic": "protest profile",
+      "source": "New York Magazine",
+      "date": "2012-01-20",
+      "display_date": "2012-01-20",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html",
+      "source_url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "New York Magazine",
+        "protest profile",
+        "publication archive"
+      ]
+    },
+    {
+      "id": "interview-en-15",
+      "content_id": "interview:2cef944f9a69cf16",
+      "type": "interview",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin: If the Internet Is Switched Off, People Will Go Out to Celebrate",
+      "summary": "A video conversation about protests, the internet, and the political moment of early 2012.",
+      "context": "",
+      "topic": "Interviews and conversations",
+      "source": "YouTube",
+      "date": "2012-01-10",
+      "display_date": "January 10, 2012",
+      "material_type": "Video",
+      "url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "source_url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "semantic_tags": [
+        "video",
+        "interviews"
+      ]
+    }
+  ]
+}

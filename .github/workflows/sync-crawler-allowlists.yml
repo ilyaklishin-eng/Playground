@@ -1,0 +1,115 @@
+name: Sync Crawler Allowlists
+
+on:
+  schedule:
+    - cron: "33 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sync OpenAI SearchBot allowlist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_OPENAI_SEARCHBOT_LIST_ID: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_ID }}
+          CF_OPENAI_SEARCHBOT_LIST_NAME: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-openai-searchbot-allowlist.mjs --write-files
+
+      - name: Sync OpenAI GPTBot allowlist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_OPENAI_GPTBOT_LIST_ID: ${{ secrets.CF_OPENAI_GPTBOT_LIST_ID }}
+          CF_OPENAI_GPTBOT_LIST_NAME: ${{ secrets.CF_OPENAI_GPTBOT_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-openai-gptbot-allowlist.mjs --write-files
+
+      - name: Sync OpenAI ChatGPT-User allowlist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_OPENAI_CHATGPT_USER_LIST_ID: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_ID }}
+          CF_OPENAI_CHATGPT_USER_LIST_NAME: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-openai-chatgpt-user-allowlist.mjs --write-files
+
+      - name: Sync Perplexity allowlist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_PERPLEXITYBOT_LIST_ID: ${{ secrets.CF_PERPLEXITYBOT_LIST_ID }}
+          CF_PERPLEXITYUSER_LIST_ID: ${{ secrets.CF_PERPLEXITYUSER_LIST_ID }}
+          CF_PERPLEXITYBOT_LIST_NAME: ${{ secrets.CF_PERPLEXITYBOT_LIST_NAME }}
+          CF_PERPLEXITYUSER_LIST_NAME: ${{ secrets.CF_PERPLEXITYUSER_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-perplexity-allowlist.mjs --write-files
+
+      - name: Sync Anthropic allowlist
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ANTHROPIC_LIST_ID: ${{ secrets.CF_ANTHROPIC_LIST_ID }}
+          CF_ANTHROPIC_LIST_NAME: ${{ secrets.CF_ANTHROPIC_LIST_NAME }}
+        run: node reputation-case/site/tools/sync-anthropic-allowlist.mjs --write-files
+
+      - name: Rebuild Cloudflare bypass config
+        env:
+          CF_OPENAI_SEARCHBOT_LIST_NAME: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_NAME }}
+          CF_OPENAI_CHATGPT_USER_LIST_NAME: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_NAME }}
+          CF_OPENAI_GPTBOT_LIST_NAME: ${{ secrets.CF_OPENAI_GPTBOT_LIST_NAME }}
+          CF_PERPLEXITYBOT_LIST_NAME: ${{ secrets.CF_PERPLEXITYBOT_LIST_NAME }}
+          CF_PERPLEXITYUSER_LIST_NAME: ${{ secrets.CF_PERPLEXITYUSER_LIST_NAME }}
+          CF_ANTHROPIC_LIST_NAME: ${{ secrets.CF_ANTHROPIC_LIST_NAME }}
+        run: node reputation-case/site/tools/build-cloudflare-bypass-rules.mjs
+
+      - name: Commit updated crawler allowlist files
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- \
+            reputation-case/site/data/openai-searchbot-ip-allowlist.json \
+            reputation-case/site/data/openai-searchbot-cidrs.txt \
+            reputation-case/site/data/openai-gptbot-ip-allowlist.json \
+            reputation-case/site/data/openai-gptbot-cidrs.txt \
+            reputation-case/site/data/openai-chatgpt-user-ip-allowlist.json \
+            reputation-case/site/data/openai-chatgpt-user-cidrs.txt \
+            reputation-case/site/data/perplexity-ip-allowlist.json \
+            reputation-case/site/data/perplexitybot-cidrs.txt \
+            reputation-case/site/data/perplexity-user-cidrs.txt \
+            reputation-case/site/data/perplexity-cidrs-combined.txt \
+            reputation-case/site/data/anthropic-ip-allowlist.json \
+            reputation-case/site/data/anthropic-cidrs.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md; then
+            echo "No crawler allowlist changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add \
+            reputation-case/site/data/openai-searchbot-ip-allowlist.json \
+            reputation-case/site/data/openai-searchbot-cidrs.txt \
+            reputation-case/site/data/openai-gptbot-ip-allowlist.json \
+            reputation-case/site/data/openai-gptbot-cidrs.txt \
+            reputation-case/site/data/openai-chatgpt-user-ip-allowlist.json \
+            reputation-case/site/data/openai-chatgpt-user-cidrs.txt \
+            reputation-case/site/data/perplexity-ip-allowlist.json \
+            reputation-case/site/data/perplexitybot-cidrs.txt \
+            reputation-case/site/data/perplexity-user-cidrs.txt \
+            reputation-case/site/data/perplexity-cidrs-combined.txt \
+            reputation-case/site/data/anthropic-ip-allowlist.json \
+            reputation-case/site/data/anthropic-cidrs.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md
+          git commit -m "chore: refresh crawler IP allowlists"
+          git push

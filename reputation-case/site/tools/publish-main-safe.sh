@@ -103,8 +103,8 @@ if [[ "$NO_BUILD" -eq 0 ]]; then
   PASS=1
   while [[ "$PASS" -le "$MAX_PASSES" ]]; do
     echo "==> Rebuilding generated assets (pass ${PASS}/${MAX_PASSES})"
-    node reputation-case/site/tools/build-indexable-assets.mjs
-    node reputation-case/site/tools/qa-generated-assets.mjs
+    BUILD_ENV=production node reputation-case/site/tools/build-indexable-assets.mjs
+    BUILD_ENV=production node reputation-case/site/tools/qa-generated-assets.mjs
 
     if ! has_changes; then
       echo "==> Generated assets converged on pass ${PASS}"

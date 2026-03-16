@@ -1,8 +1,6 @@
 name: Sync OpenAI ChatGPT-User Allowlist
 
 on:
-  schedule:
-    - cron: "7 4 * * *"
   workflow_dispatch:
 
 permissions:
@@ -28,12 +26,24 @@ jobs:
           CF_OPENAI_CHATGPT_USER_LIST_NAME: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_NAME }}
         run: node reputation-case/site/tools/sync-openai-chatgpt-user-allowlist.mjs --write-files
 
+      - name: Rebuild Cloudflare bypass config
+        env:
+          CF_OPENAI_SEARCHBOT_LIST_NAME: ${{ secrets.CF_OPENAI_SEARCHBOT_LIST_NAME }}
+          CF_OPENAI_CHATGPT_USER_LIST_NAME: ${{ secrets.CF_OPENAI_CHATGPT_USER_LIST_NAME }}
+          CF_OPENAI_GPTBOT_LIST_NAME: ${{ secrets.CF_OPENAI_GPTBOT_LIST_NAME }}
+          CF_PERPLEXITYBOT_LIST_NAME: ${{ secrets.CF_PERPLEXITYBOT_LIST_NAME }}
+          CF_PERPLEXITYUSER_LIST_NAME: ${{ secrets.CF_PERPLEXITYUSER_LIST_NAME }}
+          CF_ANTHROPIC_LIST_NAME: ${{ secrets.CF_ANTHROPIC_LIST_NAME }}
+        run: node reputation-case/site/tools/build-cloudflare-bypass-rules.mjs
+
       - name: Commit updated OpenAI ChatGPT-User allowlist files
         run: |
           set -euo pipefail
           if git diff --quiet -- \
             reputation-case/site/data/openai-chatgpt-user-ip-allowlist.json \
-            reputation-case/site/data/openai-chatgpt-user-cidrs.txt; then
+            reputation-case/site/data/openai-chatgpt-user-cidrs.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md; then
             echo "No OpenAI ChatGPT-User allowlist changes."
             exit 0
           fi
@@ -42,6 +52,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add \
             reputation-case/site/data/openai-chatgpt-user-ip-allowlist.json \
-            reputation-case/site/data/openai-chatgpt-user-cidrs.txt
+            reputation-case/site/data/openai-chatgpt-user-cidrs.txt \
+            reputation-case/site/data/cloudflare-bypass-rules.json \
+            reputation-case/site/data/cloudflare-bypass-rules.md
           git commit -m "chore: refresh OpenAI ChatGPT-User IP allowlist"
           git push

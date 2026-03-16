@@ -21,6 +21,53 @@ const REQUIRED_SITEMAPS = [
   "sitemap-de.xml",
   "sitemap-es.xml",
 ];
+const KEY_ROUTE_CLUSTERS = [
+  {
+    name: "home",
+    pages: {
+      en: "/",
+      fr: "/fr/",
+      de: "/de/",
+      es: "/es/",
+    },
+  },
+  {
+    name: "bio",
+    pages: {
+      en: "/bio/",
+      fr: "/bio/fr/",
+      de: "/bio/de/",
+      es: "/bio/es/",
+    },
+  },
+  {
+    name: "cases",
+    pages: {
+      en: "/cases/",
+      fr: "/cases/fr/",
+      de: "/cases/de/",
+      es: "/cases/es/",
+    },
+  },
+  {
+    name: "interviews",
+    pages: {
+      en: "/interviews/",
+      fr: "/interviews/fr/",
+      de: "/interviews/de/",
+      es: "/interviews/es/",
+    },
+  },
+  {
+    name: "insights",
+    pages: {
+      en: "/insights/",
+      fr: "/insights/fr/",
+      de: "/insights/de/",
+      es: "/insights/es/",
+    },
+  },
+];
 
 async function walkHtml(dir) {
   const out = [];
@@ -108,7 +155,8 @@ function hasNoindex(robotsMeta) {
 }
 
 function isPostPath(publicPath = "") {
-  return /^\/posts\/[^/]+\.html$/i.test(publicPath);
+  if (!/^\/posts\/[^/]+\.html$/i.test(publicPath)) return false;
+  return !/^\/posts\/(?:index|all|drafts)\.html$/i.test(publicPath);
 }
 
 function canonicalNormalizationIssues(canonical) {
@@ -366,6 +414,72 @@ async function main() {
     }
   }
 
+  const rowByPath = new Map(rows.map((row) => [row.path, row]));
+  const keyRouteHreflangIssues = [];
+  for (const cluster of KEY_ROUTE_CLUSTERS) {
+    const expectedMap = new Map([
+      ["en", `${CANONICAL_DOMAIN}${cluster.pages.en}`],
+      ["fr", `${CANONICAL_DOMAIN}${cluster.pages.fr}`],
+      ["de", `${CANONICAL_DOMAIN}${cluster.pages.de}`],
+      ["es", `${CANONICAL_DOMAIN}${cluster.pages.es}`],
+      [X_DEFAULT, `${CANONICAL_DOMAIN}${cluster.pages.en}`],
+    ]);
+
+    for (const [lang, pagePath] of Object.entries(cluster.pages)) {
+      const row = rowByPath.get(pagePath);
+      if (!row) {
+        keyRouteHreflangIssues.push({
+          cluster: cluster.name,
+          path: pagePath,
+          issue: "missing_page",
+        });
+        continue;
+      }
+
+      const actualMap = new Map();
+      for (const alt of row.alternates || []) {
+        if (!actualMap.has(alt.hreflang)) {
+          actualMap.set(alt.hreflang, alt.href);
+        }
+      }
+
+      for (const [hreflang, href] of expectedMap.entries()) {
+        if (!actualMap.has(hreflang)) {
+          keyRouteHreflangIssues.push({
+            cluster: cluster.name,
+            path: pagePath,
+            issue: "missing_hreflang",
+            hreflang,
+            expected: href,
+          });
+          continue;
+        }
+        if (actualMap.get(hreflang) !== href) {
+          keyRouteHreflangIssues.push({
+            cluster: cluster.name,
+            path: pagePath,
+            issue: "hreflang_href_mismatch",
+            hreflang,
+            expected: href,
+            actual: actualMap.get(hreflang),
+          });
+        }
+      }
+
+      for (const [hreflang, href] of actualMap.entries()) {
+        if (!expectedMap.has(hreflang)) {
+          keyRouteHreflangIssues.push({
+            cluster: cluster.name,
+            path: pagePath,
+            issue: "unexpected_hreflang",
+            hreflang,
+            actual: href,
+          });
+        }
+      }
+    }
+  }
+
   const robotsPath = path.join(SITE_DIR, "robots.txt");
   const sitemapIndexPath = path.join(SITE_DIR, "sitemap.xml");
   const robotsTxt = await fs.readFile(robotsPath, "utf8");
@@ -459,6 +573,7 @@ async function main() {
       sitemap_index_all_entries_canonical: sitemapIndexLocs.every((loc) => isCanonicalUrl(loc)),
       sitemap_index_has_required_children: missingSitemapsInIndex.length === 0,
       core_entity_ids_on_all_pages: entityConsistencyIssues.length === 0,
+      key_routes_hreflang_consistent: keyRouteHreflangIssues.length === 0,
     },
     issues: {
       canonical_missing: canonicalMissing,
@@ -474,6 +589,7 @@ async function main() {
       sitemap_child_missing_files: sitemapChildMissingFiles,
       sitemap_child_loc_issues: sitemapChildLocIssues,
       sitemap_language_scope_issues: sitemapLanguageScopeIssues,
+      key_route_hreflang_issues: keyRouteHreflangIssues,
     },
     pages: rows.map((row) => ({
       path: row.path,

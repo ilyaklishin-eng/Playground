@@ -1,0 +1,956 @@
+{
+  "locale": "fr",
+  "generated_at": "2025-09-23T00:00:00.000Z",
+  "counts": {
+    "total": 26,
+    "posts": 11,
+    "selected": 0,
+    "interviews": 15
+  },
+  "items": [
+    {
+      "id": "interview-fr-1",
+      "content_id": "interview:7e3a357c3c838049",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "A qui faire confiance ? Avec Ilia Klishin : mythes sur la Lituanie et guide de l emigration",
+      "summary": "Entretien sur les mythes autour de la Lituanie, l adaptation des emigres et l environnement informationnel.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "YouTube",
+      "date": "2025-09-23",
+      "display_date": "23 septembre 2025",
+      "material_type": "Video / archive",
+      "url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "source_url": "https://www.youtube.com/watch?v=Bx8Mv4fW2XI",
+      "semantic_tags": [
+        "video",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-2",
+      "content_id": "interview:30a09883795f05d9",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Machenka de Nabokov : emigration, malaise et langage culturel",
+      "summary": "Episode du podcast Tvoya Zakladka sur Nabokov, l emigration et le regard culturel.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Apple Podcasts",
+      "date": "2025-09-08",
+      "display_date": "8 septembre 2025",
+      "material_type": "Podcast",
+      "url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "source_url": "https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-3",
+      "content_id": "interview:62beaf81b94ef146",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Pour moi, c est d abord une joie interieure du dialogue",
+      "summary": "Entretien pour 7x7 sur le club de lecture de Vilnius, la pratique de lecture et la communaute.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "7x7",
+      "date": "2024-10-01",
+      "display_date": "1 octobre 2024",
+      "material_type": "Texte",
+      "url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "source_url": "https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-4",
+      "content_id": "interview:74b1cddf102f666a",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Une nouvelle Volna emigree : Ilia Klishin sur la Lituanie, l integration et les livres",
+      "summary": "Entretien sur le demenagement, le projet Volna, l integration en Lituanie et la lecture.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Radio Tochka",
+      "date": "2024-04-23",
+      "display_date": "23 avril 2024",
+      "material_type": "Podcast / video",
+      "url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "source_url": "https://rss.com/podcasts/radiotochka/1449162/",
+      "semantic_tags": [
+        "video",
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-5",
+      "content_id": "interview:27351bf05137ea98",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Le respect du pays d accueil n est pas de l autocensure",
+      "summary": "Entretien sur la creation d un media d emigration et le dialogue avec une nouvelle audience.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Holod",
+      "date": "2023-07-13",
+      "display_date": "13 juillet 2023",
+      "material_type": "Texte",
+      "url": "https://holod.media/2023/07/13/klishin-interview/",
+      "source_url": "https://holod.media/2023/07/13/klishin-interview/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-6",
+      "content_id": "interview:fc96a0e772c41728",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Medias russes de la nouvelle diaspora : trois projets",
+      "summary": "Article en anglais de The Fix sur de nouveaux medias russophones en exil, dont Volna.",
+      "context": "",
+      "topic": "Materiaux en anglais et formats feature",
+      "source": "The Fix",
+      "date": "2022-08-22",
+      "display_date": "22 août 2022",
+      "material_type": "Grand format",
+      "url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "source_url": "https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "fr-145",
+      "content_id": "content:en-145",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-145-dekoder-zu-sputnik-v-eu-zulassung-und-russischer-impfkommunikation.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
+      "title": "Dekoder sur Sputnik V, l UE et la communication vaccinale russe",
+      "summary": "Il relie la promotion externe du vaccin a une mefiance interne produite par des annees de rhetorique conspirationniste.",
+      "context": "Reference utile sur l usage des analyses de Klishin dans un media germanophone au sujet de Sputnik V.",
+      "topic": "public health communication",
+      "source": "Dekoder",
+      "date": "2021-04-01",
+      "display_date": "2021-04-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe.html",
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Dekoder",
+        "public health communication",
+        "2021",
+        "external reference"
+      ]
+    },
+    {
+      "id": "fr-120",
+      "content_id": "content:en-120",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
+      "title": "Bloomberg cite Klishin sur le ralentissement de Twitter en Russie",
+      "summary": "Ce reportage de Bloomberg decrit la decision russe de ralentir Twitter dans un cycle plus large de pression sur les plateformes occidentales. Klishin n en est pas l auteur, mais il est cite dans l article pour expliquer la logique d escalade sans blocage total.",
+      "context": "Reference externe qui atteste l usage de commentaires de Klishin dans une couverture economique internationale sur la regulation des plateformes.",
+      "topic": "pression sur les plateformes",
+      "source": "Bloomberg",
+      "date": "2021-03-10",
+      "display_date": "2021-03-10",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie.html",
+      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Bloomberg",
+        "Twitter",
+        "Russie",
+        "regulation des plateformes",
+        "pression mediatique",
+        "politique numerique",
+        "2021"
+      ]
+    },
+    {
+      "id": "interview-fr-7",
+      "content_id": "interview:f1b475884dc2194a",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Y a t il une vie apres les medias",
+      "summary": "Discussion sur la carriere apres les grandes redactions, les nouveaux formats et la transition professionnelle.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "YouTube",
+      "date": "2020-11-12",
+      "display_date": "12 novembre 2020",
+      "material_type": "Podcast / emission",
+      "url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "source_url": "https://www.youtube.com/watch?v=4c5SOIp6LlA",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-8",
+      "content_id": "interview:74dc7f2812ed2739",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Transformer un journal en papier toilette : Kommersant dans la guerre contre le journalisme",
+      "summary": "Article en anglais de RFE/RL avec mes commentaires sur la pression contre le journalisme independant.",
+      "context": "",
+      "topic": "Materiaux en anglais et formats feature",
+      "source": "RFE/RL",
+      "date": "2020-05-02",
+      "display_date": "2 mai 2020",
+      "material_type": "Grand format",
+      "url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "source_url": "https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "interview-fr-9",
+      "content_id": "interview:c3b8764aa87e8643",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Un tout nouvel ecosysteme : le journalisme independant apprend a survivre en Russie",
+      "summary": "Grand article en anglais sur l adaptation du journalisme independant sous pression en Russie.",
+      "context": "",
+      "topic": "Materiaux en anglais et formats feature",
+      "source": "RFE/RL",
+      "date": "2020-03-15",
+      "display_date": "15 mars 2020",
+      "material_type": "Grand format",
+      "url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "source_url": "https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "interview-fr-10",
+      "content_id": "interview:b36bf2aaadeb17ed",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "De manager media a TV Rain a fondateur d agence : le parcours d Ilia Klishin",
+      "summary": "Long entretien sur le parcours professionnel, les medias, le conseil, la litterature et la trajectoire personnelle.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Ambivert Club",
+      "date": "2020-01-01",
+      "display_date": "2020",
+      "material_type": "Texte",
+      "url": "https://ambivert.club/ilya-klishin/",
+      "source_url": "https://ambivert.club/ilya-klishin/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-11",
+      "content_id": "interview:c0e73d1418fe1e8c",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin et Roman Fedoseev : comment deux journalistes ont cree un media business sans investissement",
+      "summary": "Entretien sur le lancement d un business de conseil apres une carriere en redaction.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Radio Baltica",
+      "date": "2019-10-31",
+      "display_date": "31 octobre 2019",
+      "material_type": "Podcast",
+      "url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "source_url": "https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/",
+      "semantic_tags": [
+        "podcasts",
+        "interviews"
+      ]
+    },
+    {
+      "id": "interview-fr-12",
+      "content_id": "interview:74bfa0d9230acb92",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Infoshoom et video verticale : entretien avec RTVI",
+      "summary": "Entretien sur la strategie numerique de RTVI, les formats video et le developpement editorial.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "Cossa",
+      "date": "2017-08-09",
+      "display_date": "9 août 2017",
+      "material_type": "Texte",
+      "url": "https://www.cossa.ru/211/171260/",
+      "source_url": "https://www.cossa.ru/211/171260/",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "fr-148",
+      "content_id": "content:en-148",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-148-freedom-on-the-net-2016-documente-des-pressions-liees-a-klishin-et-ses-p.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-148-freedom-on-the-net-2016-erfasst-druckmuster-im-umfeld-von-klishin-und-ko.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-148-freedom-on-the-net-2016-registra-presion-digital-vinculada-a-klishin-y-s.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html",
+      "title": "Freedom on the Net 2016 documente des pressions liees a Klishin et ses pairs",
+      "summary": "Le chapitre Russie de Freedom House en 2016 documente des pressions numeriques et des attaques contre des comptes d acteurs independants. Cette entree conserve une source institutionnelle dans la chronologie des pratiques d intimidation et de controle en ligne.",
+      "context": "Source institutionnelle utile pour documenter le contexte des intimidations numeriques visant acteurs civiques et medatiques.",
+      "topic": "internet freedom report",
+      "source": "Freedom House",
+      "date": "2016-11-14",
+      "display_date": "2016-11-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-148-freedom-on-the-net-2016-documente-des-pressions-liees-a-klishin-et-ses-p.html",
+      "source_url": "https://freedomhouse.org/country/russia/freedom-net/2016",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Freedom House",
+        "internet freedom report",
+        "2016",
+        "external reference"
+      ]
+    },
+    {
+      "id": "fr-152",
+      "content_id": "content:en-152",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-152-entretien-gazetaru-sur-un-possible-blocage-de-youtube-et-google.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-152-gazetaru-interview-zur-moeglichen-sperre-von-youtube-und-google.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-152-entrevista-en-gazetaru-sobre-posible-bloqueo-de-youtube-y-google.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html",
+      "title": "Entretien Gazeta.ru sur un possible blocage de YouTube et Google",
+      "summary": "Cet entretien de Gazeta. ru conserve un commentaire expert sur les scenarios techniques et politiques de blocage des grandes plateformes en Russie.",
+      "context": "Entree de reference sur les discussions mediales precoces autour des risques de blocage de plateformes en Russie.",
+      "topic": "platform blocking commentary",
+      "source": "Gazeta.ru",
+      "date": "2016-01-16",
+      "display_date": "2016-01-16",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-152-entretien-gazetaru-sur-un-possible-blocage-de-youtube-et-google.html",
+      "source_url": "https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Gazeta.ru",
+        "platform regulation",
+        "YouTube",
+        "Google",
+        "Russia",
+        "2016"
+      ]
+    },
+    {
+      "id": "fr-151",
+      "content_id": "content:en-151",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-151-jsis-profil-digitaler-patriotismus-und-nationalistische-agenda-in-russis.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-151-perfil-jsis-patriotismo-digital-y-agenda-nacionalista-en-medios-rusos.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
+      "title": "Profil JSIS : patriotisme numerique et agenda nationaliste dans les medias russes",
+      "summary": "Ce profil JSIS analyse le patriotisme numerique et la gestion des recits nationalistes dans la politique mediatique russe.",
+      "context": "Entree de reference reliant analyse academique des controles mediatique russes et contexte analytique lie a Klishin.",
+      "topic": "media profile and censorship",
+      "source": "JSIS Washington",
+      "date": "2016-01-01",
+      "display_date": "2016-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias.html",
+      "source_url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "JSIS Washington",
+        "media profile and censorship",
+        "2016",
+        "external reference"
+      ]
+    },
+    {
+      "id": "fr-150",
+      "content_id": "content:en-150",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
+      "title": "Wilson Center : comment les medias sont devenus une arme centrale du pouvoir",
+      "summary": "Cette analyse du Wilson Center etudie la transformation des institutions mediatiques russes en instrument de controle politique.",
+      "context": "Entree institutionnelle pour le contexte international de l instrumentalisation politique des medias russes.",
+      "topic": "media systems report",
+      "source": "The Wilson Center",
+      "date": "2015-04-27",
+      "display_date": "2015-04-27",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html",
+      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Wilson Center",
+        "media systems report",
+        "2015",
+        "external reference"
+      ]
+    },
+    {
+      "id": "fr-119",
+      "content_id": "content:en-119",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-119-the-atlantic-cite-klishin-sur-la-machine-mediatique-de-poutine.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-119-the-atlantic-zitiert-klishin-zur-medienmaschine-putins.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-119-the-atlantic-cita-a-klishin-sobre-la-maquinaria-mediatica-de-putin.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html",
+      "title": "The Atlantic cite Klishin sur la machine mediatique de Poutine",
+      "summary": "Ce long format de The Atlantic examine comment le systeme mediatique russe a ete transforme en instrument politique. Klishin n en est pas l auteur, mais son analyse y est citee pour decrire les conditions asymetriques imposees aux medias independants.",
+      "context": "Reference utile pour montrer comment une grande publication anglophone mobilise les analyses de Klishin sur les pressions mediales en Russie.",
+      "topic": "analyse du systeme mediatique",
+      "source": "The Atlantic",
+      "date": "2015-04-21",
+      "display_date": "2015-04-21",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-119-the-atlantic-cite-klishin-sur-la-machine-mediatique-de-poutine.html",
+      "source_url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "The Atlantic",
+        "media russe",
+        "pression mediatique",
+        "propagande",
+        "medias independants",
+        "2015",
+        "reference externe"
+      ]
+    },
+    {
+      "id": "fr-153",
+      "content_id": "content:en-153",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-153-screening-rape-indias-debate.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-153-screening-rape-indias-debate.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html",
+      "title": "Screening rape: India's debate",
+      "summary": "Episode de The Listening Post comprenant le segment « Kremlin's troll army », avec Ilya Klishin sur la manipulation en ligne et les tactiques d'influence pro-Kremlin dans l'espace mediatique russe.",
+      "context": "Le sujet apparition mediatique est presente avec des points de verification clairs.",
+      "topic": "apparition mediatique",
+      "source": "Al Jazeera English",
+      "date": "2015-03-14",
+      "display_date": "2015-03-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-153-screening-rape-indias-debate.html",
+      "source_url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Al Jazeera English",
+        "The Listening Post",
+        "Kremlin's troll army",
+        "information warfare",
+        "online manipulation",
+        "TV Rain",
+        "2015"
+      ]
+    },
+    {
+      "id": "fr-146",
+      "content_id": "content:en-146",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-146-l-article-wikipedia-sur-la-guerre-mediatique-cite-des-assertions-liees-a.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-146-wikipedia-ueberblick-zum-medienkrieg-verweist-auf-klishin-bezogene-aussa.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-146-el-resumen-de-wikipedia-sobre-cobertura-de-guerra-cita-afirmaciones-vinc.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html",
+      "title": "L article Wikipedia sur la guerre mediatique cite des assertions liees a Klishin",
+      "summary": "Cette page encyclopedique sur la couverture mediatique de la guerre russo-ukrainienne reprend des references associees a Klishin sur des mecanismes de manipulation.",
+      "context": "Entree de reference montrant la circulation de citations liees a Klishin dans des repertoires encyclopediques.",
+      "topic": "war information coverage",
+      "source": "Wikipedia",
+      "date": "2014-08-01",
+      "display_date": "2014-08-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-146-l-article-wikipedia-sur-la-guerre-mediatique-cite-des-assertions-liees-a.html",
+      "source_url": "https://en.wikipedia.org/wiki/Media_portrayal_of_the_Russo-Ukrainian_War",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Wikipedia",
+        "war information coverage",
+        "2014",
+        "external reference"
+      ]
+    },
+    {
+      "id": "fr-149",
+      "content_id": "content:en-149",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-149-rapport-rand-rr295-sur-les-reseaux-sociaux-et-la-mobilisation-politique.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-149-rand-report-rr295-zu-sozialen-medien-und-politischer-mobilisierung.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-149-informe-rand-rr295-sobre-redes-sociales-y-movilizacion-politica.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html",
+      "title": "Rapport RAND RR295 sur les reseaux sociaux et la mobilisation politique",
+      "summary": "Le cadre de recherche RR295 de RAND est utilise comme reference institutionnelle dans les analyses de mobilisation en ligne et de points focaux de coordination protestataire. Cette carte conserve ce rapport comme source methodologique recurrente.",
+      "context": "Entree methodologique pour le contexte de recherche sur mobilisation politique et reseaux sociaux.",
+      "topic": "social media mobilization research",
+      "source": "RAND Corporation",
+      "date": "2013-01-01",
+      "display_date": "2013-01-01",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-149-rapport-rand-rr295-sur-les-reseaux-sociaux-et-la-mobilisation-politique.html",
+      "source_url": "https://www.rand.org/pubs/research_reports/RR295.html",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "RAND Corporation",
+        "social media mobilization research",
+        "2013",
+        "external reference"
+      ]
+    },
+    {
+      "id": "interview-fr-13",
+      "content_id": "interview:2571bc90c1109d8a",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin : les nationalistes russes doivent entrer au parlement",
+      "summary": "Entretien politique de la periode des mobilisations protestataires du debut des annees 2010.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "VB.KG",
+      "date": "2012-04-23",
+      "display_date": "23 avril 2012",
+      "material_type": "Texte",
+      "url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "source_url": "https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html",
+      "semantic_tags": [
+        "text",
+        "interviews"
+      ]
+    },
+    {
+      "id": "fr-147",
+      "content_id": "content:en-147",
+      "type": "post",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "reference",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html"
+        },
+        {
+          "locale": "fr",
+          "href": "https://www.klishin.work/posts/fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f.html"
+        },
+        {
+          "locale": "de",
+          "href": "https://www.klishin.work/posts/de-147-lse-analyse-zur-protestmobilisierung-verweist-auf-feb26org-koordination.html"
+        },
+        {
+          "locale": "es",
+          "href": "https://www.klishin.work/posts/es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb.html"
+        }
+      ],
+      "available_locales": [
+        "en",
+        "fr",
+        "de",
+        "es"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
+      "title": "Une analyse LSE sur la mobilisation protestataire cite la coordination feb26.org",
+      "summary": "Cette analyse LSE EUROPP sur les protestations russes relie coordination descendante et dynamique de base, en mentionnant une infrastructure numerique associee au mouvement Fair Elections.",
+      "context": "Reference institutionnelle utile pour documenter la lecture academique des mecanismes de coordination numerique des protestations.",
+      "topic": "digital protest infrastructure",
+      "source": "LSE EUROPP",
+      "date": "2012-03-14",
+      "display_date": "2012-03-14",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f.html",
+      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "LSE EUROPP",
+        "digital protest infrastructure",
+        "2012",
+        "external reference"
+      ]
+    },
+    {
+      "id": "interview-fr-14",
+      "content_id": "interview:7b7b4a1fa96a7896",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "La police russe accusee d intimidation envers les parents de manifestants",
+      "summary": "Article en anglais du Guardian avec mes commentaires sur la mobilisation et la pression sur les militants.",
+      "context": "",
+      "topic": "Materiaux en anglais et formats feature",
+      "source": "The Guardian",
+      "date": "2012-02-02",
+      "display_date": "2 février 2012",
+      "material_type": "Grand format",
+      "url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "source_url": "https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics",
+      "semantic_tags": [
+        "text",
+        "features"
+      ]
+    },
+    {
+      "id": "interview-fr-15",
+      "content_id": "interview:2cef944f9a69cf16",
+      "type": "interview",
+      "language": "FR",
+      "locale": "fr",
+      "status": "published",
+      "surface": "public",
+      "role": "quoted",
+      "title": "Ilia Klishin : si l internet est coupe, les gens sortiront celebrer",
+      "summary": "Entretien video sur les manifestations, internet et le contexte politique du debut 2012.",
+      "context": "",
+      "topic": "Entretiens et conversations",
+      "source": "YouTube",
+      "date": "2012-01-10",
+      "display_date": "10 janvier 2012",
+      "material_type": "Video",
+      "url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "source_url": "https://www.youtube.com/watch?v=S2UDLzb8KRA",
+      "semantic_tags": [
+        "video",
+        "interviews"
+      ]
+    }
+  ]
+}

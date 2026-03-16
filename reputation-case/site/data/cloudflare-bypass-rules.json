@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-03-13T17:44:12.467Z",
+  "notes": [
+    "Place bypass rules above any Managed Challenge or JS Challenge rules.",
+    "Use Super Bot Fight Mode if you need rule-level exemptions; Bot Fight Mode cannot be skipped by custom rules.",
+    "The AI crawler rule is intentionally strict: user agent AND source IP list must both match."
+  ],
+  "lists": {
+    "openai_searchbot_ips": {
+      "name": "openai_searchbot_ips",
+      "count": 35,
+      "source": "https://openai.com/searchbot.json"
+    },
+    "openai_chatgpt_user_ips": {
+      "name": "openai_chatgpt_user_ips",
+      "count": 234,
+      "source": "https://openai.com/chatgpt-user.json"
+    },
+    "openai_gptbot_ips": {
+      "name": "openai_gptbot_ips",
+      "count": 21,
+      "source": "https://openai.com/gptbot.json"
+    },
+    "perplexitybot_ips": {
+      "name": "perplexitybot_ips",
+      "count": 8,
+      "source": "https://www.perplexity.ai/perplexitybot.json"
+    },
+    "perplexity_user_ips": {
+      "name": "perplexity_user_ips",
+      "count": 4,
+      "source": "https://www.perplexity.ai/perplexity-user.json"
+    },
+    "anthropic_ai_ips": {
+      "name": "anthropic_ai_ips",
+      "count": 1,
+      "source": "https://docs.anthropic.com/en/api/ip-addresses"
+    }
+  },
+  "rules": [
+    {
+      "id": "verified_ai_crawlers_bypass",
+      "action": "skip",
+      "expression": "(http.user_agent contains \"OAI-SearchBot\" and ip.src in $openai_searchbot_ips) or (http.user_agent contains \"ChatGPT-User\" and ip.src in $openai_chatgpt_user_ips) or (http.user_agent contains \"GPTBot\" and ip.src in $openai_gptbot_ips) or (http.user_agent contains \"PerplexityBot\" and ip.src in $perplexitybot_ips) or (http.user_agent contains \"Perplexity-User\" and ip.src in $perplexity_user_ips) or (http.user_agent contains \"ClaudeBot\" and ip.src in $anthropic_ai_ips) or (http.user_agent contains \"anthropic-ai\" and ip.src in $anthropic_ai_ips)",
+      "recommended_skips": [
+        "remaining custom WAF rules in current phase",
+        "managed WAF",
+        "rate limiting",
+        "Super Bot Fight Mode",
+        "Browser Integrity Check / security-level style challenge sources"
+      ]
+    },
+    {
+      "id": "verified_search_engines_bypass",
+      "action": "skip",
+      "expression": "cf.client.bot and ( http.user_agent contains \"Googlebot\" or  http.user_agent contains \"Bingbot\" or  http.user_agent contains \"YandexBot\" or  http.user_agent contains \"Google-Extended\" or  http.user_agent contains \"DuckDuckBot\" or  http.user_agent contains \"Applebot\" or  http.user_agent contains \"CCBot\" )",
+      "recommended_skips": [
+        "remaining custom WAF rules in current phase",
+        "managed WAF",
+        "rate limiting",
+        "Super Bot Fight Mode"
+      ]
+    }
+  ]
+}
