@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-13T17:44:12.467Z",
+  "generated_at": "2026-03-17T06:45:59.632Z",
   "notes": [
     "Place bypass rules above any Managed Challenge or JS Challenge rules.",
     "Use Super Bot Fight Mode if you need rule-level exemptions; Bot Fight Mode cannot be skipped by custom rules.",
@@ -33,7 +33,7 @@
     },
     "anthropic_ai_ips": {
       "name": "anthropic_ai_ips",
-      "count": 1,
+      "count": 8,
       "source": "https://docs.anthropic.com/en/api/ip-addresses"
     }
   },
