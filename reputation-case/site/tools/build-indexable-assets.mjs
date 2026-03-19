@@ -3551,7 +3551,8 @@ const stripAlternateHreflangLinks = (html = "") =>
 const appendHeadMarkup = (html = "", lines = []) => {
   const normalized = lines.map((line) => String(line || "").trim()).filter(Boolean);
   if (normalized.length === 0) return html;
-  return String(html || "").replace(/<\/head>/i, `    ${normalized.join("\n    ")}\n  </head>`);
+  const compactHead = String(html || "").replace(/\n(?:[ \t]*\n){2,}(?=[ \t]*<\/head>)/gi, "\n");
+  return compactHead.replace(/<\/head>/i, `    ${normalized.join("\n    ")}\n  </head>`);
 };
 
 const staticHreflangConfigForPath = (relativePath = "") => {
