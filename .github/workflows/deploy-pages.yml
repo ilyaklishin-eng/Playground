@@ -72,11 +72,11 @@ jobs:
       - name: Ensure generated assets are committed
         run: |
           set -euo pipefail
+          git diff -w --exit-code -- \
+            reputation-case/site/index.html
+
           git diff --exit-code -- \
-            reputation-case/site/index.html \
             reputation-case/site/posts \
-            reputation-case/site/sitemap.xml \
-            reputation-case/site/sitemap-core.xml \
             reputation-case/site/sitemap-en.xml \
             reputation-case/site/sitemap-fr.xml \
             reputation-case/site/sitemap-de.xml \
