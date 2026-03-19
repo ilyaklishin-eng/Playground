@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { shouldCompileItem } from "./page-index-policy.mjs";
 
 const ROOT = path.resolve(process.cwd());
 const SITE_DIR = process.env.SEO_AUDIT_SITE_DIR
@@ -281,7 +282,8 @@ function isCanonicalUrl(url) {
 async function main() {
   const rawData = await fs.readFile(DATA_PATH, "utf8");
   const payload = JSON.parse(rawData);
-  const items = Array.isArray(payload.items) ? payload.items : [];
+  const allItems = Array.isArray(payload.items) ? payload.items : [];
+  const items = allItems.filter((item) => shouldCompileItem(item, { production: true }));
   const entries = buildEntries(items);
   const idToPostPath = new Map(entries.map((entry) => [entry.item.id, entry.postPath]));
   const postPathToItem = new Map(entries.map((entry) => [entry.postPath, entry.item]));
