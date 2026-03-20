@@ -3,7 +3,7 @@
   const DEFAULT_SUBJECT = "Inquiry from klishin.work";
   const DEFAULT_COPY_LABEL = "Copy email";
   const DEFAULT_COPIED_LABEL = "Email copied";
-  const DEFAULT_EMAIL_LABEL = "Email Ilia Klishin";
+  const DEFAULT_EMAIL_LABEL = "Email";
   const clean = (value = "") => String(value || "").replace(/\|/g, "").trim();
 
   const copyText = async (text) => {
