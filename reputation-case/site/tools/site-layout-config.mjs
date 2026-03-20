@@ -20,17 +20,56 @@ export const NAV_KEY = Object.freeze({
 });
 
 const NAV_LABELS = Object.freeze({
-  home: { en: "Home", fr: "Home", de: "Home", es: "Home" },
-  bio: { en: "Bio", fr: "Bio", de: "Bio", es: "Bio" },
-  selected: { en: "Selected Work", fr: "Selected Work", de: "Selected Work", es: "Selected Work" },
-  interviews: { en: "Interviews", fr: "Interviews", de: "Interviews", es: "Interviews" },
-  contact: { en: "Contact", fr: "Contact", de: "Contact", es: "Contact" },
-  search: { en: "Search", fr: "Search", de: "Search", es: "Search" },
-  archive: { en: "Archive", fr: "Archive", de: "Archive", es: "Archive" },
-  insights: { en: "Research archive", fr: "Research archive", de: "Research archive", es: "Research archive" },
-  about: { en: "About", fr: "About", de: "About", es: "About" },
-  posts: { en: "Posts", fr: "Posts", de: "Posts", es: "Posts" },
-  cases: { en: "Case notes", fr: "Case notes", de: "Case notes", es: "Case notes" },
+  home: { en: "Home", fr: "Accueil", de: "Startseite", es: "Inicio" },
+  bio: { en: "Bio", fr: "Biographie", de: "Biografie", es: "Biografía" },
+  selected: { en: "Selected Work", fr: "Travaux sélectionnés", de: "Ausgewählte Arbeiten", es: "Trabajo seleccionado" },
+  interviews: { en: "Interviews", fr: "Entretiens", de: "Interviews", es: "Entrevistas" },
+  contact: { en: "Contact", fr: "Contact", de: "Kontakt", es: "Contacto" },
+  search: { en: "Search", fr: "Recherche", de: "Suche", es: "Búsqueda" },
+  archive: { en: "Archive", fr: "Archives", de: "Archiv", es: "Archivo" },
+  insights: { en: "Research archive", fr: "Archives de recherche", de: "Recherchearchiv", es: "Archivo de investigación" },
+  about: { en: "About", fr: "À propos", de: "Über", es: "Acerca de" },
+  posts: { en: "Posts", fr: "Publications", de: "Beiträge", es: "Publicaciones" },
+  cases: { en: "Case notes", fr: "Notes de cas", de: "Falldokumentation", es: "Notas de casos" },
+});
+
+const UI_LABELS = Object.freeze({
+  en: {
+    primaryNav: "Primary",
+    secondaryNav: "Secondary",
+    archiveNav: "Archive navigation",
+    archiveFooter: "Archive footer",
+    siteLanguage: "Site language",
+    goHome: "Go to home",
+    archiveShell: "Archive / Utility",
+  },
+  fr: {
+    primaryNav: "Navigation principale",
+    secondaryNav: "Navigation secondaire",
+    archiveNav: "Navigation d’archive",
+    archiveFooter: "Pied de page d’archive",
+    siteLanguage: "Langue du site",
+    goHome: "Aller à l’accueil",
+    archiveShell: "Archive / utilitaires",
+  },
+  de: {
+    primaryNav: "Hauptnavigation",
+    secondaryNav: "Sekundäre Navigation",
+    archiveNav: "Navigation im Archiv",
+    archiveFooter: "Archivfußzeile",
+    siteLanguage: "Sprache der Website",
+    goHome: "Zur Startseite",
+    archiveShell: "Archiv / Hilfsseiten",
+  },
+  es: {
+    primaryNav: "Navegación principal",
+    secondaryNav: "Navegación secundaria",
+    archiveNav: "Navegación de archivo",
+    archiveFooter: "Pie del archivo",
+    siteLanguage: "Idioma del sitio",
+    goHome: "Ir al inicio",
+    archiveShell: "Archivo / utilidades",
+  },
 });
 
 const normalizeLocale = (locale = "en") => {
@@ -201,16 +240,18 @@ const renderNavLinks = (keys = [], locale = "en", currentKey = "", className = "
 
 const renderLanguageSwitchPlaceholder = (locale = "en", tagName = "nav") => {
   const lang = normalizeLocale(locale);
-  return `<${tagName} class="site-lang-switch" aria-label="Site language">
+  const ui = UI_LABELS[lang] || UI_LABELS.en;
+  return `<${tagName} class="site-lang-switch" aria-label="${escapeHtml(ui.siteLanguage)}">
         <a class="active" href="${escapeHtml(getNavHref(NAV_KEY.HOME, lang))}" aria-current="page">${lang.toUpperCase()}</a>
       </${tagName}>`;
 };
 
 export const renderReaderHeader = ({ locale = "en", currentKey = "", brandLabel = "Ilia Klishin", languageSwitchTag = "nav" } = {}) => {
   const lang = normalizeLocale(locale);
+  const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<header class="topbar" id="siteTopbar">
-      <a class="brand" href="${escapeHtml(getNavHref(NAV_KEY.HOME, lang))}" aria-label="Go to home">${escapeHtml(brandLabel)}</a>
-      <nav class="primary-nav" aria-label="Primary">
+      <a class="brand" href="${escapeHtml(getNavHref(NAV_KEY.HOME, lang))}" aria-label="${escapeHtml(ui.goHome)}">${escapeHtml(brandLabel)}</a>
+      <nav class="primary-nav" aria-label="${escapeHtml(ui.primaryNav)}">
         ${renderNavLinks(NAV_LAYOUTS.reader.header, lang, currentKey)}
       </nav>
       ${renderLanguageSwitchPlaceholder(lang, languageSwitchTag)}
@@ -219,8 +260,9 @@ export const renderReaderHeader = ({ locale = "en", currentKey = "", brandLabel 
 
 export const renderReaderFooter = ({ locale = "en" } = {}) => {
   const lang = normalizeLocale(locale);
+  const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<footer class="footer">
-      <nav class="secondary-nav" aria-label="Secondary">
+      <nav class="secondary-nav" aria-label="${escapeHtml(ui.secondaryNav)}">
         ${renderNavLinks(NAV_LAYOUTS.reader.footer, lang)}
       </nav>
     </footer>`;
@@ -228,10 +270,11 @@ export const renderReaderFooter = ({ locale = "en" } = {}) => {
 
 export const renderArchiveHeader = ({ locale = "en", currentKey = "" } = {}) => {
   const lang = normalizeLocale(locale);
+  const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<header class="archive-header">
       <div class="archive-shell">
-        <p class="archive-shell-label">Archive / Utility</p>
-        <nav class="archive-nav" aria-label="Archive navigation">
+        <p class="archive-shell-label">${escapeHtml(ui.archiveShell)}</p>
+        <nav class="archive-nav" aria-label="${escapeHtml(ui.archiveNav)}">
           ${renderNavLinks(NAV_LAYOUTS.archive.header, lang, currentKey)}
         </nav>
       </div>
@@ -240,8 +283,9 @@ export const renderArchiveHeader = ({ locale = "en", currentKey = "" } = {}) => 
 
 export const renderArchiveFooter = ({ locale = "en" } = {}) => {
   const lang = normalizeLocale(locale);
+  const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<footer class="archive-footer">
-      <nav class="archive-footer-nav" aria-label="Archive footer">
+      <nav class="archive-footer-nav" aria-label="${escapeHtml(ui.archiveFooter)}">
         ${renderNavLinks(NAV_LAYOUTS.archive.footer, lang)}
       </nav>
     </footer>`;
@@ -251,4 +295,3 @@ export const resolveStaticLayout = (relativePath = "") => {
   const clean = String(relativePath || "").replace(/^\/+/, "");
   return STATIC_LAYOUT_OVERRIDES.get(clean) || null;
 };
-

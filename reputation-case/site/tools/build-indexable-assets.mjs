@@ -358,6 +358,10 @@ const INTERVIEWS_PAGE_CONFIG = {
     path: path.join(interviewsDir, "index.html"),
     lang: "en",
     eyebrow: "Interviews",
+    pageTitle: "Interviews",
+    pageDescription:
+      "Interviews, podcasts, video conversations, and long-form features with Ilia Klishin on media, migration, culture, politics, and digital environments.",
+    structuredListName: "Interviews and materials with Ilia Klishin",
     title: "Interviews and public conversations",
     intro:
       "Interviews, conversations, podcasts, and long-form features involving Ilia Klishin on media, migration, literature, politics, digital environments, and cultural context.",
@@ -392,43 +396,51 @@ const INTERVIEWS_PAGE_CONFIG = {
     path: path.join(interviewsDir, "fr", "index.html"),
     lang: "fr",
     eyebrow: "Entretiens",
+    pageTitle: "Entretiens",
+    pageDescription:
+      "Entretiens, podcasts, conversations vidéo et formats longs avec Ilia Klishin sur les médias, l’émigration, la culture, la politique et l’environnement numérique.",
+    structuredListName: "Entretiens et interventions avec Ilia Klishin",
     title: "Entretiens et conversations publiques",
     intro:
-      "Entretiens, conversations, podcasts et longs formats avec Ilia Klishin sur les medias, l emigration, la litterature, la politique, l environnement numerique et le contexte culturel.",
+      "Entretiens, conversations, podcasts et formats longs avec Ilia Klishin autour des médias, de l’émigration, de la littérature, de la politique, de l’environnement numérique et du contexte culturel.",
     filtersAria: "Filtres",
-    filterGroupAria: "Format",
+    filterGroupAria: "Filtre par format",
     filters: {
       all: "Tous",
       text: "Texte",
-      video: "Video",
+      video: "Vidéo",
       podcasts: "Podcasts",
     },
     sections: {
       interviews: {
         id: "interviews-main-title",
         title: "Entretiens et conversations",
-        intro: "Entretiens texte et video, podcasts et interventions publiques.",
+        intro: "Entretiens écrits et vidéo, podcasts et interventions publiques.",
       },
       features: {
         id: "interviews-features-title",
-        title: "Materiaux en anglais et formats feature",
-        intro: "Longs formats et references publiques avec participation directe.",
+        title: "Matériaux anglophones et formats longs",
+        intro: "Formats longs et références publiques avec participation directe.",
       },
       archive: {
         id: "interviews-archive-title",
         title: "Archive",
-        intro: "Archives et apparitions anciennes dont la datation exacte peut encore demander verification.",
+        intro: "Archives et apparitions plus anciennes dont la datation exacte peut encore demander vérification.",
       },
     },
-    cta: "Ouvrir le contenu ->",
+    cta: "Voir l’entretien →",
   },
   de: {
     path: path.join(interviewsDir, "de", "index.html"),
     lang: "de",
     eyebrow: "Interviews",
-    title: "Interviews und offentliche Gespraeche",
+    pageTitle: "Interviews",
+    pageDescription:
+      "Interviews, Podcasts, Videogespräche und längere Feature-Texte mit Ilia Klishin über Medien, Emigration, Kultur, Politik und das digitale Umfeld.",
+    structuredListName: "Interviews und Beiträge mit Ilia Klishin",
+    title: "Interviews und öffentliche Gespräche",
     intro:
-      "Interviews, Gespraeche, Podcasts und lange Features mit Ilia Klishin zu Medien, Emigration, Literatur, Politik, digitalem Umfeld und kulturellem Kontext.",
+      "Interviews, Gespräche, Podcasts und längere Formate mit Ilia Klishin zu Medien, Emigration, Literatur, Politik, digitalem Umfeld und kulturellem Kontext.",
     filtersAria: "Filter",
     filterGroupAria: "Formatfilter",
     filters: {
@@ -440,55 +452,59 @@ const INTERVIEWS_PAGE_CONFIG = {
     sections: {
       interviews: {
         id: "interviews-main-title",
-        title: "Interviews und Gespraeche",
-        intro: "Text- und Videointerviews, Podcasts und offentliche Auftritte.",
+        title: "Interviews und Gespräche",
+        intro: "Interviews in Text und Video, Podcasts und öffentliche Auftritte.",
       },
       features: {
         id: "interviews-features-title",
         title: "Englischsprachige und Feature-Materialien",
-        intro: "Lange Features und offentliche Referenzen mit direkter Beteiligung.",
+        intro: "Englischsprachige Formate und längere Stücke mit direkter Beteiligung.",
       },
       archive: {
         id: "interviews-archive-title",
         title: "Archiv",
-        intro: "Fruehe Auftritte und Archivmaterialien, deren genaue Datierung teils noch bestaetigt werden muss.",
+        intro: "Frühere Auftritte und Archivmaterialien, deren genaue Datierung teils noch bestätigt werden muss.",
       },
     },
-    cta: "Material offnen ->",
+    cta: "Beitrag öffnen →",
   },
   es: {
     path: path.join(interviewsDir, "es", "index.html"),
     lang: "es",
     eyebrow: "Entrevistas",
-    title: "Entrevistas y conversaciones publicas",
+    pageTitle: "Entrevistas",
+    pageDescription:
+      "Entrevistas, pódcasts, conversaciones en vídeo y formatos largos con Ilia Klishin sobre medios, emigración, cultura, política y entorno digital.",
+    structuredListName: "Entrevistas e intervenciones con Ilia Klishin",
+    title: "Entrevistas y conversaciones públicas",
     intro:
-      "Entrevistas, conversaciones, podcasts y materiales largos con Ilia Klishin sobre medios, emigracion, literatura, politica, entorno digital y contexto cultural.",
+      "Entrevistas, conversaciones, podcasts y formatos largos con Ilia Klishin sobre medios, emigración, literatura, política, entorno digital y contexto cultural.",
     filtersAria: "Filtros",
     filterGroupAria: "Filtro por formato",
     filters: {
       all: "Todos",
       text: "Texto",
-      video: "Video",
+      video: "Vídeo",
       podcasts: "Podcasts",
     },
     sections: {
       interviews: {
         id: "interviews-main-title",
         title: "Entrevistas y conversaciones",
-        intro: "Entrevistas en texto y video, podcasts e intervenciones publicas.",
+        intro: "Entrevistas en texto y en vídeo, podcasts e intervenciones públicas.",
       },
       features: {
         id: "interviews-features-title",
-        title: "Materiales en ingles y features",
-        intro: "Features largos y referencias publicas con participacion directa.",
+        title: "Materiales en inglés y formatos largos",
+        intro: "Formatos largos y referencias públicas con participación directa.",
       },
       archive: {
         id: "interviews-archive-title",
         title: "Archivo",
-        intro: "Registros tempranos y apariciones de archivo cuya fecha exacta aun puede requerir verificacion.",
+        intro: "Registros tempranos y apariciones de archivo cuya fecha exacta aún puede requerir verificación.",
       },
     },
-    cta: "Abrir material ->",
+    cta: "Ver la entrevista →",
   },
 };
 const INTERVIEW_SECTION_ORDER = ["interviews", "features", "archive"];
@@ -1474,24 +1490,24 @@ const buildPostMetaDescription = (item = {}) => {
     const seed = `${item?.id || ""}|${source}|${topic}|${date}|${lang}`;
     if (lang === "FR") {
       summary = pickSeededVariant(seed, [
-        `${source || "Ce texte"}${date ? ` (${date})` : ""} explique ${topic || "le sujet"} en reliant faits, acteurs et chronologie.`,
-        `Synthese de ${topic || "ce sujet"} a partir d une publication ${source || "sourcee"}${date ? ` (${date})` : ""}, avec points de verification.`,
-        `${source || "Publication"}${date ? ` (${date})` : ""}: lecture concise de ${topic || "la question"} avec contexte et implications.`,
-        `Page de reference sur ${topic || "le sujet"}, fondee sur la source ${source || "principale"}${date ? ` (${date})` : ""}.`,
+        `${source || "Ce texte"}${date ? ` (${date})` : ""} éclaire ${topic || "le sujet"} à partir des faits, des acteurs et de la chronologie.`,
+        `Synthèse concise sur ${topic || "ce sujet"} à partir d’une publication ${source || "sourcée"}${date ? ` (${date})` : ""}.`,
+        `${source || "Publication"}${date ? ` (${date})` : ""} : lecture brève de ${topic || "la question"} avec contexte et enjeux.`,
+        `Repère de lecture sur ${topic || "le sujet"}, fondé sur la source ${source || "principale"}${date ? ` (${date})` : ""}.`,
       ]);
     } else if (lang === "DE") {
       summary = pickSeededVariant(seed, [
-        `${source || "Der Beitrag"}${date ? ` (${date})` : ""} erklaert ${topic || "das Thema"} entlang von Fakten, Akteuren und Zeitleiste.`,
-        `Kurzfassung zu ${topic || "diesem Thema"} auf Basis der Quelle ${source || "mit belastbaren Bezugspunkten"}${date ? ` (${date})` : ""}.`,
-        `${source || "Publikation"}${date ? ` (${date})` : ""}: kompakte Einordnung von ${topic || "der Fragestellung"} mit Kontext.`,
-        `Referenzseite zu ${topic || "dem Thema"}, abgeleitet aus der Originalquelle ${source || ""}${date ? ` (${date})` : ""}.`,
+        `${source || "Der Beitrag"}${date ? ` (${date})` : ""} erläutert ${topic || "das Thema"} entlang von Fakten, Akteuren und zeitlichem Verlauf.`,
+        `Kurze Einordnung zu ${topic || "diesem Thema"} auf Grundlage der Quelle ${source || "mit belastbarem Bezug"}${date ? ` (${date})` : ""}.`,
+        `${source || "Publikation"}${date ? ` (${date})` : ""}: knappe Einordnung von ${topic || "der Fragestellung"} mit Kontext.`,
+        `Leseseite zu ${topic || "dem Thema"}, abgeleitet aus der Originalquelle ${source || ""}${date ? ` (${date})` : ""}.`,
       ]);
     } else if (lang === "ES") {
       summary = pickSeededVariant(seed, [
-        `${source || "Este texto"}${date ? ` (${date})` : ""} explica ${topic || "el tema"} con foco en hechos, actores y cronologia.`,
-        `Resumen de ${topic || "esta cuestion"} basado en la fuente ${source || "principal"}${date ? ` (${date})` : ""}, con contexto verificable.`,
-        `${source || "Publicacion"}${date ? ` (${date})` : ""}: lectura breve de ${topic || "la materia"} y sus implicaciones publicas.`,
-        `Pagina de referencia sobre ${topic || "el tema"}, construida desde la fuente ${source || "original"}${date ? ` (${date})` : ""}.`,
+        `${source || "Este texto"}${date ? ` (${date})` : ""} explica ${topic || "el tema"} con foco en hechos, actores y cronología.`,
+        `Resumen de ${topic || "esta cuestión"} basado en la fuente ${source || "principal"}${date ? ` (${date})` : ""}, con contexto verificable.`,
+        `${source || "Publicación"}${date ? ` (${date})` : ""}: lectura breve de ${topic || "la cuestión"} y sus implicaciones públicas.`,
+        `Página de referencia sobre ${topic || "el tema"}, construida a partir de la fuente ${source || "original"}${date ? ` (${date})` : ""}.`,
       ]);
     } else {
       summary = pickSeededVariant(seed, [
@@ -1505,8 +1521,8 @@ const buildPostMetaDescription = (item = {}) => {
 
   let value = summary;
   if (source && !new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(value)) {
-    if (lang === "FR") value = `${value} Publie dans ${source}${date ? ` (${date})` : ""}.`;
-    else if (lang === "DE") value = `${value} Veroeffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
+    if (lang === "FR") value = `${value} Publié dans ${source}${date ? ` (${date})` : ""}.`;
+    else if (lang === "DE") value = `${value} Veröffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
     else if (lang === "ES") value = `${value} Publicado en ${source}${date ? ` (${date})` : ""}.`;
     else value = `${value} Published in ${source}${date ? ` (${date})` : ""}.`;
   } else if (date && !value.includes(date)) {
@@ -1751,21 +1767,21 @@ const fallbackSummary = (item = {}) => {
     result = pickSeededVariant(seed, [
       `Le texte porte sur ${topic}${year ? ` en ${year}` : ""}.`,
       `Cette publication${year ? ` de ${year}` : ""} examine ${topic}.`,
-      `${source} publie ici un texte consacre a ${topic}.`,
+      `${source} publie ici un texte consacré à ${topic}.`,
       `L'article revient sur ${topic}.`,
     ]);
   } else if (lang === "DE") {
     result = pickSeededVariant(seed, [
       `Der Beitrag behandelt ${topic}${year ? ` (${year})` : ""}.`,
       `Die Publikation${year ? ` aus ${year}` : ""} ordnet ${topic} ein.`,
-      `${source} veroeffentlicht hier einen Text zu ${topic}.`,
+      `${source} veröffentlicht hier einen Text zu ${topic}.`,
       `Der Text stellt ${topic} knapp dar.`,
     ]);
   } else if (lang === "ES") {
     result = pickSeededVariant(seed, [
       `El texto aborda ${topic}${year ? ` en ${year}` : ""}.`,
-      `Esta publicacion${year ? ` de ${year}` : ""} revisa ${topic}.`,
-      `${source} publica aqui un texto sobre ${topic}.`,
+      `Esta publicación${year ? ` de ${year}` : ""} revisa ${topic}.`,
+      `${source} publica aquí un texto sobre ${topic}.`,
       `La pieza presenta ${topic} de forma directa.`,
     ]);
   } else {
@@ -2459,13 +2475,14 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
 
 const buildInterviewStructuredData = (canonical, locale, items = []) => {
   const itemListId = `${canonical}#itemlist`;
+  const config = INTERVIEWS_PAGE_CONFIG[locale] || INTERVIEWS_PAGE_CONFIG.en;
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "ItemList",
         "@id": itemListId,
-        name: `Interviews and materials with Ilia Klishin (${locale.toUpperCase()})`,
+        name: config.structuredListName,
         itemListOrder: "https://schema.org/ItemListOrderDescending",
         numberOfItems: items.length,
         isPartOf: { "@id": WEBSITE_ID },
@@ -3074,17 +3091,17 @@ const HOME_FALLBACK_COPY = {
     readOriginal: "Read original",
   },
   fr: {
-    empty: "Aucune fiche publiee n est disponible dans ce flux pour le moment.",
+    empty: "Aucune fiche publiée n’est disponible dans ce flux pour le moment.",
     openNote: "Ouvrir la fiche du site",
     readOriginal: "Lire la source",
   },
   de: {
-    empty: "Derzeit sind in diesem Feed keine veroffentlichten Karten verfugbar.",
-    openNote: "Interne Seite offnen",
+    empty: "Derzeit sind in diesem Feed keine veröffentlichten Karten verfügbar.",
+    openNote: "Interne Seite öffnen",
     readOriginal: "Original lesen",
   },
   es: {
-    empty: "Todavia no hay fichas publicadas disponibles en este flujo.",
+    empty: "Todavía no hay fichas publicadas disponibles en este flujo.",
     openNote: "Abrir ficha del sitio",
     readOriginal: "Leer original",
   },
@@ -3102,37 +3119,37 @@ const HOME_SECTION_COPY = {
     interviewOpen: "Open material ->",
   },
   fr: {
-    workTitle: "Textes selectionnes",
-    workLink: "Voir tous les travaux selectionnes",
-    moreWork: "Lectures supplementaires",
+    workTitle: "Travaux sélectionnés",
+    workLink: "Voir la sélection complète",
+    moreWork: "Autres lectures",
     interviewsAria: "Entretiens",
     interviewsTitle: "Entretiens et conversations",
-    interviewsIntro: "Entretiens recents, podcasts et discussions de fond.",
+    interviewsIntro: "Entretiens récents, podcasts et conversations au long cours.",
     interviewsLink: "Voir tous les entretiens",
     interviewsHref: "/interviews/fr/",
-    interviewOpen: "Ouvrir le contenu ->",
+    interviewOpen: "Voir l’entretien →",
   },
   de: {
-    workTitle: "Ausgewaehlte Texte",
-    workLink: "Alle ausgewaehlten Arbeiten ansehen",
-    moreWork: "Weitere Lektuere",
+    workTitle: "Ausgewählte Arbeiten",
+    workLink: "Gesamte Auswahl ansehen",
+    moreWork: "Weitere Texte",
     interviewsAria: "Interviews",
-    interviewsTitle: "Interviews und Gespraeche",
-    interviewsIntro: "Aktuelle Interviews, Podcasts und laengere Gespraeche.",
+    interviewsTitle: "Interviews und Gespräche",
+    interviewsIntro: "Aktuelle Interviews, Podcasts und ausführlichere Gespräche.",
     interviewsLink: "Alle Interviews ansehen",
     interviewsHref: "/interviews/de/",
-    interviewOpen: "Material offnen ->",
+    interviewOpen: "Beitrag öffnen →",
   },
   es: {
-    workTitle: "Textos seleccionados",
-    workLink: "Ver todo el trabajo seleccionado",
-    moreWork: "Lecturas adicionales",
+    workTitle: "Trabajo seleccionado",
+    workLink: "Ver la selección completa",
+    moreWork: "Más lecturas",
     interviewsAria: "Entrevistas",
     interviewsTitle: "Entrevistas y conversaciones",
-    interviewsIntro: "Entrevistas recientes, podcasts y conversaciones de largo formato.",
+    interviewsIntro: "Entrevistas recientes, podcasts y conversaciones en profundidad.",
     interviewsLink: "Ver todas las entrevistas",
     interviewsHref: "/interviews/es/",
-    interviewOpen: "Abrir material ->",
+    interviewOpen: "Ver la entrevista →",
   },
 };
 const HOME_FIXED_TITLE_EMOJI = {
@@ -3945,45 +3962,45 @@ const STATIC_SECTION_LABELS = {
   },
   fr: {
     home: "Accueil",
-    bio: "Bio",
+    bio: "Biographie",
     cases: "Notes de cas",
-    selected: "Travaux selectionnes",
+    selected: "Travaux sélectionnés",
     interviews: "Entretiens",
     contact: "Contact",
-    archive: "Archive",
-    insights: "Archive de recherche",
+    archive: "Archives",
+    insights: "Archives de recherche",
     search: "Recherche",
-    about: "A propos",
-    posts: "Articles",
+    about: "À propos",
+    posts: "Publications",
     page: "Page",
   },
   de: {
     home: "Startseite",
-    bio: "Bio",
+    bio: "Biografie",
     cases: "Falldokumentation",
-    selected: "Ausgewaehlte Arbeiten",
+    selected: "Ausgewählte Arbeiten",
     interviews: "Interviews",
     contact: "Kontakt",
     archive: "Archiv",
     insights: "Recherchearchiv",
     search: "Suche",
-    about: "Ueber",
-    posts: "Beitraege",
+    about: "Über",
+    posts: "Beiträge",
     page: "Seite",
   },
   es: {
     home: "Inicio",
-    bio: "Bio",
+    bio: "Biografía",
     cases: "Notas de casos",
     selected: "Trabajo seleccionado",
     interviews: "Entrevistas",
     contact: "Contacto",
     archive: "Archivo",
-    insights: "Archivo de investigacion",
-    search: "Busqueda",
+    insights: "Archivo de investigación",
+    search: "Búsqueda",
     about: "Acerca de",
     posts: "Publicaciones",
-    page: "Pagina",
+    page: "Página",
   },
 };
 

@@ -72,28 +72,28 @@ const UI_COPY = {
     langTitleEmpty: "No published cards in {lang} yet",
   },
   fr: {
-    cardLink: "Lire l article",
+    cardLink: "Lire l’article",
     openNote: "Ouvrir la fiche du site",
-    emptyFiltered: "Aucune fiche publiee ne correspond au filtre actuel.",
-    emptyLanguage: "Aucune fiche publiee n'est disponible en {lang} pour le moment.",
-    langTitlePublished: "{count} fiches publiees",
-    langTitleEmpty: "Aucune fiche publiee en {lang} pour le moment",
+    emptyFiltered: "Aucune fiche publiée ne correspond au filtre actuel.",
+    emptyLanguage: "Aucune fiche publiée n’est disponible en {lang} pour le moment.",
+    langTitlePublished: "{count} fiches publiées",
+    langTitleEmpty: "Aucune fiche publiée en {lang} pour le moment",
   },
   de: {
     cardLink: "Artikel lesen",
-    openNote: "Interne Seite offnen",
-    emptyFiltered: "Keine veroffentlichten Karten entsprechen dem aktuellen Filter.",
-    emptyLanguage: "Noch keine veroffentlichten Karten in {lang} verfugbar.",
-    langTitlePublished: "{count} veroffentlichte Karten",
-    langTitleEmpty: "Noch keine veroffentlichten Karten in {lang}",
+    openNote: "Interne Seite öffnen",
+    emptyFiltered: "Keine veröffentlichten Karten entsprechen dem aktuellen Filter.",
+    emptyLanguage: "Noch keine veröffentlichten Karten in {lang} verfügbar.",
+    langTitlePublished: "{count} veröffentlichte Karten",
+    langTitleEmpty: "Noch keine veröffentlichten Karten in {lang}",
   },
   es: {
-    cardLink: "Leer articulo",
+    cardLink: "Leer el artículo",
     openNote: "Abrir ficha del sitio",
     emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
-    emptyLanguage: "Todavia no hay fichas publicadas en {lang}.",
+    emptyLanguage: "Todavía no hay fichas publicadas en {lang}.",
     langTitlePublished: "{count} fichas publicadas",
-    langTitleEmpty: "Todavia no hay fichas publicadas en {lang}",
+    langTitleEmpty: "Todavía no hay fichas publicadas en {lang}",
   },
 };
 
@@ -512,8 +512,8 @@ function cardActionLabel(item) {
     /\b(youtube|tedx)\b/.test(source) ||
     /\bpublic speaking\b/.test(topic) ||
     /youtube\.com|youtu\.be|ted\.com/.test(url);
-  if (isVideo) return uiLang === "fr" ? "Regarder la video" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver video" : "Watch video";
-  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle offnen" : uiLang === "es" ? "Abrir fuente" : "Open source";
+  if (isVideo) return uiLang === "fr" ? "Regarder la vidéo" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver el vídeo" : "Watch video";
+  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle öffnen" : uiLang === "es" ? "Abrir la fuente" : "Open source";
   return t("cardLink");
 }
 
