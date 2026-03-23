@@ -187,7 +187,7 @@ id	url	outlet	language	relation	translation_route	priority	notes
 188	https://rtvi.com/editors-archive/ilya-klishin/	RTVI	RU	author_profile	digest_only_summary_quote	P1	Editor archive/profile
 189	https://carnegie.ru/commentary/63383	Carnegie.ru	RU	authored_by_ilya	digest_only_summary_quote	P1	Reference from Wikipedia (may need manual verification)
 190	https://www.ted.com/tedx/events/3947	TEDx / TED.com	EN	speaker_profile_tedx	already_english_canonical	P1	Official TEDx event speaker profile (Ilya Klishin)
-191	https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/	Diez	RO	tedx_talk_coverage	digest_only_summary_quote	P2	Media coverage of TEDxChisinau talk
+191	https://diez.md/2015/05/16/foto-adevarurile-politice-din-partea-a-treia-de-la-tedxchisinau-crossroads/	Diez	RO	tedx_talk_coverage	digest_only_summary_quote	P2	Media coverage of TEDxChisinau talk
 192	https://theins.ru/en/opinion/ilya-klishin	The Insider EN	EN	author_profile	already_english_canonical	P1	English opinion author page
 193	https://theins.ru/en/opinion/ilya-klishin/256956	The Insider EN	EN	authored_by_ilya	already_english_canonical	P1	English opinion by Ilya Klishin
 194	https://theins.ru/en/opinion/ilya-klishin/252347	The Insider EN	EN	authored_by_ilya	already_english_canonical	P1	English opinion by Ilya Klishin

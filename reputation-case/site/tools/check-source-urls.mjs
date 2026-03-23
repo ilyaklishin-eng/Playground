@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const digestsPath = path.join(siteDir, "data", "digests.json");
@@ -8,6 +10,7 @@ const interviewsModulePath = path.join(siteDir, "data", "interviews-data.js");
 const defaultOutputPath = path.join(siteDir, "data", "source-url-health.json");
 const DEFAULT_TIMEOUT_MS = 12000;
 const DEFAULT_CONCURRENCY = 8;
+const execFileAsync = promisify(execFile);
 const USER_AGENT =
   "Mozilla/5.0 (compatible; KlishinSourceAudit/1.0; +https://www.klishin.work/)";
 const BROKEN_STATUS_CODES = new Set([404, 410, 451]);
@@ -151,6 +154,54 @@ const requestUrl = async (url, method, timeoutMs) => {
   }
 };
 
+const requestUrlViaCurl = async (url, timeoutMs) => {
+  try {
+    const timeoutSeconds = Math.max(2, Math.ceil(timeoutMs / 1000));
+    const { stdout } = await execFileAsync("curl", [
+      "-sSIL",
+      "-A",
+      USER_AGENT,
+      "-H",
+      "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "--max-time",
+      String(timeoutSeconds),
+      "-o",
+      "/dev/null",
+      "-D",
+      "-",
+      "-w",
+      "\nCURL_EFFECTIVE_URL:%{url_effective}\n",
+      url,
+    ]);
+
+    const output = String(stdout || "");
+    const statusMatches = [...output.matchAll(/^HTTP\/[0-9.]+\s+(\d{3})/gim)];
+    const effectiveUrlMatch = output.match(/CURL_EFFECTIVE_URL:(.+)$/m);
+    const statusCode = statusMatches.length
+      ? Number.parseInt(statusMatches.at(-1)?.[1] || "0", 10)
+      : 0;
+
+    return {
+      ok: statusCode > 0,
+      url,
+      checked_via: "CURL",
+      status_code: statusCode,
+      final_url: effectiveUrlMatch?.[1]?.trim() || url,
+      classification: classifyStatus(statusCode),
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      url,
+      checked_via: "CURL",
+      status_code: 0,
+      final_url: url,
+      classification: "inconclusive",
+      error: String(error?.message || error || "Unknown curl error"),
+    };
+  }
+};
+
 const needsGetFallback = (result) => {
   if (!result?.ok) return true;
   return result.status_code >= 400;
@@ -161,6 +212,10 @@ const checkUrl = async (url, timeoutMs) => {
   if (!needsGetFallback(head)) return head;
 
   const get = await requestUrl(url, "GET", timeoutMs);
+  if (get.classification === "broken" || head.classification === "broken") {
+    const curl = await requestUrlViaCurl(url, timeoutMs);
+    if (curl.classification === "healthy" || curl.classification === "broken") return curl;
+  }
   if (get.classification === "healthy" || get.classification === "broken") return get;
   if (head.classification === "broken") return head;
   if (head.ok && head.status_code > 0 && !get.ok) return head;

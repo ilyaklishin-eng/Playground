@@ -1,33 +1,33 @@
 {
   "generated_at": "2025-09-23T00:00:00.000Z",
   "counts": {
-    "total": 185,
+    "total": 181,
     "locales": {
-      "en": 107,
-      "fr": 26,
-      "de": 26,
-      "es": 26
+      "en": 106,
+      "fr": 25,
+      "de": 25,
+      "es": 25
     }
   },
   "locales": {
     "en": {
       "path": "/data/search-index-en.json",
-      "count": 107,
+      "count": 106,
       "generated_at": "2025-09-23T00:00:00.000Z"
     },
     "fr": {
       "path": "/data/search-index-fr.json",
-      "count": 26,
+      "count": 25,
       "generated_at": "2025-09-23T00:00:00.000Z"
     },
     "de": {
       "path": "/data/search-index-de.json",
-      "count": 26,
+      "count": 25,
       "generated_at": "2025-09-23T00:00:00.000Z"
     },
     "es": {
       "path": "/data/search-index-es.json",
-      "count": 26,
+      "count": 25,
       "generated_at": "2025-09-23T00:00:00.000Z"
     }
   }

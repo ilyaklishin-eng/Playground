@@ -2,8 +2,8 @@
   "locale": "es",
   "generated_at": "2025-09-23T00:00:00.000Z",
   "counts": {
-    "total": 26,
-    "posts": 11,
+    "total": 25,
+    "posts": 10,
     "selected": 0,
     "interviews": 15
   },
@@ -196,7 +196,7 @@
       "display_date": "2021-04-01",
       "material_type": "Digest card",
       "url": "https://www.klishin.work/posts/es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion.html",
-      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
       "semantic_tags": [
         "Ilia Klishin",
         "Dekoder",
@@ -563,58 +563,6 @@
       ]
     },
     {
-      "id": "es-150",
-      "content_id": "content:en-150",
-      "type": "post",
-      "language": "ES",
-      "locale": "es",
-      "status": "published",
-      "surface": "public",
-      "role": "reference",
-      "alternates": [
-        {
-          "locale": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "locale": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "locale": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "locale": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        }
-      ],
-      "available_locales": [
-        "en",
-        "fr",
-        "de",
-        "es"
-      ],
-      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "title": "Wilson Center: como los medios se volvieron un arma central del poder",
-      "summary": "Este analisis del Wilson Center examina como instituciones mediaticas rusas fueron reconvertidas en herramienta de control politico. Se incorpora como fuente institucional de contexto y retoma argumentos asociados con evaluaciones de Klishin sobre infraestructura propagandistica.",
-      "context": "Entrada institucional para contextualizar el encuadre internacional sobre la politizacion del sistema mediatico ruso.",
-      "topic": "media systems report",
-      "source": "The Wilson Center",
-      "date": "2015-04-27",
-      "display_date": "2015-04-27",
-      "material_type": "Digest card",
-      "url": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html",
-      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "The Wilson Center",
-        "media systems report",
-        "2015",
-        "external reference"
-      ]
-    },
-    {
       "id": "es-119",
       "content_id": "content:en-119",
       "type": "post",
@@ -895,7 +843,7 @@
       "display_date": "2012-03-14",
       "material_type": "Digest card",
       "url": "https://www.klishin.work/posts/es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb.html",
-      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
       "semantic_tags": [
         "Ilia Klishin",
         "LSE EUROPP",

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-14T16:58:42.492Z",
+  "generated_at": "2026-03-20T08:40:48.597Z",
   "policy": {
     "timeout_ms": 12000,
     "concurrency": 8,
@@ -12,31 +12,12 @@
   },
   "totals": {
     "checked_urls": 76,
-    "healthy_urls": 69,
-    "broken_urls": 4,
-    "inconclusive_urls": 3
+    "healthy_urls": 72,
+    "broken_urls": 0,
+    "inconclusive_urls": 4
   },
-  "broken_urls": [
-    "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
-    "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
-    "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-    "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/"
-  ],
-  "broken_digest_ids": [
-    "de-145",
-    "de-147",
-    "de-150",
-    "en-022",
-    "en-145",
-    "en-147",
-    "en-150",
-    "es-145",
-    "es-147",
-    "es-150",
-    "fr-145",
-    "fr-147",
-    "fr-150"
-  ],
+  "broken_urls": [],
+  "broken_digest_ids": [],
   "broken_interview_urls": [],
   "results": [
     {
@@ -109,11 +90,11 @@
     },
     {
       "ok": true,
-      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
-      "checked_via": "GET",
-      "status_code": 404,
-      "final_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
-      "classification": "broken",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
+      "classification": "healthy",
       "refs": [
         {
           "kind": "digest",
@@ -176,12 +157,13 @@
       ]
     },
     {
-      "ok": true,
-      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "ok": false,
+      "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
       "checked_via": "GET",
-      "status_code": 404,
-      "final_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
-      "classification": "broken",
+      "status_code": 0,
+      "final_url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
+      "classification": "inconclusive",
+      "error": "fetch failed",
       "refs": [
         {
           "kind": "digest",
@@ -246,8 +228,8 @@
     {
       "ok": true,
       "url": "https://www.rand.org/pubs/research_reports/RR295.html",
-      "checked_via": "GET",
-      "status_code": 206,
+      "checked_via": "HEAD",
+      "status_code": 200,
       "final_url": "https://www.rand.org/pubs/research_reports/RR295.html",
       "classification": "healthy",
       "refs": [
@@ -274,40 +256,6 @@
           "id": "fr-149",
           "title": "Rapport RAND RR295 sur les reseaux sociaux et la mobilisation politique",
           "source": "RAND Corporation"
-        }
-      ]
-    },
-    {
-      "ok": true,
-      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "checked_via": "GET",
-      "status_code": 404,
-      "final_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "classification": "broken",
-      "refs": [
-        {
-          "kind": "digest",
-          "id": "de-150",
-          "title": "Wilson Center: Wie Medien zu einer zentralen Waffe der Macht wurden",
-          "source": "The Wilson Center"
-        },
-        {
-          "kind": "digest",
-          "id": "en-150",
-          "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
-          "source": "The Wilson Center"
-        },
-        {
-          "kind": "digest",
-          "id": "es-150",
-          "title": "Wilson Center: como los medios se volvieron un arma central del poder",
-          "source": "The Wilson Center"
-        },
-        {
-          "kind": "digest",
-          "id": "fr-150",
-          "title": "Wilson Center : comment les medias sont devenus une arme centrale du pouvoir",
-          "source": "The Wilson Center"
         }
       ]
     },
@@ -618,11 +566,11 @@
     },
     {
       "ok": true,
-      "url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
-      "checked_via": "GET",
-      "status_code": 404,
-      "final_url": "https://diez.md/2014/11/28/tedxchisinau-live-propaganda-in-social-media-with-ilya-klishin-tedxchisinau/",
-      "classification": "broken",
+      "url": "https://diez.md/2015/05/16/foto-adevarurile-politice-din-partea-a-treia-de-la-tedxchisinau-crossroads/",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://diez.md/2015/05/16/foto-adevarurile-politice-din-partea-a-treia-de-la-tedxchisinau-crossroads/",
+      "classification": "healthy",
       "refs": [
         {
           "kind": "digest",
@@ -1189,6 +1137,40 @@
           "id": "en-143",
           "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
           "source": "Carnegie Endowment"
+        }
+      ]
+    },
+    {
+      "ok": true,
+      "url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.aljazeera.com/video/the-listening-post/2015/3/14/screening-rape-indias-debate",
+      "classification": "healthy",
+      "refs": [
+        {
+          "kind": "digest",
+          "id": "en-153",
+          "title": "Screening rape: India's debate",
+          "source": "Al Jazeera English"
+        },
+        {
+          "kind": "digest",
+          "id": "fr-153",
+          "title": "Screening rape: India's debate",
+          "source": "Al Jazeera English"
+        },
+        {
+          "kind": "digest",
+          "id": "de-153",
+          "title": "Screening rape: India's debate",
+          "source": "Al Jazeera English"
+        },
+        {
+          "kind": "digest",
+          "id": "es-153",
+          "title": "Screening rape: India's debate",
+          "source": "Al Jazeera English"
         }
       ]
     },

@@ -1,7 +1,7 @@
 {
   "generated_at": "2022-02-14T00:00:00.000Z",
   "counts": {
-    "total": 87
+    "total": 83
   },
   "items": [
     {
@@ -20,7 +20,7 @@
         "DE": "de-030",
         "ES": "es-012"
       },
-      "summary": "14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia.",
+      "summary": "A small factual mistake in coverage of the Putin-Macron meeting became, for Klishin, a sign of a larger problem: too much commentary on Russia is built on weak expertise. The piece argues that even minor errors can reveal how shallow the broader analytical frame has become.",
       "key_ideas": [],
       "quotes": [
         "\"every word spoken carries weight\" - The Moscow Times",
@@ -78,7 +78,7 @@
         "DE": "de-031",
         "ES": "es-013"
       },
-      "summary": "This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability. Framing the defeat as a Hegelian catalyst, it argues the subsequent crackdown inadvertently served as a \"civil society university,\" transforming a naive public into a deeply politicized society primed for an unpredictable historical synthesis.",
+      "summary": "Ten years after Bolotnaya, Klishin argues that the protest wave should not be read simply as a defeat. Its longer effect was political learning: a generation that entered the streets naively left with a deeper understanding of the state, repression, and civic action.",
       "key_ideas": [],
       "quotes": [
         "\"those demonstrations ended in defeat\" - The Moscow Times",
@@ -136,7 +136,7 @@
         "DE": "de-015",
         "ES": "es-030"
       },
-      "summary": "How media freedom is framed through evidence, chronology, and attributable sourcing.",
+      "summary": "A short commentary on how pressure against independent media operates in practice — not only through direct bans, but through an accumulating climate of legal risk, economic pressure, and editorial exhaustion.",
       "key_ideas": [],
       "quotes": [
         "\"Commentary on pressure against independent media institutions\" - The Moscow Times",
@@ -193,7 +193,7 @@
         "DE": "de-019",
         "ES": "es-001"
       },
-      "summary": "How public-opinion narratives are shaped by institutions, incentives, and media distribution logic.",
+      "summary": "Klishin examines how “public opinion” in Russia is not simply measured, but produced — through institutions, incentives, media routines, and the selective amplification of certain voices over others.",
       "key_ideas": [],
       "quotes": [
         "\"The Magic Mirror of Russian Public Opinion\" - The Moscow Times",
@@ -249,7 +249,7 @@
         "DE": "de-020",
         "ES": "es-002"
       },
-      "summary": "This Moscow Times essay asks how journalists should report Roman Protasevich's televised confession after his arrest in Minsk. Klishin examines the ethics of covering coerced testimony without normalizing a staged spectacle or abandoning factual scrutiny.",
+      "summary": "Roman Protasevich’s televised confession after his arrest in Minsk turned a political outrage into a newsroom problem. The essay asks how journalists can report coerced testimony without turning state theater into ordinary evidence.",
       "key_ideas": [],
       "quotes": [
         "\"The Dilemma of the Great Terror How to Report Roman Protasevich s\" - The Moscow Times",
@@ -305,7 +305,7 @@
         "DE": "de-021",
         "ES": "es-003"
       },
-      "summary": "How election-timing rhetoric can postpone decisions and normalize strategic waiting.",
+      "summary": "The familiar political refrain “let’s wait until after the elections” works less as caution than as a technology of delay. What sounds prudent often serves to normalize passivity and postpone real choices indefinitely.",
       "key_ideas": [],
       "quotes": [
         "\"Let's Wait Until After the Elections\" - The Moscow Times",
@@ -355,7 +355,7 @@
       "title": "Dekoder zu Sputnik V, EU-Zulassung und russischer Impfkommunikation",
       "digest": "Der Dekoder-Artikel behandelt die Debatte um Sputnik V in der EU und zitiert Klishin zur Kommunikationslage in Russland. Er verknuepft die internationale Impfstoffwerbung mit innenpolitischem Misstrauen nach Jahren verschworerischer Staatsrhetorik.",
       "quote": "\"Sputnik V\" - Dekoder",
-      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
       "summary": "Der Dekoder-Artikel behandelt die Debatte um Sputnik V in der EU und zitiert Klishin zur Kommunikationslage in Russland. Er verknuepft die internationale Impfstoffwerbung mit innenpolitischem Misstrauen nach Jahren verschworerischer Staatsrhetorik.",
       "key_ideas": [
         "Der Beitrag verbindet Impfpolitik mit langfristigen Vertrauenseffekten.",
@@ -410,7 +410,7 @@
       "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
       "post_path": "de-145-dekoder-zu-sputnik-v-eu-zulassung-und-russischer-impfkommunikation.html",
       "post_url": "https://www.klishin.work/posts/de-145-dekoder-zu-sputnik-v-eu-zulassung-und-russischer-impfkommunikation.html",
-      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu"
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/"
     },
     {
       "id": "en-145",
@@ -422,8 +422,8 @@
       "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
       "digest": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
       "quote": "\"Sputnik V\" - Dekoder",
-      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
-      "summary": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
+      "summary": "External promotion of Sputnik V collided with a domestic audience shaped by years of conspiracy-driven state media. The piece uses that contradiction to explain why vaccine messaging that sounded triumphant abroad met mistrust at home.",
       "key_ideas": [
         "The article connects vaccine politics to long-run media trust dynamics.",
         "Klishin appears as a cited commentator in external reporting.",
@@ -481,7 +481,7 @@
       "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
       "post_path": "en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
       "post_url": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
-      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu"
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/"
     },
     {
       "id": "es-145",
@@ -493,7 +493,7 @@
       "title": "Dekoder sobre Sputnik V, la UE y la narrativa rusa de vacunacion",
       "digest": "Este texto de Dekoder trata el debate sobre Sputnik V en la UE y cita a Klishin sobre los efectos de comunicacion dentro de Rusia. El articulo vincula la promocion externa de la vacuna con la desconfianza interna acumulada por anos de retorica conspirativa estatal.",
       "quote": "\"Sputnik V\" - Dekoder",
-      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
       "summary": "Este texto de Dekoder trata el debate sobre Sputnik V en la UE y cita a Klishin sobre los efectos de comunicacion dentro de Rusia. El articulo vincula la promocion externa de la vacuna con la desconfianza interna acumulada por anos de retorica conspirativa estatal.",
       "key_ideas": [
         "El articulo une politica de vacunas y erosion prolongada de confianza.",
@@ -548,7 +548,7 @@
       "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
       "post_path": "es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion.html",
       "post_url": "https://www.klishin.work/posts/es-145-dekoder-sobre-sputnik-v-la-ue-y-la-narrativa-rusa-de-vacunacion.html",
-      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu"
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/"
     },
     {
       "id": "fr-145",
@@ -560,7 +560,7 @@
       "title": "Dekoder sur Sputnik V, l UE et la communication vaccinale russe",
       "digest": "Ce texte de Dekoder aborde le debat sur l homologation de Sputnik V dans l UE et cite Klishin sur les effets de communication en Russie. Il relie la promotion externe du vaccin a une mefiance interne produite par des annees de rhetorique conspirationniste.",
       "quote": "\"Sputnik V\" - Dekoder",
-      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu",
+      "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
       "summary": "Ce texte de Dekoder aborde le debat sur l homologation de Sputnik V dans l UE et cite Klishin sur les effets de communication en Russie. Il relie la promotion externe du vaccin a une mefiance interne produite par des annees de rhetorique conspirationniste.",
       "key_ideas": [
         "Le papier relie politique vaccinale et crise de confiance mediatique.",
@@ -615,7 +615,7 @@
       "x_default": "https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html",
       "post_path": "fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe.html",
       "post_url": "https://www.klishin.work/posts/fr-145-dekoder-sur-sputnik-v-l-ue-et-la-communication-vaccinale-russe.html",
-      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-zulassung-russland-eu"
+      "source_url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/"
     },
     {
       "id": "en-026",
@@ -754,7 +754,7 @@
       "digest": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
       "quote": "\"slow down Twitter\" — Bloomberg",
       "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "summary": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
+      "summary": "Bloomberg used Klishin’s commentary to explain why the authorities were increasing pressure on Western platforms without yet moving to a full ban. The piece treats the Twitter slowdown as part of a broader strategy of escalation rather than a one-off technical measure.",
       "key_ideas": [
         "The report frames Twitter throttling as a calibrated pressure instrument.",
         "Klishin is cited as an external analyst, not as the author.",
@@ -971,7 +971,7 @@
         "DE": "de-023",
         "ES": "es-005"
       },
-      "summary": "Which technical and political mechanisms can be used to restrict social-network access.",
+      "summary": "The piece lays out the practical routes the Kremlin could use to restrict access to Western platforms in Russia. A block does not have to arrive as one dramatic act; it can be built through regulation, technical throttling, legal pressure, and demands placed on the platforms themselves.",
       "key_ideas": [],
       "quotes": [
         "\"Four Ways the Kremlin Could Block Western Social Networks in Russia\" - The Moscow Times",
@@ -1027,7 +1027,7 @@
         "DE": "de-024",
         "ES": "es-006"
       },
-      "summary": "This Moscow Times column examines how Russian audiences consumed the storming of the U.S. Capitol as a psychological break from their own political paralysis. Klishin argues that foreign disorder became a temporary emotional outlet inside a tightly managed domestic media environment.",
+      "summary": "For Russian audiences, the storming of the U.S. Capitol worked less as foreign news than as psychological relief. Attention could be redirected outward, toward Western disorder, and away from a domestic reality that state media preferred to keep emotionally unexamined.",
       "key_ideas": [],
       "quotes": [
         "\"The Capitol Storming Gives Russians an Escape From Their Reality\" - The Moscow Times",
@@ -1083,7 +1083,7 @@
         "DE": "de-025",
         "ES": "es-007"
       },
-      "summary": "How platform dynamics and troll methods move from domestic messaging into wider information spaces.",
+      "summary": "Old propaganda habits did not disappear on TikTok; they adapted to a new platform. What changed was the packaging: familiar manipulation techniques were reformatted for a younger audience and a faster, more volatile media environment.",
       "key_ideas": [],
       "quotes": [
         "\"Warning! An Army of Russian Trolls Has Invaded TikTok\" - The Moscow Times",
@@ -1196,7 +1196,7 @@
         "DE": "de-027",
         "ES": "es-009"
       },
-      "summary": "How cultural symbols and representation frames affect trust, identity, and audience reaction.",
+      "summary": "Set against a single tweet by Stephen King, the symbolic weight of Russian literature starts to look strangely slow and cumbersome. The piece turns that contrast into a wider point about authority, attention, and cultural emotion now moving on very different timescales.",
       "key_ideas": [],
       "quotes": [
         "\"Great Russian Literature Versus One Tweet by Stephen King\" - The Moscow Times",
@@ -1252,7 +1252,7 @@
         "DE": "de-028",
         "ES": "es-010"
       },
-      "summary": "This Moscow Times column looks at how anonymous Telegram channels began shaping daily political perception in Russia. Klishin describes a media environment where unverifiable channels influence agenda, tone, and rumor circulation far beyond their formal accountability.",
+      "summary": "Anonymous Telegram channels ceased to be just rumor mills once they began shaping tone, agenda, and everyday political perception. The line between leaks, manipulation, gossip, and coordination grows harder to draw the more central these channels become.",
       "key_ideas": [],
       "quotes": [
         "\"Anonymous Telegram Channels Are Shaping Russia's Daily Life\" - The Moscow Times",
@@ -1360,7 +1360,7 @@
       "digest": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
       "quote": "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
-      "summary": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "summary": "The pandemic broke the political timing on which the constitutional spectacle depended. Once that choreography failed, both delay and continuation began to carry growing costs for the Kremlin.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -1414,7 +1414,7 @@
       "digest": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
       "quote": "\"Why Medvedev's resignation and Putin's amendments changed nothing\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
-      "summary": "This Russian-language Moscow Times column argues that both events were staged inside a fixed power design. Klishin presents personnel rotation and constitutional theater as symbolic moves that changed optics but did not alter the real center of decision-making.",
+      "summary": "Personnel reshuffles and constitutional amendments changed the optics of power, not its structure. Beneath the choreography, the real center of decision-making remained untouched.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -1468,7 +1468,7 @@
       "digest": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
       "quote": "\"Who owns Russian? And who owns English?\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
-      "summary": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "summary": "Arguments about language rarely stay only about language. In disputes over Russian and English, the question is not just how people speak, but who gets to define the language from the center — and for whom.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -1522,7 +1522,7 @@
       "digest": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
       "quote": "\"Why shoot Navalny if you can bankrupt him\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
-      "summary": "This Russian-language column frames financial pressure as a central tool of modern repression. Instead of visible violence, authorities can exhaust opponents through fines, frozen accounts, and legal costs while preserving the appearance of procedural legality.",
+      "summary": "Repression does not always need spectacle to be effective. Fines, frozen accounts, and legal costs can exhaust an opponent just as surely while preserving the appearance of ordinary procedure.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -1576,7 +1576,7 @@
       "digest": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
       "quote": "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
-      "summary": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "summary": "Writing for an English-speaking audience, Klishin describes a method quieter than a crackdown but not less effective. Debt, penalties, and procedural pressure can drain opposition capacity while preserving a formal appearance of legality — a mechanism Western observers are less likely to recognize as repression.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -1900,7 +1900,7 @@
       "digest": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion. This card is included as an external analytical reference where his assessments are reused in broader reporting.",
       "quote": "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare",
       "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
-      "summary": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion. This card is included as an external analytical reference where his assessments are reused in broader reporting.",
+      "summary": "The piece follows the shift from early online brigades to industrial-scale troll operations. In that broader account, Klishin’s analysis appears not as a single observation, but as part of the vocabulary later used to describe Russian influence infrastructure.",
       "key_ideas": [
         "The card identifies actors, timeline, and stakes without speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
@@ -2021,7 +2021,7 @@
       "digest": "Freedom House's 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators. The report is included as an institutional record in the wider timeline of digital intimidation and online-control practices.",
       "quote": "\"Freedom on the Net 2016\" - Freedom House",
       "url": "https://freedomhouse.org/country/russia/freedom-net/2016",
-      "summary": "Freedom House's 2016 Russia chapter documents cyber pressure and account targeting against independent actors and investigators. The report is included as an institutional record in the wider timeline of digital intimidation and online-control practices.",
+      "summary": "The report places account targeting, cyber pressure, and harassment of independent actors inside a wider system of digital control. What might look like separate incidents reads as a coordinated pattern.",
       "key_ideas": [
         "The report documents state-linked pressure in the digital sphere.",
         "It situates incidents within broader internet-control trajectories in Russia.",
@@ -2410,7 +2410,7 @@
       "digest": "This Gazeta.ru interview records an expert comment on technical and political scenarios of blocking major platforms in Russia. Klishin is cited on the likely consequences of restricting YouTube or Google and the broader logic of digital control.",
       "quote": "\"possible blocking of YouTube and Google\" - Gazeta.ru",
       "url": "https://www.gazeta.ru/tech/news/2016/01/16/n_8127887.shtml",
-      "summary": "This Gazeta.ru interview records an expert comment on technical and political scenarios of blocking major platforms in Russia. Klishin is cited on the likely consequences of restricting YouTube or Google and the broader logic of digital control.",
+      "summary": "The interview moves from technical scenarios to political intent: blocking YouTube or Google would not be just a question of infrastructure, but of how far the state was prepared to push digital control.",
       "key_ideas": [
         "The interview frames platform blocking as both political and technical policy.",
         "Klishin is cited as an external expert on likely consequences.",
@@ -2687,7 +2687,7 @@
       "digest": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy. It is included as an institutional context source that references legal ambiguity, censorship practices, and commentary associated with Klishin's media analysis work.",
       "quote": "\"digital patriotism\" - JSIS Washington",
       "url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
-      "summary": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy. It is included as an institutional context source that references legal ambiguity, censorship practices, and commentary associated with Klishin's media analysis work.",
+      "summary": "Digital patriotism appears here not as a mood, but as a managed media strategy. The piece connects nationalism, legal ambiguity, and information control as parts of the same political framework.",
       "key_ideas": [
         "The profile maps censorship dynamics through institutional media policy.",
         "It highlights legal ambiguity in politically sensitive speech regimes.",
@@ -2897,7 +2897,7 @@
         "DE": "de-141",
         "ES": "es-141"
       },
-      "summary": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures. Using post-Soviet examples, the text separates communication effects from causal claims about regime change and warns against technological determinism in media analysis.",
+      "summary": "Social networks can accelerate visibility, coordination, and emotional contagion — but they do not produce revolutions on their own. Using post-Soviet examples, the essay separates communication effects from the political structures that make mass mobilization possible.",
       "key_ideas": [
         "Social networks amplify mobilization but do not create political agency alone.",
         "Institutional conditions decide whether protest momentum becomes durable change.",
@@ -2957,7 +2957,7 @@
         "DE": "de-108",
         "ES": "es-108"
       },
-      "summary": "This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.",
+      "summary": "What presents itself as soft power looks here more like a sign of strategic weakness. Instead of building attraction or persuasion, bot networks generate noise, exploit existing anxieties, and mimic influence more often than they create it.",
       "key_ideas": [
         "The article connects digital propaganda to a concrete historical and political context.",
         "Its core argument is developed without reductive propaganda framing.",
@@ -3014,7 +3014,7 @@
         "DE": "de-142",
         "ES": "es-142"
       },
-      "summary": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs. The text tracks the gap between reform promises and lived outcomes, showing how repeated cycles of disappointment can reactivate street politics even when formal institutions remain unchanged. It is included as a regional case study of post-Soviet protest recurrence and narrative fatigue.",
+      "summary": "In Moldova, an apparent political breakthrough did not end the frustrations that had produced protest in the first place. The piece follows repeated cycles of disappointment between reform promises and lived reality, showing how the street can reopen as a political arena.",
       "key_ideas": [
         "Electoral turnover did not eliminate structural drivers of public frustration.",
         "Repeated unmet expectations can reactivate protest despite institutional continuity.",
@@ -3074,7 +3074,7 @@
         "DE": "de-013",
         "ES": "es-028"
       },
-      "summary": "How intimidation and harassment patterns around critics were documented in international rights reporting.",
+      "summary": "International reporting treated this kind of intimidation as a recognizable method, not an isolated episode. The pattern did not stop with the target, but extended to relatives and other more vulnerable people around them.",
       "key_ideas": [],
       "quotes": [
         "\"English press archive on intimidation claims tied to activism\" - News24",
@@ -3114,278 +3114,6 @@
       "post_path": "en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html",
       "post_url": "https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html",
       "source_url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429"
-    },
-    {
-      "id": "de-150",
-      "language": "DE",
-      "status": "published",
-      "date": "2015-04-27",
-      "source": "The Wilson Center",
-      "topic": "media systems report",
-      "title": "Wilson Center: Wie Medien zu einer zentralen Waffe der Macht wurden",
-      "digest": "Die Analyse des Wilson Center beschreibt, wie russische Medieninstitutionen in ein Instrument politischer Kontrolle umgebaut wurden. Der Beitrag wird als institutionelle Kontextquelle gefuehrt und greift Argumentlinien auf, die mit Klishin-Bezuegen verbunden sind.",
-      "quote": "\"most powerful weapons\" - The Wilson Center",
-      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "summary": "Die Analyse des Wilson Center beschreibt, wie russische Medieninstitutionen in ein Instrument politischer Kontrolle umgebaut wurden. Der Beitrag wird als institutionelle Kontextquelle gefuehrt und greift Argumentlinien auf, die mit Klishin-Bezuegen verbunden sind.",
-      "key_ideas": [
-        "Der Bericht rahmt Medienuebernahme als zentrales Steuerungsinstrument.",
-        "Er nutzt Argumente im Umfeld Klishin-bezogener Analyseachsen.",
-        "Die Karte sichert institutionellen Kontext jenseits tagesaktueller Meldungen."
-      ],
-      "quotes": [
-        "\"media became\" - The Wilson Center",
-        "\"most powerful weapons\" - The Wilson Center"
-      ],
-      "value_context": "Institutioneller Kontexteintrag zur internationalen Einordnung der politischen Instrumentalisierung russischer Medien.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "The Wilson Center",
-        "media systems report",
-        "2015",
-        "external reference",
-        "language-de"
-      ],
-      "slug": "de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden",
-      "relation": "reference",
-      "source_en_id": "en-150",
-      "role": "reference",
-      "surface": "public",
-      "locale": "de",
-      "allowed_fallback_locales": [],
-      "content_id": "content:en-150",
-      "alternates": [
-        {
-          "locale": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "locale": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "locale": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "locale": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        }
-      ],
-      "available_locales": [
-        "en",
-        "fr",
-        "de",
-        "es"
-      ],
-      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "post_path": "de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html",
-      "post_url": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html",
-      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons"
-    },
-    {
-      "id": "en-150",
-      "language": "EN",
-      "status": "published",
-      "date": "2015-04-27",
-      "source": "The Wilson Center",
-      "topic": "media systems report",
-      "title": "Wilson Center: How the media became one of Putin's most powerful weapons",
-      "digest": "This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control. The piece is included as an institutional context source and cites arguments connected to Klishin's assessments of propaganda infrastructure.",
-      "quote": "\"most powerful weapons\" - The Wilson Center",
-      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "summary": "This Wilson Center analysis examines how media institutions in Russia were repurposed as instruments of political control. The piece is included as an institutional context source and cites arguments connected to Klishin's assessments of propaganda infrastructure.",
-      "key_ideas": [
-        "The report frames media capture as a central governance instrument.",
-        "It references analytical arguments linked to Klishin context.",
-        "The card preserves institutional framing beyond daily news coverage."
-      ],
-      "quotes": [
-        "\"media became\" - The Wilson Center",
-        "\"most powerful weapons\" - The Wilson Center"
-      ],
-      "value_context": "Institutional context card for understanding international policy framing of Russian media weaponization.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "The Wilson Center",
-        "media systems report",
-        "2015",
-        "external reference",
-        "language-en"
-      ],
-      "slug": "en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons",
-      "relation": "reference",
-      "copies": {
-        "FR": "fr-150",
-        "DE": "de-150",
-        "ES": "es-150"
-      },
-      "role": "reference",
-      "surface": "public",
-      "locale": "en",
-      "allowed_fallback_locales": [],
-      "content_id": "content:en-150",
-      "alternates": [
-        {
-          "locale": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "locale": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "locale": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "locale": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        }
-      ],
-      "available_locales": [
-        "en",
-        "fr",
-        "de",
-        "es"
-      ],
-      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "post_path": "en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "post_url": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons"
-    },
-    {
-      "id": "es-150",
-      "language": "ES",
-      "status": "published",
-      "date": "2015-04-27",
-      "source": "The Wilson Center",
-      "topic": "media systems report",
-      "title": "Wilson Center: como los medios se volvieron un arma central del poder",
-      "digest": "Este analisis del Wilson Center examina como instituciones mediaticas rusas fueron reconvertidas en herramienta de control politico. Se incorpora como fuente institucional de contexto y retoma argumentos asociados con evaluaciones de Klishin sobre infraestructura propagandistica.",
-      "quote": "\"most powerful weapons\" - The Wilson Center",
-      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "summary": "Este analisis del Wilson Center examina como instituciones mediaticas rusas fueron reconvertidas en herramienta de control politico. Se incorpora como fuente institucional de contexto y retoma argumentos asociados con evaluaciones de Klishin sobre infraestructura propagandistica.",
-      "key_ideas": [
-        "El informe presenta la captura mediatica como instrumento de gobierno.",
-        "Retoma argumentos analiticos vinculados al contexto de Klishin.",
-        "La tarjeta conserva un marco institucional mas alla de noticias diarias."
-      ],
-      "quotes": [
-        "\"media became\" - The Wilson Center",
-        "\"most powerful weapons\" - The Wilson Center"
-      ],
-      "value_context": "Entrada institucional para contextualizar el encuadre internacional sobre la politizacion del sistema mediatico ruso.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "The Wilson Center",
-        "media systems report",
-        "2015",
-        "external reference",
-        "language-es"
-      ],
-      "slug": "es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder",
-      "relation": "reference",
-      "source_en_id": "en-150",
-      "role": "reference",
-      "surface": "public",
-      "locale": "es",
-      "allowed_fallback_locales": [],
-      "content_id": "content:en-150",
-      "alternates": [
-        {
-          "locale": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "locale": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "locale": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "locale": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        }
-      ],
-      "available_locales": [
-        "en",
-        "fr",
-        "de",
-        "es"
-      ],
-      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "post_path": "es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html",
-      "post_url": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html",
-      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons"
-    },
-    {
-      "id": "fr-150",
-      "language": "FR",
-      "status": "published",
-      "date": "2015-04-27",
-      "source": "The Wilson Center",
-      "topic": "media systems report",
-      "title": "Wilson Center : comment les medias sont devenus une arme centrale du pouvoir",
-      "digest": "Cette analyse du Wilson Center etudie la transformation des institutions mediatiques russes en instrument de controle politique. Elle est incluse comme source institutionnelle de contexte et mobilise des arguments proches des analyses associees a Klishin.",
-      "quote": "\"most powerful weapons\" - The Wilson Center",
-      "url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-      "summary": "Cette analyse du Wilson Center etudie la transformation des institutions mediatiques russes en instrument de controle politique. Elle est incluse comme source institutionnelle de contexte et mobilise des arguments proches des analyses associees a Klishin.",
-      "key_ideas": [
-        "Le rapport presente la capture mediatique comme outil de gouvernance.",
-        "Il reprend des arguments analytiques lies au contexte Klishin.",
-        "La carte preserve un cadrage institutionnel au-dela de l actualite."
-      ],
-      "quotes": [
-        "\"media became\" - The Wilson Center",
-        "\"most powerful weapons\" - The Wilson Center"
-      ],
-      "value_context": "Entree institutionnelle pour le contexte international de l instrumentalisation politique des medias russes.",
-      "semantic_tags": [
-        "Ilia Klishin",
-        "The Wilson Center",
-        "media systems report",
-        "2015",
-        "external reference",
-        "language-fr"
-      ],
-      "slug": "fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo",
-      "relation": "reference",
-      "source_en_id": "en-150",
-      "role": "reference",
-      "surface": "public",
-      "locale": "fr",
-      "allowed_fallback_locales": [],
-      "content_id": "content:en-150",
-      "alternates": [
-        {
-          "locale": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "locale": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "locale": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "locale": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        }
-      ],
-      "available_locales": [
-        "en",
-        "fr",
-        "de",
-        "es"
-      ],
-      "x_default": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "post_path": "fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html",
-      "post_url": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html",
-      "source_url": "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons"
     },
     {
       "id": "de-119",
@@ -3468,7 +3196,7 @@
       "digest": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
       "quote": "\"Putin's most powerful weapon\" — The Atlantic",
       "url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
-      "summary": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
+      "summary": "The Russian media system appears here not simply as restrictive, but as structurally designed to leave independent outlets on radically unequal terms. Klishin’s analysis enters the piece as part of that explanation.",
       "key_ideas": [
         "The feature maps propaganda infrastructure through newsroom control and legal pressure.",
         "It cites Klishin to explain asymmetry facing independent Russian media.",
@@ -3762,7 +3490,7 @@
       "role": "reference",
       "topic": "media appearance",
       "digest": "A The Listening Post episode featuring the segment “Kremlin's troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.",
-      "summary": "A The Listening Post episode featuring the segment “Kremlin's troll army,” with Ilya Klishin speaking about online manipulation and pro-Kremlin information tactics in Russian media space.",
+      "summary": "This episode of The Listening Post includes the segment “Kremlin’s troll army” on paid online manipulation and information warfare. Klishin appears as editor-in-chief of TV Rain alongside Floriana Fossato, Tanya Lokot, and Alexander Nekrassov.",
       "key_ideas": [
         "The segment examines paid online manipulation and pro-Kremlin information tactics.",
         "Klishin appears as editor-in-chief of Dozhd TV alongside other media analysts.",
@@ -3969,7 +3697,7 @@
         "DE": "de-107",
         "ES": "es-107"
       },
-      "summary": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
+      "summary": "After the protest wave of 2011-2012, what began as crude online interference hardened into a more organized system of loyal networks, troll operations, and pressure on independent platforms. The essay traces that shift as a change in method: from scattered disruption to a managed infrastructure of influence.",
       "key_ideas": [
         "The article connects digital propaganda to a concrete historical and political context.",
         "Its core argument is developed without reductive propaganda framing.",
@@ -4026,7 +3754,7 @@
         "DE": "de-007",
         "ES": "es-021"
       },
-      "summary": "This August 2014 TV Rain project page introduces \"Our Soldiers,\" a public-facing investigation into reports of Russian servicemen killed, missing, or captured near the Ukrainian border during a period of official denials. The framing is explicit: the goal is not rhetorical escalation but factual clarification of identities, numbers, and circumstances.",
+      "summary": "In 2014, the project set out to verify something the state preferred to leave blurred: whether Russian servicemen were being killed, captured, or disappearing near the Ukrainian border. The emphasis was on names, dates, and circumstances rather than on rhetoric.",
       "key_ideas": [],
       "quotes": [
         "\"All we want is to understand what happened\" - TV Rain",
@@ -5059,7 +4787,7 @@
       "title": "LSE-Analyse zur Protestmobilisierung verweist auf feb26.org-Koordination",
       "digest": "Diese LSE-EUROPP-Analyse zu russischen Protesten verbindet Top-down- und Bottom-up-Mechanismen und verweist auf digitale Koordinationsinfrastruktur aus dem Umfeld von Fair Elections. Die Karte dient als institutionelle Quelle zur Verknuepfung von Online-Tools und Massenaktionen vor Ort.",
       "quote": "\"Russia protests\" - LSE EUROPP",
-      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
       "summary": "Diese LSE-EUROPP-Analyse zu russischen Protesten verbindet Top-down- und Bottom-up-Mechanismen und verweist auf digitale Koordinationsinfrastruktur aus dem Umfeld von Fair Elections. Die Karte dient als institutionelle Quelle zur Verknuepfung von Online-Tools und Massenaktionen vor Ort.",
       "key_ideas": [
         "Die Analyse verbindet digitale Werkzeuge mit realer Protestmobilisierung.",
@@ -5114,7 +4842,7 @@
       "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
       "post_path": "de-147-lse-analyse-zur-protestmobilisierung-verweist-auf-feb26org-koordination.html",
       "post_url": "https://www.klishin.work/posts/de-147-lse-analyse-zur-protestmobilisierung-verweist-auf-feb26org-koordination.html",
-      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/"
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/125206/"
     },
     {
       "id": "en-147",
@@ -5126,8 +4854,8 @@
       "title": "LSE analysis on protest mobilization references feb26.org coordination",
       "digest": "This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement. It is included as an institutional context source on how online tools organized large offline actions.",
       "quote": "\"Russia protests\" - LSE EUROPP",
-      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
-      "summary": "This LSE EUROPP analysis of Russian protest mobilization discusses top-down and bottom-up coordination and references digital infrastructure linked to the Fair Elections movement. It is included as an institutional context source on how online tools organized large offline actions.",
+      "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
+      "summary": "The analysis links online coordination to large offline protest action without reducing one to the other. Digital tools are presented as part of the infrastructure that helped scattered discontent around the Fair Elections movement take organized public form.",
       "key_ideas": [
         "The analysis links digital tools with offline protest mobilization patterns.",
         "It references coordination infrastructure associated with Fair Elections.",
@@ -5185,7 +4913,7 @@
       "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
       "post_path": "en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
       "post_url": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
-      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/"
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/125206/"
     },
     {
       "id": "es-147",
@@ -5197,7 +4925,7 @@
       "title": "Analisis de LSE sobre movilizacion de protestas cita coordinacion de feb26.org",
       "digest": "Este analisis de LSE EUROPP sobre protestas en Rusia conecta coordinacion vertical y organizacion desde abajo, y referencia infraestructura digital vinculada a Fair Elections. La tarjeta conserva una fuente institucional sobre el puente entre herramientas en linea y acciones masivas en la calle.",
       "quote": "\"Russia protests\" - LSE EUROPP",
-      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
       "summary": "Este analisis de LSE EUROPP sobre protestas en Rusia conecta coordinacion vertical y organizacion desde abajo, y referencia infraestructura digital vinculada a Fair Elections. La tarjeta conserva una fuente institucional sobre el puente entre herramientas en linea y acciones masivas en la calle.",
       "key_ideas": [
         "El analisis vincula herramientas digitales con movilizacion presencial masiva.",
@@ -5252,7 +4980,7 @@
       "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
       "post_path": "es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb.html",
       "post_url": "https://www.klishin.work/posts/es-147-analisis-de-lse-sobre-movilizacion-de-protestas-cita-coordinacion-de-feb.html",
-      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/"
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/125206/"
     },
     {
       "id": "fr-147",
@@ -5264,7 +4992,7 @@
       "title": "Une analyse LSE sur la mobilisation protestataire cite la coordination feb26.org",
       "digest": "Cette analyse LSE EUROPP sur les protestations russes relie coordination descendante et dynamique de base, en mentionnant une infrastructure numerique associee au mouvement Fair Elections. La carte preserve une source institutionnelle sur l articulation entre outils en ligne et action hors ligne.",
       "quote": "\"Russia protests\" - LSE EUROPP",
-      "url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+      "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
       "summary": "Cette analyse LSE EUROPP sur les protestations russes relie coordination descendante et dynamique de base, en mentionnant une infrastructure numerique associee au mouvement Fair Elections. La carte preserve une source institutionnelle sur l articulation entre outils en ligne et action hors ligne.",
       "key_ideas": [
         "Le texte relie outils numeriques et mobilisation protestataire hors ligne.",
@@ -5319,7 +5047,7 @@
       "x_default": "https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html",
       "post_path": "fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f.html",
       "post_url": "https://www.klishin.work/posts/fr-147-une-analyse-lse-sur-la-mobilisation-protestataire-cite-la-coordination-f.html",
-      "source_url": "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/"
+      "source_url": "https://researchonline.lse.ac.uk/id/eprint/125206/"
     },
     {
       "id": "en-016",

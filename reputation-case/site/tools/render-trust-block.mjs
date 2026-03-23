@@ -38,18 +38,13 @@ const SECONDARY_REFERENCES = [
     rel: "noopener noreferrer",
   },
   {
-    name: "Wilson Center",
-    href: "https://www.wilsoncenter.org/article/how-media-became-one-putins-most-powerful-weapons",
-    rel: "noopener noreferrer",
-  },
-  {
     name: "RAND",
     href: "https://www.rand.org/pubs/research_reports/RR295.html",
     rel: "noopener noreferrer",
   },
   {
     name: "LSE EUROPP",
-    href: "https://blogs.lse.ac.uk/europpblog/2012/03/14/russia-protests-election-observer/",
+    href: "https://researchonline.lse.ac.uk/id/eprint/125206/",
     rel: "noopener noreferrer",
   },
   {
