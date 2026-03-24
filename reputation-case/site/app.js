@@ -64,34 +64,34 @@ const ADDITIONAL_GRID_LIMIT = 9;
 const ADDITIONAL_MAX_PER_SOURCE = 1;
 const UI_COPY = {
   en: {
-    cardLink: "Read article",
     openNote: "Open on-site note",
     emptyFiltered: "No published cards match the current filter.",
     emptyLanguage: "No published cards are available in {lang} yet.",
+    emptyLoadFailed: "Published cards are temporarily unavailable.",
     langTitlePublished: "{count} published cards",
     langTitleEmpty: "No published cards in {lang} yet",
   },
   fr: {
-    cardLink: "Lire l’article",
     openNote: "Ouvrir la fiche du site",
     emptyFiltered: "Aucune fiche publiée ne correspond au filtre actuel.",
     emptyLanguage: "Aucune fiche publiée n’est disponible en {lang} pour le moment.",
+    emptyLoadFailed: "Les fiches publiées sont temporairement indisponibles.",
     langTitlePublished: "{count} fiches publiées",
     langTitleEmpty: "Aucune fiche publiée en {lang} pour le moment",
   },
   de: {
-    cardLink: "Artikel lesen",
     openNote: "Interne Seite öffnen",
     emptyFiltered: "Keine veröffentlichten Karten entsprechen dem aktuellen Filter.",
     emptyLanguage: "Noch keine veröffentlichten Karten in {lang} verfügbar.",
+    emptyLoadFailed: "Veröffentlichte Karten sind vorübergehend nicht verfügbar.",
     langTitlePublished: "{count} veröffentlichte Karten",
     langTitleEmpty: "Noch keine veröffentlichten Karten in {lang}",
   },
   es: {
-    cardLink: "Leer el artículo",
     openNote: "Abrir ficha del sitio",
     emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
     emptyLanguage: "Todavía no hay fichas publicadas en {lang}.",
+    emptyLoadFailed: "Las fichas publicadas no están disponibles temporalmente.",
     langTitlePublished: "{count} fichas publicadas",
     langTitleEmpty: "Todavía no hay fichas publicadas en {lang}",
   },
@@ -192,10 +192,10 @@ function pickDiverseBySource(items, limit, maxPerSource = 2) {
 const state = {
   lang: lockedFeedLang || (LANGUAGE_PRIORITY.includes(preferredFeedLang) ? preferredFeedLang : "EN"),
   query: "",
-  items: [],
   publishedItems: [],
   homeEmojiById: new Map(),
   brokenHomeSourceUrls: new Set(),
+  loadFailed: false,
 };
 
 function t(key, vars = {}) {
@@ -222,10 +222,56 @@ function normalizeSourceUrl(value) {
   }
 }
 
+function isInternalSiteUrl(value) {
+  const normalized = normalizeSourceUrl(value);
+  if (!normalized) return false;
+  try {
+    return new URL(normalized, window.location.origin).origin === window.location.origin;
+  } catch {
+    return false;
+  }
+}
+
+function toNavigableUrl(raw) {
+  if (!raw) return "";
+  try {
+    const resolved = new URL(raw, window.location.origin);
+    if (!/^https?:$/i.test(resolved.protocol)) return "";
+    if (resolved.origin === window.location.origin) {
+      return `${resolved.pathname}${resolved.search}${resolved.hash}`;
+    }
+    return resolved.toString();
+  } catch {
+    return "";
+  }
+}
+
+function getCardNoteUrl(item) {
+  const explicitPostUrl = normalizeSourceUrl(item?.post_url || "");
+  if (isInternalSiteUrl(explicitPostUrl)) return toNavigableUrl(explicitPostUrl);
+
+  const internal = normalizeSourceUrl(internalPostUrl(item));
+  if (isInternalSiteUrl(internal)) return toNavigableUrl(internal);
+
+  return "";
+}
+
+function getCardPrimarySourceUrl(item) {
+  const externalSource = normalizeSourceUrl(item?.source_url || item?.url || "");
+  if (!externalSource || isInternalSiteUrl(externalSource)) return "";
+  return toNavigableUrl(externalSource);
+}
+
+// Home cards are source-first; note links stay separate so the card can open the original publication while the CTA opens the on-site note.
+function getCardSourceHealthUrl(item) {
+  return getCardPrimarySourceUrl(item);
+}
+
 function isBlockedHomeSource(item) {
   if (!IS_HOME_PAGE) return false;
-  const sourceUrl = normalizeSourceUrl(item?.url || "");
-  return Boolean(sourceUrl && state.brokenHomeSourceUrls.has(sourceUrl));
+  const sourceUrl = getCardSourceHealthUrl(item);
+  if (!sourceUrl) return false;
+  return Boolean(!getCardNoteUrl(item) && state.brokenHomeSourceUrls.has(sourceUrl));
 }
 
 function escapeHtml(value) {
@@ -480,55 +526,18 @@ function withHomeEmoji(item, title) {
   return `${emoji} ${title}`;
 }
 
-function isReference(item) {
-  const topic = String(item?.topic || "").toLowerCase();
-  const title = String(item?.title || "").toLowerCase();
-  const explicit = String(item?.content_class || "").toLowerCase();
-  if (explicit === "reference") return true;
-  if (
-    /\b(editorial standard|professional profile|profil professionnel|berufsprofil|profil auteur|source-based summary|public profile|public speaking(?: history)?|offentliche rede|oratoria publica|parcours de prise de parole|institutional citation|reference institutionnelle|institutionelle referenz|documented reporting|parcours professionnel documente|dokumentierter berufsverlauf)\b/.test(
-      topic
-    )
-  ) {
-    return true;
-  }
-  if (
-    /\b(author page|autorenprofil|profil d auteur|mirror domain|canonical variant|ted talk video reference|speaker profile|how this archive is built|methodology)\b/.test(
-      title
-    )
-  ) {
-    return true;
-  }
-  return false;
-}
-
-function cardActionLabel(item) {
-  const title = String(item?.title || "").toLowerCase();
-  const source = String(item?.source || "").toLowerCase();
-  const topic = String(item?.topic || "").toLowerCase();
-  const url = String(item?.url || "").toLowerCase();
-  const isVideo =
-    /\b(video|talk)\b/.test(title) ||
-    /\b(youtube|tedx)\b/.test(source) ||
-    /\bpublic speaking\b/.test(topic) ||
-    /youtube\.com|youtu\.be|ted\.com/.test(url);
-  if (isVideo) return uiLang === "fr" ? "Regarder la vidéo" : uiLang === "de" ? "Video ansehen" : uiLang === "es" ? "Ver el vídeo" : "Watch video";
-  if (isReference(item)) return uiLang === "fr" ? "Ouvrir la source" : uiLang === "de" ? "Quelle öffnen" : uiLang === "es" ? "Abrir la fuente" : "Open source";
-  return t("cardLink");
-}
-
 function internalPostUrl(item) {
   const slug = normalizeText(item?.slug || "").replace(/\.html$/i, "");
   if (!slug) return "";
   return `/posts/${slug}.html`;
 }
 
-function preferredCardUrl(item) {
-  const explicitPostUrl = normalizeText(item?.post_url || "");
-  if (explicitPostUrl) return explicitPostUrl;
-  const internal = internalPostUrl(item);
-  if (internal) return internal;
-  return normalizeText(item?.source_url || item?.url || "");
+function getCardPrimaryUrl(item) {
+  const sourceUrl = getCardPrimarySourceUrl(item);
+  if (sourceUrl && !state.brokenHomeSourceUrls.has(sourceUrl)) {
+    return sourceUrl;
+  }
+  return getCardNoteUrl(item);
 }
 
 init();
@@ -573,34 +582,50 @@ function publishedCounts() {
     .filter((item) => isShowcaseCandidate(item))
     .filter((item) => !isBlockedHomeSource(item))
     .reduce(
-    (acc, item) => {
-      const lang = String(item?.language || "").toUpperCase();
-      if (!lang) return acc;
-      acc[lang] = (acc[lang] || 0) + 1;
-      return acc;
-    },
-    {}
+      (acc, item) => {
+        const lang = String(item?.language || "").toUpperCase();
+        if (!lang) return acc;
+        acc[lang] = (acc[lang] || 0) + 1;
+        return acc;
+      },
+      {}
     );
 }
 
 async function init() {
-  const [response, sourceHealth] = await Promise.all([
-    fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" }),
-    fetch(SOURCE_URL_HEALTH_PATH, { cache: "no-store" })
-      .then((res) => (res.ok ? res.json() : null))
-      .catch(() => null),
-  ]);
-  const payload = await response.json();
-  state.items = payload.items;
-  state.publishedItems = state.items.filter((item) => isPublicVisible(item));
+  const sourceHealthPromise = fetch(SOURCE_URL_HEALTH_PATH, { cache: "no-store" })
+    .then((res) => (res.ok ? res.json() : null))
+    .catch(() => null);
+
+  try {
+    const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Home feed request failed with status ${response.status}`);
+    }
+
+    // Guard the main feed fetch against error pages, broken JSON, and payload shape drift.
+    const payload = await response.json();
+    const items = Array.isArray(payload?.items) ? payload.items : [];
+    state.loadFailed = !Array.isArray(payload?.items);
+    state.publishedItems = items.filter((item) => isPublicVisible(item));
+    if (updatedAt) {
+      const stamp = normalizeText(payload?.updated_at || payload?.generated_at || "-") || "-";
+      updatedAt.textContent = stamp;
+    }
+  } catch {
+    state.loadFailed = true;
+    state.publishedItems = [];
+    if (updatedAt) {
+      updatedAt.textContent = "-";
+    }
+  }
+
+  const sourceHealth = await sourceHealthPromise;
   state.brokenHomeSourceUrls = new Set(
     (Array.isArray(sourceHealth?.broken_urls) ? sourceHealth.broken_urls : [])
       .map((value) => normalizeSourceUrl(value))
       .filter(Boolean)
   );
-  if (updatedAt) {
-    updatedAt.textContent = payload.updated_at || payload.generated_at || "-";
-  }
   renderLanguageSwitch();
   bindEvents();
   bindCardInteractions(showcase);
@@ -698,19 +723,16 @@ function render() {
 }
 
 function getOrderedLanguages() {
+  // Home feed intentionally supports only the productized EN/FR/DE/ES switcher.
   if (lockedFeedLang) return [lockedFeedLang];
-  const seen = new Set(state.items.map((item) => String(item.language || "").toUpperCase()).filter(Boolean));
-  const extra = [...seen]
-    .filter((lang) => !LANGUAGE_PRIORITY.includes(lang))
-    .sort((a, b) => a.localeCompare(b));
-  return [...LANGUAGE_PRIORITY, ...extra];
+  return [...LANGUAGE_PRIORITY];
 }
 
 function renderLanguageSwitch() {
   if (!langSwitch) return;
-  const languages = getOrderedLanguages().filter((lang) => LANGUAGE_PRIORITY.includes(lang));
+  const languages = getOrderedLanguages();
   const counts = publishedCounts();
-  const defaultLang = lockedFeedLang || (languages.includes("EN") ? "EN" : languages[0] || "EN");
+  const defaultLang = lockedFeedLang || "EN";
   if (!languages.includes(state.lang)) {
     state.lang = defaultLang;
   }
@@ -768,7 +790,9 @@ function renderGrid(items, options = {}) {
     if (!showEmpty) return;
     const empty = document.createElement("div");
     empty.className = "empty";
-    if (state.query) {
+    if (state.loadFailed) {
+      empty.textContent = t("emptyLoadFailed");
+    } else if (state.query) {
       empty.textContent = t("emptyFiltered");
     } else {
       empty.textContent = t("emptyLanguage", { lang: state.lang });
@@ -784,23 +808,31 @@ function renderGrid(items, options = {}) {
 }
 
 function createCardNode(item, variant) {
-  const cardUrl = preferredCardUrl(item);
+  const primaryUrl = getCardPrimaryUrl(item);
+  const noteUrl = getCardNoteUrl(item);
+  // Cards stay source-first; if the source is unavailable, they can fall back to the on-site note instead of shipping a dead click target.
+  const canNavigate = Boolean(primaryUrl);
+  const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
   const node = template.content.firstElementChild.cloneNode(true);
-  node.classList.add(`card-${variant}`, "card-clickable");
-  node.dataset.url = cardUrl;
-  node.setAttribute("role", "link");
-  node.setAttribute("tabindex", "0");
-  node.setAttribute("aria-label", `${cleanDisplayTitle(item.title)} — ${composeCardMeta(item)}`);
+  node.classList.add(`card-${variant}`);
+  if (canNavigate) {
+    node.classList.add("card-clickable");
+    node.dataset.url = primaryUrl;
+  }
 
   node.querySelector(".lang-tag").textContent = item.language;
 
   const titleNode = node.querySelector(".card-title");
-  const titleLink = document.createElement("a");
-  titleLink.href = cardUrl;
-  titleLink.className = "card-title-link";
-  titleLink.textContent = withHomeEmoji(item, cleanDisplayTitle(item.title));
   titleNode.textContent = "";
-  titleNode.appendChild(titleLink);
+  if (canNavigate) {
+    const titleLink = document.createElement("a");
+    titleLink.href = primaryUrl;
+    titleLink.className = "card-title-link";
+    titleLink.textContent = withHomeEmoji(item, cleanDisplayTitle(item.title));
+    titleNode.appendChild(titleLink);
+  } else {
+    titleNode.textContent = withHomeEmoji(item, cleanDisplayTitle(item.title));
+  }
 
   node.querySelector(".card-meta").textContent = composeCardMeta(item);
   const digestNode = node.querySelector(".card-digest");
@@ -823,8 +855,16 @@ function createCardNode(item, variant) {
   }
 
   const link = node.querySelector(".card-link");
-  link.href = cardUrl;
-  link.textContent = t("openNote");
+  if (showNoteCta) {
+    link.href = noteUrl;
+    // The CTA stays dedicated to the on-site note while the card itself opens the primary source.
+    link.textContent = t("openNote");
+    link.hidden = false;
+  } else {
+    link.removeAttribute("href");
+    link.textContent = "";
+    link.hidden = true;
+  }
 
   return node;
 }
@@ -836,17 +876,12 @@ function bindCardInteractions(container) {
   container.addEventListener("click", (event) => {
     const card = event.target.closest(".card-clickable");
     if (!card || !container.contains(card)) return;
-    if (event.target.closest("a,button,input,label")) return;
-    const href = card.dataset.url;
-    if (href) window.location.href = href;
-  });
-
-  container.addEventListener("keydown", (event) => {
-    const card = event.target.closest(".card-clickable");
-    if (!card || !container.contains(card)) return;
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    const href = card.dataset.url;
-    if (href) window.location.href = href;
+    if (event.button !== 0) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (event.target.closest("a,button,input,label,select,textarea,summary,[role='button'],[role='link']")) return;
+    const primaryLink = card.querySelector(".card-title-link[href], .card-link[href]");
+    if (primaryLink instanceof HTMLAnchorElement) {
+      primaryLink.click();
+    }
   });
 }

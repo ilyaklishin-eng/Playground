@@ -127,6 +127,7 @@ const SOCIAL_OG_IMAGE_BY_TYPE = {
 };
 const FINGERPRINTABLE_ASSETS = [
   { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
+  // app.js is the canonical home-feed source; the build fingerprints it into /app.<hash>.js and rewrites HTML references.
   { source: "app.js", aliases: ["/app.js", "./app.js"] },
   { source: "bio/bio.css", aliases: ["/bio/bio.css", "./bio.css", "../bio.css"] },
   { source: "cases/cases.css", aliases: ["/cases/cases.css", "./cases.css", "../cases.css"] },
@@ -836,6 +837,46 @@ const normalizeSourceUrl = (value = "") => {
   } catch {
     return raw;
   }
+};
+
+const isInternalSiteUrl = (value = "") => {
+  const normalized = normalizeSourceUrl(value);
+  if (!normalized) return false;
+  try {
+    return new URL(normalized, `${baseUrl}/`).origin === new URL(`${baseUrl}/`).origin;
+  } catch {
+    return false;
+  }
+};
+
+const homeEntryInternalPostUrl = (entry = {}) => {
+  if (entry?.postPath) return canonicalUrl(`posts/${entry.postPath}`);
+  const slug = String(entry?.item?.slug || "").trim().replace(/\.html$/i, "");
+  if (!slug) return "";
+  return canonicalUrl(`posts/${slug}.html`);
+};
+
+const getHomeEntryNoteUrl = (entry = {}) => {
+  const explicitPostUrl = normalizeSourceUrl(entry?.item?.post_url || "");
+  if (isInternalSiteUrl(explicitPostUrl)) return explicitPostUrl;
+  const internal = homeEntryInternalPostUrl(entry);
+  if (isInternalSiteUrl(internal)) return normalizeSourceUrl(internal);
+  return "";
+};
+
+const getHomeEntryPrimarySourceUrl = (entry = {}) => {
+  const externalSource = normalizeSourceUrl(entry?.item?.source_url || entry?.item?.url || "");
+  if (!externalSource || isInternalSiteUrl(externalSource)) return "";
+  return externalSource;
+};
+
+// Home cards are source-first; note links stay separate so the card can open the original publication while the CTA opens the on-site note.
+const getHomeEntrySourceHealthUrl = (entry = {}) => getHomeEntryPrimarySourceUrl(entry);
+
+const getHomeEntryPrimaryUrl = (entry = {}, brokenSourceUrls = new Set()) => {
+  const sourceUrl = getHomeEntryPrimarySourceUrl(entry);
+  if (sourceUrl && !brokenSourceUrls.has(sourceUrl)) return sourceUrl;
+  return getHomeEntryNoteUrl(entry);
 };
 
 const loadSourceUrlHealth = async () => {
@@ -3272,8 +3313,9 @@ const pickHomeFallbackEntries = (entries, locale = "en", limit, brokenSourceUrls
     .filter((entry) => isShowcaseCandidate(entry?.item))
     .filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED)
     .filter((entry) => {
-      const sourceUrl = normalizeSourceUrl(entry?.item?.url || "");
+      const sourceUrl = getHomeEntrySourceHealthUrl(entry);
       if (!sourceUrl) return true;
+      if (getHomeEntryNoteUrl(entry)) return true;
       return !brokenSourceUrls.has(sourceUrl);
     });
   if (!published.length) return [];
@@ -3417,35 +3459,48 @@ const buildFeaturedDigestHtml = (item = {}) => {
     .join("");
 };
 
-const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en") => {
+const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", brokenSourceUrls = new Set()) => {
   const item = entry?.item || {};
   const copy = HOME_FALLBACK_COPY[normalizeLocale(locale, "en")] || HOME_FALLBACK_COPY.en;
   const lang = htmlEscape(normalizeLang(item?.language));
   const emoji = emojiById.get(String(item?.id || ""));
   const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${cleanDisplayTitle(item?.title || "")}`);
   const meta = htmlEscape(composeCardMeta(item));
-  const cardUrl = canonicalUrl(`posts/${entry.postPath}`);
+  const primaryUrl = getHomeEntryPrimaryUrl(entry, brokenSourceUrls);
+  const noteUrl = getHomeEntryNoteUrl(entry);
+  // Home fallback stays source-first, but can fall back to the on-site note instead of shipping a dead source click target.
+  const canNavigate = Boolean(primaryUrl);
+  const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
   const digestHtml =
     variant === "featured"
       ? buildFeaturedDigestHtml(item)
       : `<p>${htmlEscape(previewSummary(item))}</p>`;
   const quote = variant === "featured" && item?.id !== "en-009" ? normalizeText(pickCardQuote(item)) : "";
+  const articleClass = `card card-${variant}${canNavigate ? " card-clickable" : ""}`;
+  const dataUrlAttr = canNavigate ? ` data-url="${htmlEscape(primaryUrl)}"` : "";
+  const titleHtml = canNavigate
+    ? `<a class="card-title-link" href="${htmlEscape(primaryUrl)}">${title}</a>`
+    : title;
+  const ctaHtml = showNoteCta
+    ? `\n          <a class="card-link" href="${htmlEscape(noteUrl)}">${htmlEscape(copy.openNote)}</a>`
+    : "";
 
-  return `        <article class="card card-${variant} card-clickable" data-url="${htmlEscape(cardUrl)}" role="link" tabindex="0" aria-label="${htmlEscape(`${cleanDisplayTitle(item?.title || "")} — ${composeCardMeta(item)}`)}">
+  return `        <article class="${articleClass}"${dataUrlAttr}>
           <div class="card-head">
             <span class="lang-tag">${lang}</span>
           </div>
-          <h3 class="card-title"><a class="card-title-link" href="${htmlEscape(cardUrl)}">${title}</a></h3>
+          <h3 class="card-title">${titleHtml}</h3>
           <p class="card-meta">${meta}</p>
           <div class="card-digest">${digestHtml}</div>
           <blockquote class="card-quote"${quote ? "" : " hidden"}>${quote ? htmlEscape(quote) : ""}</blockquote>
-          <a class="card-link" href="${htmlEscape(cardUrl)}">${htmlEscape(copy.openNote)}</a>
+${ctaHtml}
         </article>`;
 };
 
 const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { brokenUrls: new Set() }) => {
   const copy = HOME_SECTION_COPY[normalizeLocale(locale, "en")] || HOME_SECTION_COPY.en;
-  const top = pickHomeFallbackEntries(entries, locale, HOME_FALLBACK_LIMIT, sourceUrlHealth?.brokenUrls || new Set());
+  const brokenSourceUrls = sourceUrlHealth?.brokenUrls || new Set();
+  const top = pickHomeFallbackEntries(entries, locale, HOME_FALLBACK_LIMIT, brokenSourceUrls);
   if (top.length === 0) return "";
 
   const featured = top.slice(0, 1);
@@ -3453,10 +3508,12 @@ const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { br
   const additional = top.slice(3);
   const emojiById = buildHomeEmojiMap(top);
 
-  const featuredHtml = featured[0] ? buildHomeRenderedCardHtml(featured[0], "featured", emojiById, locale) : "";
+  const featuredHtml = featured[0]
+    ? buildHomeRenderedCardHtml(featured[0], "featured", emojiById, locale, brokenSourceUrls)
+    : "";
   const supportingHtml = supporting.length
     ? `        <div class="supporting-stack">\n${supporting
-        .map((entry) => buildHomeRenderedCardHtml(entry, "supporting", emojiById, locale))
+        .map((entry) => buildHomeRenderedCardHtml(entry, "supporting", emojiById, locale, brokenSourceUrls))
         .join("\n")}\n        </div>`
     : "";
   const gridHtml = additional.length
@@ -3464,7 +3521,7 @@ const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { br
           <h3>${htmlEscape(copy.moreWork)}</h3>
         </div>
         <section class="digest-grid" id="digestGrid" aria-live="polite">
-${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", emojiById, locale)).join("\n")}
+${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", emojiById, locale, brokenSourceUrls)).join("\n")}
         </section>`
     : "";
 

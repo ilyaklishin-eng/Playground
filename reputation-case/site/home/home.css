@@ -652,7 +652,7 @@
   padding: 0.88rem 0.9rem;
 }
 
-.home-page .card:hover {
+.home-page .card-clickable:hover {
   transform: translateY(-2px);
   border-color: var(--home-line-strong);
   box-shadow: 0 16px 30px rgba(21, 25, 32, 0.09);
@@ -662,7 +662,7 @@
   cursor: pointer;
 }
 
-.home-page .card-clickable:focus-visible {
+.home-page .card-clickable:focus-within {
   outline: 2px solid #7e8ca3;
   outline-offset: 2px;
 }

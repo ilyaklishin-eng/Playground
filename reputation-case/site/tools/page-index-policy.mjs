@@ -115,6 +115,7 @@ export const STATIC_PAGE_VISIBILITY = new Map([
   ["interviews/es/index.html", buildStaticRecord("es", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["contact/index.html", buildStaticRecord("en", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.SERVICE)],
   ["search/index.html", buildStaticRecord("en", CONTENT_SURFACE.ARCHIVE, PAGE_CLASS.SERVICE)],
+  // About documents site architecture, archive/data layers, and utility endpoints, so it stays intentionally noindex.
   ["about/index.html", buildStaticRecord("en", CONTENT_SURFACE.DATA, PAGE_CLASS.SERVICE)],
   ["archive/index.html", buildStaticRecord("en", CONTENT_SURFACE.ARCHIVE, PAGE_CLASS.SERVICE)],
   ["insights/index.html", buildStaticRecord("en", CONTENT_SURFACE.ARCHIVE, PAGE_CLASS.SERVICE)],
