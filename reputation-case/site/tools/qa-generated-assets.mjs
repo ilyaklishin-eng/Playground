@@ -114,6 +114,14 @@ const REQUIRED_BOTS = [
 ];
 const CLEAN_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
 const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
+const GENERATED_CORE_GIT_LASTMOD_EXEMPT = new Set([
+  "reputation-case/site/index.html",
+  "reputation-case/site/fr/index.html",
+  "reputation-case/site/de/index.html",
+  "reputation-case/site/es/index.html",
+  "reputation-case/site/bio/index.html",
+  "reputation-case/site/selected/index.html",
+]);
 
 const INDEXABLE_CORE_SECTIONS = [
   "index.html",
@@ -598,6 +606,11 @@ const checkSitemaps = async (indexableItems, issues) => {
       });
     }
     const repoPath = canonicalLocToRepoPath(loc);
+    // These core pages are generated composite outputs, so comparing sitemap lastmod to the tracked HTML file
+    // creates a self-referential git-lastmod loop. For them we enforce sitemap consistency, not output-file git equality.
+    if (repoPath && GENERATED_CORE_GIT_LASTMOD_EXEMPT.has(repoPath)) {
+      continue;
+    }
     const gitLastmod = repoPath ? await gitLastmodByRepoPath(repoPath) : null;
     if (!gitLastmod) {
       pushWarn(issues, "sitemap.core.lastmod.git-missing", "Cannot resolve git lastmod for core URL.", {
