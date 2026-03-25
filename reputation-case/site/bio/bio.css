@@ -10,6 +10,13 @@
   --accent-soft: rgba(40, 48, 60, 0.1);
   --shadow-soft: 0 10px 30px rgba(21, 25, 32, 0.06);
   --shadow-card: 0 18px 40px rgba(21, 25, 32, 0.08);
+  --radius-shell: 14px;
+  --radius-panel: 18px;
+  --radius-card: 14px;
+  --radius-control: 12px;
+  --radius-button: 11px;
+  --radius-tag: 9px;
+  --radius-image: 12px;
 }
 
 * {
@@ -67,7 +74,7 @@ a {
   top: 0.8rem;
   z-index: 20;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--radius-shell);
   background: rgba(255, 255, 255, 0.86);
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(8px);
@@ -100,7 +107,7 @@ a {
   text-decoration: none;
   color: var(--muted);
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--radius-button);
   padding: 0.42rem 0.74rem;
   font-size: 0.86rem;
   background: transparent;
@@ -181,7 +188,7 @@ h1 {
   text-decoration: none;
   color: var(--ink);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-button);
   padding: 0.35rem 0.72rem;
   font-size: 0.8rem;
   background: var(--paper);
@@ -202,7 +209,7 @@ h1 {
 
 .trust-strip {
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: var(--radius-panel);
   background: var(--paper);
   padding: 0.9rem 1rem;
   margin-bottom: 1rem;
@@ -231,7 +238,7 @@ h1 {
 
 .trust-list li {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-control);
   background: #faf8f4;
   padding: 0.5rem 0.62rem;
   font-size: 0.86rem;
@@ -259,7 +266,7 @@ h1 {
   margin: 0;
   padding: 0.78rem 0.92rem;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius-control);
   background: #faf8f4;
   color: #3c3a36;
   font-size: 0.92rem;
@@ -292,7 +299,7 @@ h1 {
 .refs-card,
 .contact-card {
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   background: var(--paper);
   box-shadow: var(--shadow-soft);
 }
@@ -305,7 +312,7 @@ h1 {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 14px;
+  border-radius: var(--radius-image);
   border: 1px solid var(--line);
 }
 
@@ -353,7 +360,7 @@ h1 {
 .portfolio-block {
   margin: 0.65rem 0 0;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: var(--radius-control);
   background: #fff;
   padding: 0.62rem 0.75rem;
 }
@@ -452,7 +459,7 @@ h1 {
   text-decoration: none;
   color: var(--muted);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-tag);
   padding: 0.3rem 0.62rem;
   font-size: 0.76rem;
   background: var(--paper);
@@ -478,7 +485,7 @@ h1 {
     align-items: flex-start;
     gap: 0.6rem;
     flex-direction: column;
-    border-radius: 16px;
+    border-radius: var(--radius-control);
   }
 }
 

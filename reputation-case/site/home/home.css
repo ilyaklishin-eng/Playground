@@ -9,6 +9,11 @@
   --home-accent-soft: rgba(40, 48, 60, 0.1);
   --home-shadow-soft: 0 10px 30px rgba(21, 25, 32, 0.06);
   --home-shadow-card: 0 16px 34px rgba(21, 25, 32, 0.07);
+  --home-radius-panel: 16px;
+  --home-radius-card: 14px;
+  --home-radius-button: 10px;
+  --home-radius-tag: 8px;
+  --home-radius-image: 12px;
   margin: 0;
   background: var(--home-bg);
   color: var(--home-ink);
@@ -175,7 +180,7 @@
 
 .home-hero {
   border: 1px solid var(--home-line);
-  border-radius: 18px;
+  border-radius: var(--home-radius-panel);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-card);
   padding: clamp(1.3rem, 2.6vw, 2.2rem);
@@ -339,7 +344,7 @@
 
 .home-page .cta-btn {
   border: 1px solid var(--home-line);
-  border-radius: 10px;
+  border-radius: var(--home-radius-button);
   padding: 0.56rem 0.98rem;
   text-decoration: none;
   color: var(--home-ink);
@@ -393,7 +398,7 @@
 
 .home-page .hero-portrait {
   margin: 0;
-  border-radius: 14px;
+  border-radius: var(--home-radius-image);
   overflow: hidden;
   box-shadow: 0 14px 28px rgba(21, 25, 32, 0.11);
 }
@@ -442,7 +447,7 @@
 .home-page .trust-strip {
   margin-top: 0.72rem;
   border: 1px solid var(--home-line);
-  border-radius: 18px;
+  border-radius: var(--home-radius-panel);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-soft);
   display: grid;
@@ -490,7 +495,7 @@
 
 .home-page .interviews-preview {
   border: 1px solid var(--home-line);
-  border-radius: 16px;
+  border-radius: var(--home-radius-panel);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-soft);
   padding: 1.2rem;
@@ -510,7 +515,7 @@
 
 .home-page .interview-preview-card {
   border-color: var(--home-line);
-  border-radius: 14px;
+  border-radius: 12px;
   background: #fdfbf8;
   box-shadow: 0 8px 20px rgba(21, 25, 32, 0.04);
   padding: 0.86rem 0.9rem;
@@ -518,7 +523,7 @@
 
 .home-page .work-section {
   border: 1px solid var(--home-line);
-  border-radius: 18px;
+  border-radius: var(--home-radius-panel);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-soft);
   padding: 1.08rem;
@@ -557,7 +562,7 @@
 .home-page .controls {
   margin-top: 0.86rem;
   border: 1px solid #ebe5dc;
-  border-radius: 10px;
+  border-radius: var(--home-radius-button);
   background: #fcfaf7;
   box-shadow: none;
   padding: 0.72rem 0.8rem;
@@ -583,7 +588,7 @@
   padding: 0.48rem 0.84rem;
   font-size: 0.8rem;
   white-space: nowrap;
-  border-radius: 8px;
+  border-radius: var(--home-radius-tag);
   transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
 }
 
@@ -643,7 +648,7 @@
   flex-direction: column;
   min-height: 100%;
   border: 1px solid var(--home-line);
-  border-radius: 16px;
+  border-radius: var(--home-radius-card);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-soft);
   padding: 0.92rem 0.94rem;
@@ -652,7 +657,7 @@
 
 .home-page .card.card-featured {
   padding: 1.06rem 1.08rem;
-  border-radius: 18px;
+  border-radius: var(--home-radius-panel);
 }
 
 .home-page .card.card-supporting {
@@ -775,7 +780,7 @@
 
 .home-page .contact-cta {
   border: 1px solid var(--home-line);
-  border-radius: 16px;
+  border-radius: var(--home-radius-panel);
   background: var(--home-paper);
   box-shadow: var(--home-shadow-soft);
   padding: 1.08rem;
@@ -844,7 +849,7 @@
   height: 2.6rem;
   padding: 0;
   border: 1px solid #d7d0c5;
-  border-radius: 12px;
+  border-radius: var(--home-radius-button);
   background: #ffffff;
   color: #1d2431;
   text-decoration: none;
@@ -950,7 +955,7 @@
 .home-page .footer-utility {
   margin-top: 0.55rem;
   border: 1px solid #e8e2d7;
-  border-radius: 12px;
+  border-radius: var(--home-radius-button);
   background: #fbf9f5;
 }
 
