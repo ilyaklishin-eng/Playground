@@ -11,24 +11,6 @@ const state = {
   role: "authored",
 };
 
-const EMOJI_POOL = [...new Set([
-  "📰", "🗞️", "📚", "📖", "🔎", "🧠", "🧭", "🎙️", "🎧", "🎥",
-  "📺", "🎞️", "📡", "🛰️", "🧪", "🧩", "🛡️", "⚖️", "🏛️", "🌐",
-  "🌍", "🌎", "🌏", "💬", "🗣️", "✍️", "📝", "📌", "📍", "📎",
-  "🧾", "📊", "📈", "📉", "🗂️", "📁", "🧵", "🪶", "🕯️", "⏳",
-  "⌛", "🔬", "🧬", "🧱", "⚙️", "🔭", "🧰", "🪪", "🛠️", "🧿",
-  "🪞", "💡", "🔦", "🕳️", "🌫️", "☀️", "🌤️", "🌦️", "🌥️", "🌪️",
-  "🌊", "🧊", "⛰️", "🏔️", "🏙️", "🌃", "🌆", "🕰️", "⏱️", "🧮",
-  "🧯", "🗳️", "🧑‍💻", "👩‍💻", "👨‍💻", "🧑‍🏫", "👩‍🏫", "👨‍🏫", "🧑‍⚖️", "🧑‍💼",
-  "🧑‍💼", "🧑‍💼", "🔐", "🔓", "🔒", "🧷", "🪡", "📐", "📏", "🗺️",
-  "🧯", "🛎️", "🔔", "🔕", "📣", "📯", "🎚️", "🎛️", "📻", "🪄",
-  "🪄", "🧑‍🎓", "👩‍🎓", "👨‍🎓", "🧑‍🔬", "👩‍🔬", "👨‍🔬", "🧑‍🚀", "👩‍🚀", "👨‍🚀",
-  "🧑‍🎤", "👩‍🎤", "👨‍🎤", "🪐", "🌙", "⭐", "✨", "🔆", "🔅", "🪙",
-  "💼", "📇", "📬", "📭", "📤", "📥", "🧺", "🪜", "🧭", "🧨",
-  "🧠", "🪬", "🪪", "🫧", "🫶", "🤝", "🫱", "🫲", "🫡", "🧑‍💻",
-  "🧑‍⚕️", "🧑‍🏭", "🧑‍🔧", "🧑‍🎨", "🧑‍✈️", "🧑‍🚒", "🧑‍⚖️", "🧑‍🌾", "🧑‍🏛️"
-])];
-
 const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
 const pageLang = uiLang === "fr" ? "FR" : uiLang === "de" ? "DE" : uiLang === "es" ? "ES" : "EN";
 const ROLE_LABELS = {
@@ -140,78 +122,11 @@ function roleViewLabel(role) {
   return copy[normalizeRole(role)] || copy.reference;
 }
 
-function hasLeadingEmoji(text) {
-  return /^\p{Extended_Pictographic}/u.test(String(text || "").trim());
-}
-
-function pickUniqueEmoji(candidates, used, seed = 0) {
-  for (const emoji of candidates) {
-    if (emoji && !used.has(emoji)) return emoji;
-  }
-
-  for (const emoji of EMOJI_POOL) {
-    if (!used.has(emoji)) return emoji;
-  }
-
-  const len = EMOJI_POOL.length || 1;
-  for (let i = 0; i < len * len; i += 1) {
-    const first = EMOJI_POOL[(seed + i) % len];
-    const second = EMOJI_POOL[(seed * 7 + i * 3) % len];
-    const pair = `${first}${second}`;
-    if (!used.has(pair)) return pair;
-  }
-
-  return "✨";
-}
-
-function emojiCandidates(item) {
-  const source = String(item?.source || "").toLowerCase();
-  const title = String(item?.title || "").toLowerCase();
-  const summary = String(item?.summary || "").toLowerCase();
-  const format = String(item?.format || "").toLowerCase();
-  const blob = `${source} ${title} ${summary}`;
-
-  if (format === "podcasts") return ["🎙️", "🎧", "🗣️", "📻"];
-  if (format === "video") return ["🎥", "📺", "🎞️", "📡"];
-
-  if (source.includes("bloomberg")) return ["📈", "🧮", "📊", "🌐"];
-  if (source.includes("the atlantic")) return ["🌊", "🧠", "📚", "🗞️"];
-  if (source.includes("guardian")) return ["🛡️", "📰", "🔎", "⚖️"];
-  if (source.includes("carnegie")) return ["🏛️", "🧠", "🧭", "📖"];
-  if (source.includes("global voices")) return ["🌍", "🌐", "🗣️", "📰"];
-  if (source.includes("human rights watch")) return ["⚖️", "🛡️", "🔍", "🧾"];
-  if (source.includes("vedomosti")) return ["📊", "📰", "🧩", "🧠"];
-  if (source.includes("moscow times")) return ["🗞️", "🧭", "📌", "🧾"];
-  if (source.includes("tv rain")) return ["📺", "🛰️", "🔎", "📡"];
-  if (source.includes("the insider")) return ["🔬", "🧠", "📝", "📰"];
-
-  if (/\bprotest|activis|civil\b/.test(blob)) return ["✊", "🗳️", "📣", "🧭"];
-  if (/\bmedia|journal|editor|press\b/.test(blob)) return ["📰", "🗞️", "🧠", "🧾"];
-  if (/\bpropaganda|disinformation|troll|bot\b/.test(blob)) return ["🧲", "🧠", "🔎", "🛰️"];
-
-  return ["🧭", "📖", "🔎", "📰"];
-}
-
-function buildEmojiMap(items) {
-  const byKey = new Map();
-  const used = new Set();
-
-  items.forEach((item, index) => {
-    const key = String(item?.id || item?.url || item?.title || `item-${index}`);
-    if (!key) return;
-    const emoji = pickUniqueEmoji(emojiCandidates(item), used, index);
-    byKey.set(key, emoji);
-    used.add(emoji);
-  });
-
-  return byKey;
-}
-
 function isAbsoluteUrl(value) {
   return /^https?:\/\//i.test(String(value || ""));
 }
 
-function createCard(item, emojiMap) {
+function createCard(item) {
   const node = document.createElement("article");
   node.className = "selected-all-card";
   node.dataset.role = normalizeRole(item.role);
@@ -234,10 +149,7 @@ function createCard(item, emojiMap) {
     titleLink.target = "_blank";
     titleLink.rel = "noopener noreferrer";
   }
-  const key = String(item?.id || item?.url || item?.title || "");
-  const emoji = emojiMap?.get(key);
-  const baseTitle = item.title || "Untitled";
-  titleLink.textContent = emoji ? `${emoji} ${baseTitle}` : baseTitle;
+  titleLink.textContent = item.title || "Untitled";
   title.appendChild(titleLink);
 
   const summary = document.createElement("p");
@@ -294,7 +206,6 @@ function render() {
   const all = state.items;
   const roleScoped = all.filter((item) => normalizeRole(item.role) === state.role);
   const visible = state.format === "all" ? roleScoped : roleScoped.filter((item) => item.format === state.format);
-  const emojiMap = buildEmojiMap(visible);
   grid.innerHTML = "";
 
   if (countNode) {
@@ -311,40 +222,8 @@ function render() {
   }
 
   const fragment = document.createDocumentFragment();
-  visible.forEach((item) => fragment.appendChild(createCard(item, emojiMap)));
+  visible.forEach((item) => fragment.appendChild(createCard(item)));
   grid.appendChild(fragment);
-}
-
-function decorateClusterCards() {
-  const links = Array.from(document.querySelectorAll(".cluster-grid .work-title-link"));
-  if (!links.length) return;
-
-  const items = links.map((link, index) => {
-    const baseTitle =
-      link.dataset.baseTitle ||
-      String(link.textContent || "").trim().replace(/^\p{Extended_Pictographic}\s*/u, "");
-    if (!link.dataset.baseTitle) link.dataset.baseTitle = baseTitle;
-    return {
-      id: `cluster-${index}`,
-      title: baseTitle,
-      summary: link.closest(".work-card")?.querySelector(".work-intro")?.textContent || "",
-      source: link.closest(".work-card")?.querySelector(".work-meta")?.textContent || "",
-      format: "text",
-      url: link.getAttribute("href") || "",
-    };
-  });
-
-  const emojiMap = buildEmojiMap(items);
-  links.forEach((link, index) => {
-    const key = `cluster-${index}`;
-    const emoji = emojiMap.get(key);
-    const baseTitle = link.dataset.baseTitle || String(link.textContent || "").trim();
-    if (hasLeadingEmoji(baseTitle)) {
-      link.textContent = baseTitle;
-      return;
-    }
-    link.textContent = emoji ? `${emoji} ${baseTitle}` : baseTitle;
-  });
 }
 
 function bindFilters() {
@@ -429,7 +308,6 @@ async function loadInterviewCards() {
 }
 
 async function init() {
-  decorateClusterCards();
   const digestCards = await loadDigestCards();
   const interviewCards = await loadInterviewCards();
   const combined = dedupeByUrl([...digestCards, ...interviewCards])

@@ -509,13 +509,6 @@ const INTERVIEWS_PAGE_CONFIG = {
   },
 };
 const INTERVIEW_SECTION_ORDER = ["interviews", "features", "archive"];
-const INTERVIEW_EMOJI_POOL = [
-  "🎙️", "🎧", "🎥", "📺", "📻", "📚", "📖", "🗞️", "📰", "🗣️",
-  "💬", "🌍", "🌐", "🧭", "🧠", "🔎", "📡", "🎞️", "🧩", "📝",
-  "📌", "🧾", "🎚️", "🎛️", "🎤", "📣", "🛰️", "⏳", "⌛", "🔬",
-  "⚖️", "🛡️", "🏛️", "💡", "🔭", "📊", "📈", "📉", "🧵", "🪶",
-  "🧪", "🧬", "🗂️", "📁", "🪄", "✨", "⭐", "🌊", "🌤️", "🌙",
-];
 const toHtmlLang = (value = "") => {
   const lang = String(value || "").toUpperCase();
   if (lang === "EN") return "en";
@@ -618,50 +611,6 @@ const normalizeInterviewFormatTokens = (value = "") => {
   if (/(video|видео)/.test(raw)) tokens.push("video");
   if (/(podcast|подкаст)/.test(raw)) tokens.push("podcasts");
   return [...new Set(tokens)];
-};
-
-const interviewEmojiCandidates = (item = {}) => {
-  const format = String(item?.formatLabel || "").toLowerCase();
-  const section = String(item?.section || "").toLowerCase();
-  const language = String(item?.languageLabel || "").toLowerCase();
-  const blob = [item?.title, item?.description, item?.formatLabel].map((v) => String(v || "").toLowerCase()).join(" ");
-
-  if (/\bpodcast\b/.test(format) || /\bpodcast\b/.test(blob)) {
-    return ["🎙️", "🎧", "📻", "💬"];
-  }
-  if (/\bvideo\b/.test(format) || /\byoutube|broadcast|talk\b/.test(blob)) {
-    return ["🎥", "📺", "🎞️", "📡"];
-  }
-  if (/\btext\b/.test(format) || /\binterview|feature|essay\b/.test(blob)) {
-    return ["📰", "🗞️", "📝", "📖"];
-  }
-  if (/\bnabokov|book|reading|literature\b/.test(blob)) {
-    return ["📚", "📖", "🧠", "🔎"];
-  }
-  if (section === "features" || /\benglish\b/.test(language)) {
-    return ["🌍", "🌐", "🧭", "🗞️"];
-  }
-  if (section === "archive") {
-    return ["🧾", "⌛", "⏳", "🔎"];
-  }
-  return ["💬", "🧠", "🧭", "📰"];
-};
-
-const pickUniqueInterviewEmoji = (candidates, used, seed = 0) => {
-  for (const emoji of candidates) {
-    if (emoji && !used.has(emoji)) return emoji;
-  }
-  for (const emoji of INTERVIEW_EMOJI_POOL) {
-    if (!used.has(emoji)) return emoji;
-  }
-  const len = INTERVIEW_EMOJI_POOL.length || 1;
-  for (let i = 0; i < len * len; i += 1) {
-    const first = INTERVIEW_EMOJI_POOL[(seed + i) % len];
-    const second = INTERVIEW_EMOJI_POOL[(seed * 5 + i * 3) % len];
-    const pair = `${first}${second}`;
-    if (!used.has(pair)) return pair;
-  }
-  return "✨";
 };
 
 const xmlEscape = (value = "") =>
@@ -2378,43 +2327,6 @@ ${cardsHtml}
   };
 };
 
-const selectedAllEmojiCandidates = (item = {}) => {
-  const source = String(item?.source || "").toLowerCase();
-  const title = String(item?.title || "").toLowerCase();
-  const summary = String(item?.summary || "").toLowerCase();
-  const blob = `${source} ${title} ${summary}`;
-
-  if (source.includes("bloomberg")) return ["📈", "🧮", "📊", "🌐"];
-  if (source.includes("the atlantic")) return ["🌊", "🧠", "📚", "🗞️"];
-  if (source.includes("guardian")) return ["🛡️", "📰", "🔎", "⚖️"];
-  if (source.includes("carnegie")) return ["🏛️", "🧠", "🧭", "📖"];
-  if (source.includes("global voices")) return ["🌍", "🌐", "🗣️", "📰"];
-  if (source.includes("human rights watch")) return ["⚖️", "🛡️", "🔍", "🧾"];
-  if (source.includes("vedomosti")) return ["📊", "📰", "🧩", "🧠"];
-  if (source.includes("the moscow times")) return ["🗞️", "🧭", "📌", "🧾"];
-  if (source.includes("the insider")) return ["🔬", "🧠", "📝", "📰"];
-  if (/\bprotest|activis|civil\b/.test(blob)) return ["✊", "🗳️", "📣", "🧭"];
-  if (/\bmedia|journal|editor|press\b/.test(blob)) return ["📰", "🗞️", "🧠", "🧾"];
-  if (/\bpropaganda|disinformation|troll|bot\b/.test(blob)) return ["🧲", "🧠", "🔎", "🛰️"];
-  return ["🧭", "📖", "🔎", "📰"];
-};
-
-const buildSelectedAllEmojiMap = (items = []) => {
-  const byId = new Map();
-  const used = new Set();
-
-  for (const [index, item] of items.entries()) {
-    const key = String(item?.id || item?.url || item?.title || `selected-${index}`);
-    const candidates = [...selectedAllEmojiCandidates(item), ...SELECTED_ALL_EMOJI_POOL];
-    const picked = candidates.find((emoji) => emoji && !used.has(emoji));
-    if (!picked) continue;
-    byId.set(key, picked);
-    used.add(picked);
-  }
-
-  return byId;
-};
-
 const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
   const items = entries
     .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
@@ -2441,11 +2353,8 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
       };
     });
 
-  const emojiById = buildSelectedAllEmojiMap(items);
   const cardsHtml = items
     .map((item) => {
-      const key = String(item?.id || item?.url || item?.title || "");
-      const emoji = emojiById.get(key);
       const sourceLink =
         item.sourceUrl && item.sourceUrl !== item.url
           ? ` · <a href="${htmlEscape(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">Original source</a>`
@@ -2454,7 +2363,7 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
       return `          <article class="selected-all-card" data-role="authored">
             <p class="selected-all-meta">${htmlEscape(`${item.date || "-"} · Text · ${item.source || "Source"}`)}</p>
             <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
-            <h3><a href="${htmlEscape(item.url)}">${htmlEscape(`${emoji ? `${emoji} ` : ""}${item.title || "Untitled"}`)}</a></h3>
+            <h3><a href="${htmlEscape(item.url)}">${htmlEscape(item.title || "Untitled")}</a></h3>
             <p class="selected-all-summary">${htmlEscape(item.summary || "No summary available.")}</p>
             <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open on-site note</a>${sourceLink}</p>
           </article>`;
@@ -2563,7 +2472,7 @@ const buildInterviewCardHtml = (item, locale, ctaLabel) => {
               <span class="chip chip-format">${htmlEscape(item.formatLabel)}</span>
             </p>
             <h3 class="interview-title" itemprop="headline">
-              <a class="interview-title-link" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer" itemprop="url">${htmlEscape(item.emoji)} ${htmlEscape(item.title)}</a>
+              <a class="interview-title-link" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer" itemprop="url">${htmlEscape(item.title)}</a>
             </h3>
             <p class="interview-description" itemprop="description">${htmlEscape(item.description)}</p>
             <p class="interview-url-wrap">
@@ -2661,13 +2570,6 @@ const buildPreparedInterviewItems = (locale = "en", brokenSourceUrls = new Set()
       if (b.ts !== a.ts) return b.ts - a.ts;
       return String(a.title || "").localeCompare(String(b.title || ""), localizedLocale);
     });
-
-  const used = new Set();
-  prepared.forEach((item, index) => {
-    const emoji = pickUniqueInterviewEmoji(interviewEmojiCandidates(item), used, index);
-    used.add(emoji);
-    item.emoji = emoji;
-  });
 
   return prepared;
 };
@@ -3193,109 +3095,6 @@ const HOME_SECTION_COPY = {
     interviewOpen: "Ver la entrevista →",
   },
 };
-const HOME_FIXED_TITLE_EMOJI = {
-  "en-009": "🧭",
-  "en-141": "🧠",
-  "en-107": "🕸️",
-  "en-108": "🛰️",
-  "en-143": "🏛️",
-  "en-002": "🪧",
-  "en-001": "📰",
-  "en-134": "🧪",
-};
-const HOME_EMOJI_POOL = [
-  "🧭",
-  "📰",
-  "📱",
-  "🕸️",
-  "🪧",
-  "🛰️",
-  "⚖️",
-  "🎥",
-  "🗞️",
-  "🔍",
-  "🧠",
-  "🛡️",
-  "🌍",
-  "🧱",
-  "🕊️",
-  "📡",
-  "🎙️",
-  "📚",
-  "🧪",
-  "🧵",
-  "🧩",
-  "🔦",
-  "🏛️",
-  "📣",
-  "🗳️",
-  "🧬",
-  "🧷",
-  "🧨",
-];
-const SELECTED_ALL_EMOJI_POOL = [
-  "📰",
-  "🗞️",
-  "📚",
-  "📖",
-  "🔎",
-  "🧠",
-  "🧭",
-  "📡",
-  "🛰️",
-  "🧪",
-  "🧩",
-  "🛡️",
-  "⚖️",
-  "🏛️",
-  "🌐",
-  "✍️",
-  "📝",
-  "📌",
-  "🧾",
-  "📊",
-  "📈",
-  "📉",
-  "🗂️",
-  "📁",
-  "🧵",
-  "🪶",
-  "🕯️",
-  "⏳",
-  "🔬",
-  "🧬",
-  "🧱",
-  "⚙️",
-  "🔭",
-  "🧰",
-  "💡",
-  "🔦",
-  "🌊",
-  "🧊",
-  "⛰️",
-  "🏔️",
-  "🏙️",
-  "🌃",
-  "🌆",
-  "🕰️",
-  "⏱️",
-  "🧮",
-  "🗳️",
-  "🔐",
-  "🔓",
-  "🔒",
-  "🧷",
-  "📐",
-  "📏",
-  "🗺️",
-  "📻",
-  "🪄",
-  "🪐",
-  "🌙",
-  "⭐",
-  "✨",
-  "🪙",
-];
 
 const sortEntriesForHome = (a, b) => {
   const statusDelta = homeStatusRank(a?.item?.status) - homeStatusRank(b?.item?.status);
@@ -3369,59 +3168,6 @@ const pickHomeFallbackEntries = (entries, locale = "en", limit, brokenSourceUrls
   return selected;
 };
 
-const homeEmojiCandidates = (item) => {
-  const text = [
-    String(item?.title || ""),
-    String(item?.source || ""),
-    String(item?.topic || ""),
-    String(item?.summary || ""),
-    String(item?.digest || ""),
-  ]
-    .join(" ")
-    .toLowerCase();
-  if (/\b(bot|troll|disinformation|interference|cyber|twitter|social media|platform)\b/.test(text)) {
-    return ["🛰️", "🕸️", "📱", "🧠", "🔍"];
-  }
-  if (/\b(protest|election|activism|civil society|mobilization)\b/.test(text)) {
-    return ["🪧", "🗳️", "📣", "🧱", "🌍"];
-  }
-  if (/\b(media|journalis|press|newsroom|editorial|author)\b/.test(text)) {
-    return ["📰", "🗞️", "🎙️", "📡", "📚"];
-  }
-  if (/\b(human rights|harassment|intimidation|pressure|freedom)\b/.test(text)) {
-    return ["⚖️", "🛡️", "🔦", "🏛️"];
-  }
-  if (/\b(video|ted|interview|podcast|talk)\b/.test(text)) {
-    return ["🎥", "🎙️", "📡", "📚"];
-  }
-  if (/\b(war|soldier|ukraine|donbas|security)\b/.test(text)) {
-    return ["🕊️", "🌍", "🧱", "🛡️"];
-  }
-  return ["🧩", "🧪", "🧭", "📘"];
-};
-
-const buildHomeEmojiMap = (entries) => {
-  const byId = new Map();
-  const used = new Set();
-  for (const entry of entries || []) {
-    const item = entry?.item || {};
-    const id = String(item?.id || "");
-    if (!id) continue;
-    const fixed = HOME_FIXED_TITLE_EMOJI[id];
-    if (fixed && !used.has(fixed)) {
-      byId.set(id, fixed);
-      used.add(fixed);
-      continue;
-    }
-    const candidates = [...homeEmojiCandidates(item), ...HOME_EMOJI_POOL];
-    const picked = candidates.find((emoji) => !used.has(emoji));
-    if (!picked) continue;
-    byId.set(id, picked);
-    used.add(picked);
-  }
-  return byId;
-};
-
 const buildFeaturedDigestParagraphs = (item = {}) => {
   const raw = String(item?.summary || item?.digest || "").trim();
   if (!raw) return [];
@@ -3459,14 +3205,13 @@ const buildFeaturedDigestHtml = (item = {}) => {
     .join("");
 };
 
-const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", brokenSourceUrls = new Set()) => {
+const buildHomeRenderedCardHtml = (entry, variant, locale = "en", brokenSourceUrls = new Set()) => {
   const item = entry?.item || {};
   const copy = HOME_FALLBACK_COPY[normalizeLocale(locale, "en")] || HOME_FALLBACK_COPY.en;
   const lang = htmlEscape(normalizeLang(item?.language));
   const feedLang = normalizeLang(locale);
   const showLangTag = Boolean(lang && lang !== feedLang);
-  const emoji = emojiById.get(String(item?.id || ""));
-  const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${cleanDisplayTitle(item?.title || "")}`);
+  const title = htmlEscape(cleanDisplayTitle(item?.title || ""));
   const meta = htmlEscape(composeCardMeta(item));
   const primaryUrl = getHomeEntryPrimaryUrl(entry, brokenSourceUrls);
   const sourceUrl = getHomeEntryPrimarySourceUrl(entry);
@@ -3515,14 +3260,12 @@ const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { br
   const featured = top.slice(0, 1);
   const supporting = top.slice(1, 3);
   const additional = top.slice(3);
-  const emojiById = buildHomeEmojiMap(top);
-
   const featuredHtml = featured[0]
-    ? buildHomeRenderedCardHtml(featured[0], "featured", emojiById, locale, brokenSourceUrls)
+    ? buildHomeRenderedCardHtml(featured[0], "featured", locale, brokenSourceUrls)
     : "";
   const supportingHtml = supporting.length
     ? `        <div class="supporting-stack">\n${supporting
-        .map((entry) => buildHomeRenderedCardHtml(entry, "supporting", emojiById, locale, brokenSourceUrls))
+        .map((entry) => buildHomeRenderedCardHtml(entry, "supporting", locale, brokenSourceUrls))
         .join("\n")}\n        </div>`
     : "";
   const gridHtml = additional.length
@@ -3530,7 +3273,7 @@ const buildHomeWorkSectionHtml = (entries, locale = "en", sourceUrlHealth = { br
           <h3>${htmlEscape(copy.moreWork)}</h3>
         </div>
         <section class="digest-grid" id="digestGrid" aria-live="polite">
-${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", emojiById, locale, brokenSourceUrls)).join("\n")}
+${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", locale, brokenSourceUrls)).join("\n")}
         </section>`
     : "";
 
@@ -3554,7 +3297,7 @@ const buildHomeInterviewPreviewCardHtml = (item, locale = "en") => {
   return `          <article class="interview-preview-card">
             <p class="interview-preview-meta">${htmlEscape(`${item.displayDate} · ${item.languageLabel} · ${item.formatLabel}`)}</p>
             <h3 class="interview-preview-title">
-              <a href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.emoji)} ${htmlEscape(item.title)}</a>
+              <a href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.title)}</a>
             </h3>
             <p class="interview-preview-description">${htmlEscape(item.description)}</p>
             <a class="interview-preview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(copy.interviewOpen)}</a>

@@ -19,46 +19,6 @@ const SHOWCASE_PINNED_IDS = {
 const HOME_EXCLUDED_IDS = {
   EN: new Set(["en-017"]),
 };
-const HOME_FIXED_TITLE_EMOJI = {
-  "en-009": "🧭",
-  "en-141": "🧠",
-  "en-107": "🕸️",
-  "en-108": "🛰️",
-  "en-143": "🏛️",
-  "en-002": "🪧",
-  "en-001": "📰",
-  "en-134": "🧪",
-};
-const HOME_EMOJI_POOL = [
-  "🧭",
-  "📰",
-  "📱",
-  "🕸️",
-  "🪧",
-  "🛰️",
-  "⚖️",
-  "🎥",
-  "🗞️",
-  "🔍",
-  "🧠",
-  "🛡️",
-  "🌍",
-  "🧱",
-  "🕊️",
-  "📡",
-  "🎙️",
-  "📚",
-  "🧪",
-  "🧵",
-  "🧩",
-  "🔦",
-  "🏛️",
-  "📣",
-  "🗳️",
-  "🧬",
-  "🧷",
-  "🧨",
-];
 const SHOWCASE_MAX_ITEMS = 12;
 const ADDITIONAL_GRID_LIMIT = 9;
 const ADDITIONAL_MAX_PER_SOURCE = 1;
@@ -197,7 +157,6 @@ const state = {
   lang: lockedFeedLang || (LANGUAGE_PRIORITY.includes(preferredFeedLang) ? preferredFeedLang : "EN"),
   query: "",
   publishedItems: [],
-  homeEmojiById: new Map(),
   brokenHomeSourceUrls: new Set(),
   loadFailed: false,
 };
@@ -468,68 +427,6 @@ function pickCardQuote(item) {
   return "";
 }
 
-function homeEmojiCandidates(item) {
-  const text = [
-    String(item?.title || ""),
-    String(item?.source || ""),
-    String(item?.topic || ""),
-    String(item?.summary || ""),
-    String(item?.digest || ""),
-  ]
-    .join(" ")
-    .toLowerCase();
-  if (/\b(bot|troll|disinformation|interference|cyber|twitter|social media|platform)\b/.test(text)) {
-    return ["🛰️", "🕸️", "📱", "🧠", "🔍"];
-  }
-  if (/\b(protest|election|activism|civil society|mobilization)\b/.test(text)) {
-    return ["🪧", "🗳️", "📣", "🧱", "🌍"];
-  }
-  if (/\b(media|journalis|press|newsroom|editorial|author)\b/.test(text)) {
-    return ["📰", "🗞️", "🎙️", "📡", "📚"];
-  }
-  if (/\b(human rights|harassment|intimidation|pressure|freedom)\b/.test(text)) {
-    return ["⚖️", "🛡️", "🔦", "🏛️"];
-  }
-  if (/\b(video|ted|interview|podcast|talk)\b/.test(text)) {
-    return ["🎥", "🎙️", "📡", "📚"];
-  }
-  if (/\b(war|soldier|ukraine|donbas|security)\b/.test(text)) {
-    return ["🕊️", "🌍", "🧱", "🛡️"];
-  }
-  return ["🧩", "🧪", "🧭", "📘"];
-}
-
-function buildHomeEmojiMap(items) {
-  const byId = new Map();
-  if (!IS_HOME_PAGE || !Array.isArray(items) || items.length === 0) return byId;
-
-  const used = new Set();
-  for (const item of items) {
-    const id = String(item?.id || "");
-    if (!id) continue;
-    const fixed = HOME_FIXED_TITLE_EMOJI[id];
-    if (fixed && !used.has(fixed)) {
-      byId.set(id, fixed);
-      used.add(fixed);
-      continue;
-    }
-    const candidates = [...homeEmojiCandidates(item), ...HOME_EMOJI_POOL];
-    const picked = candidates.find((emoji) => !used.has(emoji));
-    if (!picked) continue;
-    byId.set(id, picked);
-    used.add(picked);
-  }
-  return byId;
-}
-
-function withHomeEmoji(item, title) {
-  if (!IS_HOME_PAGE) return title;
-  const id = String(item?.id || "");
-  const emoji = state.homeEmojiById.get(id);
-  if (!emoji) return title;
-  return `${emoji} ${title}`;
-}
-
 function internalPostUrl(item) {
   const slug = normalizeText(item?.slug || "").replace(/\.html$/i, "");
   if (!slug) return "";
@@ -725,7 +622,6 @@ function render() {
     0,
     Math.max(0, SHOWCASE_MAX_ITEMS - featured.length - supporting.length)
   );
-  state.homeEmojiById = buildHomeEmojiMap([...featured, ...supporting, ...additional]);
   const renderedCount = featured.length + supporting.length + additional.length;
 
   renderShowcase(featured, supporting);
@@ -851,10 +747,10 @@ function createCardNode(item, variant) {
     const titleLink = document.createElement("a");
     titleLink.href = primaryUrl;
     titleLink.className = "card-title-link";
-    titleLink.textContent = withHomeEmoji(item, cleanDisplayTitle(item.title));
+    titleLink.textContent = cleanDisplayTitle(item.title);
     titleNode.appendChild(titleLink);
   } else {
-    titleNode.textContent = withHomeEmoji(item, cleanDisplayTitle(item.title));
+    titleNode.textContent = cleanDisplayTitle(item.title);
   }
 
   node.querySelector(".card-meta").textContent = composeCardMeta(item);

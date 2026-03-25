@@ -277,25 +277,20 @@
 }
 
 .home-page .hero-proof-link {
-  color: #161d29;
-  font-weight: 780;
+  color: #1a2230;
+  font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.13em;
-  text-decoration-color: rgba(22, 29, 41, 0.45);
-  background: linear-gradient(transparent 52%, #ffe69a 52%);
-  border-radius: 0.24rem;
-  padding: 0 0.2rem;
+  text-underline-offset: 0.15em;
+  text-decoration-color: rgba(26, 34, 48, 0.42);
   transition:
-    background-color 0.16s ease,
     text-decoration-color 0.16s ease,
     color 0.16s ease;
 }
 
 .home-page .hero-proof-link:hover {
-  color: #0f141d;
-  text-decoration-color: rgba(15, 20, 29, 0.75);
-  background: linear-gradient(transparent 46%, #ffd95f 46%);
+  color: #111822;
+  text-decoration-color: rgba(17, 24, 34, 0.78);
 }
 
 .home-page .hero-proof-link:focus-visible {
