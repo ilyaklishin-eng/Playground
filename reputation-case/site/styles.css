@@ -86,9 +86,9 @@ a:hover {
   padding: 0.16rem 0;
   text-decoration: none;
   color: var(--ink);
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
+  font-size: 0.88rem;
+  font-weight: 760;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
@@ -102,7 +102,9 @@ a:hover {
   border: 1px solid var(--line);
   border-radius: var(--radius-button);
   padding: 0.45rem 0.85rem;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
+  font-weight: 560;
+  letter-spacing: 0.02em;
   background: var(--paper);
 }
 
@@ -122,8 +124,9 @@ a:hover {
   border: 1px solid var(--line);
   border-radius: var(--radius-button);
   padding: 0.44rem 0.9rem;
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 560;
+  letter-spacing: 0.045em;
   background: rgba(255, 255, 255, 0.86);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
@@ -154,7 +157,8 @@ a:hover {
   border: 1px solid transparent;
   border-radius: var(--radius-tag);
   padding: 0.2rem 0.5rem;
-  font-size: 0.74rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
   line-height: 1.2;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
@@ -176,7 +180,7 @@ a:hover {
   border: 1px solid transparent;
   border-radius: var(--radius-button);
   padding: 0.46rem 0.82rem;
-  font-size: 0.86rem;
+  font-size: 0.81rem;
   background: transparent;
 }
 
@@ -212,31 +216,31 @@ a:hover {
   margin: 0;
   color: #45608f;
   text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 0.13em;
-  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  font-weight: 650;
 }
 
 h1 {
   margin: 0.35rem 0 0.6rem;
   font-family: "Newsreader", "Spectral", Georgia, serif;
-  font-size: clamp(2.2rem, 6.2vw, 4.35rem);
-  line-height: 0.98;
+  font-size: clamp(2.25rem, 6.3vw, 4.45rem);
+  line-height: 0.96;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
 .lead {
-  max-width: 62ch;
-  margin: 0.4rem 0 0;
+  max-width: 58ch;
+  margin: 0.46rem 0 0;
   color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 1.12rem;
+  line-height: 1.62;
 }
 
 .role-line {
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .positioning {
@@ -253,8 +257,9 @@ h1 {
   position: relative;
   margin: 0.5rem 0;
   padding-left: 1.1rem;
-  color: #334155;
-  font-size: 0.95rem;
+  color: #3e4756;
+  font-size: 0.92rem;
+  line-height: 1.64;
 }
 
 .focus-list li::before {
@@ -304,7 +309,9 @@ h1 {
   background: var(--paper);
   color: var(--ink);
   text-decoration: none;
-  font-size: 0.86rem;
+  font-size: 0.81rem;
+  font-weight: 620;
+  letter-spacing: 0.02em;
   transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
 }
 
@@ -344,14 +351,15 @@ h1 {
 .trust-layer h2 {
   margin: 0 0 0.3rem;
   font-family: "Newsreader", "Times New Roman", serif;
-  font-size: 1.3rem;
+  font-size: 1.46rem;
   letter-spacing: -0.01em;
 }
 
 .trust-layer p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.66;
 }
 
 .trust-facts {
@@ -368,7 +376,8 @@ h1 {
   border-radius: var(--radius-control);
   background: #f8fbff;
   padding: 0.55rem 0.65rem;
-  font-size: 0.86rem;
+  font-size: 0.82rem;
+  line-height: 1.58;
   color: #2b3e5f;
 }
 
@@ -399,7 +408,7 @@ h1 {
 .contact-cta h2 {
   margin: 0 0 0.35rem;
   font-family: "Newsreader", "Times New Roman", serif;
-  font-size: 1.25rem;
+  font-size: 1.42rem;
   letter-spacing: -0.01em;
 }
 
@@ -409,7 +418,8 @@ h1 {
 .contact-cta p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.68;
 }
 
 .overview-card a,
@@ -436,7 +446,8 @@ h1 {
 .overview-card li,
 .archive-layer li {
   margin: 0.35rem 0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.64;
 }
 
 .overview-links {
@@ -460,8 +471,9 @@ h1 {
   background: #ffffff;
   color: #1d2d4d;
   padding: 0.48rem 0.9rem;
-  font-size: 0.84rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 620;
+  letter-spacing: 0.03em;
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
@@ -498,13 +510,14 @@ h1 {
 .cards-intro h2 {
   margin: 0 0 0.2rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.45rem;
+  font-size: 1.68rem;
+  line-height: 1.12;
 }
 
 .cards-intro p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.93rem;
+  font-size: 0.9rem;
   line-height: 1.65;
   max-width: 62ch;
 }
@@ -522,7 +535,9 @@ h1 {
   border: 1px solid var(--line);
   border-radius: var(--radius-button);
   padding: 0.34rem 0.7rem;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
+  font-weight: 620;
+  letter-spacing: 0.03em;
   background: var(--paper);
 }
 
@@ -546,8 +561,9 @@ h1 {
   color: var(--ink);
   border-radius: var(--radius-button);
   padding: 0.42rem 0.78rem;
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.76rem;
+  font-weight: 620;
+  letter-spacing: 0.04em;
   cursor: pointer;
 }
 
@@ -567,7 +583,8 @@ h1 {
   align-items: center;
   gap: 0.6rem;
   color: var(--muted);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
 }
 
 .search-wrap input {
@@ -617,19 +634,22 @@ h1 {
 .quick-card h2 {
   margin: 0 0 0.3rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.22rem;
+  line-height: 1.2;
 }
 
 .quick-card p {
   margin: 0 0 0.4rem;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.66;
 }
 
 .quick-card a {
   color: var(--accent);
   text-decoration: none;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
+  font-weight: 620;
 }
 
 .quick-card a:hover {
@@ -648,13 +668,15 @@ h1 {
 .route-card h2 {
   margin: 0 0 0.35rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.15rem;
+  font-size: 1.28rem;
+  line-height: 1.18;
 }
 
 .route-card p {
   margin: 0 0 0.45rem;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.66;
 }
 
 .route-card ul {
@@ -664,7 +686,8 @@ h1 {
 
 .route-card li {
   margin: 0.35rem 0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+  line-height: 1.64;
 }
 
 .route-card a {
@@ -693,13 +716,14 @@ h1 {
 .archive-layer h2 {
   margin: 0 0 0.35rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.28rem;
+  font-size: 1.42rem;
 }
 
 .archive-layer p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.68;
 }
 
 .archive-layer ul {
@@ -732,13 +756,14 @@ h1 {
 .contact-cta h2 {
   margin: 0 0 0.35rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.28rem;
+  font-size: 1.42rem;
 }
 
 .contact-cta p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.93rem;
+  font-size: 0.89rem;
+  line-height: 1.68;
 }
 
 .interviews-preview {
@@ -753,13 +778,15 @@ h1 {
 .interviews-preview-head h2 {
   margin: 0 0 0.3rem;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.35rem;
+  font-size: 1.58rem;
+  line-height: 1.12;
 }
 
 .interviews-preview-head p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.94rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
   max-width: 76ch;
 }
 
@@ -781,15 +808,17 @@ h1 {
 .interview-preview-meta {
   margin: 0;
   color: #68717d;
-  font-size: 0.74rem;
-  letter-spacing: 0.05em;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  font-weight: 560;
+  text-transform: uppercase;
 }
 
 .interview-preview-title {
   margin: 0.5rem 0 0;
   font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: 1.04rem;
-  line-height: 1.32;
+  font-size: 1.16rem;
+  line-height: 1.26;
   font-weight: 700;
 }
 
@@ -805,7 +834,7 @@ h1 {
 .interview-preview-description {
   margin: 0.45rem 0 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.66;
   max-width: 58ch;
 }
@@ -815,7 +844,9 @@ h1 {
   margin-top: 0.65rem;
   color: var(--accent);
   text-decoration: none;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
+  font-weight: 620;
+  letter-spacing: 0.03em;
 }
 
 .interview-preview-open:hover {
@@ -893,13 +924,14 @@ h1 {
 .section-head h2 {
   margin: 0;
   font-family: "Spectral", Georgia, serif;
-  font-size: 1.28rem;
+  font-size: 1.5rem;
+  line-height: 1.14;
 }
 
 .section-head p {
   margin: 0.25rem 0 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.66;
   max-width: 62ch;
 }
@@ -931,20 +963,20 @@ h1 {
   display: inline-flex;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 0.2rem 0.52rem;
-  font-size: 0.69rem;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.64rem;
   color: var(--muted);
   background: #fff;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 650;
 }
 
 .interview-title {
   margin: 0.55rem 0 0;
   font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: 1.08rem;
-  line-height: 1.3;
+  font-size: 1.18rem;
+  line-height: 1.26;
   font-weight: 700;
 }
 
@@ -960,7 +992,7 @@ h1 {
 .interview-description {
   margin: 0.45rem 0 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.66;
   max-width: 58ch;
 }
@@ -972,8 +1004,8 @@ h1 {
 .interview-url {
   color: #68717d;
   text-decoration: none;
-  font-size: 0.74rem;
-  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
   word-break: break-all;
 }
 

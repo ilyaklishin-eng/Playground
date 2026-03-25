@@ -64,9 +64,9 @@
 
 .home-page .brand {
   color: #1b212d;
-  font-size: 0.88rem;
-  font-weight: 680;
-  letter-spacing: 0.1em;
+  font-size: 0.84rem;
+  font-weight: 660;
+  letter-spacing: 0.115em;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -93,9 +93,9 @@
   padding: 0.24rem 0;
   background: transparent;
   color: #5b6270;
-  font-size: 0.84rem;
-  font-weight: 590;
-  letter-spacing: 0.035em;
+  font-size: 0.79rem;
+  font-weight: 560;
+  letter-spacing: 0.055em;
   text-decoration: none;
 }
 
@@ -137,9 +137,9 @@
 
 .home-page .site-lang-switch .lang-label {
   color: #7b8392;
-  font-size: 0.62rem;
+  font-size: 0.56rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
 }
 
 .home-page .site-lang-switch a {
@@ -152,8 +152,8 @@
   line-height: 1;
   text-decoration: none;
   color: #77808f;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -197,9 +197,9 @@
   margin: 0;
   color: #5c6370;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
-  font-size: 0.7rem;
-  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+  font-weight: 650;
 }
 
 .home-page h1,
@@ -218,8 +218,8 @@
 
 .home-page h1 {
   margin: 0.44rem 0 0.66rem;
-  font-size: clamp(2.15rem, 5.8vw, 4.1rem);
-  line-height: 1;
+  font-size: clamp(2.2rem, 5.95vw, 4.15rem);
+  line-height: 0.96;
   letter-spacing: -0.02em;
   max-width: 16ch;
 }
@@ -227,21 +227,29 @@
 .home-page .home-name-note {
   margin: -0.1rem 0 0.5rem;
   color: #5d6471;
-  font-size: 0.82rem;
-  letter-spacing: 0.02em;
+  font-size: 0.74rem;
+  letter-spacing: 0.045em;
 }
 
 .home-page .lead {
-  margin: 0.34rem 0 0;
-  max-width: 56ch;
-  font-size: 1rem;
-  color: var(--home-muted);
-  line-height: 1.68;
+  margin: 0.38rem 0 0;
+  max-width: 48ch;
+  font-size: 1.12rem;
+  color: #303846;
+  line-height: 1.56;
 }
 
 .home-page .role-line {
-  color: #1b212d;
-  font-weight: 650;
+  color: #141a22;
+  font-weight: 700;
+}
+
+.home-page .lead:not(.role-line) {
+  margin-top: 0.56rem;
+  max-width: 58ch;
+  color: var(--home-muted);
+  font-size: 0.97rem;
+  line-height: 1.72;
 }
 
 .home-page .hero-proof-list {
@@ -256,8 +264,8 @@
 .home-page .hero-proof-list li {
   position: relative;
   padding-left: 0.86rem;
-  font-size: 0.94rem;
-  line-height: 1.62;
+  font-size: 0.88rem;
+  line-height: 1.64;
   color: #59606d;
 }
 
@@ -309,8 +317,9 @@
 .home-page .hero-reference-more > summary {
   margin: 0;
   padding: 0;
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.78rem;
+  font-weight: 520;
+  letter-spacing: 0.03em;
   color: #7d8492;
   cursor: pointer;
   text-decoration: underline;
@@ -343,8 +352,9 @@
   padding: 0.56rem 0.98rem;
   text-decoration: none;
   color: var(--home-ink);
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   font-weight: 620;
+  letter-spacing: 0.02em;
   background: var(--home-paper);
   transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
 }
@@ -369,7 +379,8 @@
 
 .home-page .hero-secondary-link {
   margin: 0.72rem 0 0;
-  font-size: 0.88rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
 }
 
 .home-page .hero-secondary-link a {
@@ -409,8 +420,8 @@
 .home-page .hero-portrait figcaption {
   margin: 0;
   padding: 0.54rem 0.7rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #676f7d;
   background: #fdfaf4;
@@ -421,8 +432,8 @@
   margin: 0;
   padding: 0;
   color: #545d6c;
-  font-size: 0.84rem;
-  line-height: 1.52;
+  font-size: 0.78rem;
+  line-height: 1.58;
 }
 
 .home-proof {
@@ -435,8 +446,8 @@
 .interviews-preview h2,
 .contact-cta h2 {
   margin: 0;
-  font-size: 1.72rem;
-  line-height: 1.12;
+  font-size: 1.92rem;
+  line-height: 1.06;
 }
 
 .home-page .trust-strip {
@@ -460,15 +471,16 @@
 
 .home-page .trust-item h3 {
   margin: 0;
-  font-size: 0.94rem;
-  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+  letter-spacing: 0.015em;
+  line-height: 1.28;
 }
 
 .home-page .trust-item p {
   margin: 0.34rem 0 0;
   color: #5d6573;
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 0.79rem;
+  line-height: 1.58;
 }
 
 .home-page .trust-item a {
@@ -500,7 +512,8 @@
   margin-top: 0.34rem;
   color: var(--home-muted);
   max-width: 62ch;
-  line-height: 1.66;
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
 .home-page .interviews-preview-grid {
@@ -536,17 +549,18 @@
 .home-page .cards-intro p {
   margin: 0.28rem 0 0;
   color: var(--home-muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   max-width: 54ch;
-  line-height: 1.6;
+  line-height: 1.68;
 }
 
 .home-page .cards-intro-link {
   text-decoration: none;
   white-space: nowrap;
   color: #2a3342;
-  font-size: 0.82rem;
-  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  font-weight: 620;
   text-transform: uppercase;
 }
 
@@ -581,7 +595,9 @@
 .home-page .lang-btn {
   min-height: 2.45rem;
   padding: 0.48rem 0.84rem;
-  font-size: 0.8rem;
+  font-size: 0.74rem;
+  font-weight: 620;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   border-radius: var(--home-radius-tag);
   transition: border-color 0.16s ease, background-color 0.16s ease, color 0.16s ease;
@@ -622,9 +638,9 @@
 
 .home-page .more-work-head h3 {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: #6a7280;
 }
 
@@ -679,22 +695,22 @@
   color: #49505d;
   border: 1px solid #e2dbcf;
   font-weight: 700;
-  font-size: 0.64rem;
-  letter-spacing: 0.1em;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .home-page .card-title {
   margin: 0 0 0.18rem;
   font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: 1.08rem;
-  line-height: 1.3;
+  font-size: 1.16rem;
+  line-height: 1.24;
   font-weight: 700;
 }
 
 .home-page .card-featured .card-title {
-  font-size: 1.34rem;
-  line-height: 1.26;
+  font-size: 1.52rem;
+  line-height: 1.16;
 }
 
 .home-page .card-title-link {
@@ -708,20 +724,21 @@
 
 .home-page .card-meta {
   color: #788190;
-  font-size: 0.69rem;
-  letter-spacing: 0.07em;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  font-weight: 560;
   text-transform: uppercase;
 }
 
 .home-page .card-digest {
   margin-top: 0.54rem;
-  color: #2e3542;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  color: #353d4a;
+  font-size: 0.89rem;
+  line-height: 1.68;
 }
 
 .home-page .card-featured .card-digest {
-  font-size: 0.95rem;
+  font-size: 0.93rem;
 }
 
 .home-page .card-quote {
@@ -730,7 +747,7 @@
   border-left: 1px solid #d7deea;
   color: #6f7785;
   line-height: 1.52;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-style: italic;
 }
 
@@ -744,9 +761,10 @@
   padding-top: 0;
   display: inline-flex;
   color: #2a3444;
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   text-decoration: none;
-  font-weight: 620;
+  font-weight: 630;
+  letter-spacing: 0.03em;
 }
 
 .home-page .card-link:hover {
@@ -764,9 +782,10 @@
 
 .home-page .card-link-secondary {
   color: #6a7384;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   text-decoration: none;
   font-weight: 500;
+  letter-spacing: 0.04em;
 }
 
 .home-page .card-link-secondary:hover {
@@ -784,6 +803,8 @@
 .home-page .contact-cta p {
   margin: 0.36rem 0 0;
   color: var(--home-muted);
+  font-size: 0.89rem;
+  line-height: 1.68;
 }
 
 .home-page .contact-head p {
@@ -805,8 +826,9 @@
 .home-page .contact-link-secondary {
   color: #39465c;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .home-page .contact-link-secondary:hover {
@@ -817,7 +839,8 @@
   margin: 0.84rem 0 0;
   padding-left: 1rem;
   color: #5d6676;
-  font-size: 0.87rem;
+  font-size: 0.83rem;
+  line-height: 1.64;
 }
 
 .home-page .contact-topics li {
