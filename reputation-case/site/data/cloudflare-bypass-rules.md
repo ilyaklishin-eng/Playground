@@ -14,7 +14,7 @@ Use these rules above any challenge rules in the `klishin.work` zone.
 
 Lists:
 - `openai_searchbot_ips` (35 CIDRs)
-- `openai_chatgpt_user_ips` (240 CIDRs)
+- `openai_chatgpt_user_ips` (238 CIDRs)
 - `openai_gptbot_ips` (21 CIDRs)
 - `perplexitybot_ips` (8 CIDRs)
 - `perplexity_user_ips` (4 CIDRs)
