@@ -580,6 +580,14 @@ function canRenderInFeedLocale(item, feedLang = "EN") {
   return allowedFallbackLocales(item).includes(targetLocale);
 }
 
+function shouldShowCardLanguageBadge(item, feedLang = state.lang) {
+  const cardLang = String(item?.language || "").trim().toUpperCase();
+  const currentLang = String(feedLang || "").trim().toUpperCase();
+  if (!cardLang) return false;
+  if (!currentLang) return true;
+  return cardLang !== currentLang;
+}
+
 function publishedCounts() {
   return state.publishedItems
     .filter((item) => isAuthoredRole(item))
@@ -815,6 +823,7 @@ function createCardNode(item, variant) {
   const primaryUrl = getCardPrimaryUrl(item);
   const sourceUrl = getCardPrimarySourceUrl(item);
   const noteUrl = getCardNoteUrl(item);
+  const showLangTag = shouldShowCardLanguageBadge(item, state.lang);
   // Cards stay source-first; if the source is unavailable, they can fall back to the on-site note instead of shipping a dead click target.
   const canNavigate = Boolean(primaryUrl);
   const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
@@ -826,7 +835,15 @@ function createCardNode(item, variant) {
     node.dataset.url = primaryUrl;
   }
 
-  node.querySelector(".lang-tag").textContent = item.language;
+  const cardHead = node.querySelector(".card-head");
+  const langTag = node.querySelector(".lang-tag");
+  if (langTag) {
+    langTag.textContent = showLangTag ? String(item?.language || "").trim().toUpperCase() : "";
+    langTag.hidden = !showLangTag;
+  }
+  if (cardHead) {
+    cardHead.hidden = !showLangTag;
+  }
 
   const titleNode = node.querySelector(".card-title");
   titleNode.textContent = "";

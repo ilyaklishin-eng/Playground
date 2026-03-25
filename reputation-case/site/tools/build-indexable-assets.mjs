@@ -3463,6 +3463,8 @@ const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", bro
   const item = entry?.item || {};
   const copy = HOME_FALLBACK_COPY[normalizeLocale(locale, "en")] || HOME_FALLBACK_COPY.en;
   const lang = htmlEscape(normalizeLang(item?.language));
+  const feedLang = normalizeLang(locale);
+  const showLangTag = Boolean(lang && lang !== feedLang);
   const emoji = emojiById.get(String(item?.id || ""));
   const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${cleanDisplayTitle(item?.title || "")}`);
   const meta = htmlEscape(composeCardMeta(item));
@@ -3496,10 +3498,7 @@ const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", bro
     links.length > 0 ? `\n          <div class="card-links">\n            ${links.join("\n            ")}\n          </div>` : "";
 
   return `        <article class="${articleClass}"${dataUrlAttr}>
-          <div class="card-head">
-            <span class="lang-tag">${lang}</span>
-          </div>
-          <h3 class="card-title">${titleHtml}</h3>
+${showLangTag ? `          <div class="card-head">\n            <span class="lang-tag">${lang}</span>\n          </div>\n` : ""}          <h3 class="card-title">${titleHtml}</h3>
           <p class="card-meta">${meta}</p>
           <div class="card-digest">${digestHtml}</div>
           <blockquote class="card-quote"${quote ? "" : " hidden"}>${quote ? htmlEscape(quote) : ""}</blockquote>

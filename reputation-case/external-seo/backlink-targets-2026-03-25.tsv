@@ -1,0 +1,14 @@
+priority	platform_or_page	url	action_type	preferred_target	preferred_anchor	notes
+P0	LinkedIn profile	https://www.linkedin.com/in/ilia-klishin-20282a1b/	Update profile URL and About section	https://www.klishin.work/	Ilia (Ilya) Klishin	Primary owned profile; use homepage as main link.
+P0	X profile	https://x.com/Vorewig	Update bio/link	https://www.klishin.work/	Ilia (Ilya) Klishin	If only one URL slot exists, keep homepage there.
+P0	Telegram profile	https://t.me/vorewig	Update bio/about link	https://www.klishin.work/	Ilia (Ilya) Klishin	Use homepage; keep wording short.
+P0	Instagram profile	https://www.instagram.com/vorewig	Update bio/link	https://www.klishin.work/	Ilia (Ilya) Klishin	Homepage first, /selected/ second if a link hub is used.
+P0	Facebook profile	https://www.facebook.com/ilya.klishin	Update About / website field	https://www.klishin.work/	Ilia (Ilya) Klishin	Use the same short bio string.
+P1	KF Agency biography	https://kf.agency/articles/biography	Refresh biography page with official site link	https://www.klishin.work/bio/	Official biography of Ilia (Ilya) Klishin	High-value same-entity page; ideal place for /bio/ link.
+P1	The Moscow Times author page	https://www.themoscowtimes.com/author/ilya-klishin	Add official site to author profile if editable	https://www.klishin.work/	Official site	Strong publisher-author entity signal.
+P1	Vedomosti author page	https://www.vedomosti.ru/authors/ilya-klishin	Add official site to author profile if editable	https://www.klishin.work/	Official site	Use homepage link.
+P1	The Insider author archive	https://theins.ru/en/opinion/ilya-klishin	Add official site to author bio if editable	https://www.klishin.work/	Official site	Works well as a publisher-author bridge.
+P1	Snob profile	https://snob.ru/profile/28206/about/	Refresh profile bio and website field	https://www.klishin.work/	Official site	Keep wording neutral and aligned.
+P1	RTVI archive editor page	https://rtvi.com/editors-archive/ilya-klishin/	Request updated profile link if possible	https://www.klishin.work/	Official site	Useful institutional signal if editable.
+P2	TEDx event page	https://www.ted.com/tedx/events/3947	Request updated speaker bio if route exists	https://www.klishin.work/bio/	Speaker biography	Institutional signal; lower control.
+P2	Wikipedia / Wikidata	https://ru.wikipedia.org/wiki/Клишин,_Илья_Сергеевич	Refresh references and official site only if policy-compliant	https://www.klishin.work/	Official website	Handle carefully under platform rules; not a routine link request.
