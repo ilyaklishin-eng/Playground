@@ -219,6 +219,13 @@
   max-width: 16ch;
 }
 
+.home-page .home-name-note {
+  margin: -0.1rem 0 0.5rem;
+  color: #5d6471;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+}
+
 .home-page .lead {
   margin: 0.34rem 0 0;
   max-width: 56ch;

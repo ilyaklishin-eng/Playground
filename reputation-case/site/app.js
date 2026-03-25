@@ -65,6 +65,7 @@ const ADDITIONAL_MAX_PER_SOURCE = 1;
 const UI_COPY = {
   en: {
     openNote: "Open on-site note",
+    originalSource: "Original source",
     emptyFiltered: "No published cards match the current filter.",
     emptyLanguage: "No published cards are available in {lang} yet.",
     emptyLoadFailed: "Published cards are temporarily unavailable.",
@@ -73,6 +74,7 @@ const UI_COPY = {
   },
   fr: {
     openNote: "Ouvrir la fiche du site",
+    originalSource: "Source originale",
     emptyFiltered: "Aucune fiche publiée ne correspond au filtre actuel.",
     emptyLanguage: "Aucune fiche publiée n’est disponible en {lang} pour le moment.",
     emptyLoadFailed: "Les fiches publiées sont temporairement indisponibles.",
@@ -81,6 +83,7 @@ const UI_COPY = {
   },
   de: {
     openNote: "Interne Seite öffnen",
+    originalSource: "Originalquelle",
     emptyFiltered: "Keine veröffentlichten Karten entsprechen dem aktuellen Filter.",
     emptyLanguage: "Noch keine veröffentlichten Karten in {lang} verfügbar.",
     emptyLoadFailed: "Veröffentlichte Karten sind vorübergehend nicht verfügbar.",
@@ -89,6 +92,7 @@ const UI_COPY = {
   },
   es: {
     openNote: "Abrir ficha del sitio",
+    originalSource: "Fuente original",
     emptyFiltered: "No hay fichas publicadas que coincidan con el filtro actual.",
     emptyLanguage: "Todavía no hay fichas publicadas en {lang}.",
     emptyLoadFailed: "Las fichas publicadas no están disponibles temporalmente.",
@@ -809,10 +813,12 @@ function renderGrid(items, options = {}) {
 
 function createCardNode(item, variant) {
   const primaryUrl = getCardPrimaryUrl(item);
+  const sourceUrl = getCardPrimarySourceUrl(item);
   const noteUrl = getCardNoteUrl(item);
   // Cards stay source-first; if the source is unavailable, they can fall back to the on-site note instead of shipping a dead click target.
   const canNavigate = Boolean(primaryUrl);
   const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
+  const showSourceCta = Boolean(showNoteCta && sourceUrl && sourceUrl === primaryUrl);
   const node = template.content.firstElementChild.cloneNode(true);
   node.classList.add(`card-${variant}`);
   if (canNavigate) {
@@ -854,7 +860,24 @@ function createCardNode(item, variant) {
     quoteNode.hidden = true;
   }
 
+  let linksWrap = node.querySelector(".card-links");
   const link = node.querySelector(".card-link");
+  let sourceLink = node.querySelector(".card-link-secondary");
+  if (!linksWrap) {
+    linksWrap = document.createElement("div");
+    linksWrap.className = "card-links";
+    if (link) {
+      node.insertBefore(linksWrap, link);
+      linksWrap.appendChild(link);
+    } else {
+      node.appendChild(linksWrap);
+    }
+  }
+  if (!sourceLink) {
+    sourceLink = document.createElement("a");
+    sourceLink.className = "card-link-secondary";
+    linksWrap.appendChild(sourceLink);
+  }
   if (showNoteCta) {
     link.href = noteUrl;
     // The CTA stays dedicated to the on-site note while the card itself opens the primary source.
@@ -864,6 +887,22 @@ function createCardNode(item, variant) {
     link.removeAttribute("href");
     link.textContent = "";
     link.hidden = true;
+  }
+  if (showSourceCta) {
+    sourceLink.href = sourceUrl;
+    sourceLink.textContent = t("originalSource");
+    sourceLink.target = "_blank";
+    sourceLink.rel = "noopener noreferrer";
+    sourceLink.hidden = false;
+  } else {
+    sourceLink.removeAttribute("href");
+    sourceLink.removeAttribute("target");
+    sourceLink.removeAttribute("rel");
+    sourceLink.textContent = "";
+    sourceLink.hidden = true;
+  }
+  if (linksWrap) {
+    linksWrap.hidden = !showNoteCta && !showSourceCta;
   }
 
   return node;

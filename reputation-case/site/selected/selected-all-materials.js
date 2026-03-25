@@ -252,7 +252,7 @@ function createCard(item, emojiMap) {
     ctaLink.target = "_blank";
     ctaLink.rel = "noopener noreferrer";
   }
-  ctaLink.textContent = "Open material ->";
+  ctaLink.textContent = "Open on-site note";
   cta.appendChild(ctaLink);
 
   if (item.sourceUrl && item.sourceUrl !== item.url) {

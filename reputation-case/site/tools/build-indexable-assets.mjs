@@ -2456,7 +2456,7 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
             <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
             <h3><a href="${htmlEscape(item.url)}">${htmlEscape(`${emoji ? `${emoji} ` : ""}${item.title || "Untitled"}`)}</a></h3>
             <p class="selected-all-summary">${htmlEscape(item.summary || "No summary available.")}</p>
-            <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open material -></a>${sourceLink}</p>
+            <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open on-site note</a>${sourceLink}</p>
           </article>`;
     })
     .join("\n");
@@ -3129,28 +3129,28 @@ const HOME_FALLBACK_COPY = {
   en: {
     empty: "No published cards are available in the public feed yet.",
     openNote: "Open on-site note",
-    readOriginal: "Read original",
+    originalSource: "Original source",
   },
   fr: {
     empty: "Aucune fiche publiée n’est disponible dans ce flux pour le moment.",
     openNote: "Ouvrir la fiche du site",
-    readOriginal: "Lire la source",
+    originalSource: "Source originale",
   },
   de: {
     empty: "Derzeit sind in diesem Feed keine veröffentlichten Karten verfügbar.",
     openNote: "Interne Seite öffnen",
-    readOriginal: "Original lesen",
+    originalSource: "Originalquelle",
   },
   es: {
     empty: "Todavía no hay fichas publicadas disponibles en este flujo.",
     openNote: "Abrir ficha del sitio",
-    readOriginal: "Leer original",
+    originalSource: "Fuente original",
   },
 };
 const HOME_SECTION_COPY = {
   en: {
-    workTitle: "Selected writing",
-    workLink: "View full selected work",
+    workTitle: "Selected articles and essays",
+    workLink: "Browse all articles and media work",
     moreWork: "Further reading",
     interviewsAria: "Interviews",
     interviewsTitle: "Interviews and conversations",
@@ -3467,10 +3467,12 @@ const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", bro
   const title = htmlEscape(`${emoji ? `${emoji} ` : ""}${cleanDisplayTitle(item?.title || "")}`);
   const meta = htmlEscape(composeCardMeta(item));
   const primaryUrl = getHomeEntryPrimaryUrl(entry, brokenSourceUrls);
+  const sourceUrl = getHomeEntryPrimarySourceUrl(entry);
   const noteUrl = getHomeEntryNoteUrl(entry);
   // Home fallback stays source-first, but can fall back to the on-site note instead of shipping a dead source click target.
   const canNavigate = Boolean(primaryUrl);
   const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
+  const showSourceCta = Boolean(showNoteCta && sourceUrl && sourceUrl === primaryUrl);
   const digestHtml =
     variant === "featured"
       ? buildFeaturedDigestHtml(item)
@@ -3481,9 +3483,17 @@ const buildHomeRenderedCardHtml = (entry, variant, emojiById, locale = "en", bro
   const titleHtml = canNavigate
     ? `<a class="card-title-link" href="${htmlEscape(primaryUrl)}">${title}</a>`
     : title;
-  const ctaHtml = showNoteCta
-    ? `\n          <a class="card-link" href="${htmlEscape(noteUrl)}">${htmlEscape(copy.openNote)}</a>`
-    : "";
+  const links = [];
+  if (showNoteCta) {
+    links.push(`<a class="card-link" href="${htmlEscape(noteUrl)}">${htmlEscape(copy.openNote)}</a>`);
+  }
+  if (showSourceCta) {
+    links.push(
+      `<a class="card-link-secondary" href="${htmlEscape(sourceUrl)}" target="_blank" rel="noopener noreferrer">${htmlEscape(copy.originalSource)}</a>`
+    );
+  }
+  const ctaHtml =
+    links.length > 0 ? `\n          <div class="card-links">\n            ${links.join("\n            ")}\n          </div>` : "";
 
   return `        <article class="${articleClass}"${dataUrlAttr}>
           <div class="card-head">

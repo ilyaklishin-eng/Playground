@@ -145,6 +145,13 @@ h1 {
   font-size: 1.04rem;
 }
 
+.alias-note {
+  margin: 0 0 0.55rem;
+  color: #5a6070;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+}
+
 .meta-line {
   margin: 0.65rem 0 0;
   color: var(--muted);
