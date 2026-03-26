@@ -210,7 +210,7 @@
 
 .home-hero {
   margin-top: 0.9rem;
-  padding: clamp(1.15rem, 2.8vw, 2.1rem) 0 0.3rem;
+  padding: clamp(1rem, 2.4vw, 1.7rem) 0 0.05rem;
   border-top: 1px solid var(--home-line);
   border-right: 0;
   border-bottom: 0;
@@ -462,8 +462,7 @@
   border-radius: 0;
   background: transparent;
   padding: 0;
-  display: grid;
-  gap: 1.08rem;
+  display: block;
   align-content: start;
 }
 
@@ -492,63 +491,6 @@
   color: var(--home-muted);
   background: rgba(255, 255, 255, 0.42);
   border-top: 1px solid rgba(79, 47, 38, 0.12);
-}
-
-.home-page .hero-navigation-panel {
-  padding-top: 0.7rem;
-  border-top: 1px solid rgba(79, 47, 38, 0.14);
-}
-
-.home-page .hero-route-list {
-  display: grid;
-  gap: 0.12rem;
-}
-
-.home-page .hero-route {
-  display: grid;
-  gap: 0.14rem;
-  padding: 0.78rem 0;
-  border-top: 1px solid rgba(79, 47, 38, 0.1);
-  text-decoration: none;
-}
-
-.home-page .hero-route:first-child {
-  border-top: 0;
-  padding-top: 0.08rem;
-}
-
-.home-page .hero-route-kicker {
-  color: var(--home-muted);
-  font-size: 0.62rem;
-  font-weight: 680;
-  letter-spacing: 0.16em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-.home-page .hero-route-title {
-  color: var(--home-ink);
-  font-size: 1rem;
-  font-weight: 720;
-  line-height: 1.26;
-}
-
-.home-page .hero-route-note {
-  color: var(--home-muted);
-  font-size: 0.8rem;
-  line-height: 1.6;
-}
-
-.home-page .hero-route:hover .hero-route-title {
-  color: var(--home-accent-strong);
-}
-
-.home-page .hero-route:hover .hero-route-note {
-  color: #5d4d47;
-}
-
-.home-page .hero-route-primary .hero-route-title {
-  font-size: 1.08rem;
 }
 
 .home-proof {
@@ -610,8 +552,8 @@
 .home-page .interviews-preview,
 .home-page .contact-cta,
 .home-page .work-section {
-  margin-top: 2.2rem;
-  padding-top: 1.1rem;
+  margin-top: 1.45rem;
+  padding-top: 0.9rem;
   border-top: 1px solid var(--home-line);
 }
 
@@ -1271,10 +1213,6 @@
 
   .home-page .home-name-note {
     letter-spacing: 0.08em;
-  }
-
-  .home-page .hero-route {
-    padding: 0.72rem 0;
   }
 
   .home-page .controls {
