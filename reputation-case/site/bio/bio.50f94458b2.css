@@ -1,15 +1,16 @@
 :root {
-  --bg: #f8f7f4;
-  --paper: #fffdfa;
-  --ink: #151920;
-  --muted: #4f5560;
-  --line: #ece7df;
-  --line-strong: #ded7cc;
-  --accent: #28303c;
-  --accent-ink: #28303c;
-  --accent-soft: rgba(40, 48, 60, 0.1);
-  --shadow-soft: 0 10px 30px rgba(21, 25, 32, 0.06);
-  --shadow-card: 0 18px 40px rgba(21, 25, 32, 0.08);
+  --bg: #f4efe7;
+  --paper: #fcf8f2;
+  --ink: #171311;
+  --muted: #5f554e;
+  --line: #ddd3c7;
+  --line-strong: #c8baaa;
+  --accent: #6a4337;
+  --accent-strong: #4f2f26;
+  --accent-ink: #4f2f26;
+  --accent-soft: rgba(106, 67, 55, 0.1);
+  --shadow-soft: 0 10px 30px rgba(23, 19, 17, 0.06);
+  --shadow-card: 0 18px 40px rgba(23, 19, 17, 0.08);
   --radius-shell: 14px;
   --radius-panel: 18px;
   --radius-card: 14px;
@@ -34,8 +35,8 @@ body {
   overflow-x: clip;
   color: var(--ink);
   background:
-    radial-gradient(1250px 560px at 0% -12%, #ece8df 0%, transparent 58%),
-    radial-gradient(920px 460px at 100% 0%, #f1ece4 0%, transparent 62%),
+    radial-gradient(1250px 560px at 0% -12%, #ece4d8 0%, transparent 58%),
+    radial-gradient(920px 460px at 100% 0%, #f0e9de 0%, transparent 62%),
     var(--bg);
   font-family: "Manrope", "Segoe UI", sans-serif;
   line-height: 1.54;
@@ -75,7 +76,7 @@ a {
   z-index: 20;
   border: 1px solid var(--line);
   border-radius: var(--radius-shell);
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(252, 248, 242, 0.88);
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(8px);
 }
@@ -156,7 +157,7 @@ h1 {
 
 .alias-note {
   margin: 0 0 0.55rem;
-  color: #5a6070;
+  color: var(--muted);
   font-size: 0.78rem;
   letter-spacing: 0.05em;
 }
@@ -248,7 +249,7 @@ h1 {
   padding: 0.72rem 0 0;
   font-size: 0.82rem;
   line-height: 1.58;
-  color: #3c3a36;
+  color: var(--muted);
 }
 
 .trust-list strong {
@@ -273,7 +274,7 @@ h1 {
   padding: 0.9rem 0 0;
   border-top: 1px solid rgba(26, 39, 60, 0.1);
   background: transparent;
-  color: #3c3a36;
+  color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.6;
 }
@@ -376,7 +377,7 @@ h1 {
   margin: 0.65rem 0 0;
   border: 1px solid var(--line);
   border-radius: var(--radius-control);
-  background: #fff;
+  background: var(--paper);
   padding: 0.62rem 0.75rem;
 }
 

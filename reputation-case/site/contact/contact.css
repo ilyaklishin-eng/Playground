@@ -120,7 +120,7 @@
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: #3c3a36;
+  color: var(--muted);
   font-size: 0.88rem;
   line-height: 1.66;
 }

@@ -1,15 +1,18 @@
 :root {
-  --bg: #f8f7f4;
-  --paper: #fffdfa;
-  --ink: #14181f;
-  --muted: #4d545f;
-  --line: #ede8e0;
-  --line-strong: #ddd6cb;
-  --accent: #2b3340;
-  --accent-soft: rgba(43, 51, 64, 0.1);
-  --shadow-soft: 0 10px 26px rgba(20, 24, 31, 0.055);
-  --ok: #2e6c47;
-  --warn: #9f5b00;
+  --bg: #f4efe7;
+  --paper: #fcf8f2;
+  --ink: #171311;
+  --muted: #5f554e;
+  --line: #ddd3c7;
+  --line-strong: #c8baaa;
+  --accent: #6a4337;
+  --accent-strong: #4f2f26;
+  --accent-ink: #4f2f26;
+  --accent-soft: rgba(106, 67, 55, 0.1);
+  --shadow-soft: 0 10px 26px rgba(23, 19, 17, 0.055);
+  --shadow-card: 0 18px 40px rgba(23, 19, 17, 0.08);
+  --ok: #5b6652;
+  --warn: #8b5b32;
   --radius-shell: 14px;
   --radius-panel: 18px;
   --radius-card: 14px;
@@ -33,7 +36,10 @@ body {
   min-height: 100vh;
   overflow-x: clip;
   color: var(--ink);
-  background: radial-gradient(1200px 500px at 100% -10%, #f0ece5 0%, var(--bg) 60%), var(--bg);
+  background:
+    radial-gradient(1200px 500px at 100% -10%, #ece4d8 0%, transparent 58%),
+    radial-gradient(940px 420px at 0% 0%, #f0e9de 0%, transparent 60%),
+    var(--bg);
   font-family: "Manrope", "Segoe UI", "Trebuchet MS", sans-serif;
   line-height: 1.62;
 }
@@ -51,8 +57,8 @@ a:hover {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(20, 89, 200, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(20, 89, 200, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(79, 47, 38, 0.028) 1px, transparent 1px),
+    linear-gradient(rgba(79, 47, 38, 0.028) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at 20% 8%, #000 0%, transparent 74%);
 }
@@ -75,7 +81,7 @@ a:hover {
   padding: 0.74rem 0.86rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-shell);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(252, 248, 242, 0.9);
   backdrop-filter: blur(8px);
 }
 
@@ -120,21 +126,21 @@ a:hover {
   align-items: center;
   min-height: var(--tap-min);
   text-decoration: none;
-  color: #1e293b;
+  color: var(--muted);
   border: 1px solid var(--line);
   border-radius: var(--radius-button);
   padding: 0.44rem 0.9rem;
   font-size: 0.8rem;
   font-weight: 560;
   letter-spacing: 0.045em;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(252, 248, 242, 0.88);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .primary-nav a:hover {
   border-color: var(--accent);
   color: var(--accent-strong);
-  background: #f2f7ff;
+  background: var(--accent-soft);
 }
 
 .site-lang-switch {
@@ -196,7 +202,7 @@ a:hover {
 .hero-showcase {
   border: 1px solid var(--line);
   border-radius: var(--radius-panel);
-  background: linear-gradient(145deg, #ffffff 0%, #f8fbff 100%);
+  background: linear-gradient(145deg, #fdf9f3 0%, #f5eee3 100%);
   box-shadow: var(--shadow-card);
   padding: clamp(1.15rem, 2.3vw, 2rem);
 }
@@ -214,7 +220,7 @@ a:hover {
 
 .eyebrow {
   margin: 0;
-  color: #45608f;
+  color: var(--accent);
   text-transform: uppercase;
   font-size: 0.68rem;
   letter-spacing: 0.16em;
@@ -244,7 +250,7 @@ h1 {
 }
 
 .positioning {
-  color: #23395d;
+  color: var(--accent);
 }
 
 .focus-list {
@@ -257,7 +263,7 @@ h1 {
   position: relative;
   margin: 0.5rem 0;
   padding-left: 1.1rem;
-  color: #3e4756;
+  color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.64;
 }
@@ -288,7 +294,7 @@ h1 {
   object-fit: cover;
   object-position: 50% 28%;
   border: 1px solid var(--line);
-  box-shadow: 0 16px 36px rgba(20, 89, 200, 0.16);
+  box-shadow: 0 16px 36px rgba(23, 19, 17, 0.12);
 }
 
 .cta-row {
@@ -318,7 +324,7 @@ h1 {
 .cta-btn:hover {
   border-color: var(--accent);
   color: var(--accent-strong);
-  background: #f1f6ff;
+  background: var(--accent-soft);
 }
 
 .cta-primary {
@@ -380,7 +386,7 @@ h1 {
   padding: 0.72rem 0 0;
   font-size: 0.82rem;
   line-height: 1.58;
-  color: #2b3e5f;
+  color: var(--ink);
 }
 
 .trust-facts strong {
@@ -473,8 +479,8 @@ h1 {
   text-decoration: none;
   border: 1px solid var(--line);
   border-radius: var(--radius-button);
-  background: #ffffff;
-  color: #1d2d4d;
+  background: var(--paper);
+  color: var(--ink);
   padding: 0.48rem 0.9rem;
   font-size: 0.78rem;
   font-weight: 620;
@@ -485,7 +491,7 @@ h1 {
 .route-chip:hover {
   border-color: var(--accent);
   color: var(--accent-strong);
-  background: #f1f6ff;
+  background: var(--accent-soft);
 }
 
 .cards-intro {
@@ -605,7 +611,7 @@ h1 {
 }
 
 .search-wrap input:focus {
-  outline: 2px solid rgba(20, 89, 200, 0.2);
+  outline: 2px solid rgba(106, 67, 55, 0.18);
   outline-offset: 1px;
 }
 
@@ -833,7 +839,7 @@ h1 {
 
 .interview-preview-meta {
   margin: 0;
-  color: #68717d;
+  color: var(--muted);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   font-weight: 560;
@@ -930,7 +936,7 @@ h1 {
 
 .filter-btn {
   border: 1px solid var(--line);
-  background: #fff;
+  background: var(--paper);
   color: var(--ink);
   border-radius: var(--radius-button);
   padding: 0.4rem 0.82rem;
@@ -1000,8 +1006,8 @@ h1 {
   border-radius: 8px;
   padding: 0.18rem 0.5rem;
   font-size: 0.64rem;
-  color: var(--muted);
-  background: #fff;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
   letter-spacing: 0.09em;
   text-transform: uppercase;
   font-weight: 650;
@@ -1037,7 +1043,7 @@ h1 {
 }
 
 .interview-url {
-  color: #68717d;
+  color: var(--muted);
   text-decoration: none;
   font-size: 0.68rem;
   letter-spacing: 0.06em;
@@ -1123,7 +1129,9 @@ h1 {
 }
 
 .lang-tag {
-  background: rgba(0, 0, 0, 0.06);
+  color: var(--accent-ink);
+  background: rgba(106, 67, 55, 0.08);
+  border: 1px solid rgba(106, 67, 55, 0.14);
 }
 
 .card-title {
@@ -1136,7 +1144,7 @@ h1 {
 
 .card-meta {
   margin: 0;
-  color: #68717d;
+  color: var(--muted);
   font-size: 0.74rem;
   letter-spacing: 0.05em;
 }
@@ -1160,7 +1168,7 @@ h1 {
   margin: 0.62rem 0 0;
   border-left: 2px solid var(--line-strong);
   padding-left: 0.62rem;
-  color: #54637a;
+  color: var(--muted);
   font-style: italic;
   font-size: 0.88rem;
   line-height: 1.62;
@@ -1216,7 +1224,7 @@ h1 {
 .contact-topic-card h3 {
   margin: 0;
   font-size: 0.94rem;
-  color: #133f84;
+  color: var(--accent-ink);
 }
 
 .contact-topic-card p {
@@ -1257,7 +1265,7 @@ h1 {
   border-radius: var(--radius-control);
   padding: 1.1rem;
   color: var(--muted);
-  background: #fafdff;
+  background: rgba(106, 67, 55, 0.035);
 }
 
 .footer {
@@ -1283,12 +1291,12 @@ h1 {
   align-items: center;
   min-height: var(--tap-min);
   text-decoration: none;
-  color: #475569;
+  color: var(--muted);
   border: 1px solid var(--line);
   border-radius: var(--radius-tag);
   padding: 0.3rem 0.62rem;
   font-size: 0.76rem;
-  background: #ffffff;
+  background: var(--paper);
 }
 
 .secondary-nav a:hover {
