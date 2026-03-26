@@ -61,6 +61,57 @@ const UI_COPY = {
   },
 };
 
+const MATERIAL_KIND_LABELS = {
+  en: {
+    article: "Article",
+    analysis: "Analysis",
+    commentary: "Commentary",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Expert comment",
+    reference: "Reference",
+  },
+  fr: {
+    article: "Article",
+    analysis: "Analyse",
+    commentary: "Commentaire",
+    essay: "Essai",
+    interview: "Entretien",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Vidéo",
+    expert_comment: "Commentaire",
+    reference: "Référence",
+  },
+  de: {
+    article: "Artikel",
+    analysis: "Analyse",
+    commentary: "Kommentar",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Notiz",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Kommentar",
+    reference: "Referenz",
+  },
+  es: {
+    article: "Artículo",
+    analysis: "Análisis",
+    commentary: "Comentario",
+    essay: "Ensayo",
+    interview: "Entrevista",
+    note: "Nota",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Comentario",
+    reference: "Referencia",
+  },
+};
+
 const MACHINE_FRAGMENT_PATTERNS = [
   /\bmapped as\b/i,
   /\bmachine[- ]?readable\b/i,
@@ -102,6 +153,43 @@ function composeCardMeta(item) {
   const source = normalizeText(item?.source || "-");
   const date = normalizeText(item?.date || "-");
   return `${source} • ${date}`;
+}
+
+function inferMaterialKindKey(item = {}) {
+  const role = normalizeText(item?.role || "").toLowerCase();
+  const blob = [
+    item?.material_type,
+    item?.format,
+    item?.title,
+    item?.summary,
+    item?.digest,
+    item?.description,
+    item?.topic,
+    item?.source,
+    item?.url,
+  ]
+    .map((value) => String(value || ""))
+    .join(" ")
+    .toLowerCase();
+
+  if (role === "reference") return "reference";
+  if (/\b(?:podcast|podcasts)\b/.test(blob)) return "podcast";
+  if (/\b(?:video|youtube|tedx)\b|youtu\.be/.test(blob)) {
+    return /\b(?:interview|conversation|podcast)\b/.test(blob) ? "interview" : "video";
+  }
+  if (role === "quoted") return /\b(?:interview|conversation|feature)\b/.test(blob) ? "interview" : "expert_comment";
+  if (/\b(?:interview|conversation|q&a)\b/.test(blob)) return "interview";
+  if (/\bessay\b/.test(blob)) return "essay";
+  if (/\bcommentary|column|opinion\b/.test(blob)) return "commentary";
+  if (/\banalysis|analytical\b/.test(blob)) return "analysis";
+  if (/\bnote|notes\b/.test(blob)) return "note";
+  return "article";
+}
+
+function materialKindLabel(item = {}, locale = uiLang) {
+  const copy = MATERIAL_KIND_LABELS[locale] || MATERIAL_KIND_LABELS.en;
+  const key = inferMaterialKindKey(item);
+  return copy[key] || MATERIAL_KIND_LABELS.en[key] || MATERIAL_KIND_LABELS.en.article;
 }
 
 function isShowcaseCandidate(item) {
@@ -720,6 +808,7 @@ function createCardNode(item, variant) {
   const sourceUrl = getCardPrimarySourceUrl(item);
   const noteUrl = getCardNoteUrl(item);
   const showLangTag = shouldShowCardLanguageBadge(item, state.lang);
+  const materialLabel = materialKindLabel(item);
   // Cards stay source-first; if the source is unavailable, they can fall back to the on-site note instead of shipping a dead click target.
   const canNavigate = Boolean(primaryUrl);
   const showNoteCta = Boolean(noteUrl && noteUrl !== primaryUrl);
@@ -733,12 +822,17 @@ function createCardNode(item, variant) {
 
   const cardHead = node.querySelector(".card-head");
   const langTag = node.querySelector(".lang-tag");
+  const kicker = node.querySelector(".card-kicker");
   if (langTag) {
     langTag.textContent = showLangTag ? String(item?.language || "").trim().toUpperCase() : "";
     langTag.hidden = !showLangTag;
   }
+  if (kicker) {
+    kicker.textContent = materialLabel;
+    kicker.hidden = !materialLabel;
+  }
   if (cardHead) {
-    cardHead.hidden = !showLangTag;
+    cardHead.hidden = !showLangTag && !materialLabel;
   }
 
   const titleNode = node.querySelector(".card-title");
@@ -759,7 +853,7 @@ function createCardNode(item, variant) {
     renderFeaturedDigest(digestNode, item);
   } else {
     digestNode.textContent = humanSummaryPreview(item, {
-      maxSentences: 3,
+      maxSentences: 1,
     });
   }
 

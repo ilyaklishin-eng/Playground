@@ -96,38 +96,46 @@ const SECONDARY_REFERENCES = [
 
 const HOME_COPY = {
   en: {
-    proofLabel: "Professional proof points",
-    kf: "founder and strategist.",
-    volna: "co-founder and editor-in-chief.",
-    tvRain: "former Head of Digital Newsroom.",
-    rtvi: "former Digital Director.",
+    proofLabel: "Professional overview",
+    currentLabel: "Current work",
+    previousLabel: "Previous roles",
+    kf: "Founder and strategist",
+    volna: "Co-founder and editor-in-chief",
+    tvRain: "Former Head of Digital Newsroom",
+    rtvi: "Former Digital Director",
     referencesLabel: "Independent references",
-    showAll: "Show all",
+    showAll: "Show all references",
   },
   fr: {
-    proofLabel: "Repères professionnels",
-    kf: "fondateur et stratège.",
-    volna: "cofondateur et rédacteur en chef.",
-    tvRain: "ancien responsable de la rédaction numérique.",
-    rtvi: "ancien directeur du numérique.",
+    proofLabel: "Vue d’ensemble professionnelle",
+    currentLabel: "Travail actuel",
+    previousLabel: "Parcours antérieur",
+    kf: "Fondateur et stratège",
+    volna: "Cofondateur et rédacteur en chef",
+    tvRain: "Ancien responsable de la rédaction numérique",
+    rtvi: "Ancien directeur du numérique",
     referencesLabel: "Références indépendantes",
     showAll: "Voir toutes les références",
   },
   de: {
-    proofLabel: "Berufliche Eckdaten",
-    kf: "Gründer und Stratege.",
-    volna: "Mitgründer und Chefredakteur.",
-    tvRain: "ehemaliger Leiter der digitalen Redaktion.",
-    rtvi: "ehemaliger Digitaldirektor.",
+    proofLabel: "Beruflicher Überblick",
+    currentLabel: "Aktuelle Arbeit",
+    previousLabel: "Frühere Funktionen",
+    kf: "Gründer und Stratege",
+    volna: "Mitgründer und Chefredakteur",
+    tvRain: "Ehemaliger Leiter der digitalen Redaktion",
+    rtvi: "Ehemaliger Digitaldirektor",
     referencesLabel: "Unabhängige Referenzen",
     showAll: "Alle Referenzen anzeigen",
   },
   es: {
-    proofLabel: "Puntos profesionales clave",
-    kf: "fundador y estratega.",
-    volna: "cofundador y director editorial.",
-    tvRain: "exjefe de redacción digital.",
-    rtvi: "exdirector digital.",
+    proofLabel: "Panorama profesional",
+    currentLabel: "Trabajo actual",
+    previousLabel: "Cargos anteriores",
+    kf: "Fundador y estratega",
+    volna: "Cofundador y director editorial",
+    tvRain: "Exjefe de redacción digital",
+    rtvi: "Exdirector digital",
     referencesLabel: "Referencias independientes",
     showAll: "Ver todas las referencias",
   },
@@ -192,28 +200,46 @@ const renderReferenceLine = (references = []) =>
       const suffix = index === references.length - 1 ? "." : ",";
       return `${renderReferenceLink(reference)}${suffix}`;
     })
-    .join("\n                ");
+    .join(" ");
 
 const renderFullBlock = (locale = "en") => {
   const copy = HOME_COPY[resolveLocale(locale)];
-  return `            <ul class="hero-proof-list" aria-label="${escapeHtml(copy.proofLabel)}">
-              <li><a class="hero-proof-link" href="https://kf.agency/" target="_blank" rel="noopener noreferrer">KF Agency</a>: ${escapeHtml(copy.kf)}</li>
-              <li><a class="hero-proof-link" href="https://linktr.ee/volnamedia" target="_blank" rel="noopener noreferrer">Volna Media</a>: ${escapeHtml(copy.volna)}</li>
-              <li><strong>TV Rain:</strong> ${escapeHtml(copy.tvRain)}</li>
-              <li><strong>RTVI:</strong> ${escapeHtml(copy.rtvi)}</li>
-              <li>
-                <strong>${escapeHtml(copy.referencesLabel)}:</strong>
-                <span class="hero-reference-line">
-                ${renderReferenceLine(CORE_REFERENCES)}
-                </span>
+  return `            <div class="hero-credentials" aria-label="${escapeHtml(copy.proofLabel)}">
+              <section class="hero-credential-group hero-credential-group-current" aria-label="${escapeHtml(copy.currentLabel)}">
+                <p class="hero-group-label">${escapeHtml(copy.currentLabel)}</p>
+                <ul class="hero-role-list">
+                  <li>
+                    <a class="hero-proof-link hero-role-name" href="https://kf.agency/" target="_blank" rel="noopener noreferrer">KF Agency</a>
+                    <span class="hero-role-detail">${escapeHtml(copy.kf)}</span>
+                  </li>
+                  <li>
+                    <a class="hero-proof-link hero-role-name" href="https://linktr.ee/volnamedia" target="_blank" rel="noopener noreferrer">Volna Media</a>
+                    <span class="hero-role-detail">${escapeHtml(copy.volna)}</span>
+                  </li>
+                </ul>
+              </section>
+              <section class="hero-credential-group hero-credential-group-previous" aria-label="${escapeHtml(copy.previousLabel)}">
+                <p class="hero-group-label">${escapeHtml(copy.previousLabel)}</p>
+                <ul class="hero-role-list hero-role-list-secondary">
+                  <li>
+                    <strong class="hero-role-name">TV Rain</strong>
+                    <span class="hero-role-detail">${escapeHtml(copy.tvRain)}</span>
+                  </li>
+                  <li>
+                    <strong class="hero-role-name">RTVI</strong>
+                    <span class="hero-role-detail">${escapeHtml(copy.rtvi)}</span>
+                  </li>
+                </ul>
+              </section>
+              <section class="hero-credential-group hero-credential-group-proof" aria-label="${escapeHtml(copy.referencesLabel)}">
+                <p class="hero-group-label">${escapeHtml(copy.referencesLabel)}</p>
+                <p class="hero-reference-line">${renderReferenceLine(CORE_REFERENCES)}</p>
                 <details class="hero-reference-more">
                   <summary>${escapeHtml(copy.showAll)}</summary>
-                  <span class="hero-reference-line">
-                    ${renderReferenceLine(SECONDARY_REFERENCES)}
-                  </span>
+                  <p class="hero-reference-line hero-reference-line-secondary">${renderReferenceLine(SECONDARY_REFERENCES)}</p>
                 </details>
-              </li>
-            </ul>`;
+              </section>
+            </div>`;
 };
 
 const renderMinimalBlock = (locale = "en") => {

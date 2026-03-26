@@ -25,6 +25,56 @@ const ROLE_VIEW_LABELS = {
   de: { authored: "Verfasst", quoted: "Zitiert", reference: "Referenzen" },
   es: { authored: "Firmado", quoted: "Citado", reference: "Referencias" },
 };
+const TYPE_LABELS = {
+  en: {
+    article: "Article",
+    analysis: "Analysis",
+    commentary: "Commentary",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Expert comment",
+    reference: "Reference",
+  },
+  fr: {
+    article: "Article",
+    analysis: "Analyse",
+    commentary: "Commentaire",
+    essay: "Essai",
+    interview: "Entretien",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Vidéo",
+    expert_comment: "Commentaire",
+    reference: "Référence",
+  },
+  de: {
+    article: "Artikel",
+    analysis: "Analyse",
+    commentary: "Kommentar",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Notiz",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Kommentar",
+    reference: "Referenz",
+  },
+  es: {
+    article: "Artículo",
+    analysis: "Análisis",
+    commentary: "Comentario",
+    essay: "Ensayo",
+    interview: "Entrevista",
+    note: "Nota",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Comentario",
+    reference: "Referencia",
+  },
+};
 
 init().catch((error) => {
   console.error("Failed to build selected materials feed", error);
@@ -52,7 +102,7 @@ function toTimestamp(raw) {
   return Date.parse(value) || 0;
 }
 
-function summaryTwoSentences(raw) {
+function summaryPreview(raw, maxSentences = 2) {
   const text = normalize(stripTags(raw));
   if (!text) return "";
   const parts = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
@@ -65,7 +115,7 @@ function summaryTwoSentences(raw) {
           part
         )
     )
-    .slice(0, 2);
+    .slice(0, Math.max(1, maxSentences));
   const merged = normalize(picked.join(" "));
   if (!merged) return "";
   return /[.!?]$/.test(merged) ? merged : `${merged}.`;
@@ -112,6 +162,43 @@ function normalizeRole(value) {
   return "reference";
 }
 
+function inferMaterialKindKey(item = {}) {
+  const role = normalize(item.role).toLowerCase();
+  const blob = [
+    item.formatLabel,
+    item.format,
+    item.title,
+    item.description,
+    item.summary,
+    item.material_type,
+    item.source,
+    item.topic,
+    item.url,
+  ]
+    .map((v) => String(v || ""))
+    .join(" ")
+    .toLowerCase();
+
+  if (role === "reference") return "reference";
+  if (/\b(?:podcast|podcasts)\b|подкаст/.test(blob)) return "podcast";
+  if (/\b(?:video|youtube|tedx?)\b|видео/.test(blob)) {
+    return /\b(?:interview|conversation|podcast)\b/.test(blob) ? "interview" : "video";
+  }
+  if (role === "quoted") return /\b(?:interview|conversation|feature)\b/.test(blob) ? "interview" : "expert_comment";
+  if (/\b(?:interview|conversation|q&a)\b/.test(blob)) return "interview";
+  if (/\bessay\b/.test(blob)) return "essay";
+  if (/\bcommentary|column|opinion\b/.test(blob)) return "commentary";
+  if (/\banalysis|analytical\b/.test(blob)) return "analysis";
+  if (/\bnote|notes\b/.test(blob)) return "note";
+  return "article";
+}
+
+function typeLabel(item = {}) {
+  const copy = TYPE_LABELS[uiLang] || TYPE_LABELS.en;
+  const key = inferMaterialKindKey(item);
+  return copy[key] || TYPE_LABELS.en[key] || TYPE_LABELS.en.article;
+}
+
 function roleLabel(role) {
   const copy = ROLE_LABELS[uiLang] || ROLE_LABELS.en;
   return copy[normalizeRole(role)] || copy.reference;
@@ -126,14 +213,15 @@ function isAbsoluteUrl(value) {
   return /^https?:\/\//i.test(String(value || ""));
 }
 
-function createCard(item) {
+function createCard(item, options = {}) {
+  const featured = Boolean(options.featured);
   const node = document.createElement("article");
-  node.className = "selected-all-card";
+  node.className = `selected-all-card${featured ? " selected-all-card-featured" : ""}`;
   node.dataset.role = normalizeRole(item.role);
 
   const meta = document.createElement("p");
   meta.className = "selected-all-meta";
-  meta.textContent = `${item.date || "-"} · ${formatLabel(item.format)} · ${item.source || "Source"}`;
+  meta.textContent = `${item.date || "-"} · ${item.source || "Source"}`;
 
   const badgeWrap = document.createElement("p");
   badgeWrap.className = "selected-all-role";
@@ -141,6 +229,10 @@ function createCard(item) {
   badge.className = `role-badge role-badge-${normalizeRole(item.role).replace("_", "-")}`;
   badge.textContent = roleLabel(item.role);
   badgeWrap.appendChild(badge);
+  const type = document.createElement("span");
+  type.className = "selected-all-type";
+  type.textContent = typeLabel(item);
+  badgeWrap.appendChild(type);
 
   const title = document.createElement("h3");
   const titleLink = document.createElement("a");
@@ -154,7 +246,7 @@ function createCard(item) {
 
   const summary = document.createElement("p");
   summary.className = "selected-all-summary";
-  summary.textContent = summaryTwoSentences(item.summary || "") || fallbackSummary(item);
+  summary.textContent = summaryPreview(item.summary || "", featured ? 2 : 1) || fallbackSummary(item);
 
   const cta = document.createElement("p");
   cta.className = "selected-all-cta";
@@ -222,7 +314,7 @@ function render() {
   }
 
   const fragment = document.createDocumentFragment();
-  visible.forEach((item) => fragment.appendChild(createCard(item)));
+  visible.forEach((item, index) => fragment.appendChild(createCard(item, { featured: index === 0 })));
   grid.appendChild(fragment);
 }
 
@@ -274,7 +366,7 @@ async function loadDigestCards() {
         source: normalize(item.source),
         role: normalize(item.role || "authored"),
         title: normalize(item.title),
-        summary: summaryTwoSentences(item.summary || item.digest),
+        summary: summaryPreview(item.summary || item.digest, 2),
         url: normalize(item.post_url || sourceUrl),
         sourceUrl,
         format: detectFormat(item),
@@ -299,7 +391,7 @@ async function loadInterviewCards() {
       source: normalize(item.outlet || (item.section === "features" ? "Feature" : "Interview")),
       role: normalize(item.role || "quoted"),
       title: normalize(item.title),
-      summary: summaryTwoSentences(item.description),
+      summary: summaryPreview(item.description, 2),
       url: normalize(item.url),
       sourceUrl: normalize(item.source_url || item.url),
       format: detectFormat(item),

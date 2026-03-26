@@ -1530,6 +1530,95 @@ const composeCardMeta = (item = {}) => {
   return `${source} • ${date}`;
 };
 
+const MATERIAL_KIND_LABELS = {
+  en: {
+    article: "Article",
+    analysis: "Analysis",
+    commentary: "Commentary",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Expert comment",
+    reference: "Reference",
+  },
+  fr: {
+    article: "Article",
+    analysis: "Analyse",
+    commentary: "Commentaire",
+    essay: "Essai",
+    interview: "Entretien",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Vidéo",
+    expert_comment: "Commentaire",
+    reference: "Référence",
+  },
+  de: {
+    article: "Artikel",
+    analysis: "Analyse",
+    commentary: "Kommentar",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Notiz",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Kommentar",
+    reference: "Referenz",
+  },
+  es: {
+    article: "Artículo",
+    analysis: "Análisis",
+    commentary: "Comentario",
+    essay: "Ensayo",
+    interview: "Entrevista",
+    note: "Nota",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Comentario",
+    reference: "Referencia",
+  },
+};
+
+const inferMaterialKindKey = (item = {}) => {
+  const role = normalizeText(item?.role || "").toLowerCase();
+  const blob = [
+    item?.material_type,
+    item?.format,
+    item?.title,
+    item?.summary,
+    item?.digest,
+    item?.description,
+    item?.topic,
+    item?.source,
+    item?.url,
+  ]
+    .map((value) => String(value || ""))
+    .join(" ")
+    .toLowerCase();
+
+  if (role === "reference") return "reference";
+  if (/\b(?:podcast|podcasts)\b/.test(blob)) return "podcast";
+  if (/\b(?:video|youtube|tedx)\b|youtu\.be/.test(blob)) {
+    return /\b(?:interview|conversation|podcast)\b/.test(blob) ? "interview" : "video";
+  }
+  if (role === "quoted") return /\b(?:interview|conversation|feature)\b/.test(blob) ? "interview" : "expert_comment";
+  if (/\b(?:interview|conversation|q&a)\b/.test(blob)) return "interview";
+  if (/\bessay\b/.test(blob)) return "essay";
+  if (/\bcommentary|column|opinion\b/.test(blob)) return "commentary";
+  if (/\banalysis|analytical\b/.test(blob)) return "analysis";
+  if (/\bnote|notes\b/.test(blob)) return "note";
+  return "article";
+};
+
+const materialKindLabel = (item = {}, locale = "en") => {
+  const normalizedLocale = normalizeLocale(locale, "en");
+  const copy = MATERIAL_KIND_LABELS[normalizedLocale] || MATERIAL_KIND_LABELS.en;
+  const key = inferMaterialKindKey(item);
+  return copy[key] || MATERIAL_KIND_LABELS.en[key] || MATERIAL_KIND_LABELS.en.article;
+};
+
 const sourceActionLabel = (item = {}) => {
   const title = normalizeText(item?.title || "").toLowerCase();
   const source = normalizeText(item?.source || "").toLowerCase();
@@ -1739,10 +1828,11 @@ const hashText = (value = "") => {
   return hash;
 };
 
-const previewSummary = (item = {}) => {
+const previewSummary = (item = {}, options = {}) => {
   const raw = normalizeText(item?.digest || item?.summary || "");
   if (!raw) return "";
-  const sentences = collectCleanSummarySentences(item, raw, { maxSentences: 2 });
+  const maxSentences = Number.isFinite(options?.maxSentences) ? options.maxSentences : 2;
+  const sentences = collectCleanSummarySentences(item, raw, { maxSentences });
   return finalizeSummaryText(sentences, fallbackSummary(item)).replace(/^[a-z]/, (char) => char.toUpperCase());
 };
 
@@ -2347,24 +2437,29 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
         source: normalizeText(item?.source || ""),
         role: CONTENT_ROLE.AUTHORED,
         title: resolveDisplayTitle(item),
-        summary: sanitizeSelectedIntro(previewSummary(item), item),
+        summary: sanitizeSelectedIntro(previewSummary(item, { maxSentences: 2 }), item),
         url,
         sourceUrl,
       };
     });
 
   const cardsHtml = items
-    .map((item) => {
+    .map((item, index) => {
       const sourceLink =
         item.sourceUrl && item.sourceUrl !== item.url
           ? ` · <a href="${htmlEscape(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">Original source</a>`
           : "";
+      const featuredClass = index === 0 ? " selected-all-card-featured" : "";
+      const typeLabel = htmlEscape(materialKindLabel(item, "en"));
+      const summary = htmlEscape(
+        sanitizeSelectedIntro(previewSummary(item, { maxSentences: index === 0 ? 2 : 1 }), item) || "No summary available."
+      );
 
-      return `          <article class="selected-all-card" data-role="authored">
-            <p class="selected-all-meta">${htmlEscape(`${item.date || "-"} · Text · ${item.source || "Source"}`)}</p>
-            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span></p>
+      return `          <article class="selected-all-card${featuredClass}" data-role="authored">
+            <p class="selected-all-meta">${htmlEscape(`${item.date || "-"} · ${item.source || "Source"}`)}</p>
+            <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span><span class="selected-all-type">${typeLabel}</span></p>
             <h3><a href="${htmlEscape(item.url)}">${htmlEscape(item.title || "Untitled")}</a></h3>
-            <p class="selected-all-summary">${htmlEscape(item.summary || "No summary available.")}</p>
+            <p class="selected-all-summary">${summary}</p>
             <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open on-site note</a>${sourceLink}</p>
           </article>`;
     })
@@ -3211,6 +3306,7 @@ const buildHomeRenderedCardHtml = (entry, variant, locale = "en", brokenSourceUr
   const lang = htmlEscape(normalizeLang(item?.language));
   const feedLang = normalizeLang(locale);
   const showLangTag = Boolean(lang && lang !== feedLang);
+  const materialLabel = htmlEscape(materialKindLabel(item, locale));
   const title = htmlEscape(cleanDisplayTitle(item?.title || ""));
   const meta = htmlEscape(composeCardMeta(item));
   const primaryUrl = getHomeEntryPrimaryUrl(entry, brokenSourceUrls);
@@ -3223,7 +3319,7 @@ const buildHomeRenderedCardHtml = (entry, variant, locale = "en", brokenSourceUr
   const digestHtml =
     variant === "featured"
       ? buildFeaturedDigestHtml(item)
-      : `<p>${htmlEscape(previewSummary(item))}</p>`;
+      : `<p>${htmlEscape(previewSummary(item, { maxSentences: 1 }))}</p>`;
   const quote = variant === "featured" && item?.id !== "en-009" ? normalizeText(pickCardQuote(item)) : "";
   const articleClass = `card card-${variant}${canNavigate ? " card-clickable" : ""}`;
   const dataUrlAttr = canNavigate ? ` data-url="${htmlEscape(primaryUrl)}"` : "";
@@ -3243,7 +3339,7 @@ const buildHomeRenderedCardHtml = (entry, variant, locale = "en", brokenSourceUr
     links.length > 0 ? `\n          <div class="card-links">\n            ${links.join("\n            ")}\n          </div>` : "";
 
   return `        <article class="${articleClass}"${dataUrlAttr}>
-${showLangTag ? `          <div class="card-head">\n            <span class="lang-tag">${lang}</span>\n          </div>\n` : ""}          <h3 class="card-title">${titleHtml}</h3>
+${showLangTag || materialLabel ? `          <div class="card-head">\n            <span class="lang-tag"${showLangTag ? "" : " hidden"}>${showLangTag ? lang : ""}</span>\n            <span class="card-kicker"${materialLabel ? "" : " hidden"}>${materialLabel}</span>\n          </div>\n` : ""}          <h3 class="card-title">${titleHtml}</h3>
           <p class="card-meta">${meta}</p>
           <div class="card-digest">${digestHtml}</div>
           <blockquote class="card-quote"${quote ? "" : " hidden"}>${quote ? htmlEscape(quote) : ""}</blockquote>
