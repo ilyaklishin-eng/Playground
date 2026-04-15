@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-03-20T06:39:40.802Z",
+  "generated_at": "2026-04-15T06:39:17.017Z",
   "canonical_domain": "https://www.klishin.work",
   "totals": {
-    "html_pages": 122,
-    "post_pages": 95,
-    "indexable_pages": 104,
-    "article_jsonld_pages": 99,
-    "website_jsonld_pages": 122,
-    "person_jsonld_pages": 122,
-    "organization_jsonld_pages": 122,
-    "pages_with_all_core_entity_ids": 122
+    "html_pages": 119,
+    "post_pages": 91,
+    "indexable_pages": 101,
+    "article_jsonld_pages": 95,
+    "website_jsonld_pages": 119,
+    "person_jsonld_pages": 119,
+    "organization_jsonld_pages": 119,
+    "pages_with_all_core_entity_ids": 119
   },
   "checks": {
     "robots_txt_exists": true,
@@ -1056,41 +1056,6 @@
         {
           "hreflang": "x-default",
           "href": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html"
-        }
-      ]
-    },
-    {
-      "path": "/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html",
-      "canonical": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html",
-      "robots": "index,follow,max-image-preview:large",
-      "noindex": false,
-      "article_jsonld": true,
-      "website_jsonld": true,
-      "person_jsonld": true,
-      "organization_jsonld": true,
-      "has_person_id": true,
-      "has_website_id": true,
-      "has_organization_id": true,
-      "alternates": [
-        {
-          "hreflang": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "hreflang": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "hreflang": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "hreflang": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        },
-        {
-          "hreflang": "x-default",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
         }
       ]
     },
@@ -2618,41 +2583,6 @@
       ]
     },
     {
-      "path": "/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "canonical": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html",
-      "robots": "index,follow,max-image-preview:large",
-      "noindex": false,
-      "article_jsonld": true,
-      "website_jsonld": true,
-      "person_jsonld": true,
-      "organization_jsonld": true,
-      "has_person_id": true,
-      "has_website_id": true,
-      "has_organization_id": true,
-      "alternates": [
-        {
-          "hreflang": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "hreflang": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "hreflang": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "hreflang": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        },
-        {
-          "hreflang": "x-default",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        }
-      ]
-    },
-    {
       "path": "/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
       "canonical": "https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html",
       "robots": "index,follow,max-image-preview:large",
@@ -2999,41 +2929,6 @@
         {
           "hreflang": "x-default",
           "href": "https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html"
-        }
-      ]
-    },
-    {
-      "path": "/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html",
-      "canonical": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html",
-      "robots": "index,follow,max-image-preview:large",
-      "noindex": false,
-      "article_jsonld": true,
-      "website_jsonld": true,
-      "person_jsonld": true,
-      "organization_jsonld": true,
-      "has_person_id": true,
-      "has_website_id": true,
-      "has_organization_id": true,
-      "alternates": [
-        {
-          "hreflang": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "hreflang": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "hreflang": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "hreflang": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        },
-        {
-          "hreflang": "x-default",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
         }
       ]
     },
@@ -3388,41 +3283,6 @@
       ]
     },
     {
-      "path": "/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html",
-      "canonical": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html",
-      "robots": "index,follow,max-image-preview:large",
-      "noindex": false,
-      "article_jsonld": true,
-      "website_jsonld": true,
-      "person_jsonld": true,
-      "organization_jsonld": true,
-      "has_person_id": true,
-      "has_website_id": true,
-      "has_organization_id": true,
-      "alternates": [
-        {
-          "hreflang": "en",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        },
-        {
-          "hreflang": "fr",
-          "href": "https://www.klishin.work/posts/fr-150-wilson-center-comment-les-medias-sont-devenus-une-arme-centrale-du-pouvo.html"
-        },
-        {
-          "hreflang": "de",
-          "href": "https://www.klishin.work/posts/de-150-wilson-center-wie-medien-zu-einer-zentralen-waffe-der-macht-wurden.html"
-        },
-        {
-          "hreflang": "es",
-          "href": "https://www.klishin.work/posts/es-150-wilson-center-como-los-medios-se-volvieron-un-arma-central-del-poder.html"
-        },
-        {
-          "hreflang": "x-default",
-          "href": "https://www.klishin.work/posts/en-150-wilson-center-how-the-media-became-one-of-putins-most-powerful-weapons.html"
-        }
-      ]
-    },
-    {
       "path": "/posts/fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias.html",
       "canonical": "https://www.klishin.work/posts/fr-151-profil-jsis-patriotisme-numerique-et-agenda-nationaliste-dans-les-medias.html",
       "robots": "index,follow,max-image-preview:large",
@@ -3558,6 +3418,20 @@
     {
       "path": "/selected/",
       "canonical": "https://www.klishin.work/selected/",
+      "robots": "index,follow,max-image-preview:large",
+      "noindex": false,
+      "article_jsonld": false,
+      "website_jsonld": true,
+      "person_jsonld": true,
+      "organization_jsonld": true,
+      "has_person_id": true,
+      "has_website_id": true,
+      "has_organization_id": true,
+      "alternates": []
+    },
+    {
+      "path": "/statement/",
+      "canonical": "https://www.klishin.work/statement/",
       "robots": "index,follow,max-image-preview:large",
       "noindex": false,
       "article_jsonld": false,
