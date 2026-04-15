@@ -18,7 +18,6 @@ const IMPORTANT_PATHS = [
   "/cases/fr/",
   "/cases/de/",
   "/cases/es/",
-  "/statement/",
   "/contact/",
   "/interviews/",
   "/interviews/fr/",
