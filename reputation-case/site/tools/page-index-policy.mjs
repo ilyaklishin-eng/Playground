@@ -108,6 +108,7 @@ export const STATIC_PAGE_VISIBILITY = new Map([
   ["cases/fr/index.html", buildStaticRecord("fr", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["cases/de/index.html", buildStaticRecord("de", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["cases/es/index.html", buildStaticRecord("es", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
+  ["statement/index.html", buildStaticRecord("en", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["selected/index.html", buildStaticRecord("en", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["interviews/index.html", buildStaticRecord("en", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],
   ["interviews/fr/index.html", buildStaticRecord("fr", CONTENT_SURFACE.PUBLIC, PAGE_CLASS.INDEXABLE)],

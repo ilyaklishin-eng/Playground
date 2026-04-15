@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.klishin.work/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.klishin.work/fr/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.klishin.work/de/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.klishin.work/es/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://www.klishin.work/bio/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://www.klishin.work/cases/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -61,8 +61,13 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://www.klishin.work/statement/</loc>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://www.klishin.work/selected/</loc>
-    <lastmod>2026-04-15T06:48:17.000Z</lastmod>
+    <lastmod>2026-04-15T06:51:30.000Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
