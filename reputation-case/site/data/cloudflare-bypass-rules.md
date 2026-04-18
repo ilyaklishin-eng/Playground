@@ -18,7 +18,7 @@ Lists:
 - `openai_gptbot_ips` (21 CIDRs)
 - `perplexitybot_ips` (8 CIDRs)
 - `perplexity_user_ips` (4 CIDRs)
-- `anthropic_ai_ips` (8 CIDRs)
+- `anthropic_ai_ips` (10 CIDRs)
 
 ## Rule 2: Verified search engines
 
