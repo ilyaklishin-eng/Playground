@@ -1,54 +1,104 @@
 User-agent: *
 Allow: /
 Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Googlebot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Bingbot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: YandexBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: GPTBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Perplexity-User
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: CCBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: DuckAssistBot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Applebot
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 User-agent: Yandex
 Allow: /
+Disallow: /tools/
+Disallow: /data/
+Disallow: /digest-multilingual-notes-v1.md
 
 Sitemap: https://www.klishin.work/sitemap.xml
 Sitemap: https://www.klishin.work/sitemap-core.xml

@@ -98,7 +98,24 @@ const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
 const BUILD_ENV = currentBuildEnv();
 const PRODUCTION_BUILD = isProductionBuild();
 const INCLUDE_DRAFT_OUTPUTS = !PRODUCTION_BUILD;
-const EXTRA_POST_INDEX_FILES = new Set(["index.html", "all.html", ...(INCLUDE_DRAFT_OUTPUTS ? ["drafts.html"] : [])]);
+const LEGACY_POST_REDIRECT_FILES = new Set([
+  "de-017-guardian-profil-nennt-technischen-beitrag-zur-protest-infrastruktur.html",
+  "en-068-authored-commentary-snob-2026-03-06-magazine-piece.html",
+  "fr-068-commentaire-signe-snob-2026-03-06-texte-de-magazine.html",
+  "de-068-signierter-kommentar-snob-2026-03-06-magazintext.html",
+  "en-075-authored-commentary-republic-2026-03-06-co-byline-piece-record-1.html",
+  "es-086-comentario-firmado-republic-2026-03-06-texto-cofirmado-texto-cofirmado-r.html",
+  "es-010-canales-anonimos-de-telegram-estan-moldeando-la-vida-cotidiana-en-rusia.html",
+  "fr-029-pourquoi-des-russes-rejettent-les-medias-occidentaux-sur-les-protestatio.html",
+  "de-035-signierter-kommentar-vedomosti-2019-10-30-skuchayuschaya-propaganda.html",
+]);
+const EXTRA_POST_INDEX_FILES = new Set([
+  "index.html",
+  "all.html",
+  ...LEGACY_POST_REDIRECT_FILES,
+  ...(INCLUDE_DRAFT_OUTPUTS ? ["drafts.html"] : []),
+]);
+const BOT_LEVEL_ALLOWED_DISALLOWS = new Set(["/tools/", "/data/", "/digest-multilingual-notes-v1.md"]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Bingbot",
@@ -1042,8 +1059,16 @@ const checkRobots = async (issues) => {
     if (!/Allow:\s*\/\s*$/im.test(block)) {
       pushError(issues, "robots.bot-allow.missing", `${bot} block misses Allow: /.`);
     }
-    if (/^\s*Disallow:\s*/im.test(block)) {
-      pushError(issues, "robots.bot-disallow.present", `${bot} block should be full whitelist (no Disallow lines).`);
+    const disallows = [...block.matchAll(/^\s*Disallow:\s*(\S+)/gim)].map((match) => String(match[1] || "").trim());
+    for (const required of BOT_LEVEL_ALLOWED_DISALLOWS) {
+      if (!disallows.includes(required)) {
+        pushError(issues, "robots.bot-disallow.missing", `${bot} block misses utility disallow ${required}.`);
+      }
+    }
+    for (const disallow of disallows) {
+      if (!BOT_LEVEL_ALLOWED_DISALLOWS.has(disallow)) {
+        pushError(issues, "robots.bot-disallow.unexpected", `${bot} block has unexpected Disallow: ${disallow}.`);
+      }
     }
   }
 };

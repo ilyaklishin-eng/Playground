@@ -4644,16 +4644,56 @@ const FULL_WHITELIST_BOTS = [
 
 const EXTRA_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
 const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
+const SEARCH_BOT_UTILITY_DISALLOWS = ["/tools/", "/data/", "/digest-multilingual-notes-v1.md"];
+const LEGACY_POST_REDIRECTS = new Map([
+  [
+    "de-017-guardian-profil-nennt-technischen-beitrag-zur-protest-infrastruktur.html",
+    canonicalUrl("posts/en-021-guardian-profile-notes-role-in-protest-era-digital-infrastructure.html"),
+  ],
+  ["en-068-authored-commentary-snob-2026-03-06-magazine-piece.html", "https://snob.ru/entry/84040/"],
+  ["fr-068-commentaire-signe-snob-2026-03-06-texte-de-magazine.html", "https://snob.ru/entry/84040/"],
+  ["de-068-signierter-kommentar-snob-2026-03-06-magazintext.html", "https://snob.ru/entry/84040/"],
+  ["en-075-authored-commentary-republic-2026-03-06-co-byline-piece-record-1.html", "https://republic.ru/posts/18877"],
+  ["es-086-comentario-firmado-republic-2026-03-06-texto-cofirmado-texto-cofirmado-r.html", "https://republic.ru/posts/18856"],
+  ["es-010-canales-anonimos-de-telegram-estan-moldeando-la-vida-cotidiana-en-rusia.html", "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588"],
+  ["fr-029-pourquoi-des-russes-rejettent-les-medias-occidentaux-sur-les-protestatio.html", "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155"],
+  ["de-035-signierter-kommentar-vedomosti-2019-10-30-skuchayuschaya-propaganda.html", "https://www.vedomosti.ru/opinion/columns/2019/10/30/815138-skuchayuschaya-propaganda"],
+]);
+const LEGACY_POST_REDIRECT_FILES = new Set(LEGACY_POST_REDIRECTS.keys());
 
 const buildRobots = () => {
   const blocks = [
-    renderBotBlock("*", { allowRoot: true, disallowPaths: ["/tools/"] }),
-    ...FULL_WHITELIST_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: [] })),
-    ...EXTRA_ALLOW_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: [] })),
+    // Utility datasets stay public, but we keep them out of search indexing paths.
+    renderBotBlock("*", { allowRoot: true, disallowPaths: SEARCH_BOT_UTILITY_DISALLOWS }),
+    ...FULL_WHITELIST_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: SEARCH_BOT_UTILITY_DISALLOWS })),
+    ...EXTRA_ALLOW_BOTS.map((agent) => renderBotBlock(agent, { allowRoot: true, disallowPaths: SEARCH_BOT_UTILITY_DISALLOWS })),
   ];
 
   const sitemapLines = ROBOTS_SITEMAP_FILES.map((name) => `Sitemap: ${canonicalUrl(name)}`).join("\n");
   return `${blocks.join("\n\n")}\n\n${sitemapLines}\n`;
+};
+
+const buildLegacyRedirectHtml = (legacyPath = "", targetUrl = "") => {
+  const canonical = canonicalUrl(`posts/${legacyPath}`);
+  const safeTarget = String(targetUrl || "").trim();
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moved | Ilia Klishin</title>
+    <meta name="robots" content="noindex,follow,max-image-preview:large" />
+    <meta http-equiv="refresh" content="0; url=${htmlEscape(safeTarget)}" />
+    <link rel="canonical" href="${htmlEscape(canonical)}" />
+  </head>
+  <body>
+    <p>This page has moved. Continue to <a href="${htmlEscape(safeTarget)}">${htmlEscape(safeTarget)}</a>.</p>
+    <script>
+      window.location.replace(${JSON.stringify(safeTarget)});
+    </script>
+  </body>
+</html>
+`;
 };
 
 const main = async () => {
@@ -4718,8 +4758,15 @@ const main = async () => {
     await fs.writeFile(path.join(postsDir, entry.postPath), html, "utf8");
   }
 
+  for (const [legacyPath, targetUrl] of LEGACY_POST_REDIRECTS.entries()) {
+    await fs.writeFile(path.join(postsDir, legacyPath), buildLegacyRedirectHtml(legacyPath, targetUrl), "utf8");
+  }
+
   // Remove stale generated HTML pages left from old slugs/names.
   const desiredHtmlFiles = new Set(compiledEntries.map((entry) => entry.postPath));
+  for (const legacyPath of LEGACY_POST_REDIRECT_FILES) {
+    desiredHtmlFiles.add(legacyPath);
+  }
   desiredHtmlFiles.add("index.html");
   desiredHtmlFiles.add("all.html");
   if (INCLUDE_DRAFT_OUTPUTS) {
