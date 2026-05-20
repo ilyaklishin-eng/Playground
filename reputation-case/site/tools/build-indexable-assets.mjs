@@ -394,7 +394,7 @@ const INTERVIEWS_PAGE_CONFIG = {
         intro: "Early records and archival appearances where exact dating may require additional checks.",
       },
     },
-    cta: "Open material ->",
+    cta: "Open material",
   },
   fr: {
     path: path.join(interviewsDir, "fr", "index.html"),
@@ -914,7 +914,10 @@ const gitLastmodByRepoRelativePath = async (repoRelativePath = "") => {
   if (!repoRoot) return null;
 
   try {
-    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", cleanRelative], { cwd: repoRoot });
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", cleanRelative], {
+      cwd: repoRoot,
+      timeout: GIT_LASTMOD_TIMEOUT_MS,
+    });
     const raw = String(stdout || "").trim();
     const iso = toIsoTimestamp(raw);
     const value = iso || null;
@@ -1869,10 +1872,10 @@ const fallbackSummary = (item = {}) => {
     ]);
   } else {
     result = pickSeededVariant(seed, [
-      `The piece examines ${topic}${year ? ` in ${year}` : ""}.`,
-      `This ${source}${year ? ` (${year})` : ""} publication focuses on ${topic}.`,
-      `${source} publishes a piece on ${topic}.`,
-      `The article outlines ${topic} in clear terms.`,
+      `Published material from ${source} examines ${topic}${year ? ` in ${year}` : ""}.`,
+      `A ${source}${year ? ` (${year})` : ""} publication focuses on ${topic}.`,
+      `${source} publishes analysis of ${topic}.`,
+      `The material outlines ${topic} in clear terms.`,
     ]);
   }
 
@@ -3157,7 +3160,7 @@ const HOME_SECTION_COPY = {
     interviewsIntro: "Recent interviews, podcasts, and long-form discussions.",
     interviewsLink: "View all interviews",
     interviewsHref: "/interviews/",
-    interviewOpen: "Open material ->",
+    interviewOpen: "Open material",
   },
   fr: {
     workTitle: "Travaux sélectionnés",
@@ -4246,26 +4249,78 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
     <style>
       * { box-sizing: border-box; }
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; line-height: 1.56; overflow-x: clip; }
-      main { padding: 14px 0 42px; }
-      main { width: min(860px, calc(100% - 2rem)); margin: 0 auto; }
-      a { color: #0b4f7b; overflow-wrap: anywhere; }
-      .meta { color: #555; font-size: 0.95rem; }
+      :root {
+        --bg: #f5f3ee;
+        --paper: #fffdfa;
+        --ink: #111417;
+        --muted: #59616a;
+        --line: #d9ded8;
+        --line-strong: #9eaba5;
+        --accent: #9d332b;
+        --accent-strong: #0f4e56;
+        --signal: #d4c64b;
+        --shadow-soft: 0 14px 34px rgba(17, 20, 23, 0.075);
+      }
+      body {
+        margin: 0;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        background:
+          linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
+          repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.05) 0 1px, transparent 1px 72px);
+        color: var(--ink);
+        line-height: 1.62;
+        overflow-x: clip;
+      }
+      main {
+        width: min(880px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 20px 0 46px;
+      }
+      article {
+        border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
+        background:
+          linear-gradient(135deg, rgba(15, 78, 86, 0.08), transparent 46%),
+          linear-gradient(90deg, rgba(212, 198, 75, 0.12), transparent 32%);
+        padding: 1.35rem 0 1.45rem;
+      }
+      a { color: var(--accent-strong); overflow-wrap: anywhere; text-underline-offset: 0.18em; }
+      .meta { color: var(--muted); font-size: 0.9rem; }
       section { margin-top: 18px; }
-      h2 { margin: 0 0 8px; font-size: 1.08rem; }
-      h3 { margin: 14px 0 8px; font-size: 0.96rem; }
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 3rem;
+        line-height: 1.02;
+        letter-spacing: 0;
+        text-wrap: balance;
+      }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; letter-spacing: 0; text-wrap: balance; }
+      h3 { margin: 14px 0 8px; font-size: 0.96rem; letter-spacing: 0; text-wrap: balance; }
       p, li, h1, h2, h3, blockquote { overflow-wrap: anywhere; }
       ul { margin: 0; padding-left: 22px; }
       li { margin: 6px 0; }
       .source { margin-top: 24px; }
-      blockquote { margin: 8px 0; padding: 12px 16px; background: #fff; border-left: 4px solid #0b4f7b; }
+      blockquote {
+        margin: 8px 0;
+        padding: 12px 16px;
+        background: rgba(255, 253, 250, 0.88);
+        border-left: 4px solid var(--accent-strong);
+      }
       .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
-      .tags li { margin: 0; border: 1px solid #d3cec4; background: #fff; border-radius: 999px; padding: 4px 10px; font-size: 0.85rem; }
+      .tags li {
+        margin: 0;
+        border: 1px solid var(--line);
+        background: rgba(15, 78, 86, 0.08);
+        color: var(--accent-strong);
+        border-radius: 7px;
+        padding: 4px 10px;
+        font-size: 0.85rem;
+      }
       .post-header h1 { margin: 0; }
 ${ARCHIVE_LAYOUT_CSS}
       @media (max-width: 520px) {
         main { width: min(860px, calc(100% - 1.3rem)); }
-        .post-header h1 { font-size: 1.9rem; line-height: 1.1; }
+        .post-header h1 { font-size: 2.05rem; line-height: 1.08; }
         ul { padding-left: 18px; }
       }
     </style>
@@ -4429,18 +4484,55 @@ const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => 
     <script type="application/ld+json">${JSON.stringify(postsJsonLd)}</script>
     <style>
       * { box-sizing: border-box; }
-      body { margin: 0; font-family: Georgia, serif; background: #f4f1ea; color: #121212; overflow-x: clip; line-height: 1.56; }
-      main { padding: 14px 0 42px; }
-      main { width: min(880px, calc(100% - 2rem)); margin: 0 auto; }
+      :root {
+        --bg: #f5f3ee;
+        --paper: #fffdfa;
+        --ink: #111417;
+        --muted: #59616a;
+        --line: #d9ded8;
+        --accent-strong: #0f4e56;
+      }
+      body {
+        margin: 0;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        background:
+          linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
+          repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.05) 0 1px, transparent 1px 72px);
+        color: var(--ink);
+        overflow-x: clip;
+        line-height: 1.62;
+      }
+      main {
+        width: min(900px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 20px 0 46px;
+      }
       li { margin: 8px 0; }
-      a { color: #0b4f7b; overflow-wrap: anywhere; }
+      a { color: var(--accent-strong); overflow-wrap: anywhere; text-underline-offset: 0.18em; }
       section { margin-top: 16px; }
-      h2 { margin: 0 0 8px; font-size: 1.08rem; }
+      h1 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 3rem;
+        line-height: 1.02;
+        letter-spacing: 0;
+        text-wrap: balance;
+      }
+      h2 { margin: 0 0 8px; font-size: 1.08rem; letter-spacing: 0; text-wrap: balance; }
       p, li, h1, h2, h3 { overflow-wrap: anywhere; }
-      .lead { margin: 8px 0 0; color: #555; }
+      .lead { margin: 8px 0 0; color: var(--muted); }
+      main > section:first-child {
+        border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
+        background:
+          linear-gradient(135deg, rgba(15, 78, 86, 0.08), transparent 46%),
+          linear-gradient(90deg, rgba(212, 198, 75, 0.12), transparent 32%);
+        padding: 1.35rem 0;
+      }
 ${ARCHIVE_LAYOUT_CSS}
       @media (max-width: 520px) {
         main { width: min(880px, calc(100% - 1.3rem)); }
+        h1 { font-size: 2.05rem; line-height: 1.08; }
       }
     </style>
   </head>
@@ -4645,6 +4737,7 @@ const FULL_WHITELIST_BOTS = [
 const EXTRA_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
 const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
 const SEARCH_BOT_UTILITY_DISALLOWS = ["/tools/", "/data/", "/digest-multilingual-notes-v1.md"];
+const GIT_LASTMOD_TIMEOUT_MS = 5000;
 const LEGACY_POST_REDIRECTS = new Map([
   [
     "de-017-guardian-profil-nennt-technischen-beitrag-zur-protest-infrastruktur.html",

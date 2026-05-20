@@ -3,7 +3,7 @@ const uiLang = String(document?.documentElement?.lang || "en").trim().slice(0, 2
 const SOURCE_URL_HEALTH_PATH = "/data/source-url-health.json";
 const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
 const COPY = {
-  en: { open: "Open material →", empty: "No interviews are available in this language yet." },
+  en: { open: "Open material", empty: "No interviews are available in this language yet." },
   fr: { open: "Voir l’entretien →", empty: "Aucun entretien n’est encore disponible dans cette langue." },
   de: { open: "Beitrag öffnen →", empty: "In dieser Sprache sind noch keine Interviews verfügbar." },
   es: { open: "Ver la entrevista →", empty: "Todavía no hay entrevistas disponibles en este idioma." },

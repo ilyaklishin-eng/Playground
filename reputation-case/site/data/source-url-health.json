@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-20T08:40:48.597Z",
+  "generated_at": "2026-05-20T20:44:20.542Z",
   "policy": {
     "timeout_ms": 12000,
     "concurrency": 8,
@@ -12,9 +12,9 @@
   },
   "totals": {
     "checked_urls": 76,
-    "healthy_urls": 72,
+    "healthy_urls": 74,
     "broken_urls": 0,
-    "inconclusive_urls": 4
+    "inconclusive_urls": 2
   },
   "broken_urls": [],
   "broken_digest_ids": [],
@@ -56,11 +56,11 @@
     },
     {
       "ok": true,
-      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "checked_via": "GET",
-      "status_code": 403,
-      "final_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "classification": "inconclusive",
+      "url": "https://www.chinadailyhk.com/hk/article/160056",
+      "checked_via": "HEAD",
+      "status_code": 200,
+      "final_url": "https://www.chinadailyhk.com/hk/article/160056",
+      "classification": "healthy",
       "refs": [
         {
           "kind": "digest",
@@ -77,7 +77,7 @@
         {
           "kind": "digest",
           "id": "es-120",
-          "title": "Bloomberg cita a Klishin sobre la desaceleracion de Twitter en Rusia",
+          "title": "Bloomberg cita a Klishin sobre la ralentización de Twitter en Rusia",
           "source": "Bloomberg"
         },
         {
@@ -157,13 +157,12 @@
       ]
     },
     {
-      "ok": false,
+      "ok": true,
       "url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
-      "checked_via": "GET",
-      "status_code": 0,
+      "checked_via": "HEAD",
+      "status_code": 200,
       "final_url": "https://researchonline.lse.ac.uk/id/eprint/125206/",
-      "classification": "inconclusive",
-      "error": "fetch failed",
+      "classification": "healthy",
       "refs": [
         {
           "kind": "digest",

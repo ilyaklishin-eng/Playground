@@ -26,7 +26,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/styles.69eb67a2c2.css" />
+    <link rel="stylesheet" href="/styles.9e557d7de0.css" />
     <style>
       .primary-nav a[aria-current="page"] {
         border-color: var(--line-strong);
@@ -40,11 +40,11 @@
 
       .search-hero {
         margin-top: 1.35rem;
-        border: 1px solid var(--line);
-        border-radius: 24px;
-        background: var(--paper);
-        box-shadow: var(--shadow-card);
-        padding: 1.3rem 1.45rem;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
+        background: transparent;
+        box-shadow: none;
+        padding: 1.2rem 0 1.15rem;
       }
 
       .search-hero h1 {
@@ -62,9 +62,9 @@
         display: grid;
         gap: 0.7rem;
         border: 1px solid var(--line);
-        border-radius: 20px;
+        border-radius: 12px;
         background: var(--paper);
-        box-shadow: var(--shadow-soft);
+        box-shadow: none;
         padding: 0.95rem;
       }
 
@@ -220,7 +220,7 @@
 
       .result-card {
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 8px;
         background: var(--paper);
         box-shadow: var(--shadow-soft);
         padding: 0.9rem 0.98rem;
@@ -250,7 +250,7 @@
         margin: 0;
         font-family: "Newsreader", Georgia, serif;
         font-size: 1.24rem;
-        letter-spacing: -0.01em;
+        letter-spacing: 0;
       }
 
       .result-card h2 a {
@@ -301,7 +301,7 @@
 
       .search-empty {
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: 8px;
         padding: 0.85rem 0.95rem;
         background: var(--paper);
         color: var(--muted);
@@ -309,7 +309,7 @@
 
       .search-fallback {
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 8px;
         background: var(--paper);
         box-shadow: var(--shadow-soft);
         padding: 0.95rem 1rem;
@@ -359,13 +359,13 @@
 
       @media (max-width: 520px) {
         .search-hero {
-          padding: 1rem;
-          border-radius: 18px;
+          padding: 1rem 0;
+          border-radius: 0;
         }
 
         .search-controls {
           padding: 0.75rem;
-          border-radius: 16px;
+          border-radius: 12px;
         }
 
         .result-card {
@@ -375,6 +375,116 @@
 
         .result-card h2 {
           font-size: 1.12rem;
+        }
+      }
+
+      .search-hero {
+        position: relative;
+        margin-top: 1.25rem;
+        border-top-color: color-mix(in srgb, var(--ink) 18%, transparent);
+        border-bottom-color: color-mix(in srgb, var(--accent-strong) 18%, transparent);
+        background:
+          linear-gradient(135deg, rgba(15, 78, 86, 0.1), transparent 44%),
+          linear-gradient(90deg, rgba(212, 198, 75, 0.16), transparent 32%);
+        padding: 1.6rem 0 1.6rem 1rem;
+      }
+
+      .search-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 0.28rem;
+        background: linear-gradient(180deg, var(--accent), var(--signal), var(--accent-strong));
+      }
+
+      .search-hero h1,
+      .result-card h2 {
+        letter-spacing: 0;
+        text-wrap: balance;
+      }
+
+      .search-controls {
+        margin-top: 1rem;
+        border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
+        border-radius: var(--radius-panel);
+        background: rgba(255, 253, 250, 0.72);
+        box-shadow: var(--shadow-soft);
+        padding: 0.95rem;
+      }
+
+      .search-query label,
+      .lang-chip,
+      .result-badge,
+      .result-links a {
+        letter-spacing: 0;
+      }
+
+      .search-query input,
+      .lang-chip {
+        border-radius: var(--radius-button);
+      }
+
+      .search-query input {
+        background: rgba(255, 253, 250, 0.96);
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+      }
+
+      .lang-chip.active {
+        border-color: var(--accent-strong);
+        background: var(--accent-strong);
+        color: #fffdfa;
+      }
+
+      .search-results {
+        gap: 0.95rem;
+      }
+
+      .result-card,
+      .search-empty,
+      .search-fallback {
+        border: 1px solid color-mix(in srgb, var(--line) 82%, white 18%);
+        border-radius: var(--radius-card);
+        background:
+          linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 253, 250, 0.72)),
+          linear-gradient(135deg, rgba(15, 78, 86, 0.055), transparent 48%);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .result-card {
+        padding: 1rem;
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      .result-card:hover {
+        transform: translateY(-2px);
+        border-color: color-mix(in srgb, var(--accent-strong) 24%, var(--line) 76%);
+        box-shadow: var(--shadow-card);
+      }
+
+      .result-badge {
+        border-radius: var(--radius-tag);
+        color: var(--accent-strong);
+        background: rgba(15, 78, 86, 0.08);
+      }
+
+      .result-links a,
+      .search-fallback-links a {
+        color: var(--accent-strong);
+      }
+
+      @media (max-width: 520px) {
+        .search-hero {
+          padding: 1rem 0;
+        }
+
+        .search-controls,
+        .result-card,
+        .search-empty,
+        .search-fallback {
+          border-radius: var(--radius-card);
         }
       }
     </style><script type="application/ld+json">
@@ -514,7 +624,7 @@
       "breadcrumb": {
         "@id": "https://www.klishin.work/search/#breadcrumb"
       },
-      "dateModified": "2026-03-24T21:38:50.000Z"
+      "dateModified": "2026-03-04T00:00:00.000Z"
     }
   ]
 }
@@ -558,7 +668,7 @@
         <div class="search-query">
           <label for="siteSearchInput">Query</label>
           <div class="search-input-shell">
-            <input id="siteSearchInput" type="search" placeholder="Title, source, topic, keyword" autocomplete="off" disabled aria-disabled="true" />
+            <input id="siteSearchInput" type="search" placeholder="Title, source, topic" autocomplete="off" disabled aria-disabled="true" />
             <span class="search-query-addon search-spinner" aria-hidden="true"></span>
             <span class="search-query-addon search-status-icon" aria-hidden="true">!</span>
           </div>
@@ -596,6 +706,6 @@
         <a href="/contact/">Contact</a>
       </nav>
     </footer>
-<script type="module" src="/search/search.bbbb3d6e76.js"></script>
+<script type="module" src="/search/search.f6c63a9a4c.js"></script>
   </body>
 </html>

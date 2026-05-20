@@ -12,7 +12,7 @@
       "source": "The Moscow Times",
       "topic": "media analysis",
       "title": "Putin-Macron talks and the Russia expertise gap",
-      "digest": "In this Feb. 14, 2022 Moscow Times opinion piece, Ilya Klishin argues that a small factual error in foreign reporting around Putin-Macron talks exposed a larger expertise problem in commentary about Russia. The trigger is a repeated claim that Putin quoted a specific punk song after his meeting with Emmanuel Macron.",
+      "digest": "A small factual mistake in coverage of the Putin-Macron meeting exposed a larger expertise gap in foreign commentary on Russia. Klishin uses the repeated punk-song claim to show how minor errors can reveal a shallow analytical frame.",
       "quote": "\"every word spoken carries weight\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2022/02/14/putin-macron-talks-highlight-gap-in-russia-expertise-a76375",
       "copies": {
@@ -20,7 +20,7 @@
         "DE": "de-030",
         "ES": "es-012"
       },
-      "summary": "A small factual mistake in coverage of the Putin-Macron meeting became, for Klishin, a sign of a larger problem: too much commentary on Russia is built on weak expertise. The piece argues that even minor errors can reveal how shallow the broader analytical frame has become.",
+      "summary": "A small factual mistake in coverage of the Putin-Macron meeting exposed a larger expertise gap in foreign commentary on Russia. Klishin uses the repeated punk-song claim to show how minor errors can reveal a shallow analytical frame.",
       "key_ideas": [],
       "quotes": [
         "\"every word spoken carries weight\" - The Moscow Times",
@@ -70,7 +70,7 @@
       "source": "The Moscow Times",
       "topic": "civic protests",
       "title": "Mass protests: lessons from a decade",
-      "digest": "This essay reevaluates the 2011 Bolotnaya protests not as a tactical failure, but as a structural inevitability. Framing the defeat as a Hegelian catalyst, it argues the subsequent crackdown inadvertently served as a \"civil society university,\" transforming a naive public into a deeply politicized society primed for an unpredictable historical synthesis.",
+      "digest": "Ten years after Bolotnaya, Klishin reads the 2011 protest wave as political learning rather than simple defeat. A generation that entered the streets naively left with a clearer understanding of the state, repression, and civic action.",
       "quote": "\"those demonstrations ended in defeat\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/12/10/russias-mass-protests-10-years-on-finding-hope-in-apparent-defeat-a75781",
       "copies": {
@@ -78,7 +78,7 @@
         "DE": "de-031",
         "ES": "es-013"
       },
-      "summary": "Ten years after Bolotnaya, Klishin argues that the protest wave should not be read simply as a defeat. Its longer effect was political learning: a generation that entered the streets naively left with a deeper understanding of the state, repression, and civic action.",
+      "summary": "Ten years after Bolotnaya, Klishin reads the 2011 protest wave as political learning rather than simple defeat. A generation that entered the streets naively left with a clearer understanding of the state, repression, and civic action.",
       "key_ideas": [],
       "quotes": [
         "\"those demonstrations ended in defeat\" - The Moscow Times",
@@ -128,7 +128,7 @@
       "source": "The Moscow Times",
       "topic": "media freedom",
       "title": "Commentary on pressure against independent media institutions",
-      "digest": "how media freedom is framed through evidence, chronology, and attributable sourcing. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Commentary on pressure against independent media institutions\" published by The Moscow Times on 2021-08-24.",
+      "digest": "A short commentary on how pressure against independent media operates in practice — not only through direct bans, but through an accumulating climate of legal risk, economic pressure, and editorial exhaustion.",
       "quote": "\"Commentary on pressure against independent media institutions\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/08/24/the-kremlin-is-coming-for-media-one-by-one-and-society-is-helpless-to-stop-it-a74879",
       "copies": {
@@ -185,7 +185,7 @@
       "source": "The Moscow Times",
       "topic": "public opinion",
       "title": "The Magic Mirror of Russian Public Opinion",
-      "digest": "how public-opinion narratives are shaped by institutions, incentives, and media distribution logic. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"The Magic Mirror of Russian Public Opinion\" published by The Moscow Times on 2021-07-12.",
+      "digest": "After VkusVill published and then deleted its story about two women hoping to marry, both supporters and opponents rushed to speak in the name of “public opinion.” In Putin’s Russia, that phrase often refers not to a stable social fact, but to a mirror reflecting institutional pressure, fear, and whatever each side is already prepared to see.",
       "quote": "\"The Magic Mirror of Russian Public Opinion\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/07/12/the-magic-mirror-of-public-opinion-a74492",
       "copies": {
@@ -241,7 +241,7 @@
       "source": "The Moscow Times",
       "topic": "media ethics",
       "title": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "After Roman Protasevich’s arrest in Minsk and his televised confession, journalists faced a problem that was both political and professional. Reporting the spectacle was unavoidable, but treating coerced testimony as ordinary evidence meant helping the state convert intimidation into narrative authority.",
       "quote": "\"The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125",
       "copies": {
@@ -297,7 +297,7 @@
       "source": "The Moscow Times",
       "topic": "electoral timing",
       "title": "Let's Wait Until After the Elections",
-      "digest": "how election-timing rhetoric can postpone decisions and normalize strategic waiting. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Let's Wait Until After the Elections\" published by The Moscow Times on 2021-05-17.",
+      "digest": "The familiar political refrain “let’s wait until after the elections” works less as caution than as a technology of delay. What sounds prudent often serves to normalize passivity and postpone real choices indefinitely.",
       "quote": "\"Let's Wait Until After the Elections\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/05/17/lets-wait-until-after-the-elections-a73915",
       "copies": {
@@ -420,10 +420,10 @@
       "source": "Dekoder",
       "topic": "public health communication",
       "title": "Dekoder on Sputnik V approval and Russian vaccine messaging",
-      "digest": "This Dekoder piece discusses the Sputnik V approval debate in the EU and cites commentary from Klishin on communication effects in Russia. The text links external promotion of the vaccine to domestic distrust shaped by years of conspiracy-focused state broadcasting.",
+      "digest": "Dekoder links Sputnik V promotion abroad to domestic mistrust shaped by years of conspiracy-driven state broadcasting. Vaccine messaging that sounded triumphant outside Russia met an audience trained to doubt official narratives.",
       "quote": "\"Sputnik V\" - Dekoder",
       "url": "https://www.dekoder.org/de/article/sputnik-v-impfstoff-eu-zulassung/",
-      "summary": "External promotion of Sputnik V collided with a domestic audience shaped by years of conspiracy-driven state media. The piece uses that contradiction to explain why vaccine messaging that sounded triumphant abroad met mistrust at home.",
+      "summary": "Dekoder links Sputnik V promotion abroad to domestic mistrust shaped by years of conspiracy-driven state broadcasting. Vaccine messaging that sounded triumphant outside Russia met an audience trained to doubt official narratives.",
       "key_ideas": [
         "The article connects vaccine politics to long-run media trust dynamics.",
         "Klishin appears as a cited commentator in external reporting.",
@@ -625,7 +625,7 @@
       "source": "The Moscow Times",
       "topic": "elite discourse",
       "title": "Luiza Rozova and the Helpless Intellectual",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "The public fascination with Luiza Rozova becomes a test of symbolic dissent inside an authoritarian culture. Irony and gossip can expose elite absurdity, but they rarely create accountability on their own.",
       "quote": "\"Luiza Rozova and the Helpless Intellectual\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/03/19/luiza-rozova-and-the-helpless-intellectual-a73301",
       "copies": {
@@ -633,7 +633,7 @@
         "DE": "de-022",
         "ES": "es-004"
       },
-      "summary": "Using the public fascination with Luiza Rozova as a case study, this Moscow Times column looks at the limits of symbolic dissent inside an authoritarian culture. Klishin argues that irony and gossip can expose elite absurdities, but rarely produce accountability on their own.",
+      "summary": "The public fascination with Luiza Rozova becomes a test of symbolic dissent inside an authoritarian culture. Irony and gossip can expose elite absurdity, but they rarely create accountability on their own.",
       "key_ideas": [],
       "quotes": [
         "\"Luiza Rozova and the Helpless Intellectual\" - The Moscow Times",
@@ -681,12 +681,12 @@
       "source": "Bloomberg",
       "topic": "plattform-druck",
       "title": "Bloomberg zitiert Klishin zur Twitter-Drosselung in Russland",
-      "digest": "Der Bloomberg-Bericht behandelt Russlands Entscheidung, Twitter zu verlangsamen, als Teil eines breiteren Vorgehens gegen westliche Plattformen. Klishin ist nicht Autor, wird aber zitiert, um den Druckaufbau ohne sofortige Vollsperre zu erklaeren.",
+      "digest": "Der Bloomberg-Bericht behandelt Russlands Entscheidung, Twitter zu verlangsamen, als Teil eines breiteren Vorgehens gegen westliche Plattformen. Klishin ist nicht Autor, wird aber zitiert, um den Druckaufbau ohne sofortige Vollsperre zu erklären.",
       "quote": "\"Russia takes aim at Twitter\" - Bloomberg",
-      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "summary": "Der Bloomberg-Bericht behandelt Russlands Entscheidung, Twitter zu verlangsamen, als Teil eines breiteren Vorgehens gegen westliche Plattformen. Klishin ist nicht Autor, wird aber zitiert, um den Druckaufbau ohne sofortige Vollsperre zu erklaeren.",
+      "url": "https://www.chinadailyhk.com/hk/article/160056",
+      "summary": "Der Bloomberg-Bericht behandelt Russlands Entscheidung, Twitter zu verlangsamen, als Teil eines breiteren Vorgehens gegen westliche Plattformen. Klishin ist nicht Autor, wird aber zitiert, um den Druckaufbau ohne sofortige Vollsperre zu erklären.",
       "key_ideas": [
-        "Die Drosselung erscheint als abgestuftes Druckinstrument der Behoerden.",
+        "Die Drosselung erscheint als abgestuftes Druckinstrument der Behörden.",
         "Klishin wird als zitierter Analyst eingeordnet, nicht als Autor.",
         "Der Bericht beschreibt Eskalation bei ausbleibender Komplettsperre."
       ],
@@ -741,7 +741,7 @@
       "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
       "post_path": "de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland.html",
       "post_url": "https://www.klishin.work/posts/de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland.html",
-      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown"
+      "source_url": "https://www.chinadailyhk.com/hk/article/160056"
     },
     {
       "id": "en-120",
@@ -751,14 +751,14 @@
       "source": "Bloomberg",
       "topic": "platform crackdown",
       "title": "Bloomberg quotes Klishin on Russia’s Twitter crackdown",
-      "digest": "This Bloomberg report covers Russia’s move to slow down Twitter as part of a broader crackdown on Western social platforms. Klishin is not the author, but he is quoted in the piece as it explains how the authorities were tightening pressure while still stopping short of a full block.",
+      "digest": "Bloomberg used Klishin’s commentary to explain why Russian authorities were increasing pressure on Western platforms without yet moving to a full ban. Twitter throttling appears as a calibrated escalation rather than a one-off technical measure.",
       "quote": "\"slow down Twitter\" — Bloomberg",
-      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "summary": "Bloomberg used Klishin’s commentary to explain why the authorities were increasing pressure on Western platforms without yet moving to a full ban. The piece treats the Twitter slowdown as part of a broader strategy of escalation rather than a one-off technical measure.",
+      "url": "https://www.chinadailyhk.com/hk/article/160056",
+      "summary": "Bloomberg used Klishin’s commentary to explain why Russian authorities were increasing pressure on Western platforms without yet moving to a full ban. Twitter throttling appears as a calibrated escalation rather than a one-off technical measure.",
       "key_ideas": [
-        "The report frames Twitter throttling as a calibrated pressure instrument.",
-        "Klishin is cited as an external analyst, not as the author.",
-        "The piece tracks escalation without a full platform shutdown."
+        "Bloomberg frames Twitter throttling as calibrated pressure.",
+        "Klishin appears as an external analyst, not as the author.",
+        "The coverage tracks escalation without a full platform shutdown."
       ],
       "quotes": [
         "\"takes aim at Twitter\" — Bloomberg",
@@ -813,7 +813,7 @@
       "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
       "post_path": "en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
       "post_url": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
-      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown"
+      "source_url": "https://www.chinadailyhk.com/hk/article/160056"
     },
     {
       "id": "es-120",
@@ -822,21 +822,21 @@
       "date": "2021-03-10",
       "source": "Bloomberg",
       "topic": "presion sobre plataformas",
-      "title": "Bloomberg cita a Klishin sobre la desaceleracion de Twitter en Rusia",
-      "digest": "Este reporte de Bloomberg cubre la decision rusa de ralentizar Twitter dentro de una presion mas amplia sobre plataformas occidentales. Klishin no es autor del texto, pero aparece citado para explicar la escalada sin llegar al bloqueo total.",
+      "title": "Bloomberg cita a Klishin sobre la ralentización de Twitter en Rusia",
+      "digest": "Bloomberg cubre la decisión rusa de ralentizar Twitter dentro de una presión más amplia sobre plataformas occidentales. Klishin no es autor del texto, pero aparece citado para explicar una escalada que todavía no llegaba al bloqueo total.",
       "quote": "\"Russia takes aim at Twitter\" - Bloomberg",
-      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "summary": "Este reporte de Bloomberg cubre la decision rusa de ralentizar Twitter dentro de una presion mas amplia sobre plataformas occidentales. Klishin no es autor del texto, pero aparece citado para explicar la escalada sin llegar al bloqueo total.",
+      "url": "https://www.chinadailyhk.com/hk/article/160056",
+      "summary": "Bloomberg cubre la decisión rusa de ralentizar Twitter dentro de una presión más amplia sobre plataformas occidentales. Klishin no es autor del texto, pero aparece citado para explicar una escalada que todavía no llegaba al bloqueo total.",
       "key_ideas": [
-        "La medida contra Twitter se describe como presion gradual estatal.",
+        "La medida contra Twitter aparece como presión gradual estatal.",
         "Klishin figura como analista citado y no como autor.",
-        "El texto explica la escalada sin bloqueo completo de plataforma."
+        "La cobertura explica la escalada sin bloqueo completo de plataforma."
       ],
       "quotes": [
         "\"takes aim at Twitter\" - Bloomberg",
         "\"stopping short of a full block\" - Bloomberg"
       ],
-      "value_context": "Referencia externa que muestra el uso de comentarios de Klishin en una cobertura internacional sobre politica digital rusa.",
+      "value_context": "Referencia externa que muestra el uso de comentarios de Klishin en una cobertura internacional sobre política digital rusa.",
       "semantic_tags": [
         "Ilia Klishin",
         "Bloomberg",
@@ -883,7 +883,7 @@
       "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
       "post_path": "es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia.html",
       "post_url": "https://www.klishin.work/posts/es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia.html",
-      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown"
+      "source_url": "https://www.chinadailyhk.com/hk/article/160056"
     },
     {
       "id": "fr-120",
@@ -893,20 +893,20 @@
       "source": "Bloomberg",
       "topic": "pression sur les plateformes",
       "title": "Bloomberg cite Klishin sur le ralentissement de Twitter en Russie",
-      "digest": "Ce reportage de Bloomberg decrit la decision russe de ralentir Twitter dans un cycle plus large de pression sur les plateformes occidentales. Klishin n en est pas l auteur, mais il est cite dans l article pour expliquer la logique d escalade sans blocage total.",
+      "digest": "Bloomberg décrit la décision russe de ralentir Twitter dans un cycle plus large de pression sur les plateformes occidentales. Klishin n’en est pas l’auteur; il y est cité pour expliquer une escalade qui restait en deçà d’un blocage total.",
       "quote": "\"Russia takes aim at Twitter\" - Bloomberg",
-      "url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
-      "summary": "Ce reportage de Bloomberg decrit la decision russe de ralentir Twitter dans un cycle plus large de pression sur les plateformes occidentales. Klishin n en est pas l auteur, mais il est cite dans l article pour expliquer la logique d escalade sans blocage total.",
+      "url": "https://www.chinadailyhk.com/hk/article/160056",
+      "summary": "Bloomberg décrit la décision russe de ralentir Twitter dans un cycle plus large de pression sur les plateformes occidentales. Klishin n’en est pas l’auteur; il y est cité pour expliquer une escalade qui restait en deçà d’un blocage total.",
       "key_ideas": [
-        "Le ralentissement de Twitter est presente comme instrument de pression graduelle.",
-        "Klishin intervient comme analyste cite, non comme auteur du texte.",
-        "Le papier suit l escalade sans aller jusqu a une interdiction totale."
+        "Le ralentissement de Twitter apparaît comme un instrument de pression graduelle.",
+        "Klishin intervient comme analyste cité, non comme auteur du texte.",
+        "La couverture suit l’escalade sans blocage total de plateforme."
       ],
       "quotes": [
         "\"takes aim at Twitter\" - Bloomberg",
         "\"stopping short of a full block\" - Bloomberg"
       ],
-      "value_context": "Reference externe qui atteste l usage de commentaires de Klishin dans une couverture economique internationale sur la regulation des plateformes.",
+      "value_context": "Référence externe attestant l’usage de commentaires de Klishin dans une couverture internationale sur la régulation des plateformes.",
       "semantic_tags": [
         "Ilia Klishin",
         "Bloomberg",
@@ -953,7 +953,7 @@
       "x_default": "https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html",
       "post_path": "fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie.html",
       "post_url": "https://www.klishin.work/posts/fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie.html",
-      "source_url": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown"
+      "source_url": "https://www.chinadailyhk.com/hk/article/160056"
     },
     {
       "id": "en-027",
@@ -963,7 +963,7 @@
       "source": "The Moscow Times",
       "topic": "social network regulation",
       "title": "Four Ways the Kremlin Could Block Western Social Networks in Russia",
-      "digest": "which technical and political mechanisms can be used to restrict social-network access. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Four Ways the Kremlin Could Block Western Social Networks in Russia\" published by The Moscow Times on 2021-02-12.",
+      "digest": "Practical routes for restricting Western platforms in Russia include regulation, technical throttling, legal pressure, and direct demands on companies. A block does not have to arrive as one dramatic act; it can be assembled gradually.",
       "quote": "\"Four Ways the Kremlin Could Block Western Social Networks in Russia\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/02/12/four-ways-the-kremlin-could-block-western-social-networks-in-russia-a72920",
       "copies": {
@@ -971,7 +971,7 @@
         "DE": "de-023",
         "ES": "es-005"
       },
-      "summary": "The piece lays out the practical routes the Kremlin could use to restrict access to Western platforms in Russia. A block does not have to arrive as one dramatic act; it can be built through regulation, technical throttling, legal pressure, and demands placed on the platforms themselves.",
+      "summary": "Practical routes for restricting Western platforms in Russia include regulation, technical throttling, legal pressure, and direct demands on companies. A block does not have to arrive as one dramatic act; it can be assembled gradually.",
       "key_ideas": [],
       "quotes": [
         "\"Four Ways the Kremlin Could Block Western Social Networks in Russia\" - The Moscow Times",
@@ -1019,7 +1019,7 @@
       "source": "The Moscow Times",
       "topic": "comparative media framing",
       "title": "The Capitol Storming Gives Russians an Escape From Their Reality",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "For Russian audiences, the storming of the U.S. Capitol worked less as foreign news than as psychological relief. Attention could be redirected outward, toward Western disorder, and away from a domestic reality that state media preferred to keep emotionally unexamined.",
       "quote": "\"The Capitol Storming Gives Russians an Escape From Their Reality\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2021/01/14/the-capitol-storming-gives-russians-an-escape-from-their-reality-a72598",
       "copies": {
@@ -1075,7 +1075,7 @@
       "source": "The Moscow Times",
       "topic": "disinformation and platforms",
       "title": "Warning! An Army of Russian Trolls Has Invaded TikTok",
-      "digest": "how platform dynamics and troll methods move from domestic messaging into wider information spaces. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Warning!",
+      "digest": "Old propaganda habits did not disappear on TikTok; they adapted to a new platform. What changed was the packaging: familiar manipulation techniques were reformatted for a younger audience and a faster, more volatile media environment.",
       "quote": "\"Warning! An Army of Russian Trolls Has Invaded TikTok\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
       "copies": {
@@ -1132,7 +1132,7 @@
       "source": "The Moscow Times",
       "topic": "cultural representation",
       "title": "Why Russians Dislike \"Good Russians\" in American Films No Less than \"Bad Russians\"",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "Russian viewers often recognize themselves even in sympathetic American film stereotypes. The Moscow Times column shows how “good Russian” portrayals can flatten culture and politics in much the same way as openly hostile ones.",
       "quote": "\"Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/11/20/why-russians-dislike-good-russians-in-american-films-no-less-than-bad-russians-a72097",
       "copies": {
@@ -1140,7 +1140,7 @@
         "DE": "de-026",
         "ES": "es-008"
       },
-      "summary": "A Moscow Times column on how Russian viewers respond to familiar stereotypes in American film. Klishin argues that even seemingly sympathetic portrayals can reproduce the same flattened political and cultural framing as openly hostile ones.",
+      "summary": "Russian viewers often recognize themselves even in sympathetic American film stereotypes. The Moscow Times column shows how “good Russian” portrayals can flatten culture and politics in much the same way as openly hostile ones.",
       "key_ideas": [],
       "quotes": [
         "\"Why Russians Dislike 'Good Russians' in American Films No Less than 'Bad\" - The Moscow Times",
@@ -1188,7 +1188,7 @@
       "source": "The Moscow Times",
       "topic": "cultural signaling",
       "title": "Great Russian Literature Versus One Tweet by Stephen King",
-      "digest": "how cultural symbols and representation frames affect trust, identity, and audience reaction. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Great Russian Literature Versus One Tweet by Stephen King\" published by The Moscow Times on 2020-11-09.",
+      "digest": "A single Stephen King tweet makes the symbolic weight of Russian literature look slow and cumbersome. The contrast opens a wider point about authority, attention, and cultural emotion moving on different timescales.",
       "quote": "\"Great Russian Literature Versus One Tweet by Stephen King\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/11/09/great-russian-literature-versus-one-tweet-by-stephen-king-a71993",
       "copies": {
@@ -1196,7 +1196,7 @@
         "DE": "de-027",
         "ES": "es-009"
       },
-      "summary": "Set against a single tweet by Stephen King, the symbolic weight of Russian literature starts to look strangely slow and cumbersome. The piece turns that contrast into a wider point about authority, attention, and cultural emotion now moving on very different timescales.",
+      "summary": "A single Stephen King tweet makes the symbolic weight of Russian literature look slow and cumbersome. The contrast opens a wider point about authority, attention, and cultural emotion moving on different timescales.",
       "key_ideas": [],
       "quotes": [
         "\"Great Russian Literature Versus One Tweet by Stephen King\" - The Moscow Times",
@@ -1244,7 +1244,7 @@
       "source": "The Moscow Times",
       "topic": "platform influence",
       "title": "Anonymous Telegram Channels Are Shaping Russia's Daily Life",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "Anonymous Telegram channels ceased to be just rumor mills once they began shaping tone, agenda, and everyday political perception. The line between leaks, manipulation, gossip, and coordination grows harder to draw the more central these channels become.",
       "quote": "\"Anonymous Telegram Channels Are Shaping Russia's Daily Life\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/09/28/anonymous-telegram-channels-are-shaping-russias-reality-a71588",
       "copies": {
@@ -1300,7 +1300,7 @@
       "source": "The Moscow Times",
       "topic": "belarus coverage framing",
       "title": "Belarus Coverage Framing: The Moscow Times (2020-08-14) - Why Do Russians Resent Western Media Over The",
-      "digest": "why protest outcomes that look like defeat can still produce long-term civic learning. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"Belarus Coverage Framing: The Moscow Times (2020-08-14) - Why Do Russians Resent Western Media Over The\" published by The Moscow Times on 2020-08-14.",
+      "digest": "Why protest outcomes that look like defeat can still produce long-term civic learning.",
       "quote": "\"Why Do Russians Resent Western Media Over the Protests in Belarus?\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/08/14/why-do-russians-resent-western-media-over-the-protests-in-belarus-a71155",
       "copies": {
@@ -1357,14 +1357,14 @@
       "source": "The Moscow Times",
       "topic": "constitutional vote",
       "title": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
-      "digest": "The column explains how the pandemic disrupted a carefully staged constitutional plebiscite. Klishin argues that the Kremlin lost timing control and faced a strategic bind where postponement and continuation both carried rising political costs.",
+      "digest": "The pandemic broke the political timing on which the constitutional spectacle depended. Once that choreography failed, both delay and continuation began to carry growing costs for the Kremlin.",
       "quote": "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014",
       "summary": "The pandemic broke the political timing on which the constitutional spectacle depended. Once that choreography failed, both delay and continuation began to carry growing costs for the Kremlin.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote\" - The Moscow Times"
@@ -1416,9 +1416,9 @@
       "url": "https://www.themoscowtimes.com/2020/01/17/10-2-a68947",
       "summary": "After Medvedev’s resignation and Putin’s constitutional amendments in January 2020, the spectacle of political change suggested movement where there was none. The point was larger than that moment alone: institutions, procedures, and officeholders still mattered far less than the single center on which real power depended.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Why Medvedev's resignation and Putin's amendments changed nothing\" - The Moscow Times"
@@ -1465,14 +1465,14 @@
       "source": "The Moscow Times",
       "topic": "language politics",
       "title": "Who owns Russian? And who owns English?",
-      "digest": "The column examines how language is politicized as an instrument of cultural control. Klishin compares claims over Russian and English to show that language policy often masks power struggles over identity, legitimacy, and who may define public norms.",
+      "digest": "Arguments about language rarely stay only about language. In disputes over Russian and English, the question is not just how people speak, but who gets to define the language from the center — and for whom.",
       "quote": "\"Who owns Russian? And who owns English?\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/11/11/9-a68123",
       "summary": "Arguments about language rarely stay only about language. In disputes over Russian and English, the question is not just how people speak, but who gets to define the language from the center — and for whom.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Who owns Russian? And who owns English?\" - The Moscow Times"
@@ -1524,9 +1524,9 @@
       "url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972",
       "summary": "Amid the campaign against Navalny and his allies, the state did not need open violence to weaken the opposition. Fines, frozen accounts, and legal costs could drain political capacity while preserving the appearance of routine procedure and lawful process.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Why shoot Navalny if you can bankrupt him\" - The Moscow Times"
@@ -1573,14 +1573,14 @@
       "source": "The Moscow Times",
       "topic": "economic repression",
       "title": "How Putin Is Bankrupting the Russian Opposition",
-      "digest": "This English column describes bankruptcy tactics as a calibrated instrument of repression. Instead of spectacular crackdowns, the state can deplete opposition capacity through legal debts, penalties, and procedural pressure while preserving formal plausibility.",
+      "digest": "Writing for an English-speaking audience, Klishin describes a method quieter than a crackdown but not less effective. Debt, penalties, and procedural pressure can drain opposition capacity while preserving a formal appearance of legality — a mechanism Western observers are less likely to recognize as repression.",
       "quote": "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
       "summary": "Writing for an English-speaking audience, Klishin describes a method quieter than a crackdown but not less effective. Debt, penalties, and procedural pressure can drain opposition capacity while preserving a formal appearance of legality — a mechanism Western observers are less likely to recognize as repression.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"How Putin Is Bankrupting the Russian Opposition\" - The Moscow Times"
@@ -1632,9 +1632,9 @@
       "url": "https://www.themoscowtimes.com/2019/10/16/8-2-a67761",
       "summary": "After the murder of a child in Saratov and Putin’s rebuke over overly negative coverage of Ukraine, state media abruptly amplified both regional crime reporting and calls to restore the death penalty. The shift suggested not a spontaneous moral debate, but a managed search for a new source of fear and frustration once Ukraine could no longer carry that role as effectively.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"How the death penalty debate linked to a ban on negative Ukraine coverage\" - The Moscow Times"
@@ -1681,14 +1681,14 @@
       "source": "The Moscow Times",
       "topic": "public discourse",
       "title": "Russias New Heroes Are Those Who Simply Say Things as They Are",
-      "digest": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "digest": "Plain factual speech becomes politically meaningful when institutions distort language and incentives. Minimal honesty from insiders can shift public attention and recalibrate legitimacy precisely because the surrounding system punishes ordinary candor.",
       "quote": "\"Russias New Heroes Are Those Who Simply Say Things as They Are\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/09/26/russias-new-heroes-are-those-who-simply-say-things-as-they-are-a67400",
-      "summary": "Klishin analyzes why plain factual speech became politically meaningful in a distorted information environment. The piece argues that when institutions fail, even minimal honesty from insiders can shift public attention and recalibrate legitimacy.",
+      "summary": "Plain factual speech becomes politically meaningful when institutions distort language and incentives. Minimal honesty from insiders can shift public attention and recalibrate legitimacy precisely because the surrounding system punishes ordinary candor.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Russias New Heroes Are Those Who Simply Say Things as They Are\" - The Moscow Times"
@@ -1735,14 +1735,14 @@
       "source": "The Moscow Times",
       "topic": "media labor market",
       "title": "Why Russian Journalists Find Refuge in Propaganda Outlets",
-      "digest": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "digest": "Independent journalists can end up inside propaganda institutions for structural reasons as much as ideological ones. A contracting independent market and career precarity make professional survival more vulnerable to compromise.",
       "quote": "\"Why Russian Journalists Find Refuge in Propaganda Outlets\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
-      "summary": "The article examines structural reasons why independent journalists move into propaganda institutions. Klishin argues that contraction of the independent market and career precarity create conditions where ideological compromise becomes a professional survival strategy.",
+      "summary": "Independent journalists can end up inside propaganda institutions for structural reasons as much as ideological ones. A contracting independent market and career precarity make professional survival more vulnerable to compromise.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Why Russian Journalists Find Refuge in Propaganda Outlets\" - The Moscow Times"
@@ -1789,14 +1789,14 @@
       "source": "Vedomosti",
       "topic": "media ecosystem",
       "title": "The music of the media desert",
-      "digest": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "digest": "Shrinking pluralism produces a repetitive and hostile media environment. The Vedomosti column shows how a system built on noise and intimidation erodes nuance, memory, and professional standards.",
       "quote": "\"The music of the media desert\" - Vedomosti",
       "url": "https://www.vedomosti.ru/opinion/columns/2018/12/06/788550-muzika-mediinoi-pustini",
-      "summary": "This Vedomosti column describes how shrinking pluralism produces a repetitive and hostile media environment. Klishin argues that the system rewards noise and intimidation, while public discussion loses nuance, memory, and professional standards.",
+      "summary": "Shrinking pluralism produces a repetitive and hostile media environment. The Vedomosti column shows how a system built on noise and intimidation erodes nuance, memory, and professional standards.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"The music of the media desert\" - Vedomosti"
@@ -1843,14 +1843,14 @@
       "source": "Vedomosti",
       "topic": "urban politics",
       "title": "Moscow: clean city, cleansed city",
-      "digest": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "digest": "Urban cleanliness becomes a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion, showing how visible improvement can coexist with narrowed civic participation and managed dissent.",
       "quote": "\"Moscow: clean city, cleansed city\" - Vedomosti",
       "url": "https://www.vedomosti.ru/opinion/columns/2018/05/24/770522-moskva-chistaya-i-zachischennaya",
-      "summary": "The column uses urban cleanliness as a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion and argues that visible improvement can coexist with narrowed civic participation and managed dissent.",
+      "summary": "Urban cleanliness becomes a political metaphor for controlled public space. Klishin contrasts aesthetic order with social exclusion, showing how visible improvement can coexist with narrowed civic participation and managed dissent.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Moscow: clean city, cleansed city\" - Vedomosti"
@@ -1897,14 +1897,14 @@
       "source": "VSquare",
       "topic": "disinformation infrastructure",
       "title": "From Kremlin Web Brigades to Russian Troll Factories",
-      "digest": "The VSquare article tracks the evolution from early online brigades to industrialized troll operations and cites Klishin in that discussion. This card is included as an external analytical reference where his assessments are reused in broader reporting.",
+      "digest": "Early online brigades later hardened into industrial-scale troll operations. Klishin’s analysis appears in that broader vocabulary for describing Russian influence infrastructure.",
       "quote": "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare",
       "url": "https://vsquare.org/from-kremlin-web-brigades-to-russian-troll-factories/",
-      "summary": "The piece follows the shift from early online brigades to industrial-scale troll operations. In that broader account, Klishin’s analysis appears not as a single observation, but as part of the vocabulary later used to describe Russian influence infrastructure.",
+      "summary": "Early online brigades later hardened into industrial-scale troll operations. Klishin’s analysis appears in that broader vocabulary for describing Russian influence infrastructure.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"From Kremlin Web Brigades to Russian Troll Factories\" - VSquare"
@@ -2223,7 +2223,7 @@
       "source": "Carnegie Endowment",
       "topic": "platform governance",
       "title": "Private Authoritarianism: How Facebook and Google Threaten Democracy",
-      "digest": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls. The text is included as an early framing of platform power as a governance problem rather than only a technical or market issue.",
+      "digest": "Major private platforms gained political power without democratic accountability. Algorithmic ranking, moderation policy, and opaque product decisions can shape public debate as forcefully as state media controls, making platform governance a political problem rather than only a technical or market issue.",
       "quote": "\"Private authoritarianism\" - Carnegie Endowment",
       "url": "https://carnegieendowment.org/ru/russia-eurasia/posts/2016/09/chastnyj-avtoritarizm-kak-facebook-i-google-ugrozhayut-demokratii",
       "copies": {
@@ -2231,11 +2231,11 @@
         "DE": "de-143",
         "ES": "es-143"
       },
-      "summary": "This Carnegie essay argues that major private platforms gained political power without democratic accountability. It examines how algorithmic ranking, moderation policies, and opaque product decisions can shape public debate as strongly as state media controls. The text is included as an early framing of platform power as a governance problem rather than only a technical or market issue.",
+      "summary": "Major private platforms gained political power without democratic accountability. Algorithmic ranking, moderation policy, and opaque product decisions can shape public debate as forcefully as state media controls, making platform governance a political problem rather than only a technical or market issue.",
       "key_ideas": [
         "Platform design decisions can produce political effects without public oversight.",
         "Algorithmic visibility rules act as private governance over civic discourse.",
-        "The essay reframes platform power as democratic accountability challenge."
+        "The analysis reframes platform power as a democratic accountability problem."
       ],
       "quotes": [
         "\"Private authoritarianism\" - Carnegie Endowment",
@@ -2288,9 +2288,9 @@
       "url": "https://carnegieendowment.org/posts/2016/01/web-of-control-the-future-of-the-russian-internet",
       "summary": "This Carnegie analysis outlines scenarios for state control over the Russian internet. It tracks how policy, platform pressure, and institutional coordinators transformed once-unthinkable restrictions into routine options in public governance.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Web of Control: The Future of the Russian Internet\" - Carnegie Endowment"
@@ -2684,10 +2684,10 @@
       "source": "JSIS Washington",
       "topic": "media profile and censorship",
       "title": "JSIS profile: digital patriotism and nationalist agenda in Russian media",
-      "digest": "This JSIS profile examines digital patriotism and nationalist narrative management in Russian media policy. It is included as an institutional context source that references legal ambiguity, censorship practices, and commentary associated with Klishin's media analysis work.",
+      "digest": "Digital patriotism appears not as a mood, but as a managed media strategy. Nationalism, legal ambiguity, and information control operate as parts of the same political framework.",
       "quote": "\"digital patriotism\" - JSIS Washington",
       "url": "https://jsis.washington.edu/news/russia-media-profile-digital-patriotism-nationalist-agenda/",
-      "summary": "Digital patriotism appears here not as a mood, but as a managed media strategy. The piece connects nationalism, legal ambiguity, and information control as parts of the same political framework.",
+      "summary": "Digital patriotism appears not as a mood, but as a managed media strategy. Nationalism, legal ambiguity, and information control operate as parts of the same political framework.",
       "key_ideas": [
         "The profile maps censorship dynamics through institutional media policy.",
         "It highlights legal ambiguity in politically sensitive speech regimes.",
@@ -2889,7 +2889,7 @@
       "source": "Carnegie Endowment",
       "topic": "digital mobilization analysis",
       "title": "Do Revolutions Grow Out of Social Media?",
-      "digest": "This Carnegie essay challenges the cliche that social networks directly produce revolutions. It argues that platforms can accelerate visibility, coordination, and emotional contagion, but they do not replace institutions, organization, and political opportunity structures. Using post-Soviet examples, the text separates communication effects from causal claims about regime change and warns against technological determinism in media analysis.",
+      "digest": "Social networks can accelerate visibility, coordination, and emotional contagion — but they do not produce revolutions on their own. Using post-Soviet examples, the analysis separates communication effects from the political structures that make mass mobilization possible.",
       "quote": "\"Do revolutions grow out of social media?\" - Carnegie Endowment",
       "url": "https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii",
       "copies": {
@@ -2901,7 +2901,7 @@
       "key_ideas": [
         "Social networks amplify mobilization but do not create political agency alone.",
         "Institutional conditions decide whether protest momentum becomes durable change.",
-        "The essay separates media effects from direct regime-change causality claims."
+        "The analysis separates media effects from direct regime-change claims."
       ],
       "quotes": [
         "\"Do revolutions grow out of social media?\" - Carnegie Endowment",
@@ -2949,7 +2949,7 @@
       "source": "Carnegie.ru",
       "topic": "digital propaganda",
       "title": "Bot Army: Why the Kremlin Fails at Soft Power",
-      "digest": "This column deconstructs the Kremlin bot infrastructure, framing it not as potent soft power, but as a reactive domestic tactic. Operating from a semantic void, these networks broadcast informational noise that merely exploits Western systemic anxieties rather than projecting genuine ideological influence.",
+      "digest": "Kremlin bot infrastructure appears less like successful soft power than a reactive tactic for domestic politics. These networks generate noise, exploit existing anxieties, and mimic influence more often than they create attraction.",
       "quote": "\"Bot army\" - Carnegie.ru",
       "url": "https://carnegie.ru/commentary/60728",
       "copies": {
@@ -2957,17 +2957,17 @@
         "DE": "de-108",
         "ES": "es-108"
       },
-      "summary": "What presents itself as soft power looks here more like a sign of strategic weakness. Instead of building attraction or persuasion, bot networks generate noise, exploit existing anxieties, and mimic influence more often than they create it.",
+      "summary": "Kremlin bot infrastructure appears less like successful soft power than a reactive tactic for domestic politics. These networks generate noise, exploit existing anxieties, and mimic influence more often than they create attraction.",
       "key_ideas": [
-        "The article connects digital propaganda to a concrete historical and political context.",
-        "Its core argument is developed without reductive propaganda framing.",
+        "Bot networks mimic influence more often than they create attraction.",
+        "The argument treats Kremlin soft power as a sign of weakness.",
         "The primary source remains directly available for verification."
       ],
       "quotes": [
         "\"Bot army\" - Carnegie.ru",
         "\"Soft power\" - Carnegie.ru"
       ],
-      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Carnegie.ru source.",
+      "value_context": "Dated Carnegie source for Klishin’s critique of Kremlin bot networks and failed soft power.",
       "semantic_tags": [
         "Ilia Klishin",
         "Carnegie.ru",
@@ -3006,7 +3006,7 @@
       "source": "Carnegie Endowment",
       "topic": "regional protest analysis",
       "title": "What Sparked Moldova's Second Maidan?",
-      "digest": "This Carnegie analysis examines renewed protest mobilization in Moldova and asks why frustration returned after earlier electoral breakthroughs. The text tracks the gap between reform promises and lived outcomes, showing how repeated cycles of disappointment can reactivate street politics even when formal institutions remain unchanged. It is included as a regional case study of post-Soviet protest recurrence and narrative fatigue.",
+      "digest": "In Moldova, an apparent political breakthrough did not end the frustrations that had produced protest in the first place. Repeated cycles of disappointment between reform promises and lived reality reopened the street as a political arena.",
       "quote": "\"Moldova's second Maidan\" - Carnegie Endowment",
       "url": "https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan",
       "copies": {
@@ -3014,7 +3014,7 @@
         "DE": "de-142",
         "ES": "es-142"
       },
-      "summary": "In Moldova, an apparent political breakthrough did not end the frustrations that had produced protest in the first place. The piece follows repeated cycles of disappointment between reform promises and lived reality, showing how the street can reopen as a political arena.",
+      "summary": "In Moldova, an apparent political breakthrough did not end the frustrations that had produced protest in the first place. Repeated cycles of disappointment between reform promises and lived reality reopened the street as a political arena.",
       "key_ideas": [
         "Electoral turnover did not eliminate structural drivers of public frustration.",
         "Repeated unmet expectations can reactivate protest despite institutional continuity.",
@@ -3066,7 +3066,7 @@
       "source": "News24",
       "topic": "international press record",
       "title": "English press archive on intimidation claims tied to activism",
-      "digest": "how intimidation and harassment patterns around critics were documented in international rights reporting. The narrative avoids reductive labels and shows how wording choices can widen or narrow trust gaps in high-pressure media cycles. This card summarizes \"English press archive on intimidation claims tied to activism\" published by News24 on 2015-04-29.",
+      "digest": "International reporting treated this kind of intimidation as a recognizable method, not an isolated episode. The pattern did not stop with the target, but extended to relatives and other more vulnerable people around them.",
       "quote": "\"English press archive on intimidation claims tied to activism\" - News24",
       "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
       "copies": {
@@ -3193,10 +3193,10 @@
       "source": "The Atlantic",
       "topic": "media system analysis",
       "title": "Atlantic feature cites Klishin on Putin’s media machine",
-      "digest": "This Atlantic feature looks at how the Russian media system was turned into a political weapon. Klishin is not the author, but the piece cites his analysis to explain the unequal conditions in which independent media were forced to operate.",
+      "digest": "The Russian media system appears here not simply as restrictive, but as structurally designed to leave independent outlets on radically unequal terms. Klishin’s analysis helps explain the conditions in which independent media were forced to operate.",
       "quote": "\"Putin's most powerful weapon\" — The Atlantic",
       "url": "https://www.theatlantic.com/international/archive/2015/04/how-the-media-became-putins-most-powerful-weapon/391062/",
-      "summary": "The Russian media system appears here not simply as restrictive, but as structurally designed to leave independent outlets on radically unequal terms. Klishin’s analysis enters the piece as part of that explanation.",
+      "summary": "The Russian media system appears here not simply as restrictive, but as structurally designed to leave independent outlets on radically unequal terms. Klishin’s analysis helps explain the conditions in which independent media were forced to operate.",
       "key_ideas": [
         "The feature maps propaganda infrastructure through newsroom control and legal pressure.",
         "It cites Klishin to explain asymmetry facing independent Russian media.",
@@ -3689,7 +3689,7 @@
       "source": "Global Voices",
       "topic": "digital propaganda",
       "title": "How Putin quietly took over Russian social media",
-      "digest": "This essay examines how the Kremlin expanded its influence over Russian social media after the protest wave of 2011-2012. It follows the shift from crude bot activity to a more organized system of trolls, loyal networks, and pressure on independent media.",
+      "digest": "After the 2011-2012 protest wave, crude online interference hardened into loyal networks, troll operations, and pressure on independent platforms. Global Voices follows the shift from scattered disruption to managed influence infrastructure.",
       "quote": "\"secretly conquered Russia's social media\" — Global Voices",
       "url": "https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/",
       "copies": {
@@ -3697,17 +3697,17 @@
         "DE": "de-107",
         "ES": "es-107"
       },
-      "summary": "After the protest wave of 2011-2012, what began as crude online interference hardened into a more organized system of loyal networks, troll operations, and pressure on independent platforms. The essay traces that shift as a change in method: from scattered disruption to a managed infrastructure of influence.",
+      "summary": "After the 2011-2012 protest wave, crude online interference hardened into loyal networks, troll operations, and pressure on independent platforms. Global Voices follows the shift from scattered disruption to managed influence infrastructure.",
       "key_ideas": [
-        "The article connects digital propaganda to a concrete historical and political context.",
-        "Its core argument is developed without reductive propaganda framing.",
+        "Digital propaganda is tied to the protest cycle of 2011-2012.",
+        "The account follows organization, financing, and platform pressure.",
         "The primary source remains directly available for verification."
       ],
       "quotes": [
         "\"secretly conquered Russia's social media\" — Global Voices",
         "\"over the past 3 years\" — Global Voices"
       ],
-      "value_context": "Useful reference card that situates Klishin's work through a dated and verifiable Global Voices source.",
+      "value_context": "Dated Global Voices source for Klishin’s analysis of Kremlin influence tactics after the 2011-2012 protests.",
       "semantic_tags": [
         "Ilia Klishin",
         "Global Voices",
@@ -4076,7 +4076,7 @@
       "source": "Vedomosti",
       "topic": "media analysis",
       "title": "Likes Go West",
-      "digest": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
+      "digest": "In May 2014, Klishin reported how Kremlin-linked digital operators were beginning to target Western audiences, drawing on sources near the Presidential Administration, leaked files, and conversations with European media executives. The column traces early troll-farm tactics: synthetic engagement, pre-moderation loopholes, and provocative messaging aimed at American and European comment sections.",
       "quote": "\"Work aimed at the West was only beginning\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/21/lajki-na-zapad",
       "copies": {
@@ -4084,7 +4084,7 @@
         "DE": "de-006",
         "ES": "es-020"
       },
-      "summary": "In a prescient May 2014 column for Vedomosti-published more than two full years before the 2016 US presidential election and the ensuing global scandal over Russian cyber interference-Klishin exposed the Kremlin’s nascent digital operations targeting Western democracies. Relying on exclusive sources close to the Presidential Administration, leaked files from \"Anonymous International,\" and insights from European media executives, the piece detailed the strategic pivot of domestic troll farms toward American and European audiences.\n\nKlishin dismantled the emerging operational mindset of these state-sponsored networks. He documented their early structural and financial foundations, revealing how they tested synthetic engagement, studied the pre-moderation algorithms of major outlets like The Huffington Post and Politico, and refined their use of provocative, polarized messaging. This investigation not only mapped the exact infrastructure of the new \"foreign departments\" but accurately predicted the weaponization of social media long before coordinated online manipulation became a defining issue of global politics.",
+      "summary": "In May 2014, Klishin reported how Kremlin-linked digital operators were beginning to target Western audiences, drawing on sources near the Presidential Administration, leaked files, and conversations with European media executives. The column traces early troll-farm tactics: synthetic engagement, pre-moderation loopholes, and provocative messaging aimed at American and European comment sections.",
       "key_ideas": [],
       "quotes": [
         "\"Work aimed at the West was only beginning\" - Vedomosti",
@@ -4133,7 +4133,7 @@
       "source": "The Moscow Times",
       "topic": "disinformation analysis",
       "title": "Early warning analysis on Russian troll expansion",
-      "digest": "so readers can separate reported facts from interpretation. Instead of categorical labeling, it emphasizes proportional language and verification, especially when audiences face uncertainty and rapid narrative shifts.",
+      "digest": "A 2014 Moscow Times column warning that Kremlin troll methods were moving from domestic manipulation to Western audiences. Klishin traces the early infrastructure of coordinated online influence and treats it as an emerging external campaign, not just an internal propaganda tool.",
       "quote": "\"Early warning analysis on Russian troll expansion\" - The Moscow Times",
       "url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651",
       "copies": {
@@ -4194,9 +4194,9 @@
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/05/07/vojna-kotoruyu-my-ne-zametili",
       "summary": "Part of the Maximum Retweet series, this text argues that information conflict had already become systemic before many audiences recognized it. Klishin links platform incentives, rapid amplification, and emotional framing to a new logic of political influence.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Maximum Retweet: The war we failed to notice\" - Vedomosti"
@@ -4243,14 +4243,14 @@
       "source": "Vedomosti",
       "topic": "information control",
       "title": "Maximum Retweet: Threats created by the Ministry of Truth",
-      "digest": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "digest": "State-led narrative management can create risks for the system that built it. Propaganda infrastructure grows faster than institutional control, producing escalation dynamics and unstable side effects.",
       "quote": "\"Maximum Retweet: Threats created by the Ministry of Truth\" - Vedomosti",
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/23/ugrozy-sozdannye-ministerstvom-pravdy",
-      "summary": "This column examines how state-led narrative management can create risks for the system itself. Klishin describes escalation dynamics in which propaganda infrastructure grows faster than institutional control and begins producing unstable side effects.",
+      "summary": "State-led narrative management can create risks for the system that built it. Propaganda infrastructure grows faster than institutional control, producing escalation dynamics and unstable side effects.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Maximum Retweet: Threats created by the Ministry of Truth\" - Vedomosti"
@@ -4302,9 +4302,9 @@
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/04/09/ne-teh-zachistili",
       "summary": "Klishin critiques selective crackdowns that target visible actors while leaving core mechanisms untouched. The text argues that cosmetic purges can harden the system, deepen cynicism, and fail to address the real architecture of manipulation.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Maximum Retweet: They purged the wrong people\" - Vedomosti"
@@ -4356,9 +4356,9 @@
       "url": "https://www.vedomosti.ru/newspaper/articles/2014/03/12/pautina-v-kotoroj-my-okazalis",
       "summary": "This early 2014 piece describes how legal registries, prosecutor powers, and platform pressure formed a practical censorship stack. Klishin shows that control expanded through routine procedures rather than a single dramatic ban.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Maximum Retweet: The web we got trapped in\" - Vedomosti"
@@ -4405,14 +4405,14 @@
       "source": "Vedomosti",
       "topic": "protest infrastructure",
       "title": "The internet will not do it automatically",
-      "digest": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "digest": "The 2013 Vedomosti text rejects technological determinism in protest politics. Digital platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organization.",
       "quote": "\"The internet will not do it automatically\" - Vedomosti",
       "url": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
-      "summary": "This 2013 Vedomosti text questions technological determinism in protest politics. Klishin argues that platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organizational capacity.",
+      "summary": "The 2013 Vedomosti text rejects technological determinism in protest politics. Digital platforms can accelerate coordination, but durable civic change still depends on institutions, strategy, and offline organization.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"The internet will not do it automatically\" - Vedomosti"
@@ -4526,10 +4526,10 @@
       "source": "RAND Corporation",
       "topic": "social media mobilization research",
       "title": "RAND report RR295 on social media and political mobilization",
-      "digest": "RAND's RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.",
+      "digest": "RAND’s RR295 research framework anchors debates on online mobilization and focal points of protest coordination. The report remains useful as a methodological reference for digital political action.",
       "quote": "\"RR295\" - RAND Corporation",
       "url": "https://www.rand.org/pubs/research_reports/RR295.html",
-      "summary": "RAND's RR295 research framework is used as an institutional reference in discussions about online mobilization and focal points of protest coordination. This card captures the report as a methodological source frequently cited in broader debates on digital political action.",
+      "summary": "RAND’s RR295 research framework anchors debates on online mobilization and focal points of protest coordination. The report remains useful as a methodological reference for digital political action.",
       "key_ideas": [
         "The report is used as a framework in mobilization research contexts.",
         "It supports analysis of focal points in digitally coordinated protest.",
@@ -4736,9 +4736,9 @@
       "url": "https://www.vedomosti.ru/opinion/articles/2012/08/24/nol_umnozhennyj_na_million",
       "summary": "One of Klishin's early columns on repetition and network amplification in propaganda. The argument is that low-quality signals can become socially powerful when multiplied across channels that manufacture visibility and perceived consensus.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Zero multiplied by a million\" - Vedomosti"
@@ -5057,7 +5057,7 @@
       "source": "Human Rights Watch",
       "topic": "human rights report",
       "title": "HRW report on harassment of critics includes Klishin case context",
-      "digest": "This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers. A prime example of this repressive mechanic is the documented episode involving Ilya Klishin, the creator of the \"For Fair Elections\" network: operatives from the anti-extremism Center \"E\" interrogated his parents in Tambov, threatening them with vague extremism charges. The text vividly illustrates how authorities, spooked by grassroots mobilization, began deploying psychological blackmail—cynically redirecting their strikes from metropolitan activists to their vulnerable relatives in the provinces.",
+      "digest": "Human Rights Watch documented pressure on protest organizers after the 2011-2012 mobilization, including the interrogation of Klishin’s parents in Tambov by officers from Center E. The episode shows how intimidation moved beyond activists themselves and targeted relatives through vague extremism threats.",
       "quote": "\"Harassment of critics\" — Human Rights Watch",
       "url": "https://www.hrw.org/news/2012/03/01/russia-harassment-critics",
       "copies": {
@@ -5065,7 +5065,7 @@
         "DE": "de-012",
         "ES": "es-027"
       },
-      "summary": "This 2012 Human Rights Watch report chronicles the Kremlin’s strategic shift toward targeted pressure on protest organizers. A prime example of this repressive mechanic is the documented episode involving Ilya Klishin, the creator of the \"For Fair Elections\" network: operatives from the anti-extremism Center \"E\" interrogated his parents in Tambov, threatening them with vague extremism charges. The text vividly illustrates how authorities, spooked by grassroots mobilization, began deploying psychological blackmail—cynically redirecting their strikes from metropolitan activists to their vulnerable relatives in the provinces.",
+      "summary": "Human Rights Watch documented pressure on protest organizers after the 2011-2012 mobilization, including the interrogation of Klishin’s parents in Tambov by officers from Center E. The episode shows how intimidation moved beyond activists themselves and targeted relatives through vague extremism threats.",
       "key_ideas": [],
       "quotes": [
         "\"harassment of critics\" — Human Rights Watch",
@@ -5115,9 +5115,9 @@
       "url": "https://nymag.com/news/features/russian-revolutionaries-2012-1/",
       "summary": "This New York Magazine feature on the 2011-2012 protest movement references Ilia Klishin within the organizing and media infrastructure around demonstrations. It is included as an external profile context source, not as an authored publication by Klishin.",
       "key_ideas": [
-        "The card identifies actors, timeline, and stakes without speculative framing.",
+        "Actors, timeline, and stakes stay separated from speculative framing.",
         "It connects the material to a broader editorial and institutional context.",
-        "The entry keeps a direct link to the original source page."
+        "A direct source link remains available for verification."
       ],
       "quotes": [
         "\"Russia's New Decembrists\" - New York Magazine"

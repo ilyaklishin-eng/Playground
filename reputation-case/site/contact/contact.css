@@ -53,7 +53,7 @@
   font-family: "Newsreader", Georgia, serif;
   font-size: 1.38rem;
   line-height: 1.16;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
 }
 
 .contact-card p,
@@ -199,4 +199,67 @@
   .profiles-list {
     columns: 1;
   }
+}
+
+/* 2026 editorial refresh */
+.contact-hero {
+  position: relative;
+  margin-top: 1.25rem;
+  border-top-color: color-mix(in srgb, var(--ink) 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-strong) 18%, transparent);
+  background:
+    linear-gradient(135deg, rgba(15, 78, 86, 0.1), transparent 44%),
+    linear-gradient(90deg, rgba(212, 198, 75, 0.16), transparent 32%);
+  padding: 1.55rem 0 1.55rem 1rem;
+}
+
+.contact-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0.28rem;
+  background: linear-gradient(180deg, var(--accent), var(--signal), var(--accent-strong));
+}
+
+.contact-hero h1,
+.contact-card h2,
+.channel-card h2,
+.expect-card h2 {
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.contact-grid,
+.contact-route {
+  gap: 1rem;
+}
+
+.contact-card,
+.channel-card,
+.expect-card {
+  border: 1px solid color-mix(in srgb, var(--line) 82%, white 18%);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 253, 250, 0.72)),
+    linear-gradient(135deg, rgba(15, 78, 86, 0.055), transparent 48%);
+  box-shadow: var(--shadow-soft);
+  padding: 1rem;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.contact-card:hover,
+.channel-card:hover,
+.expect-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-strong) 24%, var(--line) 76%);
+  box-shadow: var(--shadow-card);
+}
+
+.channel-actions .cta-btn,
+.footer-profiles,
+.human-note {
+  letter-spacing: 0;
 }

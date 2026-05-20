@@ -51,6 +51,13 @@ const BAD_SUMMARY_PATTERNS = [
   /\bframed through identifiable actors\b/i,
   /\bnamed actors and decisions\b/i,
   /\bPeriod context explains causes effects and stakes\b/i,
+  /\bThis\s+The\b/i,
+  /\bIn this\b/i,
+  /\bKlishin argues\b/i,
+  /\bThe piece\b/i,
+  /\bThe article\b/i,
+  /\bThis\s+(?:[A-Z][A-Za-z]+\s+)?(?:piece|essay|article|column|report|card)\b/i,
+  /\b[A-Za-z]+-published\b/i,
 ];
 const BAD_META_NOISE_PATTERNS = [
   /\bThe narrative avoids reductive labels\b/i,
@@ -70,6 +77,8 @@ const BAD_META_NOISE_PATTERNS = [
   /\bmultilingual materials\b/i,
   /\bcausal framing\b/i,
   /\bchronology actors\b/i,
+  /\bThe card identifies\b/i,
+  /\bThe entry keeps\b/i,
 ];
 const TRUNCATED_SUMMARY_RE = /(?:\.\.\.|…|[:;,–-])\s*$/;
 const PLACEHOLDER_TITLES = new Set(["vedomosti", "the moscow times ru", "ru.themoscowtimes", "snob", "tv rain"]);

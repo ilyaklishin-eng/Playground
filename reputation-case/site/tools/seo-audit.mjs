@@ -160,6 +160,15 @@ function isPostPath(publicPath = "") {
   return !/^\/posts\/(?:index|all|drafts)\.html$/i.test(publicPath);
 }
 
+function isLegacyRedirectPage(content = "") {
+  return (
+    /<meta\s+name=["']robots["']\s+content=["'][^"']*\bnoindex\b/i.test(content) &&
+    /<meta\s+http-equiv=["']refresh["']/i.test(content) &&
+    /window\.location\.replace/i.test(content) &&
+    /\bThis page has moved\b/i.test(content)
+  );
+}
+
 function canonicalNormalizationIssues(canonical) {
   if (!canonical) return [];
   const issues = [];
@@ -300,6 +309,7 @@ async function main() {
     const publicPath = toPublicPath(file);
     const postSlug = publicPath.startsWith("/posts/") ? publicPath.slice("/posts/".length) : null;
     const item = postSlug ? postPathToItem.get(postSlug) : null;
+    const legacyRedirect = isPostPath(publicPath) && isLegacyRedirectPage(content);
 
     rows.push({
       file,
@@ -319,7 +329,8 @@ async function main() {
       hasOrganizationEntityId: content.includes(ORGANIZATION_ID),
       alternates: altLinks,
       item,
-      isPost: isPostPath(publicPath),
+      isPost: isPostPath(publicPath) && !legacyRedirect,
+      isLegacyRedirect: legacyRedirect,
     });
   }
 
@@ -337,6 +348,7 @@ async function main() {
   const noindexPages = rows.filter((r) => r.noindex).map((r) => r.path);
   const githubRefs = rows.filter((r) => r.githubRef).map((r) => r.path);
   const entityConsistencyIssues = rows
+    .filter((r) => !r.isLegacyRedirect)
     .filter((r) => !r.hasPersonEntityId || !r.hasWebSiteEntityId || !r.hasOrganizationEntityId)
     .map((r) => ({
       path: r.path,
@@ -562,6 +574,7 @@ async function main() {
       pages_with_all_core_entity_ids: rows.filter(
         (r) => r.hasPersonEntityId && r.hasWebSiteEntityId && r.hasOrganizationEntityId
       ).length,
+      legacy_redirect_pages: rows.filter((r) => r.isLegacyRedirect).length,
     },
     checks: {
       robots_txt_exists: true,
@@ -582,6 +595,7 @@ async function main() {
       canonical_mismatched: canonicalMismatched,
       canonical_normalization_issues: canonicalNormalizationIssuesList,
       noindex_pages: noindexPages,
+      legacy_redirect_pages: rows.filter((r) => r.isLegacyRedirect).map((r) => r.path),
       github_io_references: githubRefs,
       entity_consistency_pages_missing_ids: entityConsistencyIssues,
       duplicate_canonical_groups: duplicateCanonicalGroups,
@@ -605,6 +619,7 @@ async function main() {
       has_person_id: row.hasPersonEntityId,
       has_website_id: row.hasWebSiteEntityId,
       has_organization_id: row.hasOrganizationEntityId,
+      legacy_redirect: row.isLegacyRedirect,
       alternates: row.alternates,
     })),
   };

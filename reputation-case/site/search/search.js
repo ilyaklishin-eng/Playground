@@ -309,7 +309,7 @@ const setUiState = (nextState, options = {}) => {
   searchInput.setAttribute("aria-disabled", interactive ? "false" : "true");
   searchInput.setAttribute(
     "placeholder",
-    nextState === UI_STATE.ERROR ? "Search is temporarily unavailable" : "Title, source, topic, keyword"
+    nextState === UI_STATE.ERROR ? "Search is temporarily unavailable" : "Title, source, topic"
   );
   setFilterDisabled(!interactive);
   setHint(hint);
