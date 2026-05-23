@@ -9,19 +9,22 @@ on:
 permissions:
   contents: read
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   validate-generated-assets:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
 
       - name: QA public content gate (block regressions)
         run: node reputation-case/site/tools/qa-public-content.mjs --output /tmp/qa-public-content-report.json
@@ -65,6 +68,8 @@ jobs:
 
           git diff --exit-code -- \
             reputation-case/site/posts \
+            reputation-case/site/sitemap.xml \
+            reputation-case/site/sitemap-core.xml \
             reputation-case/site/sitemap-en.xml \
             reputation-case/site/sitemap-fr.xml \
             reputation-case/site/sitemap-de.xml \
