@@ -267,6 +267,6 @@ export const replaceTrustBlock = (html = "", markerKey = "home", options = {}) =
   }
   const indent = markers.indent || "";
   const replacement = `${indent}${markers.start}\n${renderTrustBlock(options)}\n${indent}${markers.end}`;
-  const pattern = new RegExp(`${escapeRegExp(markers.start)}[\\s\\S]*?${escapeRegExp(markers.end)}`, "m");
+  const pattern = new RegExp(`[ \\t]*${escapeRegExp(markers.start)}[\\s\\S]*?[ \\t]*${escapeRegExp(markers.end)}`, "m");
   return String(html).replace(pattern, replacement);
 };
