@@ -852,8 +852,23 @@ const loadSourceUrlHealth = async () => {
   }
 };
 
-const sourceEntitySeed = (sourceName = "", sourceUrl = "") => {
+const extractOriginalUrlFromWayback = (sourceUrl = "") => {
   const normalizedUrl = normalizeSourceUrl(sourceUrl);
+  if (!normalizedUrl) return "";
+  try {
+    const parsed = new URL(normalizedUrl);
+    if (!/^web\.archive\.org$/i.test(parsed.hostname)) return "";
+    const match = parsed.pathname.match(/^\/web\/\d+(?:[a-z_]+)?\/(https?:\/\/.+)$/i);
+    return match?.[1] || "";
+  } catch {
+    return "";
+  }
+};
+
+const sourceEntityUrl = (sourceUrl = "") => extractOriginalUrlFromWayback(sourceUrl) || normalizeSourceUrl(sourceUrl);
+
+const sourceEntitySeed = (sourceName = "", sourceUrl = "") => {
+  const normalizedUrl = sourceEntityUrl(sourceUrl);
   if (normalizedUrl) {
     try {
       const parsed = new URL(normalizedUrl);
@@ -4166,10 +4181,11 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     { name: displayTitle, url: canonical },
   ]);
   const sourceName = normalizeText(item.source || "");
-  const sourceOrigin = sourceLink
+  const sourceEntityLink = sourceEntityUrl(sourceLink);
+  const sourceOrigin = sourceEntityLink
     ? (() => {
         try {
-          return new URL(sourceLink).origin;
+          return new URL(sourceEntityLink).origin;
         } catch {
           return undefined;
         }

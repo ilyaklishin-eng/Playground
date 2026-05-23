@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T21:05:32.292Z",
+  "generated_at": "2026-05-23T07:10:03.792Z",
   "policy": {
     "timeout_ms": 12000,
     "concurrency": 8,
@@ -517,10 +517,10 @@
     },
     {
       "ok": true,
-      "url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
-      "checked_via": "GET",
+      "url": "https://web.archive.org/web/20260306051731/https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "checked_via": "HEAD",
       "status_code": 200,
-      "final_url": "https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
+      "final_url": "https://web.archive.org/web/20260306051731/https://www.news24.com/archives/city-press/anti-putin-activist-complains-of-security-harassment-20150429",
       "classification": "healthy",
       "refs": [
         {
