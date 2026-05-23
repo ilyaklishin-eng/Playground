@@ -3634,8 +3634,8 @@ const ROUTE_STYLESHEET_RE = /^\/(?:home|bio|cases|contact)\/[^"']+\.css(?:\?[^"'
 const GOOGLE_FONT_LINK_RE = /\n?[ \t]*<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>\s*/gi;
 const CONTACT_SCRIPT_RE =
   /\n?[ \t]*<script\b[^>]*\bsrc=["'][^"']*\/contact\/contact(?:\.[a-f0-9]{10})?\.js["'][^>]*>\s*<\/script>\s*/gi;
-const ROUTE_PRELOAD_RE = /\n?[ \t]*<link\b[^>]*\bdata-route-preload\b[^>]*>\s*/gi;
-const LCP_PRELOAD_RE = /\n?[ \t]*<link\b[^>]*\bdata-lcp-preload\b[^>]*>\s*/gi;
+const ROUTE_PRELOAD_RE = /^[ \t]*<link\b[^>]*\bdata-route-preload\b[^>]*>[ \t]*\n?/gim;
+const LCP_PRELOAD_RE = /^[ \t]*<link\b[^>]*\bdata-lcp-preload\b[^>]*>[ \t]*\n?/gim;
 
 const cleanupHeadWhitespace = (html = "") =>
   String(html || "")
@@ -3648,6 +3648,7 @@ const cleanupHeadWhitespace = (html = "") =>
       "$1\n    "
     )
     .replace(/(<\/footer>)\s*(?=<script\b)/gi, "$1\n    ")
+    .replace(/\n[ \t]*\n([ \t]*)(?=<link\b[^>]*\brel=["']canonical["'])/gi, "\n$1")
     .replace(/\n[ \t]*\n[ \t]*\n(?=[ \t]*<(?:link|meta|script|style|title)\b)/gi, "\n\n")
     .replace(/\n{4,}/g, "\n\n\n");
 
@@ -3761,7 +3762,8 @@ const applyStaticPerformancePolicies = async () => {
       html = prioritizeFirstImage(html, FIXED_IMAGE_PATHS.portrait);
     }
 
-    if (html !== original) {
+    const changedBeforeCleanup = html !== original;
+    if (changedBeforeCleanup || !relativePath.startsWith("posts/")) {
       html = cleanupHeadWhitespace(html);
     }
 
