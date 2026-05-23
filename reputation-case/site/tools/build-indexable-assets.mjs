@@ -156,6 +156,10 @@ const HOME_INTERVIEWS_SECTION_START = "<!-- HOME_INTERVIEWS_SECTION_START -->";
 const HOME_INTERVIEWS_SECTION_END = "<!-- HOME_INTERVIEWS_SECTION_END -->";
 const SELECTED_ALL_GRID_START = "<!-- SELECTED_ALL_GRID_START -->";
 const SELECTED_ALL_GRID_END = "<!-- SELECTED_ALL_GRID_END -->";
+const SELECTED_INITIAL_RENDER_LIMIT = 12;
+const SELECTED_SECTION_CARD_LIMIT = 3;
+const SELECTED_ROLE_SECTION_CARD_LIMIT = 3;
+const SEARCH_INITIAL_RENDER_LIMIT = 12;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
 const DIGEST_NAME = "Ilia Klishin Digest";
@@ -1311,6 +1315,9 @@ const classifySelectedSection = (item = {}) => {
 const selectedSectionLabelById = (sectionId = "") =>
   SELECTED_SECTION_CONFIG.find((section) => section.id === sectionId)?.title || "Selected Work";
 
+const selectedSectionIntroById = (sectionId = "") =>
+  SELECTED_SECTION_CONFIG.find((section) => section.id === sectionId)?.intro || "";
+
 const extractYear = (value = "") => {
   const match = String(value || "").trim().match(/^(\d{4})/);
   return match ? match[1] : "";
@@ -2409,7 +2416,7 @@ const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
   }
 
   const authoredSections = SELECTED_SECTION_CONFIG.map((section) => {
-    const cards = grouped.get(section.id) || [];
+    const cards = (grouped.get(section.id) || []).slice(0, SELECTED_SECTION_CARD_LIMIT);
     if (cards.length === 0) return "";
     const cardsHtml = cards.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n");
 
@@ -2426,7 +2433,10 @@ ${cardsHtml}
     if (!entriesForRole.length) return "";
     const config = SELECTED_ROLE_SECTION_CONFIG[roleKey];
     if (!config) return "";
-    const cardsHtml = entriesForRole.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n");
+    const cardsHtml = entriesForRole
+      .slice(0, SELECTED_ROLE_SECTION_CARD_LIMIT)
+      .map((entry) => buildSelectedCardHtml(entry, idToPostPath))
+      .join("\n\n");
 
     return `<section class="cluster cluster-role" id="${config.id}">
         <h2>${config.title}</h2>
@@ -2475,7 +2485,8 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
       };
     });
 
-  const cardsHtml = items
+  const initialItems = items.slice(0, SELECTED_INITIAL_RENDER_LIMIT);
+  const cardsHtml = initialItems
     .map((item, index) => {
       const sourceLink =
         item.sourceUrl && item.sourceUrl !== item.url
@@ -2498,7 +2509,7 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
     .join("\n");
 
   return {
-    countText: `${items.length} shown · Authored`,
+    countText: `${initialItems.length} of ${items.length} shown · Authored`,
     gridHtml: cardsHtml,
   };
 };
@@ -2590,6 +2601,7 @@ const buildInterviewStructuredData = (canonical, locale, items = []) => {
 
 const buildInterviewCardHtml = (item, locale, ctaLabel) => {
   const dataFormatTags = item.formatTokens.join(" ");
+  const actionLabel = normalizeText(item.outlet) ? `${ctaLabel} on ${item.outlet}` : ctaLabel;
   return `          <article class="interview-card" data-section="${htmlEscape(item.section)}" data-format-tags="${htmlEscape(dataFormatTags)}" data-status="${htmlEscape(String(item?.status || CONTENT_STATUS.PUBLISHED))}" data-surface="${htmlEscape(String(item?.surface || CONTENT_SURFACE.PUBLIC))}" lang="${htmlEscape(locale)}" itemscope itemtype="http://schema.org/Article">
             <meta itemprop="inLanguage" content="${htmlEscape(locale)}" />
             <p class="interview-meta">
@@ -2602,11 +2614,8 @@ const buildInterviewCardHtml = (item, locale, ctaLabel) => {
               <a class="interview-title-link" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer" itemprop="url">${htmlEscape(item.title)}</a>
             </h3>
             <p class="interview-description" itemprop="description">${htmlEscape(item.description)}</p>
-            <p class="interview-url-wrap">
-              <a class="interview-url" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.url)}</a>
-            </p>
             <p class="interview-open-wrap">
-              <a class="interview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(ctaLabel)}</a>
+              <a class="interview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(actionLabel)}</a>
             </p>
           </article>`;
 };
@@ -2724,71 +2733,47 @@ const updateInterviewPages = async (sourceUrlHealth = { brokenUrls: new Set() })
   }
 };
 
-const extractSelectedCards = async () => {
-  let html;
-  try {
-    html = await fs.readFile(selectedPagePath, "utf8");
-  } catch (error) {
-    if (error?.code === "ENOENT") return [];
-    throw error;
-  }
+const buildSelectedSearchCards = (entries, idToPostPath = new Map()) => {
+  const scoped = entries
+    .filter((entry) => entry?.item?.locale === "en")
+    .filter((entry) => isPublicRenderableItem(entry?.item))
+    .filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED)
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => !isInterviewLike(entry?.item))
+    .slice()
+    .sort(sortEntriesByDateDesc);
 
-  const sections = [...html.matchAll(/<section class="cluster" id="([^"]+)">([\s\S]*?)<\/section>/gim)];
-  const cards = [];
+  return scoped.map((entry, index) => {
+    const item = entry?.item || {};
+    const role = CONTENT_ROLE.AUTHORED;
+    const sectionId = classifySelectedSection(item);
+    const sectionTitle = selectedSectionLabelById(sectionId);
+    const sectionIntro = selectedSectionIntroById(sectionId);
+    const id = String(item?.id || "").trim() || entry.postPath.replace(/\.html$/i, "");
+    const preferredLink = canonicalUrl(`posts/${idToPostPath.get(id) || entry.postPath}`);
+    const originalLink = publicSourceUrl(item?.url || "");
 
-  for (const sectionMatch of sections) {
-    const sectionId = String(sectionMatch[1] || "").trim();
-    const sectionHtml = String(sectionMatch[2] || "");
-    const sectionTitle = htmlToText(sectionHtml.match(/<h2>([\s\S]*?)<\/h2>/i)?.[1] || sectionId);
-    const sectionIntro = htmlToText(sectionHtml.match(/<p class="cluster-intro">([\s\S]*?)<\/p>/i)?.[1] || "");
-
-    const cardMatches = [...sectionHtml.matchAll(/<article class="work-card"([^>]*)>([\s\S]*?)<\/article>/gim)];
-    for (const cardMatch of cardMatches) {
-      const cardAttrs = String(cardMatch[1] || "");
-      const cardHtml = String(cardMatch[2] || "");
-      const title = htmlToText(cardHtml.match(/<h3>([\s\S]*?)<\/h3>/i)?.[1] || "");
-      if (!title) continue;
-
-      const role = normalizeCardRole(cardAttrs.match(/\bdata-role="([^"]+)"/i)?.[1] || "");
-      const status = String(cardAttrs.match(/\bdata-status="([^"]+)"/i)?.[1] || CONTENT_STATUS.PUBLISHED).trim().toLowerCase();
-      const surface = String(cardAttrs.match(/\bdata-surface="([^"]+)"/i)?.[1] || CONTENT_SURFACE.PUBLIC).trim().toLowerCase();
-      const intro = htmlToText(cardHtml.match(/<p class="work-intro">([\s\S]*?)<\/p>/i)?.[1] || "");
-      const whyRaw = htmlToText(cardHtml.match(/<p class="work-why">([\s\S]*?)<\/p>/i)?.[1] || "");
-      const why = whyRaw.replace(/^Why this matters:\s*/i, "").trim();
-      const type = htmlToText(cardHtml.match(/<li><strong>Type:<\/strong>\s*([\s\S]*?)<\/li>/i)?.[1] || "");
-      const date =
-        htmlToText(cardHtml.match(/<li><strong>Date:<\/strong>\s*([\s\S]*?)<\/li>/i)?.[1] || "") ||
-        htmlToText(cardHtml.match(/<p class="work-meta"><strong>Date:<\/strong>\s*([\s\S]*?)<\/p>/i)?.[1] || "");
-
-      const linkCandidates = [...cardHtml.matchAll(/<a\b[^>]*\bhref="([^"]+)"/gi)].map((m) => String(m[1] || "").trim());
-      const digestLink = linkCandidates.find((href) => href.startsWith("/posts/"));
-      const preferredLink = digestLink || linkCandidates[0] || `/selected/#${sectionId}`;
-      const originalLink = linkCandidates.find((href) => /^https?:\/\//i.test(href)) || "";
-
-      cards.push({
-        id: `selected-${sectionId}-${cards.length + 1}`,
-        type: "selected",
-        language: "EN",
-        locale: "en",
-        status,
-        surface,
-        role,
-        title,
-        summary: intro,
-        context: why,
-        topic: sectionTitle,
-        source: "Selected Work",
-        date: date || "",
-        material_type: type || "Curated card",
-        section: sectionTitle,
-        section_intro: sectionIntro,
-        url: normalizeSearchUrl(preferredLink),
-        source_url: normalizeSearchUrl(originalLink || preferredLink),
-      });
-    }
-  }
-
-  return cards;
+    return {
+      id: `selected-${sectionId}-${index + 1}`,
+      type: "selected",
+      language: "EN",
+      locale: "en",
+      status: String(item?.status || CONTENT_STATUS.PUBLISHED).trim().toLowerCase(),
+      surface: String(item?.surface || CONTENT_SURFACE.PUBLIC).trim().toLowerCase(),
+      role,
+      title: resolveDisplayTitle(item),
+      summary: sanitizeSelectedIntro(previewSummary(item), item),
+      context: "",
+      topic: sectionTitle,
+      source: "Selected Work",
+      date: normalizeText(item?.date || ""),
+      material_type: "Curated card",
+      section: sectionTitle,
+      section_intro: sectionIntro,
+      url: normalizeSearchUrl(preferredLink),
+      source_url: normalizeSearchUrl(originalLink || preferredLink),
+    };
+  });
 };
 
 const buildSearchPostCardsForLocale = (
@@ -2960,6 +2945,137 @@ const buildSearchIndexes = (
     locales,
     itemsByLocale,
   };
+};
+
+const searchResultBadge = (item = {}) => {
+  if (item.type === "selected") return "Selected";
+  if (item.type === "interview") return "Interview";
+  return "Post";
+};
+
+const searchResultMeta = (item = {}) => {
+  const source = normalizeText(item.source || "-");
+  const date = normalizeText(item.display_date || item.date || "-");
+  const topic = normalizeText(item.topic || "");
+  return topic ? `${source} • ${date} • ${topic}` : `${source} • ${date}`;
+};
+
+const sanitizeSearchSummary = (item = {}) =>
+  normalizeText(item.summary || "")
+    .replace(
+      /\b(entry added to include|the summary gives a clear reference point for later comparisons|useful reference card|this (?:card|entry|piece) is included as|it is included as|keep this as|source record|external analytical reference|institutional context source)\b[^.]*\.?/gi,
+      ""
+    )
+    .trim();
+
+const buildSearchResultCardHtml = (item = {}) => {
+  const title = htmlEscape(normalizeText(item.title || "Untitled"));
+  const summary = htmlEscape(sanitizeSearchSummary(item));
+  const context = htmlEscape(normalizeText(item.context || ""));
+  const meta = htmlEscape(searchResultMeta(item));
+  const url = htmlEscape(normalizeText(item.url || "#"));
+  const sourceUrl = normalizeText(item.source_url || "");
+  const escapedSourceUrl = htmlEscape(sourceUrl);
+  const language = htmlEscape(normalizeLang(item.language || item.locale));
+  const badge = htmlEscape(searchResultBadge(item));
+  const isInterview = item.type === "interview";
+  const primaryLabel = isInterview ? "Open material" : "Open card";
+  const targetAttrs = isInterview ? ' target="_blank" rel="noopener noreferrer"' : "";
+  const showSourceLink = sourceUrl && sourceUrl !== normalizeText(item.url || "");
+
+  return `        <article class="result-card">
+          <div class="result-head">
+            <span class="result-badge">${language}</span>
+            <span class="result-badge">${badge}</span>
+          </div>
+          <h2><a href="${url}"${targetAttrs}>${title}</a></h2>
+          <p class="result-meta">${meta}</p>
+          ${summary ? `<p class="result-summary">${summary}</p>` : ""}
+          ${context ? `<p class="result-context">${context}</p>` : ""}
+          <p class="result-links">
+            <a href="${url}"${targetAttrs}>${htmlEscape(primaryLabel)}</a>
+            ${showSourceLink ? `<a href="${escapedSourceUrl}" rel="noreferrer noopener" target="_blank">Open original source</a>` : ""}
+          </p>
+        </article>`;
+};
+
+const buildSearchInitialItems = (searchIndexes = {}) => {
+  const allItems = Object.values(searchIndexes.itemsByLocale || {})
+    .flatMap((payload) => (Array.isArray(payload?.items) ? payload.items : []))
+    .filter((item) => String(item?.status || "").trim().toLowerCase() === CONTENT_STATUS.PUBLISHED)
+    .filter((item) => String(item?.surface || "").trim().toLowerCase() === CONTENT_SURFACE.PUBLIC);
+
+  const sorted = allItems.slice().sort((a, b) => {
+    const dateDelta = Date.parse(String(b?.date || "")) - Date.parse(String(a?.date || ""));
+    if (!Number.isNaN(dateDelta) && dateDelta !== 0) return dateDelta;
+    const localeDelta = HREFLANG_ORDER.indexOf(normalizeLocale(a?.locale || a?.language)) -
+      HREFLANG_ORDER.indexOf(normalizeLocale(b?.locale || b?.language));
+    if (localeDelta !== 0) return localeDelta;
+    return normalizeText(a?.id).localeCompare(normalizeText(b?.id));
+  });
+
+  const seen = new Set();
+  const deduped = [];
+  for (const item of sorted) {
+    const key = normalizeText(item.url || item.content_id || item.id);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    deduped.push({
+      id: normalizeText(item.id || key),
+      content_id: normalizeText(item.content_id || ""),
+      type: normalizeText(item.type || "post"),
+      language: normalizeLang(item.language || item.locale),
+      locale: normalizeLocale(item.locale || item.language),
+      status: CONTENT_STATUS.PUBLISHED,
+      surface: CONTENT_SURFACE.PUBLIC,
+      role: normalizeCardRole(item.role),
+      title: normalizeText(item.title || ""),
+      summary: sanitizeSearchSummary(item),
+      context: normalizeText(item.context || ""),
+      topic: normalizeText(item.topic || ""),
+      source: normalizeText(item.source || ""),
+      date: normalizeText(item.date || ""),
+      display_date: normalizeText(item.display_date || item.date || ""),
+      material_type: normalizeText(item.material_type || ""),
+      url: normalizeText(item.url || ""),
+      source_url: normalizeText(item.source_url || ""),
+      semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)).slice(0, 4),
+    });
+    if (deduped.length >= SEARCH_INITIAL_RENDER_LIMIT) break;
+  }
+  return deduped;
+};
+
+const applySearchInitialResults = async (searchIndexes = {}) => {
+  const searchPath = path.join(siteDir, "search", "index.html");
+  let html;
+  try {
+    html = await fs.readFile(searchPath, "utf8");
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+
+  const initialItems = buildSearchInitialItems(searchIndexes);
+  if (!initialItems.length) return;
+
+  const cardsHtml = initialItems.map((item) => buildSearchResultCardHtml(item)).join("\n");
+  const summaryText = `Showing ${initialItems.length} latest published items. Search becomes interactive when the index is ready.`;
+  const resultsHtml = `<p class="search-summary" id="searchSummary" aria-live="polite">${htmlEscape(summaryText)}</p>
+      <section class="search-results" id="searchResults" aria-live="polite">
+${cardsHtml}
+      </section>`;
+
+  let next = html
+    .replace(/\s*<script type="application\/json" id="searchInitialItems">[\s\S]*?<\/script>/m, "")
+    .replace(
+      /<p class="search-summary" id="searchSummary" aria-live="polite">[\s\S]*?<\/p>\s*<section class="search-results" id="searchResults" aria-live="polite">[\s\S]*?<\/section>/m,
+      resultsHtml
+    );
+
+  if (next !== html) {
+    await fs.writeFile(searchPath, next, "utf8");
+  }
 };
 
 const pickUniqueEntries = (entries, max, used) => {
@@ -4990,7 +5106,7 @@ const main = async () => {
   const idToPostPath = new Map(compiledEntries.map((entry) => [entry.item.id, entry.postPath]));
   await updateInterviewPages(sourceUrlHealth);
   await updateSelectedWorkPage(publicEntries, idToPostPath);
-  const selectedCards = await extractSelectedCards();
+  const selectedCards = buildSelectedSearchCards(publicEntries, idToPostPath);
   const { idToCluster, idToContentId } = buildContentTranslationMaps(items);
   const publicInterviews = buildPublicInterviewsDataset(sourceUrlHealth);
   const idToIndexStatus = new Map(
@@ -5118,6 +5234,7 @@ const main = async () => {
       "utf8"
     );
   }
+  await applySearchInitialResults(searchIndexes);
   const notesSource = path.resolve(process.cwd(), "reputation-case", "digest-multilingual-notes-v1.md");
   const notesTarget = path.join(siteDir, "digest-multilingual-notes-v1.md");
   try {

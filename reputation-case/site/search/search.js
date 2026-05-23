@@ -5,6 +5,7 @@ const searchHint = document.getElementById("searchHint");
 const searchSummary = document.getElementById("searchSummary");
 const searchResults = document.getElementById("searchResults");
 const searchBrowseFallback = document.getElementById("searchBrowseFallback");
+const searchInitialItems = document.getElementById("searchInitialItems");
 
 const MAX_RESULTS = 40;
 const SUPPORTED_LOCALES = ["en", "fr", "de", "es"];
@@ -18,6 +19,7 @@ const state = {
   query: "",
   lang: "ALL",
   ui: "loading",
+  eventsBound: false,
 };
 
 const UI_STATE = Object.freeze({
@@ -335,6 +337,28 @@ const refreshMergedItems = () => {
   state.items = [...state.itemsByLocale.values()].flat();
 };
 
+const seedInitialItems = () => {
+  if (!searchInitialItems?.textContent) return false;
+  let items = [];
+  try {
+    const parsed = JSON.parse(searchInitialItems.textContent);
+    items = Array.isArray(parsed) ? parsed.filter(isPublicItem) : [];
+  } catch {
+    items = [];
+  }
+  if (!items.length) return false;
+
+  state.itemsByLocale.clear();
+  for (const locale of SUPPORTED_LOCALES) {
+    state.itemsByLocale.set(
+      locale,
+      items.filter((item) => normalizeLocale(item.locale || item.language) === locale)
+    );
+  }
+  refreshMergedItems();
+  return state.items.length > 0;
+};
+
 const ensureValidSelectedLanguage = () => {
   const counts = new Map(
     SUPPORTED_LANGS.map((lang) => {
@@ -358,6 +382,8 @@ const ensureValidSelectedLanguage = () => {
 };
 
 const bindEvents = () => {
+  if (state.eventsBound) return;
+  state.eventsBound = true;
   searchInput.addEventListener("input", () => {
     state.query = normalizeText(searchInput.value);
     render();
@@ -389,10 +415,21 @@ const loadLocaleDataset = async (locale, meta = {}) => {
 };
 
 const init = async () => {
-  setUiState(UI_STATE.LOADING, { hint: "" });
-
   try {
     initStateFromUrl();
+    const hasInitialItems = seedInitialItems();
+    if (hasInitialItems) {
+      const initialCounts = new Map(
+        SUPPORTED_LANGS.map((lang) => {
+          const locale = lang.toLowerCase();
+          return [lang, Array.isArray(state.itemsByLocale.get(locale)) ? state.itemsByLocale.get(locale).length : 0];
+        })
+      );
+      setLanguageAvailability(initialCounts);
+      ensureValidSelectedLanguage();
+      render();
+    }
+    setUiState(UI_STATE.LOADING, { hint: hasInitialItems ? "Loading the full search index." : "" });
 
     const manifest = await fetchJson(SEARCH_MANIFEST_PATH);
     const localeEntries = SUPPORTED_LOCALES.map((locale) => [locale, manifest?.locales?.[locale] || {}]);
@@ -423,6 +460,12 @@ const init = async () => {
     render();
   } catch (error) {
     console.error(error);
+    if (state.items.length > 0) {
+      setUiState(UI_STATE.READY, { hint: "Showing the initial search index. Full search is temporarily unavailable." });
+      bindEvents();
+      render();
+      return;
+    }
     setUiState(UI_STATE.ERROR, { hint: "Search is temporarily unavailable right now." });
     setSummary("");
     renderBrowseFallback("Search is temporarily unavailable right now. Browse these public sections instead.");

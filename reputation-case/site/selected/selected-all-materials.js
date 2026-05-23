@@ -4,11 +4,13 @@ const filterButtons = Array.from(document.querySelectorAll(".selected-all-filter
 const roleButtons = Array.from(document.querySelectorAll(".selected-all-role-filters .filter-btn[data-role-filter]"));
 const PUBLIC_DIGESTS_PATH = "/data/public-digests.json";
 const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
+const PAGE_SIZE = 12;
 
 const state = {
   items: [],
   format: "all",
   role: "authored",
+  visibleLimit: PAGE_SIZE,
 };
 
 const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
@@ -298,11 +300,13 @@ function render() {
   const all = state.items;
   const roleScoped = all.filter((item) => normalizeRole(item.role) === state.role);
   const visible = state.format === "all" ? roleScoped : roleScoped.filter((item) => item.format === state.format);
+  const paged = visible.slice(0, state.visibleLimit);
+  const hasMore = visible.length > paged.length;
   grid.innerHTML = "";
 
   if (countNode) {
     const formatSuffix = state.format === "all" ? "" : ` · ${formatLabel(state.format)}`;
-    countNode.textContent = `${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix}`;
+    countNode.textContent = `${paged.length} of ${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix}`;
   }
 
   if (!visible.length) {
@@ -310,12 +314,43 @@ function render() {
     empty.className = "selected-all-empty";
     empty.textContent = "No materials match the current filters.";
     grid.appendChild(empty);
+    syncLoadMore(false, 0);
     return;
   }
 
   const fragment = document.createDocumentFragment();
-  visible.forEach((item, index) => fragment.appendChild(createCard(item, { featured: index === 0 })));
+  paged.forEach((item, index) => fragment.appendChild(createCard(item, { featured: index === 0 })));
   grid.appendChild(fragment);
+  syncLoadMore(hasMore, visible.length - paged.length);
+}
+
+function ensureLoadMoreButton() {
+  let wrap = document.getElementById("selectedAllActions");
+  let button = document.getElementById("selectedAllLoadMore");
+  if (wrap && button) return button;
+
+  wrap = document.createElement("div");
+  wrap.className = "selected-all-actions";
+  wrap.id = "selectedAllActions";
+  button = document.createElement("button");
+  button.className = "filter-btn selected-all-load-more";
+  button.id = "selectedAllLoadMore";
+  button.type = "button";
+  button.addEventListener("click", () => {
+    state.visibleLimit += PAGE_SIZE;
+    render();
+  });
+  wrap.appendChild(button);
+  grid?.insertAdjacentElement("afterend", wrap);
+  return button;
+}
+
+function syncLoadMore(hasMore, remaining) {
+  const button = ensureLoadMoreButton();
+  if (!button) return;
+  button.hidden = !hasMore;
+  button.disabled = !hasMore;
+  button.textContent = hasMore ? `Load ${Math.min(PAGE_SIZE, Math.max(0, remaining))} more` : "";
 }
 
 function bindFilters() {
@@ -324,6 +359,7 @@ function bindFilters() {
       const next = normalizeRole(button.dataset.roleFilter || "authored");
       if (next === state.role) return;
       state.role = next;
+      state.visibleLimit = PAGE_SIZE;
       roleButtons.forEach((node) => {
         const active = normalizeRole(node.dataset.roleFilter) === next;
         node.classList.toggle("active", active);
@@ -338,6 +374,7 @@ function bindFilters() {
       const next = String(button.dataset.format || "all");
       if (next === state.format) return;
       state.format = next;
+      state.visibleLimit = PAGE_SIZE;
       filterButtons.forEach((node) => {
         const active = String(node.dataset.format) === next;
         node.classList.toggle("active", active);
