@@ -1,0 +1,416 @@
+const grid = document.getElementById("selectedAllGrid");
+const countNode = document.getElementById("selectedAllCount");
+const filterButtons = Array.from(document.querySelectorAll(".selected-all-filters .filter-btn[data-format]"));
+const roleButtons = Array.from(document.querySelectorAll(".selected-all-role-filters .filter-btn[data-role-filter]"));
+const PUBLIC_DIGESTS_PATH = "/data/public-digests.json";
+const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
+
+const state = {
+  items: [],
+  format: "all",
+  role: "authored",
+};
+
+const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
+const pageLang = uiLang === "fr" ? "FR" : uiLang === "de" ? "DE" : uiLang === "es" ? "ES" : "EN";
+const ROLE_LABELS = {
+  en: { authored: "Authored", quoted: "Expert Comment", reference: "Reference" },
+  fr: { authored: "Signe", quoted: "Commentaire", reference: "Reference" },
+  de: { authored: "Verfasst", quoted: "Kommentar", reference: "Referenz" },
+  es: { authored: "Firmado", quoted: "Comentario", reference: "Referencia" },
+};
+const ROLE_VIEW_LABELS = {
+  en: { authored: "Authored", quoted: "Quoted", reference: "References" },
+  fr: { authored: "Signes", quoted: "Citations", reference: "References" },
+  de: { authored: "Verfasst", quoted: "Zitiert", reference: "Referenzen" },
+  es: { authored: "Firmado", quoted: "Citado", reference: "Referencias" },
+};
+const TYPE_LABELS = {
+  en: {
+    article: "Article",
+    analysis: "Analysis",
+    commentary: "Commentary",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Expert comment",
+    reference: "Reference",
+  },
+  fr: {
+    article: "Article",
+    analysis: "Analyse",
+    commentary: "Commentaire",
+    essay: "Essai",
+    interview: "Entretien",
+    note: "Note",
+    podcast: "Podcast",
+    video: "Vidéo",
+    expert_comment: "Commentaire",
+    reference: "Référence",
+  },
+  de: {
+    article: "Artikel",
+    analysis: "Analyse",
+    commentary: "Kommentar",
+    essay: "Essay",
+    interview: "Interview",
+    note: "Notiz",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Kommentar",
+    reference: "Referenz",
+  },
+  es: {
+    article: "Artículo",
+    analysis: "Análisis",
+    commentary: "Comentario",
+    essay: "Ensayo",
+    interview: "Entrevista",
+    note: "Nota",
+    podcast: "Podcast",
+    video: "Video",
+    expert_comment: "Comentario",
+    reference: "Referencia",
+  },
+};
+
+init().catch((error) => {
+  console.error("Failed to build selected materials feed", error);
+  if (countNode && !grid?.children?.length) countNode.textContent = "Failed to load materials.";
+});
+
+function normalize(value) {
+  return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function stripTags(value) {
+  return String(value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function toTimestamp(raw) {
+  const value = normalize(raw);
+  if (!value) return 0;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return Date.parse(`${value}T00:00:00Z`) || 0;
+  if (/^\d{4}-\d{2}$/.test(value)) return Date.parse(`${value}-01T00:00:00Z`) || 0;
+  if (/^\d{4}$/.test(value)) return Date.parse(`${value}-01-01T00:00:00Z`) || 0;
+  if (/^\d{4}[\/\-]\d{4}$/.test(value)) {
+    const firstYear = value.slice(0, 4);
+    return Date.parse(`${firstYear}-01-01T00:00:00Z`) || 0;
+  }
+  return Date.parse(value) || 0;
+}
+
+function summaryPreview(raw, maxSentences = 2) {
+  const text = normalize(stripTags(raw));
+  if (!text) return "";
+  const parts = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+  const picked = parts
+    .map((part) => normalize(part))
+    .filter(Boolean)
+    .filter(
+      (part) =>
+        !/\b(entry added to include|clear reference point for later comparisons|useful reference card|this (?:card|entry|piece) is included as|it is included as|keep this as|source record|external analytical reference|institutional context source)\b/i.test(
+          part
+        )
+    )
+    .slice(0, Math.max(1, maxSentences));
+  const merged = normalize(picked.join(" "));
+  if (!merged) return "";
+  return /[.!?]$/.test(merged) ? merged : `${merged}.`;
+}
+
+function fallbackSummary(item = {}) {
+  const topic = normalize(item.topic || "the topic");
+  const source = normalize(item.source || "the source");
+  const year = /^\d{4}/.test(String(item.date || "")) ? String(item.date).slice(0, 4) : "";
+  return `This piece from ${source}${year ? ` (${year})` : ""} examines ${topic}.`;
+}
+
+function detectFormat(item) {
+  const blob = [
+    item.formatLabel,
+    item.format,
+    item.title,
+    item.description,
+    item.summary,
+    item.material_type,
+    item.source,
+    item.topic,
+  ]
+    .map((v) => String(v || ""))
+    .join(" ")
+    .toLowerCase();
+
+  if (/(podcast|подкаст|podcasts)/.test(blob)) return "podcasts";
+  if (/(video|видео|youtube|tedx?|broadcast|эфир|talk|interview by skype)/.test(blob)) return "video";
+  return "text";
+}
+
+function formatLabel(kind) {
+  if (kind === "video") return "Video";
+  if (kind === "podcasts") return "Podcast";
+  return "Text";
+}
+
+function normalizeRole(value) {
+  const raw = normalize(value).toLowerCase();
+  if (raw === "authored" || raw === "author") return "authored";
+  if (raw === "quoted" || raw === "expert_quote") return "quoted";
+  if (raw === "reference" || raw === "mention") return "reference";
+  return "reference";
+}
+
+function inferMaterialKindKey(item = {}) {
+  const role = normalize(item.role).toLowerCase();
+  const blob = [
+    item.formatLabel,
+    item.format,
+    item.title,
+    item.description,
+    item.summary,
+    item.material_type,
+    item.source,
+    item.topic,
+    item.url,
+  ]
+    .map((v) => String(v || ""))
+    .join(" ")
+    .toLowerCase();
+
+  if (role === "reference") return "reference";
+  if (/\b(?:podcast|podcasts)\b|подкаст/.test(blob)) return "podcast";
+  if (/\b(?:video|youtube|tedx?)\b|видео/.test(blob)) {
+    return /\b(?:interview|conversation|podcast)\b/.test(blob) ? "interview" : "video";
+  }
+  if (role === "quoted") return /\b(?:interview|conversation|feature)\b/.test(blob) ? "interview" : "expert_comment";
+  if (/\b(?:interview|conversation|q&a)\b/.test(blob)) return "interview";
+  if (/\bessay\b/.test(blob)) return "essay";
+  if (/\bcommentary|column|opinion\b/.test(blob)) return "commentary";
+  if (/\banalysis|analytical\b/.test(blob)) return "analysis";
+  if (/\bnote|notes\b/.test(blob)) return "note";
+  return "article";
+}
+
+function typeLabel(item = {}) {
+  const copy = TYPE_LABELS[uiLang] || TYPE_LABELS.en;
+  const key = inferMaterialKindKey(item);
+  return copy[key] || TYPE_LABELS.en[key] || TYPE_LABELS.en.article;
+}
+
+function roleLabel(role) {
+  const copy = ROLE_LABELS[uiLang] || ROLE_LABELS.en;
+  return copy[normalizeRole(role)] || copy.reference;
+}
+
+function roleViewLabel(role) {
+  const copy = ROLE_VIEW_LABELS[uiLang] || ROLE_VIEW_LABELS.en;
+  return copy[normalizeRole(role)] || copy.reference;
+}
+
+function isAbsoluteUrl(value) {
+  return /^https?:\/\//i.test(String(value || ""));
+}
+
+function createCard(item, options = {}) {
+  const featured = Boolean(options.featured);
+  const node = document.createElement("article");
+  node.className = `selected-all-card${featured ? " selected-all-card-featured" : ""}`;
+  node.dataset.role = normalizeRole(item.role);
+
+  const meta = document.createElement("p");
+  meta.className = "selected-all-meta";
+  meta.textContent = `${item.date || "-"} · ${item.source || "Source"}`;
+
+  const badgeWrap = document.createElement("p");
+  badgeWrap.className = "selected-all-role";
+  const badge = document.createElement("span");
+  badge.className = `role-badge role-badge-${normalizeRole(item.role).replace("_", "-")}`;
+  badge.textContent = roleLabel(item.role);
+  badgeWrap.appendChild(badge);
+  const type = document.createElement("span");
+  type.className = "selected-all-type";
+  type.textContent = typeLabel(item);
+  badgeWrap.appendChild(type);
+
+  const title = document.createElement("h3");
+  const titleLink = document.createElement("a");
+  titleLink.href = item.url;
+  if (isAbsoluteUrl(item.url)) {
+    titleLink.target = "_blank";
+    titleLink.rel = "noopener noreferrer";
+  }
+  titleLink.textContent = item.title || "Untitled";
+  title.appendChild(titleLink);
+
+  const summary = document.createElement("p");
+  summary.className = "selected-all-summary";
+  summary.textContent = summaryPreview(item.summary || "", featured ? 2 : 1) || fallbackSummary(item);
+
+  const cta = document.createElement("p");
+  cta.className = "selected-all-cta";
+  const ctaLink = document.createElement("a");
+  ctaLink.href = item.url;
+  if (isAbsoluteUrl(item.url)) {
+    ctaLink.target = "_blank";
+    ctaLink.rel = "noopener noreferrer";
+  }
+  ctaLink.textContent = "Open on-site note";
+  cta.appendChild(ctaLink);
+
+  if (item.sourceUrl && item.sourceUrl !== item.url) {
+    const separator = document.createTextNode(" · ");
+    const sourceLink = document.createElement("a");
+    sourceLink.href = item.sourceUrl;
+    sourceLink.target = "_blank";
+    sourceLink.rel = "noopener noreferrer";
+    sourceLink.textContent = "Original source";
+    cta.append(separator, sourceLink);
+  }
+
+  node.append(meta, badgeWrap, title, summary, cta);
+  return node;
+}
+
+function dedupeByUrl(items) {
+  const byUrl = new Map();
+  for (const item of items) {
+    const key = normalize(item.url || item.sourceUrl || item.title).toLowerCase();
+    if (!key) continue;
+    const existing = byUrl.get(key);
+    if (!existing) {
+      byUrl.set(key, item);
+      continue;
+    }
+
+    const existingScore = (existing.format !== "text" ? 2 : 0) + (existing.summary?.length || 0);
+    const nextScore = (item.format !== "text" ? 2 : 0) + (item.summary?.length || 0);
+    if (nextScore > existingScore) {
+      byUrl.set(key, item);
+    }
+  }
+  return Array.from(byUrl.values());
+}
+
+function render() {
+  if (!grid) return;
+  const all = state.items;
+  const roleScoped = all.filter((item) => normalizeRole(item.role) === state.role);
+  const visible = state.format === "all" ? roleScoped : roleScoped.filter((item) => item.format === state.format);
+  grid.innerHTML = "";
+
+  if (countNode) {
+    const formatSuffix = state.format === "all" ? "" : ` · ${formatLabel(state.format)}`;
+    countNode.textContent = `${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix}`;
+  }
+
+  if (!visible.length) {
+    const empty = document.createElement("div");
+    empty.className = "selected-all-empty";
+    empty.textContent = "No materials match the current filters.";
+    grid.appendChild(empty);
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  visible.forEach((item, index) => fragment.appendChild(createCard(item, { featured: index === 0 })));
+  grid.appendChild(fragment);
+}
+
+function bindFilters() {
+  roleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = normalizeRole(button.dataset.roleFilter || "authored");
+      if (next === state.role) return;
+      state.role = next;
+      roleButtons.forEach((node) => {
+        const active = normalizeRole(node.dataset.roleFilter) === next;
+        node.classList.toggle("active", active);
+        node.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      render();
+    });
+  });
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = String(button.dataset.format || "all");
+      if (next === state.format) return;
+      state.format = next;
+      filterButtons.forEach((node) => {
+        const active = String(node.dataset.format) === next;
+        node.classList.toggle("active", active);
+        node.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+      render();
+    });
+  });
+}
+
+async function loadDigestCards() {
+  const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to load digests: ${response.status}`);
+  const payload = await response.json();
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+
+  return items
+    .filter((item) => String(item?.status || "").toLowerCase() === "published")
+    .filter((item) => String(item?.surface || "").toLowerCase() === "public")
+    .filter((item) => String(item?.language || "").toUpperCase() === pageLang)
+    .map((item) => {
+      const sourceUrl = normalize(item.source_url || item.url);
+      return {
+        id: normalize(item.id),
+        date: normalize(item.date),
+        source: normalize(item.source),
+        role: normalize(item.role || "authored"),
+        title: normalize(item.title),
+        summary: summaryPreview(item.summary || item.digest, 2),
+        url: normalize(item.post_url || sourceUrl),
+        sourceUrl,
+        format: detectFormat(item),
+      };
+    })
+    .filter((item) => item.title && item.url);
+}
+
+async function loadInterviewCards() {
+  const response = await fetch(PUBLIC_INTERVIEWS_PATH, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Failed to load interviews: ${response.status}`);
+  const payload = await response.json();
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+
+  return items
+    .filter((item) => String(item?.status || "").toLowerCase() === "published")
+    .filter((item) => String(item?.surface || "").toLowerCase() === "public")
+    .filter((item) => String(item?.locale || "").toLowerCase() === uiLang)
+    .map((item) => ({
+      id: `interview-${normalize(item.url)}`,
+      date: normalize(item.date),
+      source: normalize(item.outlet || (item.section === "features" ? "Feature" : "Interview")),
+      role: normalize(item.role || "quoted"),
+      title: normalize(item.title),
+      summary: summaryPreview(item.description, 2),
+      url: normalize(item.url),
+      sourceUrl: normalize(item.source_url || item.url),
+      format: detectFormat(item),
+    }))
+    .filter((item) => item.title && item.url);
+}
+
+async function init() {
+  const digestCards = await loadDigestCards();
+  const interviewCards = await loadInterviewCards();
+  const combined = dedupeByUrl([...digestCards, ...interviewCards])
+    .slice()
+    .sort((a, b) => {
+      const dateDelta = toTimestamp(b.date) - toTimestamp(a.date);
+      if (dateDelta !== 0) return dateDelta;
+      return a.title.localeCompare(b.title);
+    });
+
+  state.items = combined;
+  bindFilters();
+  render();
+}

@@ -127,6 +127,7 @@ const SOCIAL_OG_IMAGE_BY_TYPE = {
 };
 const FINGERPRINTABLE_ASSETS = [
   { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
+  { source: "home/home.css", aliases: ["/home/home.css", "./home.css", "../home.css"] },
   // app.js is the canonical home-feed source; the build fingerprints it into /app.<hash>.js and rewrites HTML references.
   { source: "app.js", aliases: ["/app.js", "./app.js"] },
   { source: "bio/bio.css", aliases: ["/bio/bio.css", "./bio.css", "../bio.css"] },
@@ -141,6 +142,10 @@ const FINGERPRINTABLE_ASSETS = [
   {
     source: "interviews/interviews-preview.js",
     aliases: ["/interviews/interviews-preview.js", "./interviews-preview.js", "../interviews-preview.js"],
+  },
+  {
+    source: "selected/selected-all-materials.js",
+    aliases: ["/selected/selected-all-materials.js", "./selected-all-materials.js", "../selected-all-materials.js"],
   },
 ];
 const HOME_FALLBACK_LIMIT = 8;
@@ -3506,6 +3511,150 @@ const appendHeadMarkup = (html = "", lines = []) => {
   return compactHead.replace(/<\/head>/i, `    ${normalized.join("\n    ")}\n  </head>`);
 };
 
+const HOME_PERFORMANCE_PAGES = new Set(["index.html", "fr/index.html", "de/index.html", "es/index.html"]);
+const BIO_PERFORMANCE_PAGES = new Set(["bio/index.html", "bio/fr/index.html", "bio/de/index.html", "bio/es/index.html"]);
+const CONTACT_SCRIPT_PAGE = "contact/index.html";
+const ROUTE_STYLESHEET_RE = /^\/(?:home|bio|cases|contact)\/[^"']+\.css(?:\?[^"']*)?$/i;
+const GOOGLE_FONT_LINK_RE = /\n?[ \t]*<link\b[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>\s*/gi;
+const CONTACT_SCRIPT_RE =
+  /\n?[ \t]*<script\b[^>]*\bsrc=["'][^"']*\/contact\/contact(?:\.[a-f0-9]{10})?\.js["'][^>]*>\s*<\/script>\s*/gi;
+const ROUTE_PRELOAD_RE = /\n?[ \t]*<link\b[^>]*\bdata-route-preload\b[^>]*>\s*/gi;
+const LCP_PRELOAD_RE = /\n?[ \t]*<link\b[^>]*\bdata-lcp-preload\b[^>]*>\s*/gi;
+
+const cleanupHeadWhitespace = (html = "") =>
+  String(html || "")
+    .replace(/\n[ \t]+(?=\n)/g, "\n")
+    .replace(/\n{2,}([ \t]*>)/g, "\n$1")
+    .replace(/(<\/script>)([ \t]*)(<\/body>)/gi, "$1\n  $3")
+    .replace(/(<\/style>)([ \t]*)(<\/head>)/gi, "$1\n  $3")
+    .replace(
+      /(<link\b[^>]*\/?>|<meta\b[^>]*\/?>|<\/script>|<\/style>)([ \t]*)(?=<(?:link|meta|script|style|title)\b)/gi,
+      "$1\n    "
+    )
+    .replace(/(<\/footer>)\s*(?=<script\b)/gi, "$1\n    ")
+    .replace(/\n[ \t]*\n[ \t]*\n(?=[ \t]*<(?:link|meta|script|style|title)\b)/gi, "\n\n")
+    .replace(/\n{4,}/g, "\n\n\n");
+
+const addAttributeToTag = (tag = "", attrName = "", attrValue = "") => {
+  const name = String(attrName || "").trim();
+  if (!name || new RegExp(`\\s${escapeRegExpSafe(name)}(?:=|\\s|>)`, "i").test(tag)) return tag;
+  const value = String(attrValue || "").trim();
+  const insertion = value ? ` ${name}="${htmlEscape(value)}"` : ` ${name}`;
+  return String(tag || "").replace(/\s*\/?>$/, (ending) => `${insertion}${ending}`);
+};
+
+const removeClassToken = (html = "", classToken = "") =>
+  String(html || "").replace(/\sclass=["']([^"']*)["']/gi, (match, rawClasses) => {
+    const classes = String(rawClasses || "")
+      .split(/\s+/)
+      .map((className) => className.trim())
+      .filter(Boolean)
+      .filter((className) => className !== classToken);
+    return classes.length ? ` class="${htmlEscape(classes.join(" "))}"` : "";
+  });
+
+const stripContactEnhancementAttributes = (html = "") =>
+  removeClassToken(String(html || ""), "js-email").replace(
+    /\sdata-(?:user|domain|label|subject|copy-label|copied-label)=["'][^"']*["']/gi,
+    ""
+  );
+
+const replacePhoneEnhancementLinks = (html = "") =>
+  String(html || "").replace(
+    /<a\b[^>]*\bclass=["'][^"']*\bjs-phone\b[^"']*["'][^>]*>[\s\S]*?<\/a\s*>/gi,
+    '<a href="/contact/">phone via contact page</a>'
+  );
+
+const extractStylesheetHrefs = (html = "") => {
+  const hrefs = [];
+  const stylesheetRe =
+    /<link\b(?=[^>]*\brel=["']stylesheet["'])(?=[^>]*\bhref=["']([^"']+)["'])[^>]*>/gi;
+  for (const match of String(html || "").matchAll(stylesheetRe)) {
+    const href = String(match[1] || "").trim();
+    if (href) hrefs.push(href);
+  }
+  return hrefs;
+};
+
+const insertBeforeFirstStylesheet = (html = "", line = "") => {
+  const markup = String(line || "").trim();
+  if (!markup) return html;
+  const stylesheetRe = /^[ \t]*<link\b(?=[^>]*\brel=["']stylesheet["'])(?=[^>]*\bhref=["'][^"']+["'])[^>]*>/im;
+  if (stylesheetRe.test(html)) {
+    return html.replace(stylesheetRe, (match) => `    ${markup}\n    ${match.trimStart()}`);
+  }
+  return appendHeadMarkup(html, [markup]);
+};
+
+const addRouteStylesheetPreloads = (html = "") => {
+  let next = String(html || "").replace(ROUTE_PRELOAD_RE, "");
+  for (const href of extractStylesheetHrefs(next)) {
+    if (!ROUTE_STYLESHEET_RE.test(href)) continue;
+    next = insertBeforeFirstStylesheet(
+      next,
+      `<link rel="preload" as="style" href="${htmlEscape(href)}" data-route-preload />`
+    );
+  }
+  return next;
+};
+
+const addLcpImagePreload = (html = "", publicPath = "") => {
+  const href = withFixedImageVersion(publicPath);
+  if (!href) return html;
+  const stripped = String(html || "").replace(LCP_PRELOAD_RE, "");
+  return insertBeforeFirstStylesheet(
+    stripped,
+    `<link rel="preload" as="image" href="${htmlEscape(href)}" fetchpriority="high" data-lcp-preload />`
+  );
+};
+
+const prioritizeFirstImage = (html = "", publicPath = "") => {
+  const cleanPublicPath = stripUrlQueryAndHash(publicPath);
+  if (!cleanPublicPath) return html;
+  let applied = false;
+  return String(html || "").replace(/<img\b[^>]*>/gi, (tag) => {
+    if (applied || !stripUrlQueryAndHash(tag).includes(cleanPublicPath)) return tag;
+    applied = true;
+    return addAttributeToTag(
+      addAttributeToTag(addAttributeToTag(tag, "fetchpriority", "high"), "decoding", "async"),
+      "loading",
+      "eager"
+    );
+  });
+};
+
+const applyStaticPerformancePolicies = async () => {
+  const htmlFiles = await listHtmlFiles(siteDir);
+  for (const fullPath of htmlFiles) {
+    const relativePath = toPosixPath(path.relative(siteDir, fullPath));
+    let html = await fs.readFile(fullPath, "utf8");
+    const original = html;
+
+    html = html.replace(GOOGLE_FONT_LINK_RE, "");
+
+    if (relativePath !== CONTACT_SCRIPT_PAGE) {
+      html = html.replace(CONTACT_SCRIPT_RE, "");
+      html = stripContactEnhancementAttributes(html);
+      html = replacePhoneEnhancementLinks(html);
+    }
+
+    html = addRouteStylesheetPreloads(html);
+
+    if (HOME_PERFORMANCE_PAGES.has(relativePath) || BIO_PERFORMANCE_PAGES.has(relativePath)) {
+      html = addLcpImagePreload(html, FIXED_IMAGE_PATHS.portrait);
+      html = prioritizeFirstImage(html, FIXED_IMAGE_PATHS.portrait);
+    }
+
+    if (html !== original) {
+      html = cleanupHeadWhitespace(html);
+    }
+
+    if (html !== original) {
+      await fs.writeFile(fullPath, html, "utf8");
+    }
+  }
+};
+
 const staticHreflangConfigForPath = (relativePath = "") => {
   const normalizedPath = String(relativePath || "").trim().replace(/^\/+/, "");
   for (const cluster of STATIC_HREFLANG_CLUSTERS) {
@@ -4986,6 +5135,7 @@ const main = async () => {
   await cleanupDeprecatedFingerprintedKeyImages();
   await applyNavigationUiPolicies();
   await applyStaticLanguageSwitchPolicies();
+  await applyStaticPerformancePolicies();
 
   console.log(
     `Generated ${compiledEntries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft signals${PRODUCTION_BUILD ? `, excluded-from-production=${excludedDraftEntries.length}` : ""}), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${HREFLANG_ORDER.map((locale) => `${locale}:${searchIndexes.counts.locales[locale] || 0}`).join(", ")}), home HTML-first cards, fingerprinted assets (${fingerprintedAssets.length}), source-url-broken=${sourceUrlHealth.brokenUrls.size}, build-env=${BUILD_ENV}`

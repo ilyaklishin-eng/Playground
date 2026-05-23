@@ -75,6 +75,7 @@ const STATIC_SOCIAL_IMAGE_POLICY = new Map([
 ]);
 const FINGERPRINTED_ASSET_SOURCES = [
   "styles.css",
+  "home/home.css",
   "app.js",
   "bio/bio.css",
   "cases/cases.css",
@@ -83,6 +84,7 @@ const FINGERPRINTED_ASSET_SOURCES = [
   "search/search.js",
   "interviews/interviews.js",
   "interviews/interviews-preview.js",
+  "selected/selected-all-materials.js",
 ];
 const FIXED_VERSIONED_IMAGE_OUTPUTS = [
   "assets/images/portrait.jpeg",
@@ -1483,6 +1485,67 @@ const checkAssetFingerprinting = async (issues) => {
   }
 };
 
+const checkRouteAssetPolicies = async (issues) => {
+  const htmlFiles = await listHtmlFiles(SITE_DIR);
+  const googleFontRe = /fonts\.(?:googleapis|gstatic)\.com/i;
+  const contactScriptRe = /<script\b[^>]*\bsrc=["'][^"']*\/contact\/contact(?:\.[a-f0-9]{10})?\.js["'][^>]*>/i;
+  const routePreloadRe = /<link\b(?=[^>]*\brel=["']preload["'])(?=[^>]*\bas=["']style["'])(?=[^>]*\bdata-route-preload\b)[^>]*>/i;
+  const lcpPreloadRe = /<link\b(?=[^>]*\brel=["']preload["'])(?=[^>]*\bas=["']image["'])(?=[^>]*\bfetchpriority=["']high["'])(?=[^>]*\bdata-lcp-preload\b)[^>]*>/i;
+  const highPriorityPortraitRe =
+    /<img\b(?=[^>]*\bsrc=["'][^"']*\/assets\/images\/portrait\.jpeg(?:\?[^"']*)?["'])(?=[^>]*\bfetchpriority=["']high["'])(?=[^>]*\bdecoding=["']async["'])[^>]*>/i;
+  const routeStylePages = new Set([
+    "index.html",
+    "fr/index.html",
+    "de/index.html",
+    "es/index.html",
+    "bio/index.html",
+    "bio/fr/index.html",
+    "bio/de/index.html",
+    "bio/es/index.html",
+    "cases/index.html",
+    "cases/fr/index.html",
+    "cases/de/index.html",
+    "cases/es/index.html",
+    "contact/index.html",
+  ]);
+  const portraitLcpPages = new Set([
+    "index.html",
+    "fr/index.html",
+    "de/index.html",
+    "es/index.html",
+    "bio/index.html",
+    "bio/fr/index.html",
+    "bio/de/index.html",
+    "bio/es/index.html",
+  ]);
+
+  for (const htmlPath of htmlFiles) {
+    const rel = toPosixPath(path.relative(SITE_DIR, htmlPath));
+    const html = await fs.readFile(htmlPath, "utf8");
+
+    if (googleFontRe.test(html)) {
+      pushError(issues, "assets.external-font.present", `HTML still references Google Fonts: ${rel}`);
+    }
+
+    if (rel !== "contact/index.html" && contactScriptRe.test(html)) {
+      pushError(issues, "assets.contact-script.non-contact", `Non-contact page still loads contact JS: ${rel}`);
+    }
+
+    if (routeStylePages.has(rel) && !routePreloadRe.test(html)) {
+      pushWarn(issues, "assets.route-style.preload.missing", `Route stylesheet preload is missing: ${rel}`);
+    }
+
+    if (portraitLcpPages.has(rel)) {
+      if (!lcpPreloadRe.test(html)) {
+        pushWarn(issues, "assets.lcp-image.preload.missing", `Portrait LCP preload is missing: ${rel}`);
+      }
+      if (!highPriorityPortraitRe.test(html)) {
+        pushWarn(issues, "assets.lcp-image.priority.missing", `Portrait image priority attrs are missing: ${rel}`);
+      }
+    }
+  }
+};
+
 const main = async () => {
   const opts = parseArgs(process.argv.slice(2));
   const issues = [];
@@ -1503,6 +1566,7 @@ const main = async () => {
   await checkHomeHtmlFirst(minimumHomeCards, issues);
   await checkNoDraftLeakage(items, indexableItems, issues);
   await checkAssetFingerprinting(issues);
+  await checkRouteAssetPolicies(issues);
 
   const errors = issues.filter((x) => x.severity === "error");
   const warns = issues.filter((x) => x.severity === "warn");
@@ -1518,6 +1582,7 @@ const main = async () => {
       home_html_first: true,
       draft_leakage: true,
       asset_fingerprints: true,
+      route_asset_policies: true,
       social_preview: true,
     },
     totals: {
