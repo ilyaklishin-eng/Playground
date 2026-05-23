@@ -801,6 +801,12 @@ const isInternalSiteUrl = (value = "") => {
   }
 };
 
+const publicSourceUrl = (value = "") => {
+  const normalized = normalizeSourceUrl(value);
+  if (!normalized || isInternalSiteUrl(normalized)) return "";
+  return normalized;
+};
+
 const homeEntryInternalPostUrl = (entry = {}) => {
   if (entry?.postPath) return canonicalUrl(`posts/${entry.postPath}`);
   const slug = String(entry?.item?.slug || "").trim().replace(/\.html$/i, "");
@@ -2361,7 +2367,7 @@ const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
   const date = htmlEscape(normalizeText(item?.date || "-"));
   const badge = buildRoleBadgeSpec(item?.role);
   const digestHref = canonicalUrl(`posts/${idToPostPath.get(item?.id) || entry?.postPath || ""}`);
-  const sourceHrefRaw = normalizeSourceUrl(item?.url || "");
+  const sourceHrefRaw = publicSourceUrl(item?.url || "");
   const sourceLink =
     sourceHrefRaw && sourceHrefRaw !== digestHref
       ? `<a href="${htmlEscape(sourceHrefRaw)}" target="_blank" rel="noopener noreferrer">Original source</a>`
@@ -2451,7 +2457,7 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
       const item = entry?.item || {};
       const id = String(item?.id || "").trim() || entry.postPath.replace(/\.html$/i, "");
       const url = canonicalUrl(`posts/${idToPostPath.get(id) || entry.postPath}`);
-      const sourceUrl = normalizeSourceUrl(item?.url || "");
+      const sourceUrl = publicSourceUrl(item?.url || "");
       return {
         id,
         date: normalizeText(item?.date || ""),
@@ -2820,7 +2826,7 @@ const buildSearchPostCardsForLocale = (
       display_date: normalizeText(item.date || ""),
       material_type: "Digest card",
       url: canonicalUrl(`posts/${entry.postPath}`),
-      source_url: normalizeSourceUrl(item.url),
+      source_url: publicSourceUrl(item.url),
       semantic_tags: sanitizeSemanticTags(normalizedArray(item.semantic_tags)),
     };
   });
@@ -2855,7 +2861,7 @@ const buildSearchInterviewCardsForLocale = (locale, sourceUrlHealth = { brokenUr
       display_date: normalizeText(item.displayDate || item.isoDate || ""),
       material_type: normalizeText(item.formatLabel || item.format || "Interview"),
       url: normalizeSearchUrl(item.url),
-      source_url: normalizeSourceUrl(item.url),
+      source_url: publicSourceUrl(item.url),
       semantic_tags: sanitizeSemanticTags([...normalizedArray(item.formatTokens), normalizeText(item.section || "")]),
     }));
 };
@@ -2980,8 +2986,10 @@ const buildPublicDigestsDataset = (
     .map((entry) => {
       const item = entry?.item || {};
       const translationMeta = buildCardAlternatesForItem(item, idToPostPath, idToCluster, idToStatus, false);
+      const sourceUrl = publicSourceUrl(item.url || "");
       return {
         ...item,
+        url: sourceUrl,
         content_id: idToContentId.get(String(item.id || "").trim()) || `content:${String(item.id || "").trim()}`,
         language: normalizeLang(item.language),
         locale: item.locale || toHtmlLang(item.language),
@@ -2993,7 +3001,7 @@ const buildPublicDigestsDataset = (
         x_default: translationMeta.x_default,
         post_path: entry.postPath,
         post_url: canonicalUrl(`posts/${entry.postPath}`),
-        source_url: normalizeSourceUrl(item.url || ""),
+        source_url: sourceUrl,
       };
     }),
 });
@@ -3580,7 +3588,6 @@ const SITE_LANG_SWITCH_RE = /<(nav|div)\b([^>]*)\bclass=["']site-lang-switch["']
 const RAW_UI_HREF_PATTERNS = [
   /^\/rss\.xml$/i,
   /^\/sitemap(?:-[a-z]+)?\.xml$/i,
-  /^\/source-registry-v1\.tsv$/i,
   /^\/data\/.+\.(?:json|tsv)$/i,
 ];
 const BIO_CASE_LINK_BY_LOCALE = {
@@ -4125,7 +4132,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     type: "article",
     imageUrl: postSocialImage,
   });
-  const sourceLink = normalizeSourceUrl(item.url);
+  const sourceLink = publicSourceUrl(item.url);
   const sourceCtaLabel = sourceActionLabel(item);
   const htmlLang = toHtmlLang(item.language);
   const { alternates, xDefaultHref } = getAlternatesForItem(
@@ -4191,7 +4198,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         }
       })()
     : undefined;
-  const sourceNodeId = sourceLink || sourceName ? buildSourceEntityId(sourceName, sourceLink) : undefined;
+  const sourceNodeId = sourceLink && sourceName ? buildSourceEntityId(sourceName, sourceLink) : undefined;
   const sourceOrganization =
     sourceNodeId && sourceName
       ? {
@@ -4377,7 +4384,7 @@ ${ARCHIVE_LAYOUT_CSS}
           ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
           ${latestSiteLinks.length > 0 ? `<h3>More from this archive</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
         </section>
-        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>
+        ${sourceLink ? `<p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>` : ""}
       </article>
     </main>
     ${renderArchiveFooter({ locale: htmlLang })}
@@ -4630,12 +4637,13 @@ ${sitemaps
 
 const buildSitemaps = async (entries, idToPostPath, idToCluster, idToStatus = new Map()) => {
   const buildIso = latestBuildIso(entries);
-  const staticUrls = await Promise.all(
-    INDEXABLE_STATIC_SECTIONS.map(async (section) => ({
+  const staticUrls = [];
+  for (const section of INDEXABLE_STATIC_SECTIONS) {
+    staticUrls.push({
       url: canonicalUrl(section),
       lastmod: await gitLastmodForAbsolutePath(path.join(siteDir, section), buildIso),
-    }))
-  );
+    });
+  }
   const homeLastmod = await gitLastmodForAbsolutePath(path.join(siteDir, "index.html"), buildIso);
   const coreUrls = [
     { url: canonicalUrl("index.html"), lastmod: homeLastmod },
@@ -4652,7 +4660,8 @@ const buildSitemaps = async (entries, idToPostPath, idToCluster, idToStatus = ne
 
   for (const lang of LANGS) {
     const langEntries = entries.filter((entry) => normalizeLang(entry?.item?.language) === lang);
-    const urls = await Promise.all(langEntries.map(async (entry) => {
+    const urls = [];
+    for (const entry of langEntries) {
       const canonical = canonicalUrl(`posts/${entry.postPath}`);
       const { alternates, xDefaultHref } = getAlternatesForItem(
         entry.item,
@@ -4666,12 +4675,12 @@ const buildSitemaps = async (entries, idToPostPath, idToCluster, idToStatus = ne
         hreflangs.push({ hreflang: X_DEFAULT, href: xDefaultHref });
       }
       const postGitLastmod = await gitLastmodForAbsolutePath(path.join(postsDir, entry.postPath));
-      return {
+      urls.push({
         url: canonical,
         lastmod: postGitLastmod || toIsoTimestamp(entry.item?.lastmod || entry.item?.date) || buildIso,
         alternates: hreflangs,
-      };
-    }));
+      });
+    }
     const sitemapName = `sitemap-${lang.toLowerCase()}.xml`;
     files.push({
       name: sitemapName,
@@ -4698,7 +4707,7 @@ const buildRss = (entries) => {
     .slice(0, 50)
     .map((entry) => {
       const link = canonicalUrl(`posts/${entry.postPath}`);
-      const source = normalizeSourceUrl(entry.item.url || "");
+      const source = publicSourceUrl(entry.item.url || "");
       const summary = previewSummary(entry.item);
       const context = previewContext(entry.item);
       const descriptionParts = [summary, context, source ? `Original source: ${source}` : ""].filter(Boolean);
@@ -4752,8 +4761,8 @@ const FULL_WHITELIST_BOTS = [
 
 const EXTRA_ALLOW_BOTS = ["Google-Extended", "DuckDuckBot", "DuckAssistBot", "Applebot", "Yandex"];
 const ROBOTS_SITEMAP_FILES = ["sitemap.xml", "sitemap-core.xml", "sitemap-en.xml", "sitemap-fr.xml", "sitemap-de.xml", "sitemap-es.xml"];
-const SEARCH_BOT_UTILITY_DISALLOWS = ["/tools/", "/data/", "/digest-multilingual-notes-v1.md"];
-const GIT_LASTMOD_TIMEOUT_MS = 5000;
+const SEARCH_BOT_UTILITY_DISALLOWS = ["/data/"];
+const GIT_LASTMOD_TIMEOUT_MS = 30000;
 const LEGACY_POST_REDIRECTS = new Map([
   [
     "de-017-guardian-profil-nennt-technischen-beitrag-zur-protest-infrastruktur.html",

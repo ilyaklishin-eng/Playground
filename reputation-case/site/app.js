@@ -9,7 +9,6 @@ const uiLang = String(document?.documentElement?.lang || "en").trim().toLowerCas
 const preferredFeedLang = String(document?.body?.dataset?.feedLang || "").trim().toUpperCase();
 const IS_HOME_PAGE = Boolean(document?.body?.classList?.contains("home-page"));
 const PUBLIC_DIGESTS_PATH = "/data/public-digests.json";
-const SOURCE_URL_HEALTH_PATH = "/data/source-url-health.json";
 const LANGUAGE_PRIORITY = ["EN", "FR", "DE", "ES"];
 const PAGE_LANG_TO_FEED = { en: "EN", fr: "FR", de: "DE", es: "ES" };
 const lockedFeedLang = PAGE_LANG_TO_FEED[uiLang] || null;
@@ -590,10 +589,6 @@ function publishedCounts() {
 }
 
 async function init() {
-  const sourceHealthPromise = fetch(SOURCE_URL_HEALTH_PATH, { cache: "no-store" })
-    .then((res) => (res.ok ? res.json() : null))
-    .catch(() => null);
-
   try {
     const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
     if (!response.ok) {
@@ -617,12 +612,7 @@ async function init() {
     }
   }
 
-  const sourceHealth = await sourceHealthPromise;
-  state.brokenHomeSourceUrls = new Set(
-    (Array.isArray(sourceHealth?.broken_urls) ? sourceHealth.broken_urls : [])
-      .map((value) => normalizeSourceUrl(value))
-      .filter(Boolean)
-  );
+  state.brokenHomeSourceUrls = new Set();
   renderLanguageSwitch();
   bindEvents();
   bindCardInteractions(showcase);

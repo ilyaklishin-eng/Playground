@@ -115,7 +115,7 @@ const EXTRA_POST_INDEX_FILES = new Set([
   ...LEGACY_POST_REDIRECT_FILES,
   ...(INCLUDE_DRAFT_OUTPUTS ? ["drafts.html"] : []),
 ]);
-const BOT_LEVEL_ALLOWED_DISALLOWS = new Set(["/tools/", "/data/", "/digest-multilingual-notes-v1.md"]);
+const BOT_LEVEL_ALLOWED_DISALLOWS = new Set(["/data/"]);
 const REQUIRED_BOTS = [
   "Googlebot",
   "Bingbot",
@@ -139,6 +139,7 @@ const GENERATED_CORE_GIT_LASTMOD_EXEMPT = new Set([
   "reputation-case/site/bio/index.html",
   "reputation-case/site/selected/index.html",
 ]);
+const POST_SOURCE_REQUIRED_EXEMPT = new Set(["posts/en-005-how-this-digest-is-built.html"]);
 
 const INDEXABLE_CORE_SECTIONS = [
   "index.html",
@@ -1034,8 +1035,8 @@ const checkRobots = async (issues) => {
   if (!/Allow:\s*\/\s*$/im.test(robots)) {
     pushError(issues, "robots.allow-root.missing", "robots.txt misses Allow: /.");
   }
-  if (!/Disallow:\s*\/tools\/\s*$/im.test(robots)) {
-    pushError(issues, "robots.disallow-tools.missing", "robots.txt misses Disallow: /tools/.");
+  if (!/Disallow:\s*\/data\/\s*$/im.test(robots)) {
+    pushError(issues, "robots.disallow-data.missing", "robots.txt misses Disallow: /data/.");
   }
   if (/User-agent:\s*\*[\s\S]*?Disallow:\s*\/\s*$/im.test(robots)) {
     pushError(issues, "robots.blocks-all", "robots.txt wildcard block disallows the entire site.");
@@ -1266,15 +1267,16 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     if (!article.datePublished || !article.dateModified) {
       pushError(issues, "post.jsonld.date.missing", `Post page Article JSON-LD is missing datePublished/dateModified: ${rel}`);
     }
+    const requiresPublicSource = !POST_SOURCE_REQUIRED_EXEMPT.has(rel);
     const source = extractSourceUrl(article.isBasedOn) || extractSourceUrl(article.citation);
-    if (!source) {
+    if (requiresPublicSource && !source) {
       pushError(issues, "post.jsonld.source.missing", `Post page Article JSON-LD is missing explicit source URL: ${rel}`);
     }
 
     const sourceAnchorMatch = html.match(
       /<p class="source">\s*<a[^>]*href=["']([^"']+)["'][^>]*>\s*(?:Read original(?: source)?|Read piece|Open source|Open original source|Watch video)\s*<\/a>/i
     );
-    if (!sourceAnchorMatch || !/^https?:\/\//i.test(String(sourceAnchorMatch[1] || "").trim())) {
+    if (requiresPublicSource && (!sourceAnchorMatch || !/^https?:\/\//i.test(String(sourceAnchorMatch[1] || "").trim()))) {
       pushError(issues, "post.source.link.missing", `Post page is missing visible source link with absolute URL: ${rel}`);
     }
   }

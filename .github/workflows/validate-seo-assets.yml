@@ -81,3 +81,26 @@ jobs:
             reputation-case/site/data/search-index-fr.json \
             reputation-case/site/data/search-index-de.json \
             reputation-case/site/data/search-index-es.json
+
+      - name: Build production Pages artifact
+        run: |
+          node reputation-case/site/tools/build-production-dist.mjs \
+            --out-dir reputation-case/dist \
+            --domain "www.klishin.work" \
+            --manifest /tmp/production-publish-manifest.json
+
+      - name: Upload QA and publish diagnostics
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: production-publish-diagnostics-${{ github.run_id }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            /tmp/qa-public-content-report.json
+            /tmp/qa-card-language-report.json
+            /tmp/production-publish-manifest.json
+            reputation-case/site/data/source-url-health.json
+            reputation-case/site/qa-generated-assets-report.json
+            reputation-case/site/seo-audit-report.json
+            reputation-case/site/seo-endpoint-check-report.json

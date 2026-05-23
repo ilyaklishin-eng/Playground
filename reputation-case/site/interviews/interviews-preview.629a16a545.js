@@ -1,6 +1,5 @@
 const grid = document.getElementById("interviewsPreviewGrid");
 const uiLang = String(document?.documentElement?.lang || "en").trim().slice(0, 2).toLowerCase();
-const SOURCE_URL_HEALTH_PATH = "/data/source-url-health.json";
 const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
 const COPY = {
   en: { open: "Open material", empty: "No interviews are available in this language yet." },
@@ -44,18 +43,7 @@ async function initPreview() {
 }
 
 async function loadBrokenSourceUrls() {
-  try {
-    const response = await fetch(SOURCE_URL_HEALTH_PATH, { cache: "no-store" });
-    if (!response.ok) return new Set();
-    const payload = await response.json();
-    return new Set(
-      (Array.isArray(payload?.broken_urls) ? payload.broken_urls : [])
-        .map((value) => normalizeSourceUrl(value))
-        .filter(Boolean)
-    );
-  } catch {
-    return new Set();
-  }
+  return new Set();
 }
 
 function normalizeSourceUrl(value) {
