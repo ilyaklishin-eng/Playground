@@ -329,29 +329,28 @@ const STATIC_HREFLANG_CLUSTERS = [
 ];
 const SELECTED_SECTION_CONFIG = [
   {
-    id: "journalism",
-    title: "Journalism",
-    intro: "Public-interest reporting and commentary tied to concrete events and timelines.",
+    id: "information-war",
+    title: "Information War",
+    intro: "Propaganda appears as infrastructure: amplification, platform adaptation, and manufactured consensus.",
+    itemIds: ["en-108", "en-107", "en-029", "en-127"],
   },
   {
-    id: "media-strategy",
-    title: "Media Strategy / Analysis",
-    intro: "Work on institutions, platform pressure, and editorial decision environments.",
+    id: "russian-politics",
+    title: "Russian Politics",
+    intro: "Institutions, elections, repression, and public speech read as technologies of rule.",
+    itemIds: ["en-121", "en-134", "en-135", "en-002"],
   },
   {
-    id: "propaganda",
-    title: "Propaganda / Information Systems",
-    intro: "Analysis of networked influence tactics, manipulation infrastructure, and platform adaptation.",
+    id: "media-under-pressure",
+    title: "Media Under Pressure",
+    intro: "Independent journalism appears under legal, economic, and professional strain.",
+    itemIds: ["en-019", "en-024", "en-137", "en-125"],
   },
   {
-    id: "literature",
-    title: "Literature / Essays / Cultural Commentary",
-    intro: "Texts on culture, representation, and symbolic politics in public discourse.",
-  },
-  {
-    id: "public-texts",
-    title: "Profiles and external records",
-    intro: "Third-party publications and institutional references used as external context.",
+    id: "exile-diaspora",
+    title: "Exile / Diaspora",
+    intro: "Language, memory, and civic infrastructure travel with people beyond the old political center.",
+    itemIds: ["en-122", "en-139", "en-132", "en-101"],
   },
 ];
 const SELECTED_ROLE_SECTION_CONFIG = {
@@ -1286,30 +1285,34 @@ const classifySelectedSection = (item = {}) => {
   const topic = normalizeText(item?.topic).toLowerCase();
   const blob = `${title} ${topic} ${source}`;
 
-  if (/\b(volna|diaspora|emigrant|exile|refugee|migration)\b/.test(blob)) {
-    return "media-strategy";
-  }
-  if (/\b(cultural|culture|literature|essay|cinema|representation|stephen king|film)\b/.test(blob)) {
-    return "literature";
+  if (/\b(volna|diaspora|emigre|emigrant|exile|refugee|migration|language politics|who owns russian|new decembrists)\b/.test(blob)) {
+    return "exile-diaspora";
   }
   if (
-    /\b(disinformation|propaganda|troll|bot army|platform influence|information systems|tik ?tok|telegram channels?)\b/.test(
+    /\b(media freedom|media ethics|media ecosystem|media labor|independent media|journalists?|editorial|public opinion|social network regulation|platform governance|private authoritarianism)\b/.test(
       blob
     )
   ) {
-    return "propaganda";
+    return "media-under-pressure";
+  }
+  if (
+    /\b(disinformation|propaganda|troll|bot army|information control|information systems|information war|soft power|tik ?tok|telegram channels?|social media)\b/.test(
+      blob
+    )
+  ) {
+    return "information-war";
+  }
+  if (
+    /\b(politics|constitutional|election|electoral|protest|repression|opposition|navalny|putin|kremlin|belarus|moldova|urban politics|public discourse|elite discourse)\b/.test(
+      blob
+    )
+  ) {
+    return "russian-politics";
   }
   if (["human rights watch", "los angeles times", "news24"].includes(source)) {
-    return "public-texts";
+    return "media-under-pressure";
   }
-  if (
-    /\b(media freedom|media ethics|social network regulation|electoral timing|comparative media framing|public opinion|elite discourse)\b/.test(
-      blob
-    )
-  ) {
-    return "media-strategy";
-  }
-  return "journalism";
+  return "russian-politics";
 };
 
 const selectedSectionLabelById = (sectionId = "") =>
@@ -1464,10 +1467,10 @@ const smartTrim = (text = "", max = 80) => {
 const trimMetaDescription = (text = "", max = 170) => {
   const value = normalizeText(text);
   if (!value) return "";
-  if (value.length <= max) return /[.!?]$/.test(value) ? value : `${value}.`;
+  if (value.length <= max) return /[.!?](?:["'”’»)\]]*)$/.test(value) ? value : `${value}.`;
   const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
   if (!clipped) return value.slice(0, max).trim();
-  return /[.!?]$/.test(clipped) ? clipped : `${clipped}.`;
+  return /[.!?](?:["'”’»)\]]*)$/.test(clipped) ? clipped : `${clipped}.`;
 };
 
 const pickSeededVariant = (seed, variants) => {
@@ -1709,14 +1712,14 @@ const stripLeadScaffolding = (text = "") =>
     .trim();
 
 const splitSentences = (text = "") => {
-  const prepared = String(text || "").replace(
-    /\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi,
-    "$1"
-  );
-  const matches = prepared.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  const abbreviationDot = "__ABBR_DOT__";
+  const prepared = String(text || "")
+    .replace(/\b(?:[A-Z]\.){2,}/g, (match) => match.replace(/\./g, abbreviationDot))
+    .replace(/\b(Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)\./gi, "$1");
+  const matches = prepared.match(/[^.!?]+[.!?]+(?:["'”’»)\]]+)?|[^.!?]+$/g);
   if (!Array.isArray(matches)) return [];
   return matches
-    .map((sentence) => sentence.replace(/\s+/g, " ").trim())
+    .map((sentence) => sentence.replaceAll(abbreviationDot, ".").replace(/\s+/g, " ").trim())
     .filter(Boolean);
 };
 
@@ -1805,7 +1808,7 @@ const finalizeSummaryText = (sentences = [], fallback = "") => {
   const preview = normalizeText(sentences.join(" ")) || normalizeText(fallback);
   if (!preview) return "";
   if (preview.length <= 320) {
-    return /[.!?]$/.test(preview) ? preview : `${preview}.`;
+    return /[.!?](?:["'”’»)\]]*)$/.test(preview) ? preview : `${preview}.`;
   }
 
   const boundedSentences = splitSentences(preview);
@@ -1816,7 +1819,7 @@ const finalizeSummaryText = (sentences = [], fallback = "") => {
       if (next.length > 320) break;
       joined = next;
     }
-    if (joined) return /[.!?]$/.test(joined) ? joined : `${joined}.`;
+    if (joined) return /[.!?](?:["'”’»)\]]*)$/.test(joined) ? joined : `${joined}.`;
   }
 
   const clauses = preview.split(/(?<=[,;:])\s+/).map((part) => normalizeText(part)).filter(Boolean);
@@ -1829,16 +1832,16 @@ const finalizeSummaryText = (sentences = [], fallback = "") => {
     }
     if (joined && joined.length >= 80) {
       const clean = joined.replace(/[,:;]\s*$/, "").trim();
-      return /[.!?]$/.test(clean) ? clean : `${clean}.`;
+      return /[.!?](?:["'”’»)\]]*)$/.test(clean) ? clean : `${clean}.`;
     }
   }
 
   const fallbackValue = normalizeText(fallback);
   if (fallbackValue && fallbackValue.length <= 320) {
-    return /[.!?]$/.test(fallbackValue) ? fallbackValue : `${fallbackValue}.`;
+    return /[.!?](?:["'”’»)\]]*)$/.test(fallbackValue) ? fallbackValue : `${fallbackValue}.`;
   }
 
-  return /[.!?]$/.test(preview) ? preview : `${preview}.`;
+  return /[.!?](?:["'”’»)\]]*)$/.test(preview) ? preview : `${preview}.`;
 };
 
 const extractMetaSentence = (item = {}) => {
@@ -2395,6 +2398,41 @@ const buildSelectedCardHtml = (entry, idToPostPath = new Map()) => {
           </article>`;
 };
 
+const buildCuratedSectionEntries = (scopedEntries = [], section = {}, usedIds = new Set()) => {
+  const byId = new Map();
+  for (const entry of scopedEntries) {
+    const id = String(entry?.item?.id || "").trim();
+    if (id) byId.set(id, entry);
+  }
+
+  const picked = [];
+  const addEntry = (entry) => {
+    const id = String(entry?.item?.id || "").trim();
+    if (!entry || !id || usedIds.has(id) || picked.some((candidate) => candidate?.item?.id === id)) return;
+    picked.push(entry);
+  };
+
+  for (const id of section.itemIds || []) {
+    addEntry(byId.get(id));
+    if (picked.length >= SELECTED_SECTION_CARD_LIMIT) break;
+  }
+
+  if (picked.length < SELECTED_SECTION_CARD_LIMIT) {
+    for (const entry of scopedEntries) {
+      if (classifySelectedSection(entry?.item) !== section.id) continue;
+      addEntry(entry);
+      if (picked.length >= SELECTED_SECTION_CARD_LIMIT) break;
+    }
+  }
+
+  for (const entry of picked) {
+    const id = String(entry?.item?.id || "").trim();
+    if (id) usedIds.add(id);
+  }
+
+  return picked;
+};
+
 const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
   const scoped = entries
     .filter((entry) => entry?.item?.locale === "en")
@@ -2404,58 +2442,26 @@ const buildSelectedSectionsHtml = (entries, idToPostPath = new Map()) => {
     .slice()
     .sort(sortEntriesByDateDesc);
 
-  const authoredEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.AUTHORED);
-  const quotedEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.QUOTED);
-  const referenceEntries = scoped.filter((entry) => normalizeCardRole(entry?.item?.role) === CONTENT_ROLE.REFERENCE);
-
-  const grouped = new Map(SELECTED_SECTION_CONFIG.map((section) => [section.id, []]));
-  for (const entry of authoredEntries) {
-    const sectionId = classifySelectedSection(entry?.item);
-    if (!grouped.has(sectionId)) grouped.set(sectionId, []);
-    grouped.get(sectionId).push(entry);
-  }
-
-  const authoredSections = SELECTED_SECTION_CONFIG.map((section) => {
-    const cards = (grouped.get(section.id) || []).slice(0, SELECTED_SECTION_CARD_LIMIT);
+  const usedIds = new Set();
+  const sections = SELECTED_SECTION_CONFIG.map((section) => {
+    const cards = buildCuratedSectionEntries(scoped, section, usedIds);
     if (cards.length === 0) return "";
     const cardsHtml = cards.map((entry) => buildSelectedCardHtml(entry, idToPostPath)).join("\n\n");
 
     return `<section class="cluster" id="${section.id}">
-        <h2>${section.title}</h2>
-        <p class="cluster-intro">${section.intro}</p>
+        <div class="cluster-copy">
+          <h2>${section.title}</h2>
+          <p class="cluster-intro">${section.intro}</p>
+        </div>
         <div class="cluster-grid">
 ${cardsHtml}
         </div>
       </section>`;
   }).filter(Boolean);
 
-  const buildRoleSectionHtml = (roleKey, entriesForRole = []) => {
-    if (!entriesForRole.length) return "";
-    const config = SELECTED_ROLE_SECTION_CONFIG[roleKey];
-    if (!config) return "";
-    const cardsHtml = entriesForRole
-      .slice(0, SELECTED_ROLE_SECTION_CARD_LIMIT)
-      .map((entry) => buildSelectedCardHtml(entry, idToPostPath))
-      .join("\n\n");
-
-    return `<section class="cluster cluster-role" id="${config.id}">
-        <h2>${config.title}</h2>
-        <p class="cluster-intro">${config.intro}</p>
-        <div class="cluster-grid">
-${cardsHtml}
-        </div>
-      </section>`;
-  };
-
-  const sections = [
-    ...authoredSections,
-    buildRoleSectionHtml(CONTENT_ROLE.QUOTED, quotedEntries),
-    buildRoleSectionHtml(CONTENT_ROLE.REFERENCE, referenceEntries),
-  ].filter(Boolean);
-
   return {
     html: sections.join("\n\n"),
-    itemCount: authoredEntries.length + quotedEntries.length + referenceEntries.length,
+    itemCount: scoped.length,
   };
 };
 
@@ -2514,6 +2520,35 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
   };
 };
 
+const buildSelectedAllSectionHtml = (entries, idToPostPath = new Map()) => {
+  const selectedAllState = buildSelectedAllDefaultState(entries, idToPostPath);
+  return `<section class="selected-all" aria-labelledby="all-materials-title">
+        <h2 id="all-materials-title">Full archive by role and format</h2>
+        <p>The deeper record remains available below the editorial routes: authored work, quoted analysis, and references.</p>
+        <div class="selected-all-controls">
+          <div class="selected-all-filter-stack">
+            <div class="selected-all-filters selected-all-role-filters" role="group" aria-label="Role filter">
+              <button class="filter-btn active" type="button" data-role-filter="authored" aria-pressed="true">Authored</button>
+              <button class="filter-btn" type="button" data-role-filter="quoted" aria-pressed="false">Quoted</button>
+              <button class="filter-btn" type="button" data-role-filter="reference" aria-pressed="false">References</button>
+            </div>
+            <div class="selected-all-filters" role="group" aria-label="Format filter">
+              <button class="filter-btn active" type="button" data-format="all" aria-pressed="true">All</button>
+              <button class="filter-btn" type="button" data-format="text" aria-pressed="false">Text</button>
+              <button class="filter-btn" type="button" data-format="video" aria-pressed="false">Video</button>
+              <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">Podcasts</button>
+            </div>
+          </div>
+          <p class="selected-all-count" id="selectedAllCount">${htmlEscape(selectedAllState.countText)}</p>
+        </div>
+        <div class="selected-all-grid" id="selectedAllGrid">
+          ${SELECTED_ALL_GRID_START}
+${selectedAllState.gridHtml}
+${SELECTED_ALL_GRID_END}
+        </div>
+      </section>`;
+};
+
 const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
   let html;
   try {
@@ -2524,37 +2559,37 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
   }
 
   const { html: sectionsHtml, itemCount } = buildSelectedSectionsHtml(entries, idToPostPath);
+  const selectedAllSectionHtml = buildSelectedAllSectionHtml(entries, idToPostPath);
   const blockRe =
-    /<section class="cluster" id="[^"]+">[\s\S]*?(?=\s*<section class="selected-contact")/m;
+    /(<section class="selected-hero">[\s\S]*?<\/section>\s*)[\s\S]*?(?=\s*<section class="selected-contact")/m;
   if (!blockRe.test(html)) {
-    throw new Error(`Unable to locate Selected Work cluster block in ${selectedPagePath}`);
+    throw new Error(`Unable to locate Selected Work editorial block in ${selectedPagePath}`);
   }
 
-  let next = html.replace(blockRe, `${sectionsHtml}\n`);
+  let next = html.replace(blockRe, `$1\n\n${sectionsHtml}\n\n${selectedAllSectionHtml}\n`);
   next = next.replace(/\n{3,}(?=\s*<section class="selected-contact")/m, "\n\n");
   next = next.replace(
     /("description":\s*")Manually curated route through key materials by Ilia Klishin\.(")/,
-    '$1Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin.$2'
+    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
   );
   next = next.replace(
     /("description":\s*")Section-based index of published articles by Ilia Klishin, excluding interview materials\.(")/,
-    '$1Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin.$2'
+    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
+  );
+  next = next.replace(
+    /("description":\s*")Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin\.(")/,
+    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
   );
   next = next.replace(/("numberOfItems":\s*)\d+/, `$1${itemCount}`);
   next = next.replace(
-    /<p>\s*Start here if you want the clearest sense of my work\.\s*<\/p>/,
-    `<p>Browse the full published corpus by section and by format in one place.</p>`
+    /<h1>Selected work by Ilia \(Ilya\) Klishin<\/h1>/,
+    `<h1>Selected work by Ilia (Ilya) Klishin</h1>`
   );
   next = next.replace(
-    /<p>\s*Browse all published article cards by section\. Interview materials are kept in the separate Interviews page\.\s*<\/p>/,
-    `<p>Browse the full published corpus by section and by format in one place.</p>`
+    /<p>Articles, essays, interviews, and referenced media work in one place\.<\/p>\s*<p>Use the on-site notes for context and the original-source links for the published material\.<\/p>/,
+    `<p>Four editorial routes through information war, Russian politics, media pressure, and exile contexts.</p>
+        <p>The emphasis is on through-lines: how power captures language, platforms, institutions, and civic imagination.</p>`
   );
-  const selectedAllState = buildSelectedAllDefaultState(entries, idToPostPath);
-  next = next.replace(
-    /<p class="selected-all-count" id="selectedAllCount">[\s\S]*?<\/p>/m,
-    `<p class="selected-all-count" id="selectedAllCount">${htmlEscape(selectedAllState.countText)}</p>`
-  );
-  next = replaceMarkedBlock(next, SELECTED_ALL_GRID_START, SELECTED_ALL_GRID_END, selectedAllState.gridHtml);
 
   if (next !== html) {
     await fs.writeFile(selectedPagePath, next, "utf8");

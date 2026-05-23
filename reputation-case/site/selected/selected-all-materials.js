@@ -107,9 +107,11 @@ function toTimestamp(raw) {
 function summaryPreview(raw, maxSentences = 2) {
   const text = normalize(stripTags(raw));
   if (!text) return "";
-  const parts = text.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [];
+  const abbreviationDot = "__ABBR_DOT__";
+  const prepared = text.replace(/\b(?:[A-Z]\.){2,}/g, (match) => match.replace(/\./g, abbreviationDot));
+  const parts = prepared.match(/[^.!?]+[.!?]+(?:["'”’»)\]]+)?|[^.!?]+$/g) || [];
   const picked = parts
-    .map((part) => normalize(part))
+    .map((part) => normalize(part.replaceAll(abbreviationDot, ".")))
     .filter(Boolean)
     .filter(
       (part) =>
@@ -120,14 +122,14 @@ function summaryPreview(raw, maxSentences = 2) {
     .slice(0, Math.max(1, maxSentences));
   const merged = normalize(picked.join(" "));
   if (!merged) return "";
-  return /[.!?]$/.test(merged) ? merged : `${merged}.`;
+  return /[.!?](?:["'”’»)\]]*)$/.test(merged) ? merged : `${merged}.`;
 }
 
 function fallbackSummary(item = {}) {
   const topic = normalize(item.topic || "the topic");
   const source = normalize(item.source || "the source");
   const year = /^\d{4}/.test(String(item.date || "")) ? String(item.date).slice(0, 4) : "";
-  return `This piece from ${source}${year ? ` (${year})` : ""} examines ${topic}.`;
+  return `${source}${year ? ` (${year})` : ""}: ${topic}.`;
 }
 
 function detectFormat(item) {
