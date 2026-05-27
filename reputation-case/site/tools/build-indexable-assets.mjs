@@ -4008,10 +4008,13 @@ const RAW_UI_HREF_PATTERNS = [
   /^\/data\/.+\.(?:json|tsv)$/i,
 ];
 const BIO_CASE_LINK_BY_LOCALE = {
-  en: '<li><a href="/cases/">Case notes and clarifications</a></li>',
+  en: '<li><a href="/cases/">Public context notes</a></li>',
   fr: '<li><a href="/cases/fr/">Notes de cas et clarifications</a></li>',
   de: '<li><a href="/cases/de/">Falldokumentation und Klarstellungen</a></li>',
   es: '<li><a href="/cases/es/">Notas de casos y aclaraciones</a></li>',
+};
+const LEGACY_BIO_CASE_LINKS_BY_LOCALE = {
+  en: [`<li><a href="/cases/">${["Case", "notes and clarifications"].join(" ")}</a></li>`],
 };
 const STATIC_TRUST_BLOCKS = [
   { path: homeIndexPath, marker: "home", variant: "full", locale: "en" },
@@ -4178,21 +4181,25 @@ const injectLayoutChrome = (html = "", relativePath = "") => {
 
 const ensureBioCaseLink = (html = "", locale = "en") => {
   const caseLink = BIO_CASE_LINK_BY_LOCALE[locale] || BIO_CASE_LINK_BY_LOCALE.en;
-  if (String(html).includes(caseLink)) return html;
-  const start = String(html).indexOf("<h3>Additional references</h3>");
+  let next = String(html);
+  for (const legacyLink of LEGACY_BIO_CASE_LINKS_BY_LOCALE[locale] || []) {
+    next = next.replace(new RegExp(`\\s*${escapeRegExpSafe(legacyLink)}\\n?`, "g"), "\n");
+  }
+  if (next.includes(caseLink)) return next;
+  const start = next.indexOf("<h3>Additional references</h3>");
   if (start !== -1) {
-    const ulOpen = String(html).indexOf("<ul>", start);
-    const ulClose = String(html).indexOf("</ul>", ulOpen);
+    const ulOpen = next.indexOf("<ul>", start);
+    const ulClose = next.indexOf("</ul>", ulOpen);
     if (ulOpen !== -1 && ulClose !== -1) {
-      return `${String(html).slice(0, ulClose)}          ${caseLink}\n        ${String(html).slice(ulClose)}`;
+      return `${next.slice(0, ulClose)}          ${caseLink}\n        ${next.slice(ulClose)}`;
     }
   }
-  const refsStart = String(html).indexOf('<section class="refs-card">');
-  if (refsStart === -1) return html;
-  const ulOpen = String(html).indexOf("<ul>", refsStart);
-  const ulClose = String(html).indexOf("</ul>", ulOpen);
-  if (ulOpen === -1 || ulClose === -1) return html;
-  return `${String(html).slice(0, ulClose)}          ${caseLink}\n        ${String(html).slice(ulClose)}`;
+  const refsStart = next.indexOf('<section class="refs-card">');
+  if (refsStart === -1) return next;
+  const ulOpen = next.indexOf("<ul>", refsStart);
+  const ulClose = next.indexOf("</ul>", ulOpen);
+  if (ulOpen === -1 || ulClose === -1) return next;
+  return `${next.slice(0, ulClose)}          ${caseLink}\n        ${next.slice(ulClose)}`;
 };
 
 const listHtmlFilesRecursively = async (dir) => {
@@ -4299,7 +4306,7 @@ const STATIC_SECTION_LABELS = {
   en: {
     home: "Home",
     bio: "Bio",
-    cases: "Case notes",
+    cases: "Public context notes",
     selected: "Selected Work",
     interviews: "Interviews",
     contact: "Contact",
