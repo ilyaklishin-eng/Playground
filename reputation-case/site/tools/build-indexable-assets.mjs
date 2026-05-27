@@ -331,25 +331,29 @@ const SELECTED_SECTION_CONFIG = [
   {
     id: "information-war",
     title: "Information War",
-    intro: "Propaganda appears as infrastructure: amplification, platform adaptation, and manufactured consensus.",
+    intro:
+      "These pieces follow Russian propaganda as a working system: troll farms, bot networks, platform pressure, and the shift from crude online interference to adaptive campaigns across Western and youth-facing platforms.",
     itemIds: ["en-108", "en-107", "en-029", "en-127"],
   },
   {
     id: "russian-politics",
     title: "Russian Politics",
-    intro: "Institutions, elections, repression, and public speech read as technologies of rule.",
+    intro:
+      "These articles examine the Kremlin’s political machinery after the 2011–2012 protest cycle: constitutional theatre, managed elections, legal pressure on opposition groups, and the gap between formal institutions and real power.",
     itemIds: ["en-121", "en-134", "en-135", "en-002"],
   },
   {
     id: "media-under-pressure",
     title: "Media Under Pressure",
-    intro: "Independent journalism appears under legal, economic, and professional strain.",
+    intro:
+      "This route brings together work on how independent journalism is weakened before it is formally silenced: through legal risk, economic pressure, editorial exhaustion, coerced narratives, and shrinking professional space.",
     itemIds: ["en-019", "en-024", "en-137", "en-125"],
   },
   {
     id: "exile-diaspora",
     title: "Exile / Diaspora",
-    intro: "Language, memory, and civic infrastructure travel with people beyond the old political center.",
+    intro:
+      "These texts and references connect language, protest memory, civic coordination, and Russian-speaking life outside the old political center — from the 2011–2012 movement to later debates about identity, emigration, and public speech.",
     itemIds: ["en-122", "en-139", "en-132", "en-101"],
   },
 ];
@@ -622,6 +626,26 @@ const normalizeInterviewFormatTokens = (value = "") => {
   if (/(video|видео)/.test(raw)) tokens.push("video");
   if (/(podcast|подкаст)/.test(raw)) tokens.push("podcasts");
   return [...new Set(tokens)];
+};
+
+const GERMAN_AUF_INTERVIEW_OUTLETS = new Set(["apple podcasts", "youtube"]);
+
+const composeInterviewCtaLabel = (locale = "en", outlet = "") => {
+  const normalizedLocale = normalizeLocale(locale, "en");
+  const source = normalizeText(outlet);
+  if (!source) {
+    if (normalizedLocale === "fr") return "Voir le contenu";
+    if (normalizedLocale === "de") return "Material öffnen";
+    if (normalizedLocale === "es") return "Ver el contenido";
+    return "Open material";
+  }
+  if (normalizedLocale === "fr") return `Voir le contenu sur ${source}`;
+  if (normalizedLocale === "de") {
+    const preposition = GERMAN_AUF_INTERVIEW_OUTLETS.has(source.toLowerCase()) ? "auf" : "bei";
+    return `Material ${preposition} ${source} öffnen`;
+  }
+  if (normalizedLocale === "es") return `Ver el contenido en ${source}`;
+  return `Open material on ${source}`;
 };
 
 const xmlEscape = (value = "") =>
@@ -2369,7 +2393,7 @@ const buildRoleBadgeSpec = (value = "") => {
     return { role, label: "Authored", cssClass: "work-role-badge-authored" };
   }
   if (role === CONTENT_ROLE.QUOTED) {
-    return { role, label: "Expert Comment", cssClass: "work-role-badge-quoted" };
+    return { role, label: "Expert comment", cssClass: "work-role-badge-quoted" };
   }
   return { role, label: "Reference", cssClass: "work-role-badge-reference" };
 };
@@ -2509,7 +2533,7 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
             <p class="selected-all-role"><span class="role-badge role-badge-authored">Authored</span><span class="selected-all-type">${typeLabel}</span></p>
             <h3><a href="${htmlEscape(item.url)}">${htmlEscape(item.title || "Untitled")}</a></h3>
             <p class="selected-all-summary">${summary}</p>
-            <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">Open on-site note</a>${sourceLink}</p>
+            <p class="selected-all-cta"><a href="${htmlEscape(item.url)}">${selectedPrimaryCtaLabel(item.url)}</a>${sourceLink}</p>
           </article>`;
     })
     .join("\n");
@@ -2520,16 +2544,100 @@ const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
   };
 };
 
+const isSelectedOnSitePostUrl = (value = "") => {
+  const raw = normalizeText(value);
+  if (!raw) return false;
+  if (/^\/posts\//i.test(raw)) return true;
+  try {
+    const url = new URL(raw, baseUrl);
+    return /(^|\.)klishin\.work$/i.test(url.hostname) && /^\/posts\//i.test(url.pathname);
+  } catch {
+    return false;
+  }
+};
+
+const selectedPrimaryCtaLabel = (url = "") => (isSelectedOnSitePostUrl(url) ? "Open on-site note" : "Open material");
+
+const dedupeSelectedArchiveItems = (items = []) => {
+  const byUrl = new Map();
+  for (const item of items) {
+    const key = normalizeText(item?.url || item?.sourceUrl || item?.title).toLowerCase();
+    if (!key) continue;
+
+    const existing = byUrl.get(key);
+    if (!existing) {
+      byUrl.set(key, item);
+      continue;
+    }
+
+    const existingScore = (existing.format !== "text" ? 2 : 0) + (existing.summary?.length || 0);
+    const nextScore = (item.format !== "text" ? 2 : 0) + (item.summary?.length || 0);
+    if (nextScore > existingScore) {
+      byUrl.set(key, item);
+    }
+  }
+  return Array.from(byUrl.values());
+};
+
+const buildSelectedArchiveSchemaSummary = (entries = [], idToPostPath = new Map(), publicInterviews = { items: [] }) => {
+  const digestItems = entries
+    .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
+    .filter((entry) => isPublicRenderableItem(entry?.item))
+    .map((entry) => {
+      const item = entry?.item || {};
+      const id = String(item?.id || "").trim() || entry.postPath.replace(/\.html$/i, "");
+      return {
+        title: resolveDisplayTitle(item),
+        role: normalizeCardRole(item?.role),
+        summary: normalizeText(item?.summary || item?.digest || ""),
+        url: canonicalUrl(`posts/${idToPostPath.get(id) || entry.postPath}`),
+        sourceUrl: publicSourceUrl(item?.url || ""),
+        format: "text",
+      };
+    })
+    .filter((item) => item.title && item.url);
+
+  const interviewItems = (Array.isArray(publicInterviews?.items) ? publicInterviews.items : [])
+    .filter((item) => String(item?.status || "").toLowerCase() === "published")
+    .filter((item) => String(item?.surface || "").toLowerCase() === "public")
+    .filter((item) => String(item?.locale || "").toLowerCase() === "en")
+    .map((item) => ({
+      title: normalizeText(item?.title || ""),
+      role: normalizeCardRole(item?.role || CONTENT_ROLE.QUOTED),
+      summary: normalizeText(item?.description || ""),
+      url: normalizeText(item?.url || ""),
+      sourceUrl: normalizeText(item?.source_url || item?.url || ""),
+      format: normalizeInterviewFormatTokens(item?.format || "").includes("podcasts")
+        ? "podcasts"
+        : normalizeInterviewFormatTokens(item?.format || "").includes("video")
+          ? "video"
+          : "text",
+    }))
+    .filter((item) => item.title && item.url);
+
+  const combined = dedupeSelectedArchiveItems([...digestItems, ...interviewItems]);
+  const counts = {
+    authored: combined.filter((item) => normalizeCardRole(item.role) === CONTENT_ROLE.AUTHORED).length,
+    quoted: combined.filter((item) => normalizeCardRole(item.role) === CONTENT_ROLE.QUOTED).length,
+    reference: combined.filter((item) => normalizeCardRole(item.role) === CONTENT_ROLE.REFERENCE).length,
+  };
+
+  return {
+    total: combined.length,
+    counts,
+  };
+};
+
 const buildSelectedAllSectionHtml = (entries, idToPostPath = new Map()) => {
   const selectedAllState = buildSelectedAllDefaultState(entries, idToPostPath);
   return `<section class="selected-all" aria-labelledby="all-materials-title">
         <h2 id="all-materials-title">Full archive by role and format</h2>
-        <p>The deeper record remains available below the editorial routes: authored work, quoted analysis, and references.</p>
+        <p>The deeper record remains available below the editorial routes: authored work, expert comments, and references.</p>
         <div class="selected-all-controls">
           <div class="selected-all-filter-stack">
             <div class="selected-all-filters selected-all-role-filters" role="group" aria-label="Role filter">
               <button class="filter-btn active" type="button" data-role-filter="authored" aria-pressed="true">Authored</button>
-              <button class="filter-btn" type="button" data-role-filter="quoted" aria-pressed="false">Quoted</button>
+              <button class="filter-btn" type="button" data-role-filter="quoted" aria-pressed="false">Expert comment</button>
               <button class="filter-btn" type="button" data-role-filter="reference" aria-pressed="false">References</button>
             </div>
             <div class="selected-all-filters" role="group" aria-label="Format filter">
@@ -2549,7 +2657,7 @@ ${SELECTED_ALL_GRID_END}
       </section>`;
 };
 
-const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
+const updateSelectedWorkPage = async (entries, idToPostPath = new Map(), publicInterviews = { items: [] }) => {
   let html;
   try {
     html = await fs.readFile(selectedPagePath, "utf8");
@@ -2558,7 +2666,8 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
     throw error;
   }
 
-  const { html: sectionsHtml, itemCount } = buildSelectedSectionsHtml(entries, idToPostPath);
+  const { html: sectionsHtml } = buildSelectedSectionsHtml(entries, idToPostPath);
+  const archiveSchema = buildSelectedArchiveSchemaSummary(entries, idToPostPath, publicInterviews);
   const selectedAllSectionHtml = buildSelectedAllSectionHtml(entries, idToPostPath);
   const blockRe =
     /(<section class="selected-hero">[\s\S]*?<\/section>\s*)[\s\S]*?(?=\s*<section class="selected-contact")/m;
@@ -2570,25 +2679,31 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map()) => {
   next = next.replace(/\n{3,}(?=\s*<section class="selected-contact")/m, "\n\n");
   next = next.replace(
     /("description":\s*")Manually curated route through key materials by Ilia Klishin\.(")/,
-    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
+    '$1A curated archive of Ilia Klishin’s writing and commentary on Russian digital propaganda, protest politics, pressure on independent media, and the Russian-speaking exile context.$2'
   );
   next = next.replace(
     /("description":\s*")Section-based index of published articles by Ilia Klishin, excluding interview materials\.(")/,
-    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
+    '$1A curated archive of Ilia Klishin’s writing and commentary on Russian digital propaganda, protest politics, pressure on independent media, and the Russian-speaking exile context.$2'
   );
   next = next.replace(
     /("description":\s*")Section-based index of published articles, interviews, and format-grouped materials by Ilia Klishin\.(")/,
-    '$1Editorial routes through published work on information war, Russian politics, media pressure, and exile contexts.$2'
+    '$1A curated archive of Ilia Klishin’s writing and commentary on Russian digital propaganda, protest politics, pressure on independent media, and the Russian-speaking exile context.$2'
   );
-  next = next.replace(/("numberOfItems":\s*)\d+/, `$1${itemCount}`);
+  next = next.replace(/("name":\s*")Selected Work clusters(")/, "$1Selected Work archive$2");
+  next = next.replace(/("numberOfItems":\s*)\d+/, `$1${archiveSchema.total}`);
   next = next.replace(
     /<h1>Selected work by Ilia \(Ilya\) Klishin<\/h1>/,
-    `<h1>Selected work by Ilia (Ilya) Klishin</h1>`
+    `<h1>Selected work by Ilia Klishin</h1>`
   );
   next = next.replace(
     /<p>Articles, essays, interviews, and referenced media work in one place\.<\/p>\s*<p>Use the on-site notes for context and the original-source links for the published material\.<\/p>/,
-    `<p>Four editorial routes through information war, Russian politics, media pressure, and exile contexts.</p>
-        <p>The emphasis is on through-lines: how power captures language, platforms, institutions, and civic imagination.</p>`
+    `<p>Ilia Klishin is a Russian journalist, media manager, and media consultant. His work has traced the rise of Russian digital propaganda, the pressure placed on independent media, the political aftermath of the 2011–2012 protest movement, and the changing civic life of Russian-speaking communities in exile.</p>
+        <p>This archive is organized as a set of editorial routes rather than a simple timeline: information war, Russian politics, media under pressure, and exile. Together, these routes show how political power captures language, platforms, institutions, and public imagination.</p>`
+  );
+  next = next.replace(
+    /<p>Four editorial routes through information war, Russian politics, media pressure, and exile contexts\.<\/p>\s*<p>The emphasis is on through-lines: how power captures language, platforms, institutions, and civic imagination\.<\/p>/,
+    `<p>Ilia Klishin is a Russian journalist, media manager, and media consultant. His work has traced the rise of Russian digital propaganda, the pressure placed on independent media, the political aftermath of the 2011–2012 protest movement, and the changing civic life of Russian-speaking communities in exile.</p>
+        <p>This archive is organized as a set of editorial routes rather than a simple timeline: information war, Russian politics, media under pressure, and exile. Together, these routes show how political power captures language, platforms, institutions, and public imagination.</p>`
   );
 
   if (next !== html) {
@@ -2634,9 +2749,9 @@ const buildInterviewStructuredData = (canonical, locale, items = []) => {
   };
 };
 
-const buildInterviewCardHtml = (item, locale, ctaLabel) => {
+const buildInterviewCardHtml = (item, locale) => {
   const dataFormatTags = item.formatTokens.join(" ");
-  const actionLabel = normalizeText(item.outlet) ? `${ctaLabel} on ${item.outlet}` : ctaLabel;
+  const actionLabel = composeInterviewCtaLabel(locale, item.outlet);
   return `          <article class="interview-card" data-section="${htmlEscape(item.section)}" data-format-tags="${htmlEscape(dataFormatTags)}" data-status="${htmlEscape(String(item?.status || CONTENT_STATUS.PUBLISHED))}" data-surface="${htmlEscape(String(item?.surface || CONTENT_SURFACE.PUBLIC))}" lang="${htmlEscape(locale)}" itemscope itemtype="http://schema.org/Article">
             <meta itemprop="inLanguage" content="${htmlEscape(locale)}" />
             <p class="interview-meta">
@@ -2662,7 +2777,7 @@ const buildInterviewsMainHtml = (locale, items = []) => {
       const sectionItems = items.filter((item) => item.section === sectionKey);
       if (!sectionItems.length) return "";
       const sectionConfig = config.sections[sectionKey];
-      const cardsHtml = sectionItems.map((item) => buildInterviewCardHtml(item, locale, config.cta)).join("\n");
+      const cardsHtml = sectionItems.map((item) => buildInterviewCardHtml(item, locale)).join("\n");
       return `      <section class="interviews-section" id="interviews-section-${sectionKey}" aria-labelledby="${htmlEscape(sectionConfig.id)}">
         <div class="section-head">
           <h2 id="${htmlEscape(sectionConfig.id)}">${htmlEscape(sectionConfig.title)}</h2>
@@ -3331,19 +3446,19 @@ const HOME_FALLBACK_COPY = {
 };
 const HOME_SECTION_COPY = {
   en: {
-    workTitle: "Selected articles and essays",
-    workLink: "Browse all articles and media work",
+    workTitle: "Selected writing and analysis",
+    workLink: "Browse selected work",
     moreWork: "Further reading",
     interviewsAria: "Interviews",
-    interviewsTitle: "Interviews and conversations",
+    interviewsTitle: "Interviews and public conversations",
     interviewsIntro: "Recent interviews, podcasts, and long-form discussions.",
-    interviewsLink: "View all interviews",
+    interviewsLink: "View interviews",
     interviewsHref: "/interviews/",
     interviewOpen: "Open material",
   },
   fr: {
     workTitle: "Travaux sélectionnés",
-    workLink: "Voir la sélection complète",
+    workLink: "Travaux sélectionnés (archive en anglais)",
     moreWork: "Autres lectures",
     interviewsAria: "Entretiens",
     interviewsTitle: "Entretiens et conversations",
@@ -3354,7 +3469,7 @@ const HOME_SECTION_COPY = {
   },
   de: {
     workTitle: "Ausgewählte Arbeiten",
-    workLink: "Gesamte Auswahl ansehen",
+    workLink: "Ausgewählte Arbeiten (englisches Archiv)",
     moreWork: "Weitere Texte",
     interviewsAria: "Interviews",
     interviewsTitle: "Interviews und Gespräche",
@@ -3365,7 +3480,7 @@ const HOME_SECTION_COPY = {
   },
   es: {
     workTitle: "Trabajo seleccionado",
-    workLink: "Ver la selección completa",
+    workLink: "Trabajo seleccionado (archivo en inglés)",
     moreWork: "Más lecturas",
     interviewsAria: "Entrevistas",
     interviewsTitle: "Entrevistas y conversaciones",
@@ -3574,14 +3689,14 @@ ${gridHtml}
 };
 
 const buildHomeInterviewPreviewCardHtml = (item, locale = "en") => {
-  const copy = HOME_SECTION_COPY[normalizeLocale(locale, "en")] || HOME_SECTION_COPY.en;
+  const actionLabel = composeInterviewCtaLabel(locale, item.outlet);
   return `          <article class="interview-preview-card">
             <p class="interview-preview-meta">${htmlEscape(`${item.displayDate} · ${item.languageLabel} · ${item.formatLabel}`)}</p>
             <h3 class="interview-preview-title">
               <a href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(item.title)}</a>
             </h3>
             <p class="interview-preview-description">${htmlEscape(item.description)}</p>
-            <a class="interview-preview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(copy.interviewOpen)}</a>
+            <a class="interview-preview-open" href="${htmlEscape(item.url)}" target="_blank" rel="noopener noreferrer">${htmlEscape(actionLabel)}</a>
           </article>`;
 };
 
@@ -5141,11 +5256,11 @@ const main = async () => {
     ? entries.filter((entry) => !shouldCompileItem(entry?.item, { production: true }))
     : [];
   const idToPostPath = new Map(compiledEntries.map((entry) => [entry.item.id, entry.postPath]));
+  const publicInterviews = buildPublicInterviewsDataset(sourceUrlHealth);
   await updateInterviewPages(sourceUrlHealth);
-  await updateSelectedWorkPage(publicEntries, idToPostPath);
+  await updateSelectedWorkPage(publicEntries, idToPostPath, publicInterviews);
   const selectedCards = buildSelectedSearchCards(publicEntries, idToPostPath);
   const { idToCluster, idToContentId } = buildContentTranslationMaps(items);
-  const publicInterviews = buildPublicInterviewsDataset(sourceUrlHealth);
   const idToIndexStatus = new Map(
     compiledEntries.map((entry) => [String(entry?.item?.id || "").trim(), classifyPostPage(entry?.item)])
   );

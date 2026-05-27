@@ -16,13 +16,13 @@ const state = {
 const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
 const pageLang = uiLang === "fr" ? "FR" : uiLang === "de" ? "DE" : uiLang === "es" ? "ES" : "EN";
 const ROLE_LABELS = {
-  en: { authored: "Authored", quoted: "Expert Comment", reference: "Reference" },
+  en: { authored: "Authored", quoted: "Expert comment", reference: "Reference" },
   fr: { authored: "Signe", quoted: "Commentaire", reference: "Reference" },
   de: { authored: "Verfasst", quoted: "Kommentar", reference: "Referenz" },
   es: { authored: "Firmado", quoted: "Comentario", reference: "Referencia" },
 };
 const ROLE_VIEW_LABELS = {
-  en: { authored: "Authored", quoted: "Quoted", reference: "References" },
+  en: { authored: "Authored", quoted: "Expert comment", reference: "References" },
   fr: { authored: "Signes", quoted: "Citations", reference: "References" },
   de: { authored: "Verfasst", quoted: "Zitiert", reference: "Referenzen" },
   es: { authored: "Firmado", quoted: "Citado", reference: "Referencias" },
@@ -217,6 +217,23 @@ function isAbsoluteUrl(value) {
   return /^https?:\/\//i.test(String(value || ""));
 }
 
+function isOnSitePostUrl(value) {
+  const raw = normalize(value);
+  if (!raw) return false;
+  if (/^\/posts\//i.test(raw)) return true;
+
+  try {
+    const url = new URL(raw, "https://www.klishin.work");
+    return /(^|\.)klishin\.work$/i.test(url.hostname) && /^\/posts\//i.test(url.pathname);
+  } catch {
+    return false;
+  }
+}
+
+function primaryCtaLabel(item = {}) {
+  return isOnSitePostUrl(item.url) ? "Open on-site note" : "Open material";
+}
+
 function createCard(item, options = {}) {
   const featured = Boolean(options.featured);
   const node = document.createElement("article");
@@ -260,7 +277,7 @@ function createCard(item, options = {}) {
     ctaLink.target = "_blank";
     ctaLink.rel = "noopener noreferrer";
   }
-  ctaLink.textContent = "Open on-site note";
+  ctaLink.textContent = primaryCtaLabel(item);
   cta.appendChild(ctaLink);
 
   if (item.sourceUrl && item.sourceUrl !== item.url) {

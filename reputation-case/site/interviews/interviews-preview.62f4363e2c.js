@@ -2,12 +2,13 @@ const grid = document.getElementById("interviewsPreviewGrid");
 const uiLang = String(document?.documentElement?.lang || "en").trim().slice(0, 2).toLowerCase();
 const PUBLIC_INTERVIEWS_PATH = "/data/public-interviews.json";
 const COPY = {
-  en: { open: "Open material", empty: "No interviews are available in this language yet." },
-  fr: { open: "Voir l’entretien →", empty: "Aucun entretien n’est encore disponible dans cette langue." },
-  de: { open: "Beitrag öffnen →", empty: "In dieser Sprache sind noch keine Interviews verfügbar." },
-  es: { open: "Ver la entrevista →", empty: "Todavía no hay entrevistas disponibles en este idioma." },
+  en: { empty: "No interviews are available in this language yet." },
+  fr: { empty: "Aucun entretien n’est encore disponible dans cette langue." },
+  de: { empty: "In dieser Sprache sind noch keine Interviews verfügbar." },
+  es: { empty: "Todavía no hay entrevistas disponibles en este idioma." },
 };
 const ACTIVE_COPY = COPY[uiLang] || COPY.en;
+const GERMAN_AUF_INTERVIEW_OUTLETS = new Set(["apple podcasts", "youtube"]);
 
 if (grid) {
   initPreview().catch(() => {
@@ -98,6 +99,23 @@ function formatDisplayDate(raw) {
   return value;
 }
 
+function composeInterviewCtaLabel(locale, outlet) {
+  const source = String(outlet || "").trim();
+  if (!source) {
+    if (locale === "fr") return "Voir le contenu";
+    if (locale === "de") return "Material öffnen";
+    if (locale === "es") return "Ver el contenido";
+    return "Open material";
+  }
+  if (locale === "fr") return `Voir le contenu sur ${source}`;
+  if (locale === "de") {
+    const preposition = GERMAN_AUF_INTERVIEW_OUTLETS.has(source.toLowerCase()) ? "auf" : "bei";
+    return `Material ${preposition} ${source} öffnen`;
+  }
+  if (locale === "es") return `Ver el contenido en ${source}`;
+  return `Open material on ${source}`;
+}
+
 function renderPreview(items) {
   grid.innerHTML = "";
   if (!items.length) {
@@ -136,7 +154,7 @@ function renderPreview(items) {
     action.href = item.url;
     action.target = "_blank";
     action.rel = "noopener noreferrer";
-    action.textContent = ACTIVE_COPY.open;
+    action.textContent = composeInterviewCtaLabel(uiLang, item.outlet);
 
     card.append(meta, title, desc, action);
     fragment.appendChild(card);
