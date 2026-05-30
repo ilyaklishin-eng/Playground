@@ -2547,6 +2547,70 @@ ${cardsHtml}
   };
 };
 
+const buildSelectedEditorialRoutesSchema = (entries, idToPostPath = new Map()) => {
+  const scoped = entries
+    .filter((entry) => entry?.item?.locale === "en")
+    .filter((entry) => isPublicRenderableItem(entry?.item))
+    .filter((entry) => isShowcaseCandidate(entry?.item))
+    .filter((entry) => !isInterviewLike(entry?.item))
+    .slice()
+    .sort(sortEntriesByDateDesc);
+
+  const usedIds = new Set();
+  const routeItems = [];
+  for (const section of SELECTED_SECTION_CONFIG) {
+    const cards = buildCuratedSectionEntries(scoped, section, usedIds);
+    for (const entry of cards) {
+      routeItems.push({ section, entry });
+    }
+  }
+
+  return {
+    "@type": "ItemList",
+    "@id": `${canonicalUrl("selected/index.html")}#editorial-routes`,
+    name: "Selected editorial routes",
+    itemListOrder: "https://schema.org/ItemListOrderAscending",
+    numberOfItems: routeItems.length,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": PERSON_ID },
+    itemListElement: routeItems.map(({ section, entry }, index) => {
+      const item = entry?.item || {};
+      const id = String(item?.id || "").trim() || entry?.postPath?.replace(/\.html$/i, "");
+      const role = normalizeCardRole(item?.role);
+      const digestHref = canonicalUrl(`posts/${idToPostPath.get(id) || entry?.postPath || ""}`);
+      const sourceHref = publicSourceUrl(item?.url || "");
+      const source = normalizeText(item?.source || "");
+      const work = {
+        "@type": "CreativeWork",
+        name: resolveDisplayTitle(item),
+        url: digestHref,
+        description: sanitizeSelectedIntro(previewSummary(item), item) || undefined,
+        datePublished: normalizeText(item?.date || "") || undefined,
+        publisher: source
+          ? {
+              "@type": "Organization",
+              name: source,
+            }
+          : undefined,
+        isBasedOn: sourceHref || undefined,
+        genre: [section.title, role, materialKindLabel(item, "en")].filter(Boolean),
+      };
+
+      if (role === CONTENT_ROLE.AUTHORED) {
+        work.author = { "@id": PERSON_ID };
+      } else {
+        work.about = { "@id": PERSON_ID };
+      }
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: work,
+      };
+    }),
+  };
+};
+
 const buildSelectedAllDefaultState = (entries, idToPostPath = new Map()) => {
   const items = entries
     .filter((entry) => normalizeLang(entry?.item?.language) === "EN")
@@ -2715,6 +2779,33 @@ ${SELECTED_ALL_GRID_END}
       </section>`;
 };
 
+const injectSelectedEditorialRoutesSchema = (html = "", editorialRoutesSchema = {}) => {
+  const match = String(html || "").match(FIRST_JSONLD_SCRIPT_RE);
+  if (!match) {
+    throw new Error(`Unable to locate JSON-LD block in ${selectedPagePath}`);
+  }
+
+  const payload = JSON.parse(match[1]);
+  const graph = Array.isArray(payload?.["@graph"]) ? payload["@graph"] : [];
+  const schemaId = String(editorialRoutesSchema?.["@id"] || "");
+  const archiveListId = `${canonicalUrl("selected/index.html")}#itemlist`;
+  const withoutExisting = graph.filter((node) => String(node?.["@id"] || "") !== schemaId);
+  const archiveIndex = withoutExisting.findIndex((node) => String(node?.["@id"] || "") === archiveListId);
+  const nextGraph =
+    archiveIndex >= 0
+      ? [
+          ...withoutExisting.slice(0, archiveIndex + 1),
+          editorialRoutesSchema,
+          ...withoutExisting.slice(archiveIndex + 1),
+        ]
+      : [...withoutExisting, editorialRoutesSchema];
+
+  return replaceFirstJsonLdScript(html, {
+    ...payload,
+    "@graph": nextGraph,
+  });
+};
+
 const updateSelectedWorkPage = async (entries, idToPostPath = new Map(), publicInterviews = { items: [] }) => {
   let html;
   try {
@@ -2726,6 +2817,7 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map(), publicI
 
   const { html: sectionsHtml } = buildSelectedSectionsHtml(entries, idToPostPath);
   const archiveSchema = buildSelectedArchiveSchemaSummary(entries, idToPostPath, publicInterviews);
+  const editorialRoutesSchema = buildSelectedEditorialRoutesSchema(entries, idToPostPath);
   const selectedAllSectionHtml = buildSelectedAllSectionHtml(entries, idToPostPath);
   const blockRe =
     /(<section class="selected-hero">[\s\S]*?<\/section>\s*)[\s\S]*?(?=\s*<section class="selected-contact")/m;
@@ -2749,6 +2841,7 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map(), publicI
   );
   next = next.replace(/("name":\s*")Selected Work clusters(")/, "$1Selected Work archive$2");
   next = next.replace(/("numberOfItems":\s*)\d+/, `$1${archiveSchema.total}`);
+  next = injectSelectedEditorialRoutesSchema(next, editorialRoutesSchema);
   next = next.replace(
     /<h1>Selected work by Ilia \(Ilya\) Klishin<\/h1>/,
     `<h1>Selected work by Ilia Klishin</h1>`
