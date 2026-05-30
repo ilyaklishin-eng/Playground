@@ -1583,7 +1583,7 @@ const buildPostMetaDescription = (item = {}) => {
     else value = `${value} Published in ${source}${date ? ` (${date})` : ""}.`;
   } else if (date && !value.includes(date)) {
     if (lang === "FR") value = `${value} Date de publication: ${date}.`;
-    else if (lang === "DE") value = `${value} Veroeffentlicht: ${date}.`;
+    else if (lang === "DE") value = `${value} Veröffentlicht: ${date}.`;
     else if (lang === "ES") value = `${value} Publicado: ${date}.`;
     else value = `${value} Published: ${date}.`;
   }
