@@ -200,6 +200,47 @@ const PERSON_SAME_AS = [
   "https://rtvi.com/editors-archive/ilya-klishin/",
   "https://kf.agency/articles/biography",
 ];
+const PERSON_DESCRIPTION =
+  "Ilia Klishin is a Russian journalist, media manager, and media consultant based in Vilnius, Lithuania.";
+const PERSON_JOB_TITLES = ["Journalist", "Media manager", "Media consultant"];
+const PERSON_KNOWS_ABOUT = [
+  "Russian digital propaganda",
+  "Independent media",
+  "Russian politics",
+  "Information warfare",
+  "Public language",
+  "Protest politics",
+  "Russian-speaking exile communities",
+  "Media strategy",
+  "Editorial systems",
+];
+const PERSON_AFFILIATIONS = [
+  {
+    "@type": "Organization",
+    name: "TV Rain / Dozhd",
+    url: "https://tvrain.tv/",
+  },
+  {
+    "@type": "Organization",
+    name: "RTVI",
+    url: "https://rtvi.com/",
+  },
+  {
+    "@type": "Organization",
+    name: "KF Agency",
+    url: "https://kf.agency/",
+  },
+  {
+    "@type": "Organization",
+    name: "Volna",
+    url: "https://linktr.ee/volnamedia",
+  },
+  {
+    "@type": "Organization",
+    name: "ReadMe.txt",
+    url: "https://t.me/bookswithklishin",
+  },
+];
 const WEBSITE_HAS_PART = [
   buildPageNodeId(`${baseUrl}/`, "WebPage"),
   buildPageNodeId(`${baseUrl}/bio/`, "ProfilePage"),
@@ -2332,6 +2373,23 @@ const buildCoreEntities = () => {
     name: PERSON_NAME,
     alternateName: PERSON_ALT_NAMES,
     url: canonicalUrl("index.html"),
+    description: PERSON_DESCRIPTION,
+    jobTitle: PERSON_JOB_TITLES,
+    homeLocation: {
+      "@type": "Place",
+      name: "Vilnius, Lithuania",
+    },
+    knowsAbout: PERSON_KNOWS_ABOUT,
+    worksFor: {
+      "@type": "Organization",
+      name: "KF Agency",
+      url: "https://kf.agency/",
+    },
+    affiliation: PERSON_AFFILIATIONS,
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "MGIMO University",
+    },
     sameAs: PERSON_SAME_AS,
   };
   const organization = {
