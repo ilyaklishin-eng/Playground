@@ -33,6 +33,14 @@ const NAV_LABELS = Object.freeze({
   cases: { en: "Public context notes", fr: "Notes de cas", de: "Falldokumentation", es: "Notas de casos" },
 });
 
+const FOOTER_NAV_LABELS = Object.freeze({
+  selected: {
+    fr: "Travaux sélectionnés (archive en anglais)",
+    de: "Ausgewählte Arbeiten (englisches Archiv)",
+    es: "Trabajo seleccionado (archivo en inglés)",
+  },
+});
+
 const UI_LABELS = Object.freeze({
   en: {
     primaryNav: "Primary",
@@ -213,8 +221,13 @@ const escapeHtml = (value = "") =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-export const getNavLabel = (key, locale = "en") => {
+export const getNavLabel = (key, locale = "en", options = {}) => {
   const lang = normalizeLocale(locale);
+  const labelContext = String(options.labelContext || "");
+  if (labelContext === "footer") {
+    const footerPack = FOOTER_NAV_LABELS[key];
+    if (footerPack?.[lang]) return footerPack[lang];
+  }
   const pack = NAV_LABELS[key];
   if (!pack) return "";
   return pack[lang] || pack.en || "";
@@ -225,15 +238,15 @@ export const getNavHref = (key, locale = "en") => {
   return typeof builder === "function" ? builder(locale) : "/";
 };
 
-export const buildNavItems = (keys = [], locale = "en") =>
+export const buildNavItems = (keys = [], locale = "en", options = {}) =>
   keys.map((key) => ({
     key,
-    label: getNavLabel(key, locale),
+    label: getNavLabel(key, locale, options),
     href: getNavHref(key, locale),
   }));
 
-const renderNavLinks = (keys = [], locale = "en", currentKey = "", className = "") =>
-  buildNavItems(keys, locale)
+const renderNavLinks = (keys = [], locale = "en", currentKey = "", className = "", options = {}) =>
+  buildNavItems(keys, locale, options)
     .map((item) => {
       const active = item.key === currentKey ? ` aria-current="page"` : "";
       const activeClass = item.key === currentKey && className ? ` class="${className}"` : "";
@@ -261,12 +274,12 @@ export const renderReaderHeader = ({ locale = "en", currentKey = "", brandLabel 
     </header>`;
 };
 
-export const renderReaderFooter = ({ locale = "en" } = {}) => {
+export const renderReaderFooter = ({ locale = "en", labelContext = "" } = {}) => {
   const lang = normalizeLocale(locale);
   const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<footer class="footer">
       <nav class="secondary-nav" aria-label="${escapeHtml(ui.secondaryNav)}">
-        ${renderNavLinks(NAV_LAYOUTS.reader.footer, lang)}
+        ${renderNavLinks(NAV_LAYOUTS.reader.footer, lang, "", "", { labelContext })}
       </nav>
     </footer>`;
 };
@@ -284,12 +297,12 @@ export const renderArchiveHeader = ({ locale = "en", currentKey = "" } = {}) => 
     </header>`;
 };
 
-export const renderArchiveFooter = ({ locale = "en" } = {}) => {
+export const renderArchiveFooter = ({ locale = "en", labelContext = "" } = {}) => {
   const lang = normalizeLocale(locale);
   const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<footer class="archive-footer">
       <nav class="archive-footer-nav" aria-label="${escapeHtml(ui.archiveFooter)}">
-        ${renderNavLinks(NAV_LAYOUTS.archive.footer, lang)}
+        ${renderNavLinks(NAV_LAYOUTS.archive.footer, lang, "", "", { labelContext })}
       </nav>
     </footer>`;
 };

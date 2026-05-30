@@ -4152,11 +4152,30 @@ const ensureArchiveLayoutStyles = (html = "") => {
   return html.replace(/<\/head>/i, `    <style id="archive-layout-styles">\n${ARCHIVE_LAYOUT_CSS}\n    </style>\n  </head>`);
 };
 
+const EXPLICIT_SELECTED_FOOTER_PATHS = new Set([
+  "fr/index.html",
+  "de/index.html",
+  "es/index.html",
+  "bio/fr/index.html",
+  "bio/de/index.html",
+  "bio/es/index.html",
+  "insights/fr/index.html",
+  "insights/de/index.html",
+  "insights/es/index.html",
+  "interviews/fr/index.html",
+  "interviews/de/index.html",
+  "interviews/es/index.html",
+]);
+
+const selectedFooterLabelContextForPath = (relativePath = "") =>
+  EXPLICIT_SELECTED_FOOTER_PATHS.has(String(relativePath || "").replace(/^\/+/, "")) ? "footer" : "";
+
 const injectLayoutChrome = (html = "", relativePath = "") => {
   const layout = resolveStaticLayout(relativePath);
   if (!layout) return html;
 
   const htmlLang = extractHtmlLang(html);
+  const footerLabelContext = selectedFooterLabelContextForPath(relativePath);
   let next = String(html || "");
   next = next.replace(FOOTER_UTILITY_RE, "");
 
@@ -4164,7 +4183,7 @@ const injectLayoutChrome = (html = "", relativePath = "") => {
     next = next.replace(READER_HEADER_RE, "");
     next = next.replace(FOOTER_RE, "");
     next = insertAfterBodyLead(next, renderReaderHeader({ locale: htmlLang, currentKey: layout.currentKey }));
-    next = appendFooterBeforeBodyClose(next, renderReaderFooter({ locale: htmlLang }));
+    next = appendFooterBeforeBodyClose(next, renderReaderFooter({ locale: htmlLang, labelContext: footerLabelContext }));
     return next;
   }
 
@@ -4175,7 +4194,7 @@ const injectLayoutChrome = (html = "", relativePath = "") => {
   next = next.replace(PRIMARY_NAV_RE, "");
   next = next.replace(FOOTER_RE, "");
   next = insertAfterBodyLead(next, renderArchiveHeader({ locale: htmlLang, currentKey: layout.currentKey }));
-  next = appendFooterBeforeBodyClose(next, renderArchiveFooter({ locale: htmlLang }));
+  next = appendFooterBeforeBodyClose(next, renderArchiveFooter({ locale: htmlLang, labelContext: footerLabelContext }));
   return next;
 };
 
