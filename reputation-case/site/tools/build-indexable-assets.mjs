@@ -162,7 +162,9 @@ const SELECTED_ROLE_SECTION_CARD_LIMIT = 3;
 const SEARCH_INITIAL_RENDER_LIMIT = 12;
 const PERSON_NAME = "Ilia Klishin";
 const SITE_NAME = "Ilia Klishin";
-const DIGEST_NAME = "Ilia Klishin Digest";
+const SITE_PUBLISHER_NAME = "Ilia Klishin official site";
+const PUBLICATIONS_FEED_TITLE = "Ilia Klishin Publications Feed";
+const LEGACY_PUBLICATIONS_FEED_TITLE = ["Ilia Klishin", "Digest RSS"].join(" ");
 const DEFAULT_SOCIAL_IMAGE = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
 const SOCIAL_IMAGE_WIDTH = "636";
 const SOCIAL_IMAGE_HEIGHT = "888";
@@ -2395,7 +2397,7 @@ const buildCoreEntities = () => {
   const organization = {
     "@type": "Organization",
     "@id": ORGANIZATION_ID,
-    name: DIGEST_NAME,
+    name: SITE_PUBLISHER_NAME,
     url: canonicalUrl("index.html"),
     founder: { "@id": PERSON_ID },
   };
@@ -4113,6 +4115,10 @@ const applyStaticHeadSeoPolicies = async () => {
       `<link rel="canonical" href="${htmlEscape(canonicalUrl(relativePath))}" />`,
       ...buildStaticHeadHreflangLinks(relativePath),
     ]);
+    html = html.replace(
+      new RegExp(`title=["']${escapeRegExpSafe(LEGACY_PUBLICATIONS_FEED_TITLE)}["']`, "g"),
+      `title="${PUBLICATIONS_FEED_TITLE}"`
+    );
     const robotsValue = robotsMetaForPageClass(pageClass);
     html = upsertMetaTag(html, "name", "robots", robotsValue);
     await fs.writeFile(fullPath, html, "utf8");
@@ -5320,7 +5326,7 @@ const buildRss = (entries) => {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Ilia Klishin Publications Feed</title>
+    <title>${xmlEscape(PUBLICATIONS_FEED_TITLE)}</title>
     <link>${xmlEscape(canonicalUrl("index.html"))}</link>
     <description>Publication cards with concise summaries and links to original sources.</description>
     <lastBuildDate>${now}</lastBuildDate>
