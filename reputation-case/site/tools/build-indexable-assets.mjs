@@ -4929,6 +4929,9 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const selectedSectionId = classifySelectedSection(item);
   const selectedSectionLabel = selectedSectionLabelById(selectedSectionId);
   const localizedHomeHref = htmlLang === "en" ? "/" : `/${htmlLang}/`;
+  const localizedBioHref = htmlLang === "en" ? "/bio/" : `/bio/${htmlLang}/`;
+  const localizedInterviewsHref = htmlLang === "en" ? "/interviews/" : `/interviews/${htmlLang}/`;
+  const localizedInsightsHref = htmlLang === "en" ? "/insights/" : `/insights/${htmlLang}/`;
   const { person, organization, website } = buildCoreEntities();
   const pageId = buildPageNodeId(canonical, "WebPage");
   const articleId = `${canonical}#article`;
@@ -5121,13 +5124,13 @@ ${ARCHIVE_LAYOUT_CSS}
           <h2>${htmlEscape(postLabels.continueOnSite)}</h2>
           <ul>
             <li><a href="${localizedHomeHref}">${htmlEscape(postLabels.home)}</a></li>
-            <li><a href="/bio/">${htmlEscape(postLabels.biography)}</a></li>
+            <li><a href="${localizedBioHref}">${htmlEscape(postLabels.biography)}</a></li>
             <li><a href="/selected/">${htmlEscape(postLabels.selectedWork)}</a></li>
             <li><a href="/selected/#${selectedSectionId}">${htmlEscape(postLabels.selectedSection)} ${htmlEscape(selectedSectionLabel)}</a></li>
-            <li><a href="/interviews/">${htmlEscape(postLabels.interviews)}</a></li>
+            <li><a href="${localizedInterviewsHref}">${htmlEscape(postLabels.interviews)}</a></li>
             <li><a href="/posts/">${htmlEscape(postLabels.publishedPostsIndex)}</a></li>
             <li><a href="/posts/all.html">${htmlEscape(INCLUDE_DRAFT_OUTPUTS ? postLabels.fullArchiveWithDrafts : postLabels.fullArchive)}</a></li>
-            <li><a href="/insights/">${htmlEscape(postLabels.researchArchive)}</a></li>
+            <li><a href="${localizedInsightsHref}">${htmlEscape(postLabels.researchArchive)}</a></li>
             <li><a href="/archive/">${htmlEscape(postLabels.archive)}</a></li>
             <li><a href="/search/">${htmlEscape(postLabels.search)}</a></li>
             <li><a href="/contact/">${htmlEscape(postLabels.contact)}</a></li>
