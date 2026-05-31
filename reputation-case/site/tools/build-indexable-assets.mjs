@@ -1758,7 +1758,129 @@ const materialKindLabel = (item = {}, locale = "en") => {
   return copy[key] || MATERIAL_KIND_LABELS.en[key] || MATERIAL_KIND_LABELS.en.article;
 };
 
-const sourceActionLabel = (item = {}) => {
+const POST_UI_LABELS = {
+  en: {
+    continueOnSite: "Continue on site",
+    home: "Home",
+    biography: "Biography",
+    selectedWork: "Selected Work",
+    selectedSection: "Selected section:",
+    interviews: "Interviews",
+    publishedPostsIndex: "Published posts index",
+    fullArchive: "Full archive",
+    fullArchiveWithDrafts: "Full archive (including drafts)",
+    researchArchive: "Research archive",
+    archive: "Archive",
+    search: "Search",
+    contact: "Contact",
+    availableLanguages: "Available languages",
+    relatedTopic: "Related topic",
+    relatedSection: "Related section",
+    fromThisSource: "From this source",
+    samePeriod: "Same period",
+    timelineInThisLanguage: "Timeline in this language",
+    timelineFromThisSource: "Timeline from this source",
+    recentInThisLanguage: "Recent in this language",
+    moreFromThisArchive: "More from this archive",
+    readPiece: "Read piece",
+    originalSource: "Original source",
+    watchVideo: "Watch video",
+    newer: "Newer:",
+    older: "Older:",
+  },
+  fr: {
+    continueOnSite: "Continuer sur le site",
+    home: "Accueil",
+    biography: "Biographie",
+    selectedWork: "Travaux sélectionnés (archive en anglais)",
+    selectedSection: "Section sélectionnée :",
+    interviews: "Entretiens",
+    publishedPostsIndex: "Index des publications",
+    fullArchive: "Archive complète",
+    fullArchiveWithDrafts: "Archive complète (brouillons inclus)",
+    researchArchive: "Archives de recherche",
+    archive: "Archives",
+    search: "Recherche",
+    contact: "Contact",
+    availableLanguages: "Langues disponibles",
+    relatedTopic: "Sujet lié",
+    relatedSection: "Section liée",
+    fromThisSource: "De cette source",
+    samePeriod: "Même période",
+    timelineInThisLanguage: "Chronologie dans cette langue",
+    timelineFromThisSource: "Chronologie de cette source",
+    recentInThisLanguage: "Récent dans cette langue",
+    moreFromThisArchive: "Plus dans cette archive",
+    readPiece: "Lire le texte",
+    originalSource: "Source originale",
+    watchVideo: "Voir la vidéo",
+    newer: "Plus récent :",
+    older: "Plus ancien :",
+  },
+  de: {
+    continueOnSite: "Weiter auf der Website",
+    home: "Startseite",
+    biography: "Biografie",
+    selectedWork: "Ausgewählte Arbeiten (englisches Archiv)",
+    selectedSection: "Ausgewählter Abschnitt:",
+    interviews: "Interviews",
+    publishedPostsIndex: "Index veröffentlichter Beiträge",
+    fullArchive: "Vollständiges Archiv",
+    fullArchiveWithDrafts: "Vollständiges Archiv (einschließlich Entwürfe)",
+    researchArchive: "Recherchearchiv",
+    archive: "Archiv",
+    search: "Suche",
+    contact: "Kontakt",
+    availableLanguages: "Verfügbare Sprachen",
+    relatedTopic: "Verwandtes Thema",
+    relatedSection: "Verwandter Abschnitt",
+    fromThisSource: "Aus dieser Quelle",
+    samePeriod: "Gleicher Zeitraum",
+    timelineInThisLanguage: "Chronologie in dieser Sprache",
+    timelineFromThisSource: "Chronologie aus dieser Quelle",
+    recentInThisLanguage: "Neuere Beiträge in dieser Sprache",
+    moreFromThisArchive: "Mehr aus diesem Archiv",
+    readPiece: "Text lesen",
+    originalSource: "Originalquelle",
+    watchVideo: "Video ansehen",
+    newer: "Neuer:",
+    older: "Älter:",
+  },
+  es: {
+    continueOnSite: "Continuar en el sitio",
+    home: "Inicio",
+    biography: "Biografía",
+    selectedWork: "Trabajo seleccionado (archivo en inglés)",
+    selectedSection: "Sección seleccionada:",
+    interviews: "Entrevistas",
+    publishedPostsIndex: "Índice de publicaciones",
+    fullArchive: "Archivo completo",
+    fullArchiveWithDrafts: "Archivo completo (incluidos borradores)",
+    researchArchive: "Archivo de investigación",
+    archive: "Archivo",
+    search: "Búsqueda",
+    contact: "Contacto",
+    availableLanguages: "Idiomas disponibles",
+    relatedTopic: "Tema relacionado",
+    relatedSection: "Sección relacionada",
+    fromThisSource: "De esta fuente",
+    samePeriod: "Mismo período",
+    timelineInThisLanguage: "Cronología en este idioma",
+    timelineFromThisSource: "Cronología de esta fuente",
+    recentInThisLanguage: "Reciente en este idioma",
+    moreFromThisArchive: "Más de este archivo",
+    readPiece: "Leer el texto",
+    originalSource: "Fuente original",
+    watchVideo: "Ver video",
+    newer: "Más reciente:",
+    older: "Anterior:",
+  },
+};
+
+const postUiLabels = (locale = "en") => POST_UI_LABELS[normalizeLocale(locale, "en")] || POST_UI_LABELS.en;
+
+const sourceActionLabel = (item = {}, locale = "en") => {
+  const labels = postUiLabels(locale);
   const title = normalizeText(item?.title || "").toLowerCase();
   const source = normalizeText(item?.source || "").toLowerCase();
   const topic = normalizeText(item?.topic || "").toLowerCase();
@@ -1768,9 +1890,9 @@ const sourceActionLabel = (item = {}) => {
     /\b(youtube|tedx)\b/.test(source) ||
     /\bpublic speaking\b/.test(topic) ||
     /youtube\.com|youtu\.be|ted\.com/.test(url);
-  if (looksVideo) return "Watch video";
-  if (isReferenceCard(item)) return "Open source";
-  return "Read piece";
+  if (looksVideo) return labels.watchVideo;
+  if (isReferenceCard(item)) return labels.originalSource;
+  return labels.readPiece;
 };
 
 const sanitizeSemanticTags = (tags = []) =>
@@ -3595,7 +3717,7 @@ const buildDirectionalRelatedLink = (label, entry) => {
   const title = htmlEscape(resolveDisplayTitle(entry?.item || {}));
   const source = htmlEscape(String(entry?.item?.source || "-"));
   const date = htmlEscape(String(entry?.item?.date || "-"));
-  return `<li>${htmlEscape(label)}: <a href="${href}">${title}</a> — ${source} • ${date}</li>`;
+  return `<li>${htmlEscape(label)} <a href="${href}">${title}</a> — ${source} • ${date}</li>`;
 };
 
 const homeStatusRank = (value = "") => (isPublishedStatus(value) ? 0 : 1);
@@ -4763,8 +4885,9 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     imageUrl: postSocialImage,
   });
   const sourceLink = publicSourceUrl(item.url);
-  const sourceCtaLabel = sourceActionLabel(item);
   const htmlLang = toHtmlLang(item.language);
+  const postLabels = postUiLabels(htmlLang);
+  const sourceCtaLabel = sourceActionLabel(item, htmlLang);
   const { alternates, xDefaultHref } = getAlternatesForItem(
     item,
     idToPostPath,
@@ -4794,12 +4917,12 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const sectionLinks = buildRelatedLinks(relatedBySection);
   const yearLinks = buildRelatedLinks(relatedByYear);
   const languageTimelineLinks = [
-    buildDirectionalRelatedLink("Newer", newerInLanguage),
-    buildDirectionalRelatedLink("Older", olderInLanguage),
+    buildDirectionalRelatedLink(postLabels.newer, newerInLanguage),
+    buildDirectionalRelatedLink(postLabels.older, olderInLanguage),
   ].filter(Boolean);
   const sourceTimelineLinks = [
-    buildDirectionalRelatedLink("Newer", newerFromSource),
-    buildDirectionalRelatedLink("Older", olderFromSource),
+    buildDirectionalRelatedLink(postLabels.newer, newerFromSource),
+    buildDirectionalRelatedLink(postLabels.older, olderFromSource),
   ].filter(Boolean);
   const latestLanguageLinks = buildRelatedLinks(latestSameLanguage);
   const latestSiteLinks = buildRelatedLinks(latestAcrossSite);
@@ -4992,34 +5115,34 @@ ${ARCHIVE_LAYOUT_CSS}
           <p>${htmlEscape(summary)}</p>
         </section>
         <section>
-          <h2>Continue on site</h2>
+          <h2>${htmlEscape(postLabels.continueOnSite)}</h2>
           <ul>
-            <li><a href="${localizedHomeHref}">Home</a></li>
-            <li><a href="/bio/">Biography (EN/FR/DE/ES)</a></li>
-            <li><a href="/selected/">Selected Work</a></li>
-            <li><a href="/selected/#${selectedSectionId}">Selected section: ${htmlEscape(selectedSectionLabel)}</a></li>
-            <li><a href="/interviews/">Interviews</a></li>
-            <li><a href="/posts/">Published posts index</a></li>
-            <li><a href="/posts/all.html">${INCLUDE_DRAFT_OUTPUTS ? "Full archive (including drafts)" : "Full archive"}</a></li>
-            <li><a href="/insights/">Research archive</a></li>
-            <li><a href="/archive/">Archive</a></li>
-            <li><a href="/search/">Search</a></li>
-            <li><a href="/contact/">Contact</a></li>
+            <li><a href="${localizedHomeHref}">${htmlEscape(postLabels.home)}</a></li>
+            <li><a href="/bio/">${htmlEscape(postLabels.biography)}</a></li>
+            <li><a href="/selected/">${htmlEscape(postLabels.selectedWork)}</a></li>
+            <li><a href="/selected/#${selectedSectionId}">${htmlEscape(postLabels.selectedSection)} ${htmlEscape(selectedSectionLabel)}</a></li>
+            <li><a href="/interviews/">${htmlEscape(postLabels.interviews)}</a></li>
+            <li><a href="/posts/">${htmlEscape(postLabels.publishedPostsIndex)}</a></li>
+            <li><a href="/posts/all.html">${htmlEscape(INCLUDE_DRAFT_OUTPUTS ? postLabels.fullArchiveWithDrafts : postLabels.fullArchive)}</a></li>
+            <li><a href="/insights/">${htmlEscape(postLabels.researchArchive)}</a></li>
+            <li><a href="/archive/">${htmlEscape(postLabels.archive)}</a></li>
+            <li><a href="/search/">${htmlEscape(postLabels.search)}</a></li>
+            <li><a href="/contact/">${htmlEscape(postLabels.contact)}</a></li>
           </ul>
-          ${languageLinks.length > 0 ? `<h3>Available languages</h3><ul>${languageLinks.join("")}</ul>` : ""}
-          ${topicLinks.length > 0 ? `<h3>Related topic</h3><ul>${topicLinks.join("")}</ul>` : ""}
-          ${sectionLinks.length > 0 ? `<h3>Related section</h3><ul>${sectionLinks.join("")}</ul>` : ""}
-          ${sourceLinks.length > 0 ? `<h3>From this source</h3><ul>${sourceLinks.join("")}</ul>` : ""}
-          ${yearLinks.length > 0 ? `<h3>Same period</h3><ul>${yearLinks.join("")}</ul>` : ""}
-          ${languageTimelineLinks.length > 0 ? `<h3>Timeline in this language</h3><ul>${languageTimelineLinks.join("")}</ul>` : ""}
-          ${sourceTimelineLinks.length > 0 ? `<h3>Timeline from this source</h3><ul>${sourceTimelineLinks.join("")}</ul>` : ""}
-          ${latestLanguageLinks.length > 0 ? `<h3>Recent in this language</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
-          ${latestSiteLinks.length > 0 ? `<h3>More from this archive</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
+          ${languageLinks.length > 0 ? `<h3>${htmlEscape(postLabels.availableLanguages)}</h3><ul>${languageLinks.join("")}</ul>` : ""}
+          ${topicLinks.length > 0 ? `<h3>${htmlEscape(postLabels.relatedTopic)}</h3><ul>${topicLinks.join("")}</ul>` : ""}
+          ${sectionLinks.length > 0 ? `<h3>${htmlEscape(postLabels.relatedSection)}</h3><ul>${sectionLinks.join("")}</ul>` : ""}
+          ${sourceLinks.length > 0 ? `<h3>${htmlEscape(postLabels.fromThisSource)}</h3><ul>${sourceLinks.join("")}</ul>` : ""}
+          ${yearLinks.length > 0 ? `<h3>${htmlEscape(postLabels.samePeriod)}</h3><ul>${yearLinks.join("")}</ul>` : ""}
+          ${languageTimelineLinks.length > 0 ? `<h3>${htmlEscape(postLabels.timelineInThisLanguage)}</h3><ul>${languageTimelineLinks.join("")}</ul>` : ""}
+          ${sourceTimelineLinks.length > 0 ? `<h3>${htmlEscape(postLabels.timelineFromThisSource)}</h3><ul>${sourceTimelineLinks.join("")}</ul>` : ""}
+          ${latestLanguageLinks.length > 0 ? `<h3>${htmlEscape(postLabels.recentInThisLanguage)}</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
+          ${latestSiteLinks.length > 0 ? `<h3>${htmlEscape(postLabels.moreFromThisArchive)}</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
         </section>
         ${sourceLink ? `<p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>` : ""}
       </article>
     </main>
-    ${renderArchiveFooter({ locale: htmlLang })}
+    ${renderArchiveFooter({ locale: htmlLang, labelContext: "footer" })}
   </body>
 </html>
 `;

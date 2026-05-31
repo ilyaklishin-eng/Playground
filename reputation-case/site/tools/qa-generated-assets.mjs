@@ -1290,9 +1290,11 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     }
 
     const sourceAnchorMatch = html.match(
-      /<p class="source">\s*<a[^>]*href=["']([^"']+)["'][^>]*>\s*(?:Read original(?: source)?|Read piece|Open source|Open original source|Watch video)\s*<\/a>/i
+      /<p class="source">\s*<a[^>]*href=["']([^"']+)["'][^>]*>\s*([^<]+?)\s*<\/a>/i
     );
-    if (requiresPublicSource && (!sourceAnchorMatch || !/^https?:\/\//i.test(String(sourceAnchorMatch[1] || "").trim()))) {
+    const sourceAnchorHref = String(sourceAnchorMatch?.[1] || "").trim();
+    const sourceAnchorText = String(sourceAnchorMatch?.[2] || "").trim();
+    if (requiresPublicSource && (!sourceAnchorMatch || !/^https?:\/\//i.test(sourceAnchorHref) || !sourceAnchorText)) {
       pushError(issues, "post.source.link.missing", `Post page is missing visible source link with absolute URL: ${rel}`);
     }
   }
