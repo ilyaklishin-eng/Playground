@@ -1534,10 +1534,46 @@ const smartTrim = (text = "", max = 80) => {
 const trimMetaDescription = (text = "", max = 170) => {
   const value = normalizeText(text);
   if (!value) return "";
-  if (value.length <= max) return /[.!?](?:["'”’»)\]]*)$/.test(value) ? value : `${value}.`;
+  const hasTerminalPunctuation = (candidate = "") => /[.!?](?:["'”’»)\]]*)$/.test(candidate);
+  const punctuate = (candidate = "") => (hasTerminalPunctuation(candidate) ? candidate : `${candidate}.`);
+  if (value.length <= max) return punctuate(value);
+
+  const sentenceEnds = [...value.matchAll(/[.!?](?:["'”’»)\]]*)/g)];
+  const sentence = sentenceEnds
+    .map((match) => value.slice(0, match.index + match[0].length).trim())
+    .filter((candidate) => candidate.length <= max)
+    .pop();
+  if (sentence && sentence.length >= 60) return punctuate(sentence);
+
   const clipped = value.slice(0, max).replace(/\s+\S*$/, "").trim();
-  if (!clipped) return value.slice(0, max).trim();
-  return /[.!?](?:["'”’»)\]]*)$/.test(clipped) ? clipped : `${clipped}.`;
+  if (!clipped) return punctuate(value.slice(0, max).trim());
+  let clean = clipped.replace(/[,:;–—-]\s*$/, "").trim();
+  while (/\b(?:the|a|an|in|on|near|of|to|for|with|and|or)$/i.test(clean)) {
+    clean = clean.replace(/\s+\S+$/, "").replace(/[,:;–—-]\s*$/, "").trim();
+  }
+  return punctuate(clean || clipped);
+};
+
+const buildPostMetaSourceSuffix = (lang, source = "", date = "") => {
+  if (lang === "FR") return `Publié dans ${source}${date ? ` (${date})` : ""}.`;
+  if (lang === "DE") return `Veröffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
+  if (lang === "ES") return `Publicado en ${source}${date ? ` (${date})` : ""}.`;
+  return `Published in ${source}${date ? ` (${date})` : ""}.`;
+};
+
+const buildPostMetaDateSuffix = (lang, date = "") => {
+  if (lang === "FR") return `Date de publication: ${date}.`;
+  if (lang === "DE") return `Veröffentlicht: ${date}.`;
+  if (lang === "ES") return `Publicado: ${date}.`;
+  return `Published: ${date}.`;
+};
+
+const appendMetaSuffixIfFits = (text = "", suffix = "", max = 170) => {
+  const base = trimMetaDescription(text, max);
+  const cleanSuffix = normalizeText(suffix);
+  if (!base || !cleanSuffix) return base;
+  const value = normalizeText(`${base} ${cleanSuffix}`);
+  return value.length <= max ? value : base;
 };
 
 const pickSeededVariant = (seed, variants) => {
@@ -1620,15 +1656,9 @@ const buildPostMetaDescription = (item = {}) => {
 
   let value = summary;
   if (source && !new RegExp(source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(value)) {
-    if (lang === "FR") value = `${value} Publié dans ${source}${date ? ` (${date})` : ""}.`;
-    else if (lang === "DE") value = `${value} Veröffentlicht bei ${source}${date ? ` (${date})` : ""}.`;
-    else if (lang === "ES") value = `${value} Publicado en ${source}${date ? ` (${date})` : ""}.`;
-    else value = `${value} Published in ${source}${date ? ` (${date})` : ""}.`;
+    value = appendMetaSuffixIfFits(value, buildPostMetaSourceSuffix(lang, source, date), 170);
   } else if (date && !value.includes(date)) {
-    if (lang === "FR") value = `${value} Date de publication: ${date}.`;
-    else if (lang === "DE") value = `${value} Veröffentlicht: ${date}.`;
-    else if (lang === "ES") value = `${value} Publicado: ${date}.`;
-    else value = `${value} Published: ${date}.`;
+    value = appendMetaSuffixIfFits(value, buildPostMetaDateSuffix(lang, date), 170);
   }
   return trimMetaDescription(value, 170);
 };
