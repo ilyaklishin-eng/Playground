@@ -3,6 +3,7 @@ import path from "node:path";
 import { execFile as execFileCallback } from "node:child_process";
 import { promisify } from "node:util";
 import {
+  CONTENT_ROLE,
   currentBuildEnv,
   INDEXABLE_STATIC_SECTIONS,
   PAGE_CLASS,
@@ -509,6 +510,14 @@ const hasExplicitPersonAuthor = (author) => {
     if (hasSchemaType(entry, "Person")) return true;
     return String(entry["@id"] || "").trim() === PERSON_ID;
   });
+};
+
+const normalizeContentRole = (value = "") => {
+  const raw = String(value || "").trim().toLowerCase();
+  if (raw === CONTENT_ROLE.AUTHORED || raw === "author") return CONTENT_ROLE.AUTHORED;
+  if (raw === CONTENT_ROLE.QUOTED || raw === "expert_quote") return CONTENT_ROLE.QUOTED;
+  if (raw === CONTENT_ROLE.REFERENCE || raw === "mention") return CONTENT_ROLE.REFERENCE;
+  return CONTENT_ROLE.REFERENCE;
 };
 
 const extractSourceUrl = (value) => {
@@ -1263,8 +1272,13 @@ const checkHtmlSeoSemantics = async (items, issues) => {
       pushError(issues, "post.jsonld.article.missing", `Post page is missing Article JSON-LD: ${rel}`);
       continue;
     }
-    if (!hasExplicitPersonAuthor(article.author)) {
-      pushError(issues, "post.jsonld.author.missing", `Post page Article JSON-LD is missing explicit Person author: ${rel}`);
+    const normalizedRole = normalizeContentRole(item?.role);
+    const hasPersonAuthor = hasExplicitPersonAuthor(article.author);
+    if (normalizedRole === CONTENT_ROLE.AUTHORED && !hasPersonAuthor) {
+      pushError(issues, "post.jsonld.author.missing", `Authored post Article JSON-LD is missing explicit Person author: ${rel}`);
+    }
+    if (normalizedRole !== CONTENT_ROLE.AUTHORED && hasPersonAuthor) {
+      pushError(issues, "post.jsonld.author.unexpected", `Non-authored post Article JSON-LD should not claim Person author: ${rel}`);
     }
     if (!article.datePublished || !article.dateModified) {
       pushError(issues, "post.jsonld.date.missing", `Post page Article JSON-LD is missing datePublished/dateModified: ${rel}`);

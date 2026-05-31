@@ -4818,6 +4818,8 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
           publisher: sourceOrganization ? { "@id": sourceNodeId } : undefined,
         }
       : undefined;
+  const normalizedRole = normalizeCardRole(item?.role);
+  const articleAuthor = normalizedRole === CONTENT_ROLE.AUTHORED ? { "@id": PERSON_ID } : undefined;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -4843,7 +4845,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         inLanguage: htmlLang,
         datePublished: publishedIso,
         dateModified: modifiedIso,
-        author: { "@id": PERSON_ID },
+        author: articleAuthor,
         publisher: { "@id": ORGANIZATION_ID },
         isPartOf: { "@id": WEBSITE_ID },
         mainEntityOfPage: { "@id": pageId },
