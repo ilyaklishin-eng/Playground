@@ -4973,6 +4973,9 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
       : undefined;
   const normalizedRole = normalizeCardRole(item?.role);
   const articleAuthor = normalizedRole === CONTENT_ROLE.AUTHORED ? { "@id": PERSON_ID } : undefined;
+  const sourceCtaHtml = sourceLink
+    ? `\n        <p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>`
+    : "";
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -5113,7 +5116,7 @@ ${ARCHIVE_LAYOUT_CSS}
         </header>
         <section>
           <p>${htmlEscape(summary)}</p>
-        </section>
+        </section>${sourceCtaHtml}
         <section>
           <h2>${htmlEscape(postLabels.continueOnSite)}</h2>
           <ul>
@@ -5139,7 +5142,6 @@ ${ARCHIVE_LAYOUT_CSS}
           ${latestLanguageLinks.length > 0 ? `<h3>${htmlEscape(postLabels.recentInThisLanguage)}</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
           ${latestSiteLinks.length > 0 ? `<h3>${htmlEscape(postLabels.moreFromThisArchive)}</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
         </section>
-        ${sourceLink ? `<p class="source"><a href="${htmlEscape(sourceLink)}" rel="noreferrer" target="_blank">${htmlEscape(sourceCtaLabel)}</a></p>` : ""}
       </article>
     </main>
     ${renderArchiveFooter({ locale: htmlLang, labelContext: "footer" })}
