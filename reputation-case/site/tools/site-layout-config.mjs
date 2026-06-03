@@ -30,7 +30,12 @@ const NAV_LABELS = Object.freeze({
   insights: { en: "Research archive", fr: "Archives de recherche", de: "Recherchearchiv", es: "Archivo de investigación" },
   about: { en: "About", fr: "À propos", de: "Über", es: "Acerca de" },
   posts: { en: "Posts", fr: "Publications", de: "Beiträge", es: "Publicaciones" },
-  cases: { en: "Public context notes", fr: "Notes de cas", de: "Falldokumentation", es: "Notas de casos" },
+  cases: {
+    en: "Public context notes",
+    fr: "Notes de contexte public",
+    de: "Notizen zum öffentlichen Kontext",
+    es: "Notas de contexto público",
+  },
 });
 
 const FOOTER_NAV_LABELS = Object.freeze({

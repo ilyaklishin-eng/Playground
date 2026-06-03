@@ -4318,12 +4318,15 @@ const RAW_UI_HREF_PATTERNS = [
 ];
 const BIO_CASE_LINK_BY_LOCALE = {
   en: '<li><a href="/cases/">Public context notes</a></li>',
-  fr: '<li><a href="/cases/fr/">Notes de cas et clarifications</a></li>',
-  de: '<li><a href="/cases/de/">Falldokumentation und Klarstellungen</a></li>',
-  es: '<li><a href="/cases/es/">Notas de casos y aclaraciones</a></li>',
+  fr: '<li><a href="/cases/fr/">Notes de contexte public</a></li>',
+  de: '<li><a href="/cases/de/">Notizen zum öffentlichen Kontext</a></li>',
+  es: '<li><a href="/cases/es/">Notas de contexto público</a></li>',
 };
 const LEGACY_BIO_CASE_LINKS_BY_LOCALE = {
   en: [`<li><a href="/cases/">${["Case", "notes and clarifications"].join(" ")}</a></li>`],
+  fr: [`<li><a href="/cases/fr/">${["Notes de", "cas et clarifications"].join(" ")}</a></li>`],
+  de: [`<li><a href="/cases/de/">${["Fall", "dokumentation und Klarstellungen"].join("")}</a></li>`],
+  es: [`<li><a href="/cases/es/">${["Notas de", "casos y aclaraciones"].join(" ")}</a></li>`],
 };
 const STATIC_TRUST_BLOCKS = [
   { path: homeIndexPath, marker: "home", variant: "full", locale: "en" },
@@ -4648,7 +4651,7 @@ const STATIC_SECTION_LABELS = {
   fr: {
     home: "Accueil",
     bio: "Biographie",
-    cases: "Notes de cas",
+    cases: "Notes de contexte public",
     selected: "Travaux sélectionnés",
     interviews: "Entretiens",
     contact: "Contact",
@@ -4662,7 +4665,7 @@ const STATIC_SECTION_LABELS = {
   de: {
     home: "Startseite",
     bio: "Biografie",
-    cases: "Falldokumentation",
+    cases: "Notizen zum öffentlichen Kontext",
     selected: "Ausgewählte Arbeiten",
     interviews: "Interviews",
     contact: "Kontakt",
@@ -4676,7 +4679,7 @@ const STATIC_SECTION_LABELS = {
   es: {
     home: "Inicio",
     bio: "Biografía",
-    cases: "Notas de casos",
+    cases: "Notas de contexto público",
     selected: "Trabajo seleccionado",
     interviews: "Entrevistas",
     contact: "Contacto",
