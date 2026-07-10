@@ -9,8 +9,8 @@
   --accent-strong: #4f2f26;
   --accent-ink: #4f2f26;
   --accent-soft: rgba(106, 67, 55, 0.1);
-  --shadow-soft: 0 10px 30px rgba(23, 19, 17, 0.06);
-  --shadow-card: 0 18px 40px rgba(23, 19, 17, 0.08);
+  --shadow-soft: 0 8px 22px rgba(23, 19, 17, 0.042);
+  --shadow-card: 0 14px 30px rgba(23, 19, 17, 0.055);
   --radius-shell: 14px;
   --radius-panel: 18px;
   --radius-card: 14px;
@@ -552,8 +552,8 @@ h1 {
   --accent-strong: #0f4e56;
   --accent-ink: #0f4e56;
   --accent-soft: rgba(15, 78, 86, 0.1);
-  --shadow-soft: 0 14px 34px rgba(17, 20, 23, 0.075);
-  --shadow-card: 0 24px 60px rgba(17, 20, 23, 0.11);
+  --shadow-soft: 0 10px 24px rgba(17, 20, 23, 0.052);
+  --shadow-card: 0 16px 38px rgba(17, 20, 23, 0.07);
   --radius-shell: 8px;
   --radius-panel: 8px;
   --radius-card: 8px;
@@ -567,7 +567,7 @@ h1 {
 body {
   background:
     linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
-    repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.05) 0 1px, transparent 1px 72px);
+    repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.026) 0 1px, transparent 1px 72px);
 }
 
 .topbar {
@@ -576,7 +576,7 @@ body {
   border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
   border-radius: var(--radius-shell);
   background: rgba(255, 253, 250, 0.78);
-  box-shadow: 0 18px 44px rgba(17, 20, 23, 0.08);
+  box-shadow: 0 12px 30px rgba(17, 20, 23, 0.052);
   backdrop-filter: blur(14px) saturate(128%);
 }
 
@@ -647,7 +647,7 @@ h1 {
   border-radius: var(--radius-card);
   background:
     linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 253, 250, 0.72)),
-    linear-gradient(135deg, rgba(15, 78, 86, 0.055), transparent 48%);
+    linear-gradient(135deg, rgba(15, 78, 86, 0.035), transparent 48%);
   box-shadow: var(--shadow-soft);
 }
 

@@ -8,7 +8,7 @@
   --accent: #28303c;
   --accent-ink: #28303c;
   --accent-soft: rgba(40, 48, 60, 0.1);
-  --shadow-soft: 0 10px 30px rgba(21, 25, 32, 0.06);
+  --shadow-soft: 0 8px 22px rgba(21, 25, 32, 0.042);
 }
 
 * {
@@ -405,15 +405,15 @@ h1 {
   --accent: #9d332b;
   --accent-ink: #0f4e56;
   --accent-soft: rgba(15, 78, 86, 0.1);
-  --shadow-soft: 0 14px 34px rgba(17, 20, 23, 0.075);
-  --shadow-card: 0 24px 60px rgba(17, 20, 23, 0.11);
+  --shadow-soft: 0 10px 24px rgba(17, 20, 23, 0.052);
+  --shadow-card: 0 16px 38px rgba(17, 20, 23, 0.07);
   --tap-min: 2.65rem;
 }
 
 body {
   background:
     linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
-    repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.05) 0 1px, transparent 1px 72px);
+    repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.026) 0 1px, transparent 1px 72px);
 }
 
 .topbar {
@@ -422,7 +422,7 @@ body {
   border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
   border-radius: 8px;
   background: rgba(255, 253, 250, 0.78);
-  box-shadow: 0 18px 44px rgba(17, 20, 23, 0.08);
+  box-shadow: 0 12px 30px rgba(17, 20, 23, 0.052);
   backdrop-filter: blur(14px) saturate(128%);
 }
 
@@ -481,7 +481,7 @@ h1 {
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 253, 250, 0.72)),
-    linear-gradient(135deg, rgba(15, 78, 86, 0.055), transparent 48%);
+    linear-gradient(135deg, rgba(15, 78, 86, 0.035), transparent 48%);
   box-shadow: var(--shadow-soft);
   transition:
     transform 0.18s ease,
@@ -492,7 +492,7 @@ h1 {
 .case-card:hover,
 .refs-card:hover,
 .contact-route-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   border-color: color-mix(in srgb, var(--accent-ink) 24%, var(--line) 76%);
   box-shadow: var(--shadow-card);
 }
