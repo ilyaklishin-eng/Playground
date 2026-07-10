@@ -39,14 +39,14 @@
         --accent: #9d332b;
         --accent-strong: #0f4e56;
         --signal: #d4c64b;
-        --shadow-soft: 0 14px 34px rgba(17, 20, 23, 0.075);
+        --shadow-soft: 0 10px 24px rgba(17, 20, 23, 0.05);
       }
       body {
         margin: 0;
         font-family: "Manrope", "Segoe UI", sans-serif;
         background:
           linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
-          repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.05) 0 1px, transparent 1px 72px);
+          repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.03) 0 1px, transparent 1px 72px);
         color: var(--ink);
         line-height: 1.62;
         overflow-x: clip;
@@ -79,7 +79,54 @@
       p, li, h1, h2, h3, blockquote { overflow-wrap: anywhere; }
       ul { margin: 0; padding-left: 22px; }
       li { margin: 6px 0; }
-      .source { margin-top: 24px; }
+      .post-summary {
+        margin: 0 0 0.55rem;
+      }
+      .source {
+        margin: 1.6rem 0 0;
+      }
+      .source a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid color-mix(in srgb, var(--accent-strong) 30%, var(--line) 70%);
+        border-radius: 8px;
+        background: rgba(15, 78, 86, 0.08);
+        color: var(--accent-strong);
+        padding: 0.48rem 0.95rem;
+        text-decoration: none;
+        transition:
+          background-color 0.18s ease,
+          border-color 0.18s ease,
+          transform 0.18s ease;
+      }
+      .source a:hover {
+        border-color: color-mix(in srgb, var(--accent-strong) 46%, var(--line) 54%);
+        background: rgba(15, 78, 86, 0.12);
+        transform: translateY(-1px);
+      }
+      .source a:focus-visible {
+        outline: 2px solid var(--accent-strong);
+        outline-offset: 3px;
+      }
+      .post-related {
+        margin-top: 2rem;
+        border-top: 1px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
+        padding-top: 1.05rem;
+      }
+      .post-related h2 {
+        margin-bottom: 0.55rem;
+        font-size: 1.02rem;
+      }
+      .post-related h3 {
+        margin: 1.05rem 0 0.35rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .post-related li {
+        margin: 0.42rem 0;
+      }
       blockquote {
         margin: 8px 0;
         padding: 12px 16px;
@@ -166,9 +213,13 @@
         }
       }
 
+      .archive-shell {
+        box-shadow: 0 12px 30px rgba(17, 20, 23, 0.052);
+      }
       @media (max-width: 520px) {
         main { width: min(860px, calc(100% - 1.3rem)); }
         .post-header h1 { font-size: 2.05rem; line-height: 1.08; }
+        .source a { width: 100%; }
         ul { padding-left: 18px; }
       }
     </style>
@@ -194,10 +245,10 @@
           <p class="meta">The Moscow Times • 2020-04-16</p>
         </header>
         <section>
-          <p>The pandemic disrupted the timing of Putin’s constitutional vote and exposed the fragility of a carefully staged political ritual. What had been designed as controlled acclamation became harder to manage once public health, delay, and legitimacy collided.</p>
+          <p class="post-summary">The pandemic disrupted the timing of Putin’s constitutional vote and exposed the fragility of a carefully staged political ritual. What had been designed as controlled acclamation became harder to manage once public health, delay, and legitimacy collided.</p>
         </section>
         <p class="source"><a href="https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014" rel="noreferrer" target="_blank">Read piece</a></p>
-        <section>
+        <section class="post-related">
           <h2>Continue on site</h2>
           <ul>
             <li><a href="/">Home</a></li>
