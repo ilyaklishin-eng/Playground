@@ -1502,6 +1502,7 @@ body {
 .topbar {
   position: sticky;
   top: 0.55rem;
+  z-index: 20;
   padding: 0.58rem 0.72rem;
   border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
   border-radius: var(--radius-shell);
