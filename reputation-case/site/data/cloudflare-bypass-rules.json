@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-30T06:06:22.914Z",
+  "generated_at": "2026-07-31T06:29:21.862Z",
   "notes": [
     "Place bypass rules above any Managed Challenge or JS Challenge rules.",
     "Use Super Bot Fight Mode if you need rule-level exemptions; Bot Fight Mode cannot be skipped by custom rules.",
@@ -13,7 +13,7 @@
     },
     "openai_chatgpt_user_ips": {
       "name": "openai_chatgpt_user_ips",
-      "count": 286,
+      "count": 322,
       "source": "https://openai.com/chatgpt-user.json"
     },
     "openai_gptbot_ips": {
