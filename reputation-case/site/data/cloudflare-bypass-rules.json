@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-09T04:46:54.056Z",
+  "generated_at": "2026-08-10T05:05:23.899Z",
   "notes": [
     "Place bypass rules above any Managed Challenge or JS Challenge rules.",
     "Use Super Bot Fight Mode if you need rule-level exemptions; Bot Fight Mode cannot be skipped by custom rules.",
