@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import { SITE_DIR } from './repo-paths.mjs';
 
-const DIGESTS_PATH = '/Users/ilyaklishin/Documents/Playground/reputation-case/site/data/digests.json';
-const REGISTRY_PATH = '/Users/ilyaklishin/Documents/Playground/reputation-case/site/source-registry-v1.tsv';
+const DIGESTS_PATH = path.join(SITE_DIR, 'data', 'digests.json');
+const REGISTRY_PATH = path.join(SITE_DIR, 'source-registry-v1.tsv');
 const TARGET_PER_LANG = 100;
 
 const trim = (value = '') => String(value || '').replace(/\s+/g, ' ').trim();

@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { REPO_ROOT } from './repo-paths.mjs';
 
-const ROOT = '/Users/ilyaklishin/Documents/Playground';
+const ROOT = REPO_ROOT;
 const INPUT_REGISTRY = path.join(ROOT, 'reputation-case', 'final-forms', 'telegraph-published-pages.json');
 const INPUT_INDEX = path.join(ROOT, 'reputation-case', 'final-forms', 'telegraph-index-page.json');
 const OUT_DIR = path.join(ROOT, 'reputation-case', 'archives');

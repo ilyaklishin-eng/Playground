@@ -1,3 +1,4 @@
 .env
 **/.DS_Store
 reputation-case/site/*-report.json
+reputation-case/site/daily-monitor-report.md

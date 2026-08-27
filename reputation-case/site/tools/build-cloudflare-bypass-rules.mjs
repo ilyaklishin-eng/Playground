@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { preserveGeneratedAtWhenUnchanged } from "./stable-generated-artifact.mjs";
 
 const ROOT = path.resolve(process.cwd());
 const SITE_DIR = path.join(ROOT, "reputation-case", "site");
@@ -156,6 +157,7 @@ Recommended skip targets:
 `;
 
   await fs.mkdir(DATA_DIR, { recursive: true });
+  await preserveGeneratedAtWhenUnchanged(OUTPUT_JSON, payload);
   await fs.writeFile(OUTPUT_JSON, JSON.stringify(payload, null, 2) + "\n", "utf8");
   await fs.writeFile(OUTPUT_MD, markdown, "utf8");
 

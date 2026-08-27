@@ -1,8 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { REPO_ROOT } from './repo-paths.mjs';
 
 const API = 'https://api.telegra.ph';
-const repoRoot = '/Users/ilyaklishin/Documents/Playground';
+const repoRoot = REPO_ROOT;
 const preparedDataPath = '/tmp/playground-main-basket1/insights/data/digests.json';
 const fallbackDataPath = path.join(repoRoot, 'reputation-case', 'site', 'data', 'digests.json');
 const outDir = path.join(repoRoot, 'reputation-case', 'final-forms');

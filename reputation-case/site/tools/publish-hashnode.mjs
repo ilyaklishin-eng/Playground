@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { REPO_ROOT } from './repo-paths.mjs';
 
-const ROOT = '/Users/ilyaklishin/Documents/Playground';
+const ROOT = REPO_ROOT;
 const PREPARED_DATA_PATH = '/tmp/playground-main-basket1/insights/data/digests.json';
 const FALLBACK_DATA_PATH = path.join(ROOT, 'reputation-case', 'site', 'data', 'digests.json');
 const OUT_DIR = path.join(ROOT, 'reputation-case', 'final-forms');

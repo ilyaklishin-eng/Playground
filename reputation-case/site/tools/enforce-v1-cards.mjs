@@ -1,7 +1,8 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { SITE_DIR } from './repo-paths.mjs';
 
-const DATA_PATH = path.resolve('/Users/ilyaklishin/Documents/Playground/reputation-case/site/data/digests.json');
+const DATA_PATH = path.join(SITE_DIR, 'data', 'digests.json');
 
 const SENTENCE_RE = /[^.!?]+[.!?]+|[^.!?]+$/g;
 const CYRILLIC_RE = /[А-Яа-яЁёІіЇїЄє]/;

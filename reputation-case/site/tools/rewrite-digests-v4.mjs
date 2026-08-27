@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
 import { execSync } from 'node:child_process';
+import path from 'node:path';
+import { SITE_DIR } from './repo-paths.mjs';
 
-const DATA_PATH = '/Users/ilyaklishin/Documents/Playground/reputation-case/site/data/digests.json';
+const DATA_PATH = path.join(SITE_DIR, 'data', 'digests.json');
 
 const trim = (v = '') => String(v || '').replace(/\s+/g, ' ').trim();
 const words = (v = '') => trim(v).split(/\s+/).filter(Boolean);

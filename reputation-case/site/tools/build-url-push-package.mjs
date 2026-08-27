@@ -1,7 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { REPO_ROOT } from "./repo-paths.mjs";
 
-const ROOT = "/Users/ilyaklishin/Documents/Playground";
+const ROOT = REPO_ROOT;
 const SITE_DIR = path.join(ROOT, "reputation-case", "site");
 const FINAL_FORMS_DIR = path.join(ROOT, "reputation-case", "final-forms");
 const OUT_DIR = path.join(FINAL_FORMS_DIR, "url-packages");

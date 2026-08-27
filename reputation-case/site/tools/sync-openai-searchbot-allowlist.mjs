@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { preserveGeneratedAtWhenUnchanged } from "./stable-generated-artifact.mjs";
 
 const ROOT = path.resolve(process.cwd());
 const SITE_DIR = path.join(ROOT, "reputation-case", "site");
@@ -68,6 +69,7 @@ const extractCidrs = (payload) => {
 
 const writeArtifacts = async (artifact) => {
   await fs.mkdir(DATA_DIR, { recursive: true });
+  await preserveGeneratedAtWhenUnchanged(OUTPUT_JSON, artifact);
   await fs.writeFile(OUTPUT_JSON, JSON.stringify(artifact, null, 2) + "\n", "utf8");
   await fs.writeFile(OUTPUT_TXT, artifact.cidrs.join("\n") + "\n", "utf8");
 };

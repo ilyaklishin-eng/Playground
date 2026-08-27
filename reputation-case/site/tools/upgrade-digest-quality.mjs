@@ -1,6 +1,8 @@
 import fs from 'node:fs/promises';
+import path from 'node:path';
+import { SITE_DIR } from './repo-paths.mjs';
 
-const dataPath = '/Users/ilyaklishin/Documents/Playground/reputation-case/site/data/digests.json';
+const dataPath = path.join(SITE_DIR, 'data', 'digests.json');
 
 const trim = (value = '') => String(value || '').replace(/\s+/g, ' ').trim();
 const words = (value = '') => trim(value).split(/\s+/).filter(Boolean);

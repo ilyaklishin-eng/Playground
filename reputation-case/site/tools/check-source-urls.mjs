@@ -3,6 +3,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { preserveGeneratedAtWhenUnchanged } from "./stable-generated-artifact.mjs";
 
 const siteDir = path.resolve(process.cwd(), "reputation-case", "site");
 const digestsPath = path.join(siteDir, "data", "digests.json");
@@ -303,6 +304,7 @@ const main = async () => {
   };
 
   await fs.mkdir(path.dirname(options.output), { recursive: true });
+  await preserveGeneratedAtWhenUnchanged(options.output, report);
   await fs.writeFile(options.output, `${JSON.stringify(report, null, 2)}\n`, "utf8");
 
   console.log(
