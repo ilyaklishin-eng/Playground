@@ -48,6 +48,15 @@
         "Илья Клишин"
       ],
       "url": "https://www.klishin.work/",
+      "image": {
+        "@type": "ImageObject",
+        "@id": "https://www.klishin.work/#person-portrait",
+        "url": "https://www.klishin.work/assets/images/portrait.jpeg",
+        "contentUrl": "https://www.klishin.work/assets/images/portrait.jpeg",
+        "width": 636,
+        "height": 888,
+        "caption": "Portrait of Ilia Klishin"
+      },
       "description": "Ilia Klishin is a Russian journalist, media manager, and media consultant based in Vilnius, Lithuania.",
       "jobTitle": [
         "Journalist",
@@ -228,7 +237,7 @@
       "breadcrumb": {
         "@id": "https://www.klishin.work/insights/fr/#breadcrumb"
       },
-      "dateModified": "2026-05-31T08:04:04.000Z"
+      "dateModified": "2026-08-27T14:28:36.000Z"
     }
   ]
 }
@@ -242,30 +251,32 @@
       <meta name="twitter:description" content="Archives et repères de navigation pour les publications d’Ilia Klishin, les notes sourcées, les index structurés et les ressources multilingues du site." />
       <meta name="twitter:creator" content="@vorewig" />
 
-      <style id="archive-layout-styles">
-
-      .archive-header,
+    <style id="archive-layout-styles">
+.archive-header,
       .archive-footer {
         width: min(960px, calc(100% - 2rem));
         margin: 0 auto;
       }
       .archive-header {
-        padding: 18px 0 0;
+        padding: 0;
       }
       .archive-shell {
         display: grid;
-        gap: 0.65rem;
-        padding: 0.95rem 1rem;
-        border: 1px solid #ddd7ce;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, 0.82);
+        gap: 0.58rem;
+        padding: 0.78rem 0;
+        border: 0;
+        border-bottom: 1px solid #d9ded8;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
       }
       .archive-shell-label {
         margin: 0;
-        color: #6e6558;
+        color: #59616a;
         font-size: 0.72rem;
         font-weight: 700;
-        letter-spacing: 0.13em;
+        letter-spacing: 0;
         text-transform: uppercase;
       }
       .archive-nav,
@@ -278,24 +289,25 @@
       .archive-footer-nav a {
         display: inline-flex;
         align-items: center;
-        min-height: 42px;
-        border: 1px solid #d7d2ca;
-        border-radius: 12px;
-        padding: 0.42rem 0.78rem;
+        min-height: 44px;
+        border: 0;
+        border-radius: 0;
+        padding: 0.42rem 0;
         text-decoration: none;
-        color: #1c1c1c;
-        background: #fff;
-        font-size: 0.86rem;
+        color: #59616a;
+        background: transparent;
+        font-size: 0.8rem;
       }
       .archive-nav a[aria-current="page"],
       .archive-footer-nav a[aria-current="page"] {
-        border-color: #2b3340;
-        background: rgba(43, 51, 64, 0.09);
+        border-bottom: 2px solid #9d332b;
+        background: transparent;
+        color: #0f4e56;
       }
       .archive-footer {
         margin: 24px auto 28px;
         padding-top: 12px;
-        border-top: 1px solid #ddd7ce;
+        border-top: 1px solid #d9ded8;
       }
       @media (max-width: 520px) {
         .archive-header,
@@ -304,11 +316,19 @@
         }
         .archive-nav a,
         .archive-footer-nav a {
-          padding: 0.42rem 0.68rem;
-          font-size: 0.82rem;
+          min-height: 44px;
+          padding: 0.42rem 0;
+          font-size: 0.76rem;
+        }
+        .archive-nav {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+        .archive-nav::-webkit-scrollbar {
+          display: none;
         }
       }
-
     </style>
       <link rel="canonical" href="https://www.klishin.work/insights/fr/" />
     <link rel="alternate" hreflang="en" href="https://www.klishin.work/insights/" />

@@ -22,6 +22,7 @@ const execFile = promisify(execFileCallback);
 const SITE_DIR = path.resolve(process.cwd(), "reputation-case", "site");
 const POSTS_DIR = path.join(SITE_DIR, "posts");
 const DATA_PATH = path.join(SITE_DIR, "data", "digests.json");
+const PUBLIC_INTERVIEWS_PATH = path.join(SITE_DIR, "data", "public-interviews.json");
 const SEARCH_INDEX_MANIFEST_PATH = path.join(SITE_DIR, "data", "search-index.json");
 const SEARCH_INDEX_LOCALES = ["en", "fr", "de", "es"];
 const SEARCH_INDEX_LOCALE_PATHS = new Map(
@@ -31,6 +32,7 @@ const REPORT_PATH = path.join(SITE_DIR, "qa-generated-assets-report.json");
 const DOMAIN = "https://www.klishin.work";
 const HOST = "www.klishin.work";
 const PERSON_ID = `${DOMAIN}/#person`;
+const PERSON_IMAGE_URL = `${DOMAIN}/assets/images/portrait.jpeg`;
 const HOME_INDEX = path.join(SITE_DIR, "index.html");
 const HOME_WORK_SECTION_START = "<!-- HOME_WORK_SECTION_START -->";
 const HOME_WORK_SECTION_END = "<!-- HOME_WORK_SECTION_END -->";
@@ -98,6 +100,7 @@ const FIXED_VERSIONED_IMAGE_OUTPUTS = [
 ];
 const LANGS = ["en", "fr", "de", "es"];
 const EPOCH_ISO = "1970-01-01T00:00:00.000Z";
+const GIT_LASTMOD_TIMEOUT_MS = 30000;
 const BUILD_ENV = currentBuildEnv();
 const PRODUCTION_BUILD = isProductionBuild();
 const INCLUDE_DRAFT_OUTPUTS = !PRODUCTION_BUILD;
@@ -370,6 +373,8 @@ const gitState = {
   repoRoot: null,
   disabled: false,
   cache: new Map(),
+  workingTreeTimestamp: null,
+  workingTreeTimestampResolved: false,
 };
 
 const resolveGitRepoRoot = async () => {
@@ -390,17 +395,65 @@ const resolveGitRepoRoot = async () => {
   }
 };
 
+const resolveWorkingTreeTimestamp = async () => {
+  if (gitState.workingTreeTimestampResolved) return gitState.workingTreeTimestamp;
+  gitState.workingTreeTimestampResolved = true;
+
+  const explicit = String(process.env.SITE_BUILD_TIMESTAMP || "").trim();
+  if (explicit) {
+    const iso = toIsoTimestamp(explicit);
+    if (!iso) throw new Error(`Invalid SITE_BUILD_TIMESTAMP: ${explicit}`);
+    gitState.workingTreeTimestamp = iso;
+    return iso;
+  }
+
+  const repoRoot = await resolveGitRepoRoot();
+  if (!repoRoot) return null;
+  try {
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "HEAD"], {
+      cwd: repoRoot,
+      timeout: GIT_LASTMOD_TIMEOUT_MS,
+    });
+    gitState.workingTreeTimestamp = toIsoTimestamp(String(stdout || "").trim());
+  } catch {
+    gitState.workingTreeTimestamp = null;
+  }
+  return gitState.workingTreeTimestamp;
+};
+
+const gitPathHasWorkingTreeChanges = async (repoRoot, key) => {
+  try {
+    const { stdout } = await execFile(
+      "git",
+      ["status", "--porcelain=v1", "--untracked-files=all", "--", key],
+      { cwd: repoRoot, timeout: GIT_LASTMOD_TIMEOUT_MS }
+    );
+    return Boolean(String(stdout || "").trim());
+  } catch {
+    return false;
+  }
+};
+
 const gitLastmodByRepoPath = async (repoRelativePath = "") => {
   const key = toPosixPath(repoRelativePath).replace(/^\/+/, "");
   if (!key) return null;
   if (gitState.disabled) return null;
-  if (gitState.cache.has(key)) return gitState.cache.get(key);
 
   const repoRoot = await resolveGitRepoRoot();
   if (!repoRoot) return null;
 
+  const workingTreeTimestamp = await resolveWorkingTreeTimestamp();
+  if (workingTreeTimestamp && (await gitPathHasWorkingTreeChanges(repoRoot, key))) {
+    return workingTreeTimestamp;
+  }
+
+  if (gitState.cache.has(key)) return gitState.cache.get(key);
+
   try {
-    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", key], { cwd: repoRoot });
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", key], {
+      cwd: repoRoot,
+      timeout: GIT_LASTMOD_TIMEOUT_MS,
+    });
     const iso = toIsoTimestamp(String(stdout || "").trim());
     const value = iso || null;
     gitState.cache.set(key, value);
@@ -510,6 +563,11 @@ const hasExplicitPersonAuthor = (author) => {
     if (hasSchemaType(entry, "Person")) return true;
     return String(entry["@id"] || "").trim() === PERSON_ID;
   });
+};
+
+const hasPersonEntityReference = (value) => {
+  const list = Array.isArray(value) ? value : [value];
+  return list.some((entry) => entry && typeof entry === "object" && String(entry["@id"] || "").trim() === PERSON_ID);
 };
 
 const normalizeContentRole = (value = "") => {
@@ -816,6 +874,115 @@ const checkSitemaps = async (indexableItems, issues) => {
         `sitemap.xml child lastmod does not match child sitemap content max lastmod.`,
         { child: childName, expected: expectedLastmod, actual: indexEntry.normalizedLastmod }
       );
+    }
+  }
+};
+
+const checkStaticEntityDates = async (issues) => {
+  const coreXml = await fs.readFile(path.join(SITE_DIR, "sitemap-core.xml"), "utf8");
+  const sitemapLastmodByUrl = new Map(
+    extractUrlEntries(coreXml).map((entry) => [entry.loc, toIsoTimestamp(entry.lastmod)])
+  );
+
+  for (const section of INDEXABLE_CORE_SECTIONS) {
+    const canonical = canonicalUrl(section);
+    const expectedLastmod = sitemapLastmodByUrl.get(canonical);
+    const html = await fs.readFile(path.join(SITE_DIR, section), "utf8");
+    const pageNode = flattenJsonLdNodes(extractJsonLdObjects(html)).find(
+      (node) =>
+        ["WebPage", "ProfilePage", "CollectionPage", "ContactPage"].some((type) => hasSchemaType(node, type)) &&
+        String(node?.url || "").trim() === canonical
+    );
+    const actualLastmod = toIsoTimestamp(pageNode?.dateModified);
+
+    if (!pageNode) {
+      pushError(issues, "static.jsonld.page.missing", `Static page JSON-LD node is missing: ${section}`);
+      continue;
+    }
+    if (!actualLastmod) {
+      pushError(issues, "static.jsonld.date-modified.missing", `Static page JSON-LD dateModified is missing: ${section}`);
+      continue;
+    }
+    if (!expectedLastmod) {
+      pushError(issues, "static.jsonld.date-modified.sitemap-missing", `Static page is missing from sitemap-core.xml: ${section}`);
+      continue;
+    }
+    if (actualLastmod !== expectedLastmod) {
+      pushError(
+        issues,
+        "static.jsonld.date-modified.mismatch",
+        `Static page JSON-LD dateModified does not match sitemap lastmod: ${section}`,
+        { expected: expectedLastmod, actual: actualLastmod }
+      );
+    }
+  }
+};
+
+const checkInterviewSchemaAttribution = async (issues) => {
+  const payload = JSON.parse(await fs.readFile(PUBLIC_INTERVIEWS_PATH, "utf8"));
+  const items = Array.isArray(payload?.items) ? payload.items : [];
+  const roleByLocaleAndUrl = new Map(
+    items.map((item) => [
+      `${String(item?.locale || "").toLowerCase()}|${String(item?.url || "").trim()}`,
+      normalizeContentRole(item?.role),
+    ])
+  );
+
+  for (const locale of LANGS) {
+    const section = locale === "en" ? "interviews/index.html" : `interviews/${locale}/index.html`;
+    const canonical = canonicalUrl(section);
+    const html = await fs.readFile(path.join(SITE_DIR, section), "utf8");
+    const itemList = flattenJsonLdNodes(extractJsonLdObjects(html)).find(
+      (node) => hasSchemaType(node, "ItemList") && String(node?.["@id"] || "") === `${canonical}#itemlist`
+    );
+    const articles = (Array.isArray(itemList?.itemListElement) ? itemList.itemListElement : [])
+      .map((entry) => entry?.item)
+      .filter(
+        (node) => hasSchemaType(node, "Article") && String(node?.["@id"] || "").startsWith(`${canonical}#interview-`)
+      );
+    const expectedCount = items.filter(
+      (item) =>
+        String(item?.locale || "").toLowerCase() === locale &&
+        String(item?.status || "").toLowerCase() === "published" &&
+        String(item?.surface || "").toLowerCase() === "public"
+    ).length;
+
+    if (articles.length !== expectedCount) {
+      pushError(issues, "interviews.jsonld.count.mismatch", `Interview JSON-LD count mismatch: ${section}`, {
+        expected: expectedCount,
+        actual: articles.length,
+      });
+    }
+
+    for (const article of articles) {
+      const key = `${locale}|${String(article?.url || "").trim()}`;
+      const role = roleByLocaleAndUrl.get(key);
+      if (!role) {
+        pushError(issues, "interviews.jsonld.role.missing", `Cannot map interview JSON-LD item to public data: ${section}`, {
+          url: article?.url,
+        });
+        continue;
+      }
+
+      const hasPersonAuthor = hasExplicitPersonAuthor(article.author);
+      const hasPersonAbout = hasPersonEntityReference(article.about);
+      if (role === CONTENT_ROLE.AUTHORED && !hasPersonAuthor) {
+        pushError(issues, "interviews.jsonld.author.missing", `Authored interview item is missing Person author: ${section}`, {
+          url: article?.url,
+        });
+      }
+      if (role !== CONTENT_ROLE.AUTHORED && hasPersonAuthor) {
+        pushError(issues, "interviews.jsonld.author.unexpected", `Non-authored interview item claims Person author: ${section}`, {
+          url: article?.url,
+          role,
+        });
+      }
+      if (role !== CONTENT_ROLE.AUTHORED && !hasPersonAbout) {
+        pushError(issues, "interviews.jsonld.about.missing", `Non-authored interview item is missing Person about reference: ${section}`, {
+          url: article?.url,
+          role,
+        });
+      }
     }
   }
 };
@@ -1235,8 +1402,14 @@ const checkHtmlSeoSemantics = async (items, issues) => {
 
   const homeHtml = await fs.readFile(path.join(SITE_DIR, "index.html"), "utf8");
   const homeNodes = flattenJsonLdNodes(extractJsonLdObjects(homeHtml));
-  if (!homeNodes.some((node) => hasSchemaType(node, "Person"))) {
+  const homePerson = homeNodes.find((node) => hasSchemaType(node, "Person") && String(node?.["@id"] || "") === PERSON_ID);
+  if (!homePerson) {
     pushError(issues, "home.jsonld.person.missing", "Home page JSON-LD is missing Person entity.");
+  } else if (stripUrlQueryAndHash(extractSourceUrl(homePerson.image)) !== PERSON_IMAGE_URL) {
+    pushError(issues, "home.jsonld.person.image.missing", "Home page Person JSON-LD is missing the canonical portrait image.", {
+      expected: PERSON_IMAGE_URL,
+      actual: extractSourceUrl(homePerson.image),
+    });
   }
   if (!homeNodes.some((node) => hasSchemaType(node, "WebSite"))) {
     pushError(issues, "home.jsonld.website.missing", "Home page JSON-LD is missing WebSite entity.");
@@ -1575,6 +1748,8 @@ const main = async () => {
 
   await checkPosts(items, issues);
   await checkSitemaps(indexableItems, issues);
+  await checkStaticEntityDates(issues);
+  await checkInterviewSchemaAttribution(issues);
   await checkRss(indexableItems.length, issues);
   await checkSearchIndex(issues);
   await checkRobots(issues);
@@ -1595,6 +1770,8 @@ const main = async () => {
       search_index: true,
       robots: true,
       html_seo: true,
+      static_entity_dates: true,
+      interview_schema_attribution: true,
       home_html_first: true,
       draft_leakage: true,
       asset_fingerprints: true,

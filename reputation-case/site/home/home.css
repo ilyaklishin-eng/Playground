@@ -3055,4 +3055,27 @@
   .home-page .interviews-preview {
     row-gap: 1.625rem;
   }
+
+  .home-page .primary-nav a,
+  .home-page .site-lang-switch a,
+  .home-page .hero-routes a,
+  .home-page .hero-reference-more summary,
+  .home-page .cards-intro-link,
+  .home-page .interview-preview-open,
+  .home-page .interviews-preview-actions .cta-btn,
+  .home-page .contact-cta .cta-btn,
+  .home-page .contact-cta .contact-link-secondary {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .home-page .interview-preview-open {
+    justify-content: flex-end;
+  }
+
+  .home-page .home-social-link {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
 }

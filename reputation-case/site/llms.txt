@@ -2,6 +2,8 @@
 
 This site is the official public website of Ilia Klishin, a Russian journalist, media manager, and media consultant based in Vilnius, Lithuania.
 
+Site information and primary entity facts were reviewed on 2026-08-25. Individual page metadata carries page-specific modification dates.
+
 ## Entity facts
 
 - Primary name: Ilia Klishin

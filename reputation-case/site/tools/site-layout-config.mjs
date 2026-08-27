@@ -156,17 +156,18 @@ export const ARCHIVE_LAYOUT_CSS = `
         margin: 0 auto;
       }
       .archive-header {
-        padding: 14px 0 0;
+        padding: 0;
       }
       .archive-shell {
         display: grid;
         gap: 0.58rem;
-        padding: 0.78rem 0.86rem;
-        border: 1px solid #d9ded8;
-        border-radius: 8px;
-        background: rgba(255, 253, 250, 0.8);
-        box-shadow: 0 18px 44px rgba(17, 20, 23, 0.08);
-        backdrop-filter: blur(14px) saturate(128%);
+        padding: 0.78rem 0;
+        border: 0;
+        border-bottom: 1px solid #d9ded8;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
       }
       .archive-shell-label {
         margin: 0;
@@ -186,19 +187,19 @@ export const ARCHIVE_LAYOUT_CSS = `
       .archive-footer-nav a {
         display: inline-flex;
         align-items: center;
-        min-height: 42px;
-        border: 1px solid #d9ded8;
-        border-radius: 8px;
-        padding: 0.42rem 0.78rem;
+        min-height: 44px;
+        border: 0;
+        border-radius: 0;
+        padding: 0.42rem 0;
         text-decoration: none;
-        color: #111417;
-        background: rgba(255, 253, 250, 0.78);
-        font-size: 0.86rem;
+        color: #59616a;
+        background: transparent;
+        font-size: 0.8rem;
       }
       .archive-nav a[aria-current="page"],
       .archive-footer-nav a[aria-current="page"] {
-        border-color: #0f4e56;
-        background: rgba(15, 78, 86, 0.09);
+        border-bottom: 2px solid #9d332b;
+        background: transparent;
         color: #0f4e56;
       }
       .archive-footer {
@@ -213,8 +214,17 @@ export const ARCHIVE_LAYOUT_CSS = `
         }
         .archive-nav a,
         .archive-footer-nav a {
-          padding: 0.42rem 0.68rem;
-          font-size: 0.82rem;
+          min-height: 44px;
+          padding: 0.42rem 0;
+          font-size: 0.76rem;
+        }
+        .archive-nav {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+        .archive-nav::-webkit-scrollbar {
+          display: none;
         }
       }
 `;

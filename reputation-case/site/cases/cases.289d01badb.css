@@ -522,3 +522,64 @@ h1 {
     font-size: 2.3rem;
   }
 }
+
+/* Editorial context-note alignment */
+:root {
+  --tap-min: 2.75rem;
+}
+
+body {
+  background: var(--bg);
+}
+
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.hero {
+  border-top: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  padding: 2rem 0 1.7rem;
+}
+
+.case-grid,
+.contact-route-grid {
+  gap: 1.35rem;
+}
+
+.case-card,
+.refs-card,
+.contact-route-card {
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.case-card:hover,
+.refs-card:hover,
+.contact-route-card:hover {
+  transform: none;
+  border-color: color-mix(in srgb, var(--accent-ink) 28%, var(--line) 72%);
+  background: transparent;
+  box-shadow: none;
+}
+
+.lang-links a,
+.secondary-nav a,
+.cta-btn {
+  box-shadow: none;
+}
+
+@media (max-width: 520px) {
+  .lang-links a,
+  .secondary-nav a,
+  .cta-btn {
+    min-height: var(--tap-min);
+  }
+}

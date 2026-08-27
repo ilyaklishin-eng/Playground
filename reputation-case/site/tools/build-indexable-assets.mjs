@@ -168,6 +168,7 @@ const LEGACY_PUBLICATIONS_FEED_TITLE = ["Ilia Klishin", "Digest RSS"].join(" ");
 const DEFAULT_SOCIAL_IMAGE = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
 const SOCIAL_IMAGE_WIDTH = "636";
 const SOCIAL_IMAGE_HEIGHT = "888";
+const PERSON_IMAGE_URL = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
 const DEFAULT_TWITTER_CARD = "summary_large_image";
 const DEFAULT_TWITTER_CREATOR = "@vorewig";
 const PERSON_ID = `${baseUrl}/#person`;
@@ -970,6 +971,8 @@ const gitMetaState = {
   repoRoot: null,
   disabled: false,
   cache: new Map(),
+  workingTreeTimestamp: null,
+  workingTreeTimestampResolved: false,
 };
 
 const latestIso = (values = [], fallback = EPOCH_ISO) => {
@@ -1000,14 +1003,59 @@ const resolveGitRepoRoot = async () => {
   }
 };
 
+const resolveWorkingTreeTimestamp = async () => {
+  if (gitMetaState.workingTreeTimestampResolved) return gitMetaState.workingTreeTimestamp;
+  gitMetaState.workingTreeTimestampResolved = true;
+
+  const explicit = String(process.env.SITE_BUILD_TIMESTAMP || "").trim();
+  if (explicit) {
+    const iso = toIsoTimestamp(explicit);
+    if (!iso) throw new Error(`Invalid SITE_BUILD_TIMESTAMP: ${explicit}`);
+    gitMetaState.workingTreeTimestamp = iso;
+    return iso;
+  }
+
+  const repoRoot = await resolveGitRepoRoot();
+  if (!repoRoot) return null;
+  try {
+    const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "HEAD"], {
+      cwd: repoRoot,
+      timeout: GIT_LASTMOD_TIMEOUT_MS,
+    });
+    gitMetaState.workingTreeTimestamp = toIsoTimestamp(String(stdout || "").trim());
+  } catch {
+    gitMetaState.workingTreeTimestamp = null;
+  }
+  return gitMetaState.workingTreeTimestamp;
+};
+
+const gitPathHasWorkingTreeChanges = async (repoRoot, cleanRelative) => {
+  try {
+    const { stdout } = await execFile(
+      "git",
+      ["status", "--porcelain=v1", "--untracked-files=all", "--", cleanRelative],
+      { cwd: repoRoot, timeout: GIT_LASTMOD_TIMEOUT_MS }
+    );
+    return Boolean(String(stdout || "").trim());
+  } catch {
+    return false;
+  }
+};
+
 const gitLastmodByRepoRelativePath = async (repoRelativePath = "") => {
   const cleanRelative = toPosixPath(repoRelativePath).replace(/^\/+/, "");
   if (!cleanRelative) return null;
   if (gitMetaState.disabled) return null;
-  if (gitMetaState.cache.has(cleanRelative)) return gitMetaState.cache.get(cleanRelative);
 
   const repoRoot = await resolveGitRepoRoot();
   if (!repoRoot) return null;
+
+  const workingTreeTimestamp = await resolveWorkingTreeTimestamp();
+  if (workingTreeTimestamp && (await gitPathHasWorkingTreeChanges(repoRoot, cleanRelative))) {
+    return workingTreeTimestamp;
+  }
+
+  if (gitMetaState.cache.has(cleanRelative)) return gitMetaState.cache.get(cleanRelative);
 
   try {
     const { stdout } = await execFile("git", ["log", "-1", "--format=%cI", "--", cleanRelative], {
@@ -2527,6 +2575,15 @@ const buildCoreEntities = () => {
     name: PERSON_NAME,
     alternateName: PERSON_ALT_NAMES,
     url: canonicalUrl("index.html"),
+    image: {
+      "@type": "ImageObject",
+      "@id": `${PERSON_ID}-portrait`,
+      url: PERSON_IMAGE_URL,
+      contentUrl: PERSON_IMAGE_URL,
+      width: Number(SOCIAL_IMAGE_WIDTH),
+      height: Number(SOCIAL_IMAGE_HEIGHT),
+      caption: "Portrait of Ilia Klishin",
+    },
     description: PERSON_DESCRIPTION,
     jobTitle: PERSON_JOB_TITLES,
     homeLocation: {
@@ -3030,25 +3087,30 @@ const buildInterviewStructuredData = (canonical, locale, items = []) => {
         numberOfItems: items.length,
         isPartOf: { "@id": WEBSITE_ID },
         about: { "@id": PERSON_ID },
-        itemListElement: items.map((item, index) => ({
-          "@type": "ListItem",
-          position: index + 1,
-          item: {
-            "@type": "Article",
-            "@id": `${canonical}#interview-${index + 1}`,
-            headline: item.title,
-            inLanguage: locale,
-            datePublished: item.isoDate || undefined,
-            url: item.url,
-            description: item.description,
-            author: { "@id": PERSON_ID },
-            publisher: {
-              "@type": "Organization",
-              name: item.outlet,
+        itemListElement: items.map((item, index) => {
+          const role = normalizeCardRole(item?.role);
+          const isAuthored = role === CONTENT_ROLE.AUTHORED;
+          return {
+            "@type": "ListItem",
+            position: index + 1,
+            item: {
+              "@type": "Article",
+              "@id": `${canonical}#interview-${index + 1}`,
+              headline: item.title,
+              inLanguage: locale,
+              datePublished: item.isoDate || undefined,
+              url: item.url,
+              description: item.description,
+              author: isAuthored ? { "@id": PERSON_ID } : undefined,
+              about: isAuthored ? undefined : { "@id": PERSON_ID },
+              publisher: {
+                "@type": "Organization",
+                name: item.outlet,
+              },
+              isBasedOn: item.url,
             },
-            isBasedOn: item.url,
-          },
-        })),
+          };
+        }),
       },
     ],
   };
@@ -4417,7 +4479,7 @@ const PRIMARY_NAV_RE = /<nav\b(?![^>]*class=["'][^"']*site-lang-switch[^"']*["']
 const FOOTER_RE =
   /<footer\b[^>]*class=["'][^"']*(?:footer|secondary-nav|selected-secondary|archive-footer)[^"']*["'][^>]*>[\s\S]*?<\/footer>\s*/i;
 const FOOTER_UTILITY_RE = /<details\b[^>]*class=["'][^"']*footer-utility[^"']*["'][^>]*>[\s\S]*?<\/details>\s*/gi;
-const ARCHIVE_LAYOUT_STYLE_RE = /<style id=["']archive-layout-styles["'][^>]*>[\s\S]*?<\/style>\s*/i;
+const ARCHIVE_LAYOUT_STYLE_RE = /^[ \t]*<style id=["']archive-layout-styles["'][^>]*>[\s\S]*?<\/style>/im;
 
 const appendBodyClass = (html = "", className = "") =>
   String(html || "").replace(/<body\b([^>]*)>/i, (match, attrs) => {
@@ -4460,8 +4522,9 @@ const appendFooterBeforeBodyClose = (html = "", markup = "") => {
 };
 
 const ensureArchiveLayoutStyles = (html = "") => {
-  if (ARCHIVE_LAYOUT_STYLE_RE.test(html)) return html;
-  return html.replace(/<\/head>/i, `    <style id="archive-layout-styles">\n${ARCHIVE_LAYOUT_CSS}\n    </style>\n  </head>`);
+  const styleBlock = `    <style id="archive-layout-styles">\n${ARCHIVE_LAYOUT_CSS.trim()}\n    </style>`;
+  if (ARCHIVE_LAYOUT_STYLE_RE.test(html)) return html.replace(ARCHIVE_LAYOUT_STYLE_RE, styleBlock);
+  return html.replace(/<\/head>/i, `${styleBlock}\n  </head>`);
 };
 
 const EXPLICIT_SELECTED_FOOTER_PATHS = new Set([
@@ -4825,41 +4888,47 @@ const applyStaticEntityLayer = async (entries = []) => {
     if (canonical !== homeUrl) {
       breadcrumbItems.push({ name: sectionLabelForLang(sectionKey, htmlLang), url: canonical });
     }
-    const modifiedIso = digestsGitLastmod;
+    const modifiedIso = await gitLastmodForAbsolutePath(fullPath, digestsGitLastmod);
 
     const existingGraph = parseFirstJsonLdGraph(html);
     const preservedNodes = retainedStaticNodes(existingGraph);
     const firstItemListId = preservedNodes.find((node) => node?.["@type"] === "ItemList" && node?.["@id"])?.["@id"];
 
-    const { person, organization, website } = buildCoreEntities();
-    const breadcrumb = buildBreadcrumbList(breadcrumbId, breadcrumbItems);
-    const pageNode = {
-      "@type": pageType,
-      "@id": pageId,
-      url: canonical,
-      name: title,
-      description: description || undefined,
-      inLanguage: htmlLang,
-      isPartOf: { "@id": WEBSITE_ID },
-      about: { "@id": PERSON_ID },
-      author: { "@id": PERSON_ID },
-      publisher: { "@id": ORGANIZATION_ID },
-      breadcrumb: { "@id": breadcrumbId },
-      dateModified: modifiedIso || undefined,
+    const buildPayload = (dateModified) => {
+      const { person, organization, website } = buildCoreEntities();
+      const breadcrumb = buildBreadcrumbList(breadcrumbId, breadcrumbItems);
+      const pageNode = {
+        "@type": pageType,
+        "@id": pageId,
+        url: canonical,
+        name: title,
+        description: description || undefined,
+        inLanguage: htmlLang,
+        isPartOf: { "@id": WEBSITE_ID },
+        about: { "@id": PERSON_ID },
+        author: { "@id": PERSON_ID },
+        publisher: { "@id": ORGANIZATION_ID },
+        breadcrumb: { "@id": breadcrumbId },
+        dateModified: dateModified || undefined,
+      };
+
+      if (pageType === "ProfilePage") {
+        pageNode.mainEntity = { "@id": PERSON_ID };
+      } else if (pageType === "CollectionPage" && firstItemListId) {
+        pageNode.mainEntity = { "@id": firstItemListId };
+      }
+
+      return {
+        "@context": "https://schema.org",
+        "@graph": [person, organization, website, breadcrumb, pageNode, ...preservedNodes],
+      };
     };
 
-    if (pageType === "ProfilePage") {
-      pageNode.mainEntity = { "@id": PERSON_ID };
-    } else if (pageType === "CollectionPage" && firstItemListId) {
-      pageNode.mainEntity = { "@id": firstItemListId };
+    let nextHtml = replaceFirstJsonLdScript(html, buildPayload(modifiedIso));
+    if (nextHtml !== html) {
+      const intendedModifiedIso = (await resolveWorkingTreeTimestamp()) || modifiedIso;
+      nextHtml = replaceFirstJsonLdScript(html, buildPayload(intendedModifiedIso));
     }
-
-    const payload = {
-      "@context": "https://schema.org",
-      "@graph": [person, organization, website, breadcrumb, pageNode, ...preservedNodes],
-    };
-
-    const nextHtml = replaceFirstJsonLdScript(html, payload);
     await fs.writeFile(fullPath, nextHtml, "utf8");
   }
 };
@@ -5711,8 +5780,6 @@ const main = async () => {
     await fs.unlink(path.join(postsDir, file));
   }
 
-  const sitemapFiles = await buildSitemaps(indexableEntries, idToPostPath, idToCluster, idToIndexStatus);
-
   await fs.writeFile(
     path.join(postsDir, "index.html"),
     buildPostsIndexHtml(indexableEntries, idToCluster, {
@@ -5756,9 +5823,6 @@ const main = async () => {
       if (error?.code !== "ENOENT") throw error;
     }
   }
-  for (const file of sitemapFiles) {
-    await fs.writeFile(path.join(siteDir, file.name), file.content, "utf8");
-  }
   await fs.writeFile(path.join(siteDir, "rss.xml"), buildRss(publicEntries), "utf8");
   await fs.writeFile(path.join(siteDir, "robots.txt"), buildRobots(), "utf8");
   await fs.writeFile(publicDigestsPath, JSON.stringify(publicDigests, null, 2) + "\n", "utf8");
@@ -5794,7 +5858,6 @@ const main = async () => {
   await updateHomeHtmlFirstCards(publicEntries, sourceUrlHealth);
   await applyStaticHeadSeoPolicies();
   await applyStaticSocialPreviewPolicies();
-  await applyStaticEntityLayer(compiledEntries);
   await applyStaticTrustBlockPolicies();
   const fingerprintedAssets = await fingerprintStaticAssets();
   await rewriteFixedImageLinksInHtml();
@@ -5802,6 +5865,11 @@ const main = async () => {
   await applyNavigationUiPolicies();
   await applyStaticLanguageSwitchPolicies();
   await applyStaticPerformancePolicies();
+  await applyStaticEntityLayer(compiledEntries);
+  const sitemapFiles = await buildSitemaps(indexableEntries, idToPostPath, idToCluster, idToIndexStatus);
+  for (const file of sitemapFiles) {
+    await fs.writeFile(path.join(siteDir, file.name), file.content, "utf8");
+  }
 
   console.log(
     `Generated ${compiledEntries.length} post pages (${publishedEntries.length} ready, ${indexableEntries.length} indexable, ${draftEntries.length} draft signals${PRODUCTION_BUILD ? `, excluded-from-production=${excludedDraftEntries.length}` : ""}), sitemap index + ${sitemapFiles.length - 1} child sitemaps, rss.xml, robots.txt, search-index (${HREFLANG_ORDER.map((locale) => `${locale}:${searchIndexes.counts.locales[locale] || 0}`).join(", ")}), home HTML-first cards, fingerprinted assets (${fingerprintedAssets.length}), source-url-broken=${sourceUrlHealth.brokenUrls.size}, build-env=${BUILD_ENV}`
