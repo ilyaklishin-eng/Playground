@@ -71,14 +71,26 @@
       },
       "affiliation": [
         {
-          "@type": "Organization",
-          "name": "TV Rain / Dozhd",
-          "url": "https://tvrain.tv/"
+          "@type": "OrganizationRole",
+          "roleName": "Former editor-in-chief of the TV Rain / Dozhd website",
+          "startDate": "2013",
+          "endDate": "2016",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "TV Rain / Dozhd",
+            "url": "https://tvrain.tv/"
+          }
         },
         {
-          "@type": "Organization",
-          "name": "RTVI",
-          "url": "https://rtvi.com/"
+          "@type": "OrganizationRole",
+          "roleName": "Former digital editorial leader",
+          "startDate": "2016",
+          "endDate": "2019",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "RTVI",
+            "url": "https://rtvi.com/"
+          }
         },
         {
           "@type": "Organization",
@@ -107,7 +119,6 @@
         "https://www.facebook.com/ilya.klishin",
         "https://t.me/vorewig",
         "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-        "https://www.ted.com/tedx/events/3947",
         "https://www.themoscowtimes.com/author/ilya-klishin",
         "https://www.vedomosti.ru/authors/ilya-klishin",
         "https://theins.ru/en/opinion/ilya-klishin",
@@ -223,7 +234,7 @@
       "breadcrumb": {
         "@id": "https://www.klishin.work/cases/fr/#breadcrumb"
       },
-      "dateModified": "2026-08-27T14:28:36.000Z",
+      "dateModified": "2026-09-17T08:50:17.000Z",
       "mainEntity": {
         "@id": "https://www.klishin.work/#person"
       }
@@ -307,6 +318,23 @@
         letter-spacing: 0;
         text-transform: uppercase;
       }
+      .archive-brand {
+        width: fit-content;
+        color: #171b1e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.12rem;
+        font-weight: 700;
+        line-height: 1.5;
+        text-decoration: none;
+      }
+      .archive-brand:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .archive-brand:focus-visible {
+        outline: 2px solid #9d332b;
+        outline-offset: 4px;
+      }
       .archive-nav,
       .archive-footer-nav {
         display: flex;
@@ -368,14 +396,13 @@
   <body class="archive-layout">
     <header class="archive-header">
       <div class="archive-shell">
-        <p class="archive-shell-label">Archive / utilitaires</p>
+        <a class="archive-brand" href="/fr/">Ilia Klishin</a>
         <nav class="archive-nav" aria-label="Navigation d’archive">
           <a href="/fr/">Accueil</a>
+        <a href="/bio/fr/">Biographie</a>
         <a href="/selected/">Travaux sélectionnés</a>
-        <a href="/posts/">Publications</a>
-        <a href="/insights/fr/">Archives de recherche</a>
-        <a href="/archive/">Archives</a>
-        <a href="/about/">À propos</a>
+        <a href="/interviews/fr/">Entretiens</a>
+        <a href="/contact/">Contact (EN)</a>
         </nav>
       </div>
     </header>
@@ -586,10 +613,9 @@
     <footer class="archive-footer">
       <nav class="archive-footer-nav" aria-label="Pied de page d’archive">
         <a href="/fr/">Accueil</a>
+        <a href="/bio/fr/">Biographie</a>
         <a href="/selected/">Travaux sélectionnés</a>
-        <a href="/archive/">Archives</a>
-        <a href="/posts/">Publications</a>
-        <a href="/about/">À propos</a>
+        <a href="/contact/">Contact (EN)</a>
       </nav>
     </footer>
   </body>

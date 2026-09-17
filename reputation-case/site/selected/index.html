@@ -24,692 +24,7 @@
     <meta name="twitter:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
     <meta name="twitter:creator" content="@vorewig" />
     <link rel="stylesheet" href="/styles.a9ca2a400c.css" />
-    <style>
-      .primary-nav a[aria-current="page"] {
-        color: var(--ink);
-      }
-
-      .selected-page {
-        padding-bottom: 2rem;
-      }
-
-      .selected-hero {
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
-        background: transparent;
-        box-shadow: none;
-        padding: 1.2rem 0 1.15rem;
-        margin-top: 1.35rem;
-      }
-
-      .selected-hero h1 {
-        margin: 0.35rem 0 0.5rem;
-      }
-
-      .selected-hero p {
-        margin: 0;
-        color: var(--muted);
-        max-width: 72ch;
-        font-size: 0.96rem;
-        line-height: 1.72;
-      }
-
-      .selected-all {
-        margin-top: 1.3rem;
-        border-top: 1px solid var(--line);
-        padding-top: 1.05rem;
-        scroll-margin-top: 96px;
-      }
-
-      .cluster,
-      #all-materials-title {
-        scroll-margin-top: 96px;
-      }
-
-      .selected-all h2 {
-        margin: 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.72rem;
-        line-height: 1.1;
-        letter-spacing: 0;
-      }
-
-      .selected-all p {
-        margin: 0.3rem 0 0;
-        color: var(--muted);
-        font-size: 0.9rem;
-        line-height: 1.68;
-      }
-
-      .selected-all-controls {
-        margin-top: 0.68rem;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 0.5rem;
-        flex-wrap: wrap;
-      }
-
-      .selected-all-filter-stack {
-        display: grid;
-        gap: 0.42rem;
-      }
-
-      .selected-all-filters {
-        display: inline-flex;
-        flex-wrap: wrap;
-        gap: 0.44rem;
-      }
-
-      .selected-all-filters .filter-btn {
-        appearance: none;
-        border: 1px solid var(--line);
-        background: transparent;
-        color: var(--ink);
-        border-radius: 10px;
-        padding: 0.36rem 0.7rem;
-        font: inherit;
-        font-size: 0.72rem;
-        font-weight: 640;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        cursor: pointer;
-      }
-
-      .selected-all-filters .filter-btn.active {
-        border-color: var(--accent);
-        background: rgba(106, 67, 55, 0.06);
-        color: var(--accent-strong);
-      }
-
-      .selected-all-count {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.76rem;
-        letter-spacing: 0.04em;
-      }
-
-      .selected-all-grid {
-        margin-top: 1.15rem;
-        display: grid;
-        gap: 1.5rem 1.35rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        align-items: start;
-      }
-
-      .selected-all-card {
-        border-top: 1px solid rgba(26, 39, 60, 0.14);
-        border-right: 0;
-        border-bottom: 0;
-        border-left: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        padding: 0.92rem 0 0;
-      }
-
-      .selected-all-card-featured {
-        grid-column: span 2;
-        padding-top: 1.15rem;
-        border-top-color: rgba(26, 39, 60, 0.22);
-      }
-
-      .selected-all-card h3 {
-        margin: 0.18rem 0 0;
-        font-size: 1.06rem;
-        line-height: 1.22;
-      }
-
-      .selected-all-card-featured h3 {
-        font-size: 1.52rem;
-        line-height: 1.08;
-        max-width: 17ch;
-      }
-
-      .selected-all-card h3 a {
-        color: var(--ink);
-        text-decoration: none;
-      }
-
-      .selected-all-card h3 a:hover {
-        text-decoration: underline;
-      }
-
-      .selected-all-meta {
-        margin: 0;
-        color: var(--muted);
-        font-size: 0.64rem;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
-        font-weight: 580;
-      }
-
-      .selected-all-role,
-      .work-role {
-        margin: 0.46rem 0 0;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-      }
-
-      .role-badge,
-      .work-role-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-        border: 1px solid rgba(106, 67, 55, 0.14);
-        border-radius: 10px;
-        padding: 0.16rem 0.5rem;
-        font-size: 0.63rem;
-        font-weight: 650;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--accent-ink);
-      }
-
-      .selected-all-type {
-        color: var(--muted);
-        font-size: 0.63rem;
-        font-weight: 640;
-        letter-spacing: 0.1em;
-        line-height: 1.3;
-        text-transform: uppercase;
-      }
-
-      .role-badge-author,
-      .role-badge-authored,
-      .work-role-badge-author,
-      .work-role-badge-authored {
-        background: rgba(106, 67, 55, 0.12);
-      }
-
-      .role-badge-expert-quote,
-      .role-badge-quoted,
-      .role-badge-expert,
-      .work-role-badge-expert-quote,
-      .work-role-badge-quoted,
-      .work-role-badge-expert {
-        background: rgba(106, 67, 55, 0.09);
-      }
-
-      .role-badge-mention,
-      .role-badge-reference,
-      .work-role-badge-mention,
-      .work-role-badge-reference {
-        background: rgba(106, 67, 55, 0.06);
-      }
-
-      .selected-all-summary {
-        margin: 0.42rem 0 0;
-        color: var(--muted);
-        font-size: 0.84rem;
-        line-height: 1.64;
-      }
-
-      .selected-all-card-featured .selected-all-summary {
-        font-size: 0.94rem;
-        line-height: 1.72;
-        max-width: 58ch;
-      }
-
-      .selected-all-cta {
-        margin: 0.78rem 0 0;
-        padding-top: 0.72rem;
-        border-top: 1px solid rgba(26, 39, 60, 0.08);
-      }
-
-      .selected-all-cta a {
-        color: var(--ink);
-        text-decoration: none;
-        font-weight: 640;
-        font-size: 0.7rem;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .selected-all-cta a:hover {
-        text-decoration: underline;
-      }
-
-      .selected-all-empty {
-        border: 1px dashed var(--line-strong);
-        border-radius: 12px;
-        padding: 0.72rem 0.84rem;
-        color: var(--muted);
-      }
-
-      .cluster {
-        margin-top: 1.35rem;
-        border-top: 1px solid var(--line);
-        padding-top: 1.05rem;
-      }
-
-      .cluster h2 {
-        margin: 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.72rem;
-        line-height: 1.1;
-        letter-spacing: 0;
-      }
-
-      .cluster-intro {
-        margin: 0.28rem 0 0;
-        color: var(--muted);
-        font-size: 0.9rem;
-        line-height: 1.7;
-      }
-
-      .cluster-grid {
-        margin-top: 1rem;
-        display: grid;
-        gap: 1.45rem;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .work-card {
-        border-top: 1px solid rgba(26, 39, 60, 0.14);
-        border-right: 0;
-        border-bottom: 0;
-        border-left: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        padding: 1rem 0 0;
-      }
-
-      .work-card h3 {
-        margin: 0.42rem 0 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.3rem;
-        line-height: 1.2;
-        letter-spacing: 0;
-      }
-
-      .work-title-link {
-        color: var(--ink);
-        text-decoration: none;
-      }
-
-      .work-title-link:hover {
-        text-decoration: underline;
-      }
-
-      .work-intro {
-        margin: 0.55rem 0 0;
-        font-size: 0.9rem;
-        line-height: 1.7;
-      }
-
-      .work-why {
-        margin: 0.52rem 0 0;
-        color: var(--muted);
-        font-size: 0.88rem;
-        line-height: 1.68;
-      }
-
-      .work-meta {
-        margin: 0.9rem 0 0;
-        padding-top: 0.82rem;
-        border-top: 1px solid rgba(26, 39, 60, 0.08);
-        color: var(--muted);
-        padding-left: 0;
-        list-style: none;
-        font-size: 0.82rem;
-        line-height: 1.64;
-      }
-
-      .work-meta strong {
-        color: var(--ink);
-      }
-
-      .work-meta a {
-        color: var(--accent-ink);
-        text-decoration: none;
-      }
-
-      .work-meta a:hover {
-        text-decoration: underline;
-      }
-
-      .selected-secondary {
-        margin-top: 1.1rem;
-        border-top: 1px solid var(--line);
-        padding-top: 0.8rem;
-        color: var(--muted);
-        font-size: 0.88rem;
-      }
-
-      .selected-secondary a {
-        color: var(--accent-ink);
-        text-decoration: none;
-      }
-
-      .selected-secondary a:hover {
-        text-decoration: underline;
-      }
-
-      .selected-contact {
-        margin-top: 1.35rem;
-        border-top: 1px solid var(--line);
-        padding-top: 1.05rem;
-      }
-
-      .selected-contact h2 {
-        margin: 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.42rem;
-        letter-spacing: 0;
-      }
-
-      .selected-contact > p {
-        margin: 0.4rem 0 0;
-        color: var(--muted);
-      }
-
-      .selected-contact-grid {
-        margin-top: 1rem;
-        display: grid;
-        gap: 1.3rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .selected-contact-card {
-        border-top: 1px solid rgba(26, 39, 60, 0.14);
-        border-right: 0;
-        border-bottom: 0;
-        border-left: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        padding: 0.86rem 0 0;
-      }
-
-      .selected-contact-card h3 {
-        margin: 0;
-        font-family: "Newsreader", Georgia, serif;
-        font-size: 1.04rem;
-        letter-spacing: 0;
-      }
-
-      .selected-contact-card p {
-        margin: 0.42rem 0 0;
-        color: var(--muted);
-        font-size: 0.88rem;
-      }
-
-      .selected-contact-links {
-        margin-top: 0.72rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .selected-contact-links .cta-btn {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 0.46rem 0.8rem;
-        background: transparent;
-        color: var(--ink);
-        text-decoration: none;
-        font-size: 0.74rem;
-        font-weight: 640;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .selected-contact-links .cta-btn:hover {
-        border-color: var(--line-strong);
-      }
-
-      .selected-contact-links .cta-primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: #fff;
-      }
-
-      @media (max-width: 920px) {
-        .selected-all-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .selected-all-card-featured {
-          grid-column: auto;
-        }
-
-        .cluster-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .selected-contact-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .selected-page {
-        padding-bottom: 2.4rem;
-      }
-
-      .selected-hero {
-        position: relative;
-        margin-top: 1.25rem;
-        border-top-color: color-mix(in srgb, var(--ink) 18%, transparent);
-        border-bottom-color: color-mix(in srgb, var(--accent-strong) 18%, transparent);
-        background:
-          linear-gradient(135deg, rgba(15, 78, 86, 0.1), transparent 44%),
-          linear-gradient(90deg, rgba(212, 198, 75, 0.16), transparent 32%);
-        padding: 1.6rem 0 1.6rem 1rem;
-      }
-
-      .selected-hero::before {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 0.28rem;
-        background: linear-gradient(180deg, var(--accent), var(--signal), var(--accent-strong));
-      }
-
-      .selected-hero h1,
-      .selected-all h2,
-      .cluster h2,
-      .work-card h3,
-      .selected-contact h2,
-      .selected-contact-card h3 {
-        letter-spacing: 0;
-        text-wrap: balance;
-      }
-
-      .selected-all-controls {
-        margin-top: 0.92rem;
-        padding: 0.85rem;
-        border: 1px solid color-mix(in srgb, var(--line) 86%, white 14%);
-        border-radius: var(--radius-panel);
-        background: rgba(255, 253, 250, 0.68);
-        box-shadow: var(--shadow-soft);
-      }
-
-      .selected-all-filters .filter-btn,
-      .role-badge,
-      .work-role-badge,
-      .selected-contact-links .cta-btn {
-        border-radius: var(--radius-button);
-        letter-spacing: 0;
-      }
-
-      .selected-all-filters .filter-btn.active,
-      .selected-contact-links .cta-primary {
-        border-color: var(--accent-strong);
-        background: var(--accent-strong);
-        color: #fffdfa;
-      }
-
-      .selected-all-grid {
-        gap: 1rem;
-      }
-
-      .selected-all-card,
-      .work-card,
-      .selected-contact-card {
-        border: 1px solid color-mix(in srgb, var(--line) 82%, white 18%);
-        border-radius: var(--radius-card);
-        background:
-          linear-gradient(180deg, rgba(255, 253, 250, 0.92), rgba(255, 253, 250, 0.72)),
-          linear-gradient(135deg, rgba(15, 78, 86, 0.055), transparent 48%);
-        box-shadow: var(--shadow-soft);
-        padding: 1rem;
-        transition:
-          transform 0.18s ease,
-          border-color 0.18s ease,
-          box-shadow 0.18s ease;
-      }
-
-      .selected-all-card:hover,
-      .work-card:hover,
-      .selected-contact-card:hover {
-        transform: translateY(-2px);
-        border-color: color-mix(in srgb, var(--accent-strong) 24%, var(--line) 76%);
-        box-shadow: var(--shadow-card);
-      }
-
-      .selected-all-card-featured {
-        position: relative;
-        overflow: hidden;
-        min-height: 20rem;
-        border-color: color-mix(in srgb, var(--ink) 78%, var(--accent-strong) 22%);
-        background:
-          linear-gradient(135deg, rgba(157, 51, 43, 0.28), transparent 46%),
-          linear-gradient(160deg, #101417 0%, #172125 52%, #0f4e56 150%);
-        color: #fffdfa;
-      }
-
-      .selected-all-card-featured::after {
-        content: "";
-        position: absolute;
-        inset: auto 1rem 1rem auto;
-        width: 4rem;
-        height: 4rem;
-        border-right: 1px solid rgba(255, 253, 250, 0.22);
-        border-bottom: 1px solid rgba(255, 253, 250, 0.22);
-        pointer-events: none;
-      }
-
-      .selected-all-card-featured h3 a,
-      .selected-all-card-featured .selected-all-meta,
-      .selected-all-card-featured .selected-all-summary,
-      .selected-all-card-featured .selected-all-type,
-      .selected-all-card-featured .selected-all-cta a {
-        color: #fffdfa;
-      }
-
-      .selected-all-card-featured .selected-all-summary {
-        color: rgba(255, 253, 250, 0.78);
-      }
-
-      .selected-all-card-featured .selected-all-cta {
-        border-top-color: rgba(255, 253, 250, 0.18);
-      }
-
-      .role-badge,
-      .work-role-badge {
-        color: var(--accent-strong);
-        background: rgba(15, 78, 86, 0.08);
-      }
-
-      .cluster,
-      .selected-contact {
-        border-top-color: color-mix(in srgb, var(--ink) 15%, transparent);
-      }
-
-      .cluster {
-        display: grid;
-        grid-template-columns: minmax(12rem, 0.72fr) minmax(0, 2fr);
-        gap: 1.2rem;
-        align-items: start;
-      }
-
-      .cluster-copy {
-        grid-column: 1;
-      }
-
-      .cluster-intro {
-        max-width: 26ch;
-      }
-
-      .cluster-grid {
-        grid-column: 2;
-        width: 100%;
-        margin-top: 0;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 0.9rem;
-      }
-
-      .cluster .work-card:first-child {
-        grid-column: span 2;
-        min-height: 18rem;
-        border-color: color-mix(in srgb, var(--ink) 76%, var(--accent-strong) 24%);
-        background:
-          linear-gradient(140deg, rgba(157, 51, 43, 0.26), transparent 42%),
-          linear-gradient(160deg, #101417 0%, #172125 58%, #0f4e56 150%);
-        color: #fffdfa;
-      }
-
-      .cluster .work-card:first-child .work-title-link,
-      .cluster .work-card:first-child .work-intro,
-      .cluster .work-card:first-child .work-meta,
-      .cluster .work-card:first-child .work-meta strong,
-      .cluster .work-card:first-child .work-meta a {
-        color: #fffdfa;
-      }
-
-      .cluster .work-card:first-child .work-intro,
-      .cluster .work-card:first-child .work-meta {
-        color: rgba(255, 253, 250, 0.78);
-      }
-
-      .cluster .work-card:first-child .work-role-badge {
-        border-color: rgba(255, 253, 250, 0.2);
-        background: rgba(255, 253, 250, 0.08);
-        color: #fffdfa;
-      }
-
-      .selected-contact {
-        border: 1px solid color-mix(in srgb, var(--line) 82%, white 18%);
-        border-radius: var(--radius-panel);
-        background:
-          linear-gradient(135deg, rgba(15, 78, 86, 0.08), rgba(255, 253, 250, 0.78)),
-          var(--paper);
-        box-shadow: var(--shadow-soft);
-        padding: 1.1rem;
-      }
-
-      @media (max-width: 920px) {
-        .selected-all,
-        .cluster,
-        #all-materials-title {
-          scroll-margin-top: 128px;
-        }
-
-        .cluster {
-          display: block;
-        }
-
-        .cluster-grid {
-          margin-top: 1rem;
-          grid-template-columns: 1fr;
-        }
-
-        .cluster .work-card:first-child {
-          grid-column: auto;
-          min-height: 0;
-        }
-
-        .selected-all-card-featured {
-          min-height: 0;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="/selected/selected.4215c8221d.css" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -761,14 +76,26 @@
       },
       "affiliation": [
         {
-          "@type": "Organization",
-          "name": "TV Rain / Dozhd",
-          "url": "https://tvrain.tv/"
+          "@type": "OrganizationRole",
+          "roleName": "Former editor-in-chief of the TV Rain / Dozhd website",
+          "startDate": "2013",
+          "endDate": "2016",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "TV Rain / Dozhd",
+            "url": "https://tvrain.tv/"
+          }
         },
         {
-          "@type": "Organization",
-          "name": "RTVI",
-          "url": "https://rtvi.com/"
+          "@type": "OrganizationRole",
+          "roleName": "Former digital editorial leader",
+          "startDate": "2016",
+          "endDate": "2019",
+          "affiliation": {
+            "@type": "Organization",
+            "name": "RTVI",
+            "url": "https://rtvi.com/"
+          }
         },
         {
           "@type": "Organization",
@@ -797,7 +124,6 @@
         "https://www.facebook.com/ilya.klishin",
         "https://t.me/vorewig",
         "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-        "https://www.ted.com/tedx/events/3947",
         "https://www.themoscowtimes.com/author/ilya-klishin",
         "https://www.vedomosti.ru/authors/ilya-klishin",
         "https://theins.ru/en/opinion/ilya-klishin",
@@ -913,7 +239,7 @@
       "breadcrumb": {
         "@id": "https://www.klishin.work/selected/#breadcrumb"
       },
-      "dateModified": "2026-08-27T14:28:36.000Z",
+      "dateModified": "2026-09-17T08:50:17.000Z",
       "mainEntity": {
         "@id": "https://www.klishin.work/selected/#itemlist"
       }
@@ -930,7 +256,7 @@
       "@id": "https://www.klishin.work/selected/#editorial-routes",
       "name": "Selected editorial routes",
       "itemListOrder": "https://schema.org/ItemListOrderAscending",
-      "numberOfItems": 12,
+      "numberOfItems": 8,
       "isPartOf": {
         "@id": "https://www.klishin.work/#website"
       },
@@ -991,30 +317,6 @@
           "position": 3,
           "item": {
             "@type": "CreativeWork",
-            "name": "Warning! An Army of Russian Trolls Has Invaded TikTok",
-            "url": "https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html",
-            "description": "Russian propaganda did not become new on TikTok; it changed packaging. Familiar manipulation techniques were adapted for algorithmic entertainment, youth culture, and faster attention cycles.",
-            "datePublished": "2020-12-18",
-            "publisher": {
-              "@type": "Organization",
-              "name": "The Moscow Times"
-            },
-            "isBasedOn": "https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410",
-            "genre": [
-              "Information War",
-              "authored",
-              "Article"
-            ],
-            "author": {
-              "@id": "https://www.klishin.work/#person"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "item": {
-            "@type": "CreativeWork",
             "name": "Why Medvedev's resignation and Putin's amendments changed nothing",
             "url": "https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html",
             "description": "The January 2020 constitutional reshuffle created an image of political movement while leaving the real structure of power untouched. Formal offices mattered less than the single center that controlled them.",
@@ -1036,7 +338,7 @@
         },
         {
           "@type": "ListItem",
-          "position": 5,
+          "position": 4,
           "item": {
             "@type": "CreativeWork",
             "name": "Coronavirus Spoils Putin's 'Forever-in-Power' Public Vote",
@@ -1060,31 +362,7 @@
         },
         {
           "@type": "ListItem",
-          "position": 6,
-          "item": {
-            "@type": "CreativeWork",
-            "name": "How Putin Is Bankrupting the Russian Opposition",
-            "url": "https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html",
-            "description": "Financial pressure can function as repression. Fines, frozen accounts, debt, and procedural penalties disable political work without the visible drama of mass arrests, while the appearance of legality becomes part of the mechanism.",
-            "datePublished": "2019-10-30",
-            "publisher": {
-              "@type": "Organization",
-              "name": "The Moscow Times"
-            },
-            "isBasedOn": "https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971",
-            "genre": [
-              "Russian Politics",
-              "authored",
-              "Article"
-            ],
-            "author": {
-              "@id": "https://www.klishin.work/#person"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 7,
+          "position": 5,
           "item": {
             "@type": "CreativeWork",
             "name": "The Kremlin Is Coming for Media One by One — and Society Is Helpless to Stop It",
@@ -1108,7 +386,7 @@
         },
         {
           "@type": "ListItem",
-          "position": 8,
+          "position": 6,
           "item": {
             "@type": "CreativeWork",
             "name": "The Dilemma of the Great Terror: How to Report Roman Protasevich's Confession?",
@@ -1132,31 +410,7 @@
         },
         {
           "@type": "ListItem",
-          "position": 9,
-          "item": {
-            "@type": "CreativeWork",
-            "name": "Why Russian Journalists Find Refuge in Propaganda Outlets",
-            "url": "https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html",
-            "description": "Compromise appears here as a structural problem, not only a moral failure. When the independent media market contracts, career precarity can push journalists toward propaganda institutions even without ideological conversion.",
-            "datePublished": "2019-04-05",
-            "publisher": {
-              "@type": "Organization",
-              "name": "The Moscow Times"
-            },
-            "isBasedOn": "https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108",
-            "genre": [
-              "Media Under Pressure",
-              "authored",
-              "Article"
-            ],
-            "author": {
-              "@id": "https://www.klishin.work/#person"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 10,
+          "position": 7,
           "item": {
             "@type": "CreativeWork",
             "name": "Who owns Russian? And who owns English?",
@@ -1180,7 +434,7 @@
         },
         {
           "@type": "ListItem",
-          "position": 11,
+          "position": 8,
           "item": {
             "@type": "CreativeWork",
             "name": "Russia's New Decembrists",
@@ -1201,41 +455,15 @@
               "@id": "https://www.klishin.work/#person"
             }
           }
-        },
-        {
-          "@type": "ListItem",
-          "position": 12,
-          "item": {
-            "@type": "CreativeWork",
-            "name": "The internet will not do it automatically",
-            "url": "https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html",
-            "description": "Technological determinism fails in protest politics. Digital platforms can accelerate coordination and visibility, but durable political change still depends on organization, strategy, institutions, and offline civic capacity.",
-            "datePublished": "2013-02-13",
-            "publisher": {
-              "@type": "Organization",
-              "name": "Vedomosti"
-            },
-            "isBasedOn": "https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy",
-            "genre": [
-              "Exile / Diaspora",
-              "authored",
-              "Commentary"
-            ],
-            "author": {
-              "@id": "https://www.klishin.work/#person"
-            }
-          }
         }
       ]
     }
   ]
 }
     </script>
-      <meta property="og:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+
       <meta property="og:image:type" content="image/jpeg" />
-      <meta name="twitter:image" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
+
       <meta property="og:image:secure_url" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
       <meta name="twitter:image:src" content="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
       <link rel="image_src" href="https://www.klishin.work/assets/images/og-selected-work.jpg?v=ef01ec3676" />
@@ -1287,15 +515,6 @@
             <p class="work-meta"><strong>Date:</strong> 2015-01-30</p>
             <p class="work-meta"><a href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">Open on-site note</a> · <a href="https://globalvoices.org/2015/01/30/how-putin-secretly-conquered-russias-social-media-over-the-past-3-years/" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
-
-          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
-            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
-            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Warning! An Army of Russian Trolls Has Invaded TikTok</a></h3>
-            <p class="work-intro">Russian propaganda did not become new on TikTok; it changed packaging. Familiar manipulation techniques were adapted for algorithmic entertainment, youth culture, and faster attention cycles.</p>
-            <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
-            <p class="work-meta"><strong>Date:</strong> 2020-12-18</p>
-            <p class="work-meta"><a href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/12/18/warning-an-army-of-russian-trolls-has-invaded-tiktok-a72410" target="_blank" rel="noopener noreferrer">Original source</a></p>
-          </article>
         </div>
       </section>
 
@@ -1321,15 +540,6 @@
             <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
             <p class="work-meta"><strong>Date:</strong> 2020-04-16</p>
             <p class="work-meta"><a href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2020/04/16/coronavirus-spoils-putins-forever-in-power-vote-a70014" target="_blank" rel="noopener noreferrer">Original source</a></p>
-          </article>
-
-          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
-            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
-            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">How Putin Is Bankrupting the Russian Opposition</a></h3>
-            <p class="work-intro">Financial pressure can function as repression. Fines, frozen accounts, debt, and procedural penalties disable political work without the visible drama of mass arrests, while the appearance of legality becomes part of the mechanism.</p>
-            <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
-            <p class="work-meta"><strong>Date:</strong> 2019-10-30</p>
-            <p class="work-meta"><a href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/10/30/how-putin-is-bankrupting-the-russian-opposition-a67971" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
         </div>
       </section>
@@ -1357,15 +567,6 @@
             <p class="work-meta"><strong>Date:</strong> 2021-06-07</p>
             <p class="work-meta"><a href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2021/06/07/the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confession-a74125" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
-
-          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
-            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
-            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Why Russian Journalists Find Refuge in Propaganda Outlets</a></h3>
-            <p class="work-intro">Compromise appears here as a structural problem, not only a moral failure. When the independent media market contracts, career precarity can push journalists toward propaganda institutions even without ideological conversion.</p>
-            <p class="work-meta"><strong>Publication:</strong> The Moscow Times</p>
-            <p class="work-meta"><strong>Date:</strong> 2019-04-05</p>
-            <p class="work-meta"><a href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Open on-site note</a> · <a href="https://www.themoscowtimes.com/2019/04/05/why-russian-journalists-find-refuge-in-propaganda-outlets-a65108" target="_blank" rel="noopener noreferrer">Original source</a></p>
-          </article>
         </div>
       </section>
 
@@ -1392,21 +593,17 @@
             <p class="work-meta"><strong>Date:</strong> 2012-01-20</p>
             <p class="work-meta"><a href="https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html">Open on-site note</a> · <a href="https://nymag.com/news/features/russian-revolutionaries-2012-1/" target="_blank" rel="noopener noreferrer">Original source</a></p>
           </article>
-
-          <article class="work-card" data-role="authored" data-status="published" data-surface="public">
-            <p class="work-role"><span class="work-role-badge work-role-badge-authored">Authored</span></p>
-            <h3><a class="work-title-link" href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">The internet will not do it automatically</a></h3>
-            <p class="work-intro">Technological determinism fails in protest politics. Digital platforms can accelerate coordination and visibility, but durable political change still depends on organization, strategy, institutions, and offline civic capacity.</p>
-            <p class="work-meta"><strong>Publication:</strong> Vedomosti</p>
-            <p class="work-meta"><strong>Date:</strong> 2013-02-13</p>
-            <p class="work-meta"><a href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">Open on-site note</a> · <a href="https://www.vedomosti.ru/opinion/articles/2013/02/13/dobryj_gorshochek_pravdy" target="_blank" rel="noopener noreferrer">Original source</a></p>
-          </article>
         </div>
       </section>
 
 <section class="selected-all" aria-labelledby="all-materials-title">
         <h2 id="all-materials-title">Full archive by role and format</h2>
         <p>The deeper record remains available below the editorial routes: authored work, expert comments, and references.</p>
+        <form id="selectedSearch" method="get" action="/selected/">
+          <label for="selectedQuery">Search this archive</label>
+          <input id="selectedQuery" name="q" type="search" />
+          <button type="submit">Search</button>
+        </form>
         <div class="selected-all-controls">
           <div class="selected-all-filter-stack">
             <div class="selected-all-filters selected-all-role-filters" role="group" aria-label="Role filter">
@@ -1421,7 +618,7 @@
               <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">Podcasts</button>
             </div>
           </div>
-          <p class="selected-all-count" id="selectedAllCount">12 of 38 shown · Authored</p>
+          <p class="selected-all-count" id="selectedAllCount" role="status" aria-live="polite">12 of 38 shown · Authored</p>
         </div>
         <div class="selected-all-grid" id="selectedAllGrid">
           <!-- SELECTED_ALL_GRID_START -->
@@ -1511,6 +708,77 @@
           </article>
 <!-- SELECTED_ALL_GRID_END -->
         </div>
+        <details class="archive-complete">
+          <summary>Complete archive (68 materials)</summary>
+          <ul><li><a href="https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html">Putin-Macron talks and the Russia expertise gap</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-002-mass-protests-lessons-from-a-decade.html">Mass protests: lessons from a decade</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-009-lajki-na-zapad.html">Likes Go West</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-010-tv-rain-launched-our-soldiers-civilian-investigation.html">TV Rain launched &quot;Our Soldiers&quot; civilian investigation</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-016-hrw-report-on-harassment-of-critics-includes-klishin-case-context.html">HRW report on harassment of critics includes Klishin case context</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-017-english-press-archive-on-intimidation-claims-tied-to-activism.html">Anti-Putin Activist Complains of Security Harassment</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-018-early-warning-analysis-on-russian-troll-expansion.html">The Kremlin’s Trolls Go West</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-019-commentary-on-pressure-against-independent-media-institutions.html">The Kremlin Is Coming for Media One by One — and Society Is Helpless to Stop It</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-023-the-magic-mirror-of-russian-public-opinion.html">The Magic Mirror of Russian Public Opinion</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-024-the-dilemma-of-the-great-terror-how-to-report-roman-protasevichs-confess.html">The Dilemma of the Great Terror: How to Report Roman Protasevich&#39;s Confession?</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-025-lets-wait-until-after-the-elections.html">Let&#39;s Wait Until After the Elections</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-026-luiza-rozova-and-the-helpless-intellectual.html">Luiza Rozova and the Helpless Intellectual</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-027-four-ways-the-kremlin-could-block-western-social-networks-in-russia.html">Four Ways the Kremlin Could Block Western Social Networks in Russia</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-028-the-capitol-storming-gives-russians-an-escape-from-their-reality.html">The Capitol Storming Gives Russians an Escape From Their Reality</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-029-warning-an-army-of-russian-trolls-has-invaded-tiktok.html">Warning! An Army of Russian Trolls Has Invaded TikTok</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-030-why-russians-dislike-good-russians-in-american-films-no-less-than-bad-ru.html">Why Russians Dislike &quot;Good Russians&quot; in American Films No Less than &quot;Bad Russians&quot;</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-031-great-russian-literature-versus-one-tweet-by-stephen-king.html">Great Russian Literature Versus One Tweet by Stephen King</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-032-anonymous-telegram-channels-are-shaping-russias-daily-life.html">Anonymous Telegram Channels Are Shaping Russia&#39;s Daily Life</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-033-why-do-russians-resent-western-media-over-the-protests-in-belarus.html">Why Do Russians Resent Western Media Over the Protests in Belarus?</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-107-global-voices-putin-and-russian-social-media.html">How Putin quietly took over Russian social media</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html">Bot Army: Why the Kremlin Fails at Soft Power</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-119-atlantic-feature-cites-klishin-on-putins-media-machine.html">Atlantic feature cites Klishin on Putin’s media machine</a> <span>quoted</span></li>
+<li><a href="https://www.klishin.work/posts/en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown.html">Bloomberg quotes Klishin on Russia’s Twitter crackdown</a> <span>quoted</span></li>
+<li><a href="https://www.klishin.work/posts/en-121-why-medvedev-s-resignation-and-putin-s-amendments-changed-nothing.html">Why Medvedev&#39;s resignation and Putin&#39;s amendments changed nothing</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-122-who-owns-russian-and-who-owns-english.html">Who owns Russian? And who owns English?</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-123-why-shoot-navalny-if-you-can-bankrupt-him.html">Why shoot Navalny if you can bankrupt him</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-124-how-the-death-penalty-debate-linked-to-a-ban-on-negative-ukraine-coverage.html">How the death penalty debate linked to a ban on negative Ukraine coverage</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-125-the-music-of-the-media-desert.html">The music of the media desert</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-126-moscow-clean-city-cleansed-city.html">Moscow: clean city, cleansed city</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-127-maximum-retweet-the-war-we-overlooked.html">Maximum Retweet: The war we overlooked</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-128-maximum-retweet-threats-created-by-the-ministry-of-truth.html">Maximum Retweet: Threats created by the Ministry of Truth</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-129-maximum-retweet-they-purged-the-wrong-people.html">Maximum Retweet: They purged the wrong people</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-131-maximum-retweet-the-web-we-got-trapped-in.html">Maximum Retweet: The web we got trapped in</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-132-the-internet-will-not-do-it-automatically.html">The internet will not do it automatically</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-133-zero-multiplied-by-a-million.html">Zero multiplied by a million</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-134-coronavirus-spoils-putin-s-forever-in-power-public-vote.html">Coronavirus Spoils Putin&#39;s &#39;Forever-in-Power&#39; Public Vote</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-135-how-putin-is-bankrupting-the-russian-opposition.html">How Putin Is Bankrupting the Russian Opposition</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-136-russias-new-heroes-are-those-who-simply-say-things-as-they-are.html">Russia’s New Heroes Are Those Who Simply Say Things as They Are</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-137-why-russian-journalists-find-refuge-in-propaganda-outlets.html">Why Russian Journalists Find Refuge in Propaganda Outlets</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-138-web-of-control-the-future-of-the-russian-internet.html">Web of Control: The Future of the Russian Internet</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-139-russia-s-new-decembrists.html">Russia&#39;s New Decembrists</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-140-from-kremlin-web-brigades-to-russian-troll-factories.html">From Kremlin Web Brigades to Russian Troll Factories</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-141-do-revolutions-grow-out-of-social-media.html">Do Revolutions Grow Out of Social Media?</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html">What Sparked Moldova&#39;s Second Maidan?</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-143-private-authoritarianism-how-facebook-and-google-threaten-democracy.html">Private Authoritarianism: How Facebook and Google Threaten Democracy</a> <span>authored</span></li>
+<li><a href="https://www.klishin.work/posts/en-145-dekoder-on-sputnik-v-approval-and-russian-vaccine-messaging.html">Dekoder on Sputnik V approval and Russian vaccine messaging</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-146-wikipedia-war-coverage-overview-references-klishin-claims.html">Wikipedia war-coverage overview references Klishin claims</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-147-lse-analysis-on-protest-mobilization-references-feb26org-coordination.html">LSE analysis on protest mobilization references feb26.org coordination</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-148-freedom-on-the-net-2016-records-pressure-linked-to-klishin-and-peers.html">Freedom on the Net 2016 records pressure linked to Klishin and peers</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-149-rand-report-rr295-on-social-media-and-political-mobilization.html">RAND report RR295 on social media and political mobilization</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-151-jsis-profile-digital-patriotism-and-nationalist-agenda-in-russian-media.html">JSIS profile: digital patriotism and nationalist agenda in Russian media</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-152-gazetaru-interview-on-possible-blocking-of-youtube-and-google.html">Gazeta.ru interview on possible blocking of YouTube and Google</a> <span>reference</span></li>
+<li><a href="https://www.klishin.work/posts/en-153-screening-rape-indias-debate.html">The Listening Post: Kremlin’s Troll Army</a> <span>reference</span></li>
+<li><a href="https://www.youtube.com/watch?v=Bx8Mv4fW2XI">Who to Trust? With Ilia Klishin: Debunking Myths About Lithuania and a Guide to Emigration</a> <span>quoted</span></li>
+<li><a href="https://podcasts.apple.com/ru/podcast/%D1%82%D0%B2%D0%BE%D1%8F-%D0%B7%D0%B0%D0%BA%D0%BB%D0%B0%D0%B4%D0%BA%D0%B0/id1659621302">Nabokov&#39;s Mashenka: Emigration, Awkwardness, and Cultural Language</a> <span>quoted</span></li>
+<li><a href="https://semnasem.org/news/2024/10/01/ilya-klishin-o-tom-pochemu-delaet-knizhnyj-klub-v-vilnyuse">For Me, Above All, It Is the Inner Joy of Conversation</a> <span>quoted</span></li>
+<li><a href="https://rss.com/podcasts/radiotochka/1449162/">A New Emigrant Volna: Ilia Klishin on Lithuania, Integration, and Favorite Books</a> <span>quoted</span></li>
+<li><a href="https://holod.media/2023/07/13/klishin-interview/">Respect for the Host Country Is Not Self-Censorship</a> <span>quoted</span></li>
+<li><a href="https://thefix.media/2022/08/22/russian-media-of-the-new-diaspora-a-look-at-three-projects/">Russian Media of the New Diaspora: A Look at Three Projects</a> <span>quoted</span></li>
+<li><a href="https://www.youtube.com/watch?v=4c5SOIp6LlA">Is There Life After Media</a> <span>quoted</span></li>
+<li><a href="https://www.rferl.org/a/turning-a-newspaper-into-toilet-paper-business-daily-caught-up-in-putin-s-war-on-journalism/30588839.html">Turning a Newspaper Into Toilet Paper: Business Daily Caught Up in Putin&#39;s War on Journalism</a> <span>quoted</span></li>
+<li><a href="https://www.rferl.org/a/a-whole-new-ecosystem-independent-journalism-learns-to-survive-in-putin-s-toxic-russia/30489081.html">A Whole New Ecosystem: Independent Journalism Learns to Survive in Putin&#39;s Russia</a> <span>quoted</span></li>
+<li><a href="https://ambivert.club/ilya-klishin/">From TV Rain Media Manager to Consulting Agency Founder: Ilia Klishin&#39;s Story</a> <span>quoted</span></li>
+<li><a href="https://radiobaltica.eu/181-ilya-klishin-i-roman-fedoseev-kak-dva-zhurnalista-sozdali-media-biznes-ne-trebuyushhij-vlozhenij/">Ilia Klishin and Roman Fedoseev: How Two Journalists Built a Media Business Without Investment</a> <span>quoted</span></li>
+<li><a href="https://www.cossa.ru/211/171260/">Infoshum and Vertical Video: Interview with RTVI</a> <span>quoted</span></li>
+<li><a href="https://www.vb.kg/doc/186477_ilia_klishin%3A_rossiyskih_nacionalistov_nyjno_pystit_v_parlament.html">Ilia Klishin: Russian Nationalists Should Be Allowed Into Parliament</a> <span>quoted</span></li>
+<li><a href="https://www.theguardian.com/world/2012/feb/02/russian-police-accused-scare-tactics">Russian Police Accused of Scare Tactics Against Protesters&#39; Parents</a> <span>quoted</span></li>
+<li><a href="https://www.youtube.com/watch?v=S2UDLzb8KRA">Ilia Klishin: If the Internet Is Switched Off, People Will Go Out to Celebrate</a> <span>quoted</span></li></ul>
+        </details>
       </section>
 
       <section class="selected-contact" aria-label="Contact">
@@ -1549,6 +817,6 @@
         <a href="/contact/">Contact</a>
       </nav>
     </footer>
-    <script type="module" src="/selected/selected-all-materials.c5c6b518c8.js"></script>
+    <script type="module" src="/selected/selected-all-materials.97f94f4139.js"></script>
   </body>
 </html>

@@ -4858,6 +4858,9 @@
         "language-de"
       ],
       "slug": "de-120-bloomberg-zitiert-klishin-zur-twitter-drosselung-in-russland",
+      "originalSourceUrl": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "sourceLanguage": "en",
+      "republicationPublisher": "China Daily HK",
       "relation": "reference",
       "source_en_id": "en-120",
       "role": "mention"
@@ -6204,6 +6207,13 @@
         "year-2014"
       ],
       "slug": "en-009-lajki-na-zapad",
+      "sourceLanguage": "ru",
+      "sourcePublishedAt": "2014-05-21",
+      "annotationParagraphs": [
+        "Published in Russian in Vedomosti, this column examined the early extension of Kremlin-linked online operations toward American and European audiences. Klishin connected that outward turn to methods developed after Russia's 2011 protest mobilization.",
+        "The article described research into the audiences and moderation rules of Western news sites. It discussed gradually developed accounts, tests of provocative comments, and plans to manufacture engagement. It also reported a conversation with Wolfgang Blau of The Guardian about the increase in pro-Kremlin messages in German-language discussions.",
+        "The piece distinguished the operators' ambitions from evidence of success: the documents it discussed included complaints that users suspected paid or ideological comments. This English archive note summarizes the Russian original; it is not a full translation."
+      ],
       "role": "author"
     },
     {
@@ -10603,6 +10613,13 @@
         "source-based summary"
       ],
       "slug": "en-108-carnegie-kremlin-bot-army-soft-power",
+      "sourceLanguage": "ru",
+      "sourcePublishedAt": "2015-07-21",
+      "annotationParagraphs": [
+        "This Russian-language Carnegie commentary asks why the visibility of Kremlin-linked online operations should not be confused with successful soft power. It begins with the contrast between alarm about Russian propaganda and Russia's absence from the top thirty countries in a contemporary soft-power ranking.",
+        "Klishin traces the development of pro-government counter-mobilization after the 2011 protests, including coordinated hashtags and paid online commentary. He then examines the difficulty of exporting domestic tactics to foreign audiences: language barriers matter, but so does the absence of an attractive political proposition.",
+        "The distinction is between reinforcing existing sympathies, creating uncertainty among skeptics, and genuinely persuading new audiences. The essay treats these as different outcomes rather than interchangeable measures of influence. This annotation summarizes the original argument, not a retrospective claim that every later campaign followed the same pattern."
+      ],
       "role": "author"
     },
     {
@@ -11078,6 +11095,9 @@
         "2021"
       ],
       "slug": "en-120-bloomberg-quotes-klishin-on-russias-twitter-crackdown",
+      "originalSourceUrl": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "sourceLanguage": "en",
+      "republicationPublisher": "China Daily HK",
       "copies": {
         "FR": "fr-120",
         "DE": "de-120",
@@ -17045,6 +17065,9 @@
         "language-es"
       ],
       "slug": "es-120-bloomberg-cita-a-klishin-sobre-la-desaceleracion-de-twitter-en-rusia",
+      "originalSourceUrl": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "sourceLanguage": "en",
+      "republicationPublisher": "China Daily HK",
       "relation": "reference",
       "source_en_id": "en-120",
       "role": "mention"
@@ -22878,6 +22901,9 @@
         "language-fr"
       ],
       "slug": "fr-120-bloomberg-cite-klishin-sur-le-ralentissement-de-twitter-en-russie",
+      "originalSourceUrl": "https://www.bloomberg.com/news/articles/2021-03-10/russia-takes-aim-at-twitter-over-content-in-unprecedented-crackdown",
+      "sourceLanguage": "en",
+      "republicationPublisher": "China Daily HK",
       "relation": "reference",
       "source_en_id": "en-120",
       "role": "mention"

@@ -1736,8 +1736,8 @@
   --home-line: #cbc5ba;
   --home-accent: #8d3028;
   --home-accent-strong: #8d3028;
-  --home-serif: "Newsreader", "Spectral", Georgia, serif;
-  --home-sans: "Manrope", "Segoe UI", "Trebuchet MS", sans-serif;
+  --home-serif: Georgia, "Times New Roman", serif;
+  --home-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
   background: var(--home-paper);
   color: var(--home-ink);

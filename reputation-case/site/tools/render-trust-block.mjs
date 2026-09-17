@@ -191,14 +191,24 @@ const resolveLocale = (locale = "en") => {
   return HOME_COPY[normalized] ? normalized : "en";
 };
 
-const renderReferenceLink = ({ name, href, rel }) =>
-  `<a href="${escapeHtml(href)}" target="_blank" rel="${escapeHtml(rel || "noopener noreferrer")}">${escapeHtml(name)}</a>`;
+const REFERENCE_KINDS = {
+  Bloomberg: ["expert comment", "commentaire d’expert", "Expertenkommentar", "comentario experto"],
+  "The Atlantic": ["expert comment", "commentaire d’expert", "Expertenkommentar", "comentario experto"],
+  "The Guardian": ["profile", "portrait", "Porträt", "perfil"],
+  "Human Rights Watch": ["report reference", "mention dans un rapport", "Erwähnung in einem Bericht", "mención en un informe"],
+  "Carnegie Endowment": ["authored analysis", "analyse signée", "eigene Analyse", "análisis de autor"],
+  TEDx: ["event page", "page de l’événement", "Veranstaltungsseite", "página del evento"],
+};
+const renderReferenceLink = ({ name, href, rel }, locale = "en") => {
+  const kind = REFERENCE_KINDS[name]?.[["en", "fr", "de", "es"].indexOf(resolveLocale(locale))];
+  return `<a href="${escapeHtml(href)}" target="_blank" rel="${escapeHtml(rel || "noopener noreferrer")}">${escapeHtml(name)}${kind ? ` (${escapeHtml(kind)})` : ""}</a>`;
+};
 
-const renderReferenceLine = (references = []) =>
+const renderReferenceLine = (references = [], locale = "en") =>
   references
     .map((reference, index) => {
       const suffix = index === references.length - 1 ? "." : ",";
-      return `${renderReferenceLink(reference)}${suffix}`;
+      return `${renderReferenceLink(reference, locale)}${suffix}`;
     })
     .join(" ");
 
@@ -233,10 +243,10 @@ const renderFullBlock = (locale = "en") => {
               </section>
               <section class="hero-credential-group hero-credential-group-proof" aria-label="${escapeHtml(copy.referencesLabel)}">
                 <p class="hero-group-label">${escapeHtml(copy.referencesLabel)}</p>
-                <p class="hero-reference-line">${renderReferenceLine(CORE_REFERENCES)}</p>
+                <p class="hero-reference-line">${renderReferenceLine(CORE_REFERENCES, locale)}</p>
                 <details class="hero-reference-more">
                   <summary>${escapeHtml(copy.showAll)}</summary>
-                  <p class="hero-reference-line hero-reference-line-secondary">${renderReferenceLine(SECONDARY_REFERENCES)}</p>
+                  <p class="hero-reference-line hero-reference-line-secondary">${renderReferenceLine(SECONDARY_REFERENCES, locale)}</p>
                 </details>
               </section>
             </div>`;
@@ -244,7 +254,7 @@ const renderFullBlock = (locale = "en") => {
 
 const renderMinimalBlock = (locale = "en") => {
   const copy = MINIMAL_COPY[resolveLocale(locale)];
-  const references = CORE_REFERENCES.map(renderReferenceLink).join(", ");
+  const references = CORE_REFERENCES.map((reference) => renderReferenceLink(reference, locale)).join(", ");
   return `      <section class="trust-inline" aria-label="${escapeHtml(copy.label)}">
         <p><strong>${escapeHtml(copy.label)}:</strong> ${escapeHtml(copy.intro)} ${references}.</p>
       </section>`;

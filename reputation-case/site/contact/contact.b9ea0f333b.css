@@ -172,15 +172,8 @@
 
 .channel-actions .cta-btn {
   font-size: 0.78rem;
-  letter-spacing: 0.03em;
-}
-
-.obfuscated-phone {
-  display: inline-block;
-  white-space: nowrap;
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .human-note {

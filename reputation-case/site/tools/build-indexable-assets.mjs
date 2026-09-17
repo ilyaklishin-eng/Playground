@@ -126,6 +126,8 @@ const SOCIAL_OG_IMAGE_BY_TYPE = {
   cases: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogCases),
 };
 const FINGERPRINTABLE_ASSETS = [
+  { source: "posts/post.css", aliases: ["/posts/post.css"] },
+  { source: "selected/selected.css", aliases: ["/selected/selected.css"] },
   { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
   { source: "home/home.css", aliases: ["/home/home.css", "./home.css", "../home.css"] },
   // app.js is the canonical home-feed source; the build fingerprints it into /app.<hash>.js and rewrites HTML references.
@@ -157,7 +159,7 @@ const HOME_INTERVIEWS_SECTION_END = "<!-- HOME_INTERVIEWS_SECTION_END -->";
 const SELECTED_ALL_GRID_START = "<!-- SELECTED_ALL_GRID_START -->";
 const SELECTED_ALL_GRID_END = "<!-- SELECTED_ALL_GRID_END -->";
 const SELECTED_INITIAL_RENDER_LIMIT = 12;
-const SELECTED_SECTION_CARD_LIMIT = 3;
+const SELECTED_SECTION_CARD_LIMIT = 2;
 const SELECTED_ROLE_SECTION_CARD_LIMIT = 3;
 const SEARCH_INITIAL_RENDER_LIMIT = 12;
 const PERSON_NAME = "Ilia Klishin";
@@ -195,7 +197,6 @@ const PERSON_SAME_AS = [
   "https://www.facebook.com/ilya.klishin",
   "https://t.me/vorewig",
   "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B8%D1%88%D0%B8%D0%BD,_%D0%98%D0%BB%D1%8C%D1%8F_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
-  "https://www.ted.com/tedx/events/3947",
   "https://www.themoscowtimes.com/author/ilya-klishin",
   "https://www.vedomosti.ru/authors/ilya-klishin",
   "https://theins.ru/en/opinion/ilya-klishin",
@@ -219,14 +220,18 @@ const PERSON_KNOWS_ABOUT = [
 ];
 const PERSON_AFFILIATIONS = [
   {
-    "@type": "Organization",
-    name: "TV Rain / Dozhd",
-    url: "https://tvrain.tv/",
+    "@type": "OrganizationRole",
+    roleName: "Former editor-in-chief of the TV Rain / Dozhd website",
+    startDate: "2013",
+    endDate: "2016",
+    affiliation: { "@type": "Organization", name: "TV Rain / Dozhd", url: "https://tvrain.tv/" },
   },
   {
-    "@type": "Organization",
-    name: "RTVI",
-    url: "https://rtvi.com/",
+    "@type": "OrganizationRole",
+    roleName: "Former digital editorial leader",
+    startDate: "2016",
+    endDate: "2019",
+    affiliation: { "@type": "Organization", name: "RTVI", url: "https://rtvi.com/" },
   },
   {
     "@type": "Organization",
@@ -2958,14 +2963,20 @@ const buildSelectedArchiveSchemaSummary = (entries = [], idToPostPath = new Map(
   return {
     total: combined.length,
     counts,
+    items: combined,
   };
 };
 
-const buildSelectedAllSectionHtml = (entries, idToPostPath = new Map()) => {
+const buildSelectedAllSectionHtml = (entries, idToPostPath = new Map(), archiveItems = []) => {
   const selectedAllState = buildSelectedAllDefaultState(entries, idToPostPath);
   return `<section class="selected-all" aria-labelledby="all-materials-title">
         <h2 id="all-materials-title">Full archive by role and format</h2>
         <p>The deeper record remains available below the editorial routes: authored work, expert comments, and references.</p>
+        <form id="selectedSearch" method="get" action="/selected/">
+          <label for="selectedQuery">Search this archive</label>
+          <input id="selectedQuery" name="q" type="search" />
+          <button type="submit">Search</button>
+        </form>
         <div class="selected-all-controls">
           <div class="selected-all-filter-stack">
             <div class="selected-all-filters selected-all-role-filters" role="group" aria-label="Role filter">
@@ -2980,13 +2991,17 @@ const buildSelectedAllSectionHtml = (entries, idToPostPath = new Map()) => {
               <button class="filter-btn" type="button" data-format="podcasts" aria-pressed="false">Podcasts</button>
             </div>
           </div>
-          <p class="selected-all-count" id="selectedAllCount">${htmlEscape(selectedAllState.countText)}</p>
+          <p class="selected-all-count" id="selectedAllCount" role="status" aria-live="polite">${htmlEscape(selectedAllState.countText)}</p>
         </div>
         <div class="selected-all-grid" id="selectedAllGrid">
           ${SELECTED_ALL_GRID_START}
 ${selectedAllState.gridHtml}
 ${SELECTED_ALL_GRID_END}
         </div>
+        <details class="archive-complete">
+          <summary>Complete archive (${archiveItems.length} materials)</summary>
+          <ul>${archiveItems.map((item) => `<li><a href="${htmlEscape(item.url)}">${htmlEscape(item.title)}</a> <span>${htmlEscape(item.role)}</span></li>`).join("\n")}</ul>
+        </details>
       </section>`;
 };
 
@@ -3029,7 +3044,7 @@ const updateSelectedWorkPage = async (entries, idToPostPath = new Map(), publicI
   const { html: sectionsHtml } = buildSelectedSectionsHtml(entries, idToPostPath);
   const archiveSchema = buildSelectedArchiveSchemaSummary(entries, idToPostPath, publicInterviews);
   const editorialRoutesSchema = buildSelectedEditorialRoutesSchema(entries, idToPostPath);
-  const selectedAllSectionHtml = buildSelectedAllSectionHtml(entries, idToPostPath);
+  const selectedAllSectionHtml = buildSelectedAllSectionHtml(entries, idToPostPath, archiveSchema.items);
   const blockRe =
     /(<section class="selected-hero">[\s\S]*?<\/section>\s*)[\s\S]*?(?=\s*<section class="selected-contact")/m;
   if (!blockRe.test(html)) {
@@ -4346,10 +4361,15 @@ const upsertMetaTag = (html = "", attrName = "", attrValue = "", content = "") =
   const escapedAttr = escapeRegExpSafe(String(attrValue || ""));
   const pairRe = new RegExp(
     `<meta\\s+[^>]*${attrName}=["']${escapedAttr}["'][^>]*content=["'][^"']*["'][^>]*\\/?>|<meta\\s+[^>]*content=["'][^"']*["'][^>]*${attrName}=["']${escapedAttr}["'][^>]*\\/?>`,
-    "i"
+    "gi"
   );
   if (pairRe.test(html)) {
-    return html.replace(pairRe, tag);
+    let inserted = false;
+    return html.replace(pairRe, () => {
+      if (inserted) return "";
+      inserted = true;
+      return tag;
+    });
   }
   return html.replace(/<\/head>/i, `    ${tag}\n  </head>`);
 };
@@ -4972,32 +4992,11 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     (alt) =>
       `<li><a href="${htmlEscape(alt.href)}">${htmlEscape(String(alt.hreflang).toUpperCase())}</a></li>`
   );
-  const {
-    relatedByTopic,
-    relatedBySource,
-    relatedBySection,
-    relatedByYear,
-    newerInLanguage,
-    olderInLanguage,
-    newerFromSource,
-    olderFromSource,
-    latestSameLanguage,
-    latestAcrossSite,
-  } = buildRelatedPostGroups(item, entries);
-  const topicLinks = buildRelatedLinks(relatedByTopic);
-  const sourceLinks = buildRelatedLinks(relatedBySource);
-  const sectionLinks = buildRelatedLinks(relatedBySection);
-  const yearLinks = buildRelatedLinks(relatedByYear);
-  const languageTimelineLinks = [
-    buildDirectionalRelatedLink(postLabels.newer, newerInLanguage),
-    buildDirectionalRelatedLink(postLabels.older, olderInLanguage),
-  ].filter(Boolean);
-  const sourceTimelineLinks = [
-    buildDirectionalRelatedLink(postLabels.newer, newerFromSource),
-    buildDirectionalRelatedLink(postLabels.older, olderFromSource),
-  ].filter(Boolean);
-  const latestLanguageLinks = buildRelatedLinks(latestSameLanguage);
-  const latestSiteLinks = buildRelatedLinks(latestAcrossSite);
+  const groups = buildRelatedPostGroups(item, entries);
+  const candidates = [...groups.relatedBySection, ...groups.relatedByTopic, ...groups.relatedBySource]
+    .filter((entry) => normalizeLang(entry.item.language) === normalizeLang(item.language));
+  const related = [...new Map(candidates.map((entry) => [entry.item.id, entry])).values()].slice(0, 4);
+  const topicLinks = buildRelatedLinks(related);
   const selectedSectionId = classifySelectedSection(item);
   const selectedSectionLabel = selectedSectionLabelById(selectedSectionId);
   const localizedHomeHref = htmlLang === "en" ? "/" : `/${htmlLang}/`;
@@ -5008,15 +5007,17 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
   const pageId = buildPageNodeId(canonical, "WebPage");
   const articleId = `${canonical}#article`;
   const breadcrumbId = `${canonical}#breadcrumb`;
-  const publishedIso = toIsoTimestamp(item.date) || item.date || undefined;
-  const modifiedIso = toIsoTimestamp(item.lastmod || item.date) || publishedIso;
+  // Original publication dates are not dates of this site's annotation.
+  const publishedIso = toIsoTimestamp(item.annotationPublishedAt) || undefined;
+  const modifiedIso = toIsoTimestamp(item.annotationModifiedAt) || undefined;
   const breadcrumb = buildBreadcrumbList(breadcrumbId, [
     { name: "Home", url: canonicalUrl("index.html") },
     { name: "Posts", url: canonicalUrl("posts/index.html") },
     { name: displayTitle, url: canonical },
   ]);
   const sourceName = normalizeText(item.source || "");
-  const sourceEntityLink = sourceEntityUrl(sourceLink);
+  const originalSourceLink = publicSourceUrl(item.originalSourceUrl || item.url);
+  const sourceEntityLink = sourceEntityUrl(originalSourceLink);
   const sourceOrigin = sourceEntityLink
     ? (() => {
         try {
@@ -5026,7 +5027,7 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         }
       })()
     : undefined;
-  const sourceNodeId = sourceLink && sourceName ? buildSourceEntityId(sourceName, sourceLink) : undefined;
+  const sourceNodeId = originalSourceLink && sourceName ? buildSourceEntityId(sourceName, originalSourceLink) : undefined;
   const sourceOrganization =
     sourceNodeId && sourceName
       ? {
@@ -5041,9 +5042,12 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     sourceLink
       ? {
           "@type": "CreativeWork",
-          url: sourceLink,
+          url: originalSourceLink,
           name: sourceName || "Original source",
+          datePublished: item.sourcePublishedAt || item.date || undefined,
+          inLanguage: item.sourceLanguage || undefined,
           publisher: sourceOrganization ? { "@id": sourceNodeId } : undefined,
+          author: normalizeCardRole(item.role) === CONTENT_ROLE.AUTHORED ? { "@id": PERSON_ID } : undefined,
         }
       : undefined;
   const normalizedRole = normalizeCardRole(item?.role);
@@ -5082,8 +5086,14 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
         mainEntityOfPage: { "@id": pageId },
         about: { "@id": PERSON_ID },
         url: canonical,
-        citation: sourceLink || undefined,
+        citation: item.republicationPublisher ? {
+          "@type": "CreativeWork",
+          url: sourceLink,
+          publisher: { "@type": "Organization", name: item.republicationPublisher },
+          isBasedOn: { "@type": "CreativeWork", url: originalSourceLink },
+        } : sourceLink || undefined,
         isBasedOn: basedOn,
+        genre: ["Archive annotation", normalizedRole],
         mentions: sourceOrganization ? { "@id": sourceNodeId } : undefined,
         keywords: publicSemanticTags.length > 0 ? publicSemanticTags.join(", ") : undefined,
         isAccessibleForFree: true,
@@ -5103,177 +5113,40 @@ const buildPostHtml = (item, postPath, idToPostPath, idToCluster, entries, idToS
     ${renderSocialMetaTags(postSocialMeta)}
     <meta name="robots" content="${robotsMetaForPageClass(pageClass)}" />
     <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-    <style>
-      * { box-sizing: border-box; }
-      :root {
-        --bg: #f5f3ee;
-        --paper: #fffdfa;
-        --ink: #111417;
-        --muted: #59616a;
-        --line: #d9ded8;
-        --line-strong: #9eaba5;
-        --accent: #9d332b;
-        --accent-strong: #0f4e56;
-        --signal: #d4c64b;
-        --shadow-soft: 0 10px 24px rgba(17, 20, 23, 0.05);
-      }
-      body {
-        margin: 0;
-        font-family: "Manrope", "Segoe UI", sans-serif;
-        background:
-          linear-gradient(180deg, rgba(255, 253, 250, 0.92) 0%, rgba(242, 246, 244, 0.98) 44%, rgba(247, 242, 234, 0.98) 100%),
-          repeating-linear-gradient(90deg, rgba(15, 78, 86, 0.03) 0 1px, transparent 1px 72px);
-        color: var(--ink);
-        line-height: 1.62;
-        overflow-x: clip;
-      }
-      main {
-        width: min(880px, calc(100% - 2rem));
-        margin: 0 auto;
-        padding: 20px 0 46px;
-      }
-      article {
-        border-top: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-        border-bottom: 1px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
-        background:
-          linear-gradient(135deg, rgba(15, 78, 86, 0.08), transparent 46%),
-          linear-gradient(90deg, rgba(212, 198, 75, 0.12), transparent 32%);
-        padding: 1.35rem 0 1.45rem;
-      }
-      a { color: var(--accent-strong); overflow-wrap: anywhere; text-underline-offset: 0.18em; }
-      .meta { color: var(--muted); font-size: 0.9rem; }
-      section { margin-top: 18px; }
-      h1 {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 3rem;
-        line-height: 1.02;
-        letter-spacing: 0;
-        text-wrap: balance;
-      }
-      h2 { margin: 0 0 8px; font-size: 1.08rem; letter-spacing: 0; text-wrap: balance; }
-      h3 { margin: 14px 0 8px; font-size: 0.96rem; letter-spacing: 0; text-wrap: balance; }
-      p, li, h1, h2, h3, blockquote { overflow-wrap: anywhere; }
-      ul { margin: 0; padding-left: 22px; }
-      li { margin: 6px 0; }
-      .post-summary {
-        margin: 0 0 0.55rem;
-      }
-      .source {
-        margin: 1.6rem 0 0;
-      }
-      .source a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        border: 1px solid color-mix(in srgb, var(--accent-strong) 30%, var(--line) 70%);
-        border-radius: 8px;
-        background: rgba(15, 78, 86, 0.08);
-        color: var(--accent-strong);
-        padding: 0.48rem 0.95rem;
-        text-decoration: none;
-        transition:
-          background-color 0.18s ease,
-          border-color 0.18s ease,
-          transform 0.18s ease;
-      }
-      .source a:hover {
-        border-color: color-mix(in srgb, var(--accent-strong) 46%, var(--line) 54%);
-        background: rgba(15, 78, 86, 0.12);
-        transform: translateY(-1px);
-      }
-      .source a:focus-visible {
-        outline: 2px solid var(--accent-strong);
-        outline-offset: 3px;
-      }
-      .post-related {
-        margin-top: 2rem;
-        border-top: 1px solid color-mix(in srgb, var(--accent-strong) 16%, transparent);
-        padding-top: 1.05rem;
-      }
-      .post-related h2 {
-        margin-bottom: 0.55rem;
-        font-size: 1.02rem;
-      }
-      .post-related h3 {
-        margin: 1.05rem 0 0.35rem;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-      .post-related li {
-        margin: 0.42rem 0;
-      }
-      blockquote {
-        margin: 8px 0;
-        padding: 12px 16px;
-        background: rgba(255, 253, 250, 0.88);
-        border-left: 4px solid var(--accent-strong);
-      }
-      .tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; }
-      .tags li {
-        margin: 0;
-        border: 1px solid var(--line);
-        background: rgba(15, 78, 86, 0.08);
-        color: var(--accent-strong);
-        border-radius: 7px;
-        padding: 4px 10px;
-        font-size: 0.85rem;
-      }
-      .post-header h1 { margin: 0; }
-${ARCHIVE_LAYOUT_CSS}
-      .archive-shell {
-        box-shadow: 0 12px 30px rgba(17, 20, 23, 0.052);
-      }
-      @media (max-width: 520px) {
-        main { width: min(860px, calc(100% - 1.3rem)); }
-        .post-header h1 { font-size: 2.05rem; line-height: 1.08; }
-        .source a { width: 100%; }
-        ul { padding-left: 18px; }
-      }
-    </style>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/posts/post.css" />
   </head>
-  <body class="archive-layout">
-    ${renderArchiveHeader({ locale: htmlLang, currentKey: "posts" })}
+  <body class="post-page">
+    ${renderReaderHeader({ locale: htmlLang, currentKey: "posts" })}
     <main>
       <article>
         <header class="post-header">
+          <p class="post-kind">${htmlEscape({en:"Archive annotation", fr:"Note d’archive", de:"Archivnotiz", es:"Nota de archivo"}[htmlLang])}</p>
           <h1>${htmlEscape(displayTitle)}</h1>
           <p class="meta">${htmlEscape(composeCardMeta(item))}</p>
+          <p class="meta">${htmlEscape(({en: {authored: "Authored work", quoted: "Expert comment", reference: "External reference"}, fr: {authored: "Texte signé", quoted: "Commentaire d’expert", reference: "Référence externe"}, de: {authored: "Eigener Beitrag", quoted: "Expertenkommentar", reference: "Externe Referenz"}, es: {authored: "Texto de autor", quoted: "Comentario experto", reference: "Referencia externa"}}[htmlLang] || {})[normalizedRole] || normalizedRole)}</p>
+          ${item.sourceLanguage ? `<p class="meta">${htmlEscape({en:"Original language",fr:"Langue de l’original",de:"Originalsprache",es:"Idioma del original"}[htmlLang])}: ${htmlEscape(item.sourceLanguage.toUpperCase())} · ${htmlEscape({en:"Annotation",fr:"Note",de:"Notiz",es:"Nota"}[htmlLang])}: ${htmlLang.toUpperCase()}</p>` : ""}
+          ${item.republicationPublisher ? `<p class="meta">${htmlEscape({en:"Available republication",fr:"Republication disponible",de:"Verfügbare Wiederveröffentlichung",es:"Republicación disponible"}[htmlLang])}: ${htmlEscape(item.republicationPublisher)} · <a href="${htmlEscape(originalSourceLink)}">${htmlEscape(sourceName)}</a></p>` : ""}
         </header>
         <section>
           <p class="post-summary">${htmlEscape(summary)}</p>
+          ${(item.annotationParagraphs || []).map((paragraph) => `<p>${htmlEscape(paragraph)}</p>`).join("\n")}
         </section>${sourceCtaHtml}
         <section class="post-related">
           <h2>${htmlEscape(postLabels.continueOnSite)}</h2>
-          <ul>
-            <li><a href="${localizedHomeHref}">${htmlEscape(postLabels.home)}</a></li>
-            <li><a href="${localizedBioHref}">${htmlEscape(postLabels.biography)}</a></li>
+          <ul class="post-routes">
             <li><a href="/selected/">${htmlEscape(postLabels.selectedWork)}</a></li>
-            <li><a href="/selected/#${selectedSectionId}">${htmlEscape(postLabels.selectedSection)} ${htmlEscape(selectedSectionLabel)}</a></li>
-            <li><a href="${localizedInterviewsHref}">${htmlEscape(postLabels.interviews)}</a></li>
-            <li><a href="/posts/">${htmlEscape(postLabels.publishedPostsIndex)}</a></li>
-            <li><a href="/posts/all.html">${htmlEscape(INCLUDE_DRAFT_OUTPUTS ? postLabels.fullArchiveWithDrafts : postLabels.fullArchive)}</a></li>
-            <li><a href="${localizedInsightsHref}">${htmlEscape(postLabels.researchArchive)}</a></li>
-            <li><a href="/archive/">${htmlEscape(postLabels.archive)}</a></li>
-            <li><a href="/search/">${htmlEscape(postLabels.search)}</a></li>
-            <li><a href="/contact/">${htmlEscape(postLabels.contact)}</a></li>
+            <li><a href="/posts/all.html">${htmlEscape(postLabels.fullArchive)}</a></li>
           </ul>
-          ${languageLinks.length > 0 ? `<h3>${htmlEscape(postLabels.availableLanguages)}</h3><ul>${languageLinks.join("")}</ul>` : ""}
-          ${topicLinks.length > 0 ? `<h3>${htmlEscape(postLabels.relatedTopic)}</h3><ul>${topicLinks.join("")}</ul>` : ""}
-          ${sectionLinks.length > 0 ? `<h3>${htmlEscape(postLabels.relatedSection)}</h3><ul>${sectionLinks.join("")}</ul>` : ""}
-          ${sourceLinks.length > 0 ? `<h3>${htmlEscape(postLabels.fromThisSource)}</h3><ul>${sourceLinks.join("")}</ul>` : ""}
-          ${yearLinks.length > 0 ? `<h3>${htmlEscape(postLabels.samePeriod)}</h3><ul>${yearLinks.join("")}</ul>` : ""}
-          ${languageTimelineLinks.length > 0 ? `<h3>${htmlEscape(postLabels.timelineInThisLanguage)}</h3><ul>${languageTimelineLinks.join("")}</ul>` : ""}
-          ${sourceTimelineLinks.length > 0 ? `<h3>${htmlEscape(postLabels.timelineFromThisSource)}</h3><ul>${sourceTimelineLinks.join("")}</ul>` : ""}
-          ${latestLanguageLinks.length > 0 ? `<h3>${htmlEscape(postLabels.recentInThisLanguage)}</h3><ul>${latestLanguageLinks.join("")}</ul>` : ""}
-          ${latestSiteLinks.length > 0 ? `<h3>${htmlEscape(postLabels.moreFromThisArchive)}</h3><ul>${latestSiteLinks.join("")}</ul>` : ""}
+          ${languageLinks.length > 1 ? `<h3>${htmlEscape(postLabels.availableLanguages)}</h3><ul class="post-routes">${languageLinks.join("")}</ul>` : ""}
+          ${topicLinks.length ? `<h3>${htmlEscape(postLabels.relatedTopic)}</h3><ul>${topicLinks.join("")}</ul>` : ""}
         </section>
       </article>
     </main>
-    ${renderArchiveFooter({ locale: htmlLang, labelContext: "footer" })}
+    ${renderReaderFooter({ locale: htmlLang, labelContext: "footer" })}
   </body>
 </html>
-`;
+`.replace(/[ \t]+$/gm, "");
 };
 
 const buildPostsIndexHtml = (entries, idToCluster = new Map(), options = {}) => {

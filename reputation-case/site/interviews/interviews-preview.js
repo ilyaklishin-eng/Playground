@@ -10,7 +10,7 @@ const COPY = {
 const ACTIVE_COPY = COPY[uiLang] || COPY.en;
 const GERMAN_AUF_INTERVIEW_OUTLETS = new Set(["apple podcasts", "youtube"]);
 
-if (grid) {
+if (grid && !grid.querySelector(".interview-preview-card")) {
   initPreview().catch(() => {
     if (!grid.querySelector(".interview-preview-card")) {
       renderPreview([]);
@@ -20,7 +20,7 @@ if (grid) {
 
 async function initPreview() {
   const brokenSourceUrls = await loadBrokenSourceUrls();
-  const response = await fetch(PUBLIC_INTERVIEWS_PATH, { cache: "no-store" });
+  const response = await fetch(PUBLIC_INTERVIEWS_PATH);
   if (!response.ok) throw new Error(`Failed to load interviews: ${response.status}`);
   const payload = await response.json();
   const items = (Array.isArray(payload?.items) ? payload.items : [])

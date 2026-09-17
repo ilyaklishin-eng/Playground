@@ -589,8 +589,10 @@ function publishedCounts() {
 }
 
 async function init() {
+  // Homepage previews are complete HTML, refreshed by the build.
+  if (IS_HOME_PAGE) return;
   try {
-    const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
+    const response = await fetch(PUBLIC_DIGESTS_PATH);
     if (!response.ok) {
       throw new Error(`Home feed request failed with status ${response.status}`);
     }

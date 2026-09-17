@@ -1,0 +1,46 @@
+.post-page {
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+}
+.post-page main {
+  width: min(72ch, calc(100% - 2.5rem));
+  margin: 3.5rem auto 5rem;
+  font-size: 1.125rem;
+}
+.post-page article { padding: 0; background: none; border: 0; box-shadow: none; }
+.post-header h1 {
+  margin: 0.6rem 0 1.4rem;
+  font-family: var(--font-serif);
+  font-size: 2.75rem;
+  font-weight: 400;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+.post-kind, .post-header .meta { color: var(--muted); font-size: 0.875rem; }
+.post-page article > section:first-of-type { margin-top: 2rem; }
+.post-page article p { margin-bottom: 1.25rem; }
+.post-page .source { margin: 2rem 0 3rem; }
+.post-page .source a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  border-bottom: 1px solid currentColor;
+  padding: 0.3rem 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.post-page .source a:hover { color: var(--ink); }
+.post-related { border-top: 1px solid var(--line); padding-top: 1.5rem; font-size: 0.9375rem; }
+.post-related h2 { font-size: 1.125rem; margin: 0 0 1rem; }
+.post-related h3 { font-size: 0.9375rem; margin: 1.75rem 0 0.75rem; color: var(--muted); }
+.post-related li { padding-block: 0.4rem; overflow-wrap: anywhere; }
+.post-routes { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; list-style: none; padding: 0; }
+.post-page .footer { border-top: 1px solid var(--line); margin-top: 3rem; }
+@media (max-width: 600px) {
+  .post-page main { margin-top: 2rem; font-size: 1.0625rem; }
+  .post-header h1 { font-size: 2rem; }
+}

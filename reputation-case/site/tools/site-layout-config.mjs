@@ -24,7 +24,7 @@ const NAV_LABELS = Object.freeze({
   bio: { en: "Bio", fr: "Biographie", de: "Biografie", es: "Biografía" },
   selected: { en: "Selected Work", fr: "Travaux sélectionnés", de: "Ausgewählte Arbeiten", es: "Trabajo seleccionado" },
   interviews: { en: "Interviews", fr: "Entretiens", de: "Interviews", es: "Entrevistas" },
-  contact: { en: "Contact", fr: "Contact", de: "Kontakt", es: "Contacto" },
+  contact: { en: "Contact", fr: "Contact (EN)", de: "Kontakt (EN)", es: "Contacto (EN)" },
   search: { en: "Search", fr: "Recherche", de: "Suche", es: "Búsqueda" },
   archive: { en: "Archive", fr: "Archives", de: "Archiv", es: "Archivo" },
   insights: { en: "Research archive", fr: "Archives de recherche", de: "Recherchearchiv", es: "Archivo de investigación" },
@@ -116,8 +116,8 @@ export const NAV_LAYOUTS = Object.freeze({
     footer: [NAV_KEY.HOME, NAV_KEY.BIO, NAV_KEY.SELECTED, NAV_KEY.CONTACT],
   },
   archive: {
-    header: [NAV_KEY.HOME, NAV_KEY.SELECTED, NAV_KEY.POSTS, NAV_KEY.INSIGHTS, NAV_KEY.ARCHIVE, NAV_KEY.ABOUT],
-    footer: [NAV_KEY.HOME, NAV_KEY.SELECTED, NAV_KEY.ARCHIVE, NAV_KEY.POSTS, NAV_KEY.ABOUT],
+    header: [NAV_KEY.HOME, NAV_KEY.BIO, NAV_KEY.SELECTED, NAV_KEY.INTERVIEWS, NAV_KEY.CONTACT],
+    footer: [NAV_KEY.HOME, NAV_KEY.BIO, NAV_KEY.SELECTED, NAV_KEY.CONTACT],
   },
 });
 
@@ -176,6 +176,23 @@ export const ARCHIVE_LAYOUT_CSS = `
         font-weight: 700;
         letter-spacing: 0;
         text-transform: uppercase;
+      }
+      .archive-brand {
+        width: fit-content;
+        color: #171b1e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.12rem;
+        font-weight: 700;
+        line-height: 1.5;
+        text-decoration: none;
+      }
+      .archive-brand:hover {
+        text-decoration: underline;
+        text-underline-offset: 0.2em;
+      }
+      .archive-brand:focus-visible {
+        outline: 2px solid #9d332b;
+        outline-offset: 4px;
       }
       .archive-nav,
       .archive-footer-nav {
@@ -304,7 +321,7 @@ export const renderArchiveHeader = ({ locale = "en", currentKey = "" } = {}) => 
   const ui = UI_LABELS[lang] || UI_LABELS.en;
   return `<header class="archive-header">
       <div class="archive-shell">
-        <p class="archive-shell-label">${escapeHtml(ui.archiveShell)}</p>
+        <a class="archive-brand" href="${escapeHtml(getNavHref(NAV_KEY.HOME, lang))}">Ilia Klishin</a>
         <nav class="archive-nav" aria-label="${escapeHtml(ui.archiveNav)}">
           ${renderNavLinks(NAV_LAYOUTS.archive.header, lang, currentKey)}
         </nav>

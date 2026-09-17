@@ -1277,6 +1277,19 @@ const checkHtmlSeoSemantics = async (items, issues) => {
       pushError(issues, "html.githubio.reference", `HTML file references github.io: ${rel}`);
     }
 
+    const head = html.match(/<head\b[^>]*>([\s\S]*?)<\/head>/i)?.[1] || "";
+    const singletonCounts = new Map([["title", (head.match(/<title\b/gi) || []).length]]);
+    for (const tag of head.match(/<(?:meta|link)\b[^>]*>/gi) || []) {
+      const property = tag.match(/\b(?:name|property)=["']([^"']+)["']/i)?.[1]?.toLowerCase();
+      const canonicalRel = /\brel=["']canonical["']/i.test(tag);
+      const key = canonicalRel ? "canonical" : property;
+      if (key && (canonicalRel || key === "description" || key.startsWith("og:") || key.startsWith("twitter:"))) {
+        singletonCounts.set(key, (singletonCounts.get(key) || 0) + 1);
+      }
+    }
+    for (const [key, count] of singletonCounts) {
+      if (count !== 1) pushError(issues, "html.head.singleton", `Expected one ${key} in ${rel}, found ${count}`);
+    }
     const canonical = extractCanonical(html);
     if (!canonical) {
       pushError(issues, "html.canonical.missing", `Missing canonical link in ${rel}.`);
@@ -1453,8 +1466,14 @@ const checkHtmlSeoSemantics = async (items, issues) => {
     if (normalizedRole !== CONTENT_ROLE.AUTHORED && hasPersonAuthor) {
       pushError(issues, "post.jsonld.author.unexpected", `Non-authored post Article JSON-LD should not claim Person author: ${rel}`);
     }
-    if (!article.datePublished || !article.dateModified) {
-      pushError(issues, "post.jsonld.date.missing", `Post page Article JSON-LD is missing datePublished/dateModified: ${rel}`);
+    for (const [field, sourceField] of [["datePublished", "annotationPublishedAt"], ["dateModified", "annotationModifiedAt"]]) {
+      const expected = toIsoTimestamp(item[sourceField]) || undefined;
+      if (article[field] !== expected) {
+        pushError(issues, "post.jsonld.annotation-date.mismatch", `Annotation date must come from explicit source data: ${rel}`, {field, expected, actual: article[field]});
+      }
+    }
+    if (article.isBasedOn && article.isBasedOn.datePublished !== (item.sourcePublishedAt || item.date || undefined)) {
+      pushError(issues, "post.jsonld.source-date.mismatch", `Original publication date must belong to the source work: ${rel}`);
     }
     const requiresPublicSource = !POST_SOURCE_REQUIRED_EXEMPT.has(rel);
     const source = extractSourceUrl(article.isBasedOn) || extractSourceUrl(article.citation);

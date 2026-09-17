@@ -10,7 +10,8 @@ const state = {
   items: [],
   format: "all",
   role: "authored",
-  visibleLimit: PAGE_SIZE,
+  page: 1,
+  query: "",
 };
 
 const uiLang = String(document?.documentElement?.lang || "en").toLowerCase();
@@ -80,7 +81,7 @@ const TYPE_LABELS = {
 
 init().catch((error) => {
   console.error("Failed to build selected materials feed", error);
-  if (countNode && !grid?.children?.length) countNode.textContent = "Failed to load materials.";
+  if (countNode) countNode.textContent = "Filters unavailable. The complete HTML list below remains available.";
 });
 
 function normalize(value) {
@@ -316,16 +317,19 @@ function dedupeByUrl(items) {
 
 function render() {
   if (!grid) return;
+  syncControls();
   const all = state.items;
   const roleScoped = all.filter((item) => normalizeRole(item.role) === state.role);
-  const visible = state.format === "all" ? roleScoped : roleScoped.filter((item) => item.format === state.format);
-  const paged = visible.slice(0, state.visibleLimit);
-  const hasMore = visible.length > paged.length;
+  const visible = roleScoped.filter((item) => (state.format === "all" || item.format === state.format)
+    && `${item.title} ${item.summary} ${item.source}`.toLowerCase().includes(state.query.toLowerCase()));
+  const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
+  state.page = Math.min(state.page, pages);
+  const paged = visible.slice((state.page - 1) * PAGE_SIZE, state.page * PAGE_SIZE);
   grid.innerHTML = "";
 
   if (countNode) {
     const formatSuffix = state.format === "all" ? "" : ` · ${formatLabel(state.format)}`;
-    countNode.textContent = `${paged.length} of ${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix}`;
+    countNode.textContent = `${paged.length} of ${visible.length} shown · ${roleViewLabel(state.role)}${formatSuffix} · Page ${state.page} of ${pages}`;
   }
 
   if (!visible.length) {
@@ -333,43 +337,73 @@ function render() {
     empty.className = "selected-all-empty";
     empty.textContent = "No materials match the current filters.";
     grid.appendChild(empty);
-    syncLoadMore(false, 0);
+    renderPagination(pages);
     return;
   }
 
   const fragment = document.createDocumentFragment();
   paged.forEach((item, index) => fragment.appendChild(createCard(item, { featured: index === 0 })));
   grid.appendChild(fragment);
-  syncLoadMore(hasMore, visible.length - paged.length);
+  renderPagination(pages);
 }
 
-function ensureLoadMoreButton() {
-  let wrap = document.getElementById("selectedAllActions");
-  let button = document.getElementById("selectedAllLoadMore");
-  if (wrap && button) return button;
-
-  wrap = document.createElement("div");
-  wrap.className = "selected-all-actions";
-  wrap.id = "selectedAllActions";
-  button = document.createElement("button");
-  button.className = "filter-btn selected-all-load-more";
-  button.id = "selectedAllLoadMore";
-  button.type = "button";
-  button.addEventListener("click", () => {
-    state.visibleLimit += PAGE_SIZE;
-    render();
-  });
-  wrap.appendChild(button);
-  grid?.insertAdjacentElement("afterend", wrap);
-  return button;
+function stateUrl(page = state.page) {
+  const url = new URL(location.href);
+  for (const [key, value, fallback] of [["role", state.role, "authored"], ["format", state.format, "all"], ["q", state.query, ""], ["page", String(page), "1"]]) {
+    if (value === fallback) url.searchParams.delete(key);
+    else url.searchParams.set(key, value);
+  }
+  url.hash = "all-materials-title";
+  return url;
 }
 
-function syncLoadMore(hasMore, remaining) {
-  const button = ensureLoadMoreButton();
-  if (!button) return;
-  button.hidden = !hasMore;
-  button.disabled = !hasMore;
-  button.textContent = hasMore ? `Load ${Math.min(PAGE_SIZE, Math.max(0, remaining))} more` : "";
+function readUrl() {
+  const params = new URLSearchParams(location.search);
+  state.role = ["authored", "quoted", "reference"].includes(params.get("role")) ? params.get("role") : "authored";
+  state.format = ["all", "text", "video", "podcasts"].includes(params.get("format")) ? params.get("format") : "all";
+  state.query = params.get("q") || "";
+  state.page = Math.max(1, Math.min(1000, Number.parseInt(params.get("page"), 10) || 1));
+}
+
+function syncControls() {
+  for (const button of [...roleButtons, ...filterButtons]) {
+    const active = button.dataset.roleFilter ? button.dataset.roleFilter === state.role : button.dataset.format === state.format;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  }
+  const input = document.getElementById("selectedQuery");
+  if (input) input.value = state.query;
+}
+
+function updateView() {
+  render();
+  history.pushState(null, "", stateUrl());
+}
+
+function renderPagination(pages) {
+  let nav = document.getElementById("selectedPagination");
+  if (!nav) {
+    nav = document.createElement("nav");
+    nav.id = "selectedPagination";
+    nav.setAttribute("aria-label", "Archive pages");
+    grid.after(nav);
+  }
+  nav.replaceChildren();
+  for (let page = 1; page <= pages; page += 1) {
+    const link = document.createElement("a");
+    link.href = stateUrl(page);
+    link.textContent = String(page);
+    link.setAttribute("aria-label", `Page ${page}`);
+    if (page === state.page) link.setAttribute("aria-current", "page");
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      state.page = page;
+      updateView();
+      document.getElementById("all-materials-title").scrollIntoView();
+    });
+    nav.append(link);
+  }
 }
 
 function bindFilters() {
@@ -378,13 +412,13 @@ function bindFilters() {
       const next = normalizeRole(button.dataset.roleFilter || "authored");
       if (next === state.role) return;
       state.role = next;
-      state.visibleLimit = PAGE_SIZE;
+      state.page = 1;
       roleButtons.forEach((node) => {
         const active = normalizeRole(node.dataset.roleFilter) === next;
         node.classList.toggle("active", active);
         node.setAttribute("aria-pressed", active ? "true" : "false");
       });
-      render();
+      updateView();
     });
   });
 
@@ -393,19 +427,19 @@ function bindFilters() {
       const next = String(button.dataset.format || "all");
       if (next === state.format) return;
       state.format = next;
-      state.visibleLimit = PAGE_SIZE;
+      state.page = 1;
       filterButtons.forEach((node) => {
         const active = String(node.dataset.format) === next;
         node.classList.toggle("active", active);
         node.setAttribute("aria-pressed", active ? "true" : "false");
       });
-      render();
+      updateView();
     });
   });
 }
 
 async function loadDigestCards() {
-  const response = await fetch(PUBLIC_DIGESTS_PATH, { cache: "no-store" });
+  const response = await fetch(PUBLIC_DIGESTS_PATH);
   if (!response.ok) throw new Error(`Failed to load digests: ${response.status}`);
   const payload = await response.json();
   const items = Array.isArray(payload?.items) ? payload.items : [];
@@ -432,7 +466,7 @@ async function loadDigestCards() {
 }
 
 async function loadInterviewCards() {
-  const response = await fetch(PUBLIC_INTERVIEWS_PATH, { cache: "no-store" });
+  const response = await fetch(PUBLIC_INTERVIEWS_PATH);
   if (!response.ok) throw new Error(`Failed to load interviews: ${response.status}`);
   const payload = await response.json();
   const items = Array.isArray(payload?.items) ? payload.items : [];
@@ -467,6 +501,14 @@ async function init() {
     });
 
   state.items = combined;
+  readUrl();
   bindFilters();
+  window.addEventListener("popstate", () => { readUrl(); render(); });
+  document.getElementById("selectedSearch")?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    state.query = document.getElementById("selectedQuery").value.trim();
+    state.page = 1;
+    updateView();
+  });
   render();
 }
