@@ -2832,7 +2832,7 @@
   .home-page .hero-portrait img {
     height: 248px;
     aspect-ratio: 1.38;
-    object-position: 50% 30%;
+    object-position: 50% 0%;
   }
 
   .home-page .role-line {
