@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-03-12",
+  "updated_at": "2026-10-06",
   "items": [
     {
       "id": "de-001",
@@ -24035,6 +24035,75 @@
       "material_type": "TV / media appearance",
       "slug": "es-153-screening-rape-indias-debate",
       "source_en_id": "en-153"
+    },
+    {
+      "id": "en-154",
+      "language": "EN",
+      "status": "ready",
+      "surface": "public",
+      "role": "author",
+      "content_class": "writing",
+      "date": "2026-10-06",
+      "sourcePublishedAt": "2026-10-06",
+      "sourceLanguage": "ru",
+      "source": "Carnegie Politika",
+      "topic": "digital propaganda",
+      "title": "AI Propaganda: How Russia Influences the Answers of Western AI Systems",
+      "digest": "Russian influence campaigns target the sources AI systems retrieve, especially where reliable coverage is scarce. Competing propaganda networks can create an appearance of independent corroboration, but evidence of contaminated search results should not be confused with proof that models have been successfully retrained.",
+      "summary": "Russian influence campaigns target the sources AI systems retrieve, especially where reliable coverage is scarce. Competing propaganda networks can create an appearance of independent corroboration, but evidence of contaminated search results should not be confused with proof that models have been successfully retrained.",
+      "url": "https://carnegieendowment.org/ru/russia-eurasia/politika/2026/10/russia-AI-political-influence",
+      "slug": "en-154-ai-propaganda-russia-western-ai-systems",
+      "key_ideas": [
+        "Retrieval, training data, and application rules are distinct channels of influence.",
+        "Stress-test results do not measure everyday exposure to disinformation.",
+        "Fragmented campaigns can exploit gaps in trustworthy coverage."
+      ],
+      "annotationParagraphs": [
+        "Published in Russian by Carnegie Politika, the commentary distinguishes influence over retrieved sources from control of model training or service settings. It also considers how the adoption of inexpensive Chinese models could shape the information supplied by everyday AI-powered products."
+      ],
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Politika",
+        "digital propaganda",
+        "artificial intelligence",
+        "information warfare",
+        "year-2026"
+      ]
+    },
+    {
+      "id": "en-155",
+      "language": "EN",
+      "status": "ready",
+      "surface": "public",
+      "role": "author",
+      "content_class": "writing",
+      "date": "2026-09-30",
+      "sourcePublishedAt": "2026-09-30",
+      "sourceLanguage": "en",
+      "source": "The Russia File / Kennan Institute",
+      "topic": "independent media",
+      "title": "Vanishing Archives of Russia’s Alternative Futures",
+      "digest": "The disappearance of independent Russian media archives erases evidence of political alternatives as well as reporting. RIMA’s preservation work challenges that loss, while AI systems risk turning an incomplete surviving record into a seemingly comprehensive account of Russia’s past.",
+      "summary": "The disappearance of independent Russian media archives erases evidence of political alternatives as well as reporting. RIMA’s preservation work challenges that loss, while AI systems risk turning an incomplete surviving record into a seemingly comprehensive account of Russia’s past.",
+      "url": "https://www.kennaninstitute.org/articles/vanishing-archives",
+      "slug": "en-155-vanishing-archives-russias-alternative-futures",
+      "key_ideas": [
+        "Repression and ordinary digital decay both narrow the historical record.",
+        "Searchable archives preserve evidence of contested political futures.",
+        "Preservation must respect privacy and contributors’ safety."
+      ],
+      "annotationParagraphs": [
+        "The essay connects the recovery of NTV and Lenta.doc materials with memories of independent journalism and protest. It examines why losing those sources matters for future readers and researchers, including those who encounter history through AI, without treating a public archive as an unlimited claim on private lives."
+      ],
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Kennan Institute",
+        "The Russia File",
+        "independent media",
+        "digital archives",
+        "RIMA",
+        "year-2026"
+      ]
     }
   ],
   "card_format": "v1"

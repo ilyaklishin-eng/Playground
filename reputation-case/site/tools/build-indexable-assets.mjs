@@ -119,7 +119,7 @@ const FIXED_IMAGE_PATHS = Object.freeze({
 let FIXED_IMAGE_VERSION = "1";
 const fixedImageAbsoluteUrl = (publicPath = "") => `${baseUrl}${String(publicPath || "").trim()}`;
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogDefault),
+  default: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait),
   bio: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogBio),
   selected: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogSelected),
   posts: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogPosts),
@@ -168,8 +168,8 @@ const SITE_PUBLISHER_NAME = "Ilia Klishin official site";
 const PUBLICATIONS_FEED_TITLE = "Ilia Klishin Publications Feed";
 const LEGACY_PUBLICATIONS_FEED_TITLE = ["Ilia Klishin", "Digest RSS"].join(" ");
 const DEFAULT_SOCIAL_IMAGE = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
-const SOCIAL_IMAGE_WIDTH = "636";
-const SOCIAL_IMAGE_HEIGHT = "888";
+const SOCIAL_IMAGE_WIDTH = "632";
+const SOCIAL_IMAGE_HEIGHT = "732";
 const PERSON_IMAGE_URL = fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.portrait);
 const DEFAULT_TWITTER_CARD = "summary_large_image";
 const DEFAULT_TWITTER_CREATOR = "@vorewig";

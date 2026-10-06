@@ -44,7 +44,7 @@ const OG_IMAGE_HEIGHT = "630";
 const OG_IMAGE_TYPE = "image/jpeg";
 const FIXED_IMAGE_PUBLIC_DIR = "/assets/images";
 const SOCIAL_OG_IMAGE_BY_TYPE = {
-  default: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-site-default.jpg`,
+  default: PERSON_IMAGE_URL,
   bio: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-bio.jpg`,
   selected: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-selected-work.jpg`,
   posts: `${DOMAIN}${FIXED_IMAGE_PUBLIC_DIR}/og-posts-fallback.jpg`,
@@ -1346,9 +1346,12 @@ const checkHtmlSeoSemantics = async (items, issues) => {
           actual: ogImage,
         });
       }
-      if (ogWidth !== OG_IMAGE_WIDTH || ogHeight !== OG_IMAGE_HEIGHT || ogType !== OG_IMAGE_TYPE) {
+      const expectedDimensions = expectedSocialImage === PERSON_IMAGE_URL
+        ? { width: "632", height: "732" }
+        : { width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT };
+      if (ogWidth !== expectedDimensions.width || ogHeight !== expectedDimensions.height || ogType !== OG_IMAGE_TYPE) {
         pushError(issues, "html.social.og-image-meta.mismatch", `Invalid OG image metadata in ${rel}.`, {
-          expected: { width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, type: OG_IMAGE_TYPE },
+          expected: { ...expectedDimensions, type: OG_IMAGE_TYPE },
           actual: { width: ogWidth, height: ogHeight, type: ogType },
         });
       }

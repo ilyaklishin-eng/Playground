@@ -1,13 +1,128 @@
 {
   "locale": "en",
-  "generated_at": "2025-09-23T00:00:00.000Z",
+  "generated_at": "2026-10-06T00:00:00.000Z",
   "counts": {
-    "total": 106,
-    "posts": 53,
-    "selected": 38,
+    "total": 110,
+    "posts": 55,
+    "selected": 40,
     "interviews": 15
   },
   "items": [
+    {
+      "id": "en-154",
+      "content_id": "content:en-154",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html",
+      "title": "AI Propaganda: How Russia Influences the Answers of Western AI Systems",
+      "summary": "Russian influence campaigns target the sources AI systems retrieve, especially where reliable coverage is scarce.",
+      "context": "This piece places digital propaganda in a concrete editorial moment in 2026.",
+      "topic": "digital propaganda",
+      "source": "Carnegie Politika",
+      "date": "2026-10-06",
+      "display_date": "2026-10-06",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html",
+      "source_url": "https://carnegieendowment.org/ru/russia-eurasia/politika/2026/10/russia-AI-political-influence",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Carnegie Politika",
+        "digital propaganda",
+        "artificial intelligence",
+        "information warfare"
+      ]
+    },
+    {
+      "id": "selected-information-war-1",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "AI Propaganda: How Russia Influences the Answers of Western AI Systems",
+      "summary": "Russian influence campaigns target the sources AI systems retrieve, especially where reliable coverage is scarce.",
+      "context": "",
+      "topic": "Information War",
+      "source": "Selected Work",
+      "date": "2026-10-06",
+      "material_type": "Curated card",
+      "section": "Information War",
+      "section_intro": "These pieces follow Russian propaganda as a working system: troll farms, bot networks, platform pressure, and the shift from crude online interference to adaptive campaigns across Western and youth-facing platforms.",
+      "url": "https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html",
+      "source_url": "https://carnegieendowment.org/ru/russia-eurasia/politika/2026/10/russia-AI-political-influence"
+    },
+    {
+      "id": "en-155",
+      "content_id": "content:en-155",
+      "type": "post",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "alternates": [
+        {
+          "locale": "en",
+          "href": "https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html"
+        }
+      ],
+      "available_locales": [
+        "en"
+      ],
+      "x_default": "https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html",
+      "title": "Vanishing Archives of Russia’s Alternative Futures",
+      "summary": "The disappearance of independent Russian media archives erases evidence of political alternatives as well as reporting. RIMA’s preservation work challenges that loss, while AI systems risk turning an incomplete surviving record into a seemingly comprehensive account of Russia’s past.",
+      "context": "It connects independent media with the original text published by The Russia File / Kennan Institute.",
+      "topic": "independent media",
+      "source": "The Russia File / Kennan Institute",
+      "date": "2026-09-30",
+      "display_date": "2026-09-30",
+      "material_type": "Digest card",
+      "url": "https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html",
+      "source_url": "https://www.kennaninstitute.org/articles/vanishing-archives",
+      "semantic_tags": [
+        "Ilia Klishin",
+        "Kennan Institute",
+        "The Russia File",
+        "independent media",
+        "digital archives",
+        "RIMA"
+      ]
+    },
+    {
+      "id": "selected-media-under-pressure-2",
+      "type": "selected",
+      "language": "EN",
+      "locale": "en",
+      "status": "published",
+      "surface": "public",
+      "role": "authored",
+      "title": "Vanishing Archives of Russia’s Alternative Futures",
+      "summary": "The disappearance of independent Russian media archives erases evidence of political alternatives as well as reporting. RIMA’s preservation work challenges that loss, while AI systems risk turning an incomplete surviving record into a seemingly comprehensive account of Russia’s past.",
+      "context": "",
+      "topic": "Media Under Pressure",
+      "source": "Selected Work",
+      "date": "2026-09-30",
+      "material_type": "Curated card",
+      "section": "Media Under Pressure",
+      "section_intro": "This route brings together work on how independent journalism is weakened before it is formally silenced: through legal risk, economic pressure, editorial exhaustion, coerced narratives, and shrinking professional space.",
+      "url": "https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html",
+      "source_url": "https://www.kennaninstitute.org/articles/vanishing-archives"
+    },
     {
       "id": "interview-en-1",
       "content_id": "interview:7e3a357c3c838049",
@@ -196,7 +311,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-1",
+      "id": "selected-russian-politics-3",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -259,7 +374,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-2",
+      "id": "selected-russian-politics-4",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -318,7 +433,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-3",
+      "id": "selected-media-under-pressure-5",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -376,7 +491,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-4",
+      "id": "selected-media-under-pressure-6",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -435,7 +550,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-5",
+      "id": "selected-media-under-pressure-7",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -494,7 +609,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-6",
+      "id": "selected-russian-politics-8",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -604,7 +719,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-7",
+      "id": "selected-russian-politics-9",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -718,7 +833,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-8",
+      "id": "selected-media-under-pressure-10",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -777,7 +892,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-9",
+      "id": "selected-russian-politics-11",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -838,7 +953,7 @@
       ]
     },
     {
-      "id": "selected-information-war-10",
+      "id": "selected-information-war-12",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -897,7 +1012,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-11",
+      "id": "selected-russian-politics-13",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -980,7 +1095,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-12",
+      "id": "selected-russian-politics-14",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1039,7 +1154,7 @@
       ]
     },
     {
-      "id": "selected-information-war-13",
+      "id": "selected-information-war-15",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1100,7 +1215,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-14",
+      "id": "selected-russian-politics-16",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1180,7 +1295,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-15",
+      "id": "selected-russian-politics-17",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1260,7 +1375,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-16",
+      "id": "selected-russian-politics-18",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1340,7 +1455,7 @@
       ]
     },
     {
-      "id": "selected-exile-diaspora-17",
+      "id": "selected-exile-diaspora-19",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1456,7 +1571,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-18",
+      "id": "selected-russian-politics-20",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1476,7 +1591,7 @@
       "source_url": "https://www.themoscowtimes.com/2019/10/30/klishin-why-hold-mass-executions-when-bankruptcies-work-a67972"
     },
     {
-      "id": "selected-russian-politics-19",
+      "id": "selected-russian-politics-21",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1532,7 +1647,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-20",
+      "id": "selected-russian-politics-22",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1588,7 +1703,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-21",
+      "id": "selected-russian-politics-23",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1644,7 +1759,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-22",
+      "id": "selected-media-under-pressure-24",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1700,7 +1815,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-23",
+      "id": "selected-media-under-pressure-25",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1756,7 +1871,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-24",
+      "id": "selected-russian-politics-26",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1929,7 +2044,7 @@
       ]
     },
     {
-      "id": "selected-media-under-pressure-25",
+      "id": "selected-media-under-pressure-27",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -1985,7 +2100,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-26",
+      "id": "selected-russian-politics-28",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2152,7 +2267,7 @@
       ]
     },
     {
-      "id": "selected-information-war-27",
+      "id": "selected-information-war-29",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2211,7 +2326,7 @@
       ]
     },
     {
-      "id": "selected-information-war-28",
+      "id": "selected-information-war-30",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2272,7 +2387,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-29",
+      "id": "selected-russian-politics-31",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2481,7 +2596,7 @@
       ]
     },
     {
-      "id": "selected-information-war-30",
+      "id": "selected-information-war-32",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2678,7 +2793,7 @@
       ]
     },
     {
-      "id": "selected-information-war-32",
+      "id": "selected-information-war-34",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2698,7 +2813,7 @@
       "source_url": "https://www.themoscowtimes.com/2014/05/21/the-kremlins-trolls-go-west-a35651"
     },
     {
-      "id": "selected-russian-politics-31",
+      "id": "selected-russian-politics-33",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2754,7 +2869,7 @@
       ]
     },
     {
-      "id": "selected-information-war-33",
+      "id": "selected-information-war-35",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2810,7 +2925,7 @@
       ]
     },
     {
-      "id": "selected-information-war-34",
+      "id": "selected-information-war-36",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2866,7 +2981,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-35",
+      "id": "selected-russian-politics-37",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2922,7 +3037,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-36",
+      "id": "selected-russian-politics-38",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -2978,7 +3093,7 @@
       ]
     },
     {
-      "id": "selected-russian-politics-37",
+      "id": "selected-russian-politics-39",
       "type": "selected",
       "language": "EN",
       "locale": "en",
@@ -3086,7 +3201,7 @@
       ]
     },
     {
-      "id": "selected-information-war-38",
+      "id": "selected-information-war-40",
       "type": "selected",
       "language": "EN",
       "locale": "en",

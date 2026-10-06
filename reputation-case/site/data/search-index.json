@@ -1,9 +1,9 @@
 {
-  "generated_at": "2025-09-23T00:00:00.000Z",
+  "generated_at": "2026-10-06T00:00:00.000Z",
   "counts": {
-    "total": 181,
+    "total": 185,
     "locales": {
-      "en": 106,
+      "en": 110,
       "fr": 25,
       "de": 25,
       "es": 25
@@ -12,8 +12,8 @@
   "locales": {
     "en": {
       "path": "/data/search-index-en.json",
-      "count": 106,
-      "generated_at": "2025-09-23T00:00:00.000Z"
+      "count": 110,
+      "generated_at": "2026-10-06T00:00:00.000Z"
     },
     "fr": {
       "path": "/data/search-index-fr.json",

@@ -4,7 +4,29 @@
     <title>Ilia Klishin Publications Feed</title>
     <link>https://www.klishin.work/</link>
     <description>Publication cards with concise summaries and links to original sources.</description>
-    <lastBuildDate>Mon, 14 Feb 2022 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>AI Propaganda: How Russia Influences the Answers of Western AI Systems</title>
+      <link>https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html</link>
+      <guid>https://www.klishin.work/posts/en-154-ai-propaganda-russia-western-ai-systems.html</guid>
+      <pubDate>Tue, 06 Oct 2026 00:00:00 GMT</pubDate>
+      <description>Russian influence campaigns target the sources AI systems retrieve, especially where reliable coverage is scarce.
+
+This piece places digital propaganda in a concrete editorial moment in 2026.
+
+Original source: https://carnegieendowment.org/ru/russia-eurasia/politika/2026/10/russia-AI-political-influence</description>
+    </item>
+    <item>
+      <title>Vanishing Archives of Russia’s Alternative Futures</title>
+      <link>https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html</link>
+      <guid>https://www.klishin.work/posts/en-155-vanishing-archives-russias-alternative-futures.html</guid>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>
+      <description>The disappearance of independent Russian media archives erases evidence of political alternatives as well as reporting. RIMA’s preservation work challenges that loss, while AI systems risk turning an incomplete surviving record into a seemingly comprehensive account of Russia’s past.
+
+It connects independent media with the original text published by The Russia File / Kennan Institute.
+
+Original source: https://www.kennaninstitute.org/articles/vanishing-archives</description>
+    </item>
     <item>
       <title>Putin-Macron talks and the Russia expertise gap</title>
       <link>https://www.klishin.work/posts/en-001-putin-macron-talks-and-the-russia-expertise-gap.html</link>
@@ -532,28 +554,6 @@ Original source: https://jsis.washington.edu/news/russia-media-profile-digital-p
 Useful for separating media amplification from political causality in debates about digital protest dynamics across post-Soviet contexts.
 
 Original source: https://carnegieendowment.org/ru/posts/2015/10/samizdat-i-zameshenie-rastut-li-iz-socsetej-revolyucii</description>
-    </item>
-    <item>
-      <title>Bot Army: Why the Kremlin Fails at Soft Power</title>
-      <link>https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html</link>
-      <guid>https://www.klishin.work/posts/en-108-carnegie-kremlin-bot-army-soft-power.html</guid>
-      <pubDate>Tue, 21 Jul 2015 00:00:00 GMT</pubDate>
-      <description>Kremlin bot activity looked less like successful soft power than a domestic political tactic built around noise, intimidation, and simulated consensus. Russian online influence appears here as infrastructure, not just messaging.
-
-Dated Carnegie source for Klishin’s critique of Kremlin bot networks and failed soft power.
-
-Original source: https://carnegie.ru/commentary/60728</description>
-    </item>
-    <item>
-      <title>What Sparked Moldova&apos;s Second Maidan?</title>
-      <link>https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html</link>
-      <guid>https://www.klishin.work/posts/en-142-what-sparked-moldovas-second-maidan.html</guid>
-      <pubDate>Mon, 25 May 2015 00:00:00 GMT</pubDate>
-      <description>In Moldova, an apparent political breakthrough did not end the frustrations that had produced protest in the first place. Repeated cycles of disappointment between reform promises and lived reality reopened the street as a political arena.
-
-Adds a comparative regional case on protest recurrence, useful for interpreting delayed political effects after apparent electoral wins.
-
-Original source: https://carnegieendowment.org/ru/posts/2015/05/protiv-chego-povtorno-sobiralsya-moldavskij-majdan</description>
     </item>
   </channel>
 </rss>
