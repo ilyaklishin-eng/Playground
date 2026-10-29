@@ -126,6 +126,7 @@ const SOCIAL_OG_IMAGE_BY_TYPE = {
   cases: fixedImageAbsoluteUrl(FIXED_IMAGE_PATHS.ogCases),
 };
 const FINGERPRINTABLE_ASSETS = [
+  { source: "identity.css", aliases: ["/identity.css"] },
   { source: "posts/post.css", aliases: ["/posts/post.css"] },
   { source: "selected/selected.css", aliases: ["/selected/selected.css"] },
   { source: "styles.css", aliases: ["/styles.css", "./styles.css"] },
@@ -4056,6 +4057,7 @@ ${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", locale,
     : "";
 
   return `      <section class="work-section" id="curated-feed" aria-labelledby="work-title">
+        <div class="home-latest">
         <div class="cards-intro">
           <div>
             <h2 id="work-title">${htmlEscape(copy.workTitle)}</h2>
@@ -4066,6 +4068,7 @@ ${additional.map((entry) => buildHomeRenderedCardHtml(entry, "standard", locale,
         <section class="digest-showcase" id="digestShowcase" aria-live="polite">
 ${[featuredHtml, supportingHtml].filter(Boolean).join("\n")}
         </section>
+        </div>
 ${gridHtml}
       </section>`;
 };
@@ -4151,6 +4154,28 @@ const stripAlternateHreflangLinks = (html = "") =>
     /<link\s+[^>]*rel=["']alternate["'][^>]*hreflang=["'][^"']+["'][^>]*href=["'][^"']*["'][^>]*\/?>|<link\s+[^>]*href=["'][^"']*["'][^>]*hreflang=["'][^"']+["'][^>]*rel=["']alternate["'][^>]*\/?>/gi,
     ""
   );
+
+const applyEditorialIdentity = async () => {
+  for (const file of await listHtmlFiles(siteDir)) {
+    const original = await fs.readFile(file, "utf8");
+    if (!/<body\b/i.test(original) || /http-equiv=["']refresh["']/i.test(original)) continue;
+    let html = original.replace(/\s*<link\b[^>]*data-editorial-identity[^>]*>/gi, "");
+    html = html.replace(/<body\b([^>]*)>/i, (_tag, attrs) => {
+      const classes = attrs.match(/\bclass="([^"]*)"/i);
+      if (!classes) return `<body${attrs} class="editorial-v3">`;
+      const names = new Set(classes[1].split(/\s+/).filter(Boolean));
+      names.add("editorial-v3");
+      return `<body${attrs.replace(classes[0], `class="${[...names].join(" ")}"`)}>`;
+    });
+    // Keep identity last so legacy inline layouts cannot restore old fonts/colors.
+    html = appendHeadMarkup(html, [
+      '<link data-editorial-identity rel="preload" href="/assets/fonts/bricolage-grotesque-v1.ttf" as="font" type="font/ttf" crossorigin />',
+      '<link data-editorial-identity rel="preload" href="/assets/fonts/onest-v1.ttf" as="font" type="font/ttf" crossorigin />',
+      '<link data-editorial-identity rel="stylesheet" href="/identity.css" />',
+    ]);
+    if (html !== original) await fs.writeFile(file, html, "utf8");
+  }
+};
 
 const appendHeadMarkup = (html = "", lines = []) => {
   const normalized = lines.map((line) => String(line || "").trim()).filter(Boolean);
@@ -5732,13 +5757,14 @@ const main = async () => {
   await applyStaticHeadSeoPolicies();
   await applyStaticSocialPreviewPolicies();
   await applyStaticTrustBlockPolicies();
-  const fingerprintedAssets = await fingerprintStaticAssets();
   await rewriteFixedImageLinksInHtml();
   await cleanupDeprecatedFingerprintedKeyImages();
   await applyNavigationUiPolicies();
   await applyStaticLanguageSwitchPolicies();
   await applyStaticPerformancePolicies();
   await applyStaticEntityLayer(compiledEntries);
+  await applyEditorialIdentity();
+  const fingerprintedAssets = await fingerprintStaticAssets();
   const sitemapFiles = await buildSitemaps(indexableEntries, idToPostPath, idToCluster, idToIndexStatus);
   for (const file of sitemapFiles) {
     await fs.writeFile(path.join(siteDir, file.name), file.content, "utf8");

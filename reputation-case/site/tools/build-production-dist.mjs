@@ -21,6 +21,8 @@ const PUBLIC_DATA_FILES = [
 ];
 
 const ROOT_PUBLIC_FILES = [
+  "assets/fonts/bricolage-OFL.txt",
+  "assets/fonts/onest-OFL.txt",
   "robots.txt",
   "rss.xml",
   "sitemap.xml",
@@ -43,6 +45,7 @@ const BLOCKED_OUTPUT_PATTERNS = [
   /^digest-multilingual-notes-v1\.md$/,
   /^app\.js$/,
   /^styles\.css$/,
+  /^identity\.css$/,
   /^home\/home\.css$/,
   /^search\/search\.js$/,
   /^interviews\/interviews\.js$/,

@@ -77,6 +77,7 @@ const STATIC_SOCIAL_IMAGE_POLICY = new Map([
   ["cases/es/index.html", "cases"],
 ]);
 const FINGERPRINTED_ASSET_SOURCES = [
+  "identity.css",
   "styles.css",
   "home/home.css",
   "app.js",
@@ -1598,6 +1599,29 @@ const checkNoDraftLeakage = async (items, indexableItems, issues) => {
 
 const checkAssetFingerprinting = async (issues) => {
   const htmlFiles = await listHtmlFiles(SITE_DIR);
+
+  for (const font of ["bricolage-grotesque-v1.ttf", "onest-v1.ttf"]) {
+    try {
+      const stat = await fs.stat(path.join(SITE_DIR, "assets/fonts", font));
+      if (!stat.isFile() || stat.size < 1000) throw new Error("Invalid font asset");
+    } catch {
+      pushError(issues, "identity.font.missing", `Missing or invalid local font: ${font}`);
+    }
+  }
+  for (const htmlPath of htmlFiles) {
+    const html = await fs.readFile(htmlPath, "utf8");
+    if (!/<body\b/i.test(html) || /http-equiv=["']refresh["']/i.test(html)) continue;
+    const styles = [...html.matchAll(/<link\b[^>]*rel="stylesheet"[^>]*>/gi)].map((match) => match[0]);
+    const identity = styles.filter((tag) => /href="\/identity\.[a-f0-9]{10}\.css"/.test(tag));
+    if (identity.length !== 1 || styles.at(-1) !== identity[0] || !/<body\b[^>]*class="[^"]*\beditorial-v3\b/.test(html)) {
+      pushError(issues, "identity.layout.missing", `Expected one final identity stylesheet and body marker: ${path.relative(SITE_DIR, htmlPath)}`);
+    }
+    for (const font of ["bricolage-grotesque-v1.ttf", "onest-v1.ttf"]) {
+      if (!html.includes(`href="/assets/fonts/${font}"`)) {
+        pushError(issues, "identity.font.preload.missing", `Missing font preload in ${path.relative(SITE_DIR, htmlPath)}: ${font}`);
+      }
+    }
+  }
 
   for (const sourceRaw of FINGERPRINTED_ASSET_SOURCES) {
     const source = toPosixPath(sourceRaw).replace(/^\/+/, "");
