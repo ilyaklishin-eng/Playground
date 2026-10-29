@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T09:56:12.528Z",
+  "generated_at": "2026-10-29T10:18:59.469Z",
   "notes": [
     "Place bypass rules above any Managed Challenge or JS Challenge rules.",
     "Use Super Bot Fight Mode if you need rule-level exemptions; Bot Fight Mode cannot be skipped by custom rules.",
@@ -23,12 +23,12 @@
     },
     "perplexitybot_ips": {
       "name": "perplexitybot_ips",
-      "count": 8,
+      "count": 13,
       "source": "https://www.perplexity.ai/perplexitybot.json"
     },
     "perplexity_user_ips": {
       "name": "perplexity_user_ips",
-      "count": 4,
+      "count": 10,
       "source": "https://www.perplexity.ai/perplexity-user.json"
     },
     "anthropic_ai_ips": {
